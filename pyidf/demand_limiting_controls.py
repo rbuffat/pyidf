@@ -1,112 +1,28 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class DemandManagerAssignmentList(object):
+
+
+class DemandManagerAssignmentList(DataObject):
     """ Corresponds to IDD object `DemandManagerAssignmentList`
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    internal_name = "DemandManagerAssignmentList"
-    field_count = 8
-    required_fields = ["Name", "Meter Name", "Demand Limit Safety Fraction", "Demand Window Length", "Demand Manager Priority"]
-    extensible_fields = 2
-    format = None
-    min_fields = 0
-    extensible_keys = ["DemandManager 1 Object Type", "DemandManager 1 Name"]
+    schema = {'min-fields': 0, 'name': u'DemandManagerAssignmentList', 'pyname': u'DemandManagerAssignmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'meter name', {'name': u'Meter Name', 'pyname': u'meter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'demand limit schedule name', {'name': u'Demand Limit Schedule Name', 'pyname': u'demand_limit_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand limit safety fraction', {'name': u'Demand Limit Safety Fraction', 'pyname': u'demand_limit_safety_fraction', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'billing period schedule name', {'name': u'Billing Period Schedule Name', 'pyname': u'billing_period_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'peak period schedule name', {'name': u'Peak Period Schedule Name', 'pyname': u'peak_period_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand window length', {'name': u'Demand Window Length', 'pyname': u'demand_window_length', 'minimum>': 0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'demand manager priority', {'name': u'Demand Manager Priority', 'pyname': u'demand_manager_priority', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'demandmanager 1 object type', {'name': u'DemandManager 1 Object Type', 'pyname': u'demandmanager_1_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'demandmanager 1 name', {'name': u'DemandManager 1 Name', 'pyname': u'demandmanager_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DemandManagerAssignmentList`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Meter Name"] = None
-        self._data["Demand Limit Schedule Name"] = None
-        self._data["Demand Limit Safety Fraction"] = None
-        self._data["Billing Period Schedule Name"] = None
-        self._data["Peak Period Schedule Name"] = None
-        self._data["Demand Window Length"] = None
-        self._data["Demand Manager Priority"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.meter_name = None
-        else:
-            self.meter_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.demand_limit_schedule_name = None
-        else:
-            self.demand_limit_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.demand_limit_safety_fraction = None
-        else:
-            self.demand_limit_safety_fraction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.billing_period_schedule_name = None
-        else:
-            self.billing_period_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.peak_period_schedule_name = None
-        else:
-            self.peak_period_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.demand_window_length = None
-        else:
-            self.demand_window_length = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.demand_manager_priority = None
-        else:
-            self.demand_manager_priority = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -129,19 +45,7 @@ class DemandManagerAssignmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerAssignmentList.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerAssignmentList.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerAssignmentList.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def meter_name(self):
@@ -164,19 +68,7 @@ class DemandManagerAssignmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerAssignmentList.meter_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerAssignmentList.meter_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerAssignmentList.meter_name`')
-        self._data["Meter Name"] = value
+        self["Meter Name"] = value
 
     @property
     def demand_limit_schedule_name(self):
@@ -199,19 +91,7 @@ class DemandManagerAssignmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerAssignmentList.demand_limit_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerAssignmentList.demand_limit_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerAssignmentList.demand_limit_schedule_name`')
-        self._data["Demand Limit Schedule Name"] = value
+        self["Demand Limit Schedule Name"] = value
 
     @property
     def demand_limit_safety_fraction(self):
@@ -228,23 +108,13 @@ class DemandManagerAssignmentList(object):
 
         Args:
             value (float): value for IDD Field `Demand Limit Safety Fraction`
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DemandManagerAssignmentList.demand_limit_safety_fraction`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DemandManagerAssignmentList.demand_limit_safety_fraction`')
-        self._data["Demand Limit Safety Fraction"] = value
+        self["Demand Limit Safety Fraction"] = value
 
     @property
     def billing_period_schedule_name(self):
@@ -270,19 +140,7 @@ class DemandManagerAssignmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerAssignmentList.billing_period_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerAssignmentList.billing_period_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerAssignmentList.billing_period_schedule_name`')
-        self._data["Billing Period Schedule Name"] = value
+        self["Billing Period Schedule Name"] = value
 
     @property
     def peak_period_schedule_name(self):
@@ -308,19 +166,7 @@ class DemandManagerAssignmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerAssignmentList.peak_period_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerAssignmentList.peak_period_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerAssignmentList.peak_period_schedule_name`')
-        self._data["Peak Period Schedule Name"] = value
+        self["Peak Period Schedule Name"] = value
 
     @property
     def demand_window_length(self):
@@ -338,30 +184,13 @@ class DemandManagerAssignmentList(object):
         Args:
             value (int): value for IDD Field `Demand Window Length`
                 Units: minutes
-                value > 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DemandManagerAssignmentList.demand_window_length`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DemandManagerAssignmentList.demand_window_length`'.format(value))
-            if value <= 0:
-                raise ValueError('value need to be greater 0 '
-                                 'for field `DemandManagerAssignmentList.demand_window_length`')
-        self._data["Demand Window Length"] = value
+        self["Demand Window Length"] = value
 
     @property
     def demand_manager_priority(self):
@@ -378,55 +207,13 @@ class DemandManagerAssignmentList(object):
 
         Args:
             value (str): value for IDD Field `Demand Manager Priority`
-                Accepted values are:
-                      - Sequential
-                      - All
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerAssignmentList.demand_manager_priority`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerAssignmentList.demand_manager_priority`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerAssignmentList.demand_manager_priority`')
-            vals = {}
-            vals["sequential"] = "Sequential"
-            vals["all"] = "All"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DemandManagerAssignmentList.demand_manager_priority`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DemandManagerAssignmentList.demand_manager_priority`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Demand Manager Priority"] = value
+        self["Demand Manager Priority"] = value
 
     def add_extensible(self,
                        demandmanager_1_object_type=None,
@@ -437,11 +224,6 @@ class DemandManagerAssignmentList(object):
         Args:
 
             demandmanager_1_object_type (str): value for IDD Field `DemandManager 1 Object Type`
-                Accepted values are:
-                      - DemandManager:ExteriorLights
-                      - DemandManager:Lights
-                      - DemandManager:ElectricEquipment
-                      - DemandManager:Thermostats
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -450,8 +232,10 @@ class DemandManagerAssignmentList(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_demandmanager_1_object_type(demandmanager_1_object_type))
-        vals.append(self._check_demandmanager_1_name(demandmanager_1_name))
+        demandmanager_1_object_type = self.check_value("DemandManager 1 Object Type", demandmanager_1_object_type)
+        vals.append(demandmanager_1_object_type)
+        demandmanager_1_name = self.check_value("DemandManager 1 Name", demandmanager_1_name)
+        vals.append(demandmanager_1_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -460,252 +244,21 @@ class DemandManagerAssignmentList(object):
         """
         return self._data["extensibles"]
 
-    def _check_demandmanager_1_object_type(self, value):
-        """ Validates falue of field `DemandManager 1 Object Type`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerAssignmentList.demandmanager_1_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerAssignmentList.demandmanager_1_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerAssignmentList.demandmanager_1_object_type`')
-            vals = {}
-            vals["demandmanager:exteriorlights"] = "DemandManager:ExteriorLights"
-            vals["demandmanager:lights"] = "DemandManager:Lights"
-            vals["demandmanager:electricequipment"] = "DemandManager:ElectricEquipment"
-            vals["demandmanager:thermostats"] = "DemandManager:Thermostats"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DemandManagerAssignmentList.demandmanager_1_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DemandManagerAssignmentList.demandmanager_1_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        return value
 
-    def _check_demandmanager_1_name(self, value):
-        """ Validates falue of field `DemandManager 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerAssignmentList.demandmanager_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerAssignmentList.demandmanager_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerAssignmentList.demandmanager_1_name`')
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DemandManagerAssignmentList:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DemandManagerAssignmentList:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DemandManagerAssignmentList: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DemandManagerAssignmentList: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DemandManagerExteriorLights(object):
+class DemandManagerExteriorLights(DataObject):
     """ Corresponds to IDD object `DemandManager:ExteriorLights`
         used for demand limiting Exterior:Lights objects.
     """
-    internal_name = "DemandManager:ExteriorLights"
-    field_count = 8
-    required_fields = ["Name", "Limit Control", "Selection Control"]
-    extensible_fields = 1
-    format = None
-    min_fields = 0
-    extensible_keys = ["Exterior Lights 1 Name"]
+    schema = {'min-fields': 0, 'name': u'DemandManager:ExteriorLights', 'pyname': u'DemandManagerExteriorLights', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'limit control', {'name': u'Limit Control', 'pyname': u'limit_control', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit duration', {'name': u'Minimum Limit Duration', 'pyname': u'minimum_limit_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum limit fraction', {'name': u'Maximum Limit Fraction', 'pyname': u'maximum_limit_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'limit step change', {'name': u'Limit Step Change', 'pyname': u'limit_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'exterior lights 1 name', {'name': u'Exterior Lights 1 Name', 'pyname': u'exterior_lights_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DemandManager:ExteriorLights`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Limit Control"] = None
-        self._data["Minimum Limit Duration"] = None
-        self._data["Maximum Limit Fraction"] = None
-        self._data["Limit Step Change"] = None
-        self._data["Selection Control"] = None
-        self._data["Rotation Duration"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.limit_control = None
-        else:
-            self.limit_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_limit_duration = None
-        else:
-            self.minimum_limit_duration = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_limit_fraction = None
-        else:
-            self.maximum_limit_fraction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.limit_step_change = None
-        else:
-            self.limit_step_change = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.selection_control = None
-        else:
-            self.selection_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rotation_duration = None
-        else:
-            self.rotation_duration = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -728,19 +281,7 @@ class DemandManagerExteriorLights(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerExteriorLights.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerExteriorLights.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerExteriorLights.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -765,19 +306,7 @@ class DemandManagerExteriorLights(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerExteriorLights.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerExteriorLights.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerExteriorLights.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def limit_control(self):
@@ -794,55 +323,13 @@ class DemandManagerExteriorLights(object):
 
         Args:
             value (str): value for IDD Field `Limit Control`
-                Accepted values are:
-                      - Off
-                      - Fixed
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerExteriorLights.limit_control`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerExteriorLights.limit_control`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerExteriorLights.limit_control`')
-            vals = {}
-            vals["off"] = "Off"
-            vals["fixed"] = "Fixed"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DemandManagerExteriorLights.limit_control`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DemandManagerExteriorLights.limit_control`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Limit Control"] = value
+        self["Limit Control"] = value
 
     @property
     def minimum_limit_duration(self):
@@ -861,30 +348,13 @@ class DemandManagerExteriorLights(object):
         Args:
             value (int): value for IDD Field `Minimum Limit Duration`
                 Units: minutes
-                value > 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DemandManagerExteriorLights.minimum_limit_duration`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DemandManagerExteriorLights.minimum_limit_duration`'.format(value))
-            if value <= 0:
-                raise ValueError('value need to be greater 0 '
-                                 'for field `DemandManagerExteriorLights.minimum_limit_duration`')
-        self._data["Minimum Limit Duration"] = value
+        self["Minimum Limit Duration"] = value
 
     @property
     def maximum_limit_fraction(self):
@@ -901,7 +371,6 @@ class DemandManagerExteriorLights(object):
 
         Args:
             value (float): value for IDD Field `Maximum Limit Fraction`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -909,19 +378,7 @@ class DemandManagerExteriorLights(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DemandManagerExteriorLights.maximum_limit_fraction`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DemandManagerExteriorLights.maximum_limit_fraction`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `DemandManagerExteriorLights.maximum_limit_fraction`')
-        self._data["Maximum Limit Fraction"] = value
+        self["Maximum Limit Fraction"] = value
 
     @property
     def limit_step_change(self):
@@ -945,13 +402,7 @@ class DemandManagerExteriorLights(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DemandManagerExteriorLights.limit_step_change`'.format(value))
-        self._data["Limit Step Change"] = value
+        self["Limit Step Change"] = value
 
     @property
     def selection_control(self):
@@ -968,57 +419,13 @@ class DemandManagerExteriorLights(object):
 
         Args:
             value (str): value for IDD Field `Selection Control`
-                Accepted values are:
-                      - All
-                      - RotateMany
-                      - RotateOne
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerExteriorLights.selection_control`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerExteriorLights.selection_control`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerExteriorLights.selection_control`')
-            vals = {}
-            vals["all"] = "All"
-            vals["rotatemany"] = "RotateMany"
-            vals["rotateone"] = "RotateOne"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DemandManagerExteriorLights.selection_control`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DemandManagerExteriorLights.selection_control`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Selection Control"] = value
+        self["Selection Control"] = value
 
     @property
     def rotation_duration(self):
@@ -1037,30 +444,13 @@ class DemandManagerExteriorLights(object):
         Args:
             value (int): value for IDD Field `Rotation Duration`
                 Units: minutes
-                value >= 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DemandManagerExteriorLights.rotation_duration`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DemandManagerExteriorLights.rotation_duration`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `DemandManagerExteriorLights.rotation_duration`')
-        self._data["Rotation Duration"] = value
+        self["Rotation Duration"] = value
 
     def add_extensible(self,
                        exterior_lights_1_name=None,
@@ -1074,7 +464,8 @@ class DemandManagerExteriorLights(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_exterior_lights_1_name(exterior_lights_1_name))
+        exterior_lights_1_name = self.check_value("Exterior Lights 1 Name", exterior_lights_1_name)
+        vals.append(exterior_lights_1_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -1083,206 +474,21 @@ class DemandManagerExteriorLights(object):
         """
         return self._data["extensibles"]
 
-    def _check_exterior_lights_1_name(self, value):
-        """ Validates falue of field `Exterior Lights 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerExteriorLights.exterior_lights_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerExteriorLights.exterior_lights_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerExteriorLights.exterior_lights_1_name`')
-        return value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DemandManagerExteriorLights:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DemandManagerExteriorLights:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DemandManagerExteriorLights: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DemandManagerExteriorLights: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DemandManagerLights(object):
+class DemandManagerLights(DataObject):
     """ Corresponds to IDD object `DemandManager:Lights`
         used for demand limiting Lights objects.
     """
-    internal_name = "DemandManager:Lights"
-    field_count = 8
-    required_fields = ["Name", "Limit Control", "Selection Control"]
-    extensible_fields = 1
-    format = None
-    min_fields = 0
-    extensible_keys = ["Lights 1 Name"]
+    schema = {'min-fields': 0, 'name': u'DemandManager:Lights', 'pyname': u'DemandManagerLights', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'limit control', {'name': u'Limit Control', 'pyname': u'limit_control', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit duration', {'name': u'Minimum Limit Duration', 'pyname': u'minimum_limit_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum limit fraction', {'name': u'Maximum Limit Fraction', 'pyname': u'maximum_limit_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'limit step change', {'name': u'Limit Step Change', 'pyname': u'limit_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'lights 1 name', {'name': u'Lights 1 Name', 'pyname': u'lights_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DemandManager:Lights`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Limit Control"] = None
-        self._data["Minimum Limit Duration"] = None
-        self._data["Maximum Limit Fraction"] = None
-        self._data["Limit Step Change"] = None
-        self._data["Selection Control"] = None
-        self._data["Rotation Duration"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.limit_control = None
-        else:
-            self.limit_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_limit_duration = None
-        else:
-            self.minimum_limit_duration = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_limit_fraction = None
-        else:
-            self.maximum_limit_fraction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.limit_step_change = None
-        else:
-            self.limit_step_change = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.selection_control = None
-        else:
-            self.selection_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rotation_duration = None
-        else:
-            self.rotation_duration = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1305,19 +511,7 @@ class DemandManagerLights(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerLights.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerLights.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerLights.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -1342,19 +536,7 @@ class DemandManagerLights(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerLights.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerLights.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerLights.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def limit_control(self):
@@ -1371,55 +553,13 @@ class DemandManagerLights(object):
 
         Args:
             value (str): value for IDD Field `Limit Control`
-                Accepted values are:
-                      - Off
-                      - Fixed
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerLights.limit_control`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerLights.limit_control`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerLights.limit_control`')
-            vals = {}
-            vals["off"] = "Off"
-            vals["fixed"] = "Fixed"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DemandManagerLights.limit_control`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DemandManagerLights.limit_control`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Limit Control"] = value
+        self["Limit Control"] = value
 
     @property
     def minimum_limit_duration(self):
@@ -1438,30 +578,13 @@ class DemandManagerLights(object):
         Args:
             value (int): value for IDD Field `Minimum Limit Duration`
                 Units: minutes
-                value > 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DemandManagerLights.minimum_limit_duration`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DemandManagerLights.minimum_limit_duration`'.format(value))
-            if value <= 0:
-                raise ValueError('value need to be greater 0 '
-                                 'for field `DemandManagerLights.minimum_limit_duration`')
-        self._data["Minimum Limit Duration"] = value
+        self["Minimum Limit Duration"] = value
 
     @property
     def maximum_limit_fraction(self):
@@ -1478,7 +601,6 @@ class DemandManagerLights(object):
 
         Args:
             value (float): value for IDD Field `Maximum Limit Fraction`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1486,19 +608,7 @@ class DemandManagerLights(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DemandManagerLights.maximum_limit_fraction`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DemandManagerLights.maximum_limit_fraction`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `DemandManagerLights.maximum_limit_fraction`')
-        self._data["Maximum Limit Fraction"] = value
+        self["Maximum Limit Fraction"] = value
 
     @property
     def limit_step_change(self):
@@ -1522,13 +632,7 @@ class DemandManagerLights(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DemandManagerLights.limit_step_change`'.format(value))
-        self._data["Limit Step Change"] = value
+        self["Limit Step Change"] = value
 
     @property
     def selection_control(self):
@@ -1545,57 +649,13 @@ class DemandManagerLights(object):
 
         Args:
             value (str): value for IDD Field `Selection Control`
-                Accepted values are:
-                      - All
-                      - RotateMany
-                      - RotateOne
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerLights.selection_control`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerLights.selection_control`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerLights.selection_control`')
-            vals = {}
-            vals["all"] = "All"
-            vals["rotatemany"] = "RotateMany"
-            vals["rotateone"] = "RotateOne"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DemandManagerLights.selection_control`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DemandManagerLights.selection_control`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Selection Control"] = value
+        self["Selection Control"] = value
 
     @property
     def rotation_duration(self):
@@ -1614,30 +674,13 @@ class DemandManagerLights(object):
         Args:
             value (int): value for IDD Field `Rotation Duration`
                 Units: minutes
-                value >= 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DemandManagerLights.rotation_duration`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DemandManagerLights.rotation_duration`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `DemandManagerLights.rotation_duration`')
-        self._data["Rotation Duration"] = value
+        self["Rotation Duration"] = value
 
     def add_extensible(self,
                        lights_1_name=None,
@@ -1651,7 +694,8 @@ class DemandManagerLights(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_lights_1_name(lights_1_name))
+        lights_1_name = self.check_value("Lights 1 Name", lights_1_name)
+        vals.append(lights_1_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -1660,206 +704,21 @@ class DemandManagerLights(object):
         """
         return self._data["extensibles"]
 
-    def _check_lights_1_name(self, value):
-        """ Validates falue of field `Lights 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerLights.lights_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerLights.lights_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerLights.lights_1_name`')
-        return value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DemandManagerLights:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DemandManagerLights:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DemandManagerLights: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DemandManagerLights: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DemandManagerElectricEquipment(object):
+class DemandManagerElectricEquipment(DataObject):
     """ Corresponds to IDD object `DemandManager:ElectricEquipment`
         used for demand limiting ElectricEquipment objects.
     """
-    internal_name = "DemandManager:ElectricEquipment"
-    field_count = 8
-    required_fields = ["Name", "Limit Control", "Selection Control"]
-    extensible_fields = 1
-    format = None
-    min_fields = 0
-    extensible_keys = ["Electric Equipment 1 Name"]
+    schema = {'min-fields': 0, 'name': u'DemandManager:ElectricEquipment', 'pyname': u'DemandManagerElectricEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'limit control', {'name': u'Limit Control', 'pyname': u'limit_control', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit duration', {'name': u'Minimum Limit Duration', 'pyname': u'minimum_limit_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum limit fraction', {'name': u'Maximum Limit Fraction', 'pyname': u'maximum_limit_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'limit step change', {'name': u'Limit Step Change', 'pyname': u'limit_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'electric equipment 1 name', {'name': u'Electric Equipment 1 Name', 'pyname': u'electric_equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DemandManager:ElectricEquipment`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Limit Control"] = None
-        self._data["Minimum Limit Duration"] = None
-        self._data["Maximum Limit Fraction"] = None
-        self._data["Limit Step Change"] = None
-        self._data["Selection Control"] = None
-        self._data["Rotation Duration"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.limit_control = None
-        else:
-            self.limit_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_limit_duration = None
-        else:
-            self.minimum_limit_duration = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_limit_fraction = None
-        else:
-            self.maximum_limit_fraction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.limit_step_change = None
-        else:
-            self.limit_step_change = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.selection_control = None
-        else:
-            self.selection_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rotation_duration = None
-        else:
-            self.rotation_duration = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1882,19 +741,7 @@ class DemandManagerElectricEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerElectricEquipment.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerElectricEquipment.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerElectricEquipment.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -1919,19 +766,7 @@ class DemandManagerElectricEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerElectricEquipment.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerElectricEquipment.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerElectricEquipment.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def limit_control(self):
@@ -1948,55 +783,13 @@ class DemandManagerElectricEquipment(object):
 
         Args:
             value (str): value for IDD Field `Limit Control`
-                Accepted values are:
-                      - Off
-                      - Fixed
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerElectricEquipment.limit_control`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerElectricEquipment.limit_control`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerElectricEquipment.limit_control`')
-            vals = {}
-            vals["off"] = "Off"
-            vals["fixed"] = "Fixed"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DemandManagerElectricEquipment.limit_control`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DemandManagerElectricEquipment.limit_control`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Limit Control"] = value
+        self["Limit Control"] = value
 
     @property
     def minimum_limit_duration(self):
@@ -2015,30 +808,13 @@ class DemandManagerElectricEquipment(object):
         Args:
             value (int): value for IDD Field `Minimum Limit Duration`
                 Units: minutes
-                value > 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DemandManagerElectricEquipment.minimum_limit_duration`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DemandManagerElectricEquipment.minimum_limit_duration`'.format(value))
-            if value <= 0:
-                raise ValueError('value need to be greater 0 '
-                                 'for field `DemandManagerElectricEquipment.minimum_limit_duration`')
-        self._data["Minimum Limit Duration"] = value
+        self["Minimum Limit Duration"] = value
 
     @property
     def maximum_limit_fraction(self):
@@ -2055,7 +831,6 @@ class DemandManagerElectricEquipment(object):
 
         Args:
             value (float): value for IDD Field `Maximum Limit Fraction`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2063,19 +838,7 @@ class DemandManagerElectricEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DemandManagerElectricEquipment.maximum_limit_fraction`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DemandManagerElectricEquipment.maximum_limit_fraction`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `DemandManagerElectricEquipment.maximum_limit_fraction`')
-        self._data["Maximum Limit Fraction"] = value
+        self["Maximum Limit Fraction"] = value
 
     @property
     def limit_step_change(self):
@@ -2099,13 +862,7 @@ class DemandManagerElectricEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DemandManagerElectricEquipment.limit_step_change`'.format(value))
-        self._data["Limit Step Change"] = value
+        self["Limit Step Change"] = value
 
     @property
     def selection_control(self):
@@ -2122,57 +879,13 @@ class DemandManagerElectricEquipment(object):
 
         Args:
             value (str): value for IDD Field `Selection Control`
-                Accepted values are:
-                      - All
-                      - RotateMany
-                      - RotateOne
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerElectricEquipment.selection_control`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerElectricEquipment.selection_control`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerElectricEquipment.selection_control`')
-            vals = {}
-            vals["all"] = "All"
-            vals["rotatemany"] = "RotateMany"
-            vals["rotateone"] = "RotateOne"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DemandManagerElectricEquipment.selection_control`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DemandManagerElectricEquipment.selection_control`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Selection Control"] = value
+        self["Selection Control"] = value
 
     @property
     def rotation_duration(self):
@@ -2191,30 +904,13 @@ class DemandManagerElectricEquipment(object):
         Args:
             value (int): value for IDD Field `Rotation Duration`
                 Units: minutes
-                value >= 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DemandManagerElectricEquipment.rotation_duration`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DemandManagerElectricEquipment.rotation_duration`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `DemandManagerElectricEquipment.rotation_duration`')
-        self._data["Rotation Duration"] = value
+        self["Rotation Duration"] = value
 
     def add_extensible(self,
                        electric_equipment_1_name=None,
@@ -2228,7 +924,8 @@ class DemandManagerElectricEquipment(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_electric_equipment_1_name(electric_equipment_1_name))
+        electric_equipment_1_name = self.check_value("Electric Equipment 1 Name", electric_equipment_1_name)
+        vals.append(electric_equipment_1_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -2237,214 +934,21 @@ class DemandManagerElectricEquipment(object):
         """
         return self._data["extensibles"]
 
-    def _check_electric_equipment_1_name(self, value):
-        """ Validates falue of field `Electric Equipment 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerElectricEquipment.electric_equipment_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerElectricEquipment.electric_equipment_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerElectricEquipment.electric_equipment_1_name`')
-        return value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DemandManagerElectricEquipment:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DemandManagerElectricEquipment:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DemandManagerElectricEquipment: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DemandManagerElectricEquipment: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DemandManagerThermostats(object):
+class DemandManagerThermostats(DataObject):
     """ Corresponds to IDD object `DemandManager:Thermostats`
         used for demand limiting ZoneControl:Thermostat objects.
     """
-    internal_name = "DemandManager:Thermostats"
-    field_count = 9
-    required_fields = ["Name", "Reset Control", "Maximum Heating Setpoint Reset", "Maximum Cooling Setpoint Reset", "Selection Control"]
-    extensible_fields = 1
-    format = None
-    min_fields = 0
-    extensible_keys = ["Thermostat 1 Name"]
+    schema = {'min-fields': 0, 'name': u'DemandManager:Thermostats', 'pyname': u'DemandManagerThermostats', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reset control', {'name': u'Reset Control', 'pyname': u'reset_control', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum reset duration', {'name': u'Minimum Reset Duration', 'pyname': u'minimum_reset_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum heating setpoint reset', {'name': u'Maximum Heating Setpoint Reset', 'pyname': u'maximum_heating_setpoint_reset', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum cooling setpoint reset', {'name': u'Maximum Cooling Setpoint Reset', 'pyname': u'maximum_cooling_setpoint_reset', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reset step change', {'name': u'Reset Step Change', 'pyname': u'reset_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'thermostat 1 name', {'name': u'Thermostat 1 Name', 'pyname': u'thermostat_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DemandManager:Thermostats`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Reset Control"] = None
-        self._data["Minimum Reset Duration"] = None
-        self._data["Maximum Heating Setpoint Reset"] = None
-        self._data["Maximum Cooling Setpoint Reset"] = None
-        self._data["Reset Step Change"] = None
-        self._data["Selection Control"] = None
-        self._data["Rotation Duration"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reset_control = None
-        else:
-            self.reset_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_reset_duration = None
-        else:
-            self.minimum_reset_duration = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_heating_setpoint_reset = None
-        else:
-            self.maximum_heating_setpoint_reset = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_cooling_setpoint_reset = None
-        else:
-            self.maximum_cooling_setpoint_reset = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reset_step_change = None
-        else:
-            self.reset_step_change = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.selection_control = None
-        else:
-            self.selection_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rotation_duration = None
-        else:
-            self.rotation_duration = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2467,19 +971,7 @@ class DemandManagerThermostats(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerThermostats.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerThermostats.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerThermostats.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -2504,19 +996,7 @@ class DemandManagerThermostats(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerThermostats.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerThermostats.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerThermostats.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def reset_control(self):
@@ -2533,55 +1013,13 @@ class DemandManagerThermostats(object):
 
         Args:
             value (str): value for IDD Field `Reset Control`
-                Accepted values are:
-                      - Off
-                      - Fixed
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerThermostats.reset_control`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerThermostats.reset_control`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerThermostats.reset_control`')
-            vals = {}
-            vals["off"] = "Off"
-            vals["fixed"] = "Fixed"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DemandManagerThermostats.reset_control`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DemandManagerThermostats.reset_control`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Reset Control"] = value
+        self["Reset Control"] = value
 
     @property
     def minimum_reset_duration(self):
@@ -2600,30 +1038,13 @@ class DemandManagerThermostats(object):
         Args:
             value (int): value for IDD Field `Minimum Reset Duration`
                 Units: minutes
-                value > 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DemandManagerThermostats.minimum_reset_duration`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DemandManagerThermostats.minimum_reset_duration`'.format(value))
-            if value <= 0:
-                raise ValueError('value need to be greater 0 '
-                                 'for field `DemandManagerThermostats.minimum_reset_duration`')
-        self._data["Minimum Reset Duration"] = value
+        self["Minimum Reset Duration"] = value
 
     @property
     def maximum_heating_setpoint_reset(self):
@@ -2647,13 +1068,7 @@ class DemandManagerThermostats(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DemandManagerThermostats.maximum_heating_setpoint_reset`'.format(value))
-        self._data["Maximum Heating Setpoint Reset"] = value
+        self["Maximum Heating Setpoint Reset"] = value
 
     @property
     def maximum_cooling_setpoint_reset(self):
@@ -2677,13 +1092,7 @@ class DemandManagerThermostats(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DemandManagerThermostats.maximum_cooling_setpoint_reset`'.format(value))
-        self._data["Maximum Cooling Setpoint Reset"] = value
+        self["Maximum Cooling Setpoint Reset"] = value
 
     @property
     def reset_step_change(self):
@@ -2707,13 +1116,7 @@ class DemandManagerThermostats(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DemandManagerThermostats.reset_step_change`'.format(value))
-        self._data["Reset Step Change"] = value
+        self["Reset Step Change"] = value
 
     @property
     def selection_control(self):
@@ -2730,57 +1133,13 @@ class DemandManagerThermostats(object):
 
         Args:
             value (str): value for IDD Field `Selection Control`
-                Accepted values are:
-                      - All
-                      - RotateMany
-                      - RotateOne
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerThermostats.selection_control`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerThermostats.selection_control`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerThermostats.selection_control`')
-            vals = {}
-            vals["all"] = "All"
-            vals["rotatemany"] = "RotateMany"
-            vals["rotateone"] = "RotateOne"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DemandManagerThermostats.selection_control`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DemandManagerThermostats.selection_control`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Selection Control"] = value
+        self["Selection Control"] = value
 
     @property
     def rotation_duration(self):
@@ -2799,30 +1158,13 @@ class DemandManagerThermostats(object):
         Args:
             value (int): value for IDD Field `Rotation Duration`
                 Units: minutes
-                value >= 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DemandManagerThermostats.rotation_duration`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DemandManagerThermostats.rotation_duration`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `DemandManagerThermostats.rotation_duration`')
-        self._data["Rotation Duration"] = value
+        self["Rotation Duration"] = value
 
     def add_extensible(self,
                        thermostat_1_name=None,
@@ -2836,7 +1178,8 @@ class DemandManagerThermostats(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_thermostat_1_name(thermostat_1_name))
+        thermostat_1_name = self.check_value("Thermostat 1 Name", thermostat_1_name)
+        vals.append(thermostat_1_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -2844,102 +1187,3 @@ class DemandManagerThermostats(object):
         """ Get list of all extensibles
         """
         return self._data["extensibles"]
-
-    def _check_thermostat_1_name(self, value):
-        """ Validates falue of field `Thermostat 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DemandManagerThermostats.thermostat_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DemandManagerThermostats.thermostat_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DemandManagerThermostats.thermostat_1_name`')
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DemandManagerThermostats:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DemandManagerThermostats:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DemandManagerThermostats: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DemandManagerThermostats: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])

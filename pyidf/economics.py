@@ -1,47 +1,27 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class CurrencyType(object):
+
+
+class CurrencyType(DataObject):
     """ Corresponds to IDD object `CurrencyType`
         If CurrencyType is not specified, it will default to USD and produce $ in the reports.
     """
-    internal_name = "CurrencyType"
-    field_count = 1
-    required_fields = ["Monetary Unit"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'CurrencyType', 'pyname': u'CurrencyType', 'format': None, 'fields': OrderedDict([(u'monetary unit', {'name': u'Monetary Unit', 'pyname': u'monetary_unit', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CurrencyType`
         """
         self._data = OrderedDict()
-        self._data["Monetary Unit"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.monetary_unit = None
-        else:
-            self.monetary_unit = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def monetary_unit(self):
@@ -60,443 +40,31 @@ class CurrencyType(object):
 
         Args:
             value (str): value for IDD Field `Monetary Unit`
-                Accepted values are:
-                      - USD
-                      - AFN
-                      - ALL
-                      - ANG
-                      - ARS
-                      - AUD
-                      - AWG
-                      - AZN
-                      - BAM
-                      - BBD
-                      - BGN
-                      - BMD
-                      - BND
-                      - BOB
-                      - BRL
-                      - BSD
-                      - BWP
-                      - BYR
-                      - BZD
-                      - CAD
-                      - CHF
-                      - CLP
-                      - CNY
-                      - COP
-                      - CRC
-                      - CUP
-                      - CZK
-                      - DKK
-                      - DOP
-                      - EEK
-                      - EGP
-                      - EUR
-                      - FJD
-                      - GBP
-                      - GHC
-                      - GIP
-                      - GTQ
-                      - GYD
-                      - HKD
-                      - HNL
-                      - HRK
-                      - HUF
-                      - IDR
-                      - ILS
-                      - IMP
-                      - INR
-                      - IRR
-                      - ISK
-                      - JEP
-                      - JMD
-                      - JPY
-                      - KGS
-                      - KHR
-                      - KPW
-                      - KRW
-                      - KYD
-                      - KZT
-                      - LAK
-                      - LBP
-                      - LKR
-                      - LRD
-                      - LTL
-                      - LVL
-                      - MKD
-                      - MNT
-                      - MUR
-                      - MXN
-                      - MYR
-                      - MZN
-                      - NAD
-                      - NGN
-                      - NIO
-                      - NOK
-                      - NPR
-                      - NZD
-                      - OMR
-                      - PAB
-                      - PEN
-                      - PHP
-                      - PKR
-                      - PLN
-                      - PYG
-                      - QAR
-                      - RON
-                      - RSD
-                      - RUB
-                      - SAR
-                      - SBD
-                      - SCR
-                      - SEK
-                      - SGD
-                      - SHP
-                      - SOS
-                      - SRD
-                      - SVC
-                      - SYP
-                      - THB
-                      - TRL
-                      - TRY
-                      - TTD
-                      - TVD
-                      - TWD
-                      - UAH
-                      - UYU
-                      - UZS
-                      - VEF
-                      - VND
-                      - XCD
-                      - YER
-                      - ZAR
-                      - ZWD
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurrencyType.monetary_unit`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurrencyType.monetary_unit`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurrencyType.monetary_unit`')
-            vals = {}
-            vals["usd"] = "USD"
-            vals["afn"] = "AFN"
-            vals["all"] = "ALL"
-            vals["ang"] = "ANG"
-            vals["ars"] = "ARS"
-            vals["aud"] = "AUD"
-            vals["awg"] = "AWG"
-            vals["azn"] = "AZN"
-            vals["bam"] = "BAM"
-            vals["bbd"] = "BBD"
-            vals["bgn"] = "BGN"
-            vals["bmd"] = "BMD"
-            vals["bnd"] = "BND"
-            vals["bob"] = "BOB"
-            vals["brl"] = "BRL"
-            vals["bsd"] = "BSD"
-            vals["bwp"] = "BWP"
-            vals["byr"] = "BYR"
-            vals["bzd"] = "BZD"
-            vals["cad"] = "CAD"
-            vals["chf"] = "CHF"
-            vals["clp"] = "CLP"
-            vals["cny"] = "CNY"
-            vals["cop"] = "COP"
-            vals["crc"] = "CRC"
-            vals["cup"] = "CUP"
-            vals["czk"] = "CZK"
-            vals["dkk"] = "DKK"
-            vals["dop"] = "DOP"
-            vals["eek"] = "EEK"
-            vals["egp"] = "EGP"
-            vals["eur"] = "EUR"
-            vals["fjd"] = "FJD"
-            vals["gbp"] = "GBP"
-            vals["ghc"] = "GHC"
-            vals["gip"] = "GIP"
-            vals["gtq"] = "GTQ"
-            vals["gyd"] = "GYD"
-            vals["hkd"] = "HKD"
-            vals["hnl"] = "HNL"
-            vals["hrk"] = "HRK"
-            vals["huf"] = "HUF"
-            vals["idr"] = "IDR"
-            vals["ils"] = "ILS"
-            vals["imp"] = "IMP"
-            vals["inr"] = "INR"
-            vals["irr"] = "IRR"
-            vals["isk"] = "ISK"
-            vals["jep"] = "JEP"
-            vals["jmd"] = "JMD"
-            vals["jpy"] = "JPY"
-            vals["kgs"] = "KGS"
-            vals["khr"] = "KHR"
-            vals["kpw"] = "KPW"
-            vals["krw"] = "KRW"
-            vals["kyd"] = "KYD"
-            vals["kzt"] = "KZT"
-            vals["lak"] = "LAK"
-            vals["lbp"] = "LBP"
-            vals["lkr"] = "LKR"
-            vals["lrd"] = "LRD"
-            vals["ltl"] = "LTL"
-            vals["lvl"] = "LVL"
-            vals["mkd"] = "MKD"
-            vals["mnt"] = "MNT"
-            vals["mur"] = "MUR"
-            vals["mxn"] = "MXN"
-            vals["myr"] = "MYR"
-            vals["mzn"] = "MZN"
-            vals["nad"] = "NAD"
-            vals["ngn"] = "NGN"
-            vals["nio"] = "NIO"
-            vals["nok"] = "NOK"
-            vals["npr"] = "NPR"
-            vals["nzd"] = "NZD"
-            vals["omr"] = "OMR"
-            vals["pab"] = "PAB"
-            vals["pen"] = "PEN"
-            vals["php"] = "PHP"
-            vals["pkr"] = "PKR"
-            vals["pln"] = "PLN"
-            vals["pyg"] = "PYG"
-            vals["qar"] = "QAR"
-            vals["ron"] = "RON"
-            vals["rsd"] = "RSD"
-            vals["rub"] = "RUB"
-            vals["sar"] = "SAR"
-            vals["sbd"] = "SBD"
-            vals["scr"] = "SCR"
-            vals["sek"] = "SEK"
-            vals["sgd"] = "SGD"
-            vals["shp"] = "SHP"
-            vals["sos"] = "SOS"
-            vals["srd"] = "SRD"
-            vals["svc"] = "SVC"
-            vals["syp"] = "SYP"
-            vals["thb"] = "THB"
-            vals["trl"] = "TRL"
-            vals["try"] = "TRY"
-            vals["ttd"] = "TTD"
-            vals["tvd"] = "TVD"
-            vals["twd"] = "TWD"
-            vals["uah"] = "UAH"
-            vals["uyu"] = "UYU"
-            vals["uzs"] = "UZS"
-            vals["vef"] = "VEF"
-            vals["vnd"] = "VND"
-            vals["xcd"] = "XCD"
-            vals["yer"] = "YER"
-            vals["zar"] = "ZAR"
-            vals["zwd"] = "ZWD"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurrencyType.monetary_unit`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurrencyType.monetary_unit`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Monetary Unit"] = value
+        self["Monetary Unit"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurrencyType:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurrencyType:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurrencyType: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurrencyType: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ComponentCostAdjustments(object):
+class ComponentCostAdjustments(DataObject):
     """ Corresponds to IDD object `ComponentCost:Adjustments`
         Used to perform various modifications to the construction costs to arrive at an
         estimate for total project costs. This object allows extending the line item model
         so that the overall costs of the project will reflect various profit and fees.
     """
-    internal_name = "ComponentCost:Adjustments"
-    field_count = 7
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'ComponentCost:Adjustments', 'pyname': u'ComponentCostAdjustments', 'format': None, 'fields': OrderedDict([(u'miscellaneous cost per conditioned area', {'name': u'Miscellaneous Cost per Conditioned Area', 'pyname': u'miscellaneous_cost_per_conditioned_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/m2'}), (u'design and engineering fees', {'name': u'Design and Engineering Fees', 'pyname': u'design_and_engineering_fees', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'contractor fee', {'name': u'Contractor Fee', 'pyname': u'contractor_fee', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'contingency', {'name': u'Contingency', 'pyname': u'contingency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'permits, bonding and insurance', {'name': u'Permits, Bonding and Insurance', 'pyname': u'permits_bonding_and_insurance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'commissioning fee', {'name': u'Commissioning Fee', 'pyname': u'commissioning_fee', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'regional adjustment factor', {'name': u'Regional Adjustment Factor', 'pyname': u'regional_adjustment_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ComponentCost:Adjustments`
         """
         self._data = OrderedDict()
-        self._data["Miscellaneous Cost per Conditioned Area"] = None
-        self._data["Design and Engineering Fees"] = None
-        self._data["Contractor Fee"] = None
-        self._data["Contingency"] = None
-        self._data["Permits, Bonding and Insurance"] = None
-        self._data["Commissioning Fee"] = None
-        self._data["Regional Adjustment Factor"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.miscellaneous_cost_per_conditioned_area = None
-        else:
-            self.miscellaneous_cost_per_conditioned_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_and_engineering_fees = None
-        else:
-            self.design_and_engineering_fees = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.contractor_fee = None
-        else:
-            self.contractor_fee = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.contingency = None
-        else:
-            self.contingency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.permits_bonding_and_insurance = None
-        else:
-            self.permits_bonding_and_insurance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.commissioning_fee = None
-        else:
-            self.commissioning_fee = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regional_adjustment_factor = None
-        else:
-            self.regional_adjustment_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def miscellaneous_cost_per_conditioned_area(self):
@@ -522,13 +90,7 @@ class ComponentCostAdjustments(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostAdjustments.miscellaneous_cost_per_conditioned_area`'.format(value))
-        self._data["Miscellaneous Cost per Conditioned Area"] = value
+        self["Miscellaneous Cost per Conditioned Area"] = value
 
     @property
     def design_and_engineering_fees(self):
@@ -552,13 +114,7 @@ class ComponentCostAdjustments(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostAdjustments.design_and_engineering_fees`'.format(value))
-        self._data["Design and Engineering Fees"] = value
+        self["Design and Engineering Fees"] = value
 
     @property
     def contractor_fee(self):
@@ -582,13 +138,7 @@ class ComponentCostAdjustments(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostAdjustments.contractor_fee`'.format(value))
-        self._data["Contractor Fee"] = value
+        self["Contractor Fee"] = value
 
     @property
     def contingency(self):
@@ -612,13 +162,7 @@ class ComponentCostAdjustments(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostAdjustments.contingency`'.format(value))
-        self._data["Contingency"] = value
+        self["Contingency"] = value
 
     @property
     def permits_bonding_and_insurance(self):
@@ -642,13 +186,7 @@ class ComponentCostAdjustments(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostAdjustments.permits_bonding_and_insurance`'.format(value))
-        self._data["Permits, Bonding and Insurance"] = value
+        self["Permits, Bonding and Insurance"] = value
 
     @property
     def commissioning_fee(self):
@@ -672,13 +210,7 @@ class ComponentCostAdjustments(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostAdjustments.commissioning_fee`'.format(value))
-        self._data["Commissioning Fee"] = value
+        self["Commissioning Fee"] = value
 
     @property
     def regional_adjustment_factor(self):
@@ -703,97 +235,10 @@ class ComponentCostAdjustments(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostAdjustments.regional_adjustment_factor`'.format(value))
-        self._data["Regional Adjustment Factor"] = value
+        self["Regional Adjustment Factor"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ComponentCostAdjustments:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ComponentCostAdjustments:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ComponentCostAdjustments: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ComponentCostAdjustments: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ComponentCostReference(object):
+class ComponentCostReference(DataObject):
     """ Corresponds to IDD object `ComponentCost:Reference`
         Used to allow comparing the current cost estimate to the results of a previous
         estimate for a reference building. This object parallels the ComponentCost:Adjustments
@@ -802,95 +247,16 @@ class ComponentCostReference(object):
         while the factors listed in the ComponentCost:Adjustments object are applied to the
         current building model cost estimate.
     """
-    internal_name = "ComponentCost:Reference"
-    field_count = 8
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'ComponentCost:Reference', 'pyname': u'ComponentCostReference', 'format': None, 'fields': OrderedDict([(u'reference building line item costs', {'name': u'Reference Building Line Item Costs', 'pyname': u'reference_building_line_item_costs', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$'}), (u'reference building miscellaneous cost per conditioned area', {'name': u'Reference Building Miscellaneous Cost per Conditioned Area', 'pyname': u'reference_building_miscellaneous_cost_per_conditioned_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/m2'}), (u'reference building design and engineering fees', {'name': u'Reference Building Design and Engineering Fees', 'pyname': u'reference_building_design_and_engineering_fees', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'reference building contractor fee', {'name': u'Reference Building Contractor Fee', 'pyname': u'reference_building_contractor_fee', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'reference building contingency', {'name': u'Reference Building Contingency', 'pyname': u'reference_building_contingency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'reference building permits, bonding and insurance', {'name': u'Reference Building Permits, Bonding and Insurance', 'pyname': u'reference_building_permits_bonding_and_insurance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'reference building commissioning fee', {'name': u'Reference Building Commissioning Fee', 'pyname': u'reference_building_commissioning_fee', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'reference building regional adjustment factor', {'name': u'Reference Building Regional Adjustment Factor', 'pyname': u'reference_building_regional_adjustment_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ComponentCost:Reference`
         """
         self._data = OrderedDict()
-        self._data["Reference Building Line Item Costs"] = None
-        self._data["Reference Building Miscellaneous Cost per Conditioned Area"] = None
-        self._data["Reference Building Design and Engineering Fees"] = None
-        self._data["Reference Building Contractor Fee"] = None
-        self._data["Reference Building Contingency"] = None
-        self._data["Reference Building Permits, Bonding and Insurance"] = None
-        self._data["Reference Building Commissioning Fee"] = None
-        self._data["Reference Building Regional Adjustment Factor"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.reference_building_line_item_costs = None
-        else:
-            self.reference_building_line_item_costs = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_building_miscellaneous_cost_per_conditioned_area = None
-        else:
-            self.reference_building_miscellaneous_cost_per_conditioned_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_building_design_and_engineering_fees = None
-        else:
-            self.reference_building_design_and_engineering_fees = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_building_contractor_fee = None
-        else:
-            self.reference_building_contractor_fee = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_building_contingency = None
-        else:
-            self.reference_building_contingency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_building_permits_bonding_and_insurance = None
-        else:
-            self.reference_building_permits_bonding_and_insurance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_building_commissioning_fee = None
-        else:
-            self.reference_building_commissioning_fee = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_building_regional_adjustment_factor = None
-        else:
-            self.reference_building_regional_adjustment_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def reference_building_line_item_costs(self):
@@ -915,13 +281,7 @@ class ComponentCostReference(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostReference.reference_building_line_item_costs`'.format(value))
-        self._data["Reference Building Line Item Costs"] = value
+        self["Reference Building Line Item Costs"] = value
 
     @property
     def reference_building_miscellaneous_cost_per_conditioned_area(self):
@@ -947,13 +307,7 @@ class ComponentCostReference(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostReference.reference_building_miscellaneous_cost_per_conditioned_area`'.format(value))
-        self._data["Reference Building Miscellaneous Cost per Conditioned Area"] = value
+        self["Reference Building Miscellaneous Cost per Conditioned Area"] = value
 
     @property
     def reference_building_design_and_engineering_fees(self):
@@ -977,13 +331,7 @@ class ComponentCostReference(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostReference.reference_building_design_and_engineering_fees`'.format(value))
-        self._data["Reference Building Design and Engineering Fees"] = value
+        self["Reference Building Design and Engineering Fees"] = value
 
     @property
     def reference_building_contractor_fee(self):
@@ -1007,13 +355,7 @@ class ComponentCostReference(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostReference.reference_building_contractor_fee`'.format(value))
-        self._data["Reference Building Contractor Fee"] = value
+        self["Reference Building Contractor Fee"] = value
 
     @property
     def reference_building_contingency(self):
@@ -1036,13 +378,7 @@ class ComponentCostReference(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostReference.reference_building_contingency`'.format(value))
-        self._data["Reference Building Contingency"] = value
+        self["Reference Building Contingency"] = value
 
     @property
     def reference_building_permits_bonding_and_insurance(self):
@@ -1066,13 +402,7 @@ class ComponentCostReference(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostReference.reference_building_permits_bonding_and_insurance`'.format(value))
-        self._data["Reference Building Permits, Bonding and Insurance"] = value
+        self["Reference Building Permits, Bonding and Insurance"] = value
 
     @property
     def reference_building_commissioning_fee(self):
@@ -1096,13 +426,7 @@ class ComponentCostReference(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostReference.reference_building_commissioning_fee`'.format(value))
-        self._data["Reference Building Commissioning Fee"] = value
+        self["Reference Building Commissioning Fee"] = value
 
     @property
     def reference_building_regional_adjustment_factor(self):
@@ -1127,230 +451,24 @@ class ComponentCostReference(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostReference.reference_building_regional_adjustment_factor`'.format(value))
-        self._data["Reference Building Regional Adjustment Factor"] = value
+        self["Reference Building Regional Adjustment Factor"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ComponentCostReference:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ComponentCostReference:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ComponentCostReference: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ComponentCostReference: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ComponentCostLineItem(object):
+class ComponentCostLineItem(DataObject):
     """ Corresponds to IDD object `ComponentCost:LineItem`
         Each instance of this object creates a cost line item and will contribute to the total
         for a cost estimate.
     """
-    internal_name = "ComponentCost:LineItem"
-    field_count = 13
-    required_fields = ["Line Item Type", "Item Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'ComponentCost:LineItem', 'pyname': u'ComponentCostLineItem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'type', {'name': u'Type', 'pyname': u'type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'line item type', {'name': u'Line Item Type', 'pyname': u'line_item_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'item name', {'name': u'Item Name', 'pyname': u'item_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'object end-use key', {'name': u'Object End-Use Key', 'pyname': u'object_enduse_key', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'cost per each', {'name': u'Cost per Each', 'pyname': u'cost_per_each', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$'}), (u'cost per area', {'name': u'Cost per Area', 'pyname': u'cost_per_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/m2'}), (u'cost per unit of output capacity', {'name': u'Cost per Unit of Output Capacity', 'pyname': u'cost_per_unit_of_output_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/kW'}), (u'cost per unit of output capacity per cop', {'name': u'Cost per Unit of Output Capacity per COP', 'pyname': u'cost_per_unit_of_output_capacity_per_cop', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/kW'}), (u'cost per volume', {'name': u'Cost per Volume', 'pyname': u'cost_per_volume', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/m3'}), (u'cost per volume rate', {'name': u'Cost per Volume Rate', 'pyname': u'cost_per_volume_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/(m3/s)'}), (u'cost per energy per temperature difference', {'name': u'Cost per Energy per Temperature Difference', 'pyname': u'cost_per_energy_per_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/(W/K)'}), (u'quantity', {'name': u'Quantity', 'pyname': u'quantity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ComponentCost:LineItem`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Type"] = None
-        self._data["Line Item Type"] = None
-        self._data["Item Name"] = None
-        self._data["Object End-Use Key"] = None
-        self._data["Cost per Each"] = None
-        self._data["Cost per Area"] = None
-        self._data["Cost per Unit of Output Capacity"] = None
-        self._data["Cost per Unit of Output Capacity per COP"] = None
-        self._data["Cost per Volume"] = None
-        self._data["Cost per Volume Rate"] = None
-        self._data["Cost per Energy per Temperature Difference"] = None
-        self._data["Quantity"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.type = None
-        else:
-            self.type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.line_item_type = None
-        else:
-            self.line_item_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.item_name = None
-        else:
-            self.item_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.object_enduse_key = None
-        else:
-            self.object_enduse_key = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cost_per_each = None
-        else:
-            self.cost_per_each = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cost_per_area = None
-        else:
-            self.cost_per_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cost_per_unit_of_output_capacity = None
-        else:
-            self.cost_per_unit_of_output_capacity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cost_per_unit_of_output_capacity_per_cop = None
-        else:
-            self.cost_per_unit_of_output_capacity_per_cop = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cost_per_volume = None
-        else:
-            self.cost_per_volume = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cost_per_volume_rate = None
-        else:
-            self.cost_per_volume_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cost_per_energy_per_temperature_difference = None
-        else:
-            self.cost_per_energy_per_temperature_difference = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.quantity = None
-        else:
-            self.quantity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1373,19 +491,7 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ComponentCostLineItem.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ComponentCostLineItem.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ComponentCostLineItem.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def type(self):
@@ -1408,19 +514,7 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ComponentCostLineItem.type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ComponentCostLineItem.type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ComponentCostLineItem.type`')
-        self._data["Type"] = value
+        self["Type"] = value
 
     @property
     def line_item_type(self):
@@ -1438,71 +532,13 @@ class ComponentCostLineItem(object):
 
         Args:
             value (str): value for IDD Field `Line Item Type`
-                Accepted values are:
-                      - General
-                      - Construction
-                      - Coil:DX
-                      - Coil:Cooling:DX:SingleSpeed
-                      - Coil:Heating:Gas
-                      - Chiller:Electric
-                      - Daylighting:Controls
-                      - Shading:Zone:Detailed
-                      - Lights
-                      - Generator:Photovoltaic
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ComponentCostLineItem.line_item_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ComponentCostLineItem.line_item_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ComponentCostLineItem.line_item_type`')
-            vals = {}
-            vals["general"] = "General"
-            vals["construction"] = "Construction"
-            vals["coil:dx"] = "Coil:DX"
-            vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["chiller:electric"] = "Chiller:Electric"
-            vals["daylighting:controls"] = "Daylighting:Controls"
-            vals["shading:zone:detailed"] = "Shading:Zone:Detailed"
-            vals["lights"] = "Lights"
-            vals["generator:photovoltaic"] = "Generator:Photovoltaic"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ComponentCostLineItem.line_item_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ComponentCostLineItem.line_item_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Line Item Type"] = value
+        self["Line Item Type"] = value
 
     @property
     def item_name(self):
@@ -1526,19 +562,7 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ComponentCostLineItem.item_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ComponentCostLineItem.item_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ComponentCostLineItem.item_name`')
-        self._data["Item Name"] = value
+        self["Item Name"] = value
 
     @property
     def object_enduse_key(self):
@@ -1562,19 +586,7 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ComponentCostLineItem.object_enduse_key`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ComponentCostLineItem.object_enduse_key`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ComponentCostLineItem.object_enduse_key`')
-        self._data["Object End-Use Key"] = value
+        self["Object End-Use Key"] = value
 
     @property
     def cost_per_each(self):
@@ -1598,13 +610,7 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostLineItem.cost_per_each`'.format(value))
-        self._data["Cost per Each"] = value
+        self["Cost per Each"] = value
 
     @property
     def cost_per_area(self):
@@ -1628,13 +634,7 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostLineItem.cost_per_area`'.format(value))
-        self._data["Cost per Area"] = value
+        self["Cost per Area"] = value
 
     @property
     def cost_per_unit_of_output_capacity(self):
@@ -1658,13 +658,7 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostLineItem.cost_per_unit_of_output_capacity`'.format(value))
-        self._data["Cost per Unit of Output Capacity"] = value
+        self["Cost per Unit of Output Capacity"] = value
 
     @property
     def cost_per_unit_of_output_capacity_per_cop(self):
@@ -1689,13 +683,7 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostLineItem.cost_per_unit_of_output_capacity_per_cop`'.format(value))
-        self._data["Cost per Unit of Output Capacity per COP"] = value
+        self["Cost per Unit of Output Capacity per COP"] = value
 
     @property
     def cost_per_volume(self):
@@ -1719,13 +707,7 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostLineItem.cost_per_volume`'.format(value))
-        self._data["Cost per Volume"] = value
+        self["Cost per Volume"] = value
 
     @property
     def cost_per_volume_rate(self):
@@ -1749,13 +731,7 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostLineItem.cost_per_volume_rate`'.format(value))
-        self._data["Cost per Volume Rate"] = value
+        self["Cost per Volume Rate"] = value
 
     @property
     def cost_per_energy_per_temperature_difference(self):
@@ -1780,13 +756,7 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostLineItem.cost_per_energy_per_temperature_difference`'.format(value))
-        self._data["Cost per Energy per Temperature Difference"] = value
+        self["Cost per Energy per Temperature Difference"] = value
 
     @property
     def quantity(self):
@@ -1811,97 +781,10 @@ class ComponentCostLineItem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ComponentCostLineItem.quantity`'.format(value))
-        self._data["Quantity"] = value
+        self["Quantity"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ComponentCostLineItem:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ComponentCostLineItem:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ComponentCostLineItem: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ComponentCostLineItem: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class UtilityCostTariff(object):
+class UtilityCostTariff(DataObject):
     """ Corresponds to IDD object `UtilityCost:Tariff`
         Defines the name of a utility cost tariff, the type of tariff, and other details
         about the overall tariff. Each other object that is part of the tariff model
@@ -1909,151 +792,16 @@ class UtilityCostTariff(object):
         UtilityCost:Ratchet, UtilityCost:Qualify, UtilityCost:Variable and
         UtilityCost:Computation objects.
     """
-    internal_name = "UtilityCost:Tariff"
-    field_count = 15
-    required_fields = ["Name", "Output Meter Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Tariff', 'pyname': u'UtilityCostTariff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'output meter name', {'name': u'Output Meter Name', 'pyname': u'output_meter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'conversion factor choice', {'name': u'Conversion Factor Choice', 'pyname': u'conversion_factor_choice', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'energy conversion factor', {'name': u'Energy Conversion Factor', 'pyname': u'energy_conversion_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'demand conversion factor', {'name': u'Demand Conversion Factor', 'pyname': u'demand_conversion_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'time of use period schedule name', {'name': u'Time of Use Period Schedule Name', 'pyname': u'time_of_use_period_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'season schedule name', {'name': u'Season Schedule Name', 'pyname': u'season_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'month schedule name', {'name': u'Month Schedule Name', 'pyname': u'month_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand window length', {'name': u'Demand Window Length', 'pyname': u'demand_window_length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'monthly charge or variable name', {'name': u'Monthly Charge or Variable Name', 'pyname': u'monthly_charge_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum monthly charge or variable name', {'name': u'Minimum Monthly Charge or Variable Name', 'pyname': u'minimum_monthly_charge_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'real time pricing charge schedule name', {'name': u'Real Time Pricing Charge Schedule Name', 'pyname': u'real_time_pricing_charge_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'customer baseline load schedule name', {'name': u'Customer Baseline Load Schedule Name', 'pyname': u'customer_baseline_load_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'group name', {'name': u'Group Name', 'pyname': u'group_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'buy or sell', {'name': u'Buy Or Sell', 'pyname': u'buy_or_sell', 'default': u'BuyFromUtility', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Tariff`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Output Meter Name"] = None
-        self._data["Conversion Factor Choice"] = None
-        self._data["Energy Conversion Factor"] = None
-        self._data["Demand Conversion Factor"] = None
-        self._data["Time of Use Period Schedule Name"] = None
-        self._data["Season Schedule Name"] = None
-        self._data["Month Schedule Name"] = None
-        self._data["Demand Window Length"] = None
-        self._data["Monthly Charge or Variable Name"] = None
-        self._data["Minimum Monthly Charge or Variable Name"] = None
-        self._data["Real Time Pricing Charge Schedule Name"] = None
-        self._data["Customer Baseline Load Schedule Name"] = None
-        self._data["Group Name"] = None
-        self._data["Buy Or Sell"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_meter_name = None
-        else:
-            self.output_meter_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.conversion_factor_choice = None
-        else:
-            self.conversion_factor_choice = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.energy_conversion_factor = None
-        else:
-            self.energy_conversion_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.demand_conversion_factor = None
-        else:
-            self.demand_conversion_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.time_of_use_period_schedule_name = None
-        else:
-            self.time_of_use_period_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.season_schedule_name = None
-        else:
-            self.season_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.month_schedule_name = None
-        else:
-            self.month_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.demand_window_length = None
-        else:
-            self.demand_window_length = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.monthly_charge_or_variable_name = None
-        else:
-            self.monthly_charge_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_monthly_charge_or_variable_name = None
-        else:
-            self.minimum_monthly_charge_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.real_time_pricing_charge_schedule_name = None
-        else:
-            self.real_time_pricing_charge_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.customer_baseline_load_schedule_name = None
-        else:
-            self.customer_baseline_load_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.group_name = None
-        else:
-            self.group_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.buy_or_sell = None
-        else:
-            self.buy_or_sell = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2078,19 +826,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def output_meter_name(self):
@@ -2114,19 +850,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.output_meter_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.output_meter_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.output_meter_name`')
-        self._data["Output Meter Name"] = value
+        self["Output Meter Name"] = value
 
     @property
     def conversion_factor_choice(self):
@@ -2145,67 +869,13 @@ class UtilityCostTariff(object):
 
         Args:
             value (str): value for IDD Field `Conversion Factor Choice`
-                Accepted values are:
-                      - UserDefined
-                      - kWh
-                      - Therm
-                      - MMBtu
-                      - MJ
-                      - kBtu
-                      - MCF
-                      - CCF
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.conversion_factor_choice`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.conversion_factor_choice`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.conversion_factor_choice`')
-            vals = {}
-            vals["userdefined"] = "UserDefined"
-            vals["kwh"] = "kWh"
-            vals["therm"] = "Therm"
-            vals["mmbtu"] = "MMBtu"
-            vals["mj"] = "MJ"
-            vals["kbtu"] = "kBtu"
-            vals["mcf"] = "MCF"
-            vals["ccf"] = "CCF"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostTariff.conversion_factor_choice`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostTariff.conversion_factor_choice`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Conversion Factor Choice"] = value
+        self["Conversion Factor Choice"] = value
 
     @property
     def energy_conversion_factor(self):
@@ -2233,13 +903,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostTariff.energy_conversion_factor`'.format(value))
-        self._data["Energy Conversion Factor"] = value
+        self["Energy Conversion Factor"] = value
 
     @property
     def demand_conversion_factor(self):
@@ -2267,13 +931,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostTariff.demand_conversion_factor`'.format(value))
-        self._data["Demand Conversion Factor"] = value
+        self["Demand Conversion Factor"] = value
 
     @property
     def time_of_use_period_schedule_name(self):
@@ -2298,19 +956,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.time_of_use_period_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.time_of_use_period_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.time_of_use_period_schedule_name`')
-        self._data["Time of Use Period Schedule Name"] = value
+        self["Time of Use Period Schedule Name"] = value
 
     @property
     def season_schedule_name(self):
@@ -2335,19 +981,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.season_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.season_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.season_schedule_name`')
-        self._data["Season Schedule Name"] = value
+        self["Season Schedule Name"] = value
 
     @property
     def month_schedule_name(self):
@@ -2376,19 +1010,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.month_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.month_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.month_schedule_name`')
-        self._data["Month Schedule Name"] = value
+        self["Month Schedule Name"] = value
 
     @property
     def demand_window_length(self):
@@ -2408,61 +1030,13 @@ class UtilityCostTariff(object):
 
         Args:
             value (str): value for IDD Field `Demand Window Length`
-                Accepted values are:
-                      - QuarterHour
-                      - HalfHour
-                      - FullHour
-                      - Day
-                      - Week
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.demand_window_length`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.demand_window_length`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.demand_window_length`')
-            vals = {}
-            vals["quarterhour"] = "QuarterHour"
-            vals["halfhour"] = "HalfHour"
-            vals["fullhour"] = "FullHour"
-            vals["day"] = "Day"
-            vals["week"] = "Week"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostTariff.demand_window_length`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostTariff.demand_window_length`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Demand Window Length"] = value
+        self["Demand Window Length"] = value
 
     @property
     def monthly_charge_or_variable_name(self):
@@ -2487,19 +1061,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.monthly_charge_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.monthly_charge_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.monthly_charge_or_variable_name`')
-        self._data["Monthly Charge or Variable Name"] = value
+        self["Monthly Charge or Variable Name"] = value
 
     @property
     def minimum_monthly_charge_or_variable_name(self):
@@ -2524,19 +1086,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.minimum_monthly_charge_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.minimum_monthly_charge_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.minimum_monthly_charge_or_variable_name`')
-        self._data["Minimum Monthly Charge or Variable Name"] = value
+        self["Minimum Monthly Charge or Variable Name"] = value
 
     @property
     def real_time_pricing_charge_schedule_name(self):
@@ -2562,19 +1112,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.real_time_pricing_charge_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.real_time_pricing_charge_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.real_time_pricing_charge_schedule_name`')
-        self._data["Real Time Pricing Charge Schedule Name"] = value
+        self["Real Time Pricing Charge Schedule Name"] = value
 
     @property
     def customer_baseline_load_schedule_name(self):
@@ -2600,19 +1138,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.customer_baseline_load_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.customer_baseline_load_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.customer_baseline_load_schedule_name`')
-        self._data["Customer Baseline Load Schedule Name"] = value
+        self["Customer Baseline Load Schedule Name"] = value
 
     @property
     def group_name(self):
@@ -2639,19 +1165,7 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.group_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.group_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.group_name`')
-        self._data["Group Name"] = value
+        self["Group Name"] = value
 
     @property
     def buy_or_sell(self):
@@ -2671,10 +1185,6 @@ class UtilityCostTariff(object):
 
         Args:
             value (str): value for IDD Field `Buy Or Sell`
-                Accepted values are:
-                      - BuyFromUtility
-                      - SellToUtility
-                      - NetMetering
                 Default value: BuyFromUtility
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2682,131 +1192,10 @@ class UtilityCostTariff(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostTariff.buy_or_sell`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostTariff.buy_or_sell`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostTariff.buy_or_sell`')
-            vals = {}
-            vals["buyfromutility"] = "BuyFromUtility"
-            vals["selltoutility"] = "SellToUtility"
-            vals["netmetering"] = "NetMetering"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostTariff.buy_or_sell`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostTariff.buy_or_sell`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Buy Or Sell"] = value
+        self["Buy Or Sell"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field UtilityCostTariff:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field UtilityCostTariff:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for UtilityCostTariff: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for UtilityCostTariff: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class UtilityCostQualify(object):
+class UtilityCostQualify(DataObject):
     """ Corresponds to IDD object `UtilityCost:Qualify`
         The qualify object allows only tariffs to be selected based on limits which may apply
         such as maximum or minimum demand requirements. If the results of the simulation fall
@@ -2815,95 +1204,16 @@ class UtilityCostQualify(object):
         is shown. Multiple UtilityCost:Qualify objects can appear for the same tarriff and
         they can be based on any variable.
     """
-    internal_name = "UtilityCost:Qualify"
-    field_count = 8
-    required_fields = ["Name", "Tariff Name", "Variable Name", "Threshold Value or Variable Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Qualify', 'pyname': u'UtilityCostQualify', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'qualify type', {'name': u'Qualify Type', 'pyname': u'qualify_type', 'default': u'Maximum', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'threshold value or variable name', {'name': u'Threshold Value or Variable Name', 'pyname': u'threshold_value_or_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season', {'name': u'Season', 'pyname': u'season', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'threshold test', {'name': u'Threshold Test', 'pyname': u'threshold_test', 'default': u'Consecutive', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'number of months', {'name': u'Number of Months', 'pyname': u'number_of_months', 'maximum': 12.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Qualify`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Tariff Name"] = None
-        self._data["Variable Name"] = None
-        self._data["Qualify Type"] = None
-        self._data["Threshold Value or Variable Name"] = None
-        self._data["Season"] = None
-        self._data["Threshold Test"] = None
-        self._data["Number of Months"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tariff_name = None
-        else:
-            self.tariff_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.variable_name = None
-        else:
-            self.variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.qualify_type = None
-        else:
-            self.qualify_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.threshold_value_or_variable_name = None
-        else:
-            self.threshold_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.season = None
-        else:
-            self.season = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.threshold_test = None
-        else:
-            self.threshold_test = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_months = None
-        else:
-            self.number_of_months = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2927,19 +1237,7 @@ class UtilityCostQualify(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostQualify.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostQualify.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostQualify.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def tariff_name(self):
@@ -2963,19 +1261,7 @@ class UtilityCostQualify(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostQualify.tariff_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostQualify.tariff_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostQualify.tariff_name`')
-        self._data["Tariff Name"] = value
+        self["Tariff Name"] = value
 
     @property
     def variable_name(self):
@@ -3000,19 +1286,7 @@ class UtilityCostQualify(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostQualify.variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostQualify.variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostQualify.variable_name`')
-        self._data["Variable Name"] = value
+        self["Variable Name"] = value
 
     @property
     def qualify_type(self):
@@ -3029,9 +1303,6 @@ class UtilityCostQualify(object):
 
         Args:
             value (str): value for IDD Field `Qualify Type`
-                Accepted values are:
-                      - Minimum
-                      - Maximum
                 Default value: Maximum
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3039,46 +1310,7 @@ class UtilityCostQualify(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostQualify.qualify_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostQualify.qualify_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostQualify.qualify_type`')
-            vals = {}
-            vals["minimum"] = "Minimum"
-            vals["maximum"] = "Maximum"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostQualify.qualify_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostQualify.qualify_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Qualify Type"] = value
+        self["Qualify Type"] = value
 
     @property
     def threshold_value_or_variable_name(self):
@@ -3104,19 +1336,7 @@ class UtilityCostQualify(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostQualify.threshold_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostQualify.threshold_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostQualify.threshold_value_or_variable_name`')
-        self._data["Threshold Value or Variable Name"] = value
+        self["Threshold Value or Variable Name"] = value
 
     @property
     def season(self):
@@ -3135,61 +1355,13 @@ class UtilityCostQualify(object):
 
         Args:
             value (str): value for IDD Field `Season`
-                Accepted values are:
-                      - Annual
-                      - Summer
-                      - Winter
-                      - Spring
-                      - Fall
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostQualify.season`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostQualify.season`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostQualify.season`')
-            vals = {}
-            vals["annual"] = "Annual"
-            vals["summer"] = "Summer"
-            vals["winter"] = "Winter"
-            vals["spring"] = "Spring"
-            vals["fall"] = "Fall"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostQualify.season`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostQualify.season`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Season"] = value
+        self["Season"] = value
 
     @property
     def threshold_test(self):
@@ -3210,9 +1382,6 @@ class UtilityCostQualify(object):
 
         Args:
             value (str): value for IDD Field `Threshold Test`
-                Accepted values are:
-                      - Count
-                      - Consecutive
                 Default value: Consecutive
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3220,46 +1389,7 @@ class UtilityCostQualify(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostQualify.threshold_test`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostQualify.threshold_test`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostQualify.threshold_test`')
-            vals = {}
-            vals["count"] = "Count"
-            vals["consecutive"] = "Consecutive"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostQualify.threshold_test`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostQualify.threshold_test`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Threshold Test"] = value
+        self["Threshold Test"] = value
 
     @property
     def number_of_months(self):
@@ -3288,103 +1418,10 @@ class UtilityCostQualify(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostQualify.number_of_months`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `UtilityCostQualify.number_of_months`')
-            if value > 12.0:
-                raise ValueError('value need to be smaller 12.0 '
-                                 'for field `UtilityCostQualify.number_of_months`')
-        self._data["Number of Months"] = value
+        self["Number of Months"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field UtilityCostQualify:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field UtilityCostQualify:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for UtilityCostQualify: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for UtilityCostQualify: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class UtilityCostChargeSimple(object):
+class UtilityCostChargeSimple(DataObject):
     """ Corresponds to IDD object `UtilityCost:Charge:Simple`
         UtilityCost:Charge:Simple is one of the most often used objects for tariff
         calculation. It is used to compute energy and demand charges that are very simple.
@@ -3392,79 +1429,16 @@ class UtilityCostChargeSimple(object):
         utility bill. Multiple UtilityCost:Charge:Simple objects may be defined for a single
         tariff and they will be added together.
     """
-    internal_name = "UtilityCost:Charge:Simple"
-    field_count = 6
-    required_fields = ["Name", "Tariff Name", "Source Variable", "Category Variable Name", "Cost per Unit Value or Variable Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Charge:Simple', 'pyname': u'UtilityCostChargeSimple', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source variable', {'name': u'Source Variable', 'pyname': u'source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season', {'name': u'Season', 'pyname': u'season', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'category variable name', {'name': u'Category Variable Name', 'pyname': u'category_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cost per unit value or variable name', {'name': u'Cost per Unit Value or Variable Name', 'pyname': u'cost_per_unit_value_or_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Charge:Simple`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Tariff Name"] = None
-        self._data["Source Variable"] = None
-        self._data["Season"] = None
-        self._data["Category Variable Name"] = None
-        self._data["Cost per Unit Value or Variable Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tariff_name = None
-        else:
-            self.tariff_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.source_variable = None
-        else:
-            self.source_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.season = None
-        else:
-            self.season = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.category_variable_name = None
-        else:
-            self.category_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cost_per_unit_value_or_variable_name = None
-        else:
-            self.cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3492,19 +1466,7 @@ class UtilityCostChargeSimple(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeSimple.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeSimple.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeSimple.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def tariff_name(self):
@@ -3528,19 +1490,7 @@ class UtilityCostChargeSimple(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeSimple.tariff_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeSimple.tariff_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeSimple.tariff_name`')
-        self._data["Tariff Name"] = value
+        self["Tariff Name"] = value
 
     @property
     def source_variable(self):
@@ -3570,19 +1520,7 @@ class UtilityCostChargeSimple(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeSimple.source_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeSimple.source_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeSimple.source_variable`')
-        self._data["Source Variable"] = value
+        self["Source Variable"] = value
 
     @property
     def season(self):
@@ -3601,61 +1539,13 @@ class UtilityCostChargeSimple(object):
 
         Args:
             value (str): value for IDD Field `Season`
-                Accepted values are:
-                      - Annual
-                      - Summer
-                      - Winter
-                      - Spring
-                      - Fall
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeSimple.season`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeSimple.season`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeSimple.season`')
-            vals = {}
-            vals["annual"] = "Annual"
-            vals["summer"] = "Summer"
-            vals["winter"] = "Winter"
-            vals["spring"] = "Spring"
-            vals["fall"] = "Fall"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostChargeSimple.season`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostChargeSimple.season`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Season"] = value
+        self["Season"] = value
 
     @property
     def category_variable_name(self):
@@ -3675,71 +1565,13 @@ class UtilityCostChargeSimple(object):
 
         Args:
             value (str): value for IDD Field `Category Variable Name`
-                Accepted values are:
-                      - EnergyCharges
-                      - DemandCharges
-                      - ServiceCharges
-                      - Basis
-                      - Adjustment
-                      - Surcharge
-                      - Subtotal
-                      - Taxes
-                      - Total
-                      - NotIncluded
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeSimple.category_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeSimple.category_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeSimple.category_variable_name`')
-            vals = {}
-            vals["energycharges"] = "EnergyCharges"
-            vals["demandcharges"] = "DemandCharges"
-            vals["servicecharges"] = "ServiceCharges"
-            vals["basis"] = "Basis"
-            vals["adjustment"] = "Adjustment"
-            vals["surcharge"] = "Surcharge"
-            vals["subtotal"] = "Subtotal"
-            vals["taxes"] = "Taxes"
-            vals["total"] = "Total"
-            vals["notincluded"] = "NotIncluded"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostChargeSimple.category_variable_name`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostChargeSimple.category_variable_name`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Category Variable Name"] = value
+        self["Category Variable Name"] = value
 
     @property
     def cost_per_unit_value_or_variable_name(self):
@@ -3767,429 +1599,25 @@ class UtilityCostChargeSimple(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeSimple.cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeSimple.cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeSimple.cost_per_unit_value_or_variable_name`')
-        self._data["Cost per Unit Value or Variable Name"] = value
+        self["Cost per Unit Value or Variable Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field UtilityCostChargeSimple:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field UtilityCostChargeSimple:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for UtilityCostChargeSimple: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for UtilityCostChargeSimple: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class UtilityCostChargeBlock(object):
+class UtilityCostChargeBlock(DataObject):
     """ Corresponds to IDD object `UtilityCost:Charge:Block`
         Used to compute energy and demand charges (or any other charges) that are structured
         in blocks of charges. Multiple UtilityCost:Charge:Block objects may be defined for a
         single tariff and they will be added together.
     """
-    internal_name = "UtilityCost:Charge:Block"
-    field_count = 37
-    required_fields = ["Name", "Tariff Name", "Source Variable", "Category Variable Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Charge:Block', 'pyname': u'UtilityCostChargeBlock', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source variable', {'name': u'Source Variable', 'pyname': u'source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season', {'name': u'Season', 'pyname': u'season', 'default': u'Season', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'category variable name', {'name': u'Category Variable Name', 'pyname': u'category_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'remaining into variable', {'name': u'Remaining Into Variable', 'pyname': u'remaining_into_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size multiplier value or variable name', {'name': u'Block Size Multiplier Value or Variable Name', 'pyname': u'block_size_multiplier_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 1 value or variable name', {'name': u'Block Size 1 Value or Variable Name', 'pyname': u'block_size_1_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 1 cost per unit value or variable name', {'name': u'Block 1 Cost per Unit Value or Variable Name', 'pyname': u'block_1_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 2 value or variable name', {'name': u'Block Size 2 Value or Variable Name', 'pyname': u'block_size_2_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 2 cost per unit value or variable name', {'name': u'Block 2 Cost per Unit Value or Variable Name', 'pyname': u'block_2_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 3 value or variable name', {'name': u'Block Size 3 Value or Variable Name', 'pyname': u'block_size_3_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 3 cost per unit value or variable name', {'name': u'Block 3 Cost per Unit Value or Variable Name', 'pyname': u'block_3_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 4 value or variable name', {'name': u'Block Size 4 Value or Variable Name', 'pyname': u'block_size_4_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 4 cost per unit value or variable name', {'name': u'Block 4 Cost per Unit Value or Variable Name', 'pyname': u'block_4_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 5 value or variable name', {'name': u'Block Size 5 Value or Variable Name', 'pyname': u'block_size_5_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 5 cost per unit value or variable name', {'name': u'Block 5 Cost per Unit Value or Variable Name', 'pyname': u'block_5_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 6 value or variable name', {'name': u'Block Size 6 Value or Variable Name', 'pyname': u'block_size_6_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 6 cost per unit value or variable name', {'name': u'Block 6 Cost per Unit Value or Variable Name', 'pyname': u'block_6_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 7 value or variable name', {'name': u'Block Size 7 Value or Variable Name', 'pyname': u'block_size_7_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 7 cost per unit value or variable name', {'name': u'Block 7 Cost per Unit Value or Variable Name', 'pyname': u'block_7_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 8 value or variable name', {'name': u'Block Size 8 Value or Variable Name', 'pyname': u'block_size_8_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 8 cost per unit value or variable name', {'name': u'Block 8 Cost per Unit Value or Variable Name', 'pyname': u'block_8_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 9 value or variable name', {'name': u'Block Size 9 Value or Variable Name', 'pyname': u'block_size_9_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 9 cost per unit value or variable name', {'name': u'Block 9 Cost per Unit Value or Variable Name', 'pyname': u'block_9_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 10 value or variable name', {'name': u'Block Size 10 Value or Variable Name', 'pyname': u'block_size_10_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 10 cost per unit value or variable name', {'name': u'Block 10 Cost per Unit Value or Variable Name', 'pyname': u'block_10_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 11 value or variable name', {'name': u'Block Size 11 Value or Variable Name', 'pyname': u'block_size_11_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 11 cost per unit value or variable name', {'name': u'Block 11 Cost per Unit Value or Variable Name', 'pyname': u'block_11_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 12 value or variable name', {'name': u'Block Size 12 Value or Variable Name', 'pyname': u'block_size_12_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 12 cost per unit value or variable name', {'name': u'Block 12 Cost per Unit Value or Variable Name', 'pyname': u'block_12_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 13 value or variable name', {'name': u'Block Size 13 Value or Variable Name', 'pyname': u'block_size_13_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 13 cost per unit value or variable name', {'name': u'Block 13 Cost per Unit Value or Variable Name', 'pyname': u'block_13_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 14 value or variable name', {'name': u'Block Size 14 Value or Variable Name', 'pyname': u'block_size_14_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 14 cost per unit value or variable name', {'name': u'Block 14 Cost per Unit Value or Variable Name', 'pyname': u'block_14_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 15 value or variable name', {'name': u'Block Size 15 Value or Variable Name', 'pyname': u'block_size_15_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 15 cost per unit value or variable name', {'name': u'Block 15 Cost per Unit Value or Variable Name', 'pyname': u'block_15_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Charge:Block`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Tariff Name"] = None
-        self._data["Source Variable"] = None
-        self._data["Season"] = None
-        self._data["Category Variable Name"] = None
-        self._data["Remaining Into Variable"] = None
-        self._data["Block Size Multiplier Value or Variable Name"] = None
-        self._data["Block Size 1 Value or Variable Name"] = None
-        self._data["Block 1 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 2 Value or Variable Name"] = None
-        self._data["Block 2 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 3 Value or Variable Name"] = None
-        self._data["Block 3 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 4 Value or Variable Name"] = None
-        self._data["Block 4 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 5 Value or Variable Name"] = None
-        self._data["Block 5 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 6 Value or Variable Name"] = None
-        self._data["Block 6 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 7 Value or Variable Name"] = None
-        self._data["Block 7 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 8 Value or Variable Name"] = None
-        self._data["Block 8 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 9 Value or Variable Name"] = None
-        self._data["Block 9 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 10 Value or Variable Name"] = None
-        self._data["Block 10 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 11 Value or Variable Name"] = None
-        self._data["Block 11 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 12 Value or Variable Name"] = None
-        self._data["Block 12 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 13 Value or Variable Name"] = None
-        self._data["Block 13 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 14 Value or Variable Name"] = None
-        self._data["Block 14 Cost per Unit Value or Variable Name"] = None
-        self._data["Block Size 15 Value or Variable Name"] = None
-        self._data["Block 15 Cost per Unit Value or Variable Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tariff_name = None
-        else:
-            self.tariff_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.source_variable = None
-        else:
-            self.source_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.season = None
-        else:
-            self.season = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.category_variable_name = None
-        else:
-            self.category_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.remaining_into_variable = None
-        else:
-            self.remaining_into_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_multiplier_value_or_variable_name = None
-        else:
-            self.block_size_multiplier_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_1_value_or_variable_name = None
-        else:
-            self.block_size_1_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_1_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_1_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_2_value_or_variable_name = None
-        else:
-            self.block_size_2_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_2_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_2_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_3_value_or_variable_name = None
-        else:
-            self.block_size_3_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_3_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_3_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_4_value_or_variable_name = None
-        else:
-            self.block_size_4_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_4_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_4_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_5_value_or_variable_name = None
-        else:
-            self.block_size_5_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_5_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_5_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_6_value_or_variable_name = None
-        else:
-            self.block_size_6_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_6_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_6_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_7_value_or_variable_name = None
-        else:
-            self.block_size_7_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_7_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_7_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_8_value_or_variable_name = None
-        else:
-            self.block_size_8_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_8_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_8_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_9_value_or_variable_name = None
-        else:
-            self.block_size_9_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_9_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_9_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_10_value_or_variable_name = None
-        else:
-            self.block_size_10_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_10_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_10_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_11_value_or_variable_name = None
-        else:
-            self.block_size_11_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_11_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_11_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_12_value_or_variable_name = None
-        else:
-            self.block_size_12_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_12_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_12_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_13_value_or_variable_name = None
-        else:
-            self.block_size_13_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_13_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_13_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_14_value_or_variable_name = None
-        else:
-            self.block_size_14_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_14_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_14_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_size_15_value_or_variable_name = None
-        else:
-            self.block_size_15_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.block_15_cost_per_unit_value_or_variable_name = None
-        else:
-            self.block_15_cost_per_unit_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -4216,19 +1644,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def tariff_name(self):
@@ -4252,19 +1668,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.tariff_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.tariff_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.tariff_name`')
-        self._data["Tariff Name"] = value
+        self["Tariff Name"] = value
 
     @property
     def source_variable(self):
@@ -4294,19 +1698,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.source_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.source_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.source_variable`')
-        self._data["Source Variable"] = value
+        self["Source Variable"] = value
 
     @property
     def season(self):
@@ -4325,12 +1717,6 @@ class UtilityCostChargeBlock(object):
 
         Args:
             value (str): value for IDD Field `Season`
-                Accepted values are:
-                      - Annual
-                      - Summer
-                      - Winter
-                      - Spring
-                      - Fall
                 Default value: Season
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4338,49 +1724,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.season`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.season`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.season`')
-            vals = {}
-            vals["annual"] = "Annual"
-            vals["summer"] = "Summer"
-            vals["winter"] = "Winter"
-            vals["spring"] = "Spring"
-            vals["fall"] = "Fall"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostChargeBlock.season`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostChargeBlock.season`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Season"] = value
+        self["Season"] = value
 
     @property
     def category_variable_name(self):
@@ -4400,71 +1744,13 @@ class UtilityCostChargeBlock(object):
 
         Args:
             value (str): value for IDD Field `Category Variable Name`
-                Accepted values are:
-                      - EnergyCharges
-                      - DemandCharges
-                      - ServiceCharges
-                      - Basis
-                      - Adjustment
-                      - Surcharge
-                      - Subtotal
-                      - Taxes
-                      - Total
-                      - NotIncluded
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.category_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.category_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.category_variable_name`')
-            vals = {}
-            vals["energycharges"] = "EnergyCharges"
-            vals["demandcharges"] = "DemandCharges"
-            vals["servicecharges"] = "ServiceCharges"
-            vals["basis"] = "Basis"
-            vals["adjustment"] = "Adjustment"
-            vals["surcharge"] = "Surcharge"
-            vals["subtotal"] = "Subtotal"
-            vals["taxes"] = "Taxes"
-            vals["total"] = "Total"
-            vals["notincluded"] = "NotIncluded"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostChargeBlock.category_variable_name`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostChargeBlock.category_variable_name`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Category Variable Name"] = value
+        self["Category Variable Name"] = value
 
     @property
     def remaining_into_variable(self):
@@ -4490,19 +1776,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.remaining_into_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.remaining_into_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.remaining_into_variable`')
-        self._data["Remaining Into Variable"] = value
+        self["Remaining Into Variable"] = value
 
     @property
     def block_size_multiplier_value_or_variable_name(self):
@@ -4531,19 +1805,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_multiplier_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_multiplier_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_multiplier_value_or_variable_name`')
-        self._data["Block Size Multiplier Value or Variable Name"] = value
+        self["Block Size Multiplier Value or Variable Name"] = value
 
     @property
     def block_size_1_value_or_variable_name(self):
@@ -4569,19 +1831,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_1_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_1_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_1_value_or_variable_name`')
-        self._data["Block Size 1 Value or Variable Name"] = value
+        self["Block Size 1 Value or Variable Name"] = value
 
     @property
     def block_1_cost_per_unit_value_or_variable_name(self):
@@ -4606,19 +1856,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_1_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_1_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_1_cost_per_unit_value_or_variable_name`')
-        self._data["Block 1 Cost per Unit Value or Variable Name"] = value
+        self["Block 1 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_2_value_or_variable_name(self):
@@ -4644,19 +1882,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_2_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_2_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_2_value_or_variable_name`')
-        self._data["Block Size 2 Value or Variable Name"] = value
+        self["Block Size 2 Value or Variable Name"] = value
 
     @property
     def block_2_cost_per_unit_value_or_variable_name(self):
@@ -4681,19 +1907,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_2_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_2_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_2_cost_per_unit_value_or_variable_name`')
-        self._data["Block 2 Cost per Unit Value or Variable Name"] = value
+        self["Block 2 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_3_value_or_variable_name(self):
@@ -4719,19 +1933,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_3_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_3_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_3_value_or_variable_name`')
-        self._data["Block Size 3 Value or Variable Name"] = value
+        self["Block Size 3 Value or Variable Name"] = value
 
     @property
     def block_3_cost_per_unit_value_or_variable_name(self):
@@ -4756,19 +1958,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_3_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_3_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_3_cost_per_unit_value_or_variable_name`')
-        self._data["Block 3 Cost per Unit Value or Variable Name"] = value
+        self["Block 3 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_4_value_or_variable_name(self):
@@ -4794,19 +1984,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_4_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_4_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_4_value_or_variable_name`')
-        self._data["Block Size 4 Value or Variable Name"] = value
+        self["Block Size 4 Value or Variable Name"] = value
 
     @property
     def block_4_cost_per_unit_value_or_variable_name(self):
@@ -4831,19 +2009,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_4_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_4_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_4_cost_per_unit_value_or_variable_name`')
-        self._data["Block 4 Cost per Unit Value or Variable Name"] = value
+        self["Block 4 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_5_value_or_variable_name(self):
@@ -4869,19 +2035,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_5_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_5_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_5_value_or_variable_name`')
-        self._data["Block Size 5 Value or Variable Name"] = value
+        self["Block Size 5 Value or Variable Name"] = value
 
     @property
     def block_5_cost_per_unit_value_or_variable_name(self):
@@ -4906,19 +2060,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_5_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_5_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_5_cost_per_unit_value_or_variable_name`')
-        self._data["Block 5 Cost per Unit Value or Variable Name"] = value
+        self["Block 5 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_6_value_or_variable_name(self):
@@ -4944,19 +2086,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_6_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_6_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_6_value_or_variable_name`')
-        self._data["Block Size 6 Value or Variable Name"] = value
+        self["Block Size 6 Value or Variable Name"] = value
 
     @property
     def block_6_cost_per_unit_value_or_variable_name(self):
@@ -4981,19 +2111,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_6_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_6_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_6_cost_per_unit_value_or_variable_name`')
-        self._data["Block 6 Cost per Unit Value or Variable Name"] = value
+        self["Block 6 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_7_value_or_variable_name(self):
@@ -5019,19 +2137,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_7_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_7_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_7_value_or_variable_name`')
-        self._data["Block Size 7 Value or Variable Name"] = value
+        self["Block Size 7 Value or Variable Name"] = value
 
     @property
     def block_7_cost_per_unit_value_or_variable_name(self):
@@ -5056,19 +2162,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_7_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_7_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_7_cost_per_unit_value_or_variable_name`')
-        self._data["Block 7 Cost per Unit Value or Variable Name"] = value
+        self["Block 7 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_8_value_or_variable_name(self):
@@ -5094,19 +2188,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_8_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_8_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_8_value_or_variable_name`')
-        self._data["Block Size 8 Value or Variable Name"] = value
+        self["Block Size 8 Value or Variable Name"] = value
 
     @property
     def block_8_cost_per_unit_value_or_variable_name(self):
@@ -5131,19 +2213,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_8_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_8_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_8_cost_per_unit_value_or_variable_name`')
-        self._data["Block 8 Cost per Unit Value or Variable Name"] = value
+        self["Block 8 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_9_value_or_variable_name(self):
@@ -5169,19 +2239,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_9_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_9_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_9_value_or_variable_name`')
-        self._data["Block Size 9 Value or Variable Name"] = value
+        self["Block Size 9 Value or Variable Name"] = value
 
     @property
     def block_9_cost_per_unit_value_or_variable_name(self):
@@ -5206,19 +2264,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_9_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_9_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_9_cost_per_unit_value_or_variable_name`')
-        self._data["Block 9 Cost per Unit Value or Variable Name"] = value
+        self["Block 9 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_10_value_or_variable_name(self):
@@ -5244,19 +2290,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_10_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_10_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_10_value_or_variable_name`')
-        self._data["Block Size 10 Value or Variable Name"] = value
+        self["Block Size 10 Value or Variable Name"] = value
 
     @property
     def block_10_cost_per_unit_value_or_variable_name(self):
@@ -5281,19 +2315,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_10_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_10_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_10_cost_per_unit_value_or_variable_name`')
-        self._data["Block 10 Cost per Unit Value or Variable Name"] = value
+        self["Block 10 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_11_value_or_variable_name(self):
@@ -5319,19 +2341,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_11_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_11_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_11_value_or_variable_name`')
-        self._data["Block Size 11 Value or Variable Name"] = value
+        self["Block Size 11 Value or Variable Name"] = value
 
     @property
     def block_11_cost_per_unit_value_or_variable_name(self):
@@ -5356,19 +2366,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_11_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_11_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_11_cost_per_unit_value_or_variable_name`')
-        self._data["Block 11 Cost per Unit Value or Variable Name"] = value
+        self["Block 11 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_12_value_or_variable_name(self):
@@ -5394,19 +2392,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_12_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_12_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_12_value_or_variable_name`')
-        self._data["Block Size 12 Value or Variable Name"] = value
+        self["Block Size 12 Value or Variable Name"] = value
 
     @property
     def block_12_cost_per_unit_value_or_variable_name(self):
@@ -5431,19 +2417,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_12_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_12_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_12_cost_per_unit_value_or_variable_name`')
-        self._data["Block 12 Cost per Unit Value or Variable Name"] = value
+        self["Block 12 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_13_value_or_variable_name(self):
@@ -5469,19 +2443,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_13_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_13_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_13_value_or_variable_name`')
-        self._data["Block Size 13 Value or Variable Name"] = value
+        self["Block Size 13 Value or Variable Name"] = value
 
     @property
     def block_13_cost_per_unit_value_or_variable_name(self):
@@ -5506,19 +2468,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_13_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_13_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_13_cost_per_unit_value_or_variable_name`')
-        self._data["Block 13 Cost per Unit Value or Variable Name"] = value
+        self["Block 13 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_14_value_or_variable_name(self):
@@ -5544,19 +2494,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_14_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_14_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_14_value_or_variable_name`')
-        self._data["Block Size 14 Value or Variable Name"] = value
+        self["Block Size 14 Value or Variable Name"] = value
 
     @property
     def block_14_cost_per_unit_value_or_variable_name(self):
@@ -5581,19 +2519,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_14_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_14_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_14_cost_per_unit_value_or_variable_name`')
-        self._data["Block 14 Cost per Unit Value or Variable Name"] = value
+        self["Block 14 Cost per Unit Value or Variable Name"] = value
 
     @property
     def block_size_15_value_or_variable_name(self):
@@ -5619,19 +2545,7 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_size_15_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_size_15_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_size_15_value_or_variable_name`')
-        self._data["Block Size 15 Value or Variable Name"] = value
+        self["Block Size 15 Value or Variable Name"] = value
 
     @property
     def block_15_cost_per_unit_value_or_variable_name(self):
@@ -5656,198 +2570,26 @@ class UtilityCostChargeBlock(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostChargeBlock.block_15_cost_per_unit_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostChargeBlock.block_15_cost_per_unit_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostChargeBlock.block_15_cost_per_unit_value_or_variable_name`')
-        self._data["Block 15 Cost per Unit Value or Variable Name"] = value
+        self["Block 15 Cost per Unit Value or Variable Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field UtilityCostChargeBlock:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field UtilityCostChargeBlock:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for UtilityCostChargeBlock: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for UtilityCostChargeBlock: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class UtilityCostRatchet(object):
+class UtilityCostRatchet(DataObject):
     """ Corresponds to IDD object `UtilityCost:Ratchet`
         Allows the modeling of tariffs that include some type of seasonal ratcheting.
         Ratchets are most common when used with electric demand charges. A ratchet is when a
         utility requires that the demand charge for a month with a low demand may be
         increased to be more consistent with a month that set a higher demand charge.
     """
-    internal_name = "UtilityCost:Ratchet"
-    field_count = 8
-    required_fields = ["Name", "Tariff Name", "Baseline Source Variable", "Adjustment Source Variable"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Ratchet', 'pyname': u'UtilityCostRatchet', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'baseline source variable', {'name': u'Baseline Source Variable', 'pyname': u'baseline_source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'adjustment source variable', {'name': u'Adjustment Source Variable', 'pyname': u'adjustment_source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season from', {'name': u'Season From', 'pyname': u'season_from', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season to', {'name': u'Season To', 'pyname': u'season_to', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'multiplier value or variable name', {'name': u'Multiplier Value or Variable Name', 'pyname': u'multiplier_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'offset value or variable name', {'name': u'Offset Value or Variable Name', 'pyname': u'offset_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Ratchet`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Tariff Name"] = None
-        self._data["Baseline Source Variable"] = None
-        self._data["Adjustment Source Variable"] = None
-        self._data["Season From"] = None
-        self._data["Season To"] = None
-        self._data["Multiplier Value or Variable Name"] = None
-        self._data["Offset Value or Variable Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tariff_name = None
-        else:
-            self.tariff_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.baseline_source_variable = None
-        else:
-            self.baseline_source_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.adjustment_source_variable = None
-        else:
-            self.adjustment_source_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.season_from = None
-        else:
-            self.season_from = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.season_to = None
-        else:
-            self.season_to = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.multiplier_value_or_variable_name = None
-        else:
-            self.multiplier_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.offset_value_or_variable_name = None
-        else:
-            self.offset_value_or_variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -5872,19 +2614,7 @@ class UtilityCostRatchet(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostRatchet.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostRatchet.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostRatchet.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def tariff_name(self):
@@ -5908,19 +2638,7 @@ class UtilityCostRatchet(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostRatchet.tariff_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostRatchet.tariff_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostRatchet.tariff_name`')
-        self._data["Tariff Name"] = value
+        self["Tariff Name"] = value
 
     @property
     def baseline_source_variable(self):
@@ -5947,19 +2665,7 @@ class UtilityCostRatchet(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostRatchet.baseline_source_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostRatchet.baseline_source_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostRatchet.baseline_source_variable`')
-        self._data["Baseline Source Variable"] = value
+        self["Baseline Source Variable"] = value
 
     @property
     def adjustment_source_variable(self):
@@ -5986,19 +2692,7 @@ class UtilityCostRatchet(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostRatchet.adjustment_source_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostRatchet.adjustment_source_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostRatchet.adjustment_source_variable`')
-        self._data["Adjustment Source Variable"] = value
+        self["Adjustment Source Variable"] = value
 
     @property
     def season_from(self):
@@ -6018,63 +2712,13 @@ class UtilityCostRatchet(object):
 
         Args:
             value (str): value for IDD Field `Season From`
-                Accepted values are:
-                      - Annual
-                      - Summer
-                      - Winter
-                      - Spring
-                      - Fall
-                      - Monthly
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostRatchet.season_from`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostRatchet.season_from`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostRatchet.season_from`')
-            vals = {}
-            vals["annual"] = "Annual"
-            vals["summer"] = "Summer"
-            vals["winter"] = "Winter"
-            vals["spring"] = "Spring"
-            vals["fall"] = "Fall"
-            vals["monthly"] = "Monthly"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostRatchet.season_from`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostRatchet.season_from`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Season From"] = value
+        self["Season From"] = value
 
     @property
     def season_to(self):
@@ -6094,61 +2738,13 @@ class UtilityCostRatchet(object):
 
         Args:
             value (str): value for IDD Field `Season To`
-                Accepted values are:
-                      - Annual
-                      - Summer
-                      - Winter
-                      - Spring
-                      - Fall
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostRatchet.season_to`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostRatchet.season_to`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostRatchet.season_to`')
-            vals = {}
-            vals["annual"] = "Annual"
-            vals["summer"] = "Summer"
-            vals["winter"] = "Winter"
-            vals["spring"] = "Spring"
-            vals["fall"] = "Fall"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostRatchet.season_to`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostRatchet.season_to`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Season To"] = value
+        self["Season To"] = value
 
     @property
     def multiplier_value_or_variable_name(self):
@@ -6174,19 +2770,7 @@ class UtilityCostRatchet(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostRatchet.multiplier_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostRatchet.multiplier_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostRatchet.multiplier_value_or_variable_name`')
-        self._data["Multiplier Value or Variable Name"] = value
+        self["Multiplier Value or Variable Name"] = value
 
     @property
     def offset_value_or_variable_name(self):
@@ -6213,251 +2797,23 @@ class UtilityCostRatchet(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostRatchet.offset_value_or_variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostRatchet.offset_value_or_variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostRatchet.offset_value_or_variable_name`')
-        self._data["Offset Value or Variable Name"] = value
+        self["Offset Value or Variable Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field UtilityCostRatchet:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field UtilityCostRatchet:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for UtilityCostRatchet: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for UtilityCostRatchet: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class UtilityCostVariable(object):
+class UtilityCostVariable(DataObject):
     """ Corresponds to IDD object `UtilityCost:Variable`
         Allows for the direct entry of monthly values into a utility tariff variable.
     """
-    internal_name = "UtilityCost:Variable"
-    field_count = 15
-    required_fields = ["Name", "Tariff Name", "Variable Type"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Variable', 'pyname': u'UtilityCostVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable type', {'name': u'Variable Type', 'pyname': u'variable_type', 'default': u'Dimensionless', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'january value', {'name': u'January Value', 'pyname': u'january_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'february value', {'name': u'February Value', 'pyname': u'february_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'march value', {'name': u'March Value', 'pyname': u'march_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'april value', {'name': u'April Value', 'pyname': u'april_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'may value', {'name': u'May Value', 'pyname': u'may_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'june value', {'name': u'June Value', 'pyname': u'june_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'july value', {'name': u'July Value', 'pyname': u'july_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'august value', {'name': u'August Value', 'pyname': u'august_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'september value', {'name': u'September Value', 'pyname': u'september_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'october value', {'name': u'October Value', 'pyname': u'october_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'november value', {'name': u'November Value', 'pyname': u'november_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'december value', {'name': u'December Value', 'pyname': u'december_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Variable`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Tariff Name"] = None
-        self._data["Variable Type"] = None
-        self._data["January Value"] = None
-        self._data["February Value"] = None
-        self._data["March Value"] = None
-        self._data["April Value"] = None
-        self._data["May Value"] = None
-        self._data["June Value"] = None
-        self._data["July Value"] = None
-        self._data["August Value"] = None
-        self._data["September Value"] = None
-        self._data["October Value"] = None
-        self._data["November Value"] = None
-        self._data["December Value"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tariff_name = None
-        else:
-            self.tariff_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.variable_type = None
-        else:
-            self.variable_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.january_value = None
-        else:
-            self.january_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.february_value = None
-        else:
-            self.february_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.march_value = None
-        else:
-            self.march_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.april_value = None
-        else:
-            self.april_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.may_value = None
-        else:
-            self.may_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.june_value = None
-        else:
-            self.june_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.july_value = None
-        else:
-            self.july_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.august_value = None
-        else:
-            self.august_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.september_value = None
-        else:
-            self.september_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.october_value = None
-        else:
-            self.october_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.november_value = None
-        else:
-            self.november_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.december_value = None
-        else:
-            self.december_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -6480,19 +2836,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostVariable.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostVariable.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostVariable.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def tariff_name(self):
@@ -6516,19 +2860,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostVariable.tariff_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostVariable.tariff_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostVariable.tariff_name`')
-        self._data["Tariff Name"] = value
+        self["Tariff Name"] = value
 
     @property
     def variable_type(self):
@@ -6545,11 +2877,6 @@ class UtilityCostVariable(object):
 
         Args:
             value (str): value for IDD Field `Variable Type`
-                Accepted values are:
-                      - Energy
-                      - Power
-                      - Dimensionless
-                      - Currency
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6557,48 +2884,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostVariable.variable_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostVariable.variable_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostVariable.variable_type`')
-            vals = {}
-            vals["energy"] = "Energy"
-            vals["power"] = "Power"
-            vals["dimensionless"] = "Dimensionless"
-            vals["currency"] = "Currency"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `UtilityCostVariable.variable_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `UtilityCostVariable.variable_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Variable Type"] = value
+        self["Variable Type"] = value
 
     @property
     def january_value(self):
@@ -6621,13 +2907,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.january_value`'.format(value))
-        self._data["January Value"] = value
+        self["January Value"] = value
 
     @property
     def february_value(self):
@@ -6650,13 +2930,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.february_value`'.format(value))
-        self._data["February Value"] = value
+        self["February Value"] = value
 
     @property
     def march_value(self):
@@ -6679,13 +2953,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.march_value`'.format(value))
-        self._data["March Value"] = value
+        self["March Value"] = value
 
     @property
     def april_value(self):
@@ -6708,13 +2976,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.april_value`'.format(value))
-        self._data["April Value"] = value
+        self["April Value"] = value
 
     @property
     def may_value(self):
@@ -6737,13 +2999,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.may_value`'.format(value))
-        self._data["May Value"] = value
+        self["May Value"] = value
 
     @property
     def june_value(self):
@@ -6766,13 +3022,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.june_value`'.format(value))
-        self._data["June Value"] = value
+        self["June Value"] = value
 
     @property
     def july_value(self):
@@ -6795,13 +3045,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.july_value`'.format(value))
-        self._data["July Value"] = value
+        self["July Value"] = value
 
     @property
     def august_value(self):
@@ -6824,13 +3068,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.august_value`'.format(value))
-        self._data["August Value"] = value
+        self["August Value"] = value
 
     @property
     def september_value(self):
@@ -6853,13 +3091,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.september_value`'.format(value))
-        self._data["September Value"] = value
+        self["September Value"] = value
 
     @property
     def october_value(self):
@@ -6882,13 +3114,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.october_value`'.format(value))
-        self._data["October Value"] = value
+        self["October Value"] = value
 
     @property
     def november_value(self):
@@ -6911,13 +3137,7 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.november_value`'.format(value))
-        self._data["November Value"] = value
+        self["November Value"] = value
 
     @property
     def december_value(self):
@@ -6940,97 +3160,10 @@ class UtilityCostVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `UtilityCostVariable.december_value`'.format(value))
-        self._data["December Value"] = value
+        self["December Value"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field UtilityCostVariable:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field UtilityCostVariable:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for UtilityCostVariable: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for UtilityCostVariable: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class UtilityCostComputation(object):
+class UtilityCostComputation(DataObject):
     """ Corresponds to IDD object `UtilityCost:Computation`
         The object lists a series of computations that are used to perform the utility bill
         calculation. The object is only used for complex tariffs that cannot be modeled any
@@ -7038,287 +3171,16 @@ class UtilityCostComputation(object):
         should be avoided. If UtilityCost:Computation is used, it must contain references
         to all objects involved in the rate in the order that they should be computed.
     """
-    internal_name = "UtilityCost:Computation"
-    field_count = 32
-    required_fields = ["Name", "Tariff Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Computation', 'pyname': u'UtilityCostComputation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 1', {'name': u'Compute Step 1', 'pyname': u'compute_step_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 2', {'name': u'Compute Step 2', 'pyname': u'compute_step_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 3', {'name': u'Compute Step 3', 'pyname': u'compute_step_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 4', {'name': u'Compute Step 4', 'pyname': u'compute_step_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 5', {'name': u'Compute Step 5', 'pyname': u'compute_step_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 6', {'name': u'Compute Step 6', 'pyname': u'compute_step_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 7', {'name': u'Compute Step 7', 'pyname': u'compute_step_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 8', {'name': u'Compute Step 8', 'pyname': u'compute_step_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 9', {'name': u'Compute Step 9', 'pyname': u'compute_step_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 10', {'name': u'Compute Step 10', 'pyname': u'compute_step_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 11', {'name': u'Compute Step 11', 'pyname': u'compute_step_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 12', {'name': u'Compute Step 12', 'pyname': u'compute_step_12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 13', {'name': u'Compute Step 13', 'pyname': u'compute_step_13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 14', {'name': u'Compute Step 14', 'pyname': u'compute_step_14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 15', {'name': u'Compute Step 15', 'pyname': u'compute_step_15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 16', {'name': u'Compute Step 16', 'pyname': u'compute_step_16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 17', {'name': u'Compute Step 17', 'pyname': u'compute_step_17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 18', {'name': u'Compute Step 18', 'pyname': u'compute_step_18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 19', {'name': u'Compute Step 19', 'pyname': u'compute_step_19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 20', {'name': u'Compute Step 20', 'pyname': u'compute_step_20', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 21', {'name': u'Compute Step 21', 'pyname': u'compute_step_21', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 22', {'name': u'Compute Step 22', 'pyname': u'compute_step_22', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 23', {'name': u'Compute Step 23', 'pyname': u'compute_step_23', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 24', {'name': u'Compute Step 24', 'pyname': u'compute_step_24', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 25', {'name': u'Compute Step 25', 'pyname': u'compute_step_25', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 26', {'name': u'Compute Step 26', 'pyname': u'compute_step_26', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 27', {'name': u'Compute Step 27', 'pyname': u'compute_step_27', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 28', {'name': u'Compute Step 28', 'pyname': u'compute_step_28', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 29', {'name': u'Compute Step 29', 'pyname': u'compute_step_29', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 30', {'name': u'Compute Step 30', 'pyname': u'compute_step_30', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Computation`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Tariff Name"] = None
-        self._data["Compute Step 1"] = None
-        self._data["Compute Step 2"] = None
-        self._data["Compute Step 3"] = None
-        self._data["Compute Step 4"] = None
-        self._data["Compute Step 5"] = None
-        self._data["Compute Step 6"] = None
-        self._data["Compute Step 7"] = None
-        self._data["Compute Step 8"] = None
-        self._data["Compute Step 9"] = None
-        self._data["Compute Step 10"] = None
-        self._data["Compute Step 11"] = None
-        self._data["Compute Step 12"] = None
-        self._data["Compute Step 13"] = None
-        self._data["Compute Step 14"] = None
-        self._data["Compute Step 15"] = None
-        self._data["Compute Step 16"] = None
-        self._data["Compute Step 17"] = None
-        self._data["Compute Step 18"] = None
-        self._data["Compute Step 19"] = None
-        self._data["Compute Step 20"] = None
-        self._data["Compute Step 21"] = None
-        self._data["Compute Step 22"] = None
-        self._data["Compute Step 23"] = None
-        self._data["Compute Step 24"] = None
-        self._data["Compute Step 25"] = None
-        self._data["Compute Step 26"] = None
-        self._data["Compute Step 27"] = None
-        self._data["Compute Step 28"] = None
-        self._data["Compute Step 29"] = None
-        self._data["Compute Step 30"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tariff_name = None
-        else:
-            self.tariff_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_1 = None
-        else:
-            self.compute_step_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_2 = None
-        else:
-            self.compute_step_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_3 = None
-        else:
-            self.compute_step_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_4 = None
-        else:
-            self.compute_step_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_5 = None
-        else:
-            self.compute_step_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_6 = None
-        else:
-            self.compute_step_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_7 = None
-        else:
-            self.compute_step_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_8 = None
-        else:
-            self.compute_step_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_9 = None
-        else:
-            self.compute_step_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_10 = None
-        else:
-            self.compute_step_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_11 = None
-        else:
-            self.compute_step_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_12 = None
-        else:
-            self.compute_step_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_13 = None
-        else:
-            self.compute_step_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_14 = None
-        else:
-            self.compute_step_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_15 = None
-        else:
-            self.compute_step_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_16 = None
-        else:
-            self.compute_step_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_17 = None
-        else:
-            self.compute_step_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_18 = None
-        else:
-            self.compute_step_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_19 = None
-        else:
-            self.compute_step_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_20 = None
-        else:
-            self.compute_step_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_21 = None
-        else:
-            self.compute_step_21 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_22 = None
-        else:
-            self.compute_step_22 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_23 = None
-        else:
-            self.compute_step_23 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_24 = None
-        else:
-            self.compute_step_24 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_25 = None
-        else:
-            self.compute_step_25 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_26 = None
-        else:
-            self.compute_step_26 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_27 = None
-        else:
-            self.compute_step_27 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_28 = None
-        else:
-            self.compute_step_28 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_29 = None
-        else:
-            self.compute_step_29 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.compute_step_30 = None
-        else:
-            self.compute_step_30 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -7341,19 +3203,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def tariff_name(self):
@@ -7377,19 +3227,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.tariff_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.tariff_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.tariff_name`')
-        self._data["Tariff Name"] = value
+        self["Tariff Name"] = value
 
     @property
     def compute_step_1(self):
@@ -7414,19 +3252,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_1`')
-        self._data["Compute Step 1"] = value
+        self["Compute Step 1"] = value
 
     @property
     def compute_step_2(self):
@@ -7449,19 +3275,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_2`')
-        self._data["Compute Step 2"] = value
+        self["Compute Step 2"] = value
 
     @property
     def compute_step_3(self):
@@ -7484,19 +3298,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_3`')
-        self._data["Compute Step 3"] = value
+        self["Compute Step 3"] = value
 
     @property
     def compute_step_4(self):
@@ -7519,19 +3321,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_4`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_4`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_4`')
-        self._data["Compute Step 4"] = value
+        self["Compute Step 4"] = value
 
     @property
     def compute_step_5(self):
@@ -7554,19 +3344,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_5`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_5`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_5`')
-        self._data["Compute Step 5"] = value
+        self["Compute Step 5"] = value
 
     @property
     def compute_step_6(self):
@@ -7589,19 +3367,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_6`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_6`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_6`')
-        self._data["Compute Step 6"] = value
+        self["Compute Step 6"] = value
 
     @property
     def compute_step_7(self):
@@ -7624,19 +3390,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_7`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_7`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_7`')
-        self._data["Compute Step 7"] = value
+        self["Compute Step 7"] = value
 
     @property
     def compute_step_8(self):
@@ -7659,19 +3413,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_8`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_8`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_8`')
-        self._data["Compute Step 8"] = value
+        self["Compute Step 8"] = value
 
     @property
     def compute_step_9(self):
@@ -7694,19 +3436,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_9`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_9`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_9`')
-        self._data["Compute Step 9"] = value
+        self["Compute Step 9"] = value
 
     @property
     def compute_step_10(self):
@@ -7729,19 +3459,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_10`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_10`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_10`')
-        self._data["Compute Step 10"] = value
+        self["Compute Step 10"] = value
 
     @property
     def compute_step_11(self):
@@ -7764,19 +3482,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_11`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_11`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_11`')
-        self._data["Compute Step 11"] = value
+        self["Compute Step 11"] = value
 
     @property
     def compute_step_12(self):
@@ -7799,19 +3505,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_12`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_12`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_12`')
-        self._data["Compute Step 12"] = value
+        self["Compute Step 12"] = value
 
     @property
     def compute_step_13(self):
@@ -7834,19 +3528,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_13`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_13`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_13`')
-        self._data["Compute Step 13"] = value
+        self["Compute Step 13"] = value
 
     @property
     def compute_step_14(self):
@@ -7869,19 +3551,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_14`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_14`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_14`')
-        self._data["Compute Step 14"] = value
+        self["Compute Step 14"] = value
 
     @property
     def compute_step_15(self):
@@ -7904,19 +3574,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_15`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_15`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_15`')
-        self._data["Compute Step 15"] = value
+        self["Compute Step 15"] = value
 
     @property
     def compute_step_16(self):
@@ -7939,19 +3597,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_16`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_16`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_16`')
-        self._data["Compute Step 16"] = value
+        self["Compute Step 16"] = value
 
     @property
     def compute_step_17(self):
@@ -7974,19 +3620,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_17`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_17`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_17`')
-        self._data["Compute Step 17"] = value
+        self["Compute Step 17"] = value
 
     @property
     def compute_step_18(self):
@@ -8009,19 +3643,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_18`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_18`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_18`')
-        self._data["Compute Step 18"] = value
+        self["Compute Step 18"] = value
 
     @property
     def compute_step_19(self):
@@ -8044,19 +3666,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_19`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_19`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_19`')
-        self._data["Compute Step 19"] = value
+        self["Compute Step 19"] = value
 
     @property
     def compute_step_20(self):
@@ -8079,19 +3689,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_20`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_20`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_20`')
-        self._data["Compute Step 20"] = value
+        self["Compute Step 20"] = value
 
     @property
     def compute_step_21(self):
@@ -8114,19 +3712,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_21`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_21`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_21`')
-        self._data["Compute Step 21"] = value
+        self["Compute Step 21"] = value
 
     @property
     def compute_step_22(self):
@@ -8149,19 +3735,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_22`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_22`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_22`')
-        self._data["Compute Step 22"] = value
+        self["Compute Step 22"] = value
 
     @property
     def compute_step_23(self):
@@ -8184,19 +3758,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_23`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_23`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_23`')
-        self._data["Compute Step 23"] = value
+        self["Compute Step 23"] = value
 
     @property
     def compute_step_24(self):
@@ -8219,19 +3781,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_24`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_24`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_24`')
-        self._data["Compute Step 24"] = value
+        self["Compute Step 24"] = value
 
     @property
     def compute_step_25(self):
@@ -8254,19 +3804,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_25`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_25`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_25`')
-        self._data["Compute Step 25"] = value
+        self["Compute Step 25"] = value
 
     @property
     def compute_step_26(self):
@@ -8289,19 +3827,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_26`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_26`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_26`')
-        self._data["Compute Step 26"] = value
+        self["Compute Step 26"] = value
 
     @property
     def compute_step_27(self):
@@ -8324,19 +3850,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_27`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_27`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_27`')
-        self._data["Compute Step 27"] = value
+        self["Compute Step 27"] = value
 
     @property
     def compute_step_28(self):
@@ -8359,19 +3873,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_28`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_28`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_28`')
-        self._data["Compute Step 28"] = value
+        self["Compute Step 28"] = value
 
     @property
     def compute_step_29(self):
@@ -8394,19 +3896,7 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_29`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_29`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_29`')
-        self._data["Compute Step 29"] = value
+        self["Compute Step 29"] = value
 
     @property
     def compute_step_30(self):
@@ -8429,103 +3919,10 @@ class UtilityCostComputation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `UtilityCostComputation.compute_step_30`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `UtilityCostComputation.compute_step_30`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `UtilityCostComputation.compute_step_30`')
-        self._data["Compute Step 30"] = value
+        self["Compute Step 30"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field UtilityCostComputation:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field UtilityCostComputation:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for UtilityCostComputation: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for UtilityCostComputation: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class LifeCycleCostParameters(object):
+class LifeCycleCostParameters(DataObject):
     """ Corresponds to IDD object `LifeCycleCost:Parameters`
         Provides inputs related to the overall life-cycle analysis. It establishes many of
         the assumptions used in computing the present value. It is important that when
@@ -8533,135 +3930,16 @@ class LifeCycleCostParameters(object):
         LifeCycleCost:Parameters objects are the same for all the simulations. When this
         object is present the tabular report file will contain the Life-Cycle Cost Report.
     """
-    internal_name = "LifeCycleCost:Parameters"
-    field_count = 13
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 11
-    extensible_keys = []
+    schema = {'min-fields': 11, 'name': u'LifeCycleCost:Parameters', 'pyname': u'LifeCycleCostParameters', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'discounting convention', {'name': u'Discounting Convention', 'pyname': u'discounting_convention', 'default': u'EndOfYear', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inflation approach', {'name': u'Inflation Approach', 'pyname': u'inflation_approach', 'default': u'ConstantDollar', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'real discount rate', {'name': u'Real Discount Rate', 'pyname': u'real_discount_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'nominal discount rate', {'name': u'Nominal Discount Rate', 'pyname': u'nominal_discount_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'inflation', {'name': u'Inflation', 'pyname': u'inflation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'base date month', {'name': u'Base Date Month', 'pyname': u'base_date_month', 'default': u'January', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'base date year', {'name': u'Base Date Year', 'pyname': u'base_date_year', 'maximum': 2100, 'required-field': False, 'autosizable': False, 'minimum': 1900, 'autocalculatable': False, 'type': u'integer'}), (u'service date month', {'name': u'Service Date Month', 'pyname': u'service_date_month', 'default': u'January', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'service date year', {'name': u'Service Date Year', 'pyname': u'service_date_year', 'maximum': 2100, 'required-field': False, 'autosizable': False, 'minimum': 1900, 'autocalculatable': False, 'type': u'integer'}), (u'length of study period in years', {'name': u'Length of Study Period in Years', 'pyname': u'length_of_study_period_in_years', 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'tax rate', {'name': u'Tax rate', 'pyname': u'tax_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'depreciation method', {'name': u'Depreciation Method', 'pyname': u'depreciation_method', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LifeCycleCost:Parameters`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Discounting Convention"] = None
-        self._data["Inflation Approach"] = None
-        self._data["Real Discount Rate"] = None
-        self._data["Nominal Discount Rate"] = None
-        self._data["Inflation"] = None
-        self._data["Base Date Month"] = None
-        self._data["Base Date Year"] = None
-        self._data["Service Date Month"] = None
-        self._data["Service Date Year"] = None
-        self._data["Length of Study Period in Years"] = None
-        self._data["Tax rate"] = None
-        self._data["Depreciation Method"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.discounting_convention = None
-        else:
-            self.discounting_convention = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inflation_approach = None
-        else:
-            self.inflation_approach = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.real_discount_rate = None
-        else:
-            self.real_discount_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_discount_rate = None
-        else:
-            self.nominal_discount_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inflation = None
-        else:
-            self.inflation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.base_date_month = None
-        else:
-            self.base_date_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.base_date_year = None
-        else:
-            self.base_date_year = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.service_date_month = None
-        else:
-            self.service_date_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.service_date_year = None
-        else:
-            self.service_date_year = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.length_of_study_period_in_years = None
-        else:
-            self.length_of_study_period_in_years = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tax_rate = None
-        else:
-            self.tax_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.depreciation_method = None
-        else:
-            self.depreciation_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -8684,19 +3962,7 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostParameters.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostParameters.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostParameters.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def discounting_convention(self):
@@ -8716,10 +3982,6 @@ class LifeCycleCostParameters(object):
 
         Args:
             value (str): value for IDD Field `Discounting Convention`
-                Accepted values are:
-                      - EndOfYear
-                      - MidYear
-                      - BeginningOfYear
                 Default value: EndOfYear
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8727,47 +3989,7 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostParameters.discounting_convention`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostParameters.discounting_convention`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostParameters.discounting_convention`')
-            vals = {}
-            vals["endofyear"] = "EndOfYear"
-            vals["midyear"] = "MidYear"
-            vals["beginningofyear"] = "BeginningOfYear"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostParameters.discounting_convention`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostParameters.discounting_convention`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Discounting Convention"] = value
+        self["Discounting Convention"] = value
 
     @property
     def inflation_approach(self):
@@ -8788,9 +4010,6 @@ class LifeCycleCostParameters(object):
 
         Args:
             value (str): value for IDD Field `Inflation Approach`
-                Accepted values are:
-                      - ConstantDollar
-                      - CurrentDollar
                 Default value: ConstantDollar
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8798,46 +4017,7 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostParameters.inflation_approach`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostParameters.inflation_approach`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostParameters.inflation_approach`')
-            vals = {}
-            vals["constantdollar"] = "ConstantDollar"
-            vals["currentdollar"] = "CurrentDollar"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostParameters.inflation_approach`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostParameters.inflation_approach`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Inflation Approach"] = value
+        self["Inflation Approach"] = value
 
     @property
     def real_discount_rate(self):
@@ -8864,13 +4044,7 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `LifeCycleCostParameters.real_discount_rate`'.format(value))
-        self._data["Real Discount Rate"] = value
+        self["Real Discount Rate"] = value
 
     @property
     def nominal_discount_rate(self):
@@ -8897,13 +4071,7 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `LifeCycleCostParameters.nominal_discount_rate`'.format(value))
-        self._data["Nominal Discount Rate"] = value
+        self["Nominal Discount Rate"] = value
 
     @property
     def inflation(self):
@@ -8928,13 +4096,7 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `LifeCycleCostParameters.inflation`'.format(value))
-        self._data["Inflation"] = value
+        self["Inflation"] = value
 
     @property
     def base_date_month(self):
@@ -8952,19 +4114,6 @@ class LifeCycleCostParameters(object):
 
         Args:
             value (str): value for IDD Field `Base Date Month`
-                Accepted values are:
-                      - January
-                      - February
-                      - March
-                      - April
-                      - May
-                      - June
-                      - July
-                      - August
-                      - September
-                      - October
-                      - November
-                      - December
                 Default value: January
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8972,56 +4121,7 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostParameters.base_date_month`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostParameters.base_date_month`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostParameters.base_date_month`')
-            vals = {}
-            vals["january"] = "January"
-            vals["february"] = "February"
-            vals["march"] = "March"
-            vals["april"] = "April"
-            vals["may"] = "May"
-            vals["june"] = "June"
-            vals["july"] = "July"
-            vals["august"] = "August"
-            vals["september"] = "September"
-            vals["october"] = "October"
-            vals["november"] = "November"
-            vals["december"] = "December"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostParameters.base_date_month`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostParameters.base_date_month`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Base Date Month"] = value
+        self["Base Date Month"] = value
 
     @property
     def base_date_year(self):
@@ -9048,26 +4148,7 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `LifeCycleCostParameters.base_date_year`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `LifeCycleCostParameters.base_date_year`'.format(value))
-            if value < 1900:
-                raise ValueError('value need to be greater or equal 1900 '
-                                 'for field `LifeCycleCostParameters.base_date_year`')
-            if value > 2100:
-                raise ValueError('value need to be smaller 2100 '
-                                 'for field `LifeCycleCostParameters.base_date_year`')
-        self._data["Base Date Year"] = value
+        self["Base Date Year"] = value
 
     @property
     def service_date_month(self):
@@ -9088,19 +4169,6 @@ class LifeCycleCostParameters(object):
 
         Args:
             value (str): value for IDD Field `Service Date Month`
-                Accepted values are:
-                      - January
-                      - February
-                      - March
-                      - April
-                      - May
-                      - June
-                      - July
-                      - August
-                      - September
-                      - October
-                      - November
-                      - December
                 Default value: January
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9108,56 +4176,7 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostParameters.service_date_month`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostParameters.service_date_month`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostParameters.service_date_month`')
-            vals = {}
-            vals["january"] = "January"
-            vals["february"] = "February"
-            vals["march"] = "March"
-            vals["april"] = "April"
-            vals["may"] = "May"
-            vals["june"] = "June"
-            vals["july"] = "July"
-            vals["august"] = "August"
-            vals["september"] = "September"
-            vals["october"] = "October"
-            vals["november"] = "November"
-            vals["december"] = "December"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostParameters.service_date_month`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostParameters.service_date_month`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Service Date Month"] = value
+        self["Service Date Month"] = value
 
     @property
     def service_date_year(self):
@@ -9183,26 +4202,7 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `LifeCycleCostParameters.service_date_year`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `LifeCycleCostParameters.service_date_year`'.format(value))
-            if value < 1900:
-                raise ValueError('value need to be greater or equal 1900 '
-                                 'for field `LifeCycleCostParameters.service_date_year`')
-            if value > 2100:
-                raise ValueError('value need to be smaller 2100 '
-                                 'for field `LifeCycleCostParameters.service_date_year`')
-        self._data["Service Date Year"] = value
+        self["Service Date Year"] = value
 
     @property
     def length_of_study_period_in_years(self):
@@ -9230,26 +4230,7 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `LifeCycleCostParameters.length_of_study_period_in_years`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `LifeCycleCostParameters.length_of_study_period_in_years`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `LifeCycleCostParameters.length_of_study_period_in_years`')
-            if value > 100:
-                raise ValueError('value need to be smaller 100 '
-                                 'for field `LifeCycleCostParameters.length_of_study_period_in_years`')
-        self._data["Length of Study Period in Years"] = value
+        self["Length of Study Period in Years"] = value
 
     @property
     def tax_rate(self):
@@ -9274,23 +4255,13 @@ class LifeCycleCostParameters(object):
 
         Args:
             value (float): value for IDD Field `Tax rate`
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `LifeCycleCostParameters.tax_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `LifeCycleCostParameters.tax_rate`')
-        self._data["Tax rate"] = value
+        self["Tax rate"] = value
 
     @property
     def depreciation_method(self):
@@ -9310,18 +4281,6 @@ class LifeCycleCostParameters(object):
 
         Args:
             value (str): value for IDD Field `Depreciation Method`
-                Accepted values are:
-                      - ModifiedAcceleratedCostRecoverySystem-3year
-                      - ModifiedAcceleratedCostRecoverySystem-5year
-                      - ModifiedAcceleratedCostRecoverySystem-7year
-                      - ModifiedAcceleratedCostRecoverySystem-10year
-                      - ModifiedAcceleratedCostRecoverySystem-15year
-                      - ModifiedAcceleratedCostRecoverySystem-20year
-                      - StraightLine-27year
-                      - StraightLine-31year
-                      - StraightLine-39year
-                      - StraightLine-40year
-                      - None
                 Default value: None
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9329,241 +4288,25 @@ class LifeCycleCostParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostParameters.depreciation_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostParameters.depreciation_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostParameters.depreciation_method`')
-            vals = {}
-            vals["modifiedacceleratedcostrecoverysystem-3year"] = "ModifiedAcceleratedCostRecoverySystem-3year"
-            vals["modifiedacceleratedcostrecoverysystem-5year"] = "ModifiedAcceleratedCostRecoverySystem-5year"
-            vals["modifiedacceleratedcostrecoverysystem-7year"] = "ModifiedAcceleratedCostRecoverySystem-7year"
-            vals["modifiedacceleratedcostrecoverysystem-10year"] = "ModifiedAcceleratedCostRecoverySystem-10year"
-            vals["modifiedacceleratedcostrecoverysystem-15year"] = "ModifiedAcceleratedCostRecoverySystem-15year"
-            vals["modifiedacceleratedcostrecoverysystem-20year"] = "ModifiedAcceleratedCostRecoverySystem-20year"
-            vals["straightline-27year"] = "StraightLine-27year"
-            vals["straightline-31year"] = "StraightLine-31year"
-            vals["straightline-39year"] = "StraightLine-39year"
-            vals["straightline-40year"] = "StraightLine-40year"
-            vals["none"] = "None"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostParameters.depreciation_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostParameters.depreciation_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Depreciation Method"] = value
+        self["Depreciation Method"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field LifeCycleCostParameters:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field LifeCycleCostParameters:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for LifeCycleCostParameters: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for LifeCycleCostParameters: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class LifeCycleCostRecurringCosts(object):
+class LifeCycleCostRecurringCosts(DataObject):
     """ Corresponds to IDD object `LifeCycleCost:RecurringCosts`
         Recurring costs are costs that repeat over time on a regular schedule during the
         study period. If costs associated with equipment do repeat but not on a regular
         schedule, use LifeCycleCost:NonrecurringCost objects instead.
     """
-    internal_name = "LifeCycleCost:RecurringCosts"
-    field_count = 9
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 7
-    extensible_keys = []
+    schema = {'min-fields': 7, 'name': u'LifeCycleCost:RecurringCosts', 'pyname': u'LifeCycleCostRecurringCosts', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'category', {'name': u'Category', 'pyname': u'category', 'default': u'Maintenance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cost', {'name': u'Cost', 'pyname': u'cost', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'start of costs', {'name': u'Start of Costs', 'pyname': u'start_of_costs', 'default': u'ServicePeriod', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'years from start', {'name': u'Years from Start', 'pyname': u'years_from_start', 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'months from start', {'name': u'Months from Start', 'pyname': u'months_from_start', 'maximum': 1200, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'repeat period years', {'name': u'Repeat Period Years', 'pyname': u'repeat_period_years', 'default': 1, 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'repeat period months', {'name': u'Repeat Period Months', 'pyname': u'repeat_period_months', 'default': 0, 'maximum': 1200, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'annual escalation rate', {'name': u'Annual escalation rate', 'pyname': u'annual_escalation_rate', 'maximum': 0.3, 'required-field': False, 'autosizable': False, 'minimum': -0.3, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LifeCycleCost:RecurringCosts`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Category"] = None
-        self._data["Cost"] = None
-        self._data["Start of Costs"] = None
-        self._data["Years from Start"] = None
-        self._data["Months from Start"] = None
-        self._data["Repeat Period Years"] = None
-        self._data["Repeat Period Months"] = None
-        self._data["Annual escalation rate"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.category = None
-        else:
-            self.category = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cost = None
-        else:
-            self.cost = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.start_of_costs = None
-        else:
-            self.start_of_costs = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.years_from_start = None
-        else:
-            self.years_from_start = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.months_from_start = None
-        else:
-            self.months_from_start = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.repeat_period_years = None
-        else:
-            self.repeat_period_years = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.repeat_period_months = None
-        else:
-            self.repeat_period_months = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.annual_escalation_rate = None
-        else:
-            self.annual_escalation_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -9586,19 +4329,7 @@ class LifeCycleCostRecurringCosts(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostRecurringCosts.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostRecurringCosts.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostRecurringCosts.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def category(self):
@@ -9615,14 +4346,6 @@ class LifeCycleCostRecurringCosts(object):
 
         Args:
             value (str): value for IDD Field `Category`
-                Accepted values are:
-                      - Maintenance
-                      - Repair
-                      - Operation
-                      - Replacement
-                      - MinorOverhaul
-                      - MajorOverhaul
-                      - OtherOperational
                 Default value: Maintenance
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9630,51 +4353,7 @@ class LifeCycleCostRecurringCosts(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostRecurringCosts.category`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostRecurringCosts.category`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostRecurringCosts.category`')
-            vals = {}
-            vals["maintenance"] = "Maintenance"
-            vals["repair"] = "Repair"
-            vals["operation"] = "Operation"
-            vals["replacement"] = "Replacement"
-            vals["minoroverhaul"] = "MinorOverhaul"
-            vals["majoroverhaul"] = "MajorOverhaul"
-            vals["otheroperational"] = "OtherOperational"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostRecurringCosts.category`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostRecurringCosts.category`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Category"] = value
+        self["Category"] = value
 
     @property
     def cost(self):
@@ -9700,13 +4379,7 @@ class LifeCycleCostRecurringCosts(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `LifeCycleCostRecurringCosts.cost`'.format(value))
-        self._data["Cost"] = value
+        self["Cost"] = value
 
     @property
     def start_of_costs(self):
@@ -9725,9 +4398,6 @@ class LifeCycleCostRecurringCosts(object):
 
         Args:
             value (str): value for IDD Field `Start of Costs`
-                Accepted values are:
-                      - ServicePeriod
-                      - BasePeriod
                 Default value: ServicePeriod
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9735,46 +4405,7 @@ class LifeCycleCostRecurringCosts(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostRecurringCosts.start_of_costs`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostRecurringCosts.start_of_costs`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostRecurringCosts.start_of_costs`')
-            vals = {}
-            vals["serviceperiod"] = "ServicePeriod"
-            vals["baseperiod"] = "BasePeriod"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostRecurringCosts.start_of_costs`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostRecurringCosts.start_of_costs`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Start of Costs"] = value
+        self["Start of Costs"] = value
 
     @property
     def years_from_start(self):
@@ -9795,7 +4426,6 @@ class LifeCycleCostRecurringCosts(object):
 
         Args:
             value (int): value for IDD Field `Years from Start`
-                value >= 0
                 value <= 100
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9803,26 +4433,7 @@ class LifeCycleCostRecurringCosts(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `LifeCycleCostRecurringCosts.years_from_start`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `LifeCycleCostRecurringCosts.years_from_start`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `LifeCycleCostRecurringCosts.years_from_start`')
-            if value > 100:
-                raise ValueError('value need to be smaller 100 '
-                                 'for field `LifeCycleCostRecurringCosts.years_from_start`')
-        self._data["Years from Start"] = value
+        self["Years from Start"] = value
 
     @property
     def months_from_start(self):
@@ -9844,7 +4455,6 @@ class LifeCycleCostRecurringCosts(object):
 
         Args:
             value (int): value for IDD Field `Months from Start`
-                value >= 0
                 value <= 1200
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9852,26 +4462,7 @@ class LifeCycleCostRecurringCosts(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `LifeCycleCostRecurringCosts.months_from_start`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `LifeCycleCostRecurringCosts.months_from_start`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `LifeCycleCostRecurringCosts.months_from_start`')
-            if value > 1200:
-                raise ValueError('value need to be smaller 1200 '
-                                 'for field `LifeCycleCostRecurringCosts.months_from_start`')
-        self._data["Months from Start"] = value
+        self["Months from Start"] = value
 
     @property
     def repeat_period_years(self):
@@ -9893,7 +4484,6 @@ class LifeCycleCostRecurringCosts(object):
         Args:
             value (int): value for IDD Field `Repeat Period Years`
                 Default value: 1
-                value >= 0
                 value <= 100
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9901,26 +4491,7 @@ class LifeCycleCostRecurringCosts(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `LifeCycleCostRecurringCosts.repeat_period_years`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `LifeCycleCostRecurringCosts.repeat_period_years`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `LifeCycleCostRecurringCosts.repeat_period_years`')
-            if value > 100:
-                raise ValueError('value need to be smaller 100 '
-                                 'for field `LifeCycleCostRecurringCosts.repeat_period_years`')
-        self._data["Repeat Period Years"] = value
+        self["Repeat Period Years"] = value
 
     @property
     def repeat_period_months(self):
@@ -9932,7 +4503,7 @@ class LifeCycleCostRecurringCosts(object):
         return self._data["Repeat Period Months"]
 
     @repeat_period_months.setter
-    def repeat_period_months(self, value=0):
+    def repeat_period_months(self, value=None):
         """  Corresponds to IDD Field `Repeat Period Months`
         This field and the Repeat Period Years field indicate how much time elapses between
         reoccurrences of the cost. Only integers should be entered representing whole years.
@@ -9940,8 +4511,6 @@ class LifeCycleCostRecurringCosts(object):
 
         Args:
             value (int): value for IDD Field `Repeat Period Months`
-                Default value: 0
-                value >= 0
                 value <= 1200
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9949,26 +4518,7 @@ class LifeCycleCostRecurringCosts(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `LifeCycleCostRecurringCosts.repeat_period_months`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `LifeCycleCostRecurringCosts.repeat_period_months`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `LifeCycleCostRecurringCosts.repeat_period_months`')
-            if value > 1200:
-                raise ValueError('value need to be smaller 1200 '
-                                 'for field `LifeCycleCostRecurringCosts.repeat_period_months`')
-        self._data["Repeat Period Months"] = value
+        self["Repeat Period Months"] = value
 
     @property
     def annual_escalation_rate(self):
@@ -9996,181 +4546,25 @@ class LifeCycleCostRecurringCosts(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `LifeCycleCostRecurringCosts.annual_escalation_rate`'.format(value))
-            if value < -0.3:
-                raise ValueError('value need to be greater or equal -0.3 '
-                                 'for field `LifeCycleCostRecurringCosts.annual_escalation_rate`')
-            if value > 0.3:
-                raise ValueError('value need to be smaller 0.3 '
-                                 'for field `LifeCycleCostRecurringCosts.annual_escalation_rate`')
-        self._data["Annual escalation rate"] = value
+        self["Annual escalation rate"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field LifeCycleCostRecurringCosts:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field LifeCycleCostRecurringCosts:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for LifeCycleCostRecurringCosts: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for LifeCycleCostRecurringCosts: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class LifeCycleCostNonrecurringCost(object):
+class LifeCycleCostNonrecurringCost(DataObject):
     """ Corresponds to IDD object `LifeCycleCost:NonrecurringCost`
         A non-recurring cost happens only once during the study period. For costs that occur
         more than once during the study period on a regular schedule, use the
         LifeCycleCost:RecurringCost object.
     """
-    internal_name = "LifeCycleCost:NonrecurringCost"
-    field_count = 6
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'LifeCycleCost:NonrecurringCost', 'pyname': u'LifeCycleCostNonrecurringCost', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'category', {'name': u'Category', 'pyname': u'category', 'default': u'Construction', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cost', {'name': u'Cost', 'pyname': u'cost', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'start of costs', {'name': u'Start of Costs', 'pyname': u'start_of_costs', 'default': u'ServicePeriod', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'years from start', {'name': u'Years from Start', 'pyname': u'years_from_start', 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'months from start', {'name': u'Months from Start', 'pyname': u'months_from_start', 'maximum': 1200, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LifeCycleCost:NonrecurringCost`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Category"] = None
-        self._data["Cost"] = None
-        self._data["Start of Costs"] = None
-        self._data["Years from Start"] = None
-        self._data["Months from Start"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.category = None
-        else:
-            self.category = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cost = None
-        else:
-            self.cost = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.start_of_costs = None
-        else:
-            self.start_of_costs = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.years_from_start = None
-        else:
-            self.years_from_start = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.months_from_start = None
-        else:
-            self.months_from_start = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -10193,19 +4587,7 @@ class LifeCycleCostNonrecurringCost(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostNonrecurringCost.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostNonrecurringCost.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostNonrecurringCost.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def category(self):
@@ -10222,10 +4604,6 @@ class LifeCycleCostNonrecurringCost(object):
 
         Args:
             value (str): value for IDD Field `Category`
-                Accepted values are:
-                      - Construction
-                      - Salvage
-                      - OtherCapital
                 Default value: Construction
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10233,47 +4611,7 @@ class LifeCycleCostNonrecurringCost(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostNonrecurringCost.category`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostNonrecurringCost.category`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostNonrecurringCost.category`')
-            vals = {}
-            vals["construction"] = "Construction"
-            vals["salvage"] = "Salvage"
-            vals["othercapital"] = "OtherCapital"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostNonrecurringCost.category`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostNonrecurringCost.category`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Category"] = value
+        self["Category"] = value
 
     @property
     def cost(self):
@@ -10300,13 +4638,7 @@ class LifeCycleCostNonrecurringCost(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `LifeCycleCostNonrecurringCost.cost`'.format(value))
-        self._data["Cost"] = value
+        self["Cost"] = value
 
     @property
     def start_of_costs(self):
@@ -10326,9 +4658,6 @@ class LifeCycleCostNonrecurringCost(object):
 
         Args:
             value (str): value for IDD Field `Start of Costs`
-                Accepted values are:
-                      - ServicePeriod
-                      - BasePeriod
                 Default value: ServicePeriod
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10336,46 +4665,7 @@ class LifeCycleCostNonrecurringCost(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostNonrecurringCost.start_of_costs`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostNonrecurringCost.start_of_costs`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostNonrecurringCost.start_of_costs`')
-            vals = {}
-            vals["serviceperiod"] = "ServicePeriod"
-            vals["baseperiod"] = "BasePeriod"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostNonrecurringCost.start_of_costs`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostNonrecurringCost.start_of_costs`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Start of Costs"] = value
+        self["Start of Costs"] = value
 
     @property
     def years_from_start(self):
@@ -10396,7 +4686,6 @@ class LifeCycleCostNonrecurringCost(object):
 
         Args:
             value (int): value for IDD Field `Years from Start`
-                value >= 0
                 value <= 100
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10404,26 +4693,7 @@ class LifeCycleCostNonrecurringCost(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `LifeCycleCostNonrecurringCost.years_from_start`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `LifeCycleCostNonrecurringCost.years_from_start`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `LifeCycleCostNonrecurringCost.years_from_start`')
-            if value > 100:
-                raise ValueError('value need to be smaller 100 '
-                                 'for field `LifeCycleCostNonrecurringCost.years_from_start`')
-        self._data["Years from Start"] = value
+        self["Years from Start"] = value
 
     @property
     def months_from_start(self):
@@ -10445,7 +4715,6 @@ class LifeCycleCostNonrecurringCost(object):
 
         Args:
             value (int): value for IDD Field `Months from Start`
-                value >= 0
                 value <= 1200
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10453,180 +4722,25 @@ class LifeCycleCostNonrecurringCost(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `LifeCycleCostNonrecurringCost.months_from_start`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `LifeCycleCostNonrecurringCost.months_from_start`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `LifeCycleCostNonrecurringCost.months_from_start`')
-            if value > 1200:
-                raise ValueError('value need to be smaller 1200 '
-                                 'for field `LifeCycleCostNonrecurringCost.months_from_start`')
-        self._data["Months from Start"] = value
+        self["Months from Start"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field LifeCycleCostNonrecurringCost:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field LifeCycleCostNonrecurringCost:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for LifeCycleCostNonrecurringCost: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for LifeCycleCostNonrecurringCost: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class LifeCycleCostUsePriceEscalation(object):
+class LifeCycleCostUsePriceEscalation(DataObject):
     """ Corresponds to IDD object `LifeCycleCost:UsePriceEscalation`
         Life cycle cost escalation factors. The values for this object may be found in the
         annual supplement to NIST Handbook 135 in Tables Ca-1 to Ca-5 and are included in an
         EnergyPlus dataset file.
     """
-    internal_name = "LifeCycleCost:UsePriceEscalation"
-    field_count = 4
-    required_fields = ["Name", "Resource"]
-    extensible_fields = 1
-    format = None
-    min_fields = 0
-    extensible_keys = ["Year 1 Escalation"]
+    schema = {'min-fields': 0, 'name': u'LifeCycleCost:UsePriceEscalation', 'pyname': u'LifeCycleCostUsePriceEscalation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'resource', {'name': u'Resource', 'pyname': u'resource', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'escalation start year', {'name': u'Escalation Start Year', 'pyname': u'escalation_start_year', 'maximum': 2100, 'required-field': False, 'autosizable': False, 'minimum': 1900, 'autocalculatable': False, 'type': u'integer'}), (u'escalation start month', {'name': u'Escalation Start Month', 'pyname': u'escalation_start_month', 'default': u'January', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'year 1 escalation', {'name': u'Year 1 Escalation', 'pyname': u'year_1_escalation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LifeCycleCost:UsePriceEscalation`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Resource"] = None
-        self._data["Escalation Start Year"] = None
-        self._data["Escalation Start Month"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.resource = None
-        else:
-            self.resource = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.escalation_start_year = None
-        else:
-            self.escalation_start_year = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.escalation_start_month = None
-        else:
-            self.escalation_start_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -10653,19 +4767,7 @@ class LifeCycleCostUsePriceEscalation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostUsePriceEscalation.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostUsePriceEscalation.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostUsePriceEscalation.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def resource(self):
@@ -10682,83 +4784,13 @@ class LifeCycleCostUsePriceEscalation(object):
 
         Args:
             value (str): value for IDD Field `Resource`
-                Accepted values are:
-                      - Electricity
-                      - ElectricityPurchased
-                      - ElectricityProduced
-                      - ElectricitySurplusSold
-                      - ElectricityNet
-                      - NaturalGas
-                      - Steam
-                      - Gasoline
-                      - Diesel
-                      - Coal
-                      - FuelOil#1
-                      - FuelOil#2
-                      - Propane
-                      - OtherFuel1
-                      - OtherFuel2
-                      - Water
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostUsePriceEscalation.resource`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostUsePriceEscalation.resource`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostUsePriceEscalation.resource`')
-            vals = {}
-            vals["electricity"] = "Electricity"
-            vals["electricitypurchased"] = "ElectricityPurchased"
-            vals["electricityproduced"] = "ElectricityProduced"
-            vals["electricitysurplussold"] = "ElectricitySurplusSold"
-            vals["electricitynet"] = "ElectricityNet"
-            vals["naturalgas"] = "NaturalGas"
-            vals["steam"] = "Steam"
-            vals["gasoline"] = "Gasoline"
-            vals["diesel"] = "Diesel"
-            vals["coal"] = "Coal"
-            vals["fueloil#1"] = "FuelOil#1"
-            vals["fueloil#2"] = "FuelOil#2"
-            vals["propane"] = "Propane"
-            vals["otherfuel1"] = "OtherFuel1"
-            vals["otherfuel2"] = "OtherFuel2"
-            vals["water"] = "Water"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostUsePriceEscalation.resource`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostUsePriceEscalation.resource`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Resource"] = value
+        self["Resource"] = value
 
     @property
     def escalation_start_year(self):
@@ -10786,26 +4818,7 @@ class LifeCycleCostUsePriceEscalation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `LifeCycleCostUsePriceEscalation.escalation_start_year`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `LifeCycleCostUsePriceEscalation.escalation_start_year`'.format(value))
-            if value < 1900:
-                raise ValueError('value need to be greater or equal 1900 '
-                                 'for field `LifeCycleCostUsePriceEscalation.escalation_start_year`')
-            if value > 2100:
-                raise ValueError('value need to be smaller 2100 '
-                                 'for field `LifeCycleCostUsePriceEscalation.escalation_start_year`')
-        self._data["Escalation Start Year"] = value
+        self["Escalation Start Year"] = value
 
     @property
     def escalation_start_month(self):
@@ -10825,19 +4838,6 @@ class LifeCycleCostUsePriceEscalation(object):
 
         Args:
             value (str): value for IDD Field `Escalation Start Month`
-                Accepted values are:
-                      - January
-                      - February
-                      - March
-                      - April
-                      - May
-                      - June
-                      - July
-                      - August
-                      - September
-                      - October
-                      - November
-                      - December
                 Default value: January
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10845,56 +4845,7 @@ class LifeCycleCostUsePriceEscalation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostUsePriceEscalation.escalation_start_month`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostUsePriceEscalation.escalation_start_month`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostUsePriceEscalation.escalation_start_month`')
-            vals = {}
-            vals["january"] = "January"
-            vals["february"] = "February"
-            vals["march"] = "March"
-            vals["april"] = "April"
-            vals["may"] = "May"
-            vals["june"] = "June"
-            vals["july"] = "July"
-            vals["august"] = "August"
-            vals["september"] = "September"
-            vals["october"] = "October"
-            vals["november"] = "November"
-            vals["december"] = "December"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostUsePriceEscalation.escalation_start_month`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostUsePriceEscalation.escalation_start_month`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Escalation Start Month"] = value
+        self["Escalation Start Month"] = value
 
     def add_extensible(self,
                        year_1_escalation=None,
@@ -10908,7 +4859,8 @@ class LifeCycleCostUsePriceEscalation(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_year_1_escalation(year_1_escalation))
+        year_1_escalation = self.check_value("Year 1 Escalation", year_1_escalation)
+        vals.append(year_1_escalation)
         self._data["extensibles"].append(vals)
 
     @property
@@ -10917,100 +4869,8 @@ class LifeCycleCostUsePriceEscalation(object):
         """
         return self._data["extensibles"]
 
-    def _check_year_1_escalation(self, value):
-        """ Validates falue of field `Year 1 Escalation`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `LifeCycleCostUsePriceEscalation.year_1_escalation`'.format(value))
-        return value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field LifeCycleCostUsePriceEscalation:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field LifeCycleCostUsePriceEscalation:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for LifeCycleCostUsePriceEscalation: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for LifeCycleCostUsePriceEscalation: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class LifeCycleCostUseAdjustment(object):
+class LifeCycleCostUseAdjustment(DataObject):
     """ Corresponds to IDD object `LifeCycleCost:UseAdjustment`
         Used by advanced users to adjust the energy or water use costs for future years. This
         should not be used for compensating for inflation but should only be used to increase
@@ -11018,55 +4878,16 @@ class LifeCycleCostUseAdjustment(object):
         anticipated changes in the future function of the building. The adjustments begin at
         the start of the service period.
     """
-    internal_name = "LifeCycleCost:UseAdjustment"
-    field_count = 2
-    required_fields = ["Name", "Resource"]
-    extensible_fields = 1
-    format = None
-    min_fields = 0
-    extensible_keys = ["Year 1 Multiplier"]
+    schema = {'min-fields': 0, 'name': u'LifeCycleCost:UseAdjustment', 'pyname': u'LifeCycleCostUseAdjustment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'resource', {'name': u'Resource', 'pyname': u'resource', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'year 1 multiplier', {'name': u'Year 1 Multiplier', 'pyname': u'year_1_multiplier', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LifeCycleCost:UseAdjustment`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Resource"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.resource = None
-        else:
-            self.resource = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -11089,19 +4910,7 @@ class LifeCycleCostUseAdjustment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostUseAdjustment.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostUseAdjustment.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostUseAdjustment.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def resource(self):
@@ -11118,83 +4927,13 @@ class LifeCycleCostUseAdjustment(object):
 
         Args:
             value (str): value for IDD Field `Resource`
-                Accepted values are:
-                      - Electricity
-                      - ElectricityPurchased
-                      - ElectricityProduced
-                      - ElectricitySurplusSold
-                      - ElectricityNet
-                      - NaturalGas
-                      - Steam
-                      - Gasoline
-                      - Diesel
-                      - Coal
-                      - FuelOil#1
-                      - FuelOil#2
-                      - Propane
-                      - OtherFuel1
-                      - OtherFuel2
-                      - Water
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LifeCycleCostUseAdjustment.resource`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LifeCycleCostUseAdjustment.resource`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LifeCycleCostUseAdjustment.resource`')
-            vals = {}
-            vals["electricity"] = "Electricity"
-            vals["electricitypurchased"] = "ElectricityPurchased"
-            vals["electricityproduced"] = "ElectricityProduced"
-            vals["electricitysurplussold"] = "ElectricitySurplusSold"
-            vals["electricitynet"] = "ElectricityNet"
-            vals["naturalgas"] = "NaturalGas"
-            vals["steam"] = "Steam"
-            vals["gasoline"] = "Gasoline"
-            vals["diesel"] = "Diesel"
-            vals["coal"] = "Coal"
-            vals["fueloil#1"] = "FuelOil#1"
-            vals["fueloil#2"] = "FuelOil#2"
-            vals["propane"] = "Propane"
-            vals["otherfuel1"] = "OtherFuel1"
-            vals["otherfuel2"] = "OtherFuel2"
-            vals["water"] = "Water"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `LifeCycleCostUseAdjustment.resource`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `LifeCycleCostUseAdjustment.resource`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Resource"] = value
+        self["Resource"] = value
 
     def add_extensible(self,
                        year_1_multiplier=None,
@@ -11208,7 +4947,8 @@ class LifeCycleCostUseAdjustment(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_year_1_multiplier(year_1_multiplier))
+        year_1_multiplier = self.check_value("Year 1 Multiplier", year_1_multiplier)
+        vals.append(year_1_multiplier)
         self._data["extensibles"].append(vals)
 
     @property
@@ -11216,96 +4956,3 @@ class LifeCycleCostUseAdjustment(object):
         """ Get list of all extensibles
         """
         return self._data["extensibles"]
-
-    def _check_year_1_multiplier(self, value):
-        """ Validates falue of field `Year 1 Multiplier`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `LifeCycleCostUseAdjustment.year_1_multiplier`'.format(value))
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field LifeCycleCostUseAdjustment:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field LifeCycleCostUseAdjustment:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for LifeCycleCostUseAdjustment: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for LifeCycleCostUseAdjustment: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])

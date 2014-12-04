@@ -1,11 +1,14 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class SolarCollectorPerformanceFlatPlate(object):
+
+
+class SolarCollectorPerformanceFlatPlate(DataObject):
     """ Corresponds to IDD object `SolarCollectorPerformance:FlatPlate`
         Thermal and optical performance parameters for a single flat plate solar collector
         module. These parameters are based on the testing methodologies described in ASHRAE
@@ -13,111 +16,16 @@ class SolarCollectorPerformanceFlatPlate(object):
         Directory of SRCC Certified Solar Collector Ratings. See EnergyPlus DataSets file
         SolarCollectors.idf.
     """
-    internal_name = "SolarCollectorPerformance:FlatPlate"
-    field_count = 10
-    required_fields = ["Name", "Gross Area", "Test Fluid", "Test Flow Rate", "Test Correlation Type", "Coefficient 1 of Efficiency Equation", "Coefficient 2 of Efficiency Equation"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:FlatPlate', 'pyname': u'SolarCollectorPerformanceFlatPlate', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'gross area', {'name': u'Gross Area', 'pyname': u'gross_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'test fluid', {'name': u'Test Fluid', 'pyname': u'test_fluid', 'default': u'Water', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'test flow rate', {'name': u'Test Flow Rate', 'pyname': u'test_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'test correlation type', {'name': u'Test Correlation Type', 'pyname': u'test_correlation_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'coefficient 1 of efficiency equation', {'name': u'Coefficient 1 of Efficiency Equation', 'pyname': u'coefficient_1_of_efficiency_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'coefficient 2 of efficiency equation', {'name': u'Coefficient 2 of Efficiency Equation', 'pyname': u'coefficient_2_of_efficiency_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'coefficient 3 of efficiency equation', {'name': u'Coefficient 3 of Efficiency Equation', 'pyname': u'coefficient_3_of_efficiency_equation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K2'}), (u'coefficient 2 of incident angle modifier', {'name': u'Coefficient 2 of Incident Angle Modifier', 'pyname': u'coefficient_2_of_incident_angle_modifier', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient 3 of incident angle modifier', {'name': u'Coefficient 3 of Incident Angle Modifier', 'pyname': u'coefficient_3_of_incident_angle_modifier', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollectorPerformance:FlatPlate`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Gross Area"] = None
-        self._data["Test Fluid"] = None
-        self._data["Test Flow Rate"] = None
-        self._data["Test Correlation Type"] = None
-        self._data["Coefficient 1 of Efficiency Equation"] = None
-        self._data["Coefficient 2 of Efficiency Equation"] = None
-        self._data["Coefficient 3 of Efficiency Equation"] = None
-        self._data["Coefficient 2 of Incident Angle Modifier"] = None
-        self._data["Coefficient 3 of Incident Angle Modifier"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.gross_area = None
-        else:
-            self.gross_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.test_fluid = None
-        else:
-            self.test_fluid = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.test_flow_rate = None
-        else:
-            self.test_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.test_correlation_type = None
-        else:
-            self.test_correlation_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_1_of_efficiency_equation = None
-        else:
-            self.coefficient_1_of_efficiency_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_2_of_efficiency_equation = None
-        else:
-            self.coefficient_2_of_efficiency_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_3_of_efficiency_equation = None
-        else:
-            self.coefficient_3_of_efficiency_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_2_of_incident_angle_modifier = None
-        else:
-            self.coefficient_2_of_incident_angle_modifier = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_3_of_incident_angle_modifier = None
-        else:
-            self.coefficient_3_of_incident_angle_modifier = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -140,19 +48,7 @@ class SolarCollectorPerformanceFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorPerformanceFlatPlate.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorPerformanceFlatPlate.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorPerformanceFlatPlate.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def gross_area(self):
@@ -170,23 +66,13 @@ class SolarCollectorPerformanceFlatPlate(object):
         Args:
             value (float): value for IDD Field `Gross Area`
                 Units: m2
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceFlatPlate.gross_area`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceFlatPlate.gross_area`')
-        self._data["Gross Area"] = value
+        self["Gross Area"] = value
 
     @property
     def test_fluid(self):
@@ -203,8 +89,6 @@ class SolarCollectorPerformanceFlatPlate(object):
 
         Args:
             value (str): value for IDD Field `Test Fluid`
-                Accepted values are:
-                      - Water
                 Default value: Water
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -212,45 +96,7 @@ class SolarCollectorPerformanceFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorPerformanceFlatPlate.test_fluid`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorPerformanceFlatPlate.test_fluid`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorPerformanceFlatPlate.test_fluid`')
-            vals = {}
-            vals["water"] = "Water"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SolarCollectorPerformanceFlatPlate.test_fluid`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SolarCollectorPerformanceFlatPlate.test_fluid`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Test Fluid"] = value
+        self["Test Fluid"] = value
 
     @property
     def test_flow_rate(self):
@@ -268,23 +114,13 @@ class SolarCollectorPerformanceFlatPlate(object):
         Args:
             value (float): value for IDD Field `Test Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceFlatPlate.test_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceFlatPlate.test_flow_rate`')
-        self._data["Test Flow Rate"] = value
+        self["Test Flow Rate"] = value
 
     @property
     def test_correlation_type(self):
@@ -301,57 +137,13 @@ class SolarCollectorPerformanceFlatPlate(object):
 
         Args:
             value (str): value for IDD Field `Test Correlation Type`
-                Accepted values are:
-                      - Inlet
-                      - Average
-                      - Outlet
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorPerformanceFlatPlate.test_correlation_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorPerformanceFlatPlate.test_correlation_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorPerformanceFlatPlate.test_correlation_type`')
-            vals = {}
-            vals["inlet"] = "Inlet"
-            vals["average"] = "Average"
-            vals["outlet"] = "Outlet"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SolarCollectorPerformanceFlatPlate.test_correlation_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SolarCollectorPerformanceFlatPlate.test_correlation_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Test Correlation Type"] = value
+        self["Test Correlation Type"] = value
 
     @property
     def coefficient_1_of_efficiency_equation(self):
@@ -376,13 +168,7 @@ class SolarCollectorPerformanceFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceFlatPlate.coefficient_1_of_efficiency_equation`'.format(value))
-        self._data["Coefficient 1 of Efficiency Equation"] = value
+        self["Coefficient 1 of Efficiency Equation"] = value
 
     @property
     def coefficient_2_of_efficiency_equation(self):
@@ -407,13 +193,7 @@ class SolarCollectorPerformanceFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceFlatPlate.coefficient_2_of_efficiency_equation`'.format(value))
-        self._data["Coefficient 2 of Efficiency Equation"] = value
+        self["Coefficient 2 of Efficiency Equation"] = value
 
     @property
     def coefficient_3_of_efficiency_equation(self):
@@ -438,13 +218,7 @@ class SolarCollectorPerformanceFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceFlatPlate.coefficient_3_of_efficiency_equation`'.format(value))
-        self._data["Coefficient 3 of Efficiency Equation"] = value
+        self["Coefficient 3 of Efficiency Equation"] = value
 
     @property
     def coefficient_2_of_incident_angle_modifier(self):
@@ -468,13 +242,7 @@ class SolarCollectorPerformanceFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceFlatPlate.coefficient_2_of_incident_angle_modifier`'.format(value))
-        self._data["Coefficient 2 of Incident Angle Modifier"] = value
+        self["Coefficient 2 of Incident Angle Modifier"] = value
 
     @property
     def coefficient_3_of_incident_angle_modifier(self):
@@ -498,97 +266,10 @@ class SolarCollectorPerformanceFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceFlatPlate.coefficient_3_of_incident_angle_modifier`'.format(value))
-        self._data["Coefficient 3 of Incident Angle Modifier"] = value
+        self["Coefficient 3 of Incident Angle Modifier"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SolarCollectorPerformanceFlatPlate:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SolarCollectorPerformanceFlatPlate:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SolarCollectorPerformanceFlatPlate: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SolarCollectorPerformanceFlatPlate: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SolarCollectorFlatPlateWater(object):
+class SolarCollectorFlatPlateWater(DataObject):
     """ Corresponds to IDD object `SolarCollector:FlatPlate:Water`
         Flat plate water solar collector (single glazed, unglazed, or evacuated tube).
         Thermal and optical properties are taken from the referenced
@@ -596,79 +277,16 @@ class SolarCollectorFlatPlateWater(object):
         are taken from the referenced building surface or shading surface. The collector
         surface participates normally in all shading calculations.
     """
-    internal_name = "SolarCollector:FlatPlate:Water"
-    field_count = 6
-    required_fields = ["Name", "SolarCollectorPerformance Name", "Surface Name", "Inlet Node Name", "Outlet Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SolarCollector:FlatPlate:Water', 'pyname': u'SolarCollectorFlatPlateWater', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'solarcollectorperformance name', {'name': u'SolarCollectorPerformance Name', 'pyname': u'solarcollectorperformance_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:FlatPlate:Water`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["SolarCollectorPerformance Name"] = None
-        self._data["Surface Name"] = None
-        self._data["Inlet Node Name"] = None
-        self._data["Outlet Node Name"] = None
-        self._data["Maximum Flow Rate"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.solarcollectorperformance_name = None
-        else:
-            self.solarcollectorperformance_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name = None
-        else:
-            self.surface_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inlet_node_name = None
-        else:
-            self.inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outlet_node_name = None
-        else:
-            self.outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_flow_rate = None
-        else:
-            self.maximum_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -691,19 +309,7 @@ class SolarCollectorFlatPlateWater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlateWater.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlateWater.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlateWater.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def solarcollectorperformance_name(self):
@@ -726,19 +332,7 @@ class SolarCollectorFlatPlateWater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlateWater.solarcollectorperformance_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlateWater.solarcollectorperformance_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlateWater.solarcollectorperformance_name`')
-        self._data["SolarCollectorPerformance Name"] = value
+        self["SolarCollectorPerformance Name"] = value
 
     @property
     def surface_name(self):
@@ -761,19 +355,7 @@ class SolarCollectorFlatPlateWater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlateWater.surface_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlateWater.surface_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlateWater.surface_name`')
-        self._data["Surface Name"] = value
+        self["Surface Name"] = value
 
     @property
     def inlet_node_name(self):
@@ -796,19 +378,7 @@ class SolarCollectorFlatPlateWater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlateWater.inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlateWater.inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlateWater.inlet_node_name`')
-        self._data["Inlet Node Name"] = value
+        self["Inlet Node Name"] = value
 
     @property
     def outlet_node_name(self):
@@ -831,19 +401,7 @@ class SolarCollectorFlatPlateWater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlateWater.outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlateWater.outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlateWater.outlet_node_name`')
-        self._data["Outlet Node Name"] = value
+        self["Outlet Node Name"] = value
 
     @property
     def maximum_flow_rate(self):
@@ -861,216 +419,30 @@ class SolarCollectorFlatPlateWater(object):
         Args:
             value (float): value for IDD Field `Maximum Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorFlatPlateWater.maximum_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorFlatPlateWater.maximum_flow_rate`')
-        self._data["Maximum Flow Rate"] = value
+        self["Maximum Flow Rate"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SolarCollectorFlatPlateWater:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SolarCollectorFlatPlateWater:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SolarCollectorFlatPlateWater: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SolarCollectorFlatPlateWater: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SolarCollectorFlatPlatePhotovoltaicThermal(object):
+class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
     """ Corresponds to IDD object `SolarCollector:FlatPlate:PhotovoltaicThermal`
         Models hybrid photovoltaic-thermal (PVT) solar collectors that convert incident solar
         energy into both electricity and useful thermal energy by heating air or water.
     """
-    internal_name = "SolarCollector:FlatPlate:PhotovoltaicThermal"
-    field_count = 10
-    required_fields = ["Surface Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SolarCollector:FlatPlate:PhotovoltaicThermal', 'pyname': u'SolarCollectorFlatPlatePhotovoltaicThermal', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'photovoltaic-thermal model performance name', {'name': u'Photovoltaic-Thermal Model Performance Name', 'pyname': u'photovoltaicthermal_model_performance_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'photovoltaic name', {'name': u'Photovoltaic Name', 'pyname': u'photovoltaic_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal working fluid type', {'name': u'Thermal Working Fluid Type', 'pyname': u'thermal_working_fluid_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water inlet node name', {'name': u'Water Inlet Node Name', 'pyname': u'water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water outlet node name', {'name': u'Water Outlet Node Name', 'pyname': u'water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:FlatPlate:PhotovoltaicThermal`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Surface Name"] = None
-        self._data["Photovoltaic-Thermal Model Performance Name"] = None
-        self._data["Photovoltaic Name"] = None
-        self._data["Thermal Working Fluid Type"] = None
-        self._data["Water Inlet Node Name"] = None
-        self._data["Water Outlet Node Name"] = None
-        self._data["Air Inlet Node Name"] = None
-        self._data["Air Outlet Node Name"] = None
-        self._data["Design Flow Rate"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name = None
-        else:
-            self.surface_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.photovoltaicthermal_model_performance_name = None
-        else:
-            self.photovoltaicthermal_model_performance_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.photovoltaic_name = None
-        else:
-            self.photovoltaic_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.thermal_working_fluid_type = None
-        else:
-            self.thermal_working_fluid_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_inlet_node_name = None
-        else:
-            self.water_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_outlet_node_name = None
-        else:
-            self.water_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_inlet_node_name = None
-        else:
-            self.air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_outlet_node_name = None
-        else:
-            self.air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_flow_rate = None
-        else:
-            self.design_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1093,19 +465,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlatePhotovoltaicThermal.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def surface_name(self):
@@ -1128,19 +488,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlatePhotovoltaicThermal.surface_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.surface_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.surface_name`')
-        self._data["Surface Name"] = value
+        self["Surface Name"] = value
 
     @property
     def photovoltaicthermal_model_performance_name(self):
@@ -1163,19 +511,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlatePhotovoltaicThermal.photovoltaicthermal_model_performance_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.photovoltaicthermal_model_performance_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.photovoltaicthermal_model_performance_name`')
-        self._data["Photovoltaic-Thermal Model Performance Name"] = value
+        self["Photovoltaic-Thermal Model Performance Name"] = value
 
     @property
     def photovoltaic_name(self):
@@ -1199,19 +535,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlatePhotovoltaicThermal.photovoltaic_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.photovoltaic_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.photovoltaic_name`')
-        self._data["Photovoltaic Name"] = value
+        self["Photovoltaic Name"] = value
 
     @property
     def thermal_working_fluid_type(self):
@@ -1228,55 +552,13 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
 
         Args:
             value (str): value for IDD Field `Thermal Working Fluid Type`
-                Accepted values are:
-                      - Water
-                      - Air
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlatePhotovoltaicThermal.thermal_working_fluid_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.thermal_working_fluid_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.thermal_working_fluid_type`')
-            vals = {}
-            vals["water"] = "Water"
-            vals["air"] = "Air"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SolarCollectorFlatPlatePhotovoltaicThermal.thermal_working_fluid_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SolarCollectorFlatPlatePhotovoltaicThermal.thermal_working_fluid_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Thermal Working Fluid Type"] = value
+        self["Thermal Working Fluid Type"] = value
 
     @property
     def water_inlet_node_name(self):
@@ -1299,19 +581,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlatePhotovoltaicThermal.water_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.water_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.water_inlet_node_name`')
-        self._data["Water Inlet Node Name"] = value
+        self["Water Inlet Node Name"] = value
 
     @property
     def water_outlet_node_name(self):
@@ -1334,19 +604,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlatePhotovoltaicThermal.water_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.water_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.water_outlet_node_name`')
-        self._data["Water Outlet Node Name"] = value
+        self["Water Outlet Node Name"] = value
 
     @property
     def air_inlet_node_name(self):
@@ -1369,19 +627,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlatePhotovoltaicThermal.air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.air_inlet_node_name`')
-        self._data["Air Inlet Node Name"] = value
+        self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
@@ -1404,19 +650,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorFlatPlatePhotovoltaicThermal.air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.air_outlet_node_name`')
-        self._data["Air Outlet Node Name"] = value
+        self["Air Outlet Node Name"] = value
 
     @property
     def design_flow_rate(self):
@@ -1440,185 +674,23 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Design Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `SolarCollectorFlatPlatePhotovoltaicThermal.design_flow_rate`'.format(value))
-                    self._data["Design Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `SolarCollectorFlatPlatePhotovoltaicThermal.design_flow_rate`'.format(value))
-        self._data["Design Flow Rate"] = value
+        self["Design Flow Rate"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SolarCollectorFlatPlatePhotovoltaicThermal:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SolarCollectorFlatPlatePhotovoltaicThermal:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SolarCollectorFlatPlatePhotovoltaicThermal: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SolarCollectorFlatPlatePhotovoltaicThermal: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
+class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
     """ Corresponds to IDD object `SolarCollectorPerformance:PhotovoltaicThermal:Simple`
         Thermal performance parameters for a hybrid photovoltaic-thermal (PVT) solar collector.
     """
-    internal_name = "SolarCollectorPerformance:PhotovoltaicThermal:Simple"
-    field_count = 6
-    required_fields = ["Fraction of Surface Area with Active Thermal Collector"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:PhotovoltaicThermal:Simple', 'pyname': u'SolarCollectorPerformancePhotovoltaicThermalSimple', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fraction of surface area with active thermal collector', {'name': u'Fraction of Surface Area with Active Thermal Collector', 'pyname': u'fraction_of_surface_area_with_active_thermal_collector', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'thermal conversion efficiency input mode type', {'name': u'Thermal Conversion Efficiency Input Mode Type', 'pyname': u'thermal_conversion_efficiency_input_mode_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'value for thermal conversion efficiency if fixed', {'name': u'Value for Thermal Conversion Efficiency if Fixed', 'pyname': u'value_for_thermal_conversion_efficiency_if_fixed', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'thermal conversion efficiency schedule name', {'name': u'Thermal Conversion Efficiency Schedule Name', 'pyname': u'thermal_conversion_efficiency_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'front surface emittance', {'name': u'Front Surface Emittance', 'pyname': u'front_surface_emittance', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollectorPerformance:PhotovoltaicThermal:Simple`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Fraction of Surface Area with Active Thermal Collector"] = None
-        self._data["Thermal Conversion Efficiency Input Mode Type"] = None
-        self._data["Value for Thermal Conversion Efficiency if Fixed"] = None
-        self._data["Thermal Conversion Efficiency Schedule Name"] = None
-        self._data["Front Surface Emittance"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fraction_of_surface_area_with_active_thermal_collector = None
-        else:
-            self.fraction_of_surface_area_with_active_thermal_collector = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.thermal_conversion_efficiency_input_mode_type = None
-        else:
-            self.thermal_conversion_efficiency_input_mode_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.value_for_thermal_conversion_efficiency_if_fixed = None
-        else:
-            self.value_for_thermal_conversion_efficiency_if_fixed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.thermal_conversion_efficiency_schedule_name = None
-        else:
-            self.thermal_conversion_efficiency_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.front_surface_emittance = None
-        else:
-            self.front_surface_emittance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1641,19 +713,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorPerformancePhotovoltaicThermalSimple.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def fraction_of_surface_area_with_active_thermal_collector(self):
@@ -1671,7 +731,6 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
         Args:
             value (float): value for IDD Field `Fraction of Surface Area with Active Thermal Collector`
                 Units: dimensionless
-                value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1679,19 +738,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformancePhotovoltaicThermalSimple.fraction_of_surface_area_with_active_thermal_collector`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.fraction_of_surface_area_with_active_thermal_collector`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.fraction_of_surface_area_with_active_thermal_collector`')
-        self._data["Fraction of Surface Area with Active Thermal Collector"] = value
+        self["Fraction of Surface Area with Active Thermal Collector"] = value
 
     @property
     def thermal_conversion_efficiency_input_mode_type(self):
@@ -1708,55 +755,13 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
 
         Args:
             value (str): value for IDD Field `Thermal Conversion Efficiency Input Mode Type`
-                Accepted values are:
-                      - Fixed
-                      - Scheduled
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_input_mode_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_input_mode_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_input_mode_type`')
-            vals = {}
-            vals["fixed"] = "Fixed"
-            vals["scheduled"] = "Scheduled"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_input_mode_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_input_mode_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Thermal Conversion Efficiency Input Mode Type"] = value
+        self["Thermal Conversion Efficiency Input Mode Type"] = value
 
     @property
     def value_for_thermal_conversion_efficiency_if_fixed(self):
@@ -1774,7 +779,6 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
 
         Args:
             value (float): value for IDD Field `Value for Thermal Conversion Efficiency if Fixed`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1782,19 +786,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformancePhotovoltaicThermalSimple.value_for_thermal_conversion_efficiency_if_fixed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.value_for_thermal_conversion_efficiency_if_fixed`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.value_for_thermal_conversion_efficiency_if_fixed`')
-        self._data["Value for Thermal Conversion Efficiency if Fixed"] = value
+        self["Value for Thermal Conversion Efficiency if Fixed"] = value
 
     @property
     def thermal_conversion_efficiency_schedule_name(self):
@@ -1817,19 +809,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.thermal_conversion_efficiency_schedule_name`')
-        self._data["Thermal Conversion Efficiency Schedule Name"] = value
+        self["Thermal Conversion Efficiency Schedule Name"] = value
 
     @property
     def front_surface_emittance(self):
@@ -1847,7 +827,6 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
         Args:
             value (float): value for IDD Field `Front Surface Emittance`
                 Default value: 0.84
-                value > 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1855,103 +834,10 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformancePhotovoltaicThermalSimple.front_surface_emittance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.front_surface_emittance`')
-            if value >= 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SolarCollectorPerformancePhotovoltaicThermalSimple.front_surface_emittance`')
-        self._data["Front Surface Emittance"] = value
+        self["Front Surface Emittance"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SolarCollectorPerformancePhotovoltaicThermalSimple:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SolarCollectorPerformancePhotovoltaicThermalSimple:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SolarCollectorPerformancePhotovoltaicThermalSimple: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SolarCollectorPerformancePhotovoltaicThermalSimple: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SolarCollectorIntegralCollectorStorage(object):
+class SolarCollectorIntegralCollectorStorage(DataObject):
     """ Corresponds to IDD object `SolarCollector:IntegralCollectorStorage`
         Glazed solar collector with integral storage unit. Thermal and optical properties are
         taken from the referenced SolarCollectorPerformance:IntegralCollectorStorage object.
@@ -1959,95 +845,16 @@ class SolarCollectorIntegralCollectorStorage(object):
         or shading surface. The collector surface participates normally in all shading
         calculations.
     """
-    internal_name = "SolarCollector:IntegralCollectorStorage"
-    field_count = 8
-    required_fields = ["Name", "IntegralCollectorStorageParameters Name", "Surface Name", "Bottom Surface Boundary Conditions Type", "Inlet Node Name", "Outlet Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SolarCollector:IntegralCollectorStorage', 'pyname': u'SolarCollectorIntegralCollectorStorage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'integralcollectorstorageparameters name', {'name': u'IntegralCollectorStorageParameters Name', 'pyname': u'integralcollectorstorageparameters_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'bottom surface boundary conditions type', {'name': u'Bottom Surface Boundary Conditions Type', 'pyname': u'bottom_surface_boundary_conditions_type', 'default': u'AmbientAir', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'boundary condition model name', {'name': u'Boundary Condition Model Name', 'pyname': u'boundary_condition_model_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:IntegralCollectorStorage`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["IntegralCollectorStorageParameters Name"] = None
-        self._data["Surface Name"] = None
-        self._data["Bottom Surface Boundary Conditions Type"] = None
-        self._data["Boundary Condition Model Name"] = None
-        self._data["Inlet Node Name"] = None
-        self._data["Outlet Node Name"] = None
-        self._data["Maximum Flow Rate"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.integralcollectorstorageparameters_name = None
-        else:
-            self.integralcollectorstorageparameters_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.surface_name = None
-        else:
-            self.surface_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.bottom_surface_boundary_conditions_type = None
-        else:
-            self.bottom_surface_boundary_conditions_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.boundary_condition_model_name = None
-        else:
-            self.boundary_condition_model_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inlet_node_name = None
-        else:
-            self.inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outlet_node_name = None
-        else:
-            self.outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_flow_rate = None
-        else:
-            self.maximum_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2070,19 +877,7 @@ class SolarCollectorIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorIntegralCollectorStorage.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorIntegralCollectorStorage.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorIntegralCollectorStorage.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def integralcollectorstorageparameters_name(self):
@@ -2105,19 +900,7 @@ class SolarCollectorIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorIntegralCollectorStorage.integralcollectorstorageparameters_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorIntegralCollectorStorage.integralcollectorstorageparameters_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorIntegralCollectorStorage.integralcollectorstorageparameters_name`')
-        self._data["IntegralCollectorStorageParameters Name"] = value
+        self["IntegralCollectorStorageParameters Name"] = value
 
     @property
     def surface_name(self):
@@ -2140,19 +923,7 @@ class SolarCollectorIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorIntegralCollectorStorage.surface_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorIntegralCollectorStorage.surface_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorIntegralCollectorStorage.surface_name`')
-        self._data["Surface Name"] = value
+        self["Surface Name"] = value
 
     @property
     def bottom_surface_boundary_conditions_type(self):
@@ -2169,9 +940,6 @@ class SolarCollectorIntegralCollectorStorage(object):
 
         Args:
             value (str): value for IDD Field `Bottom Surface Boundary Conditions Type`
-                Accepted values are:
-                      - OtherSideConditionsModel
-                      - AmbientAir
                 Default value: AmbientAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2179,46 +947,7 @@ class SolarCollectorIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorIntegralCollectorStorage.bottom_surface_boundary_conditions_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorIntegralCollectorStorage.bottom_surface_boundary_conditions_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorIntegralCollectorStorage.bottom_surface_boundary_conditions_type`')
-            vals = {}
-            vals["othersideconditionsmodel"] = "OtherSideConditionsModel"
-            vals["ambientair"] = "AmbientAir"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SolarCollectorIntegralCollectorStorage.bottom_surface_boundary_conditions_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SolarCollectorIntegralCollectorStorage.bottom_surface_boundary_conditions_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Bottom Surface Boundary Conditions Type"] = value
+        self["Bottom Surface Boundary Conditions Type"] = value
 
     @property
     def boundary_condition_model_name(self):
@@ -2244,19 +973,7 @@ class SolarCollectorIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorIntegralCollectorStorage.boundary_condition_model_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorIntegralCollectorStorage.boundary_condition_model_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorIntegralCollectorStorage.boundary_condition_model_name`')
-        self._data["Boundary Condition Model Name"] = value
+        self["Boundary Condition Model Name"] = value
 
     @property
     def inlet_node_name(self):
@@ -2279,19 +996,7 @@ class SolarCollectorIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorIntegralCollectorStorage.inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorIntegralCollectorStorage.inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorIntegralCollectorStorage.inlet_node_name`')
-        self._data["Inlet Node Name"] = value
+        self["Inlet Node Name"] = value
 
     @property
     def outlet_node_name(self):
@@ -2314,19 +1019,7 @@ class SolarCollectorIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorIntegralCollectorStorage.outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorIntegralCollectorStorage.outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorIntegralCollectorStorage.outlet_node_name`')
-        self._data["Outlet Node Name"] = value
+        self["Outlet Node Name"] = value
 
     @property
     def maximum_flow_rate(self):
@@ -2344,288 +1037,30 @@ class SolarCollectorIntegralCollectorStorage(object):
         Args:
             value (float): value for IDD Field `Maximum Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorIntegralCollectorStorage.maximum_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorIntegralCollectorStorage.maximum_flow_rate`')
-        self._data["Maximum Flow Rate"] = value
+        self["Maximum Flow Rate"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SolarCollectorIntegralCollectorStorage:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SolarCollectorIntegralCollectorStorage:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SolarCollectorIntegralCollectorStorage: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SolarCollectorIntegralCollectorStorage: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SolarCollectorPerformanceIntegralCollectorStorage(object):
+class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
     """ Corresponds to IDD object `SolarCollectorPerformance:IntegralCollectorStorage`
         Thermal and optical performance parameters for a single glazed solar collector with
         integral storage unit.
     """
-    internal_name = "SolarCollectorPerformance:IntegralCollectorStorage"
-    field_count = 19
-    required_fields = ["Name", "ICS Collector Type", "Bottom Heat Loss Conductance", "Side Heat Loss Conductance", "Aspect Ratio", "Collector Side Height", "Thermal Mass of Absorber Plate", "Number of Covers", "Cover Spacing", "Refractive Index of Outer Cover", "Extinction Coefficient Times Thickness of Outer Cover", "Emissivity of Outer Cover", "Refractive Index of Inner Cover", "Extinction Coefficient Times Thickness of the inner Cover", "Emmissivity of Inner Cover", "Absorptance of Absorber Plate", "Emissivity of Absorber Plate"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:IntegralCollectorStorage', 'pyname': u'SolarCollectorPerformanceIntegralCollectorStorage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ics collector type', {'name': u'ICS Collector Type', 'pyname': u'ics_collector_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'gross area', {'name': u'Gross Area', 'pyname': u'gross_area', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'collector water volume', {'name': u'Collector Water Volume', 'pyname': u'collector_water_volume', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'bottom heat loss conductance', {'name': u'Bottom Heat Loss Conductance', 'pyname': u'bottom_heat_loss_conductance', 'default': 0.4, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'side heat loss conductance', {'name': u'Side Heat Loss Conductance', 'pyname': u'side_heat_loss_conductance', 'default': 0.6, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'aspect ratio', {'name': u'Aspect Ratio', 'pyname': u'aspect_ratio', 'default': 0.8, 'minimum>': 0.5, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'm'}), (u'collector side height', {'name': u'Collector Side Height', 'pyname': u'collector_side_height', 'default': 0.2, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 0.3, 'unit': u'm'}), (u'thermal mass of absorber plate', {'name': u'Thermal Mass of Absorber Plate', 'pyname': u'thermal_mass_of_absorber_plate', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'J/m2-K'}), (u'number of covers', {'name': u'Number of Covers', 'pyname': u'number_of_covers', 'default': 2, 'maximum': 2, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'cover spacing', {'name': u'Cover Spacing', 'pyname': u'cover_spacing', 'default': 0.05, 'minimum>': 0.0, 'maximum': 0.2, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'refractive index of outer cover', {'name': u'Refractive Index of Outer Cover', 'pyname': u'refractive_index_of_outer_cover', 'default': 1.526, 'maximum': 2.0, 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'extinction coefficient times thickness of outer cover', {'name': u'Extinction Coefficient Times Thickness of Outer Cover', 'pyname': u'extinction_coefficient_times_thickness_of_outer_cover', 'default': 0.045, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'emissivity of outer cover', {'name': u'Emissivity of Outer Cover', 'pyname': u'emissivity_of_outer_cover', 'default': 0.88, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'refractive index of inner cover', {'name': u'Refractive Index of Inner Cover', 'pyname': u'refractive_index_of_inner_cover', 'default': 1.37, 'maximum': 2.0, 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'extinction coefficient times thickness of the inner cover', {'name': u'Extinction Coefficient Times Thickness of the inner Cover', 'pyname': u'extinction_coefficient_times_thickness_of_the_inner_cover', 'default': 0.008, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'emmissivity of inner cover', {'name': u'Emmissivity of Inner Cover', 'pyname': u'emmissivity_of_inner_cover', 'default': 0.88, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'absorptance of absorber plate', {'name': u'Absorptance of Absorber Plate', 'pyname': u'absorptance_of_absorber_plate', 'default': 0.96, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'emissivity of absorber plate', {'name': u'Emissivity of Absorber Plate', 'pyname': u'emissivity_of_absorber_plate', 'default': 0.3, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollectorPerformance:IntegralCollectorStorage`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["ICS Collector Type"] = None
-        self._data["Gross Area"] = None
-        self._data["Collector Water Volume"] = None
-        self._data["Bottom Heat Loss Conductance"] = None
-        self._data["Side Heat Loss Conductance"] = None
-        self._data["Aspect Ratio"] = None
-        self._data["Collector Side Height"] = None
-        self._data["Thermal Mass of Absorber Plate"] = None
-        self._data["Number of Covers"] = None
-        self._data["Cover Spacing"] = None
-        self._data["Refractive Index of Outer Cover"] = None
-        self._data["Extinction Coefficient Times Thickness of Outer Cover"] = None
-        self._data["Emissivity of Outer Cover"] = None
-        self._data["Refractive Index of Inner Cover"] = None
-        self._data["Extinction Coefficient Times Thickness of the inner Cover"] = None
-        self._data["Emmissivity of Inner Cover"] = None
-        self._data["Absorptance of Absorber Plate"] = None
-        self._data["Emissivity of Absorber Plate"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ics_collector_type = None
-        else:
-            self.ics_collector_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.gross_area = None
-        else:
-            self.gross_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.collector_water_volume = None
-        else:
-            self.collector_water_volume = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.bottom_heat_loss_conductance = None
-        else:
-            self.bottom_heat_loss_conductance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.side_heat_loss_conductance = None
-        else:
-            self.side_heat_loss_conductance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.aspect_ratio = None
-        else:
-            self.aspect_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.collector_side_height = None
-        else:
-            self.collector_side_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.thermal_mass_of_absorber_plate = None
-        else:
-            self.thermal_mass_of_absorber_plate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_covers = None
-        else:
-            self.number_of_covers = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cover_spacing = None
-        else:
-            self.cover_spacing = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refractive_index_of_outer_cover = None
-        else:
-            self.refractive_index_of_outer_cover = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.extinction_coefficient_times_thickness_of_outer_cover = None
-        else:
-            self.extinction_coefficient_times_thickness_of_outer_cover = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.emissivity_of_outer_cover = None
-        else:
-            self.emissivity_of_outer_cover = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.refractive_index_of_inner_cover = None
-        else:
-            self.refractive_index_of_inner_cover = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.extinction_coefficient_times_thickness_of_the_inner_cover = None
-        else:
-            self.extinction_coefficient_times_thickness_of_the_inner_cover = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.emmissivity_of_inner_cover = None
-        else:
-            self.emmissivity_of_inner_cover = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.absorptance_of_absorber_plate = None
-        else:
-            self.absorptance_of_absorber_plate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.emissivity_of_absorber_plate = None
-        else:
-            self.emissivity_of_absorber_plate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2648,19 +1083,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def ics_collector_type(self):
@@ -2678,53 +1101,13 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (str): value for IDD Field `ICS Collector Type`
-                Accepted values are:
-                      - RectangularTank
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.ics_collector_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.ics_collector_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.ics_collector_type`')
-            vals = {}
-            vals["rectangulartank"] = "RectangularTank"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SolarCollectorPerformanceIntegralCollectorStorage.ics_collector_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SolarCollectorPerformanceIntegralCollectorStorage.ics_collector_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["ICS Collector Type"] = value
+        self["ICS Collector Type"] = value
 
     @property
     def gross_area(self):
@@ -2742,23 +1125,13 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Args:
             value (float): value for IDD Field `Gross Area`
                 Units: m2
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.gross_area`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.gross_area`')
-        self._data["Gross Area"] = value
+        self["Gross Area"] = value
 
     @property
     def collector_water_volume(self):
@@ -2776,23 +1149,13 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Args:
             value (float): value for IDD Field `Collector Water Volume`
                 Units: m3
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.collector_water_volume`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.collector_water_volume`')
-        self._data["Collector Water Volume"] = value
+        self["Collector Water Volume"] = value
 
     @property
     def bottom_heat_loss_conductance(self):
@@ -2812,23 +1175,13 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             value (float): value for IDD Field `Bottom Heat Loss Conductance`
                 Units: W/m2-K
                 Default value: 0.4
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.bottom_heat_loss_conductance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.bottom_heat_loss_conductance`')
-        self._data["Bottom Heat Loss Conductance"] = value
+        self["Bottom Heat Loss Conductance"] = value
 
     @property
     def side_heat_loss_conductance(self):
@@ -2848,23 +1201,13 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             value (float): value for IDD Field `Side Heat Loss Conductance`
                 Units: W/m2-K
                 Default value: 0.6
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.side_heat_loss_conductance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.side_heat_loss_conductance`')
-        self._data["Side Heat Loss Conductance"] = value
+        self["Side Heat Loss Conductance"] = value
 
     @property
     def aspect_ratio(self):
@@ -2894,19 +1237,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.aspect_ratio`'.format(value))
-            if value <= 0.5:
-                raise ValueError('value need to be greater 0.5 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.aspect_ratio`')
-            if value >= 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.aspect_ratio`')
-        self._data["Aspect Ratio"] = value
+        self["Aspect Ratio"] = value
 
     @property
     def collector_side_height(self):
@@ -2927,7 +1258,6 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             value (float): value for IDD Field `Collector Side Height`
                 Units: m
                 Default value: 0.2
-                value > 0.0
                 value < 0.3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2935,19 +1265,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.collector_side_height`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.collector_side_height`')
-            if value >= 0.3:
-                raise ValueError('value need to be smaller 0.3 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.collector_side_height`')
-        self._data["Collector Side Height"] = value
+        self["Collector Side Height"] = value
 
     @property
     def thermal_mass_of_absorber_plate(self):
@@ -2959,7 +1277,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         return self._data["Thermal Mass of Absorber Plate"]
 
     @thermal_mass_of_absorber_plate.setter
-    def thermal_mass_of_absorber_plate(self, value=0.0):
+    def thermal_mass_of_absorber_plate(self, value=None):
         """  Corresponds to IDD Field `Thermal Mass of Absorber Plate`
         Calculated from the specific heat, density and thickness
         of the absorber plate.
@@ -2967,24 +1285,13 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Args:
             value (float): value for IDD Field `Thermal Mass of Absorber Plate`
                 Units: J/m2-K
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.thermal_mass_of_absorber_plate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.thermal_mass_of_absorber_plate`')
-        self._data["Thermal Mass of Absorber Plate"] = value
+        self["Thermal Mass of Absorber Plate"] = value
 
     @property
     def number_of_covers(self):
@@ -3013,26 +1320,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `SolarCollectorPerformanceIntegralCollectorStorage.number_of_covers`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `SolarCollectorPerformanceIntegralCollectorStorage.number_of_covers`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.number_of_covers`')
-            if value > 2:
-                raise ValueError('value need to be smaller 2 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.number_of_covers`')
-        self._data["Number of Covers"] = value
+        self["Number of Covers"] = value
 
     @property
     def cover_spacing(self):
@@ -3053,7 +1341,6 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             value (float): value for IDD Field `Cover Spacing`
                 Units: m
                 Default value: 0.05
-                value > 0.0
                 value <= 0.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3061,19 +1348,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.cover_spacing`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.cover_spacing`')
-            if value > 0.2:
-                raise ValueError('value need to be smaller 0.2 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.cover_spacing`')
-        self._data["Cover Spacing"] = value
+        self["Cover Spacing"] = value
 
     @property
     def refractive_index_of_outer_cover(self):
@@ -3103,19 +1378,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.refractive_index_of_outer_cover`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.refractive_index_of_outer_cover`')
-            if value > 2.0:
-                raise ValueError('value need to be smaller 2.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.refractive_index_of_outer_cover`')
-        self._data["Refractive Index of Outer Cover"] = value
+        self["Refractive Index of Outer Cover"] = value
 
     @property
     def extinction_coefficient_times_thickness_of_outer_cover(self):
@@ -3137,23 +1400,13 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             value (float): value for IDD Field `Extinction Coefficient Times Thickness of Outer Cover`
                 Units: dimensionless
                 Default value: 0.045
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.extinction_coefficient_times_thickness_of_outer_cover`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.extinction_coefficient_times_thickness_of_outer_cover`')
-        self._data["Extinction Coefficient Times Thickness of Outer Cover"] = value
+        self["Extinction Coefficient Times Thickness of Outer Cover"] = value
 
     @property
     def emissivity_of_outer_cover(self):
@@ -3174,7 +1427,6 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             value (float): value for IDD Field `Emissivity of Outer Cover`
                 Units: dimensionless
                 Default value: 0.88
-                value > 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3182,19 +1434,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.emissivity_of_outer_cover`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.emissivity_of_outer_cover`')
-            if value >= 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.emissivity_of_outer_cover`')
-        self._data["Emissivity of Outer Cover"] = value
+        self["Emissivity of Outer Cover"] = value
 
     @property
     def refractive_index_of_inner_cover(self):
@@ -3223,19 +1463,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.refractive_index_of_inner_cover`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.refractive_index_of_inner_cover`')
-            if value > 2.0:
-                raise ValueError('value need to be smaller 2.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.refractive_index_of_inner_cover`')
-        self._data["Refractive Index of Inner Cover"] = value
+        self["Refractive Index of Inner Cover"] = value
 
     @property
     def extinction_coefficient_times_thickness_of_the_inner_cover(self):
@@ -3257,23 +1485,13 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             value (float): value for IDD Field `Extinction Coefficient Times Thickness of the inner Cover`
                 Units: dimensionless
                 Default value: 0.008
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.extinction_coefficient_times_thickness_of_the_inner_cover`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.extinction_coefficient_times_thickness_of_the_inner_cover`')
-        self._data["Extinction Coefficient Times Thickness of the inner Cover"] = value
+        self["Extinction Coefficient Times Thickness of the inner Cover"] = value
 
     @property
     def emmissivity_of_inner_cover(self):
@@ -3293,7 +1511,6 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             value (float): value for IDD Field `Emmissivity of Inner Cover`
                 Units: dimensionless
                 Default value: 0.88
-                value > 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3301,19 +1518,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.emmissivity_of_inner_cover`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.emmissivity_of_inner_cover`')
-            if value >= 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.emmissivity_of_inner_cover`')
-        self._data["Emmissivity of Inner Cover"] = value
+        self["Emmissivity of Inner Cover"] = value
 
     @property
     def absorptance_of_absorber_plate(self):
@@ -3334,7 +1539,6 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             value (float): value for IDD Field `Absorptance of Absorber Plate`
                 Units: dimensionless
                 Default value: 0.96
-                value > 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3342,19 +1546,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.absorptance_of_absorber_plate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.absorptance_of_absorber_plate`')
-            if value >= 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.absorptance_of_absorber_plate`')
-        self._data["Absorptance of Absorber Plate"] = value
+        self["Absorptance of Absorber Plate"] = value
 
     @property
     def emissivity_of_absorber_plate(self):
@@ -3374,7 +1566,6 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
             value (float): value for IDD Field `Emissivity of Absorber Plate`
                 Units: dimensionless
                 Default value: 0.3
-                value > 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3382,103 +1573,10 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorPerformanceIntegralCollectorStorage.emissivity_of_absorber_plate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.emissivity_of_absorber_plate`')
-            if value >= 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SolarCollectorPerformanceIntegralCollectorStorage.emissivity_of_absorber_plate`')
-        self._data["Emissivity of Absorber Plate"] = value
+        self["Emissivity of Absorber Plate"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SolarCollectorPerformanceIntegralCollectorStorage:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SolarCollectorPerformanceIntegralCollectorStorage:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SolarCollectorPerformanceIntegralCollectorStorage: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SolarCollectorPerformanceIntegralCollectorStorage: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SolarCollectorUnglazedTranspired(object):
+class SolarCollectorUnglazedTranspired(DataObject):
     """ Corresponds to IDD object `SolarCollector:UnglazedTranspired`
         Unglazed transpired solar collector (UTSC) used to condition outdoor air. This type of
         collector is generally used to heat air drawn through perforated absorbers and also
@@ -3486,215 +1584,16 @@ class SolarCollectorUnglazedTranspired(object):
         single collector attached to one or more building or shading surfaces and to one or
         more outdoor air systems.
     """
-    internal_name = "SolarCollector:UnglazedTranspired"
-    field_count = 22
-    required_fields = ["Name", "Boundary Conditions Model Name", "Diameter of Perforations in Collector", "Distance Between Perforations in Collector", "Thermal Emissivity of Collector Surface", "Solar Absorbtivity of Collector Surface", "Effective Overall Height of Collector", "Effective Gap Thickness of Plenum Behind Collector", "Effective Cross Section Area of Plenum Behind Collector", "Roughness of Collector"]
-    extensible_fields = 1
-    format = None
-    min_fields = 23
-    extensible_keys = ["Surface 1 Name"]
+    schema = {'min-fields': 23, 'name': u'SolarCollector:UnglazedTranspired', 'pyname': u'SolarCollectorUnglazedTranspired', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'boundary conditions model name', {'name': u'Boundary Conditions Model Name', 'pyname': u'boundary_conditions_model_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node name', {'name': u'Setpoint Node Name', 'pyname': u'setpoint_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'free heating setpoint schedule name', {'name': u'Free Heating Setpoint Schedule Name', 'pyname': u'free_heating_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'diameter of perforations in collector', {'name': u'Diameter of Perforations in Collector', 'pyname': u'diameter_of_perforations_in_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'distance between perforations in collector', {'name': u'Distance Between Perforations in Collector', 'pyname': u'distance_between_perforations_in_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'thermal emissivity of collector surface', {'name': u'Thermal Emissivity of Collector Surface', 'pyname': u'thermal_emissivity_of_collector_surface', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'solar absorbtivity of collector surface', {'name': u'Solar Absorbtivity of Collector Surface', 'pyname': u'solar_absorbtivity_of_collector_surface', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'effective overall height of collector', {'name': u'Effective Overall Height of Collector', 'pyname': u'effective_overall_height_of_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'effective gap thickness of plenum behind collector', {'name': u'Effective Gap Thickness of Plenum Behind Collector', 'pyname': u'effective_gap_thickness_of_plenum_behind_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'effective cross section area of plenum behind collector', {'name': u'Effective Cross Section Area of Plenum Behind Collector', 'pyname': u'effective_cross_section_area_of_plenum_behind_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'hole layout pattern for pitch', {'name': u'Hole Layout Pattern for Pitch', 'pyname': u'hole_layout_pattern_for_pitch', 'default': u'Square', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat exchange effectiveness correlation', {'name': u'Heat Exchange Effectiveness Correlation', 'pyname': u'heat_exchange_effectiveness_correlation', 'default': u'Kutscher1994', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ratio of actual collector surface area to projected surface area', {'name': u'Ratio of Actual Collector Surface Area to Projected Surface Area', 'pyname': u'ratio_of_actual_collector_surface_area_to_projected_surface_area', 'default': 1.0, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'roughness of collector', {'name': u'Roughness of Collector', 'pyname': u'roughness_of_collector', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'collector thickness', {'name': u'Collector Thickness', 'pyname': u'collector_thickness', 'maximum': 0.007, 'required-field': False, 'autosizable': False, 'minimum': 0.0005, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'effectiveness for perforations with respect to wind', {'name': u'Effectiveness for Perforations with Respect to Wind', 'pyname': u'effectiveness_for_perforations_with_respect_to_wind', 'default': 0.25, 'minimum>': 0.0, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'discharge coefficient for openings with respect to buoyancy driven flow', {'name': u'Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow', 'pyname': u'discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow', 'default': 0.65, 'minimum>': 0.0, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:UnglazedTranspired`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Boundary Conditions Model Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Inlet Node Name"] = None
-        self._data["Outlet Node Name"] = None
-        self._data["Setpoint Node Name"] = None
-        self._data["Zone Node Name"] = None
-        self._data["Free Heating Setpoint Schedule Name"] = None
-        self._data["Diameter of Perforations in Collector"] = None
-        self._data["Distance Between Perforations in Collector"] = None
-        self._data["Thermal Emissivity of Collector Surface"] = None
-        self._data["Solar Absorbtivity of Collector Surface"] = None
-        self._data["Effective Overall Height of Collector"] = None
-        self._data["Effective Gap Thickness of Plenum Behind Collector"] = None
-        self._data["Effective Cross Section Area of Plenum Behind Collector"] = None
-        self._data["Hole Layout Pattern for Pitch"] = None
-        self._data["Heat Exchange Effectiveness Correlation"] = None
-        self._data["Ratio of Actual Collector Surface Area to Projected Surface Area"] = None
-        self._data["Roughness of Collector"] = None
-        self._data["Collector Thickness"] = None
-        self._data["Effectiveness for Perforations with Respect to Wind"] = None
-        self._data["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.boundary_conditions_model_name = None
-        else:
-            self.boundary_conditions_model_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inlet_node_name = None
-        else:
-            self.inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outlet_node_name = None
-        else:
-            self.outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_name = None
-        else:
-            self.setpoint_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_node_name = None
-        else:
-            self.zone_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.free_heating_setpoint_schedule_name = None
-        else:
-            self.free_heating_setpoint_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.diameter_of_perforations_in_collector = None
-        else:
-            self.diameter_of_perforations_in_collector = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_between_perforations_in_collector = None
-        else:
-            self.distance_between_perforations_in_collector = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.thermal_emissivity_of_collector_surface = None
-        else:
-            self.thermal_emissivity_of_collector_surface = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.solar_absorbtivity_of_collector_surface = None
-        else:
-            self.solar_absorbtivity_of_collector_surface = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.effective_overall_height_of_collector = None
-        else:
-            self.effective_overall_height_of_collector = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.effective_gap_thickness_of_plenum_behind_collector = None
-        else:
-            self.effective_gap_thickness_of_plenum_behind_collector = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.effective_cross_section_area_of_plenum_behind_collector = None
-        else:
-            self.effective_cross_section_area_of_plenum_behind_collector = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hole_layout_pattern_for_pitch = None
-        else:
-            self.hole_layout_pattern_for_pitch = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heat_exchange_effectiveness_correlation = None
-        else:
-            self.heat_exchange_effectiveness_correlation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ratio_of_actual_collector_surface_area_to_projected_surface_area = None
-        else:
-            self.ratio_of_actual_collector_surface_area_to_projected_surface_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.roughness_of_collector = None
-        else:
-            self.roughness_of_collector = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.collector_thickness = None
-        else:
-            self.collector_thickness = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.effectiveness_for_perforations_with_respect_to_wind = None
-        else:
-            self.effectiveness_for_perforations_with_respect_to_wind = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow = None
-        else:
-            self.discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3717,19 +1616,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def boundary_conditions_model_name(self):
@@ -3753,19 +1640,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.boundary_conditions_model_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.boundary_conditions_model_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.boundary_conditions_model_name`')
-        self._data["Boundary Conditions Model Name"] = value
+        self["Boundary Conditions Model Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -3790,19 +1665,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def inlet_node_name(self):
@@ -3826,19 +1689,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.inlet_node_name`')
-        self._data["Inlet Node Name"] = value
+        self["Inlet Node Name"] = value
 
     @property
     def outlet_node_name(self):
@@ -3862,19 +1713,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.outlet_node_name`')
-        self._data["Outlet Node Name"] = value
+        self["Outlet Node Name"] = value
 
     @property
     def setpoint_node_name(self):
@@ -3899,19 +1738,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.setpoint_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.setpoint_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.setpoint_node_name`')
-        self._data["Setpoint Node Name"] = value
+        self["Setpoint Node Name"] = value
 
     @property
     def zone_node_name(self):
@@ -3936,19 +1763,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.zone_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.zone_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.zone_node_name`')
-        self._data["Zone Node Name"] = value
+        self["Zone Node Name"] = value
 
     @property
     def free_heating_setpoint_schedule_name(self):
@@ -3971,19 +1786,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.free_heating_setpoint_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.free_heating_setpoint_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.free_heating_setpoint_schedule_name`')
-        self._data["Free Heating Setpoint Schedule Name"] = value
+        self["Free Heating Setpoint Schedule Name"] = value
 
     @property
     def diameter_of_perforations_in_collector(self):
@@ -4001,23 +1804,13 @@ class SolarCollectorUnglazedTranspired(object):
         Args:
             value (float): value for IDD Field `Diameter of Perforations in Collector`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorUnglazedTranspired.diameter_of_perforations_in_collector`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.diameter_of_perforations_in_collector`')
-        self._data["Diameter of Perforations in Collector"] = value
+        self["Diameter of Perforations in Collector"] = value
 
     @property
     def distance_between_perforations_in_collector(self):
@@ -4035,23 +1828,13 @@ class SolarCollectorUnglazedTranspired(object):
         Args:
             value (float): value for IDD Field `Distance Between Perforations in Collector`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorUnglazedTranspired.distance_between_perforations_in_collector`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.distance_between_perforations_in_collector`')
-        self._data["Distance Between Perforations in Collector"] = value
+        self["Distance Between Perforations in Collector"] = value
 
     @property
     def thermal_emissivity_of_collector_surface(self):
@@ -4069,7 +1852,6 @@ class SolarCollectorUnglazedTranspired(object):
         Args:
             value (float): value for IDD Field `Thermal Emissivity of Collector Surface`
                 Units: dimensionless
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4077,19 +1859,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorUnglazedTranspired.thermal_emissivity_of_collector_surface`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.thermal_emissivity_of_collector_surface`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.thermal_emissivity_of_collector_surface`')
-        self._data["Thermal Emissivity of Collector Surface"] = value
+        self["Thermal Emissivity of Collector Surface"] = value
 
     @property
     def solar_absorbtivity_of_collector_surface(self):
@@ -4107,7 +1877,6 @@ class SolarCollectorUnglazedTranspired(object):
         Args:
             value (float): value for IDD Field `Solar Absorbtivity of Collector Surface`
                 Units: dimensionless
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4115,19 +1884,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorUnglazedTranspired.solar_absorbtivity_of_collector_surface`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.solar_absorbtivity_of_collector_surface`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.solar_absorbtivity_of_collector_surface`')
-        self._data["Solar Absorbtivity of Collector Surface"] = value
+        self["Solar Absorbtivity of Collector Surface"] = value
 
     @property
     def effective_overall_height_of_collector(self):
@@ -4144,23 +1901,13 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (float): value for IDD Field `Effective Overall Height of Collector`
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorUnglazedTranspired.effective_overall_height_of_collector`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.effective_overall_height_of_collector`')
-        self._data["Effective Overall Height of Collector"] = value
+        self["Effective Overall Height of Collector"] = value
 
     @property
     def effective_gap_thickness_of_plenum_behind_collector(self):
@@ -4179,23 +1926,13 @@ class SolarCollectorUnglazedTranspired(object):
         Args:
             value (float): value for IDD Field `Effective Gap Thickness of Plenum Behind Collector`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorUnglazedTranspired.effective_gap_thickness_of_plenum_behind_collector`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.effective_gap_thickness_of_plenum_behind_collector`')
-        self._data["Effective Gap Thickness of Plenum Behind Collector"] = value
+        self["Effective Gap Thickness of Plenum Behind Collector"] = value
 
     @property
     def effective_cross_section_area_of_plenum_behind_collector(self):
@@ -4214,23 +1951,13 @@ class SolarCollectorUnglazedTranspired(object):
         Args:
             value (float): value for IDD Field `Effective Cross Section Area of Plenum Behind Collector`
                 Units: m2
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorUnglazedTranspired.effective_cross_section_area_of_plenum_behind_collector`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.effective_cross_section_area_of_plenum_behind_collector`')
-        self._data["Effective Cross Section Area of Plenum Behind Collector"] = value
+        self["Effective Cross Section Area of Plenum Behind Collector"] = value
 
     @property
     def hole_layout_pattern_for_pitch(self):
@@ -4247,9 +1974,6 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (str): value for IDD Field `Hole Layout Pattern for Pitch`
-                Accepted values are:
-                      - Triangle
-                      - Square
                 Default value: Square
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4257,46 +1981,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.hole_layout_pattern_for_pitch`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.hole_layout_pattern_for_pitch`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.hole_layout_pattern_for_pitch`')
-            vals = {}
-            vals["triangle"] = "Triangle"
-            vals["square"] = "Square"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SolarCollectorUnglazedTranspired.hole_layout_pattern_for_pitch`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SolarCollectorUnglazedTranspired.hole_layout_pattern_for_pitch`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Hole Layout Pattern for Pitch"] = value
+        self["Hole Layout Pattern for Pitch"] = value
 
     @property
     def heat_exchange_effectiveness_correlation(self):
@@ -4313,9 +1998,6 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (str): value for IDD Field `Heat Exchange Effectiveness Correlation`
-                Accepted values are:
-                      - Kutscher1994
-                      - VanDeckerHollandsBrunger2001
                 Default value: Kutscher1994
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4323,46 +2005,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.heat_exchange_effectiveness_correlation`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.heat_exchange_effectiveness_correlation`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.heat_exchange_effectiveness_correlation`')
-            vals = {}
-            vals["kutscher1994"] = "Kutscher1994"
-            vals["vandeckerhollandsbrunger2001"] = "VanDeckerHollandsBrunger2001"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SolarCollectorUnglazedTranspired.heat_exchange_effectiveness_correlation`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SolarCollectorUnglazedTranspired.heat_exchange_effectiveness_correlation`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heat Exchange Effectiveness Correlation"] = value
+        self["Heat Exchange Effectiveness Correlation"] = value
 
     @property
     def ratio_of_actual_collector_surface_area_to_projected_surface_area(self):
@@ -4390,19 +2033,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorUnglazedTranspired.ratio_of_actual_collector_surface_area_to_projected_surface_area`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.ratio_of_actual_collector_surface_area_to_projected_surface_area`')
-            if value > 2.0:
-                raise ValueError('value need to be smaller 2.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.ratio_of_actual_collector_surface_area_to_projected_surface_area`')
-        self._data["Ratio of Actual Collector Surface Area to Projected Surface Area"] = value
+        self["Ratio of Actual Collector Surface Area to Projected Surface Area"] = value
 
     @property
     def roughness_of_collector(self):
@@ -4419,63 +2050,13 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (str): value for IDD Field `Roughness of Collector`
-                Accepted values are:
-                      - VeryRough
-                      - Rough
-                      - MediumRough
-                      - MediumSmooth
-                      - Smooth
-                      - VerySmooth
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.roughness_of_collector`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.roughness_of_collector`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.roughness_of_collector`')
-            vals = {}
-            vals["veryrough"] = "VeryRough"
-            vals["rough"] = "Rough"
-            vals["mediumrough"] = "MediumRough"
-            vals["mediumsmooth"] = "MediumSmooth"
-            vals["smooth"] = "Smooth"
-            vals["verysmooth"] = "VerySmooth"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SolarCollectorUnglazedTranspired.roughness_of_collector`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SolarCollectorUnglazedTranspired.roughness_of_collector`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Roughness of Collector"] = value
+        self["Roughness of Collector"] = value
 
     @property
     def collector_thickness(self):
@@ -4503,19 +2084,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorUnglazedTranspired.collector_thickness`'.format(value))
-            if value < 0.0005:
-                raise ValueError('value need to be greater or equal 0.0005 '
-                                 'for field `SolarCollectorUnglazedTranspired.collector_thickness`')
-            if value > 0.007:
-                raise ValueError('value need to be smaller 0.007 '
-                                 'for field `SolarCollectorUnglazedTranspired.collector_thickness`')
-        self._data["Collector Thickness"] = value
+        self["Collector Thickness"] = value
 
     @property
     def effectiveness_for_perforations_with_respect_to_wind(self):
@@ -4535,7 +2104,6 @@ class SolarCollectorUnglazedTranspired(object):
             value (float): value for IDD Field `Effectiveness for Perforations with Respect to Wind`
                 Units: dimensionless
                 Default value: 0.25
-                value > 0.0
                 value <= 1.5
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4543,19 +2111,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorUnglazedTranspired.effectiveness_for_perforations_with_respect_to_wind`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.effectiveness_for_perforations_with_respect_to_wind`')
-            if value > 1.5:
-                raise ValueError('value need to be smaller 1.5 '
-                                 'for field `SolarCollectorUnglazedTranspired.effectiveness_for_perforations_with_respect_to_wind`')
-        self._data["Effectiveness for Perforations with Respect to Wind"] = value
+        self["Effectiveness for Perforations with Respect to Wind"] = value
 
     @property
     def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(self):
@@ -4575,7 +2131,6 @@ class SolarCollectorUnglazedTranspired(object):
             value (float): value for IDD Field `Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow`
                 Units: dimensionless
                 Default value: 0.65
-                value > 0.0
                 value <= 1.5
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4583,19 +2138,7 @@ class SolarCollectorUnglazedTranspired(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SolarCollectorUnglazedTranspired.discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SolarCollectorUnglazedTranspired.discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow`')
-            if value > 1.5:
-                raise ValueError('value need to be smaller 1.5 '
-                                 'for field `SolarCollectorUnglazedTranspired.discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow`')
-        self._data["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"] = value
+        self["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"] = value
 
     def add_extensible(self,
                        surface_1_name=None,
@@ -4609,7 +2152,8 @@ class SolarCollectorUnglazedTranspired(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_surface_1_name(surface_1_name))
+        surface_1_name = self.check_value("Surface 1 Name", surface_1_name)
+        vals.append(surface_1_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -4618,151 +2162,22 @@ class SolarCollectorUnglazedTranspired(object):
         """
         return self._data["extensibles"]
 
-    def _check_surface_1_name(self, value):
-        """ Validates falue of field `Surface 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspired.surface_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspired.surface_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspired.surface_1_name`')
-        return value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SolarCollectorUnglazedTranspired:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SolarCollectorUnglazedTranspired:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SolarCollectorUnglazedTranspired: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SolarCollectorUnglazedTranspired: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SolarCollectorUnglazedTranspiredMultisystem(object):
+class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
     """ Corresponds to IDD object `SolarCollector:UnglazedTranspired:Multisystem`
         quad-tuples of inlet, outlet, control, and zone nodes
         for multiple different outdoor air systems attached to same collector
     """
-    internal_name = "SolarCollector:UnglazedTranspired:Multisystem"
-    field_count = 1
-    required_fields = ["Solar Collector Name"]
-    extensible_fields = 4
-    format = None
-    min_fields = 0
-    extensible_keys = ["Outdoor Air System 1 Collector Inlet Node", "Outdoor Air System 1 Collector Outlet Node", "Outdoor Air System 1 Mixed Air Node", "Outdoor Air System 1 Zone Node"]
+    schema = {'min-fields': 0, 'name': u'SolarCollector:UnglazedTranspired:Multisystem', 'pyname': u'SolarCollectorUnglazedTranspiredMultisystem', 'format': None, 'fields': OrderedDict([(u'solar collector name', {'name': u'Solar Collector Name', 'pyname': u'solar_collector_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'outdoor air system 1 collector inlet node', {'name': u'Outdoor Air System 1 Collector Inlet Node', 'pyname': u'outdoor_air_system_1_collector_inlet_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air system 1 collector outlet node', {'name': u'Outdoor Air System 1 Collector Outlet Node', 'pyname': u'outdoor_air_system_1_collector_outlet_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air system 1 mixed air node', {'name': u'Outdoor Air System 1 Mixed Air Node', 'pyname': u'outdoor_air_system_1_mixed_air_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air system 1 zone node', {'name': u'Outdoor Air System 1 Zone Node', 'pyname': u'outdoor_air_system_1_zone_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:UnglazedTranspired:Multisystem`
         """
         self._data = OrderedDict()
-        self._data["Solar Collector Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.solar_collector_name = None
-        else:
-            self.solar_collector_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def solar_collector_name(self):
@@ -4786,19 +2201,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspiredMultisystem.solar_collector_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspiredMultisystem.solar_collector_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspiredMultisystem.solar_collector_name`')
-        self._data["Solar Collector Name"] = value
+        self["Solar Collector Name"] = value
 
     def add_extensible(self,
                        outdoor_air_system_1_collector_inlet_node=None,
@@ -4827,10 +2230,14 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_outdoor_air_system_1_collector_inlet_node(outdoor_air_system_1_collector_inlet_node))
-        vals.append(self._check_outdoor_air_system_1_collector_outlet_node(outdoor_air_system_1_collector_outlet_node))
-        vals.append(self._check_outdoor_air_system_1_mixed_air_node(outdoor_air_system_1_mixed_air_node))
-        vals.append(self._check_outdoor_air_system_1_zone_node(outdoor_air_system_1_zone_node))
+        outdoor_air_system_1_collector_inlet_node = self.check_value("Outdoor Air System 1 Collector Inlet Node", outdoor_air_system_1_collector_inlet_node)
+        vals.append(outdoor_air_system_1_collector_inlet_node)
+        outdoor_air_system_1_collector_outlet_node = self.check_value("Outdoor Air System 1 Collector Outlet Node", outdoor_air_system_1_collector_outlet_node)
+        vals.append(outdoor_air_system_1_collector_outlet_node)
+        outdoor_air_system_1_mixed_air_node = self.check_value("Outdoor Air System 1 Mixed Air Node", outdoor_air_system_1_mixed_air_node)
+        vals.append(outdoor_air_system_1_mixed_air_node)
+        outdoor_air_system_1_zone_node = self.check_value("Outdoor Air System 1 Zone Node", outdoor_air_system_1_zone_node)
+        vals.append(outdoor_air_system_1_zone_node)
         self._data["extensibles"].append(vals)
 
     @property
@@ -4838,153 +2245,3 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
         """ Get list of all extensibles
         """
         return self._data["extensibles"]
-
-    def _check_outdoor_air_system_1_collector_inlet_node(self, value):
-        """ Validates falue of field `Outdoor Air System 1 Collector Inlet Node`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_collector_inlet_node`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_collector_inlet_node`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_collector_inlet_node`')
-        return value
-
-    def _check_outdoor_air_system_1_collector_outlet_node(self, value):
-        """ Validates falue of field `Outdoor Air System 1 Collector Outlet Node`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_collector_outlet_node`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_collector_outlet_node`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_collector_outlet_node`')
-        return value
-
-    def _check_outdoor_air_system_1_mixed_air_node(self, value):
-        """ Validates falue of field `Outdoor Air System 1 Mixed Air Node`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_mixed_air_node`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_mixed_air_node`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_mixed_air_node`')
-        return value
-
-    def _check_outdoor_air_system_1_zone_node(self, value):
-        """ Validates falue of field `Outdoor Air System 1 Zone Node`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_zone_node`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_zone_node`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SolarCollectorUnglazedTranspiredMultisystem.outdoor_air_system_1_zone_node`')
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SolarCollectorUnglazedTranspiredMultisystem:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SolarCollectorUnglazedTranspiredMultisystem:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SolarCollectorUnglazedTranspiredMultisystem: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SolarCollectorUnglazedTranspiredMultisystem: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])

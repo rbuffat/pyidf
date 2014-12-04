@@ -1,11 +1,14 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class WaterUseEquipment(object):
+
+
+class WaterUseEquipment(DataObject):
     """ Corresponds to IDD object `WaterUse:Equipment`
         A generalized object for simulating all water end uses. Hot and cold water uses are
         included, as well as controlled mixing of hot and cold water at the tap. The
@@ -14,111 +17,16 @@ class WaterUseEquipment(object):
         water uses to be linked to WaterUse:Storage objects to store and draw reclaimed water.
         The object can also simulate drainwater heat recovery.
     """
-    internal_name = "WaterUse:Equipment"
-    field_count = 10
-    required_fields = ["Name", "Peak Flow Rate"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'WaterUse:Equipment', 'pyname': u'WaterUseEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'peak flow rate', {'name': u'Peak Flow Rate', 'pyname': u'peak_flow_rate', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate fraction schedule name', {'name': u'Flow Rate Fraction Schedule Name', 'pyname': u'flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'target temperature schedule name', {'name': u'Target Temperature Schedule Name', 'pyname': u'target_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hot water supply temperature schedule name', {'name': u'Hot Water Supply Temperature Schedule Name', 'pyname': u'hot_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sensible fraction schedule name', {'name': u'Sensible Fraction Schedule Name', 'pyname': u'sensible_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'latent fraction schedule name', {'name': u'Latent Fraction Schedule Name', 'pyname': u'latent_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterUse:Equipment`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["End-Use Subcategory"] = None
-        self._data["Peak Flow Rate"] = None
-        self._data["Flow Rate Fraction Schedule Name"] = None
-        self._data["Target Temperature Schedule Name"] = None
-        self._data["Hot Water Supply Temperature Schedule Name"] = None
-        self._data["Cold Water Supply Temperature Schedule Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Sensible Fraction Schedule Name"] = None
-        self._data["Latent Fraction Schedule Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.enduse_subcategory = None
-        else:
-            self.enduse_subcategory = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.peak_flow_rate = None
-        else:
-            self.peak_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_rate_fraction_schedule_name = None
-        else:
-            self.flow_rate_fraction_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.target_temperature_schedule_name = None
-        else:
-            self.target_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hot_water_supply_temperature_schedule_name = None
-        else:
-            self.hot_water_supply_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cold_water_supply_temperature_schedule_name = None
-        else:
-            self.cold_water_supply_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.sensible_fraction_schedule_name = None
-        else:
-            self.sensible_fraction_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.latent_fraction_schedule_name = None
-        else:
-            self.latent_fraction_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -141,19 +49,7 @@ class WaterUseEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseEquipment.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseEquipment.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseEquipment.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def enduse_subcategory(self):
@@ -177,19 +73,7 @@ class WaterUseEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseEquipment.enduse_subcategory`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseEquipment.enduse_subcategory`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseEquipment.enduse_subcategory`')
-        self._data["End-Use Subcategory"] = value
+        self["End-Use Subcategory"] = value
 
     @property
     def peak_flow_rate(self):
@@ -207,23 +91,13 @@ class WaterUseEquipment(object):
         Args:
             value (float): value for IDD Field `Peak Flow Rate`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseEquipment.peak_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `WaterUseEquipment.peak_flow_rate`')
-        self._data["Peak Flow Rate"] = value
+        self["Peak Flow Rate"] = value
 
     @property
     def flow_rate_fraction_schedule_name(self):
@@ -247,19 +121,7 @@ class WaterUseEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseEquipment.flow_rate_fraction_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseEquipment.flow_rate_fraction_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseEquipment.flow_rate_fraction_schedule_name`')
-        self._data["Flow Rate Fraction Schedule Name"] = value
+        self["Flow Rate Fraction Schedule Name"] = value
 
     @property
     def target_temperature_schedule_name(self):
@@ -283,19 +145,7 @@ class WaterUseEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseEquipment.target_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseEquipment.target_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseEquipment.target_temperature_schedule_name`')
-        self._data["Target Temperature Schedule Name"] = value
+        self["Target Temperature Schedule Name"] = value
 
     @property
     def hot_water_supply_temperature_schedule_name(self):
@@ -319,19 +169,7 @@ class WaterUseEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseEquipment.hot_water_supply_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseEquipment.hot_water_supply_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseEquipment.hot_water_supply_temperature_schedule_name`')
-        self._data["Hot Water Supply Temperature Schedule Name"] = value
+        self["Hot Water Supply Temperature Schedule Name"] = value
 
     @property
     def cold_water_supply_temperature_schedule_name(self):
@@ -355,19 +193,7 @@ class WaterUseEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseEquipment.cold_water_supply_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseEquipment.cold_water_supply_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseEquipment.cold_water_supply_temperature_schedule_name`')
-        self._data["Cold Water Supply Temperature Schedule Name"] = value
+        self["Cold Water Supply Temperature Schedule Name"] = value
 
     @property
     def zone_name(self):
@@ -390,19 +216,7 @@ class WaterUseEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseEquipment.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseEquipment.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseEquipment.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def sensible_fraction_schedule_name(self):
@@ -426,19 +240,7 @@ class WaterUseEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseEquipment.sensible_fraction_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseEquipment.sensible_fraction_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseEquipment.sensible_fraction_schedule_name`')
-        self._data["Sensible Fraction Schedule Name"] = value
+        self["Sensible Fraction Schedule Name"] = value
 
     @property
     def latent_fraction_schedule_name(self):
@@ -462,103 +264,10 @@ class WaterUseEquipment(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseEquipment.latent_fraction_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseEquipment.latent_fraction_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseEquipment.latent_fraction_schedule_name`')
-        self._data["Latent Fraction Schedule Name"] = value
+        self["Latent Fraction Schedule Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field WaterUseEquipment:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field WaterUseEquipment:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for WaterUseEquipment: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for WaterUseEquipment: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class WaterUseConnections(object):
+class WaterUseConnections(DataObject):
     """ Corresponds to IDD object `WaterUse:Connections`
         A subsystem that groups together multiple WaterUse:Equipment components.
         As its name suggests, the object provides connections that are shared by these
@@ -566,119 +275,16 @@ class WaterUseConnections(object):
         2. Connections to WaterUse:Storage objects to store and draw reclaimed water
         3. Internal connections to simulate drainwater heat recovery.
     """
-    internal_name = "WaterUse:Connections"
-    field_count = 10
-    required_fields = ["Name"]
-    extensible_fields = 1
-    format = None
-    min_fields = 0
-    extensible_keys = ["Water Use Equipment 1 Name"]
+    schema = {'min-fields': 0, 'name': u'WaterUse:Connections', 'pyname': u'WaterUseConnections', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply water storage tank name', {'name': u'Supply Water Storage Tank Name', 'pyname': u'supply_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reclamation water storage tank name', {'name': u'Reclamation Water Storage Tank Name', 'pyname': u'reclamation_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hot water supply temperature schedule name', {'name': u'Hot Water Supply Temperature Schedule Name', 'pyname': u'hot_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'drain water heat exchanger type', {'name': u'Drain Water Heat Exchanger Type', 'pyname': u'drain_water_heat_exchanger_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'drain water heat exchanger destination', {'name': u'Drain Water Heat Exchanger Destination', 'pyname': u'drain_water_heat_exchanger_destination', 'default': u'Plant', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'drain water heat exchanger u-factor times area', {'name': u'Drain Water Heat Exchanger U-Factor Times Area', 'pyname': u'drain_water_heat_exchanger_ufactor_times_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'})]), 'extensible-fields': OrderedDict([(u'water use equipment 1 name', {'name': u'Water Use Equipment 1 Name', 'pyname': u'water_use_equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterUse:Connections`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Inlet Node Name"] = None
-        self._data["Outlet Node Name"] = None
-        self._data["Supply Water Storage Tank Name"] = None
-        self._data["Reclamation Water Storage Tank Name"] = None
-        self._data["Hot Water Supply Temperature Schedule Name"] = None
-        self._data["Cold Water Supply Temperature Schedule Name"] = None
-        self._data["Drain Water Heat Exchanger Type"] = None
-        self._data["Drain Water Heat Exchanger Destination"] = None
-        self._data["Drain Water Heat Exchanger U-Factor Times Area"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inlet_node_name = None
-        else:
-            self.inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outlet_node_name = None
-        else:
-            self.outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_water_storage_tank_name = None
-        else:
-            self.supply_water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reclamation_water_storage_tank_name = None
-        else:
-            self.reclamation_water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hot_water_supply_temperature_schedule_name = None
-        else:
-            self.hot_water_supply_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cold_water_supply_temperature_schedule_name = None
-        else:
-            self.cold_water_supply_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drain_water_heat_exchanger_type = None
-        else:
-            self.drain_water_heat_exchanger_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drain_water_heat_exchanger_destination = None
-        else:
-            self.drain_water_heat_exchanger_destination = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drain_water_heat_exchanger_ufactor_times_area = None
-        else:
-            self.drain_water_heat_exchanger_ufactor_times_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -701,19 +307,7 @@ class WaterUseConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseConnections.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseConnections.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseConnections.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def inlet_node_name(self):
@@ -736,19 +330,7 @@ class WaterUseConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseConnections.inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseConnections.inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseConnections.inlet_node_name`')
-        self._data["Inlet Node Name"] = value
+        self["Inlet Node Name"] = value
 
     @property
     def outlet_node_name(self):
@@ -771,19 +353,7 @@ class WaterUseConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseConnections.outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseConnections.outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseConnections.outlet_node_name`')
-        self._data["Outlet Node Name"] = value
+        self["Outlet Node Name"] = value
 
     @property
     def supply_water_storage_tank_name(self):
@@ -807,19 +377,7 @@ class WaterUseConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseConnections.supply_water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseConnections.supply_water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseConnections.supply_water_storage_tank_name`')
-        self._data["Supply Water Storage Tank Name"] = value
+        self["Supply Water Storage Tank Name"] = value
 
     @property
     def reclamation_water_storage_tank_name(self):
@@ -842,19 +400,7 @@ class WaterUseConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseConnections.reclamation_water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseConnections.reclamation_water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseConnections.reclamation_water_storage_tank_name`')
-        self._data["Reclamation Water Storage Tank Name"] = value
+        self["Reclamation Water Storage Tank Name"] = value
 
     @property
     def hot_water_supply_temperature_schedule_name(self):
@@ -878,19 +424,7 @@ class WaterUseConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseConnections.hot_water_supply_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseConnections.hot_water_supply_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseConnections.hot_water_supply_temperature_schedule_name`')
-        self._data["Hot Water Supply Temperature Schedule Name"] = value
+        self["Hot Water Supply Temperature Schedule Name"] = value
 
     @property
     def cold_water_supply_temperature_schedule_name(self):
@@ -914,19 +448,7 @@ class WaterUseConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseConnections.cold_water_supply_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseConnections.cold_water_supply_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseConnections.cold_water_supply_temperature_schedule_name`')
-        self._data["Cold Water Supply Temperature Schedule Name"] = value
+        self["Cold Water Supply Temperature Schedule Name"] = value
 
     @property
     def drain_water_heat_exchanger_type(self):
@@ -943,11 +465,6 @@ class WaterUseConnections(object):
 
         Args:
             value (str): value for IDD Field `Drain Water Heat Exchanger Type`
-                Accepted values are:
-                      - None
-                      - Ideal
-                      - CounterFlow
-                      - CrossFlow
                 Default value: None
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -955,48 +472,7 @@ class WaterUseConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseConnections.drain_water_heat_exchanger_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseConnections.drain_water_heat_exchanger_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseConnections.drain_water_heat_exchanger_type`')
-            vals = {}
-            vals["none"] = "None"
-            vals["ideal"] = "Ideal"
-            vals["counterflow"] = "CounterFlow"
-            vals["crossflow"] = "CrossFlow"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `WaterUseConnections.drain_water_heat_exchanger_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `WaterUseConnections.drain_water_heat_exchanger_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drain Water Heat Exchanger Type"] = value
+        self["Drain Water Heat Exchanger Type"] = value
 
     @property
     def drain_water_heat_exchanger_destination(self):
@@ -1013,10 +489,6 @@ class WaterUseConnections(object):
 
         Args:
             value (str): value for IDD Field `Drain Water Heat Exchanger Destination`
-                Accepted values are:
-                      - Plant
-                      - Equipment
-                      - PlantAndEquipment
                 Default value: Plant
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1024,47 +496,7 @@ class WaterUseConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseConnections.drain_water_heat_exchanger_destination`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseConnections.drain_water_heat_exchanger_destination`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseConnections.drain_water_heat_exchanger_destination`')
-            vals = {}
-            vals["plant"] = "Plant"
-            vals["equipment"] = "Equipment"
-            vals["plantandequipment"] = "PlantAndEquipment"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `WaterUseConnections.drain_water_heat_exchanger_destination`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `WaterUseConnections.drain_water_heat_exchanger_destination`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drain Water Heat Exchanger Destination"] = value
+        self["Drain Water Heat Exchanger Destination"] = value
 
     @property
     def drain_water_heat_exchanger_ufactor_times_area(self):
@@ -1082,23 +514,13 @@ class WaterUseConnections(object):
         Args:
             value (float): value for IDD Field `Drain Water Heat Exchanger U-Factor Times Area`
                 Units: W/K
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseConnections.drain_water_heat_exchanger_ufactor_times_area`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `WaterUseConnections.drain_water_heat_exchanger_ufactor_times_area`')
-        self._data["Drain Water Heat Exchanger U-Factor Times Area"] = value
+        self["Drain Water Heat Exchanger U-Factor Times Area"] = value
 
     def add_extensible(self,
                        water_use_equipment_1_name=None,
@@ -1112,7 +534,8 @@ class WaterUseConnections(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_water_use_equipment_1_name(water_use_equipment_1_name))
+        water_use_equipment_1_name = self.check_value("Water Use Equipment 1 Name", water_use_equipment_1_name)
+        vals.append(water_use_equipment_1_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -1121,106 +544,8 @@ class WaterUseConnections(object):
         """
         return self._data["extensibles"]
 
-    def _check_water_use_equipment_1_name(self, value):
-        """ Validates falue of field `Water Use Equipment 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseConnections.water_use_equipment_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseConnections.water_use_equipment_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseConnections.water_use_equipment_1_name`')
-        return value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field WaterUseConnections:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field WaterUseConnections:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for WaterUseConnections: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for WaterUseConnections: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class WaterUseStorage(object):
+class WaterUseStorage(DataObject):
     """ Corresponds to IDD object `WaterUse:Storage`
         A water storage tank. If the building model is to include any on-site
         water collection, wells, or storing and reuse of graywater, then a WaterUse:Storage
@@ -1228,191 +553,16 @@ class WaterUseStorage(object):
         connections to numerous sources of supply or numerous components with demand. If a
         maximum capacity is not specified, the tank is assumed to have unlimited capacity.
     """
-    internal_name = "WaterUse:Storage"
-    field_count = 20
-    required_fields = ["Name", "Water Temperature Schedule Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'WaterUse:Storage', 'pyname': u'WaterUseStorage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'water quality subcategory', {'name': u'Water Quality Subcategory', 'pyname': u'water_quality_subcategory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'maximum capacity', {'name': u'Maximum Capacity', 'pyname': u'maximum_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'initial volume', {'name': u'Initial Volume', 'pyname': u'initial_volume', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'design in flow rate', {'name': u'Design In Flow Rate', 'pyname': u'design_in_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'design out flow rate', {'name': u'Design Out Flow Rate', 'pyname': u'design_out_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'overflow destination', {'name': u'Overflow Destination', 'pyname': u'overflow_destination', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'type of supply controlled by float valve', {'name': u'Type of Supply Controlled by Float Valve', 'pyname': u'type_of_supply_controlled_by_float_valve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'float valve on capacity', {'name': u'Float Valve On Capacity', 'pyname': u'float_valve_on_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'float valve off capacity', {'name': u'Float Valve Off Capacity', 'pyname': u'float_valve_off_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'backup mains capacity', {'name': u'Backup Mains Capacity', 'pyname': u'backup_mains_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'other tank name', {'name': u'Other Tank Name', 'pyname': u'other_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water thermal mode', {'name': u'Water Thermal Mode', 'pyname': u'water_thermal_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water temperature schedule name', {'name': u'Water Temperature Schedule Name', 'pyname': u'water_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tank surface area', {'name': u'Tank Surface Area', 'pyname': u'tank_surface_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'tank u value', {'name': u'Tank U Value', 'pyname': u'tank_u_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'tank outside surface material name', {'name': u'Tank Outside Surface Material Name', 'pyname': u'tank_outside_surface_material_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterUse:Storage`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Water Quality Subcategory"] = None
-        self._data["Maximum Capacity"] = None
-        self._data["Initial Volume"] = None
-        self._data["Design In Flow Rate"] = None
-        self._data["Design Out Flow Rate"] = None
-        self._data["Overflow Destination"] = None
-        self._data["Type of Supply Controlled by Float Valve"] = None
-        self._data["Float Valve On Capacity"] = None
-        self._data["Float Valve Off Capacity"] = None
-        self._data["Backup Mains Capacity"] = None
-        self._data["Other Tank Name"] = None
-        self._data["Water Thermal Mode"] = None
-        self._data["Water Temperature Schedule Name"] = None
-        self._data["Ambient Temperature Indicator"] = None
-        self._data["Ambient Temperature Schedule Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Tank Surface Area"] = None
-        self._data["Tank U Value"] = None
-        self._data["Tank Outside Surface Material Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_quality_subcategory = None
-        else:
-            self.water_quality_subcategory = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_capacity = None
-        else:
-            self.maximum_capacity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.initial_volume = None
-        else:
-            self.initial_volume = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_in_flow_rate = None
-        else:
-            self.design_in_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_out_flow_rate = None
-        else:
-            self.design_out_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.overflow_destination = None
-        else:
-            self.overflow_destination = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.type_of_supply_controlled_by_float_valve = None
-        else:
-            self.type_of_supply_controlled_by_float_valve = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.float_valve_on_capacity = None
-        else:
-            self.float_valve_on_capacity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.float_valve_off_capacity = None
-        else:
-            self.float_valve_off_capacity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.backup_mains_capacity = None
-        else:
-            self.backup_mains_capacity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.other_tank_name = None
-        else:
-            self.other_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_thermal_mode = None
-        else:
-            self.water_thermal_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_temperature_schedule_name = None
-        else:
-            self.water_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ambient_temperature_indicator = None
-        else:
-            self.ambient_temperature_indicator = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ambient_temperature_schedule_name = None
-        else:
-            self.ambient_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tank_surface_area = None
-        else:
-            self.tank_surface_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tank_u_value = None
-        else:
-            self.tank_u_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tank_outside_surface_material_name = None
-        else:
-            self.tank_outside_surface_material_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1435,19 +585,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseStorage.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseStorage.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseStorage.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def water_quality_subcategory(self):
@@ -1470,19 +608,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseStorage.water_quality_subcategory`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseStorage.water_quality_subcategory`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseStorage.water_quality_subcategory`')
-        self._data["Water Quality Subcategory"] = value
+        self["Water Quality Subcategory"] = value
 
     @property
     def maximum_capacity(self):
@@ -1507,13 +633,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseStorage.maximum_capacity`'.format(value))
-        self._data["Maximum Capacity"] = value
+        self["Maximum Capacity"] = value
 
     @property
     def initial_volume(self):
@@ -1537,13 +657,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseStorage.initial_volume`'.format(value))
-        self._data["Initial Volume"] = value
+        self["Initial Volume"] = value
 
     @property
     def design_in_flow_rate(self):
@@ -1568,13 +682,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseStorage.design_in_flow_rate`'.format(value))
-        self._data["Design In Flow Rate"] = value
+        self["Design In Flow Rate"] = value
 
     @property
     def design_out_flow_rate(self):
@@ -1599,13 +707,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseStorage.design_out_flow_rate`'.format(value))
-        self._data["Design Out Flow Rate"] = value
+        self["Design Out Flow Rate"] = value
 
     @property
     def overflow_destination(self):
@@ -1629,19 +731,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseStorage.overflow_destination`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseStorage.overflow_destination`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseStorage.overflow_destination`')
-        self._data["Overflow Destination"] = value
+        self["Overflow Destination"] = value
 
     @property
     def type_of_supply_controlled_by_float_valve(self):
@@ -1658,59 +748,13 @@ class WaterUseStorage(object):
 
         Args:
             value (str): value for IDD Field `Type of Supply Controlled by Float Valve`
-                Accepted values are:
-                      - None
-                      - Mains
-                      - GroundwaterWell
-                      - OtherTank
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseStorage.type_of_supply_controlled_by_float_valve`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseStorage.type_of_supply_controlled_by_float_valve`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseStorage.type_of_supply_controlled_by_float_valve`')
-            vals = {}
-            vals["none"] = "None"
-            vals["mains"] = "Mains"
-            vals["groundwaterwell"] = "GroundwaterWell"
-            vals["othertank"] = "OtherTank"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `WaterUseStorage.type_of_supply_controlled_by_float_valve`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `WaterUseStorage.type_of_supply_controlled_by_float_valve`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Type of Supply Controlled by Float Valve"] = value
+        self["Type of Supply Controlled by Float Valve"] = value
 
     @property
     def float_valve_on_capacity(self):
@@ -1735,13 +779,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseStorage.float_valve_on_capacity`'.format(value))
-        self._data["Float Valve On Capacity"] = value
+        self["Float Valve On Capacity"] = value
 
     @property
     def float_valve_off_capacity(self):
@@ -1766,13 +804,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseStorage.float_valve_off_capacity`'.format(value))
-        self._data["Float Valve Off Capacity"] = value
+        self["Float Valve Off Capacity"] = value
 
     @property
     def backup_mains_capacity(self):
@@ -1799,13 +831,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseStorage.backup_mains_capacity`'.format(value))
-        self._data["Backup Mains Capacity"] = value
+        self["Backup Mains Capacity"] = value
 
     @property
     def other_tank_name(self):
@@ -1828,19 +854,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseStorage.other_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseStorage.other_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseStorage.other_tank_name`')
-        self._data["Other Tank Name"] = value
+        self["Other Tank Name"] = value
 
     @property
     def water_thermal_mode(self):
@@ -1857,55 +871,13 @@ class WaterUseStorage(object):
 
         Args:
             value (str): value for IDD Field `Water Thermal Mode`
-                Accepted values are:
-                      - ScheduledTemperature
-                      - ThermalModel
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseStorage.water_thermal_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseStorage.water_thermal_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseStorage.water_thermal_mode`')
-            vals = {}
-            vals["scheduledtemperature"] = "ScheduledTemperature"
-            vals["thermalmodel"] = "ThermalModel"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `WaterUseStorage.water_thermal_mode`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `WaterUseStorage.water_thermal_mode`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Water Thermal Mode"] = value
+        self["Water Thermal Mode"] = value
 
     @property
     def water_temperature_schedule_name(self):
@@ -1928,19 +900,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseStorage.water_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseStorage.water_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseStorage.water_temperature_schedule_name`')
-        self._data["Water Temperature Schedule Name"] = value
+        self["Water Temperature Schedule Name"] = value
 
     @property
     def ambient_temperature_indicator(self):
@@ -1957,57 +917,13 @@ class WaterUseStorage(object):
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Indicator`
-                Accepted values are:
-                      - Schedule
-                      - Zone
-                      - Outdoors
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseStorage.ambient_temperature_indicator`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseStorage.ambient_temperature_indicator`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseStorage.ambient_temperature_indicator`')
-            vals = {}
-            vals["schedule"] = "Schedule"
-            vals["zone"] = "Zone"
-            vals["outdoors"] = "Outdoors"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `WaterUseStorage.ambient_temperature_indicator`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `WaterUseStorage.ambient_temperature_indicator`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Ambient Temperature Indicator"] = value
+        self["Ambient Temperature Indicator"] = value
 
     @property
     def ambient_temperature_schedule_name(self):
@@ -2030,19 +946,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseStorage.ambient_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseStorage.ambient_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseStorage.ambient_temperature_schedule_name`')
-        self._data["Ambient Temperature Schedule Name"] = value
+        self["Ambient Temperature Schedule Name"] = value
 
     @property
     def zone_name(self):
@@ -2065,19 +969,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseStorage.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseStorage.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseStorage.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def tank_surface_area(self):
@@ -2101,13 +993,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseStorage.tank_surface_area`'.format(value))
-        self._data["Tank Surface Area"] = value
+        self["Tank Surface Area"] = value
 
     @property
     def tank_u_value(self):
@@ -2131,13 +1017,7 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseStorage.tank_u_value`'.format(value))
-        self._data["Tank U Value"] = value
+        self["Tank U Value"] = value
 
     @property
     def tank_outside_surface_material_name(self):
@@ -2160,230 +1040,26 @@ class WaterUseStorage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseStorage.tank_outside_surface_material_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseStorage.tank_outside_surface_material_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseStorage.tank_outside_surface_material_name`')
-        self._data["Tank Outside Surface Material Name"] = value
+        self["Tank Outside Surface Material Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field WaterUseStorage:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field WaterUseStorage:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for WaterUseStorage: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for WaterUseStorage: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class WaterUseWell(object):
+class WaterUseWell(DataObject):
     """ Corresponds to IDD object `WaterUse:Well`
         Simulates on-site water supply from a well. Well water is pumped out of the ground
         into a WaterUse:Storage. The operation of the ground water well is controlled by the
         associated WaterUse:Storage which is assumed to be operated as a vented cistern with
         no pressure tank.
     """
-    internal_name = "WaterUse:Well"
-    field_count = 12
-    required_fields = ["Name", "Storage Tank Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'WaterUse:Well', 'pyname': u'WaterUseWell', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'storage tank name', {'name': u'Storage Tank Name', 'pyname': u'storage_tank_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pump depth', {'name': u'Pump Depth', 'pyname': u'pump_depth', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pump rated flow rate', {'name': u'Pump Rated Flow Rate', 'pyname': u'pump_rated_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'pump rated head', {'name': u'Pump Rated Head', 'pyname': u'pump_rated_head', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'pump rated power consumption', {'name': u'Pump Rated Power Consumption', 'pyname': u'pump_rated_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'pump efficiency', {'name': u'Pump Efficiency', 'pyname': u'pump_efficiency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'well recovery rate', {'name': u'Well Recovery Rate', 'pyname': u'well_recovery_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal well storage volume', {'name': u'Nominal Well Storage Volume', 'pyname': u'nominal_well_storage_volume', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'water table depth mode', {'name': u'Water Table Depth Mode', 'pyname': u'water_table_depth_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water table depth', {'name': u'Water Table Depth', 'pyname': u'water_table_depth', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'water table depth schedule name', {'name': u'Water Table Depth Schedule Name', 'pyname': u'water_table_depth_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterUse:Well`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Storage Tank Name"] = None
-        self._data["Pump Depth"] = None
-        self._data["Pump Rated Flow Rate"] = None
-        self._data["Pump Rated Head"] = None
-        self._data["Pump Rated Power Consumption"] = None
-        self._data["Pump Efficiency"] = None
-        self._data["Well Recovery Rate"] = None
-        self._data["Nominal Well Storage Volume"] = None
-        self._data["Water Table Depth Mode"] = None
-        self._data["Water Table Depth"] = None
-        self._data["Water Table Depth Schedule Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.storage_tank_name = None
-        else:
-            self.storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_depth = None
-        else:
-            self.pump_depth = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_rated_flow_rate = None
-        else:
-            self.pump_rated_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_rated_head = None
-        else:
-            self.pump_rated_head = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_rated_power_consumption = None
-        else:
-            self.pump_rated_power_consumption = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_efficiency = None
-        else:
-            self.pump_efficiency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.well_recovery_rate = None
-        else:
-            self.well_recovery_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_well_storage_volume = None
-        else:
-            self.nominal_well_storage_volume = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_table_depth_mode = None
-        else:
-            self.water_table_depth_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_table_depth = None
-        else:
-            self.water_table_depth = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_table_depth_schedule_name = None
-        else:
-            self.water_table_depth_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2406,19 +1082,7 @@ class WaterUseWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseWell.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseWell.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseWell.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def storage_tank_name(self):
@@ -2441,19 +1105,7 @@ class WaterUseWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseWell.storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseWell.storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseWell.storage_tank_name`')
-        self._data["Storage Tank Name"] = value
+        self["Storage Tank Name"] = value
 
     @property
     def pump_depth(self):
@@ -2477,13 +1129,7 @@ class WaterUseWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseWell.pump_depth`'.format(value))
-        self._data["Pump Depth"] = value
+        self["Pump Depth"] = value
 
     @property
     def pump_rated_flow_rate(self):
@@ -2507,13 +1153,7 @@ class WaterUseWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseWell.pump_rated_flow_rate`'.format(value))
-        self._data["Pump Rated Flow Rate"] = value
+        self["Pump Rated Flow Rate"] = value
 
     @property
     def pump_rated_head(self):
@@ -2537,13 +1177,7 @@ class WaterUseWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseWell.pump_rated_head`'.format(value))
-        self._data["Pump Rated Head"] = value
+        self["Pump Rated Head"] = value
 
     @property
     def pump_rated_power_consumption(self):
@@ -2567,13 +1201,7 @@ class WaterUseWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseWell.pump_rated_power_consumption`'.format(value))
-        self._data["Pump Rated Power Consumption"] = value
+        self["Pump Rated Power Consumption"] = value
 
     @property
     def pump_efficiency(self):
@@ -2596,13 +1224,7 @@ class WaterUseWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseWell.pump_efficiency`'.format(value))
-        self._data["Pump Efficiency"] = value
+        self["Pump Efficiency"] = value
 
     @property
     def well_recovery_rate(self):
@@ -2626,13 +1248,7 @@ class WaterUseWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseWell.well_recovery_rate`'.format(value))
-        self._data["Well Recovery Rate"] = value
+        self["Well Recovery Rate"] = value
 
     @property
     def nominal_well_storage_volume(self):
@@ -2656,13 +1272,7 @@ class WaterUseWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseWell.nominal_well_storage_volume`'.format(value))
-        self._data["Nominal Well Storage Volume"] = value
+        self["Nominal Well Storage Volume"] = value
 
     @property
     def water_table_depth_mode(self):
@@ -2679,55 +1289,13 @@ class WaterUseWell(object):
 
         Args:
             value (str): value for IDD Field `Water Table Depth Mode`
-                Accepted values are:
-                      - Constant
-                      - Scheduled
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseWell.water_table_depth_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseWell.water_table_depth_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseWell.water_table_depth_mode`')
-            vals = {}
-            vals["constant"] = "Constant"
-            vals["scheduled"] = "Scheduled"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `WaterUseWell.water_table_depth_mode`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `WaterUseWell.water_table_depth_mode`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Water Table Depth Mode"] = value
+        self["Water Table Depth Mode"] = value
 
     @property
     def water_table_depth(self):
@@ -2751,13 +1319,7 @@ class WaterUseWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseWell.water_table_depth`'.format(value))
-        self._data["Water Table Depth"] = value
+        self["Water Table Depth"] = value
 
     @property
     def water_table_depth_schedule_name(self):
@@ -2780,189 +1342,25 @@ class WaterUseWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseWell.water_table_depth_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseWell.water_table_depth_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseWell.water_table_depth_schedule_name`')
-        self._data["Water Table Depth Schedule Name"] = value
+        self["Water Table Depth Schedule Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field WaterUseWell:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field WaterUseWell:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for WaterUseWell: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for WaterUseWell: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class WaterUseRainCollector(object):
+class WaterUseRainCollector(DataObject):
     """ Corresponds to IDD object `WaterUse:RainCollector`
         Used for harvesting rainwater falling on building surfaces. The rainwater is sent to a
         WaterUse:Storage object. In order to use this object it is necessary to also include
         a Site:Precipitation object to describe the rates of rainfall.
     """
-    internal_name = "WaterUse:RainCollector"
-    field_count = 6
-    required_fields = ["Name", "Storage Tank Name"]
-    extensible_fields = 1
-    format = None
-    min_fields = 0
-    extensible_keys = ["Collection Surface 1 Name"]
+    schema = {'min-fields': 0, 'name': u'WaterUse:RainCollector', 'pyname': u'WaterUseRainCollector', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'storage tank name', {'name': u'Storage Tank Name', 'pyname': u'storage_tank_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'loss factor mode', {'name': u'Loss Factor Mode', 'pyname': u'loss_factor_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'collection loss factor', {'name': u'Collection Loss Factor', 'pyname': u'collection_loss_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'collection loss factor schedule name', {'name': u'Collection Loss Factor Schedule Name', 'pyname': u'collection_loss_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum collection rate', {'name': u'Maximum Collection Rate', 'pyname': u'maximum_collection_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict([(u'collection surface 1 name', {'name': u'Collection Surface 1 Name', 'pyname': u'collection_surface_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterUse:RainCollector`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Storage Tank Name"] = None
-        self._data["Loss Factor Mode"] = None
-        self._data["Collection Loss Factor"] = None
-        self._data["Collection Loss Factor Schedule Name"] = None
-        self._data["Maximum Collection Rate"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.storage_tank_name = None
-        else:
-            self.storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.loss_factor_mode = None
-        else:
-            self.loss_factor_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.collection_loss_factor = None
-        else:
-            self.collection_loss_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.collection_loss_factor_schedule_name = None
-        else:
-            self.collection_loss_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_collection_rate = None
-        else:
-            self.maximum_collection_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2985,19 +1383,7 @@ class WaterUseRainCollector(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseRainCollector.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseRainCollector.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseRainCollector.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def storage_tank_name(self):
@@ -3020,19 +1406,7 @@ class WaterUseRainCollector(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseRainCollector.storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseRainCollector.storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseRainCollector.storage_tank_name`')
-        self._data["Storage Tank Name"] = value
+        self["Storage Tank Name"] = value
 
     @property
     def loss_factor_mode(self):
@@ -3049,55 +1423,13 @@ class WaterUseRainCollector(object):
 
         Args:
             value (str): value for IDD Field `Loss Factor Mode`
-                Accepted values are:
-                      - Constant
-                      - Scheduled
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseRainCollector.loss_factor_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseRainCollector.loss_factor_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseRainCollector.loss_factor_mode`')
-            vals = {}
-            vals["constant"] = "Constant"
-            vals["scheduled"] = "Scheduled"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `WaterUseRainCollector.loss_factor_mode`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `WaterUseRainCollector.loss_factor_mode`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Loss Factor Mode"] = value
+        self["Loss Factor Mode"] = value
 
     @property
     def collection_loss_factor(self):
@@ -3123,13 +1455,7 @@ class WaterUseRainCollector(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseRainCollector.collection_loss_factor`'.format(value))
-        self._data["Collection Loss Factor"] = value
+        self["Collection Loss Factor"] = value
 
     @property
     def collection_loss_factor_schedule_name(self):
@@ -3152,19 +1478,7 @@ class WaterUseRainCollector(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseRainCollector.collection_loss_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseRainCollector.collection_loss_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseRainCollector.collection_loss_factor_schedule_name`')
-        self._data["Collection Loss Factor Schedule Name"] = value
+        self["Collection Loss Factor Schedule Name"] = value
 
     @property
     def maximum_collection_rate(self):
@@ -3189,13 +1503,7 @@ class WaterUseRainCollector(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `WaterUseRainCollector.maximum_collection_rate`'.format(value))
-        self._data["Maximum Collection Rate"] = value
+        self["Maximum Collection Rate"] = value
 
     def add_extensible(self,
                        collection_surface_1_name=None,
@@ -3209,7 +1517,8 @@ class WaterUseRainCollector(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_collection_surface_1_name(collection_surface_1_name))
+        collection_surface_1_name = self.check_value("Collection Surface 1 Name", collection_surface_1_name)
+        vals.append(collection_surface_1_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -3217,102 +1526,3 @@ class WaterUseRainCollector(object):
         """ Get list of all extensibles
         """
         return self._data["extensibles"]
-
-    def _check_collection_surface_1_name(self, value):
-        """ Validates falue of field `Collection Surface 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WaterUseRainCollector.collection_surface_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WaterUseRainCollector.collection_surface_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WaterUseRainCollector.collection_surface_1_name`')
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field WaterUseRainCollector:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field WaterUseRainCollector:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for WaterUseRainCollector: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for WaterUseRainCollector: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])

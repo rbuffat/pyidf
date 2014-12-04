@@ -1,138 +1,30 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class ZoneInfiltrationDesignFlowRate(object):
+
+
+class ZoneInfiltrationDesignFlowRate(DataObject):
     """ Corresponds to IDD object `ZoneInfiltration:DesignFlowRate`
         Infiltration is specified as a design level which is modified by a Schedule fraction, temperature difference and wind speed:
         Infiltration=Idesign * FSchedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    internal_name = "ZoneInfiltration:DesignFlowRate"
-    field_count = 12
-    required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Flow Rate Calculation Method", "Constant Term Coefficient", "Temperature Term Coefficient", "Velocity Term Coefficient", "Velocity Squared Term Coefficient"]
-    extensible_fields = 0
-    format = None
-    min_fields = 12
-    extensible_keys = []
+    schema = {'min-fields': 12, 'name': u'ZoneInfiltration:DesignFlowRate', 'pyname': u'ZoneInfiltrationDesignFlowRate', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow per zone floor area', {'name': u'Flow per Zone Floor Area', 'pyname': u'flow_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow per exterior surface area', {'name': u'Flow per Exterior Surface Area', 'pyname': u'flow_per_exterior_surface_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'constant term coefficient', {'name': u'Constant Term Coefficient', 'pyname': u'constant_term_coefficient', 'default': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature term coefficient', {'name': u'Temperature Term Coefficient', 'pyname': u'temperature_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity term coefficient', {'name': u'Velocity Term Coefficient', 'pyname': u'velocity_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity squared term coefficient', {'name': u'Velocity Squared Term Coefficient', 'pyname': u'velocity_squared_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:DesignFlowRate`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone or ZoneList Name"] = None
-        self._data["Schedule Name"] = None
-        self._data["Design Flow Rate Calculation Method"] = None
-        self._data["Design Flow Rate"] = None
-        self._data["Flow per Zone Floor Area"] = None
-        self._data["Flow per Exterior Surface Area"] = None
-        self._data["Air Changes per Hour"] = None
-        self._data["Constant Term Coefficient"] = None
-        self._data["Temperature Term Coefficient"] = None
-        self._data["Velocity Term Coefficient"] = None
-        self._data["Velocity Squared Term Coefficient"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_or_zonelist_name = None
-        else:
-            self.zone_or_zonelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_flow_rate_calculation_method = None
-        else:
-            self.design_flow_rate_calculation_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_flow_rate = None
-        else:
-            self.design_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_per_zone_floor_area = None
-        else:
-            self.flow_per_zone_floor_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_per_exterior_surface_area = None
-        else:
-            self.flow_per_exterior_surface_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_changes_per_hour = None
-        else:
-            self.air_changes_per_hour = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.constant_term_coefficient = None
-        else:
-            self.constant_term_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_term_coefficient = None
-        else:
-            self.temperature_term_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.velocity_term_coefficient = None
-        else:
-            self.velocity_term_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.velocity_squared_term_coefficient = None
-        else:
-            self.velocity_squared_term_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -155,19 +47,7 @@ class ZoneInfiltrationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneInfiltrationDesignFlowRate.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneInfiltrationDesignFlowRate.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_or_zonelist_name(self):
@@ -190,19 +70,7 @@ class ZoneInfiltrationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.zone_or_zonelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneInfiltrationDesignFlowRate.zone_or_zonelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneInfiltrationDesignFlowRate.zone_or_zonelist_name`')
-        self._data["Zone or ZoneList Name"] = value
+        self["Zone or ZoneList Name"] = value
 
     @property
     def schedule_name(self):
@@ -225,19 +93,7 @@ class ZoneInfiltrationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneInfiltrationDesignFlowRate.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneInfiltrationDesignFlowRate.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def design_flow_rate_calculation_method(self):
@@ -262,12 +118,6 @@ class ZoneInfiltrationDesignFlowRate(object):
 
         Args:
             value (str): value for IDD Field `Design Flow Rate Calculation Method`
-                Accepted values are:
-                      - Flow/Zone
-                      - Flow/Area
-                      - Flow/ExteriorArea
-                      - Flow/ExteriorWallArea
-                      - AirChanges/Hour
                 Default value: Flow/Zone
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -275,49 +125,7 @@ class ZoneInfiltrationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method`')
-            vals = {}
-            vals["flow/zone"] = "Flow/Zone"
-            vals["flow/area"] = "Flow/Area"
-            vals["flow/exteriorarea"] = "Flow/ExteriorArea"
-            vals["flow/exteriorwallarea"] = "Flow/ExteriorWallArea"
-            vals["airchanges/hour"] = "AirChanges/Hour"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Design Flow Rate Calculation Method"] = value
+        self["Design Flow Rate Calculation Method"] = value
 
     @property
     def design_flow_rate(self):
@@ -336,23 +144,13 @@ class ZoneInfiltrationDesignFlowRate(object):
             value (float): value for IDD Field `Design Flow Rate`
                 Units: m3/s
                 IP-Units: ft3/min
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.design_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneInfiltrationDesignFlowRate.design_flow_rate`')
-        self._data["Design Flow Rate"] = value
+        self["Design Flow Rate"] = value
 
     @property
     def flow_per_zone_floor_area(self):
@@ -370,23 +168,13 @@ class ZoneInfiltrationDesignFlowRate(object):
         Args:
             value (float): value for IDD Field `Flow per Zone Floor Area`
                 Units: m3/s-m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.flow_per_zone_floor_area`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneInfiltrationDesignFlowRate.flow_per_zone_floor_area`')
-        self._data["Flow per Zone Floor Area"] = value
+        self["Flow per Zone Floor Area"] = value
 
     @property
     def flow_per_exterior_surface_area(self):
@@ -406,23 +194,13 @@ class ZoneInfiltrationDesignFlowRate(object):
         Args:
             value (float): value for IDD Field `Flow per Exterior Surface Area`
                 Units: m3/s-m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.flow_per_exterior_surface_area`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneInfiltrationDesignFlowRate.flow_per_exterior_surface_area`')
-        self._data["Flow per Exterior Surface Area"] = value
+        self["Flow per Exterior Surface Area"] = value
 
     @property
     def air_changes_per_hour(self):
@@ -440,23 +218,13 @@ class ZoneInfiltrationDesignFlowRate(object):
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
                 Units: 1/hr
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.air_changes_per_hour`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneInfiltrationDesignFlowRate.air_changes_per_hour`')
-        self._data["Air Changes per Hour"] = value
+        self["Air Changes per Hour"] = value
 
     @property
     def constant_term_coefficient(self):
@@ -481,13 +249,7 @@ class ZoneInfiltrationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.constant_term_coefficient`'.format(value))
-        self._data["Constant Term Coefficient"] = value
+        self["Constant Term Coefficient"] = value
 
     @property
     def temperature_term_coefficient(self):
@@ -499,26 +261,19 @@ class ZoneInfiltrationDesignFlowRate(object):
         return self._data["Temperature Term Coefficient"]
 
     @temperature_term_coefficient.setter
-    def temperature_term_coefficient(self, value=0.0):
+    def temperature_term_coefficient(self, value=None):
         """  Corresponds to IDD Field `Temperature Term Coefficient`
         "B" in Equation
 
         Args:
             value (float): value for IDD Field `Temperature Term Coefficient`
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.temperature_term_coefficient`'.format(value))
-        self._data["Temperature Term Coefficient"] = value
+        self["Temperature Term Coefficient"] = value
 
     @property
     def velocity_term_coefficient(self):
@@ -530,26 +285,19 @@ class ZoneInfiltrationDesignFlowRate(object):
         return self._data["Velocity Term Coefficient"]
 
     @velocity_term_coefficient.setter
-    def velocity_term_coefficient(self, value=0.0):
+    def velocity_term_coefficient(self, value=None):
         """  Corresponds to IDD Field `Velocity Term Coefficient`
         "C" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Term Coefficient`
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.velocity_term_coefficient`'.format(value))
-        self._data["Velocity Term Coefficient"] = value
+        self["Velocity Term Coefficient"] = value
 
     @property
     def velocity_squared_term_coefficient(self):
@@ -561,188 +309,37 @@ class ZoneInfiltrationDesignFlowRate(object):
         return self._data["Velocity Squared Term Coefficient"]
 
     @velocity_squared_term_coefficient.setter
-    def velocity_squared_term_coefficient(self, value=0.0):
+    def velocity_squared_term_coefficient(self, value=None):
         """  Corresponds to IDD Field `Velocity Squared Term Coefficient`
         "D" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Squared Term Coefficient`
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationDesignFlowRate.velocity_squared_term_coefficient`'.format(value))
-        self._data["Velocity Squared Term Coefficient"] = value
+        self["Velocity Squared Term Coefficient"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneInfiltrationDesignFlowRate:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneInfiltrationDesignFlowRate:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneInfiltrationDesignFlowRate: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneInfiltrationDesignFlowRate: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneInfiltrationEffectiveLeakageArea(object):
+class ZoneInfiltrationEffectiveLeakageArea(DataObject):
     """ Corresponds to IDD object `ZoneInfiltration:EffectiveLeakageArea`
         Infiltration is specified as effective leakage area at 4 Pa, schedule fraction, stack and wind coefficients, and
         is a function of temperature difference and wind speed:
         Infiltration=FSchedule * (AL /1000) SQRT(Cs*|(Tzone-Todb)| +  Cw*WindSpd**2 )
     """
-    internal_name = "ZoneInfiltration:EffectiveLeakageArea"
-    field_count = 6
-    required_fields = ["Name", "Zone Name", "Schedule Name", "Effective Air Leakage Area", "Stack Coefficient", "Wind Coefficient"]
-    extensible_fields = 0
-    format = None
-    min_fields = 6
-    extensible_keys = []
+    schema = {'min-fields': 6, 'name': u'ZoneInfiltration:EffectiveLeakageArea', 'pyname': u'ZoneInfiltrationEffectiveLeakageArea', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'effective air leakage area', {'name': u'Effective Air Leakage Area', 'pyname': u'effective_air_leakage_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'cm2'}), (u'stack coefficient', {'name': u'Stack Coefficient', 'pyname': u'stack_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wind coefficient', {'name': u'Wind Coefficient', 'pyname': u'wind_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:EffectiveLeakageArea`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Schedule Name"] = None
-        self._data["Effective Air Leakage Area"] = None
-        self._data["Stack Coefficient"] = None
-        self._data["Wind Coefficient"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.effective_air_leakage_area = None
-        else:
-            self.effective_air_leakage_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.stack_coefficient = None
-        else:
-            self.stack_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wind_coefficient = None
-        else:
-            self.wind_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -765,19 +362,7 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneInfiltrationEffectiveLeakageArea.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneInfiltrationEffectiveLeakageArea.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_name(self):
@@ -800,19 +385,7 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneInfiltrationEffectiveLeakageArea.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneInfiltrationEffectiveLeakageArea.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def schedule_name(self):
@@ -835,19 +408,7 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneInfiltrationEffectiveLeakageArea.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneInfiltrationEffectiveLeakageArea.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def effective_air_leakage_area(self):
@@ -867,23 +428,13 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
         Args:
             value (float): value for IDD Field `Effective Air Leakage Area`
                 Units: cm2
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.effective_air_leakage_area`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneInfiltrationEffectiveLeakageArea.effective_air_leakage_area`')
-        self._data["Effective Air Leakage Area"] = value
+        self["Effective Air Leakage Area"] = value
 
     @property
     def stack_coefficient(self):
@@ -901,23 +452,13 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
 
         Args:
             value (float): value for IDD Field `Stack Coefficient`
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.stack_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneInfiltrationEffectiveLeakageArea.stack_coefficient`')
-        self._data["Stack Coefficient"] = value
+        self["Stack Coefficient"] = value
 
     @property
     def wind_coefficient(self):
@@ -935,201 +476,31 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
 
         Args:
             value (float): value for IDD Field `Wind Coefficient`
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationEffectiveLeakageArea.wind_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneInfiltrationEffectiveLeakageArea.wind_coefficient`')
-        self._data["Wind Coefficient"] = value
+        self["Wind Coefficient"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneInfiltrationEffectiveLeakageArea:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneInfiltrationEffectiveLeakageArea:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneInfiltrationEffectiveLeakageArea: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneInfiltrationEffectiveLeakageArea: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneInfiltrationFlowCoefficient(object):
+class ZoneInfiltrationFlowCoefficient(DataObject):
     """ Corresponds to IDD object `ZoneInfiltration:FlowCoefficient`
         Infiltration is specified as flow coefficient, schedule fraction, stack and wind coefficients, and
         is a function of temperature difference and wind speed:
         Infiltration=FSchedule * SQRT( (c * Cs*|(Tzone-Todb)|**n)**2 + (c* Cw*(s * WindSpd)**2n)**2 )
     """
-    internal_name = "ZoneInfiltration:FlowCoefficient"
-    field_count = 8
-    required_fields = ["Name", "Zone Name", "Schedule Name", "Flow Coefficient", "Stack Coefficient", "Pressure Exponent", "Wind Coefficient", "Shelter Factor"]
-    extensible_fields = 0
-    format = None
-    min_fields = 8
-    extensible_keys = []
+    schema = {'min-fields': 8, 'name': u'ZoneInfiltration:FlowCoefficient', 'pyname': u'ZoneInfiltrationFlowCoefficient', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'flow coefficient', {'name': u'Flow Coefficient', 'pyname': u'flow_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'stack coefficient', {'name': u'Stack Coefficient', 'pyname': u'stack_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure exponent', {'name': u'Pressure Exponent', 'pyname': u'pressure_exponent', 'default': 0.67, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wind coefficient', {'name': u'Wind Coefficient', 'pyname': u'wind_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'shelter factor', {'name': u'Shelter Factor', 'pyname': u'shelter_factor', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:FlowCoefficient`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Schedule Name"] = None
-        self._data["Flow Coefficient"] = None
-        self._data["Stack Coefficient"] = None
-        self._data["Pressure Exponent"] = None
-        self._data["Wind Coefficient"] = None
-        self._data["Shelter Factor"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_coefficient = None
-        else:
-            self.flow_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.stack_coefficient = None
-        else:
-            self.stack_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pressure_exponent = None
-        else:
-            self.pressure_exponent = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wind_coefficient = None
-        else:
-            self.wind_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.shelter_factor = None
-        else:
-            self.shelter_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1152,19 +523,7 @@ class ZoneInfiltrationFlowCoefficient(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneInfiltrationFlowCoefficient.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneInfiltrationFlowCoefficient.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneInfiltrationFlowCoefficient.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_name(self):
@@ -1187,19 +546,7 @@ class ZoneInfiltrationFlowCoefficient(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneInfiltrationFlowCoefficient.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneInfiltrationFlowCoefficient.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneInfiltrationFlowCoefficient.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def schedule_name(self):
@@ -1222,19 +569,7 @@ class ZoneInfiltrationFlowCoefficient(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneInfiltrationFlowCoefficient.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneInfiltrationFlowCoefficient.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneInfiltrationFlowCoefficient.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def flow_coefficient(self):
@@ -1252,23 +587,13 @@ class ZoneInfiltrationFlowCoefficient(object):
 
         Args:
             value (float): value for IDD Field `Flow Coefficient`
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationFlowCoefficient.flow_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneInfiltrationFlowCoefficient.flow_coefficient`')
-        self._data["Flow Coefficient"] = value
+        self["Flow Coefficient"] = value
 
     @property
     def stack_coefficient(self):
@@ -1286,23 +611,13 @@ class ZoneInfiltrationFlowCoefficient(object):
 
         Args:
             value (float): value for IDD Field `Stack Coefficient`
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationFlowCoefficient.stack_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneInfiltrationFlowCoefficient.stack_coefficient`')
-        self._data["Stack Coefficient"] = value
+        self["Stack Coefficient"] = value
 
     @property
     def pressure_exponent(self):
@@ -1321,23 +636,13 @@ class ZoneInfiltrationFlowCoefficient(object):
         Args:
             value (float): value for IDD Field `Pressure Exponent`
                 Default value: 0.67
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationFlowCoefficient.pressure_exponent`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneInfiltrationFlowCoefficient.pressure_exponent`')
-        self._data["Pressure Exponent"] = value
+        self["Pressure Exponent"] = value
 
     @property
     def wind_coefficient(self):
@@ -1355,23 +660,13 @@ class ZoneInfiltrationFlowCoefficient(object):
 
         Args:
             value (float): value for IDD Field `Wind Coefficient`
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationFlowCoefficient.wind_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneInfiltrationFlowCoefficient.wind_coefficient`')
-        self._data["Wind Coefficient"] = value
+        self["Wind Coefficient"] = value
 
     @property
     def shelter_factor(self):
@@ -1389,346 +684,32 @@ class ZoneInfiltrationFlowCoefficient(object):
 
         Args:
             value (float): value for IDD Field `Shelter Factor`
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneInfiltrationFlowCoefficient.shelter_factor`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneInfiltrationFlowCoefficient.shelter_factor`')
-        self._data["Shelter Factor"] = value
+        self["Shelter Factor"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneInfiltrationFlowCoefficient:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneInfiltrationFlowCoefficient:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneInfiltrationFlowCoefficient: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneInfiltrationFlowCoefficient: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneVentilationDesignFlowRate(object):
+class ZoneVentilationDesignFlowRate(DataObject):
     """ Corresponds to IDD object `ZoneVentilation:DesignFlowRate`
         Ventilation is specified as a design level which is modified by a schedule fraction, temperature difference and wind speed:
         Ventilation=Vdesign * Fschedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    internal_name = "ZoneVentilation:DesignFlowRate"
-    field_count = 26
-    required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Flow Rate Calculation Method", "Ventilation Type", "Fan Pressure Rise", "Fan Total Efficiency", "Constant Term Coefficient", "Temperature Term Coefficient", "Velocity Term Coefficient", "Velocity Squared Term Coefficient"]
-    extensible_fields = 0
-    format = None
-    min_fields = 15
-    extensible_keys = []
+    schema = {'min-fields': 15, 'name': u'ZoneVentilation:DesignFlowRate', 'pyname': u'ZoneVentilationDesignFlowRate', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate per zone floor area', {'name': u'Flow Rate per Zone Floor Area', 'pyname': u'flow_rate_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow rate per person', {'name': u'Flow Rate per Person', 'pyname': u'flow_rate_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'ventilation type', {'name': u'Ventilation Type', 'pyname': u'ventilation_type', 'default': u'Natural', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fan pressure rise', {'name': u'Fan Pressure Rise', 'pyname': u'fan_pressure_rise', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 1.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'constant term coefficient', {'name': u'Constant Term Coefficient', 'pyname': u'constant_term_coefficient', 'default': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature term coefficient', {'name': u'Temperature Term Coefficient', 'pyname': u'temperature_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity term coefficient', {'name': u'Velocity Term Coefficient', 'pyname': u'velocity_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity squared term coefficient', {'name': u'Velocity Squared Term Coefficient', 'pyname': u'velocity_squared_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum indoor temperature', {'name': u'Minimum Indoor Temperature', 'pyname': u'minimum_indoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum indoor temperature schedule name', {'name': u'Minimum Indoor Temperature Schedule Name', 'pyname': u'minimum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum indoor temperature', {'name': u'Maximum Indoor Temperature', 'pyname': u'maximum_indoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum indoor temperature schedule name', {'name': u'Maximum Indoor Temperature Schedule Name', 'pyname': u'maximum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': -100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature', {'name': u'Minimum Outdoor Temperature', 'pyname': u'minimum_outdoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature', {'name': u'Maximum Outdoor Temperature', 'pyname': u'maximum_outdoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum wind speed', {'name': u'Maximum Wind Speed', 'pyname': u'maximum_wind_speed', 'default': 40.0, 'maximum': 40.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneVentilation:DesignFlowRate`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone or ZoneList Name"] = None
-        self._data["Schedule Name"] = None
-        self._data["Design Flow Rate Calculation Method"] = None
-        self._data["Design Flow Rate"] = None
-        self._data["Flow Rate per Zone Floor Area"] = None
-        self._data["Flow Rate per Person"] = None
-        self._data["Air Changes per Hour"] = None
-        self._data["Ventilation Type"] = None
-        self._data["Fan Pressure Rise"] = None
-        self._data["Fan Total Efficiency"] = None
-        self._data["Constant Term Coefficient"] = None
-        self._data["Temperature Term Coefficient"] = None
-        self._data["Velocity Term Coefficient"] = None
-        self._data["Velocity Squared Term Coefficient"] = None
-        self._data["Minimum Indoor Temperature"] = None
-        self._data["Minimum Indoor Temperature Schedule Name"] = None
-        self._data["Maximum Indoor Temperature"] = None
-        self._data["Maximum Indoor Temperature Schedule Name"] = None
-        self._data["Delta Temperature"] = None
-        self._data["Delta Temperature Schedule Name"] = None
-        self._data["Minimum Outdoor Temperature"] = None
-        self._data["Minimum Outdoor Temperature Schedule Name"] = None
-        self._data["Maximum Outdoor Temperature"] = None
-        self._data["Maximum Outdoor Temperature Schedule Name"] = None
-        self._data["Maximum Wind Speed"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_or_zonelist_name = None
-        else:
-            self.zone_or_zonelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_flow_rate_calculation_method = None
-        else:
-            self.design_flow_rate_calculation_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_flow_rate = None
-        else:
-            self.design_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_rate_per_zone_floor_area = None
-        else:
-            self.flow_rate_per_zone_floor_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_rate_per_person = None
-        else:
-            self.flow_rate_per_person = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_changes_per_hour = None
-        else:
-            self.air_changes_per_hour = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ventilation_type = None
-        else:
-            self.ventilation_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fan_pressure_rise = None
-        else:
-            self.fan_pressure_rise = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fan_total_efficiency = None
-        else:
-            self.fan_total_efficiency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.constant_term_coefficient = None
-        else:
-            self.constant_term_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_term_coefficient = None
-        else:
-            self.temperature_term_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.velocity_term_coefficient = None
-        else:
-            self.velocity_term_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.velocity_squared_term_coefficient = None
-        else:
-            self.velocity_squared_term_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_indoor_temperature = None
-        else:
-            self.minimum_indoor_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_indoor_temperature_schedule_name = None
-        else:
-            self.minimum_indoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_indoor_temperature = None
-        else:
-            self.maximum_indoor_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_indoor_temperature_schedule_name = None
-        else:
-            self.maximum_indoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_temperature = None
-        else:
-            self.delta_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_temperature_schedule_name = None
-        else:
-            self.delta_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outdoor_temperature = None
-        else:
-            self.minimum_outdoor_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outdoor_temperature_schedule_name = None
-        else:
-            self.minimum_outdoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_temperature = None
-        else:
-            self.maximum_outdoor_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_temperature_schedule_name = None
-        else:
-            self.maximum_outdoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_wind_speed = None
-        else:
-            self.maximum_wind_speed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1751,19 +732,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationDesignFlowRate.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationDesignFlowRate.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationDesignFlowRate.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_or_zonelist_name(self):
@@ -1786,19 +755,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationDesignFlowRate.zone_or_zonelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationDesignFlowRate.zone_or_zonelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationDesignFlowRate.zone_or_zonelist_name`')
-        self._data["Zone or ZoneList Name"] = value
+        self["Zone or ZoneList Name"] = value
 
     @property
     def schedule_name(self):
@@ -1821,19 +778,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationDesignFlowRate.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationDesignFlowRate.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationDesignFlowRate.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def design_flow_rate_calculation_method(self):
@@ -1857,11 +802,6 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (str): value for IDD Field `Design Flow Rate Calculation Method`
-                Accepted values are:
-                      - Flow/Zone
-                      - Flow/Area
-                      - Flow/Person
-                      - AirChanges/Hour
                 Default value: Flow/Zone
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1869,48 +809,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method`')
-            vals = {}
-            vals["flow/zone"] = "Flow/Zone"
-            vals["flow/area"] = "Flow/Area"
-            vals["flow/person"] = "Flow/Person"
-            vals["airchanges/hour"] = "AirChanges/Hour"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Design Flow Rate Calculation Method"] = value
+        self["Design Flow Rate Calculation Method"] = value
 
     @property
     def design_flow_rate(self):
@@ -1928,23 +827,13 @@ class ZoneVentilationDesignFlowRate(object):
         Args:
             value (float): value for IDD Field `Design Flow Rate`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.design_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.design_flow_rate`')
-        self._data["Design Flow Rate"] = value
+        self["Design Flow Rate"] = value
 
     @property
     def flow_rate_per_zone_floor_area(self):
@@ -1962,23 +851,13 @@ class ZoneVentilationDesignFlowRate(object):
         Args:
             value (float): value for IDD Field `Flow Rate per Zone Floor Area`
                 Units: m3/s-m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.flow_rate_per_zone_floor_area`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.flow_rate_per_zone_floor_area`')
-        self._data["Flow Rate per Zone Floor Area"] = value
+        self["Flow Rate per Zone Floor Area"] = value
 
     @property
     def flow_rate_per_person(self):
@@ -1996,23 +875,13 @@ class ZoneVentilationDesignFlowRate(object):
         Args:
             value (float): value for IDD Field `Flow Rate per Person`
                 Units: m3/s-person
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.flow_rate_per_person`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.flow_rate_per_person`')
-        self._data["Flow Rate per Person"] = value
+        self["Flow Rate per Person"] = value
 
     @property
     def air_changes_per_hour(self):
@@ -2030,23 +899,13 @@ class ZoneVentilationDesignFlowRate(object):
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
                 Units: 1/hr
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.air_changes_per_hour`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.air_changes_per_hour`')
-        self._data["Air Changes per Hour"] = value
+        self["Air Changes per Hour"] = value
 
     @property
     def ventilation_type(self):
@@ -2063,11 +922,6 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (str): value for IDD Field `Ventilation Type`
-                Accepted values are:
-                      - Natural
-                      - Intake
-                      - Exhaust
-                      - Balanced
                 Default value: Natural
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2075,48 +929,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationDesignFlowRate.ventilation_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationDesignFlowRate.ventilation_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationDesignFlowRate.ventilation_type`')
-            vals = {}
-            vals["natural"] = "Natural"
-            vals["intake"] = "Intake"
-            vals["exhaust"] = "Exhaust"
-            vals["balanced"] = "Balanced"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneVentilationDesignFlowRate.ventilation_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneVentilationDesignFlowRate.ventilation_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Ventilation Type"] = value
+        self["Ventilation Type"] = value
 
     @property
     def fan_pressure_rise(self):
@@ -2128,31 +941,20 @@ class ZoneVentilationDesignFlowRate(object):
         return self._data["Fan Pressure Rise"]
 
     @fan_pressure_rise.setter
-    def fan_pressure_rise(self, value=0.0):
+    def fan_pressure_rise(self, value=None):
         """  Corresponds to IDD Field `Fan Pressure Rise`
         pressure rise across the fan
 
         Args:
             value (float): value for IDD Field `Fan Pressure Rise`
                 Units: Pa
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.fan_pressure_rise`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.fan_pressure_rise`')
-        self._data["Fan Pressure Rise"] = value
+        self["Fan Pressure Rise"] = value
 
     @property
     def fan_total_efficiency(self):
@@ -2170,23 +972,13 @@ class ZoneVentilationDesignFlowRate(object):
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
                 Default value: 1.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.fan_total_efficiency`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.fan_total_efficiency`')
-        self._data["Fan Total Efficiency"] = value
+        self["Fan Total Efficiency"] = value
 
     @property
     def constant_term_coefficient(self):
@@ -2211,13 +1003,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.constant_term_coefficient`'.format(value))
-        self._data["Constant Term Coefficient"] = value
+        self["Constant Term Coefficient"] = value
 
     @property
     def temperature_term_coefficient(self):
@@ -2229,26 +1015,19 @@ class ZoneVentilationDesignFlowRate(object):
         return self._data["Temperature Term Coefficient"]
 
     @temperature_term_coefficient.setter
-    def temperature_term_coefficient(self, value=0.0):
+    def temperature_term_coefficient(self, value=None):
         """  Corresponds to IDD Field `Temperature Term Coefficient`
         "B" in Equation
 
         Args:
             value (float): value for IDD Field `Temperature Term Coefficient`
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.temperature_term_coefficient`'.format(value))
-        self._data["Temperature Term Coefficient"] = value
+        self["Temperature Term Coefficient"] = value
 
     @property
     def velocity_term_coefficient(self):
@@ -2260,26 +1039,19 @@ class ZoneVentilationDesignFlowRate(object):
         return self._data["Velocity Term Coefficient"]
 
     @velocity_term_coefficient.setter
-    def velocity_term_coefficient(self, value=0.0):
+    def velocity_term_coefficient(self, value=None):
         """  Corresponds to IDD Field `Velocity Term Coefficient`
         "C" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Term Coefficient`
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.velocity_term_coefficient`'.format(value))
-        self._data["Velocity Term Coefficient"] = value
+        self["Velocity Term Coefficient"] = value
 
     @property
     def velocity_squared_term_coefficient(self):
@@ -2291,26 +1063,19 @@ class ZoneVentilationDesignFlowRate(object):
         return self._data["Velocity Squared Term Coefficient"]
 
     @velocity_squared_term_coefficient.setter
-    def velocity_squared_term_coefficient(self, value=0.0):
+    def velocity_squared_term_coefficient(self, value=None):
         """  Corresponds to IDD Field `Velocity Squared Term Coefficient`
         "D" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Squared Term Coefficient`
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.velocity_squared_term_coefficient`'.format(value))
-        self._data["Velocity Squared Term Coefficient"] = value
+        self["Velocity Squared Term Coefficient"] = value
 
     @property
     def minimum_indoor_temperature(self):
@@ -2338,19 +1103,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature`')
-        self._data["Minimum Indoor Temperature"] = value
+        self["Minimum Indoor Temperature"] = value
 
     @property
     def minimum_indoor_temperature_schedule_name(self):
@@ -2375,19 +1128,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationDesignFlowRate.minimum_indoor_temperature_schedule_name`')
-        self._data["Minimum Indoor Temperature Schedule Name"] = value
+        self["Minimum Indoor Temperature Schedule Name"] = value
 
     @property
     def maximum_indoor_temperature(self):
@@ -2415,19 +1156,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature`')
-        self._data["Maximum Indoor Temperature"] = value
+        self["Maximum Indoor Temperature"] = value
 
     @property
     def maximum_indoor_temperature_schedule_name(self):
@@ -2452,19 +1181,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationDesignFlowRate.maximum_indoor_temperature_schedule_name`')
-        self._data["Maximum Indoor Temperature Schedule Name"] = value
+        self["Maximum Indoor Temperature Schedule Name"] = value
 
     @property
     def delta_temperature(self):
@@ -2495,16 +1212,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.delta_temperature`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.delta_temperature`')
-        self._data["Delta Temperature"] = value
+        self["Delta Temperature"] = value
 
     @property
     def delta_temperature_schedule_name(self):
@@ -2529,19 +1237,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationDesignFlowRate.delta_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationDesignFlowRate.delta_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationDesignFlowRate.delta_temperature_schedule_name`')
-        self._data["Delta Temperature Schedule Name"] = value
+        self["Delta Temperature Schedule Name"] = value
 
     @property
     def minimum_outdoor_temperature(self):
@@ -2569,19 +1265,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature`')
-        self._data["Minimum Outdoor Temperature"] = value
+        self["Minimum Outdoor Temperature"] = value
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
@@ -2606,19 +1290,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationDesignFlowRate.minimum_outdoor_temperature_schedule_name`')
-        self._data["Minimum Outdoor Temperature Schedule Name"] = value
+        self["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_outdoor_temperature(self):
@@ -2646,19 +1318,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature`')
-        self._data["Maximum Outdoor Temperature"] = value
+        self["Maximum Outdoor Temperature"] = value
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
@@ -2683,19 +1343,7 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationDesignFlowRate.maximum_outdoor_temperature_schedule_name`')
-        self._data["Maximum Outdoor Temperature Schedule Name"] = value
+        self["Maximum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_wind_speed(self):
@@ -2715,7 +1363,6 @@ class ZoneVentilationDesignFlowRate(object):
             value (float): value for IDD Field `Maximum Wind Speed`
                 Units: m/s
                 Default value: 40.0
-                value >= 0.0
                 value <= 40.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2723,286 +1370,26 @@ class ZoneVentilationDesignFlowRate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationDesignFlowRate.maximum_wind_speed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.maximum_wind_speed`')
-            if value > 40.0:
-                raise ValueError('value need to be smaller 40.0 '
-                                 'for field `ZoneVentilationDesignFlowRate.maximum_wind_speed`')
-        self._data["Maximum Wind Speed"] = value
+        self["Maximum Wind Speed"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneVentilationDesignFlowRate:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneVentilationDesignFlowRate:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneVentilationDesignFlowRate: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneVentilationDesignFlowRate: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneVentilationWindandStackOpenArea(object):
+class ZoneVentilationWindandStackOpenArea(DataObject):
     """ Corresponds to IDD object `ZoneVentilation:WindandStackOpenArea`
         This object is specified as natural ventilation driven by wind and stack effect only:
         Ventilation Wind = Cw * Opening Area * Schedule * WindSpd
         Ventilation Stack = Cd * Opening Area * Schedule * SQRT(2*g*DH*(|(Tzone-Todb)|/Tzone))
         Total Ventilation = SQRT((Ventilation Wind)^2 + (Ventilation Stack)^2)
     """
-    internal_name = "ZoneVentilation:WindandStackOpenArea"
-    field_count = 19
-    required_fields = ["Name", "Zone Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 8
-    extensible_keys = []
+    schema = {'min-fields': 8, 'name': u'ZoneVentilation:WindandStackOpenArea', 'pyname': u'ZoneVentilationWindandStackOpenArea', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'opening area', {'name': u'Opening Area', 'pyname': u'opening_area', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'opening area fraction schedule name', {'name': u'Opening Area Fraction Schedule Name', 'pyname': u'opening_area_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'opening effectiveness', {'name': u'Opening Effectiveness', 'pyname': u'opening_effectiveness', 'default': 'Autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'effective angle', {'name': u'Effective Angle', 'pyname': u'effective_angle', 'default': 0.0, 'maximum<': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'height difference', {'name': u'Height Difference', 'pyname': u'height_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'discharge coefficient for opening', {'name': u'Discharge Coefficient for Opening', 'pyname': u'discharge_coefficient_for_opening', 'default': 'Autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': 'real'}), (u'minimum indoor temperature', {'name': u'Minimum Indoor Temperature', 'pyname': u'minimum_indoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum indoor temperature schedule name', {'name': u'Minimum Indoor Temperature Schedule Name', 'pyname': u'minimum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum indoor temperature', {'name': u'Maximum Indoor Temperature', 'pyname': u'maximum_indoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum indoor temperature schedule name', {'name': u'Maximum Indoor Temperature Schedule Name', 'pyname': u'maximum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': -100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature', {'name': u'Minimum Outdoor Temperature', 'pyname': u'minimum_outdoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature', {'name': u'Maximum Outdoor Temperature', 'pyname': u'maximum_outdoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum wind speed', {'name': u'Maximum Wind Speed', 'pyname': u'maximum_wind_speed', 'default': 40.0, 'maximum': 40.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneVentilation:WindandStackOpenArea`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Opening Area"] = None
-        self._data["Opening Area Fraction Schedule Name"] = None
-        self._data["Opening Effectiveness"] = None
-        self._data["Effective Angle"] = None
-        self._data["Height Difference"] = None
-        self._data["Discharge Coefficient for Opening"] = None
-        self._data["Minimum Indoor Temperature"] = None
-        self._data["Minimum Indoor Temperature Schedule Name"] = None
-        self._data["Maximum Indoor Temperature"] = None
-        self._data["Maximum Indoor Temperature Schedule Name"] = None
-        self._data["Delta Temperature"] = None
-        self._data["Delta Temperature Schedule Name"] = None
-        self._data["Minimum Outdoor Temperature"] = None
-        self._data["Minimum Outdoor Temperature Schedule Name"] = None
-        self._data["Maximum Outdoor Temperature"] = None
-        self._data["Maximum Outdoor Temperature Schedule Name"] = None
-        self._data["Maximum Wind Speed"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.opening_area = None
-        else:
-            self.opening_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.opening_area_fraction_schedule_name = None
-        else:
-            self.opening_area_fraction_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.opening_effectiveness = None
-        else:
-            self.opening_effectiveness = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.effective_angle = None
-        else:
-            self.effective_angle = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.height_difference = None
-        else:
-            self.height_difference = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.discharge_coefficient_for_opening = None
-        else:
-            self.discharge_coefficient_for_opening = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_indoor_temperature = None
-        else:
-            self.minimum_indoor_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_indoor_temperature_schedule_name = None
-        else:
-            self.minimum_indoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_indoor_temperature = None
-        else:
-            self.maximum_indoor_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_indoor_temperature_schedule_name = None
-        else:
-            self.maximum_indoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_temperature = None
-        else:
-            self.delta_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_temperature_schedule_name = None
-        else:
-            self.delta_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outdoor_temperature = None
-        else:
-            self.minimum_outdoor_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outdoor_temperature_schedule_name = None
-        else:
-            self.minimum_outdoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_temperature = None
-        else:
-            self.maximum_outdoor_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_temperature_schedule_name = None
-        else:
-            self.maximum_outdoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_wind_speed = None
-        else:
-            self.maximum_wind_speed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3025,19 +1412,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationWindandStackOpenArea.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationWindandStackOpenArea.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_name(self):
@@ -3060,19 +1435,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationWindandStackOpenArea.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationWindandStackOpenArea.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def opening_area(self):
@@ -3084,31 +1447,20 @@ class ZoneVentilationWindandStackOpenArea(object):
         return self._data["Opening Area"]
 
     @opening_area.setter
-    def opening_area(self, value=0.0):
+    def opening_area(self, value=None):
         """  Corresponds to IDD Field `Opening Area`
         This is the opening area used to calculate stack effect and wind driven ventilation.
 
         Args:
             value (float): value for IDD Field `Opening Area`
                 Units: m2
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.opening_area`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.opening_area`')
-        self._data["Opening Area"] = value
+        self["Opening Area"] = value
 
     @property
     def opening_area_fraction_schedule_name(self):
@@ -3133,19 +1485,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.opening_area_fraction_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationWindandStackOpenArea.opening_area_fraction_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationWindandStackOpenArea.opening_area_fraction_schedule_name`')
-        self._data["Opening Area Fraction Schedule Name"] = value
+        self["Opening Area Fraction Schedule Name"] = value
 
     @property
     def opening_effectiveness(self):
@@ -3170,7 +1510,6 @@ class ZoneVentilationWindandStackOpenArea(object):
             value (float or "Autocalculate"): value for IDD Field `Opening Effectiveness`
                 Units: dimensionless
                 Default value: "Autocalculate"
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3178,31 +1517,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autocalculate":
-                    self._data["Opening Effectiveness"] = "Autocalculate"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autocalculate" '
-                                 'for field `ZoneVentilationWindandStackOpenArea.opening_effectiveness`'.format(value))
-                    self._data["Opening Effectiveness"] = "Autocalculate"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.opening_effectiveness`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.opening_effectiveness`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.opening_effectiveness`')
-        self._data["Opening Effectiveness"] = value
+        self["Opening Effectiveness"] = value
 
     @property
     def effective_angle(self):
@@ -3214,7 +1529,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         return self._data["Effective Angle"]
 
     @effective_angle.setter
-    def effective_angle(self, value=0.0):
+    def effective_angle(self, value=None):
         """  Corresponds to IDD Field `Effective Angle`
         This field is defined as normal angle of the opening area and is used when input
         field Opening Effectiveness = Autocalculate.
@@ -3222,8 +1537,6 @@ class ZoneVentilationWindandStackOpenArea(object):
         Args:
             value (float): value for IDD Field `Effective Angle`
                 Units: deg
-                Default value: 0.0
-                value >= 0.0
                 value < 360.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3231,19 +1544,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.effective_angle`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.effective_angle`')
-            if value >= 360.0:
-                raise ValueError('value need to be smaller 360.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.effective_angle`')
-        self._data["Effective Angle"] = value
+        self["Effective Angle"] = value
 
     @property
     def height_difference(self):
@@ -3255,7 +1556,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         return self._data["Height Difference"]
 
     @height_difference.setter
-    def height_difference(self, value=0.0):
+    def height_difference(self, value=None):
         """  Corresponds to IDD Field `Height Difference`
         This is the height difference between the midpoint of an opening and
         the neutral pressure level.
@@ -3264,24 +1565,13 @@ class ZoneVentilationWindandStackOpenArea(object):
         Args:
             value (float): value for IDD Field `Height Difference`
                 Units: m
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.height_difference`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.height_difference`')
-        self._data["Height Difference"] = value
+        self["Height Difference"] = value
 
     @property
     def discharge_coefficient_for_opening(self):
@@ -3304,7 +1594,6 @@ class ZoneVentilationWindandStackOpenArea(object):
         Args:
             value (float or "Autocalculate"): value for IDD Field `Discharge Coefficient for Opening`
                 Default value: "Autocalculate"
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3312,31 +1601,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autocalculate":
-                    self._data["Discharge Coefficient for Opening"] = "Autocalculate"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autocalculate" '
-                                 'for field `ZoneVentilationWindandStackOpenArea.discharge_coefficient_for_opening`'.format(value))
-                    self._data["Discharge Coefficient for Opening"] = "Autocalculate"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autocalculate"'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.discharge_coefficient_for_opening`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.discharge_coefficient_for_opening`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.discharge_coefficient_for_opening`')
-        self._data["Discharge Coefficient for Opening"] = value
+        self["Discharge Coefficient for Opening"] = value
 
     @property
     def minimum_indoor_temperature(self):
@@ -3364,19 +1629,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature`')
-        self._data["Minimum Indoor Temperature"] = value
+        self["Minimum Indoor Temperature"] = value
 
     @property
     def minimum_indoor_temperature_schedule_name(self):
@@ -3401,19 +1654,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature_schedule_name`')
-        self._data["Minimum Indoor Temperature Schedule Name"] = value
+        self["Minimum Indoor Temperature Schedule Name"] = value
 
     @property
     def maximum_indoor_temperature(self):
@@ -3441,19 +1682,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature`')
-        self._data["Maximum Indoor Temperature"] = value
+        self["Maximum Indoor Temperature"] = value
 
     @property
     def maximum_indoor_temperature_schedule_name(self):
@@ -3478,19 +1707,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature_schedule_name`')
-        self._data["Maximum Indoor Temperature Schedule Name"] = value
+        self["Maximum Indoor Temperature Schedule Name"] = value
 
     @property
     def delta_temperature(self):
@@ -3518,16 +1735,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.delta_temperature`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.delta_temperature`')
-        self._data["Delta Temperature"] = value
+        self["Delta Temperature"] = value
 
     @property
     def delta_temperature_schedule_name(self):
@@ -3552,19 +1760,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.delta_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationWindandStackOpenArea.delta_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationWindandStackOpenArea.delta_temperature_schedule_name`')
-        self._data["Delta Temperature Schedule Name"] = value
+        self["Delta Temperature Schedule Name"] = value
 
     @property
     def minimum_outdoor_temperature(self):
@@ -3592,19 +1788,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature`')
-        self._data["Minimum Outdoor Temperature"] = value
+        self["Minimum Outdoor Temperature"] = value
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
@@ -3629,19 +1813,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature_schedule_name`')
-        self._data["Minimum Outdoor Temperature Schedule Name"] = value
+        self["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_outdoor_temperature(self):
@@ -3669,19 +1841,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature`')
-        self._data["Maximum Outdoor Temperature"] = value
+        self["Maximum Outdoor Temperature"] = value
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
@@ -3706,19 +1866,7 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature_schedule_name`')
-        self._data["Maximum Outdoor Temperature Schedule Name"] = value
+        self["Maximum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_wind_speed(self):
@@ -3738,7 +1886,6 @@ class ZoneVentilationWindandStackOpenArea(object):
             value (float): value for IDD Field `Maximum Wind Speed`
                 Units: m/s
                 Default value: 40.0
-                value >= 0.0
                 value <= 40.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3746,103 +1893,10 @@ class ZoneVentilationWindandStackOpenArea(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneVentilationWindandStackOpenArea.maximum_wind_speed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_wind_speed`')
-            if value > 40.0:
-                raise ValueError('value need to be smaller 40.0 '
-                                 'for field `ZoneVentilationWindandStackOpenArea.maximum_wind_speed`')
-        self._data["Maximum Wind Speed"] = value
+        self["Maximum Wind Speed"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneVentilationWindandStackOpenArea:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneVentilationWindandStackOpenArea:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneVentilationWindandStackOpenArea: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneVentilationWindandStackOpenArea: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneAirBalanceOutdoorAir(object):
+class ZoneAirBalanceOutdoorAir(DataObject):
     """ Corresponds to IDD object `ZoneAirBalance:OutdoorAir`
         Provide a combined zone outdoor air flow by including interactions between
         mechanical ventilation, infiltration and duct leakage.
@@ -3850,71 +1904,16 @@ class ZoneAirBalanceOutdoorAir(object):
         ZoneVentilation objects in the same zone. Balanced flows will be summed, while
         unbalanced flows will be added in quadrature.
     """
-    internal_name = "ZoneAirBalance:OutdoorAir"
-    field_count = 5
-    required_fields = ["Name", "Zone Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'ZoneAirBalance:OutdoorAir', 'pyname': u'ZoneAirBalanceOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air balance method', {'name': u'Air Balance Method', 'pyname': u'air_balance_method', 'default': u'Quadrature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'induced outdoor air due to unbalanced duct leakage', {'name': u'Induced Outdoor Air Due to Unbalanced Duct Leakage', 'pyname': u'induced_outdoor_air_due_to_unbalanced_duct_leakage', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'induced outdoor air schedule name', {'name': u'Induced Outdoor Air Schedule Name', 'pyname': u'induced_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirBalance:OutdoorAir`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Air Balance Method"] = None
-        self._data["Induced Outdoor Air Due to Unbalanced Duct Leakage"] = None
-        self._data["Induced Outdoor Air Schedule Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_balance_method = None
-        else:
-            self.air_balance_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.induced_outdoor_air_due_to_unbalanced_duct_leakage = None
-        else:
-            self.induced_outdoor_air_due_to_unbalanced_duct_leakage = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.induced_outdoor_air_schedule_name = None
-        else:
-            self.induced_outdoor_air_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3937,19 +1936,7 @@ class ZoneAirBalanceOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneAirBalanceOutdoorAir.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneAirBalanceOutdoorAir.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneAirBalanceOutdoorAir.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_name(self):
@@ -3972,19 +1959,7 @@ class ZoneAirBalanceOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneAirBalanceOutdoorAir.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneAirBalanceOutdoorAir.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneAirBalanceOutdoorAir.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def air_balance_method(self):
@@ -4003,9 +1978,6 @@ class ZoneAirBalanceOutdoorAir(object):
 
         Args:
             value (str): value for IDD Field `Air Balance Method`
-                Accepted values are:
-                      - Quadrature
-                      - None
                 Default value: Quadrature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4013,46 +1985,7 @@ class ZoneAirBalanceOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneAirBalanceOutdoorAir.air_balance_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneAirBalanceOutdoorAir.air_balance_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneAirBalanceOutdoorAir.air_balance_method`')
-            vals = {}
-            vals["quadrature"] = "Quadrature"
-            vals["none"] = "None"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneAirBalanceOutdoorAir.air_balance_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneAirBalanceOutdoorAir.air_balance_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Air Balance Method"] = value
+        self["Air Balance Method"] = value
 
     @property
     def induced_outdoor_air_due_to_unbalanced_duct_leakage(self):
@@ -4064,30 +1997,19 @@ class ZoneAirBalanceOutdoorAir(object):
         return self._data["Induced Outdoor Air Due to Unbalanced Duct Leakage"]
 
     @induced_outdoor_air_due_to_unbalanced_duct_leakage.setter
-    def induced_outdoor_air_due_to_unbalanced_duct_leakage(self, value=0.0):
+    def induced_outdoor_air_due_to_unbalanced_duct_leakage(self, value=None):
         """  Corresponds to IDD Field `Induced Outdoor Air Due to Unbalanced Duct Leakage`
 
         Args:
             value (float): value for IDD Field `Induced Outdoor Air Due to Unbalanced Duct Leakage`
                 Units: m3/s
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneAirBalanceOutdoorAir.induced_outdoor_air_due_to_unbalanced_duct_leakage`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneAirBalanceOutdoorAir.induced_outdoor_air_due_to_unbalanced_duct_leakage`')
-        self._data["Induced Outdoor Air Due to Unbalanced Duct Leakage"] = value
+        self["Induced Outdoor Air Due to Unbalanced Duct Leakage"] = value
 
     @property
     def induced_outdoor_air_schedule_name(self):
@@ -4112,103 +2034,10 @@ class ZoneAirBalanceOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneAirBalanceOutdoorAir.induced_outdoor_air_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneAirBalanceOutdoorAir.induced_outdoor_air_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneAirBalanceOutdoorAir.induced_outdoor_air_schedule_name`')
-        self._data["Induced Outdoor Air Schedule Name"] = value
+        self["Induced Outdoor Air Schedule Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneAirBalanceOutdoorAir:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneAirBalanceOutdoorAir:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneAirBalanceOutdoorAir: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneAirBalanceOutdoorAir: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneMixing(object):
+class ZoneMixing(DataObject):
     """ Corresponds to IDD object `ZoneMixing`
         ZoneMixing is a simple air exchange from one zone to another. Note that this statement
         only affects the energy balance of the "receiving" zone and will not produce
@@ -4216,167 +2045,16 @@ class ZoneMixing(object):
         multiple zones, but the balancing of flows between zones is left to the user's
         discretion.
     """
-    internal_name = "ZoneMixing"
-    field_count = 17
-    required_fields = ["Name", "Zone Name", "Schedule Name", "Design Flow Rate Calculation Method", "Source Zone Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 9
-    extensible_keys = []
+    schema = {'min-fields': 9, 'name': u'ZoneMixing', 'pyname': u'ZoneMixing', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate per zone floor area', {'name': u'Flow Rate per Zone Floor Area', 'pyname': u'flow_rate_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow rate per person', {'name': u'Flow Rate per Person', 'pyname': u'flow_rate_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'source zone name', {'name': u'Source Zone Name', 'pyname': u'source_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum zone temperature schedule name', {'name': u'Minimum Zone Temperature Schedule Name', 'pyname': u'minimum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum zone temperature schedule name', {'name': u'Maximum Zone Temperature Schedule Name', 'pyname': u'maximum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum source zone temperature schedule name', {'name': u'Minimum Source Zone Temperature Schedule Name', 'pyname': u'minimum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum source zone temperature schedule name', {'name': u'Maximum Source Zone Temperature Schedule Name', 'pyname': u'maximum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneMixing`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Schedule Name"] = None
-        self._data["Design Flow Rate Calculation Method"] = None
-        self._data["Design Flow Rate"] = None
-        self._data["Flow Rate per Zone Floor Area"] = None
-        self._data["Flow Rate per Person"] = None
-        self._data["Air Changes per Hour"] = None
-        self._data["Source Zone Name"] = None
-        self._data["Delta Temperature"] = None
-        self._data["Delta Temperature Schedule Name"] = None
-        self._data["Minimum Zone Temperature Schedule Name"] = None
-        self._data["Maximum Zone Temperature Schedule Name"] = None
-        self._data["Minimum Source Zone Temperature Schedule Name"] = None
-        self._data["Maximum Source Zone Temperature Schedule Name"] = None
-        self._data["Minimum Outdoor Temperature Schedule Name"] = None
-        self._data["Maximum Outdoor Temperature Schedule Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_flow_rate_calculation_method = None
-        else:
-            self.design_flow_rate_calculation_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_flow_rate = None
-        else:
-            self.design_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_rate_per_zone_floor_area = None
-        else:
-            self.flow_rate_per_zone_floor_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_rate_per_person = None
-        else:
-            self.flow_rate_per_person = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_changes_per_hour = None
-        else:
-            self.air_changes_per_hour = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.source_zone_name = None
-        else:
-            self.source_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_temperature = None
-        else:
-            self.delta_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_temperature_schedule_name = None
-        else:
-            self.delta_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_zone_temperature_schedule_name = None
-        else:
-            self.minimum_zone_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_zone_temperature_schedule_name = None
-        else:
-            self.maximum_zone_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_source_zone_temperature_schedule_name = None
-        else:
-            self.minimum_source_zone_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_source_zone_temperature_schedule_name = None
-        else:
-            self.maximum_source_zone_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outdoor_temperature_schedule_name = None
-        else:
-            self.minimum_outdoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_temperature_schedule_name = None
-        else:
-            self.maximum_outdoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -4399,19 +2077,7 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_name(self):
@@ -4434,19 +2100,7 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def schedule_name(self):
@@ -4469,19 +2123,7 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def design_flow_rate_calculation_method(self):
@@ -4505,11 +2147,6 @@ class ZoneMixing(object):
 
         Args:
             value (str): value for IDD Field `Design Flow Rate Calculation Method`
-                Accepted values are:
-                      - Flow/Zone
-                      - Flow/Area
-                      - Flow/Person
-                      - AirChanges/Hour
                 Default value: Flow/Zone
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4517,48 +2154,7 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.design_flow_rate_calculation_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.design_flow_rate_calculation_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.design_flow_rate_calculation_method`')
-            vals = {}
-            vals["flow/zone"] = "Flow/Zone"
-            vals["flow/area"] = "Flow/Area"
-            vals["flow/person"] = "Flow/Person"
-            vals["airchanges/hour"] = "AirChanges/Hour"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneMixing.design_flow_rate_calculation_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneMixing.design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Design Flow Rate Calculation Method"] = value
+        self["Design Flow Rate Calculation Method"] = value
 
     @property
     def design_flow_rate(self):
@@ -4576,23 +2172,13 @@ class ZoneMixing(object):
         Args:
             value (float): value for IDD Field `Design Flow Rate`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneMixing.design_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneMixing.design_flow_rate`')
-        self._data["Design Flow Rate"] = value
+        self["Design Flow Rate"] = value
 
     @property
     def flow_rate_per_zone_floor_area(self):
@@ -4610,23 +2196,13 @@ class ZoneMixing(object):
         Args:
             value (float): value for IDD Field `Flow Rate per Zone Floor Area`
                 Units: m3/s-m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneMixing.flow_rate_per_zone_floor_area`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneMixing.flow_rate_per_zone_floor_area`')
-        self._data["Flow Rate per Zone Floor Area"] = value
+        self["Flow Rate per Zone Floor Area"] = value
 
     @property
     def flow_rate_per_person(self):
@@ -4644,23 +2220,13 @@ class ZoneMixing(object):
         Args:
             value (float): value for IDD Field `Flow Rate per Person`
                 Units: m3/s-person
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneMixing.flow_rate_per_person`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneMixing.flow_rate_per_person`')
-        self._data["Flow Rate per Person"] = value
+        self["Flow Rate per Person"] = value
 
     @property
     def air_changes_per_hour(self):
@@ -4678,23 +2244,13 @@ class ZoneMixing(object):
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
                 Units: 1/hr
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneMixing.air_changes_per_hour`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneMixing.air_changes_per_hour`')
-        self._data["Air Changes per Hour"] = value
+        self["Air Changes per Hour"] = value
 
     @property
     def source_zone_name(self):
@@ -4717,19 +2273,7 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.source_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.source_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.source_zone_name`')
-        self._data["Source Zone Name"] = value
+        self["Source Zone Name"] = value
 
     @property
     def delta_temperature(self):
@@ -4741,7 +2285,7 @@ class ZoneMixing(object):
         return self._data["Delta Temperature"]
 
     @delta_temperature.setter
-    def delta_temperature(self, value=0.0):
+    def delta_temperature(self, value=None):
         """  Corresponds to IDD Field `Delta Temperature`
         This field contains the constant temperature differential between source and
         receiving zones below which mixing is shutoff.
@@ -4749,20 +2293,13 @@ class ZoneMixing(object):
         Args:
             value (float): value for IDD Field `Delta Temperature`
                 Units: deltaC
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneMixing.delta_temperature`'.format(value))
-        self._data["Delta Temperature"] = value
+        self["Delta Temperature"] = value
 
     @property
     def delta_temperature_schedule_name(self):
@@ -4787,19 +2324,7 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.delta_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.delta_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.delta_temperature_schedule_name`')
-        self._data["Delta Temperature Schedule Name"] = value
+        self["Delta Temperature Schedule Name"] = value
 
     @property
     def minimum_zone_temperature_schedule_name(self):
@@ -4824,19 +2349,7 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.minimum_zone_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.minimum_zone_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.minimum_zone_temperature_schedule_name`')
-        self._data["Minimum Zone Temperature Schedule Name"] = value
+        self["Minimum Zone Temperature Schedule Name"] = value
 
     @property
     def maximum_zone_temperature_schedule_name(self):
@@ -4861,19 +2374,7 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.maximum_zone_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.maximum_zone_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.maximum_zone_temperature_schedule_name`')
-        self._data["Maximum Zone Temperature Schedule Name"] = value
+        self["Maximum Zone Temperature Schedule Name"] = value
 
     @property
     def minimum_source_zone_temperature_schedule_name(self):
@@ -4898,19 +2399,7 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.minimum_source_zone_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.minimum_source_zone_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.minimum_source_zone_temperature_schedule_name`')
-        self._data["Minimum Source Zone Temperature Schedule Name"] = value
+        self["Minimum Source Zone Temperature Schedule Name"] = value
 
     @property
     def maximum_source_zone_temperature_schedule_name(self):
@@ -4935,19 +2424,7 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.maximum_source_zone_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.maximum_source_zone_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.maximum_source_zone_temperature_schedule_name`')
-        self._data["Maximum Source Zone Temperature Schedule Name"] = value
+        self["Maximum Source Zone Temperature Schedule Name"] = value
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
@@ -4972,19 +2449,7 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.minimum_outdoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.minimum_outdoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.minimum_outdoor_temperature_schedule_name`')
-        self._data["Minimum Outdoor Temperature Schedule Name"] = value
+        self["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
@@ -5009,268 +2474,24 @@ class ZoneMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneMixing.maximum_outdoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneMixing.maximum_outdoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneMixing.maximum_outdoor_temperature_schedule_name`')
-        self._data["Maximum Outdoor Temperature Schedule Name"] = value
+        self["Maximum Outdoor Temperature Schedule Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneMixing:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneMixing:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneMixing: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneMixing: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneCrossMixing(object):
+class ZoneCrossMixing(DataObject):
     """ Corresponds to IDD object `ZoneCrossMixing`
         ZoneCrossMixing exchanges an equal amount of air between two zones. Note that this
         statement affects the energy balance of both zones.
     """
-    internal_name = "ZoneCrossMixing"
-    field_count = 17
-    required_fields = ["Name", "Zone Name", "Schedule Name", "Design Flow Rate Calculation Method", "Source Zone Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 9
-    extensible_keys = []
+    schema = {'min-fields': 9, 'name': u'ZoneCrossMixing', 'pyname': u'ZoneCrossMixing', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate per zone floor area', {'name': u'Flow Rate per Zone Floor Area', 'pyname': u'flow_rate_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow rate per person', {'name': u'Flow Rate per Person', 'pyname': u'flow_rate_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'source zone name', {'name': u'Source Zone Name', 'pyname': u'source_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum zone temperature schedule name', {'name': u'Minimum Zone Temperature Schedule Name', 'pyname': u'minimum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum zone temperature schedule name', {'name': u'Maximum Zone Temperature Schedule Name', 'pyname': u'maximum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum source zone temperature schedule name', {'name': u'Minimum Source Zone Temperature Schedule Name', 'pyname': u'minimum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum source zone temperature schedule name', {'name': u'Maximum Source Zone Temperature Schedule Name', 'pyname': u'maximum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneCrossMixing`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Schedule Name"] = None
-        self._data["Design Flow Rate Calculation Method"] = None
-        self._data["Design Flow Rate"] = None
-        self._data["Flow Rate per Zone Floor Area"] = None
-        self._data["Flow Rate per Person"] = None
-        self._data["Air Changes per Hour"] = None
-        self._data["Source Zone Name"] = None
-        self._data["Delta Temperature"] = None
-        self._data["Delta Temperature Schedule Name"] = None
-        self._data["Minimum Zone Temperature Schedule Name"] = None
-        self._data["Maximum Zone Temperature Schedule Name"] = None
-        self._data["Minimum Source Zone Temperature Schedule Name"] = None
-        self._data["Maximum Source Zone Temperature Schedule Name"] = None
-        self._data["Minimum Outdoor Temperature Schedule Name"] = None
-        self._data["Maximum Outdoor Temperature Schedule Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_flow_rate_calculation_method = None
-        else:
-            self.design_flow_rate_calculation_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_flow_rate = None
-        else:
-            self.design_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_rate_per_zone_floor_area = None
-        else:
-            self.flow_rate_per_zone_floor_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_rate_per_person = None
-        else:
-            self.flow_rate_per_person = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_changes_per_hour = None
-        else:
-            self.air_changes_per_hour = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.source_zone_name = None
-        else:
-            self.source_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_temperature = None
-        else:
-            self.delta_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_temperature_schedule_name = None
-        else:
-            self.delta_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_zone_temperature_schedule_name = None
-        else:
-            self.minimum_zone_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_zone_temperature_schedule_name = None
-        else:
-            self.maximum_zone_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_source_zone_temperature_schedule_name = None
-        else:
-            self.minimum_source_zone_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_source_zone_temperature_schedule_name = None
-        else:
-            self.maximum_source_zone_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outdoor_temperature_schedule_name = None
-        else:
-            self.minimum_outdoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_temperature_schedule_name = None
-        else:
-            self.maximum_outdoor_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -5293,19 +2514,7 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_name(self):
@@ -5328,19 +2537,7 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def schedule_name(self):
@@ -5363,19 +2560,7 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def design_flow_rate_calculation_method(self):
@@ -5399,11 +2584,6 @@ class ZoneCrossMixing(object):
 
         Args:
             value (str): value for IDD Field `Design Flow Rate Calculation Method`
-                Accepted values are:
-                      - Flow/Zone
-                      - Flow/Person
-                      - Flow/Area
-                      - AirChanges/Hour
                 Default value: Flow/Zone
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5411,48 +2591,7 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.design_flow_rate_calculation_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.design_flow_rate_calculation_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.design_flow_rate_calculation_method`')
-            vals = {}
-            vals["flow/zone"] = "Flow/Zone"
-            vals["flow/person"] = "Flow/Person"
-            vals["flow/area"] = "Flow/Area"
-            vals["airchanges/hour"] = "AirChanges/Hour"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneCrossMixing.design_flow_rate_calculation_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneCrossMixing.design_flow_rate_calculation_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Design Flow Rate Calculation Method"] = value
+        self["Design Flow Rate Calculation Method"] = value
 
     @property
     def design_flow_rate(self):
@@ -5470,23 +2609,13 @@ class ZoneCrossMixing(object):
         Args:
             value (float): value for IDD Field `Design Flow Rate`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCrossMixing.design_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneCrossMixing.design_flow_rate`')
-        self._data["Design Flow Rate"] = value
+        self["Design Flow Rate"] = value
 
     @property
     def flow_rate_per_zone_floor_area(self):
@@ -5504,23 +2633,13 @@ class ZoneCrossMixing(object):
         Args:
             value (float): value for IDD Field `Flow Rate per Zone Floor Area`
                 Units: m3/s-m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCrossMixing.flow_rate_per_zone_floor_area`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneCrossMixing.flow_rate_per_zone_floor_area`')
-        self._data["Flow Rate per Zone Floor Area"] = value
+        self["Flow Rate per Zone Floor Area"] = value
 
     @property
     def flow_rate_per_person(self):
@@ -5538,23 +2657,13 @@ class ZoneCrossMixing(object):
         Args:
             value (float): value for IDD Field `Flow Rate per Person`
                 Units: m3/s-person
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCrossMixing.flow_rate_per_person`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneCrossMixing.flow_rate_per_person`')
-        self._data["Flow Rate per Person"] = value
+        self["Flow Rate per Person"] = value
 
     @property
     def air_changes_per_hour(self):
@@ -5572,23 +2681,13 @@ class ZoneCrossMixing(object):
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
                 Units: 1/hr
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCrossMixing.air_changes_per_hour`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneCrossMixing.air_changes_per_hour`')
-        self._data["Air Changes per Hour"] = value
+        self["Air Changes per Hour"] = value
 
     @property
     def source_zone_name(self):
@@ -5611,19 +2710,7 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.source_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.source_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.source_zone_name`')
-        self._data["Source Zone Name"] = value
+        self["Source Zone Name"] = value
 
     @property
     def delta_temperature(self):
@@ -5635,7 +2722,7 @@ class ZoneCrossMixing(object):
         return self._data["Delta Temperature"]
 
     @delta_temperature.setter
-    def delta_temperature(self, value=0.0):
+    def delta_temperature(self, value=None):
         """  Corresponds to IDD Field `Delta Temperature`
         This field contains the constant temperature differential between source and
         receiving zones below which cross mixing is shutoff. This value must be greater
@@ -5644,24 +2731,13 @@ class ZoneCrossMixing(object):
         Args:
             value (float): value for IDD Field `Delta Temperature`
                 Units: deltaC
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCrossMixing.delta_temperature`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneCrossMixing.delta_temperature`')
-        self._data["Delta Temperature"] = value
+        self["Delta Temperature"] = value
 
     @property
     def delta_temperature_schedule_name(self):
@@ -5686,19 +2762,7 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.delta_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.delta_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.delta_temperature_schedule_name`')
-        self._data["Delta Temperature Schedule Name"] = value
+        self["Delta Temperature Schedule Name"] = value
 
     @property
     def minimum_zone_temperature_schedule_name(self):
@@ -5723,19 +2787,7 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.minimum_zone_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.minimum_zone_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.minimum_zone_temperature_schedule_name`')
-        self._data["Minimum Zone Temperature Schedule Name"] = value
+        self["Minimum Zone Temperature Schedule Name"] = value
 
     @property
     def maximum_zone_temperature_schedule_name(self):
@@ -5760,19 +2812,7 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.maximum_zone_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.maximum_zone_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.maximum_zone_temperature_schedule_name`')
-        self._data["Maximum Zone Temperature Schedule Name"] = value
+        self["Maximum Zone Temperature Schedule Name"] = value
 
     @property
     def minimum_source_zone_temperature_schedule_name(self):
@@ -5797,19 +2837,7 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.minimum_source_zone_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.minimum_source_zone_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.minimum_source_zone_temperature_schedule_name`')
-        self._data["Minimum Source Zone Temperature Schedule Name"] = value
+        self["Minimum Source Zone Temperature Schedule Name"] = value
 
     @property
     def maximum_source_zone_temperature_schedule_name(self):
@@ -5834,19 +2862,7 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.maximum_source_zone_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.maximum_source_zone_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.maximum_source_zone_temperature_schedule_name`')
-        self._data["Maximum Source Zone Temperature Schedule Name"] = value
+        self["Maximum Source Zone Temperature Schedule Name"] = value
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
@@ -5871,19 +2887,7 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.minimum_outdoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.minimum_outdoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.minimum_outdoor_temperature_schedule_name`')
-        self._data["Minimum Outdoor Temperature Schedule Name"] = value
+        self["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
@@ -5908,103 +2912,10 @@ class ZoneCrossMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCrossMixing.maximum_outdoor_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCrossMixing.maximum_outdoor_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCrossMixing.maximum_outdoor_temperature_schedule_name`')
-        self._data["Maximum Outdoor Temperature Schedule Name"] = value
+        self["Maximum Outdoor Temperature Schedule Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneCrossMixing:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneCrossMixing:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneCrossMixing: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneCrossMixing: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneRefrigerationDoorMixing(object):
+class ZoneRefrigerationDoorMixing(DataObject):
     """ Corresponds to IDD object `ZoneRefrigerationDoorMixing`
         Refrigeration Door Mixing is used for an opening between two zones that are at the
         same elevation but have different air temperatures.  In this case, the mixing air flow
@@ -6013,87 +2924,16 @@ class ZoneRefrigerationDoorMixing(object):
         controlled at different temperatures.  It could also be used to model a door to a walk-in
         refrigerated space if that space were modeled as a zone instead of using the object Refrigeration:WalkIn.
     """
-    internal_name = "ZoneRefrigerationDoorMixing"
-    field_count = 7
-    required_fields = ["Name", "Zone 1 Name", "Zone 2 Name", "Schedule Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 4
-    extensible_keys = []
+    schema = {'min-fields': 4, 'name': u'ZoneRefrigerationDoorMixing', 'pyname': u'ZoneRefrigerationDoorMixing', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone 2 name', {'name': u'Zone 2 Name', 'pyname': u'zone_2_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'door height', {'name': u'Door Height', 'pyname': u'door_height', 'default': 3.0, 'maximum': 50.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'door area', {'name': u'Door Area', 'pyname': u'door_area', 'default': 9.0, 'maximum': 400.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'door protection type', {'name': u'Door Protection Type', 'pyname': u'door_protection_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneRefrigerationDoorMixing`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone 1 Name"] = None
-        self._data["Zone 2 Name"] = None
-        self._data["Schedule Name"] = None
-        self._data["Door Height"] = None
-        self._data["Door Area"] = None
-        self._data["Door Protection Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_1_name = None
-        else:
-            self.zone_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_2_name = None
-        else:
-            self.zone_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.door_height = None
-        else:
-            self.door_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.door_area = None
-        else:
-            self.door_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.door_protection_type = None
-        else:
-            self.door_protection_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -6116,19 +2956,7 @@ class ZoneRefrigerationDoorMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneRefrigerationDoorMixing.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneRefrigerationDoorMixing.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneRefrigerationDoorMixing.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_1_name(self):
@@ -6151,19 +2979,7 @@ class ZoneRefrigerationDoorMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneRefrigerationDoorMixing.zone_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneRefrigerationDoorMixing.zone_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneRefrigerationDoorMixing.zone_1_name`')
-        self._data["Zone 1 Name"] = value
+        self["Zone 1 Name"] = value
 
     @property
     def zone_2_name(self):
@@ -6186,19 +3002,7 @@ class ZoneRefrigerationDoorMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneRefrigerationDoorMixing.zone_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneRefrigerationDoorMixing.zone_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneRefrigerationDoorMixing.zone_2_name`')
-        self._data["Zone 2 Name"] = value
+        self["Zone 2 Name"] = value
 
     @property
     def schedule_name(self):
@@ -6227,19 +3031,7 @@ class ZoneRefrigerationDoorMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneRefrigerationDoorMixing.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneRefrigerationDoorMixing.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneRefrigerationDoorMixing.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def door_height(self):
@@ -6258,7 +3050,6 @@ class ZoneRefrigerationDoorMixing(object):
             value (float): value for IDD Field `Door Height`
                 Units: m
                 Default value: 3.0
-                value >= 0.0
                 value <= 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6266,19 +3057,7 @@ class ZoneRefrigerationDoorMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneRefrigerationDoorMixing.door_height`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneRefrigerationDoorMixing.door_height`')
-            if value > 50.0:
-                raise ValueError('value need to be smaller 50.0 '
-                                 'for field `ZoneRefrigerationDoorMixing.door_height`')
-        self._data["Door Height"] = value
+        self["Door Height"] = value
 
     @property
     def door_area(self):
@@ -6297,7 +3076,6 @@ class ZoneRefrigerationDoorMixing(object):
             value (float): value for IDD Field `Door Area`
                 Units: m2
                 Default value: 9.0
-                value >= 0.0
                 value <= 400.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6305,19 +3083,7 @@ class ZoneRefrigerationDoorMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneRefrigerationDoorMixing.door_area`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneRefrigerationDoorMixing.door_area`')
-            if value > 400.0:
-                raise ValueError('value need to be smaller 400.0 '
-                                 'for field `ZoneRefrigerationDoorMixing.door_area`')
-        self._data["Door Area"] = value
+        self["Door Area"] = value
 
     @property
     def door_protection_type(self):
@@ -6338,10 +3104,6 @@ class ZoneRefrigerationDoorMixing(object):
 
         Args:
             value (str): value for IDD Field `Door Protection Type`
-                Accepted values are:
-                      - None
-                      - AirCurtain
-                      - StripCurtain
                 Default value: None
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6349,336 +3111,24 @@ class ZoneRefrigerationDoorMixing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneRefrigerationDoorMixing.door_protection_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneRefrigerationDoorMixing.door_protection_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneRefrigerationDoorMixing.door_protection_type`')
-            vals = {}
-            vals["none"] = "None"
-            vals["aircurtain"] = "AirCurtain"
-            vals["stripcurtain"] = "StripCurtain"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneRefrigerationDoorMixing.door_protection_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneRefrigerationDoorMixing.door_protection_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Door Protection Type"] = value
+        self["Door Protection Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneRefrigerationDoorMixing:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneRefrigerationDoorMixing:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneRefrigerationDoorMixing: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneRefrigerationDoorMixing: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneEarthtube(object):
+class ZoneEarthtube(DataObject):
     """ Corresponds to IDD object `ZoneEarthtube`
         Earth Tube is specified as a design level which is modified by a Schedule fraction, temperature difference and wind speed:
         Earthtube=Edesign * Fschedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
     """
-    internal_name = "ZoneEarthtube"
-    field_count = 22
-    required_fields = ["Zone Name", "Schedule Name", "Design Flow Rate", "Minimum Zone Temperature when Cooling", "Maximum Zone Temperature when Heating", "Delta Temperature", "Earthtube Type", "Fan Pressure Rise", "Fan Total Efficiency", "Pipe Radius", "Pipe Thickness", "Pipe Length", "Pipe Thermal Conductivity", "Pipe Depth Under Ground Surface", "Soil Condition", "Average Soil Surface Temperature", "Amplitude of Soil Surface Temperature", "Phase Constant of Soil Surface Temperature", "Constant Term Flow Coefficient", "Temperature Term Flow Coefficient", "Velocity Term Flow Coefficient", "Velocity Squared Term Flow Coefficient"]
-    extensible_fields = 0
-    format = None
-    min_fields = 22
-    extensible_keys = []
+    schema = {'min-fields': 22, 'name': u'ZoneEarthtube', 'pyname': u'ZoneEarthtube', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum zone temperature when cooling', {'name': u'Minimum Zone Temperature when Cooling', 'pyname': u'minimum_zone_temperature_when_cooling', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum zone temperature when heating', {'name': u'Maximum Zone Temperature when Heating', 'pyname': u'maximum_zone_temperature_when_heating', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'earthtube type', {'name': u'Earthtube Type', 'pyname': u'earthtube_type', 'default': u'Natural', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fan pressure rise', {'name': u'Fan Pressure Rise', 'pyname': u'fan_pressure_rise', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 1.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pipe radius', {'name': u'Pipe Radius', 'pyname': u'pipe_radius', 'default': 1.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe thickness', {'name': u'Pipe Thickness', 'pyname': u'pipe_thickness', 'default': 0.2, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe length', {'name': u'Pipe Length', 'pyname': u'pipe_length', 'default': 15.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe thermal conductivity', {'name': u'Pipe Thermal Conductivity', 'pyname': u'pipe_thermal_conductivity', 'default': 200.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'pipe depth under ground surface', {'name': u'Pipe Depth Under Ground Surface', 'pyname': u'pipe_depth_under_ground_surface', 'default': 3.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'soil condition', {'name': u'Soil Condition', 'pyname': u'soil_condition', 'default': u'HeavyAndDamp', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'average soil surface temperature', {'name': u'Average Soil Surface Temperature', 'pyname': u'average_soil_surface_temperature', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'amplitude of soil surface temperature', {'name': u'Amplitude of Soil Surface Temperature', 'pyname': u'amplitude_of_soil_surface_temperature', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'phase constant of soil surface temperature', {'name': u'Phase Constant of Soil Surface Temperature', 'pyname': u'phase_constant_of_soil_surface_temperature', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'days'}), (u'constant term flow coefficient', {'name': u'Constant Term Flow Coefficient', 'pyname': u'constant_term_flow_coefficient', 'default': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature term flow coefficient', {'name': u'Temperature Term Flow Coefficient', 'pyname': u'temperature_term_flow_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity term flow coefficient', {'name': u'Velocity Term Flow Coefficient', 'pyname': u'velocity_term_flow_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity squared term flow coefficient', {'name': u'Velocity Squared Term Flow Coefficient', 'pyname': u'velocity_squared_term_flow_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneEarthtube`
         """
         self._data = OrderedDict()
-        self._data["Zone Name"] = None
-        self._data["Schedule Name"] = None
-        self._data["Design Flow Rate"] = None
-        self._data["Minimum Zone Temperature when Cooling"] = None
-        self._data["Maximum Zone Temperature when Heating"] = None
-        self._data["Delta Temperature"] = None
-        self._data["Earthtube Type"] = None
-        self._data["Fan Pressure Rise"] = None
-        self._data["Fan Total Efficiency"] = None
-        self._data["Pipe Radius"] = None
-        self._data["Pipe Thickness"] = None
-        self._data["Pipe Length"] = None
-        self._data["Pipe Thermal Conductivity"] = None
-        self._data["Pipe Depth Under Ground Surface"] = None
-        self._data["Soil Condition"] = None
-        self._data["Average Soil Surface Temperature"] = None
-        self._data["Amplitude of Soil Surface Temperature"] = None
-        self._data["Phase Constant of Soil Surface Temperature"] = None
-        self._data["Constant Term Flow Coefficient"] = None
-        self._data["Temperature Term Flow Coefficient"] = None
-        self._data["Velocity Term Flow Coefficient"] = None
-        self._data["Velocity Squared Term Flow Coefficient"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_flow_rate = None
-        else:
-            self.design_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_zone_temperature_when_cooling = None
-        else:
-            self.minimum_zone_temperature_when_cooling = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_zone_temperature_when_heating = None
-        else:
-            self.maximum_zone_temperature_when_heating = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delta_temperature = None
-        else:
-            self.delta_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.earthtube_type = None
-        else:
-            self.earthtube_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fan_pressure_rise = None
-        else:
-            self.fan_pressure_rise = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fan_total_efficiency = None
-        else:
-            self.fan_total_efficiency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_radius = None
-        else:
-            self.pipe_radius = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_thickness = None
-        else:
-            self.pipe_thickness = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_length = None
-        else:
-            self.pipe_length = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_thermal_conductivity = None
-        else:
-            self.pipe_thermal_conductivity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pipe_depth_under_ground_surface = None
-        else:
-            self.pipe_depth_under_ground_surface = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.soil_condition = None
-        else:
-            self.soil_condition = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.average_soil_surface_temperature = None
-        else:
-            self.average_soil_surface_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.amplitude_of_soil_surface_temperature = None
-        else:
-            self.amplitude_of_soil_surface_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.phase_constant_of_soil_surface_temperature = None
-        else:
-            self.phase_constant_of_soil_surface_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.constant_term_flow_coefficient = None
-        else:
-            self.constant_term_flow_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_term_flow_coefficient = None
-        else:
-            self.temperature_term_flow_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.velocity_term_flow_coefficient = None
-        else:
-            self.velocity_term_flow_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.velocity_squared_term_flow_coefficient = None
-        else:
-            self.velocity_squared_term_flow_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def zone_name(self):
@@ -6701,19 +3151,7 @@ class ZoneEarthtube(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneEarthtube.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneEarthtube.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneEarthtube.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def schedule_name(self):
@@ -6736,19 +3174,7 @@ class ZoneEarthtube(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneEarthtube.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneEarthtube.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneEarthtube.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def design_flow_rate(self):
@@ -6767,23 +3193,13 @@ class ZoneEarthtube(object):
         Args:
             value (float): value for IDD Field `Design Flow Rate`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.design_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneEarthtube.design_flow_rate`')
-        self._data["Design Flow Rate"] = value
+        self["Design Flow Rate"] = value
 
     @property
     def minimum_zone_temperature_when_cooling(self):
@@ -6810,19 +3226,7 @@ class ZoneEarthtube(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.minimum_zone_temperature_when_cooling`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneEarthtube.minimum_zone_temperature_when_cooling`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneEarthtube.minimum_zone_temperature_when_cooling`')
-        self._data["Minimum Zone Temperature when Cooling"] = value
+        self["Minimum Zone Temperature when Cooling"] = value
 
     @property
     def maximum_zone_temperature_when_heating(self):
@@ -6849,19 +3253,7 @@ class ZoneEarthtube(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.maximum_zone_temperature_when_heating`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneEarthtube.maximum_zone_temperature_when_heating`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneEarthtube.maximum_zone_temperature_when_heating`')
-        self._data["Maximum Zone Temperature when Heating"] = value
+        self["Maximum Zone Temperature when Heating"] = value
 
     @property
     def delta_temperature(self):
@@ -6880,23 +3272,13 @@ class ZoneEarthtube(object):
         Args:
             value (float): value for IDD Field `Delta Temperature`
                 Units: deltaC
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.delta_temperature`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneEarthtube.delta_temperature`')
-        self._data["Delta Temperature"] = value
+        self["Delta Temperature"] = value
 
     @property
     def earthtube_type(self):
@@ -6913,10 +3295,6 @@ class ZoneEarthtube(object):
 
         Args:
             value (str): value for IDD Field `Earthtube Type`
-                Accepted values are:
-                      - Natural
-                      - Intake
-                      - Exhaust
                 Default value: Natural
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6924,47 +3302,7 @@ class ZoneEarthtube(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneEarthtube.earthtube_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneEarthtube.earthtube_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneEarthtube.earthtube_type`')
-            vals = {}
-            vals["natural"] = "Natural"
-            vals["intake"] = "Intake"
-            vals["exhaust"] = "Exhaust"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneEarthtube.earthtube_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneEarthtube.earthtube_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Earthtube Type"] = value
+        self["Earthtube Type"] = value
 
     @property
     def fan_pressure_rise(self):
@@ -6976,31 +3314,20 @@ class ZoneEarthtube(object):
         return self._data["Fan Pressure Rise"]
 
     @fan_pressure_rise.setter
-    def fan_pressure_rise(self, value=0.0):
+    def fan_pressure_rise(self, value=None):
         """  Corresponds to IDD Field `Fan Pressure Rise`
         pressure rise across the fan
 
         Args:
             value (float): value for IDD Field `Fan Pressure Rise`
                 Units: Pa
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.fan_pressure_rise`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneEarthtube.fan_pressure_rise`')
-        self._data["Fan Pressure Rise"] = value
+        self["Fan Pressure Rise"] = value
 
     @property
     def fan_total_efficiency(self):
@@ -7018,23 +3345,13 @@ class ZoneEarthtube(object):
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
                 Default value: 1.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.fan_total_efficiency`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneEarthtube.fan_total_efficiency`')
-        self._data["Fan Total Efficiency"] = value
+        self["Fan Total Efficiency"] = value
 
     @property
     def pipe_radius(self):
@@ -7053,23 +3370,13 @@ class ZoneEarthtube(object):
             value (float): value for IDD Field `Pipe Radius`
                 Units: m
                 Default value: 1.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.pipe_radius`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneEarthtube.pipe_radius`')
-        self._data["Pipe Radius"] = value
+        self["Pipe Radius"] = value
 
     @property
     def pipe_thickness(self):
@@ -7088,23 +3395,13 @@ class ZoneEarthtube(object):
             value (float): value for IDD Field `Pipe Thickness`
                 Units: m
                 Default value: 0.2
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.pipe_thickness`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneEarthtube.pipe_thickness`')
-        self._data["Pipe Thickness"] = value
+        self["Pipe Thickness"] = value
 
     @property
     def pipe_length(self):
@@ -7123,23 +3420,13 @@ class ZoneEarthtube(object):
             value (float): value for IDD Field `Pipe Length`
                 Units: m
                 Default value: 15.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.pipe_length`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneEarthtube.pipe_length`')
-        self._data["Pipe Length"] = value
+        self["Pipe Length"] = value
 
     @property
     def pipe_thermal_conductivity(self):
@@ -7158,23 +3445,13 @@ class ZoneEarthtube(object):
             value (float): value for IDD Field `Pipe Thermal Conductivity`
                 Units: W/m-K
                 Default value: 200.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.pipe_thermal_conductivity`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneEarthtube.pipe_thermal_conductivity`')
-        self._data["Pipe Thermal Conductivity"] = value
+        self["Pipe Thermal Conductivity"] = value
 
     @property
     def pipe_depth_under_ground_surface(self):
@@ -7193,23 +3470,13 @@ class ZoneEarthtube(object):
             value (float): value for IDD Field `Pipe Depth Under Ground Surface`
                 Units: m
                 Default value: 3.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.pipe_depth_under_ground_surface`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneEarthtube.pipe_depth_under_ground_surface`')
-        self._data["Pipe Depth Under Ground Surface"] = value
+        self["Pipe Depth Under Ground Surface"] = value
 
     @property
     def soil_condition(self):
@@ -7226,11 +3493,6 @@ class ZoneEarthtube(object):
 
         Args:
             value (str): value for IDD Field `Soil Condition`
-                Accepted values are:
-                      - HeavyAndSaturated
-                      - HeavyAndDamp
-                      - HeavyAndDry
-                      - LightAndDry
                 Default value: HeavyAndDamp
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7238,48 +3500,7 @@ class ZoneEarthtube(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneEarthtube.soil_condition`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneEarthtube.soil_condition`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneEarthtube.soil_condition`')
-            vals = {}
-            vals["heavyandsaturated"] = "HeavyAndSaturated"
-            vals["heavyanddamp"] = "HeavyAndDamp"
-            vals["heavyanddry"] = "HeavyAndDry"
-            vals["lightanddry"] = "LightAndDry"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneEarthtube.soil_condition`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneEarthtube.soil_condition`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Soil Condition"] = value
+        self["Soil Condition"] = value
 
     @property
     def average_soil_surface_temperature(self):
@@ -7291,26 +3512,19 @@ class ZoneEarthtube(object):
         return self._data["Average Soil Surface Temperature"]
 
     @average_soil_surface_temperature.setter
-    def average_soil_surface_temperature(self, value=0.0):
+    def average_soil_surface_temperature(self, value=None):
         """  Corresponds to IDD Field `Average Soil Surface Temperature`
 
         Args:
             value (float): value for IDD Field `Average Soil Surface Temperature`
                 Units: C
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.average_soil_surface_temperature`'.format(value))
-        self._data["Average Soil Surface Temperature"] = value
+        self["Average Soil Surface Temperature"] = value
 
     @property
     def amplitude_of_soil_surface_temperature(self):
@@ -7322,30 +3536,19 @@ class ZoneEarthtube(object):
         return self._data["Amplitude of Soil Surface Temperature"]
 
     @amplitude_of_soil_surface_temperature.setter
-    def amplitude_of_soil_surface_temperature(self, value=0.0):
+    def amplitude_of_soil_surface_temperature(self, value=None):
         """  Corresponds to IDD Field `Amplitude of Soil Surface Temperature`
 
         Args:
             value (float): value for IDD Field `Amplitude of Soil Surface Temperature`
                 Units: C
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.amplitude_of_soil_surface_temperature`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneEarthtube.amplitude_of_soil_surface_temperature`')
-        self._data["Amplitude of Soil Surface Temperature"] = value
+        self["Amplitude of Soil Surface Temperature"] = value
 
     @property
     def phase_constant_of_soil_surface_temperature(self):
@@ -7357,30 +3560,19 @@ class ZoneEarthtube(object):
         return self._data["Phase Constant of Soil Surface Temperature"]
 
     @phase_constant_of_soil_surface_temperature.setter
-    def phase_constant_of_soil_surface_temperature(self, value=0.0):
+    def phase_constant_of_soil_surface_temperature(self, value=None):
         """  Corresponds to IDD Field `Phase Constant of Soil Surface Temperature`
 
         Args:
             value (float): value for IDD Field `Phase Constant of Soil Surface Temperature`
                 Units: days
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.phase_constant_of_soil_surface_temperature`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneEarthtube.phase_constant_of_soil_surface_temperature`')
-        self._data["Phase Constant of Soil Surface Temperature"] = value
+        self["Phase Constant of Soil Surface Temperature"] = value
 
     @property
     def constant_term_flow_coefficient(self):
@@ -7405,13 +3597,7 @@ class ZoneEarthtube(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.constant_term_flow_coefficient`'.format(value))
-        self._data["Constant Term Flow Coefficient"] = value
+        self["Constant Term Flow Coefficient"] = value
 
     @property
     def temperature_term_flow_coefficient(self):
@@ -7423,26 +3609,19 @@ class ZoneEarthtube(object):
         return self._data["Temperature Term Flow Coefficient"]
 
     @temperature_term_flow_coefficient.setter
-    def temperature_term_flow_coefficient(self, value=0.0):
+    def temperature_term_flow_coefficient(self, value=None):
         """  Corresponds to IDD Field `Temperature Term Flow Coefficient`
         "B" in Equation
 
         Args:
             value (float): value for IDD Field `Temperature Term Flow Coefficient`
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.temperature_term_flow_coefficient`'.format(value))
-        self._data["Temperature Term Flow Coefficient"] = value
+        self["Temperature Term Flow Coefficient"] = value
 
     @property
     def velocity_term_flow_coefficient(self):
@@ -7454,26 +3633,19 @@ class ZoneEarthtube(object):
         return self._data["Velocity Term Flow Coefficient"]
 
     @velocity_term_flow_coefficient.setter
-    def velocity_term_flow_coefficient(self, value=0.0):
+    def velocity_term_flow_coefficient(self, value=None):
         """  Corresponds to IDD Field `Velocity Term Flow Coefficient`
         "C" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Term Flow Coefficient`
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.velocity_term_flow_coefficient`'.format(value))
-        self._data["Velocity Term Flow Coefficient"] = value
+        self["Velocity Term Flow Coefficient"] = value
 
     @property
     def velocity_squared_term_flow_coefficient(self):
@@ -7485,253 +3657,38 @@ class ZoneEarthtube(object):
         return self._data["Velocity Squared Term Flow Coefficient"]
 
     @velocity_squared_term_flow_coefficient.setter
-    def velocity_squared_term_flow_coefficient(self, value=0.0):
+    def velocity_squared_term_flow_coefficient(self, value=None):
         """  Corresponds to IDD Field `Velocity Squared Term Flow Coefficient`
         "D" in Equation
 
         Args:
             value (float): value for IDD Field `Velocity Squared Term Flow Coefficient`
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneEarthtube.velocity_squared_term_flow_coefficient`'.format(value))
-        self._data["Velocity Squared Term Flow Coefficient"] = value
+        self["Velocity Squared Term Flow Coefficient"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneEarthtube:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneEarthtube:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneEarthtube: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneEarthtube: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneCoolTowerShower(object):
+class ZoneCoolTowerShower(DataObject):
     """ Corresponds to IDD object `ZoneCoolTower:Shower`
         A cooltower (sometimes referred to as a wind tower or a shower cooling tower)
         models passive downdraught evaporative cooling (PDEC) that is designed to capture the
         wind at the top of a tower and cool the outdoor air using water evaporation before
         delivering it to a space.
     """
-    internal_name = "ZoneCoolTower:Shower"
-    field_count = 14
-    required_fields = ["Name", "Zone Name", "Pump Flow Rate Schedule Name", "Maximum Water Flow Rate", "Effective Tower Height", "Airflow Outlet Area", "Maximum Air Flow Rate", "Minimum Indoor Temperature", "Rated Power Consumption"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'ZoneCoolTower:Shower', 'pyname': u'ZoneCoolTowerShower', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'flow control type', {'name': u'Flow Control Type', 'pyname': u'flow_control_type', 'default': u'WindDrivenFlow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum water flow rate', {'name': u'Maximum Water Flow Rate', 'pyname': u'maximum_water_flow_rate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'effective tower height', {'name': u'Effective Tower Height', 'pyname': u'effective_tower_height', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'airflow outlet area', {'name': u'Airflow Outlet Area', 'pyname': u'airflow_outlet_area', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum indoor temperature', {'name': u'Minimum Indoor Temperature', 'pyname': u'minimum_indoor_temperature', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fraction of water loss', {'name': u'Fraction of Water Loss', 'pyname': u'fraction_of_water_loss', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fraction of flow schedule', {'name': u'Fraction of Flow Schedule', 'pyname': u'fraction_of_flow_schedule', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneCoolTower:Shower`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Water Supply Storage Tank Name"] = None
-        self._data["Flow Control Type"] = None
-        self._data["Pump Flow Rate Schedule Name"] = None
-        self._data["Maximum Water Flow Rate"] = None
-        self._data["Effective Tower Height"] = None
-        self._data["Airflow Outlet Area"] = None
-        self._data["Maximum Air Flow Rate"] = None
-        self._data["Minimum Indoor Temperature"] = None
-        self._data["Fraction of Water Loss"] = None
-        self._data["Fraction of Flow Schedule"] = None
-        self._data["Rated Power Consumption"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_supply_storage_tank_name = None
-        else:
-            self.water_supply_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_control_type = None
-        else:
-            self.flow_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_flow_rate_schedule_name = None
-        else:
-            self.pump_flow_rate_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_water_flow_rate = None
-        else:
-            self.maximum_water_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.effective_tower_height = None
-        else:
-            self.effective_tower_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.airflow_outlet_area = None
-        else:
-            self.airflow_outlet_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_air_flow_rate = None
-        else:
-            self.maximum_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_indoor_temperature = None
-        else:
-            self.minimum_indoor_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fraction_of_water_loss = None
-        else:
-            self.fraction_of_water_loss = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fraction_of_flow_schedule = None
-        else:
-            self.fraction_of_flow_schedule = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_power_consumption = None
-        else:
-            self.rated_power_consumption = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -7754,19 +3711,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCoolTowerShower.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCoolTowerShower.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCoolTowerShower.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -7791,19 +3736,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCoolTowerShower.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCoolTowerShower.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCoolTowerShower.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def zone_name(self):
@@ -7826,19 +3759,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCoolTowerShower.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCoolTowerShower.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCoolTowerShower.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def water_supply_storage_tank_name(self):
@@ -7862,19 +3783,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCoolTowerShower.water_supply_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCoolTowerShower.water_supply_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCoolTowerShower.water_supply_storage_tank_name`')
-        self._data["Water Supply Storage Tank Name"] = value
+        self["Water Supply Storage Tank Name"] = value
 
     @property
     def flow_control_type(self):
@@ -7893,9 +3802,6 @@ class ZoneCoolTowerShower(object):
 
         Args:
             value (str): value for IDD Field `Flow Control Type`
-                Accepted values are:
-                      - WaterFlowSchedule
-                      - WindDrivenFlow
                 Default value: WindDrivenFlow
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7903,46 +3809,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCoolTowerShower.flow_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCoolTowerShower.flow_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCoolTowerShower.flow_control_type`')
-            vals = {}
-            vals["waterflowschedule"] = "WaterFlowSchedule"
-            vals["winddrivenflow"] = "WindDrivenFlow"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneCoolTowerShower.flow_control_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneCoolTowerShower.flow_control_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Flow Control Type"] = value
+        self["Flow Control Type"] = value
 
     @property
     def pump_flow_rate_schedule_name(self):
@@ -7965,19 +3832,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneCoolTowerShower.pump_flow_rate_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneCoolTowerShower.pump_flow_rate_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneCoolTowerShower.pump_flow_rate_schedule_name`')
-        self._data["Pump Flow Rate Schedule Name"] = value
+        self["Pump Flow Rate Schedule Name"] = value
 
     @property
     def maximum_water_flow_rate(self):
@@ -8001,13 +3856,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCoolTowerShower.maximum_water_flow_rate`'.format(value))
-        self._data["Maximum Water Flow Rate"] = value
+        self["Maximum Water Flow Rate"] = value
 
     @property
     def effective_tower_height(self):
@@ -8032,13 +3881,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCoolTowerShower.effective_tower_height`'.format(value))
-        self._data["Effective Tower Height"] = value
+        self["Effective Tower Height"] = value
 
     @property
     def airflow_outlet_area(self):
@@ -8064,13 +3907,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCoolTowerShower.airflow_outlet_area`'.format(value))
-        self._data["Airflow Outlet Area"] = value
+        self["Airflow Outlet Area"] = value
 
     @property
     def maximum_air_flow_rate(self):
@@ -8088,23 +3925,13 @@ class ZoneCoolTowerShower(object):
         Args:
             value (float): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCoolTowerShower.maximum_air_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneCoolTowerShower.maximum_air_flow_rate`')
-        self._data["Maximum Air Flow Rate"] = value
+        self["Maximum Air Flow Rate"] = value
 
     @property
     def minimum_indoor_temperature(self):
@@ -8131,19 +3958,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCoolTowerShower.minimum_indoor_temperature`'.format(value))
-            if value < -100.0:
-                raise ValueError('value need to be greater or equal -100.0 '
-                                 'for field `ZoneCoolTowerShower.minimum_indoor_temperature`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneCoolTowerShower.minimum_indoor_temperature`')
-        self._data["Minimum Indoor Temperature"] = value
+        self["Minimum Indoor Temperature"] = value
 
     @property
     def fraction_of_water_loss(self):
@@ -8160,7 +3975,6 @@ class ZoneCoolTowerShower(object):
 
         Args:
             value (float): value for IDD Field `Fraction of Water Loss`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8168,19 +3982,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCoolTowerShower.fraction_of_water_loss`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneCoolTowerShower.fraction_of_water_loss`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneCoolTowerShower.fraction_of_water_loss`')
-        self._data["Fraction of Water Loss"] = value
+        self["Fraction of Water Loss"] = value
 
     @property
     def fraction_of_flow_schedule(self):
@@ -8197,7 +3999,6 @@ class ZoneCoolTowerShower(object):
 
         Args:
             value (float): value for IDD Field `Fraction of Flow Schedule`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8205,19 +4006,7 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCoolTowerShower.fraction_of_flow_schedule`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneCoolTowerShower.fraction_of_flow_schedule`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneCoolTowerShower.fraction_of_flow_schedule`')
-        self._data["Fraction of Flow Schedule"] = value
+        self["Fraction of Flow Schedule"] = value
 
     @property
     def rated_power_consumption(self):
@@ -8241,815 +4030,25 @@ class ZoneCoolTowerShower(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneCoolTowerShower.rated_power_consumption`'.format(value))
-        self._data["Rated Power Consumption"] = value
+        self["Rated Power Consumption"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneCoolTowerShower:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneCoolTowerShower:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneCoolTowerShower: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneCoolTowerShower: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneThermalChimney(object):
+class ZoneThermalChimney(DataObject):
     """ Corresponds to IDD object `ZoneThermalChimney`
         A thermal chimney is a vertical shaft utilizing solar radiation to enhance natural
         ventilation. It consists of an absorber wall, air gap and glass cover with high solar
         transmissivity.
     """
-    internal_name = "ZoneThermalChimney"
-    field_count = 86
-    required_fields = ["Name", "Zone Name", "Width of the Absorber Wall", "Cross Sectional Area of Air Channel Outlet", "Discharge Coefficient", "Zone 1 Name", "Distance from Top of Thermal Chimney to Inlet 1", "Relative Ratios of Air Flow Rates Passing through Zone 1", "Cross Sectional Areas of Air Channel Inlet 1"]
-    extensible_fields = 0
-    format = None
-    min_fields = 10
-    extensible_keys = []
+    schema = {'min-fields': 10, 'name': u'ZoneThermalChimney', 'pyname': u'ZoneThermalChimney', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'width of the absorber wall', {'name': u'Width of the Absorber Wall', 'pyname': u'width_of_the_absorber_wall', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'cross sectional area of air channel outlet', {'name': u'Cross Sectional Area of Air Channel Outlet', 'pyname': u'cross_sectional_area_of_air_channel_outlet', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'discharge coefficient', {'name': u'Discharge Coefficient', 'pyname': u'discharge_coefficient', 'default': 0.8, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 1', {'name': u'Distance from Top of Thermal Chimney to Inlet 1', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 1', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 1', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_1', 'default': 1.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 1', {'name': u'Cross Sectional Areas of Air Channel Inlet 1', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 2 name', {'name': u'Zone 2 Name', 'pyname': u'zone_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 2', {'name': u'Distance from Top of Thermal Chimney to Inlet 2', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 2', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 2', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_2', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 2', {'name': u'Cross Sectional Areas of Air Channel Inlet 2', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 3 name', {'name': u'Zone 3 Name', 'pyname': u'zone_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 3', {'name': u'Distance from Top of Thermal Chimney to Inlet 3', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 3', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 3', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_3', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 3', {'name': u'Cross Sectional Areas of Air Channel Inlet 3', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 4 name', {'name': u'Zone 4 Name', 'pyname': u'zone_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 4', {'name': u'Distance from Top of Thermal Chimney to Inlet 4', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 4', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 4', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_4', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 4', {'name': u'Cross Sectional Areas of Air Channel Inlet 4', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 5 name', {'name': u'Zone 5 Name', 'pyname': u'zone_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 5', {'name': u'Distance from Top of Thermal Chimney to Inlet 5', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 5', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 5', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_5', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 5', {'name': u'Cross Sectional Areas of Air Channel Inlet 5', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 6 name', {'name': u'Zone 6 Name', 'pyname': u'zone_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 6', {'name': u'Distance from Top of Thermal Chimney to Inlet 6', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 6', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 6', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_6', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 6', {'name': u'Cross Sectional Areas of Air Channel Inlet 6', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 7 name', {'name': u'Zone 7 Name', 'pyname': u'zone_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 7', {'name': u'Distance from Top of Thermal Chimney to Inlet 7', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 7', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 7', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_7', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 7', {'name': u'Cross Sectional Areas of Air Channel Inlet 7', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 8 name', {'name': u'Zone 8 Name', 'pyname': u'zone_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 8', {'name': u'Distance from Top of Thermal Chimney to Inlet 8', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 8', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 8', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_8', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 8', {'name': u'Cross Sectional Areas of Air Channel Inlet 8', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 9 name', {'name': u'Zone 9 Name', 'pyname': u'zone_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 9', {'name': u'Distance from Top of Thermal Chimney to Inlet 9', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 9', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 9', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_9', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 9', {'name': u'Cross Sectional Areas of Air Channel Inlet 9', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 10 name', {'name': u'Zone 10 Name', 'pyname': u'zone_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 10', {'name': u'Distance from Top of Thermal Chimney to Inlet 10', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 10', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 10', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_10', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 10', {'name': u'Cross Sectional Areas of Air Channel Inlet 10', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 11 name', {'name': u'Zone 11 Name', 'pyname': u'zone_11_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 11', {'name': u'Distance from Top of Thermal Chimney to Inlet 11', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 11', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 11', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_11', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 11', {'name': u'Cross Sectional Areas of Air Channel Inlet 11', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 12 name', {'name': u'Zone 12 Name', 'pyname': u'zone_12_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 12', {'name': u'Distance from Top of Thermal Chimney to Inlet 12', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 12', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 12', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_12', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 12', {'name': u'Cross Sectional Areas of Air Channel Inlet 12', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 13 name', {'name': u'Zone 13 Name', 'pyname': u'zone_13_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 13', {'name': u'Distance from Top of Thermal Chimney to Inlet 13', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 13', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 13', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_13', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 13', {'name': u'Cross Sectional Areas of Air Channel Inlet 13', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 14 name', {'name': u'Zone 14 Name', 'pyname': u'zone_14_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 14', {'name': u'Distance from Top of Thermal Chimney to Inlet 14', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 14', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 14', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_14', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 14', {'name': u'Cross Sectional Areas of Air Channel Inlet 14', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 15 name', {'name': u'Zone 15 Name', 'pyname': u'zone_15_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 15', {'name': u'Distance from Top of Thermal Chimney to Inlet 15', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 15', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 15', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_15', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 15', {'name': u'Cross Sectional Areas of Air Channel Inlet 15', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 16 name', {'name': u'Zone 16 Name', 'pyname': u'zone_16_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 16', {'name': u'Distance from Top of Thermal Chimney to Inlet 16', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 16', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 16', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_16', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 16', {'name': u'Cross Sectional Areas of Air Channel Inlet 16', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 17 name', {'name': u'Zone 17 Name', 'pyname': u'zone_17_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 17', {'name': u'Distance from Top of Thermal Chimney to Inlet 17', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 17', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 17', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_17', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 17', {'name': u'Cross Sectional Areas of Air Channel Inlet 17', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 18 name', {'name': u'Zone 18 Name', 'pyname': u'zone_18_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 18', {'name': u'Distance from Top of Thermal Chimney to Inlet 18', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 18', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 18', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_18', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 18', {'name': u'Cross Sectional Areas of Air Channel Inlet 18', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 19 name', {'name': u'Zone 19 Name', 'pyname': u'zone_19_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 19', {'name': u'Distance from Top of Thermal Chimney to Inlet 19', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 19', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 19', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_19', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 19', {'name': u'Cross Sectional Areas of Air Channel Inlet 19', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 20 name', {'name': u'Zone 20 Name', 'pyname': u'zone_20_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 20', {'name': u'Distance from Top of Thermal Chimney to Inlet 20', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 20', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 20', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_20', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 20', {'name': u'Cross Sectional Areas of Air Channel Inlet 20', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneThermalChimney`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Width of the Absorber Wall"] = None
-        self._data["Cross Sectional Area of Air Channel Outlet"] = None
-        self._data["Discharge Coefficient"] = None
-        self._data["Zone 1 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 1"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 1"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 1"] = None
-        self._data["Zone 2 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 2"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 2"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 2"] = None
-        self._data["Zone 3 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 3"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 3"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 3"] = None
-        self._data["Zone 4 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 4"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 4"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 4"] = None
-        self._data["Zone 5 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 5"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 5"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 5"] = None
-        self._data["Zone 6 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 6"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 6"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 6"] = None
-        self._data["Zone 7 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 7"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 7"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 7"] = None
-        self._data["Zone 8 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 8"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 8"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 8"] = None
-        self._data["Zone 9 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 9"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 9"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 9"] = None
-        self._data["Zone 10 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 10"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 10"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 10"] = None
-        self._data["Zone 11 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 11"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 11"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 11"] = None
-        self._data["Zone 12 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 12"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 12"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 12"] = None
-        self._data["Zone 13 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 13"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 13"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 13"] = None
-        self._data["Zone 14 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 14"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 14"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 14"] = None
-        self._data["Zone 15 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 15"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 15"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 15"] = None
-        self._data["Zone 16 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 16"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 16"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 16"] = None
-        self._data["Zone 17 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 17"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 17"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 17"] = None
-        self._data["Zone 18 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 18"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 18"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 18"] = None
-        self._data["Zone 19 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 19"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 19"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 19"] = None
-        self._data["Zone 20 Name"] = None
-        self._data["Distance from Top of Thermal Chimney to Inlet 20"] = None
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 20"] = None
-        self._data["Cross Sectional Areas of Air Channel Inlet 20"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.width_of_the_absorber_wall = None
-        else:
-            self.width_of_the_absorber_wall = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_area_of_air_channel_outlet = None
-        else:
-            self.cross_sectional_area_of_air_channel_outlet = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.discharge_coefficient = None
-        else:
-            self.discharge_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_1_name = None
-        else:
-            self.zone_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_1 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_1 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_1 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_2_name = None
-        else:
-            self.zone_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_2 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_2 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_2 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_3_name = None
-        else:
-            self.zone_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_3 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_3 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_3 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_4_name = None
-        else:
-            self.zone_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_4 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_4 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_4 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_5_name = None
-        else:
-            self.zone_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_5 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_5 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_5 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_6_name = None
-        else:
-            self.zone_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_6 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_6 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_6 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_7_name = None
-        else:
-            self.zone_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_7 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_7 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_7 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_8_name = None
-        else:
-            self.zone_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_8 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_8 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_8 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_9_name = None
-        else:
-            self.zone_9_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_9 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_9 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_9 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_10_name = None
-        else:
-            self.zone_10_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_10 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_10 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_10 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_11_name = None
-        else:
-            self.zone_11_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_11 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_11 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_11 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_12_name = None
-        else:
-            self.zone_12_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_12 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_12 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_12 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_13_name = None
-        else:
-            self.zone_13_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_13 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_13 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_13 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_14_name = None
-        else:
-            self.zone_14_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_14 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_14 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_14 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_15_name = None
-        else:
-            self.zone_15_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_15 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_15 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_15 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_16_name = None
-        else:
-            self.zone_16_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_16 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_16 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_16 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_17_name = None
-        else:
-            self.zone_17_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_17 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_17 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_17 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_18_name = None
-        else:
-            self.zone_18_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_18 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_18 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_18 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_19_name = None
-        else:
-            self.zone_19_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_19 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_19 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_19 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_20_name = None
-        else:
-            self.zone_20_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.distance_from_top_of_thermal_chimney_to_inlet_20 = None
-        else:
-            self.distance_from_top_of_thermal_chimney_to_inlet_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_20 = None
-        else:
-            self.relative_ratios_of_air_flow_rates_passing_through_zone_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cross_sectional_areas_of_air_channel_inlet_20 = None
-        else:
-            self.cross_sectional_areas_of_air_channel_inlet_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -9072,19 +4071,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_name(self):
@@ -9108,19 +4095,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -9145,19 +4120,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def width_of_the_absorber_wall(self):
@@ -9175,23 +4138,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Width of the Absorber Wall`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.width_of_the_absorber_wall`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.width_of_the_absorber_wall`')
-        self._data["Width of the Absorber Wall"] = value
+        self["Width of the Absorber Wall"] = value
 
     @property
     def cross_sectional_area_of_air_channel_outlet(self):
@@ -9209,23 +4162,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Area of Air Channel Outlet`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_area_of_air_channel_outlet`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_area_of_air_channel_outlet`')
-        self._data["Cross Sectional Area of Air Channel Outlet"] = value
+        self["Cross Sectional Area of Air Channel Outlet"] = value
 
     @property
     def discharge_coefficient(self):
@@ -9243,7 +4186,6 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Discharge Coefficient`
                 Default value: 0.8
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9251,19 +4193,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.discharge_coefficient`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.discharge_coefficient`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.discharge_coefficient`')
-        self._data["Discharge Coefficient"] = value
+        self["Discharge Coefficient"] = value
 
     @property
     def zone_1_name(self):
@@ -9286,19 +4216,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_1_name`')
-        self._data["Zone 1 Name"] = value
+        self["Zone 1 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_1(self):
@@ -9316,23 +4234,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 1`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_1`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_1`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 1"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 1"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_1(self):
@@ -9350,7 +4258,6 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 1`
                 Default value: 1.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9358,19 +4265,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_1`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_1`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_1`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 1"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 1"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_1(self):
@@ -9388,23 +4283,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 1`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_1`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_1`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 1"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 1"] = value
 
     @property
     def zone_2_name(self):
@@ -9427,19 +4312,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_2_name`')
-        self._data["Zone 2 Name"] = value
+        self["Zone 2 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_2(self):
@@ -9457,23 +4330,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 2`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_2`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_2`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 2"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 2"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_2(self):
@@ -9490,7 +4353,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 2`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9498,19 +4360,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_2`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_2`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_2`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 2"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 2"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_2(self):
@@ -9528,23 +4378,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 2`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_2`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_2`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 2"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 2"] = value
 
     @property
     def zone_3_name(self):
@@ -9567,19 +4407,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_3_name`')
-        self._data["Zone 3 Name"] = value
+        self["Zone 3 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_3(self):
@@ -9597,23 +4425,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 3`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_3`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_3`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 3"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 3"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_3(self):
@@ -9630,7 +4448,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 3`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9638,19 +4455,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_3`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_3`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_3`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 3"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 3"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_3(self):
@@ -9668,23 +4473,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 3`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_3`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_3`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 3"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 3"] = value
 
     @property
     def zone_4_name(self):
@@ -9707,19 +4502,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_4_name`')
-        self._data["Zone 4 Name"] = value
+        self["Zone 4 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_4(self):
@@ -9737,23 +4520,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 4`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_4`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_4`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 4"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 4"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_4(self):
@@ -9770,7 +4543,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 4`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9778,19 +4550,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_4`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_4`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_4`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 4"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 4"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_4(self):
@@ -9808,23 +4568,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 4`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_4`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_4`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 4"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 4"] = value
 
     @property
     def zone_5_name(self):
@@ -9847,19 +4597,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_5_name`')
-        self._data["Zone 5 Name"] = value
+        self["Zone 5 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_5(self):
@@ -9877,23 +4615,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 5`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_5`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_5`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 5"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 5"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_5(self):
@@ -9910,7 +4638,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 5`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9918,19 +4645,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_5`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_5`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_5`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 5"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 5"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_5(self):
@@ -9948,23 +4663,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 5`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_5`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_5`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 5"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 5"] = value
 
     @property
     def zone_6_name(self):
@@ -9987,19 +4692,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_6_name`')
-        self._data["Zone 6 Name"] = value
+        self["Zone 6 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_6(self):
@@ -10017,23 +4710,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 6`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_6`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_6`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 6"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 6"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_6(self):
@@ -10050,7 +4733,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 6`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10058,19 +4740,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_6`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_6`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_6`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 6"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 6"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_6(self):
@@ -10088,23 +4758,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 6`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_6`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_6`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 6"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 6"] = value
 
     @property
     def zone_7_name(self):
@@ -10127,19 +4787,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_7_name`')
-        self._data["Zone 7 Name"] = value
+        self["Zone 7 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_7(self):
@@ -10157,23 +4805,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 7`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_7`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_7`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 7"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 7"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_7(self):
@@ -10190,7 +4828,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 7`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10198,19 +4835,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_7`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_7`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_7`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 7"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 7"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_7(self):
@@ -10228,23 +4853,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 7`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_7`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_7`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 7"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 7"] = value
 
     @property
     def zone_8_name(self):
@@ -10267,19 +4882,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_8_name`')
-        self._data["Zone 8 Name"] = value
+        self["Zone 8 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_8(self):
@@ -10297,23 +4900,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 8`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_8`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_8`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 8"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 8"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_8(self):
@@ -10330,7 +4923,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 8`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10338,19 +4930,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_8`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_8`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_8`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 8"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 8"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_8(self):
@@ -10368,23 +4948,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 8`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_8`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_8`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 8"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 8"] = value
 
     @property
     def zone_9_name(self):
@@ -10407,19 +4977,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_9_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_9_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_9_name`')
-        self._data["Zone 9 Name"] = value
+        self["Zone 9 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_9(self):
@@ -10437,23 +4995,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 9`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_9`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_9`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 9"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 9"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_9(self):
@@ -10470,7 +5018,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 9`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10478,19 +5025,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_9`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_9`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_9`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 9"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 9"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_9(self):
@@ -10508,23 +5043,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 9`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_9`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_9`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 9"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 9"] = value
 
     @property
     def zone_10_name(self):
@@ -10547,19 +5072,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_10_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_10_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_10_name`')
-        self._data["Zone 10 Name"] = value
+        self["Zone 10 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_10(self):
@@ -10577,23 +5090,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 10`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_10`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_10`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 10"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 10"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_10(self):
@@ -10610,7 +5113,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 10`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10618,19 +5120,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_10`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_10`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_10`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 10"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 10"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_10(self):
@@ -10648,23 +5138,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 10`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_10`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_10`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 10"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 10"] = value
 
     @property
     def zone_11_name(self):
@@ -10687,19 +5167,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_11_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_11_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_11_name`')
-        self._data["Zone 11 Name"] = value
+        self["Zone 11 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_11(self):
@@ -10717,23 +5185,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 11`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_11`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_11`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 11"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 11"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_11(self):
@@ -10750,7 +5208,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 11`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10758,19 +5215,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_11`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_11`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_11`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 11"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 11"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_11(self):
@@ -10788,23 +5233,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 11`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_11`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_11`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 11"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 11"] = value
 
     @property
     def zone_12_name(self):
@@ -10827,19 +5262,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_12_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_12_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_12_name`')
-        self._data["Zone 12 Name"] = value
+        self["Zone 12 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_12(self):
@@ -10857,23 +5280,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 12`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_12`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_12`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 12"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 12"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_12(self):
@@ -10890,7 +5303,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 12`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10898,19 +5310,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_12`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_12`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_12`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 12"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 12"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_12(self):
@@ -10928,23 +5328,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 12`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_12`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_12`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 12"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 12"] = value
 
     @property
     def zone_13_name(self):
@@ -10967,19 +5357,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_13_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_13_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_13_name`')
-        self._data["Zone 13 Name"] = value
+        self["Zone 13 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_13(self):
@@ -10997,23 +5375,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 13`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_13`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_13`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 13"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 13"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_13(self):
@@ -11030,7 +5398,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 13`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11038,19 +5405,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_13`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_13`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_13`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 13"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 13"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_13(self):
@@ -11068,23 +5423,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 13`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_13`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_13`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 13"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 13"] = value
 
     @property
     def zone_14_name(self):
@@ -11107,19 +5452,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_14_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_14_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_14_name`')
-        self._data["Zone 14 Name"] = value
+        self["Zone 14 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_14(self):
@@ -11137,23 +5470,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 14`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_14`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_14`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 14"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 14"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_14(self):
@@ -11170,7 +5493,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 14`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11178,19 +5500,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_14`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_14`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_14`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 14"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 14"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_14(self):
@@ -11208,23 +5518,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 14`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_14`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_14`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 14"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 14"] = value
 
     @property
     def zone_15_name(self):
@@ -11247,19 +5547,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_15_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_15_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_15_name`')
-        self._data["Zone 15 Name"] = value
+        self["Zone 15 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_15(self):
@@ -11277,23 +5565,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 15`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_15`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_15`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 15"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 15"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_15(self):
@@ -11310,7 +5588,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 15`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11318,19 +5595,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_15`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_15`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_15`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 15"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 15"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_15(self):
@@ -11348,23 +5613,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 15`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_15`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_15`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 15"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 15"] = value
 
     @property
     def zone_16_name(self):
@@ -11387,19 +5642,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_16_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_16_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_16_name`')
-        self._data["Zone 16 Name"] = value
+        self["Zone 16 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_16(self):
@@ -11417,23 +5660,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 16`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_16`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_16`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 16"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 16"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_16(self):
@@ -11450,7 +5683,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 16`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11458,19 +5690,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_16`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_16`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_16`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 16"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 16"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_16(self):
@@ -11488,23 +5708,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 16`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_16`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_16`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 16"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 16"] = value
 
     @property
     def zone_17_name(self):
@@ -11527,19 +5737,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_17_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_17_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_17_name`')
-        self._data["Zone 17 Name"] = value
+        self["Zone 17 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_17(self):
@@ -11557,23 +5755,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 17`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_17`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_17`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 17"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 17"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_17(self):
@@ -11590,7 +5778,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 17`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11598,19 +5785,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_17`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_17`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_17`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 17"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 17"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_17(self):
@@ -11628,23 +5803,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 17`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_17`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_17`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 17"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 17"] = value
 
     @property
     def zone_18_name(self):
@@ -11667,19 +5832,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_18_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_18_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_18_name`')
-        self._data["Zone 18 Name"] = value
+        self["Zone 18 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_18(self):
@@ -11697,23 +5850,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 18`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_18`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_18`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 18"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 18"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_18(self):
@@ -11730,7 +5873,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 18`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11738,19 +5880,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_18`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_18`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_18`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 18"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 18"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_18(self):
@@ -11768,23 +5898,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 18`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_18`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_18`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 18"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 18"] = value
 
     @property
     def zone_19_name(self):
@@ -11807,19 +5927,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_19_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_19_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_19_name`')
-        self._data["Zone 19 Name"] = value
+        self["Zone 19 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_19(self):
@@ -11837,23 +5945,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 19`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_19`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_19`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 19"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 19"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_19(self):
@@ -11870,7 +5968,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 19`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11878,19 +5975,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_19`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_19`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_19`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 19"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 19"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_19(self):
@@ -11908,23 +5993,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 19`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_19`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_19`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 19"] = value
+        self["Cross Sectional Areas of Air Channel Inlet 19"] = value
 
     @property
     def zone_20_name(self):
@@ -11947,19 +6022,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneThermalChimney.zone_20_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneThermalChimney.zone_20_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneThermalChimney.zone_20_name`')
-        self._data["Zone 20 Name"] = value
+        self["Zone 20 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_20(self):
@@ -11977,23 +6040,13 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 20`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_20`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_20`')
-        self._data["Distance from Top of Thermal Chimney to Inlet 20"] = value
+        self["Distance from Top of Thermal Chimney to Inlet 20"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_20(self):
@@ -12010,7 +6063,6 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 20`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12018,19 +6070,7 @@ class ZoneThermalChimney(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_20`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_20`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_20`')
-        self._data["Relative Ratios of Air Flow Rates Passing through Zone 20"] = value
+        self["Relative Ratios of Air Flow Rates Passing through Zone 20"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_20(self):
@@ -12048,102 +6088,10 @@ class ZoneThermalChimney(object):
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 20`
                 Units: m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_20`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_20`')
-        self._data["Cross Sectional Areas of Air Channel Inlet 20"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneThermalChimney:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneThermalChimney:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneThermalChimney: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneThermalChimney: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Cross Sectional Areas of Air Channel Inlet 20"] = value

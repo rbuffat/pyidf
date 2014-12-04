@@ -1,72 +1,28 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class SetpointManagerScheduled(object):
+
+
+class SetpointManagerScheduled(DataObject):
     """ Corresponds to IDD object `SetpointManager:Scheduled`
         The simplest Setpoint Manager simply uses a schedule to determine one
         or more setpoints. Values of the nodes are not used as input.
     """
-    internal_name = "SetpointManager:Scheduled"
-    field_count = 4
-    required_fields = ["Name", "Control Variable", "Schedule Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:Scheduled', 'pyname': u'SetpointManagerScheduled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:Scheduled`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Schedule Name"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -89,19 +45,7 @@ class SetpointManagerScheduled(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerScheduled.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerScheduled.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerScheduled.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -118,69 +62,13 @@ class SetpointManagerScheduled(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
-                      - MaximumTemperature
-                      - MinimumTemperature
-                      - HumidityRatio
-                      - MaximumHumidityRatio
-                      - MinimumHumidityRatio
-                      - MassFlowRate
-                      - MaximumMassFlowRate
-                      - MinimumMassFlowRate
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerScheduled.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerScheduled.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerScheduled.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            vals["maximumtemperature"] = "MaximumTemperature"
-            vals["minimumtemperature"] = "MinimumTemperature"
-            vals["humidityratio"] = "HumidityRatio"
-            vals["maximumhumidityratio"] = "MaximumHumidityRatio"
-            vals["minimumhumidityratio"] = "MinimumHumidityRatio"
-            vals["massflowrate"] = "MassFlowRate"
-            vals["maximummassflowrate"] = "MaximumMassFlowRate"
-            vals["minimummassflowrate"] = "MinimumMassFlowRate"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerScheduled.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerScheduled.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def schedule_name(self):
@@ -203,19 +91,7 @@ class SetpointManagerScheduled(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerScheduled.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerScheduled.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerScheduled.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -239,172 +115,24 @@ class SetpointManagerScheduled(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerScheduled.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerScheduled.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerScheduled.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerScheduled:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerScheduled:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerScheduled: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerScheduled: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerScheduledDualSetpoint(object):
+class SetpointManagerScheduledDualSetpoint(DataObject):
     """ Corresponds to IDD object `SetpointManager:Scheduled:DualSetpoint`
         This setpoint manager places a high and low schedule value
         on one or more nodes.
     """
-    internal_name = "SetpointManager:Scheduled:DualSetpoint"
-    field_count = 5
-    required_fields = ["Name", "High Setpoint Schedule Name", "Low Setpoint Schedule Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:Scheduled:DualSetpoint', 'pyname': u'SetpointManagerScheduledDualSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'high setpoint schedule name', {'name': u'High Setpoint Schedule Name', 'pyname': u'high_setpoint_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'low setpoint schedule name', {'name': u'Low Setpoint Schedule Name', 'pyname': u'low_setpoint_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:Scheduled:DualSetpoint`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["High Setpoint Schedule Name"] = None
-        self._data["Low Setpoint Schedule Name"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.high_setpoint_schedule_name = None
-        else:
-            self.high_setpoint_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.low_setpoint_schedule_name = None
-        else:
-            self.low_setpoint_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -427,19 +155,7 @@ class SetpointManagerScheduledDualSetpoint(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerScheduledDualSetpoint.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerScheduledDualSetpoint.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerScheduledDualSetpoint.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -456,8 +172,6 @@ class SetpointManagerScheduledDualSetpoint(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -465,45 +179,7 @@ class SetpointManagerScheduledDualSetpoint(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerScheduledDualSetpoint.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerScheduledDualSetpoint.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerScheduledDualSetpoint.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerScheduledDualSetpoint.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerScheduledDualSetpoint.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def high_setpoint_schedule_name(self):
@@ -526,19 +202,7 @@ class SetpointManagerScheduledDualSetpoint(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerScheduledDualSetpoint.high_setpoint_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerScheduledDualSetpoint.high_setpoint_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerScheduledDualSetpoint.high_setpoint_schedule_name`')
-        self._data["High Setpoint Schedule Name"] = value
+        self["High Setpoint Schedule Name"] = value
 
     @property
     def low_setpoint_schedule_name(self):
@@ -561,19 +225,7 @@ class SetpointManagerScheduledDualSetpoint(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerScheduledDualSetpoint.low_setpoint_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerScheduledDualSetpoint.low_setpoint_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerScheduledDualSetpoint.low_setpoint_schedule_name`')
-        self._data["Low Setpoint Schedule Name"] = value
+        self["Low Setpoint Schedule Name"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -597,228 +249,24 @@ class SetpointManagerScheduledDualSetpoint(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerScheduledDualSetpoint.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerScheduledDualSetpoint.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerScheduledDualSetpoint.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerScheduledDualSetpoint:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerScheduledDualSetpoint:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerScheduledDualSetpoint: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerScheduledDualSetpoint: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerOutdoorAirReset(object):
+class SetpointManagerOutdoorAirReset(DataObject):
     """ Corresponds to IDD object `SetpointManager:OutdoorAirReset`
         The Outdoor Air Reset Setpoint Manager sets the supply air
         temperature according to the outdoor air temperature using a reset rule.
     """
-    internal_name = "SetpointManager:OutdoorAirReset"
-    field_count = 12
-    required_fields = ["Name", "Setpoint at Outdoor Low Temperature", "Outdoor Low Temperature", "Setpoint at Outdoor High Temperature", "Outdoor High Temperature", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:OutdoorAirReset', 'pyname': u'SetpointManagerOutdoorAirReset', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint at outdoor low temperature', {'name': u'Setpoint at Outdoor Low Temperature', 'pyname': u'setpoint_at_outdoor_low_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor low temperature', {'name': u'Outdoor Low Temperature', 'pyname': u'outdoor_low_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'setpoint at outdoor high temperature', {'name': u'Setpoint at Outdoor High Temperature', 'pyname': u'setpoint_at_outdoor_high_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor high temperature', {'name': u'Outdoor High Temperature', 'pyname': u'outdoor_high_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint at outdoor low temperature 2', {'name': u'Setpoint at Outdoor Low Temperature 2', 'pyname': u'setpoint_at_outdoor_low_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor low temperature 2', {'name': u'Outdoor Low Temperature 2', 'pyname': u'outdoor_low_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'setpoint at outdoor high temperature 2', {'name': u'Setpoint at Outdoor High Temperature 2', 'pyname': u'setpoint_at_outdoor_high_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor high temperature 2', {'name': u'Outdoor High Temperature 2', 'pyname': u'outdoor_high_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:OutdoorAirReset`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Setpoint at Outdoor Low Temperature"] = None
-        self._data["Outdoor Low Temperature"] = None
-        self._data["Setpoint at Outdoor High Temperature"] = None
-        self._data["Outdoor High Temperature"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
-        self._data["Schedule Name"] = None
-        self._data["Setpoint at Outdoor Low Temperature 2"] = None
-        self._data["Outdoor Low Temperature 2"] = None
-        self._data["Setpoint at Outdoor High Temperature 2"] = None
-        self._data["Outdoor High Temperature 2"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_at_outdoor_low_temperature = None
-        else:
-            self.setpoint_at_outdoor_low_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_low_temperature = None
-        else:
-            self.outdoor_low_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_at_outdoor_high_temperature = None
-        else:
-            self.setpoint_at_outdoor_high_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_high_temperature = None
-        else:
-            self.outdoor_high_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_at_outdoor_low_temperature_2 = None
-        else:
-            self.setpoint_at_outdoor_low_temperature_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_low_temperature_2 = None
-        else:
-            self.outdoor_low_temperature_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_at_outdoor_high_temperature_2 = None
-        else:
-            self.setpoint_at_outdoor_high_temperature_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_high_temperature_2 = None
-        else:
-            self.outdoor_high_temperature_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -841,19 +289,7 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerOutdoorAirReset.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerOutdoorAirReset.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerOutdoorAirReset.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -870,8 +306,6 @@ class SetpointManagerOutdoorAirReset(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -879,45 +313,7 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerOutdoorAirReset.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerOutdoorAirReset.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerOutdoorAirReset.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerOutdoorAirReset.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerOutdoorAirReset.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def setpoint_at_outdoor_low_temperature(self):
@@ -941,13 +337,7 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirReset.setpoint_at_outdoor_low_temperature`'.format(value))
-        self._data["Setpoint at Outdoor Low Temperature"] = value
+        self["Setpoint at Outdoor Low Temperature"] = value
 
     @property
     def outdoor_low_temperature(self):
@@ -971,13 +361,7 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirReset.outdoor_low_temperature`'.format(value))
-        self._data["Outdoor Low Temperature"] = value
+        self["Outdoor Low Temperature"] = value
 
     @property
     def setpoint_at_outdoor_high_temperature(self):
@@ -1001,13 +385,7 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirReset.setpoint_at_outdoor_high_temperature`'.format(value))
-        self._data["Setpoint at Outdoor High Temperature"] = value
+        self["Setpoint at Outdoor High Temperature"] = value
 
     @property
     def outdoor_high_temperature(self):
@@ -1031,13 +409,7 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirReset.outdoor_high_temperature`'.format(value))
-        self._data["Outdoor High Temperature"] = value
+        self["Outdoor High Temperature"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -1061,19 +433,7 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerOutdoorAirReset.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerOutdoorAirReset.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerOutdoorAirReset.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
     @property
     def schedule_name(self):
@@ -1099,19 +459,7 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerOutdoorAirReset.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerOutdoorAirReset.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerOutdoorAirReset.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def setpoint_at_outdoor_low_temperature_2(self):
@@ -1136,13 +484,7 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirReset.setpoint_at_outdoor_low_temperature_2`'.format(value))
-        self._data["Setpoint at Outdoor Low Temperature 2"] = value
+        self["Setpoint at Outdoor Low Temperature 2"] = value
 
     @property
     def outdoor_low_temperature_2(self):
@@ -1167,13 +509,7 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirReset.outdoor_low_temperature_2`'.format(value))
-        self._data["Outdoor Low Temperature 2"] = value
+        self["Outdoor Low Temperature 2"] = value
 
     @property
     def setpoint_at_outdoor_high_temperature_2(self):
@@ -1198,13 +534,7 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirReset.setpoint_at_outdoor_high_temperature_2`'.format(value))
-        self._data["Setpoint at Outdoor High Temperature 2"] = value
+        self["Setpoint at Outdoor High Temperature 2"] = value
 
     @property
     def outdoor_high_temperature_2(self):
@@ -1229,192 +559,26 @@ class SetpointManagerOutdoorAirReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirReset.outdoor_high_temperature_2`'.format(value))
-        self._data["Outdoor High Temperature 2"] = value
+        self["Outdoor High Temperature 2"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerOutdoorAirReset:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerOutdoorAirReset:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerOutdoorAirReset: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerOutdoorAirReset: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerSingleZoneReheat(object):
+class SetpointManagerSingleZoneReheat(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:Reheat`
         This setpoint manager detects the control zone load, zone inlet node flow rate, and
         zone node temperature and calculates a setpoint temperature for the supply air that
         will satisfy the zone load (heating or cooling) for the control zone. This setpoint
         manager is not limited to reheat applications.
     """
-    internal_name = "SetpointManager:SingleZone:Reheat"
-    field_count = 8
-    required_fields = ["Name", "Control Zone Name", "Zone Node Name", "Zone Inlet Node Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:SingleZone:Reheat', 'pyname': u'SetpointManagerSingleZoneReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum supply air temperature', {'name': u'Minimum Supply Air Temperature', 'pyname': u'minimum_supply_air_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone inlet node name', {'name': u'Zone Inlet Node Name', 'pyname': u'zone_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Reheat`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Minimum Supply Air Temperature"] = None
-        self._data["Maximum Supply Air Temperature"] = None
-        self._data["Control Zone Name"] = None
-        self._data["Zone Node Name"] = None
-        self._data["Zone Inlet Node Name"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_supply_air_temperature = None
-        else:
-            self.minimum_supply_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_supply_air_temperature = None
-        else:
-            self.maximum_supply_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_zone_name = None
-        else:
-            self.control_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_node_name = None
-        else:
-            self.zone_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_inlet_node_name = None
-        else:
-            self.zone_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1437,19 +601,7 @@ class SetpointManagerSingleZoneReheat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneReheat.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneReheat.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneReheat.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -1466,8 +618,6 @@ class SetpointManagerSingleZoneReheat(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1475,45 +625,7 @@ class SetpointManagerSingleZoneReheat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneReheat.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneReheat.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneReheat.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerSingleZoneReheat.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerSingleZoneReheat.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def minimum_supply_air_temperature(self):
@@ -1538,13 +650,7 @@ class SetpointManagerSingleZoneReheat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerSingleZoneReheat.minimum_supply_air_temperature`'.format(value))
-        self._data["Minimum Supply Air Temperature"] = value
+        self["Minimum Supply Air Temperature"] = value
 
     @property
     def maximum_supply_air_temperature(self):
@@ -1569,13 +675,7 @@ class SetpointManagerSingleZoneReheat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerSingleZoneReheat.maximum_supply_air_temperature`'.format(value))
-        self._data["Maximum Supply Air Temperature"] = value
+        self["Maximum Supply Air Temperature"] = value
 
     @property
     def control_zone_name(self):
@@ -1598,19 +698,7 @@ class SetpointManagerSingleZoneReheat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneReheat.control_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneReheat.control_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneReheat.control_zone_name`')
-        self._data["Control Zone Name"] = value
+        self["Control Zone Name"] = value
 
     @property
     def zone_node_name(self):
@@ -1633,19 +721,7 @@ class SetpointManagerSingleZoneReheat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneReheat.zone_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneReheat.zone_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneReheat.zone_node_name`')
-        self._data["Zone Node Name"] = value
+        self["Zone Node Name"] = value
 
     @property
     def zone_inlet_node_name(self):
@@ -1668,19 +744,7 @@ class SetpointManagerSingleZoneReheat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneReheat.zone_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneReheat.zone_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneReheat.zone_inlet_node_name`')
-        self._data["Zone Inlet Node Name"] = value
+        self["Zone Inlet Node Name"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -1704,198 +768,26 @@ class SetpointManagerSingleZoneReheat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneReheat.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneReheat.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneReheat.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerSingleZoneReheat:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerSingleZoneReheat:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerSingleZoneReheat: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerSingleZoneReheat: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerSingleZoneHeating(object):
+class SetpointManagerSingleZoneHeating(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:Heating`
         This setpoint manager detects the control zone load to meet the current heating
         setpoint, zone inlet node flow rate, and zone node temperature, and calculates a
         setpoint temperature for the supply air that will satisfy the zone heating load for
         the control zone.
     """
-    internal_name = "SetpointManager:SingleZone:Heating"
-    field_count = 8
-    required_fields = ["Name", "Control Zone Name", "Zone Node Name", "Zone Inlet Node Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 8
-    extensible_keys = []
+    schema = {'min-fields': 8, 'name': u'SetpointManager:SingleZone:Heating', 'pyname': u'SetpointManagerSingleZoneHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum supply air temperature', {'name': u'Minimum Supply Air Temperature', 'pyname': u'minimum_supply_air_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone inlet node name', {'name': u'Zone Inlet Node Name', 'pyname': u'zone_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Heating`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Minimum Supply Air Temperature"] = None
-        self._data["Maximum Supply Air Temperature"] = None
-        self._data["Control Zone Name"] = None
-        self._data["Zone Node Name"] = None
-        self._data["Zone Inlet Node Name"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_supply_air_temperature = None
-        else:
-            self.minimum_supply_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_supply_air_temperature = None
-        else:
-            self.maximum_supply_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_zone_name = None
-        else:
-            self.control_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_node_name = None
-        else:
-            self.zone_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_inlet_node_name = None
-        else:
-            self.zone_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1918,19 +810,7 @@ class SetpointManagerSingleZoneHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHeating.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHeating.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHeating.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -1947,8 +827,6 @@ class SetpointManagerSingleZoneHeating(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1956,45 +834,7 @@ class SetpointManagerSingleZoneHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHeating.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHeating.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHeating.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerSingleZoneHeating.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerSingleZoneHeating.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def minimum_supply_air_temperature(self):
@@ -2019,13 +859,7 @@ class SetpointManagerSingleZoneHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerSingleZoneHeating.minimum_supply_air_temperature`'.format(value))
-        self._data["Minimum Supply Air Temperature"] = value
+        self["Minimum Supply Air Temperature"] = value
 
     @property
     def maximum_supply_air_temperature(self):
@@ -2050,13 +884,7 @@ class SetpointManagerSingleZoneHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerSingleZoneHeating.maximum_supply_air_temperature`'.format(value))
-        self._data["Maximum Supply Air Temperature"] = value
+        self["Maximum Supply Air Temperature"] = value
 
     @property
     def control_zone_name(self):
@@ -2079,19 +907,7 @@ class SetpointManagerSingleZoneHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHeating.control_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHeating.control_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHeating.control_zone_name`')
-        self._data["Control Zone Name"] = value
+        self["Control Zone Name"] = value
 
     @property
     def zone_node_name(self):
@@ -2114,19 +930,7 @@ class SetpointManagerSingleZoneHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHeating.zone_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHeating.zone_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHeating.zone_node_name`')
-        self._data["Zone Node Name"] = value
+        self["Zone Node Name"] = value
 
     @property
     def zone_inlet_node_name(self):
@@ -2149,19 +953,7 @@ class SetpointManagerSingleZoneHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHeating.zone_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHeating.zone_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHeating.zone_inlet_node_name`')
-        self._data["Zone Inlet Node Name"] = value
+        self["Zone Inlet Node Name"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -2185,198 +977,26 @@ class SetpointManagerSingleZoneHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHeating.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHeating.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHeating.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerSingleZoneHeating:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerSingleZoneHeating:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerSingleZoneHeating: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerSingleZoneHeating: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerSingleZoneCooling(object):
+class SetpointManagerSingleZoneCooling(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:Cooling`
         This setpoint manager detects the control zone load to meet the current cooling
         setpoint, zone inlet node flow rate, and zone node temperature, and calculates a
         setpoint temperature for the supply air that will satisfy the zone cooling load for
         the control zone.
     """
-    internal_name = "SetpointManager:SingleZone:Cooling"
-    field_count = 8
-    required_fields = ["Name", "Control Zone Name", "Zone Node Name", "Zone Inlet Node Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 8
-    extensible_keys = []
+    schema = {'min-fields': 8, 'name': u'SetpointManager:SingleZone:Cooling', 'pyname': u'SetpointManagerSingleZoneCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum supply air temperature', {'name': u'Minimum Supply Air Temperature', 'pyname': u'minimum_supply_air_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone inlet node name', {'name': u'Zone Inlet Node Name', 'pyname': u'zone_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Cooling`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Minimum Supply Air Temperature"] = None
-        self._data["Maximum Supply Air Temperature"] = None
-        self._data["Control Zone Name"] = None
-        self._data["Zone Node Name"] = None
-        self._data["Zone Inlet Node Name"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_supply_air_temperature = None
-        else:
-            self.minimum_supply_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_supply_air_temperature = None
-        else:
-            self.maximum_supply_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_zone_name = None
-        else:
-            self.control_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_node_name = None
-        else:
-            self.zone_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_inlet_node_name = None
-        else:
-            self.zone_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2399,19 +1019,7 @@ class SetpointManagerSingleZoneCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneCooling.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneCooling.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneCooling.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -2428,8 +1036,6 @@ class SetpointManagerSingleZoneCooling(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2437,45 +1043,7 @@ class SetpointManagerSingleZoneCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneCooling.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneCooling.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneCooling.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerSingleZoneCooling.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerSingleZoneCooling.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def minimum_supply_air_temperature(self):
@@ -2500,13 +1068,7 @@ class SetpointManagerSingleZoneCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerSingleZoneCooling.minimum_supply_air_temperature`'.format(value))
-        self._data["Minimum Supply Air Temperature"] = value
+        self["Minimum Supply Air Temperature"] = value
 
     @property
     def maximum_supply_air_temperature(self):
@@ -2531,13 +1093,7 @@ class SetpointManagerSingleZoneCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerSingleZoneCooling.maximum_supply_air_temperature`'.format(value))
-        self._data["Maximum Supply Air Temperature"] = value
+        self["Maximum Supply Air Temperature"] = value
 
     @property
     def control_zone_name(self):
@@ -2560,19 +1116,7 @@ class SetpointManagerSingleZoneCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneCooling.control_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneCooling.control_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneCooling.control_zone_name`')
-        self._data["Control Zone Name"] = value
+        self["Control Zone Name"] = value
 
     @property
     def zone_node_name(self):
@@ -2595,19 +1139,7 @@ class SetpointManagerSingleZoneCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneCooling.zone_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneCooling.zone_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneCooling.zone_node_name`')
-        self._data["Zone Node Name"] = value
+        self["Zone Node Name"] = value
 
     @property
     def zone_inlet_node_name(self):
@@ -2630,19 +1162,7 @@ class SetpointManagerSingleZoneCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneCooling.zone_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneCooling.zone_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneCooling.zone_inlet_node_name`')
-        self._data["Zone Inlet Node Name"] = value
+        self["Zone Inlet Node Name"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -2666,174 +1186,26 @@ class SetpointManagerSingleZoneCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneCooling.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneCooling.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneCooling.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerSingleZoneCooling:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerSingleZoneCooling:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerSingleZoneCooling: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerSingleZoneCooling: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerSingleZoneHumidityMinimum(object):
+class SetpointManagerSingleZoneHumidityMinimum(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:Humidity:Minimum`
         The Single Zone Minimum Humidity Setpoint Manager allows the
         control of a single zone minimum humidity level.
         This setpoint manager can be used in conjunction with
         object ZoneControl:Humidistat to detect humidity levels.
     """
-    internal_name = "SetpointManager:SingleZone:Humidity:Minimum"
-    field_count = 5
-    required_fields = ["Name", "Setpoint Node or NodeList Name", "Control Zone Air Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:SingleZone:Humidity:Minimum', 'pyname': u'SetpointManagerSingleZoneHumidityMinimum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control zone air node name', {'name': u'Control Zone Air Node Name', 'pyname': u'control_zone_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Humidity:Minimum`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Schedule Name"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
-        self._data["Control Zone Air Node Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_zone_air_node_name = None
-        else:
-            self.control_zone_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2856,19 +1228,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHumidityMinimum.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHumidityMinimum.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHumidityMinimum.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -2894,19 +1254,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHumidityMinimum.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHumidityMinimum.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHumidityMinimum.control_variable`')
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def schedule_name(self):
@@ -2932,19 +1280,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHumidityMinimum.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHumidityMinimum.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHumidityMinimum.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -2968,19 +1304,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHumidityMinimum.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHumidityMinimum.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHumidityMinimum.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
     @property
     def control_zone_air_node_name(self):
@@ -3004,174 +1328,26 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHumidityMinimum.control_zone_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHumidityMinimum.control_zone_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHumidityMinimum.control_zone_air_node_name`')
-        self._data["Control Zone Air Node Name"] = value
+        self["Control Zone Air Node Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerSingleZoneHumidityMinimum:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerSingleZoneHumidityMinimum:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerSingleZoneHumidityMinimum: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerSingleZoneHumidityMinimum: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerSingleZoneHumidityMaximum(object):
+class SetpointManagerSingleZoneHumidityMaximum(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:Humidity:Maximum`
         The Single Zone Maximum Humidity Setpoint Manager allows the
         control of a single zone maximum humidity level.
         This setpoint manager can be used in conjunction with
         object ZoneControl:Humidistat to detect humidity levels.
     """
-    internal_name = "SetpointManager:SingleZone:Humidity:Maximum"
-    field_count = 5
-    required_fields = ["Name", "Setpoint Node or NodeList Name", "Control Zone Air Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'SetpointManager:SingleZone:Humidity:Maximum', 'pyname': u'SetpointManagerSingleZoneHumidityMaximum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control zone air node name', {'name': u'Control Zone Air Node Name', 'pyname': u'control_zone_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Humidity:Maximum`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Schedule Name"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
-        self._data["Control Zone Air Node Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_zone_air_node_name = None
-        else:
-            self.control_zone_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3194,19 +1370,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHumidityMaximum.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHumidityMaximum.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHumidityMaximum.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -3232,19 +1396,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHumidityMaximum.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHumidityMaximum.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHumidityMaximum.control_variable`')
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def schedule_name(self):
@@ -3270,19 +1422,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHumidityMaximum.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHumidityMaximum.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHumidityMaximum.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -3306,19 +1446,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHumidityMaximum.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHumidityMaximum.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHumidityMaximum.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
     @property
     def control_zone_air_node_name(self):
@@ -3342,181 +1470,25 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneHumidityMaximum.control_zone_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneHumidityMaximum.control_zone_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneHumidityMaximum.control_zone_air_node_name`')
-        self._data["Control Zone Air Node Name"] = value
+        self["Control Zone Air Node Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerSingleZoneHumidityMaximum:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerSingleZoneHumidityMaximum:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerSingleZoneHumidityMaximum: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerSingleZoneHumidityMaximum: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerMixedAir(object):
+class SetpointManagerMixedAir(DataObject):
     """ Corresponds to IDD object `SetpointManager:MixedAir`
         The Mixed Air Setpoint Manager is meant to be used in conjunction
         with a Controller:OutdoorAir object. This setpoint manager is used
         to establish a temperature setpoint at the mixed air node.
     """
-    internal_name = "SetpointManager:MixedAir"
-    field_count = 6
-    required_fields = ["Name", "Reference Setpoint Node Name", "Fan Inlet Node Name", "Fan Outlet Node Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:MixedAir', 'pyname': u'SetpointManagerMixedAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference setpoint node name', {'name': u'Reference Setpoint Node Name', 'pyname': u'reference_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan inlet node name', {'name': u'Fan Inlet Node Name', 'pyname': u'fan_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan outlet node name', {'name': u'Fan Outlet Node Name', 'pyname': u'fan_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MixedAir`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Reference Setpoint Node Name"] = None
-        self._data["Fan Inlet Node Name"] = None
-        self._data["Fan Outlet Node Name"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_setpoint_node_name = None
-        else:
-            self.reference_setpoint_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fan_inlet_node_name = None
-        else:
-            self.fan_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fan_outlet_node_name = None
-        else:
-            self.fan_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3539,19 +1511,7 @@ class SetpointManagerMixedAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMixedAir.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMixedAir.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMixedAir.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -3568,8 +1528,6 @@ class SetpointManagerMixedAir(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3577,45 +1535,7 @@ class SetpointManagerMixedAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMixedAir.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMixedAir.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMixedAir.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerMixedAir.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerMixedAir.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def reference_setpoint_node_name(self):
@@ -3638,19 +1558,7 @@ class SetpointManagerMixedAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMixedAir.reference_setpoint_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMixedAir.reference_setpoint_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMixedAir.reference_setpoint_node_name`')
-        self._data["Reference Setpoint Node Name"] = value
+        self["Reference Setpoint Node Name"] = value
 
     @property
     def fan_inlet_node_name(self):
@@ -3673,19 +1581,7 @@ class SetpointManagerMixedAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMixedAir.fan_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMixedAir.fan_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMixedAir.fan_inlet_node_name`')
-        self._data["Fan Inlet Node Name"] = value
+        self["Fan Inlet Node Name"] = value
 
     @property
     def fan_outlet_node_name(self):
@@ -3708,19 +1604,7 @@ class SetpointManagerMixedAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMixedAir.fan_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMixedAir.fan_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMixedAir.fan_outlet_node_name`')
-        self._data["Fan Outlet Node Name"] = value
+        self["Fan Outlet Node Name"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -3744,222 +1628,26 @@ class SetpointManagerMixedAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMixedAir.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMixedAir.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMixedAir.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerMixedAir:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerMixedAir:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerMixedAir: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerMixedAir: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerOutdoorAirPretreat(object):
+class SetpointManagerOutdoorAirPretreat(DataObject):
     """ Corresponds to IDD object `SetpointManager:OutdoorAirPretreat`
         This setpoint manager determines the required
         conditions at the outdoor air stream node which will
         produce the reference setpoint condition at the
         mixed air node when mixed with the return air stream
     """
-    internal_name = "SetpointManager:OutdoorAirPretreat"
-    field_count = 11
-    required_fields = ["Name", "Mixed Air Stream Node Name", "Outdoor Air Stream Node Name", "Return Air Stream Node Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 11
-    extensible_keys = []
+    schema = {'min-fields': 11, 'name': u'SetpointManager:OutdoorAirPretreat', 'pyname': u'SetpointManagerOutdoorAirPretreat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'minimum setpoint humidity ratio', {'name': u'Minimum Setpoint Humidity Ratio', 'pyname': u'minimum_setpoint_humidity_ratio', 'default': 1e-05, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum setpoint humidity ratio', {'name': u'Maximum Setpoint Humidity Ratio', 'pyname': u'maximum_setpoint_humidity_ratio', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kgWater/kgDryAir'}), (u'reference setpoint node name', {'name': u'Reference Setpoint Node Name', 'pyname': u'reference_setpoint_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'mixed air stream node name', {'name': u'Mixed Air Stream Node Name', 'pyname': u'mixed_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air stream node name', {'name': u'Outdoor Air Stream Node Name', 'pyname': u'outdoor_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'return air stream node name', {'name': u'Return Air Stream Node Name', 'pyname': u'return_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:OutdoorAirPretreat`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Minimum Setpoint Temperature"] = None
-        self._data["Maximum Setpoint Temperature"] = None
-        self._data["Minimum Setpoint Humidity Ratio"] = None
-        self._data["Maximum Setpoint Humidity Ratio"] = None
-        self._data["Reference Setpoint Node Name"] = None
-        self._data["Mixed Air Stream Node Name"] = None
-        self._data["Outdoor Air Stream Node Name"] = None
-        self._data["Return Air Stream Node Name"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_temperature = None
-        else:
-            self.minimum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_temperature = None
-        else:
-            self.maximum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_humidity_ratio = None
-        else:
-            self.minimum_setpoint_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_humidity_ratio = None
-        else:
-            self.maximum_setpoint_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_setpoint_node_name = None
-        else:
-            self.reference_setpoint_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.mixed_air_stream_node_name = None
-        else:
-            self.mixed_air_stream_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_stream_node_name = None
-        else:
-            self.outdoor_air_stream_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.return_air_stream_node_name = None
-        else:
-            self.return_air_stream_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3982,19 +1670,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerOutdoorAirPretreat.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerOutdoorAirPretreat.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerOutdoorAirPretreat.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -4011,59 +1687,13 @@ class SetpointManagerOutdoorAirPretreat(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
-                      - HumidityRatio
-                      - MaximumHumidityRatio
-                      - MinimumHumidityRatio
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerOutdoorAirPretreat.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerOutdoorAirPretreat.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerOutdoorAirPretreat.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            vals["humidityratio"] = "HumidityRatio"
-            vals["maximumhumidityratio"] = "MaximumHumidityRatio"
-            vals["minimumhumidityratio"] = "MinimumHumidityRatio"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerOutdoorAirPretreat.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerOutdoorAirPretreat.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def minimum_setpoint_temperature(self):
@@ -4089,13 +1719,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirPretreat.minimum_setpoint_temperature`'.format(value))
-        self._data["Minimum Setpoint Temperature"] = value
+        self["Minimum Setpoint Temperature"] = value
 
     @property
     def maximum_setpoint_temperature(self):
@@ -4121,13 +1745,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirPretreat.maximum_setpoint_temperature`'.format(value))
-        self._data["Maximum Setpoint Temperature"] = value
+        self["Maximum Setpoint Temperature"] = value
 
     @property
     def minimum_setpoint_humidity_ratio(self):
@@ -4155,16 +1773,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirPretreat.minimum_setpoint_humidity_ratio`'.format(value))
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SetpointManagerOutdoorAirPretreat.minimum_setpoint_humidity_ratio`')
-        self._data["Minimum Setpoint Humidity Ratio"] = value
+        self["Minimum Setpoint Humidity Ratio"] = value
 
     @property
     def maximum_setpoint_humidity_ratio(self):
@@ -4192,16 +1801,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerOutdoorAirPretreat.maximum_setpoint_humidity_ratio`'.format(value))
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SetpointManagerOutdoorAirPretreat.maximum_setpoint_humidity_ratio`')
-        self._data["Maximum Setpoint Humidity Ratio"] = value
+        self["Maximum Setpoint Humidity Ratio"] = value
 
     @property
     def reference_setpoint_node_name(self):
@@ -4228,19 +1828,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerOutdoorAirPretreat.reference_setpoint_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerOutdoorAirPretreat.reference_setpoint_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerOutdoorAirPretreat.reference_setpoint_node_name`')
-        self._data["Reference Setpoint Node Name"] = value
+        self["Reference Setpoint Node Name"] = value
 
     @property
     def mixed_air_stream_node_name(self):
@@ -4264,19 +1852,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerOutdoorAirPretreat.mixed_air_stream_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerOutdoorAirPretreat.mixed_air_stream_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerOutdoorAirPretreat.mixed_air_stream_node_name`')
-        self._data["Mixed Air Stream Node Name"] = value
+        self["Mixed Air Stream Node Name"] = value
 
     @property
     def outdoor_air_stream_node_name(self):
@@ -4300,19 +1876,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerOutdoorAirPretreat.outdoor_air_stream_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerOutdoorAirPretreat.outdoor_air_stream_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerOutdoorAirPretreat.outdoor_air_stream_node_name`')
-        self._data["Outdoor Air Stream Node Name"] = value
+        self["Outdoor Air Stream Node Name"] = value
 
     @property
     def return_air_stream_node_name(self):
@@ -4336,19 +1900,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerOutdoorAirPretreat.return_air_stream_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerOutdoorAirPretreat.return_air_stream_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerOutdoorAirPretreat.return_air_stream_node_name`')
-        self._data["Return Air Stream Node Name"] = value
+        self["Return Air Stream Node Name"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -4373,189 +1925,25 @@ class SetpointManagerOutdoorAirPretreat(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerOutdoorAirPretreat.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerOutdoorAirPretreat.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerOutdoorAirPretreat.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerOutdoorAirPretreat:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerOutdoorAirPretreat:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerOutdoorAirPretreat: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerOutdoorAirPretreat: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerWarmest(object):
+class SetpointManagerWarmest(DataObject):
     """ Corresponds to IDD object `SetpointManager:Warmest`
         This SetpointManager resets the cooling supply air temperature
         of a central forced air HVAC system according to the
         cooling demand of the warmest zone.
     """
-    internal_name = "SetpointManager:Warmest"
-    field_count = 7
-    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:Warmest', 'pyname': u'SetpointManagerWarmest', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 12.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 18.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'strategy', {'name': u'Strategy', 'pyname': u'strategy', 'default': u'MaximumTemperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:Warmest`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["HVAC Air Loop Name"] = None
-        self._data["Minimum Setpoint Temperature"] = None
-        self._data["Maximum Setpoint Temperature"] = None
-        self._data["Strategy"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hvac_air_loop_name = None
-        else:
-            self.hvac_air_loop_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_temperature = None
-        else:
-            self.minimum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_temperature = None
-        else:
-            self.maximum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.strategy = None
-        else:
-            self.strategy = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -4578,19 +1966,7 @@ class SetpointManagerWarmest(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerWarmest.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerWarmest.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerWarmest.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -4607,8 +1983,6 @@ class SetpointManagerWarmest(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4616,45 +1990,7 @@ class SetpointManagerWarmest(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerWarmest.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerWarmest.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerWarmest.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerWarmest.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerWarmest.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def hvac_air_loop_name(self):
@@ -4678,19 +2014,7 @@ class SetpointManagerWarmest(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerWarmest.hvac_air_loop_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerWarmest.hvac_air_loop_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerWarmest.hvac_air_loop_name`')
-        self._data["HVAC Air Loop Name"] = value
+        self["HVAC Air Loop Name"] = value
 
     @property
     def minimum_setpoint_temperature(self):
@@ -4709,23 +2033,13 @@ class SetpointManagerWarmest(object):
             value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 Default value: 12.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerWarmest.minimum_setpoint_temperature`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerWarmest.minimum_setpoint_temperature`')
-        self._data["Minimum Setpoint Temperature"] = value
+        self["Minimum Setpoint Temperature"] = value
 
     @property
     def maximum_setpoint_temperature(self):
@@ -4744,23 +2058,13 @@ class SetpointManagerWarmest(object):
             value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 Default value: 18.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerWarmest.maximum_setpoint_temperature`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerWarmest.maximum_setpoint_temperature`')
-        self._data["Maximum Setpoint Temperature"] = value
+        self["Maximum Setpoint Temperature"] = value
 
     @property
     def strategy(self):
@@ -4777,8 +2081,6 @@ class SetpointManagerWarmest(object):
 
         Args:
             value (str): value for IDD Field `Strategy`
-                Accepted values are:
-                      - MaximumTemperature
                 Default value: MaximumTemperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4786,45 +2088,7 @@ class SetpointManagerWarmest(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerWarmest.strategy`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerWarmest.strategy`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerWarmest.strategy`')
-            vals = {}
-            vals["maximumtemperature"] = "MaximumTemperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerWarmest.strategy`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerWarmest.strategy`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Strategy"] = value
+        self["Strategy"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -4848,190 +2112,26 @@ class SetpointManagerWarmest(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerWarmest.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerWarmest.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerWarmest.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerWarmest:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerWarmest:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerWarmest: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerWarmest: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerColdest(object):
+class SetpointManagerColdest(DataObject):
     """ Corresponds to IDD object `SetpointManager:Coldest`
         This SetpointManager is used in dual duct systems to reset
         the setpoint temperature of the air in the heating supply duct.
         Usually it is used in conjunction with a SetpointManager:Warmest
         resetting the temperature of the air in the cooling supply duct.
     """
-    internal_name = "SetpointManager:Coldest"
-    field_count = 7
-    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:Coldest', 'pyname': u'SetpointManagerColdest', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 20.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 50.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'strategy', {'name': u'Strategy', 'pyname': u'strategy', 'default': u'MinimumTemperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:Coldest`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["HVAC Air Loop Name"] = None
-        self._data["Minimum Setpoint Temperature"] = None
-        self._data["Maximum Setpoint Temperature"] = None
-        self._data["Strategy"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hvac_air_loop_name = None
-        else:
-            self.hvac_air_loop_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_temperature = None
-        else:
-            self.minimum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_temperature = None
-        else:
-            self.maximum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.strategy = None
-        else:
-            self.strategy = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -5054,19 +2154,7 @@ class SetpointManagerColdest(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerColdest.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerColdest.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerColdest.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -5083,8 +2171,6 @@ class SetpointManagerColdest(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5092,45 +2178,7 @@ class SetpointManagerColdest(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerColdest.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerColdest.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerColdest.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerColdest.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerColdest.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def hvac_air_loop_name(self):
@@ -5154,19 +2202,7 @@ class SetpointManagerColdest(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerColdest.hvac_air_loop_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerColdest.hvac_air_loop_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerColdest.hvac_air_loop_name`')
-        self._data["HVAC Air Loop Name"] = value
+        self["HVAC Air Loop Name"] = value
 
     @property
     def minimum_setpoint_temperature(self):
@@ -5185,23 +2221,13 @@ class SetpointManagerColdest(object):
             value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 Default value: 20.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerColdest.minimum_setpoint_temperature`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerColdest.minimum_setpoint_temperature`')
-        self._data["Minimum Setpoint Temperature"] = value
+        self["Minimum Setpoint Temperature"] = value
 
     @property
     def maximum_setpoint_temperature(self):
@@ -5220,23 +2246,13 @@ class SetpointManagerColdest(object):
             value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 Default value: 50.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerColdest.maximum_setpoint_temperature`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerColdest.maximum_setpoint_temperature`')
-        self._data["Maximum Setpoint Temperature"] = value
+        self["Maximum Setpoint Temperature"] = value
 
     @property
     def strategy(self):
@@ -5253,8 +2269,6 @@ class SetpointManagerColdest(object):
 
         Args:
             value (str): value for IDD Field `Strategy`
-                Accepted values are:
-                      - MinimumTemperature
                 Default value: MinimumTemperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5262,45 +2276,7 @@ class SetpointManagerColdest(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerColdest.strategy`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerColdest.strategy`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerColdest.strategy`')
-            vals = {}
-            vals["minimumtemperature"] = "MinimumTemperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerColdest.strategy`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerColdest.strategy`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Strategy"] = value
+        self["Strategy"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -5324,165 +2300,25 @@ class SetpointManagerColdest(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerColdest.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerColdest.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerColdest.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerColdest:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerColdest:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerColdest: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerColdest: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerReturnAirBypassFlow(object):
+class SetpointManagerReturnAirBypassFlow(DataObject):
     """ Corresponds to IDD object `SetpointManager:ReturnAirBypassFlow`
         This setpoint manager determines the required
         mass flow rate through a return air bypass duct
         to meet the specified temperature setpoint
     """
-    internal_name = "SetpointManager:ReturnAirBypassFlow"
-    field_count = 4
-    required_fields = ["Name", "HVAC Air Loop Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 4
-    extensible_keys = []
+    schema = {'min-fields': 4, 'name': u'SetpointManager:ReturnAirBypassFlow', 'pyname': u'SetpointManagerReturnAirBypassFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Flow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature setpoint schedule name', {'name': u'Temperature Setpoint Schedule Name', 'pyname': u'temperature_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:ReturnAirBypassFlow`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["HVAC Air Loop Name"] = None
-        self._data["Temperature Setpoint Schedule Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hvac_air_loop_name = None
-        else:
-            self.hvac_air_loop_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_setpoint_schedule_name = None
-        else:
-            self.temperature_setpoint_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -5505,19 +2341,7 @@ class SetpointManagerReturnAirBypassFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerReturnAirBypassFlow.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerReturnAirBypassFlow.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerReturnAirBypassFlow.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -5534,8 +2358,6 @@ class SetpointManagerReturnAirBypassFlow(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Flow
                 Default value: Flow
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5543,45 +2365,7 @@ class SetpointManagerReturnAirBypassFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerReturnAirBypassFlow.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerReturnAirBypassFlow.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerReturnAirBypassFlow.control_variable`')
-            vals = {}
-            vals["flow"] = "Flow"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerReturnAirBypassFlow.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerReturnAirBypassFlow.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def hvac_air_loop_name(self):
@@ -5605,19 +2389,7 @@ class SetpointManagerReturnAirBypassFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerReturnAirBypassFlow.hvac_air_loop_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerReturnAirBypassFlow.hvac_air_loop_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerReturnAirBypassFlow.hvac_air_loop_name`')
-        self._data["HVAC Air Loop Name"] = value
+        self["HVAC Air Loop Name"] = value
 
     @property
     def temperature_setpoint_schedule_name(self):
@@ -5640,196 +2412,24 @@ class SetpointManagerReturnAirBypassFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerReturnAirBypassFlow.temperature_setpoint_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerReturnAirBypassFlow.temperature_setpoint_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerReturnAirBypassFlow.temperature_setpoint_schedule_name`')
-        self._data["Temperature Setpoint Schedule Name"] = value
+        self["Temperature Setpoint Schedule Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerReturnAirBypassFlow:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerReturnAirBypassFlow:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerReturnAirBypassFlow: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerReturnAirBypassFlow: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerWarmestTemperatureFlow(object):
+class SetpointManagerWarmestTemperatureFlow(DataObject):
     """ Corresponds to IDD object `SetpointManager:WarmestTemperatureFlow`
         This setpoint manager sets both the supply air temperature
         and the supply air flow rate.
     """
-    internal_name = "SetpointManager:WarmestTemperatureFlow"
-    field_count = 8
-    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 8
-    extensible_keys = []
+    schema = {'min-fields': 8, 'name': u'SetpointManager:WarmestTemperatureFlow', 'pyname': u'SetpointManagerWarmestTemperatureFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 12.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 18.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'strategy', {'name': u'Strategy', 'pyname': u'strategy', 'default': u'TemperatureFirst', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum turndown ratio', {'name': u'Minimum Turndown Ratio', 'pyname': u'minimum_turndown_ratio', 'default': 0.2, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:WarmestTemperatureFlow`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["HVAC Air Loop Name"] = None
-        self._data["Minimum Setpoint Temperature"] = None
-        self._data["Maximum Setpoint Temperature"] = None
-        self._data["Strategy"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
-        self._data["Minimum Turndown Ratio"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hvac_air_loop_name = None
-        else:
-            self.hvac_air_loop_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_temperature = None
-        else:
-            self.minimum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_temperature = None
-        else:
-            self.maximum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.strategy = None
-        else:
-            self.strategy = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_turndown_ratio = None
-        else:
-            self.minimum_turndown_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -5852,19 +2452,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerWarmestTemperatureFlow.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -5881,53 +2469,13 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerWarmestTemperatureFlow.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerWarmestTemperatureFlow.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerWarmestTemperatureFlow.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def hvac_air_loop_name(self):
@@ -5951,19 +2499,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerWarmestTemperatureFlow.hvac_air_loop_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.hvac_air_loop_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.hvac_air_loop_name`')
-        self._data["HVAC Air Loop Name"] = value
+        self["HVAC Air Loop Name"] = value
 
     @property
     def minimum_setpoint_temperature(self):
@@ -5982,23 +2518,13 @@ class SetpointManagerWarmestTemperatureFlow(object):
             value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 Default value: 12.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerWarmestTemperatureFlow.minimum_setpoint_temperature`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.minimum_setpoint_temperature`')
-        self._data["Minimum Setpoint Temperature"] = value
+        self["Minimum Setpoint Temperature"] = value
 
     @property
     def maximum_setpoint_temperature(self):
@@ -6017,23 +2543,13 @@ class SetpointManagerWarmestTemperatureFlow(object):
             value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 Default value: 18.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerWarmestTemperatureFlow.maximum_setpoint_temperature`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.maximum_setpoint_temperature`')
-        self._data["Maximum Setpoint Temperature"] = value
+        self["Maximum Setpoint Temperature"] = value
 
     @property
     def strategy(self):
@@ -6058,9 +2574,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
         Args:
             value (str): value for IDD Field `Strategy`
-                Accepted values are:
-                      - TemperatureFirst
-                      - FlowFirst
                 Default value: TemperatureFirst
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6068,46 +2581,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerWarmestTemperatureFlow.strategy`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.strategy`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.strategy`')
-            vals = {}
-            vals["temperaturefirst"] = "TemperatureFirst"
-            vals["flowfirst"] = "FlowFirst"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerWarmestTemperatureFlow.strategy`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerWarmestTemperatureFlow.strategy`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Strategy"] = value
+        self["Strategy"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -6131,19 +2605,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerWarmestTemperatureFlow.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
     @property
     def minimum_turndown_ratio(self):
@@ -6164,176 +2626,30 @@ class SetpointManagerWarmestTemperatureFlow(object):
             value (float): value for IDD Field `Minimum Turndown Ratio`
                 Units: dimensionless
                 Default value: 0.2
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerWarmestTemperatureFlow.minimum_turndown_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerWarmestTemperatureFlow.minimum_turndown_ratio`')
-        self._data["Minimum Turndown Ratio"] = value
+        self["Minimum Turndown Ratio"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerWarmestTemperatureFlow:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerWarmestTemperatureFlow:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerWarmestTemperatureFlow: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerWarmestTemperatureFlow: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerMultiZoneHeatingAverage(object):
+class SetpointManagerMultiZoneHeatingAverage(DataObject):
     """ Corresponds to IDD object `SetpointManager:MultiZone:Heating:Average`
         This setpoint manager sets the average supply air temperature based on the heating load
         requirements of all controlled zones in an air loop served by a central air-conditioner.
     """
-    internal_name = "SetpointManager:MultiZone:Heating:Average"
-    field_count = 5
-    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:Heating:Average', 'pyname': u'SetpointManagerMultiZoneHeatingAverage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 20.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 50.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Heating:Average`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["HVAC Air Loop Name"] = None
-        self._data["Minimum Setpoint Temperature"] = None
-        self._data["Maximum Setpoint Temperature"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hvac_air_loop_name = None
-        else:
-            self.hvac_air_loop_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_temperature = None
-        else:
-            self.minimum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_temperature = None
-        else:
-            self.maximum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -6356,19 +2672,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneHeatingAverage.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneHeatingAverage.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneHeatingAverage.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def hvac_air_loop_name(self):
@@ -6392,19 +2696,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneHeatingAverage.hvac_air_loop_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneHeatingAverage.hvac_air_loop_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneHeatingAverage.hvac_air_loop_name`')
-        self._data["HVAC Air Loop Name"] = value
+        self["HVAC Air Loop Name"] = value
 
     @property
     def minimum_setpoint_temperature(self):
@@ -6423,23 +2715,13 @@ class SetpointManagerMultiZoneHeatingAverage(object):
             value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 Default value: 20.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneHeatingAverage.minimum_setpoint_temperature`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneHeatingAverage.minimum_setpoint_temperature`')
-        self._data["Minimum Setpoint Temperature"] = value
+        self["Minimum Setpoint Temperature"] = value
 
     @property
     def maximum_setpoint_temperature(self):
@@ -6458,23 +2740,13 @@ class SetpointManagerMultiZoneHeatingAverage(object):
             value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 Default value: 50.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneHeatingAverage.maximum_setpoint_temperature`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneHeatingAverage.maximum_setpoint_temperature`')
-        self._data["Maximum Setpoint Temperature"] = value
+        self["Maximum Setpoint Temperature"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -6498,172 +2770,24 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneHeatingAverage.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneHeatingAverage.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneHeatingAverage.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerMultiZoneHeatingAverage:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerMultiZoneHeatingAverage:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerMultiZoneHeatingAverage: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerMultiZoneHeatingAverage: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerMultiZoneCoolingAverage(object):
+class SetpointManagerMultiZoneCoolingAverage(DataObject):
     """ Corresponds to IDD object `SetpointManager:MultiZone:Cooling:Average`
         This setpoint manager sets the average supply air temperature based on the cooling load
         requirements of all controlled zones in an air loop served by a central air-conditioner.
     """
-    internal_name = "SetpointManager:MultiZone:Cooling:Average"
-    field_count = 5
-    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:Cooling:Average', 'pyname': u'SetpointManagerMultiZoneCoolingAverage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 12.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 18.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Cooling:Average`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["HVAC Air Loop Name"] = None
-        self._data["Minimum Setpoint Temperature"] = None
-        self._data["Maximum Setpoint Temperature"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hvac_air_loop_name = None
-        else:
-            self.hvac_air_loop_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_temperature = None
-        else:
-            self.minimum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_temperature = None
-        else:
-            self.maximum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -6686,19 +2810,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneCoolingAverage.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneCoolingAverage.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneCoolingAverage.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def hvac_air_loop_name(self):
@@ -6722,19 +2834,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneCoolingAverage.hvac_air_loop_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneCoolingAverage.hvac_air_loop_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneCoolingAverage.hvac_air_loop_name`')
-        self._data["HVAC Air Loop Name"] = value
+        self["HVAC Air Loop Name"] = value
 
     @property
     def minimum_setpoint_temperature(self):
@@ -6753,23 +2853,13 @@ class SetpointManagerMultiZoneCoolingAverage(object):
             value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 Default value: 12.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneCoolingAverage.minimum_setpoint_temperature`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneCoolingAverage.minimum_setpoint_temperature`')
-        self._data["Minimum Setpoint Temperature"] = value
+        self["Minimum Setpoint Temperature"] = value
 
     @property
     def maximum_setpoint_temperature(self):
@@ -6788,23 +2878,13 @@ class SetpointManagerMultiZoneCoolingAverage(object):
             value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 Default value: 18.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneCoolingAverage.maximum_setpoint_temperature`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneCoolingAverage.maximum_setpoint_temperature`')
-        self._data["Maximum Setpoint Temperature"] = value
+        self["Maximum Setpoint Temperature"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -6828,172 +2908,24 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneCoolingAverage.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneCoolingAverage.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneCoolingAverage.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerMultiZoneCoolingAverage:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerMultiZoneCoolingAverage:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerMultiZoneCoolingAverage: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerMultiZoneCoolingAverage: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerMultiZoneMinimumHumidityAverage(object):
+class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
     """ Corresponds to IDD object `SetpointManager:MultiZone:MinimumHumidity:Average`
         This setpoint manager sets the average supply air minimum humidity ratio based on moisture
         load requirements of all controlled zones in an air loop served by a central air-conditioner.
     """
-    internal_name = "SetpointManager:MultiZone:MinimumHumidity:Average"
-    field_count = 5
-    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:MinimumHumidity:Average', 'pyname': u'SetpointManagerMultiZoneMinimumHumidityAverage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint humidity ratio', {'name': u'Minimum Setpoint Humidity Ratio', 'pyname': u'minimum_setpoint_humidity_ratio', 'default': 0.005, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum setpoint humidity ratio', {'name': u'Maximum Setpoint Humidity Ratio', 'pyname': u'maximum_setpoint_humidity_ratio', 'default': 0.012, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:MinimumHumidity:Average`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["HVAC Air Loop Name"] = None
-        self._data["Minimum Setpoint Humidity Ratio"] = None
-        self._data["Maximum Setpoint Humidity Ratio"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hvac_air_loop_name = None
-        else:
-            self.hvac_air_loop_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_humidity_ratio = None
-        else:
-            self.minimum_setpoint_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_humidity_ratio = None
-        else:
-            self.maximum_setpoint_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -7016,19 +2948,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneMinimumHumidityAverage.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneMinimumHumidityAverage.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneMinimumHumidityAverage.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def hvac_air_loop_name(self):
@@ -7052,19 +2972,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneMinimumHumidityAverage.hvac_air_loop_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneMinimumHumidityAverage.hvac_air_loop_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneMinimumHumidityAverage.hvac_air_loop_name`')
-        self._data["HVAC Air Loop Name"] = value
+        self["HVAC Air Loop Name"] = value
 
     @property
     def minimum_setpoint_humidity_ratio(self):
@@ -7083,23 +2991,13 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.005
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneMinimumHumidityAverage.minimum_setpoint_humidity_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneMinimumHumidityAverage.minimum_setpoint_humidity_ratio`')
-        self._data["Minimum Setpoint Humidity Ratio"] = value
+        self["Minimum Setpoint Humidity Ratio"] = value
 
     @property
     def maximum_setpoint_humidity_ratio(self):
@@ -7118,23 +3016,13 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.012
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneMinimumHumidityAverage.maximum_setpoint_humidity_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneMinimumHumidityAverage.maximum_setpoint_humidity_ratio`')
-        self._data["Maximum Setpoint Humidity Ratio"] = value
+        self["Maximum Setpoint Humidity Ratio"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -7158,172 +3046,24 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneMinimumHumidityAverage.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneMinimumHumidityAverage.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneMinimumHumidityAverage.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerMultiZoneMinimumHumidityAverage:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerMultiZoneMinimumHumidityAverage:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerMultiZoneMinimumHumidityAverage: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerMultiZoneMinimumHumidityAverage: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerMultiZoneMaximumHumidityAverage(object):
+class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
     """ Corresponds to IDD object `SetpointManager:MultiZone:MaximumHumidity:Average`
         This setpoint manager sets the average supply air maximum humidity ratio based on moisture
         load requirements of all controlled zones in an air loop served by a central air-conditioner.
     """
-    internal_name = "SetpointManager:MultiZone:MaximumHumidity:Average"
-    field_count = 5
-    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:MaximumHumidity:Average', 'pyname': u'SetpointManagerMultiZoneMaximumHumidityAverage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint humidity ratio', {'name': u'Minimum Setpoint Humidity Ratio', 'pyname': u'minimum_setpoint_humidity_ratio', 'default': 0.008, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum setpoint humidity ratio', {'name': u'Maximum Setpoint Humidity Ratio', 'pyname': u'maximum_setpoint_humidity_ratio', 'default': 0.015, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:MaximumHumidity:Average`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["HVAC Air Loop Name"] = None
-        self._data["Minimum Setpoint Humidity Ratio"] = None
-        self._data["Maximum Setpoint Humidity Ratio"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hvac_air_loop_name = None
-        else:
-            self.hvac_air_loop_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_humidity_ratio = None
-        else:
-            self.minimum_setpoint_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_humidity_ratio = None
-        else:
-            self.maximum_setpoint_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -7346,19 +3086,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneMaximumHumidityAverage.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneMaximumHumidityAverage.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneMaximumHumidityAverage.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def hvac_air_loop_name(self):
@@ -7382,19 +3110,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneMaximumHumidityAverage.hvac_air_loop_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneMaximumHumidityAverage.hvac_air_loop_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneMaximumHumidityAverage.hvac_air_loop_name`')
-        self._data["HVAC Air Loop Name"] = value
+        self["HVAC Air Loop Name"] = value
 
     @property
     def minimum_setpoint_humidity_ratio(self):
@@ -7413,23 +3129,13 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.008
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneMaximumHumidityAverage.minimum_setpoint_humidity_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneMaximumHumidityAverage.minimum_setpoint_humidity_ratio`')
-        self._data["Minimum Setpoint Humidity Ratio"] = value
+        self["Minimum Setpoint Humidity Ratio"] = value
 
     @property
     def maximum_setpoint_humidity_ratio(self):
@@ -7448,23 +3154,13 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.015
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneMaximumHumidityAverage.maximum_setpoint_humidity_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneMaximumHumidityAverage.maximum_setpoint_humidity_ratio`')
-        self._data["Maximum Setpoint Humidity Ratio"] = value
+        self["Maximum Setpoint Humidity Ratio"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -7488,173 +3184,25 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneMaximumHumidityAverage.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneMaximumHumidityAverage.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneMaximumHumidityAverage.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerMultiZoneMaximumHumidityAverage:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerMultiZoneMaximumHumidityAverage:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerMultiZoneMaximumHumidityAverage: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerMultiZoneMaximumHumidityAverage: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerMultiZoneHumidityMinimum(object):
+class SetpointManagerMultiZoneHumidityMinimum(DataObject):
     """ Corresponds to IDD object `SetpointManager:MultiZone:Humidity:Minimum`
         This setpoint manager sets the minimum supply air humidity ratio based on humidification
         requirements of a controlled zone with critical humidity ratio setpoint (i.e., a zone with
         the highest humidity ratio setpoint) in an air loop served by a central air-conditioner.
     """
-    internal_name = "SetpointManager:MultiZone:Humidity:Minimum"
-    field_count = 5
-    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:Humidity:Minimum', 'pyname': u'SetpointManagerMultiZoneHumidityMinimum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint humidity ratio', {'name': u'Minimum Setpoint Humidity Ratio', 'pyname': u'minimum_setpoint_humidity_ratio', 'default': 0.005, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum setpoint humidity ratio', {'name': u'Maximum Setpoint Humidity Ratio', 'pyname': u'maximum_setpoint_humidity_ratio', 'default': 0.012, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Humidity:Minimum`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["HVAC Air Loop Name"] = None
-        self._data["Minimum Setpoint Humidity Ratio"] = None
-        self._data["Maximum Setpoint Humidity Ratio"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hvac_air_loop_name = None
-        else:
-            self.hvac_air_loop_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_humidity_ratio = None
-        else:
-            self.minimum_setpoint_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_humidity_ratio = None
-        else:
-            self.maximum_setpoint_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -7677,19 +3225,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneHumidityMinimum.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneHumidityMinimum.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneHumidityMinimum.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def hvac_air_loop_name(self):
@@ -7713,19 +3249,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneHumidityMinimum.hvac_air_loop_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneHumidityMinimum.hvac_air_loop_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneHumidityMinimum.hvac_air_loop_name`')
-        self._data["HVAC Air Loop Name"] = value
+        self["HVAC Air Loop Name"] = value
 
     @property
     def minimum_setpoint_humidity_ratio(self):
@@ -7744,23 +3268,13 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.005
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneHumidityMinimum.minimum_setpoint_humidity_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneHumidityMinimum.minimum_setpoint_humidity_ratio`')
-        self._data["Minimum Setpoint Humidity Ratio"] = value
+        self["Minimum Setpoint Humidity Ratio"] = value
 
     @property
     def maximum_setpoint_humidity_ratio(self):
@@ -7779,23 +3293,13 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.012
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneHumidityMinimum.maximum_setpoint_humidity_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneHumidityMinimum.maximum_setpoint_humidity_ratio`')
-        self._data["Maximum Setpoint Humidity Ratio"] = value
+        self["Maximum Setpoint Humidity Ratio"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -7819,173 +3323,25 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneHumidityMinimum.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneHumidityMinimum.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneHumidityMinimum.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerMultiZoneHumidityMinimum:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerMultiZoneHumidityMinimum:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerMultiZoneHumidityMinimum: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerMultiZoneHumidityMinimum: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerMultiZoneHumidityMaximum(object):
+class SetpointManagerMultiZoneHumidityMaximum(DataObject):
     """ Corresponds to IDD object `SetpointManager:MultiZone:Humidity:Maximum`
         This setpoint manager sets the maximum supply air humidity ratio based on dehumidification
         requirements of a controlled zone with critical humidity ratio setpoint (i.e., a zone with
         the lowest humidity ratio setpoint) in an air loop served by a central air-conditioner.
     """
-    internal_name = "SetpointManager:MultiZone:Humidity:Maximum"
-    field_count = 5
-    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:Humidity:Maximum', 'pyname': u'SetpointManagerMultiZoneHumidityMaximum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint humidity ratio', {'name': u'Minimum Setpoint Humidity Ratio', 'pyname': u'minimum_setpoint_humidity_ratio', 'default': 0.008, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum setpoint humidity ratio', {'name': u'Maximum Setpoint Humidity Ratio', 'pyname': u'maximum_setpoint_humidity_ratio', 'default': 0.015, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Humidity:Maximum`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["HVAC Air Loop Name"] = None
-        self._data["Minimum Setpoint Humidity Ratio"] = None
-        self._data["Maximum Setpoint Humidity Ratio"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hvac_air_loop_name = None
-        else:
-            self.hvac_air_loop_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_humidity_ratio = None
-        else:
-            self.minimum_setpoint_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_humidity_ratio = None
-        else:
-            self.maximum_setpoint_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -8008,19 +3364,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneHumidityMaximum.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneHumidityMaximum.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneHumidityMaximum.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def hvac_air_loop_name(self):
@@ -8044,19 +3388,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneHumidityMaximum.hvac_air_loop_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneHumidityMaximum.hvac_air_loop_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneHumidityMaximum.hvac_air_loop_name`')
-        self._data["HVAC Air Loop Name"] = value
+        self["HVAC Air Loop Name"] = value
 
     @property
     def minimum_setpoint_humidity_ratio(self):
@@ -8075,23 +3407,13 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.008
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneHumidityMaximum.minimum_setpoint_humidity_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneHumidityMaximum.minimum_setpoint_humidity_ratio`')
-        self._data["Minimum Setpoint Humidity Ratio"] = value
+        self["Minimum Setpoint Humidity Ratio"] = value
 
     @property
     def maximum_setpoint_humidity_ratio(self):
@@ -8110,23 +3432,13 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.015
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerMultiZoneHumidityMaximum.maximum_setpoint_humidity_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SetpointManagerMultiZoneHumidityMaximum.maximum_setpoint_humidity_ratio`')
-        self._data["Maximum Setpoint Humidity Ratio"] = value
+        self["Maximum Setpoint Humidity Ratio"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -8150,189 +3462,25 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerMultiZoneHumidityMaximum.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerMultiZoneHumidityMaximum.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerMultiZoneHumidityMaximum.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerMultiZoneHumidityMaximum:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerMultiZoneHumidityMaximum:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerMultiZoneHumidityMaximum: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerMultiZoneHumidityMaximum: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerFollowOutdoorAirTemperature(object):
+class SetpointManagerFollowOutdoorAirTemperature(DataObject):
     """ Corresponds to IDD object `SetpointManager:FollowOutdoorAirTemperature`
         This setpoint manager is used to place a temperature setpoint on a system node
         that is derived from the current outdoor air environmental conditions.
         The outdoor air conditions are obtained from the weather information during the simulation.
     """
-    internal_name = "SetpointManager:FollowOutdoorAirTemperature"
-    field_count = 7
-    required_fields = ["Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:FollowOutdoorAirTemperature', 'pyname': u'SetpointManagerFollowOutdoorAirTemperature', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature type', {'name': u'Reference Temperature Type', 'pyname': u'reference_temperature_type', 'default': u'OutdoorAirWetBulb', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'offset temperature difference', {'name': u'Offset Temperature Difference', 'pyname': u'offset_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:FollowOutdoorAirTemperature`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Reference Temperature Type"] = None
-        self._data["Offset Temperature Difference"] = None
-        self._data["Maximum Setpoint Temperature"] = None
-        self._data["Minimum Setpoint Temperature"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_temperature_type = None
-        else:
-            self.reference_temperature_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.offset_temperature_difference = None
-        else:
-            self.offset_temperature_difference = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_temperature = None
-        else:
-            self.maximum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_temperature = None
-        else:
-            self.minimum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -8355,19 +3503,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowOutdoorAirTemperature.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowOutdoorAirTemperature.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowOutdoorAirTemperature.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -8384,10 +3520,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
-                      - MinimumTemperature
-                      - MaximumTemperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8395,47 +3527,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowOutdoorAirTemperature.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowOutdoorAirTemperature.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowOutdoorAirTemperature.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            vals["minimumtemperature"] = "MinimumTemperature"
-            vals["maximumtemperature"] = "MaximumTemperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerFollowOutdoorAirTemperature.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerFollowOutdoorAirTemperature.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def reference_temperature_type(self):
@@ -8452,9 +3544,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
         Args:
             value (str): value for IDD Field `Reference Temperature Type`
-                Accepted values are:
-                      - OutdoorAirWetBulb
-                      - OutdoorAirDryBulb
                 Default value: OutdoorAirWetBulb
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8462,46 +3551,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowOutdoorAirTemperature.reference_temperature_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowOutdoorAirTemperature.reference_temperature_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowOutdoorAirTemperature.reference_temperature_type`')
-            vals = {}
-            vals["outdoorairwetbulb"] = "OutdoorAirWetBulb"
-            vals["outdoorairdrybulb"] = "OutdoorAirDryBulb"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerFollowOutdoorAirTemperature.reference_temperature_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerFollowOutdoorAirTemperature.reference_temperature_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Reference Temperature Type"] = value
+        self["Reference Temperature Type"] = value
 
     @property
     def offset_temperature_difference(self):
@@ -8525,13 +3575,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerFollowOutdoorAirTemperature.offset_temperature_difference`'.format(value))
-        self._data["Offset Temperature Difference"] = value
+        self["Offset Temperature Difference"] = value
 
     @property
     def maximum_setpoint_temperature(self):
@@ -8555,13 +3599,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerFollowOutdoorAirTemperature.maximum_setpoint_temperature`'.format(value))
-        self._data["Maximum Setpoint Temperature"] = value
+        self["Maximum Setpoint Temperature"] = value
 
     @property
     def minimum_setpoint_temperature(self):
@@ -8585,13 +3623,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerFollowOutdoorAirTemperature.minimum_setpoint_temperature`'.format(value))
-        self._data["Minimum Setpoint Temperature"] = value
+        self["Minimum Setpoint Temperature"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -8615,103 +3647,10 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowOutdoorAirTemperature.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowOutdoorAirTemperature.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowOutdoorAirTemperature.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerFollowOutdoorAirTemperature:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerFollowOutdoorAirTemperature:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerFollowOutdoorAirTemperature: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerFollowOutdoorAirTemperature: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerFollowSystemNodeTemperature(object):
+class SetpointManagerFollowSystemNodeTemperature(DataObject):
     """ Corresponds to IDD object `SetpointManager:FollowSystemNodeTemperature`
         This setpoint manager is used to place a temperature setpoint on a
         system node that is derived from the current temperatures at a separate
@@ -8721,95 +3660,16 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         then this setpoint manager can be used to follow outdoor air conditions
         that are adjusted for altitude.
     """
-    internal_name = "SetpointManager:FollowSystemNodeTemperature"
-    field_count = 8
-    required_fields = ["Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:FollowSystemNodeTemperature', 'pyname': u'SetpointManagerFollowSystemNodeTemperature', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference node name', {'name': u'Reference Node Name', 'pyname': u'reference_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reference temperature type', {'name': u'Reference Temperature Type', 'pyname': u'reference_temperature_type', 'default': u'NodeDryBulb', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'offset temperature difference', {'name': u'Offset Temperature Difference', 'pyname': u'offset_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum limit setpoint temperature', {'name': u'Maximum Limit Setpoint Temperature', 'pyname': u'maximum_limit_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum limit setpoint temperature', {'name': u'Minimum Limit Setpoint Temperature', 'pyname': u'minimum_limit_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:FollowSystemNodeTemperature`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Reference Node Name"] = None
-        self._data["Reference Temperature Type"] = None
-        self._data["Offset Temperature Difference"] = None
-        self._data["Maximum Limit Setpoint Temperature"] = None
-        self._data["Minimum Limit Setpoint Temperature"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_node_name = None
-        else:
-            self.reference_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_temperature_type = None
-        else:
-            self.reference_temperature_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.offset_temperature_difference = None
-        else:
-            self.offset_temperature_difference = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_limit_setpoint_temperature = None
-        else:
-            self.maximum_limit_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_limit_setpoint_temperature = None
-        else:
-            self.minimum_limit_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -8832,19 +3692,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowSystemNodeTemperature.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowSystemNodeTemperature.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowSystemNodeTemperature.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -8861,10 +3709,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
-                      - MinimumTemperature
-                      - MaximumTemperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8872,47 +3716,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowSystemNodeTemperature.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowSystemNodeTemperature.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowSystemNodeTemperature.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            vals["minimumtemperature"] = "MinimumTemperature"
-            vals["maximumtemperature"] = "MaximumTemperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerFollowSystemNodeTemperature.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerFollowSystemNodeTemperature.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def reference_node_name(self):
@@ -8935,19 +3739,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowSystemNodeTemperature.reference_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowSystemNodeTemperature.reference_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowSystemNodeTemperature.reference_node_name`')
-        self._data["Reference Node Name"] = value
+        self["Reference Node Name"] = value
 
     @property
     def reference_temperature_type(self):
@@ -8964,9 +3756,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
         Args:
             value (str): value for IDD Field `Reference Temperature Type`
-                Accepted values are:
-                      - NodeWetBulb
-                      - NodeDryBulb
                 Default value: NodeDryBulb
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8974,46 +3763,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowSystemNodeTemperature.reference_temperature_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowSystemNodeTemperature.reference_temperature_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowSystemNodeTemperature.reference_temperature_type`')
-            vals = {}
-            vals["nodewetbulb"] = "NodeWetBulb"
-            vals["nodedrybulb"] = "NodeDryBulb"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerFollowSystemNodeTemperature.reference_temperature_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerFollowSystemNodeTemperature.reference_temperature_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Reference Temperature Type"] = value
+        self["Reference Temperature Type"] = value
 
     @property
     def offset_temperature_difference(self):
@@ -9037,13 +3787,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerFollowSystemNodeTemperature.offset_temperature_difference`'.format(value))
-        self._data["Offset Temperature Difference"] = value
+        self["Offset Temperature Difference"] = value
 
     @property
     def maximum_limit_setpoint_temperature(self):
@@ -9067,13 +3811,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerFollowSystemNodeTemperature.maximum_limit_setpoint_temperature`'.format(value))
-        self._data["Maximum Limit Setpoint Temperature"] = value
+        self["Maximum Limit Setpoint Temperature"] = value
 
     @property
     def minimum_limit_setpoint_temperature(self):
@@ -9097,13 +3835,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerFollowSystemNodeTemperature.minimum_limit_setpoint_temperature`'.format(value))
-        self._data["Minimum Limit Setpoint Temperature"] = value
+        self["Minimum Limit Setpoint Temperature"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -9127,103 +3859,10 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowSystemNodeTemperature.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowSystemNodeTemperature.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowSystemNodeTemperature.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerFollowSystemNodeTemperature:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerFollowSystemNodeTemperature:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerFollowSystemNodeTemperature: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerFollowSystemNodeTemperature: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerFollowGroundTemperature(object):
+class SetpointManagerFollowGroundTemperature(DataObject):
     """ Corresponds to IDD object `SetpointManager:FollowGroundTemperature`
         This setpoint manager is used to place a temperature setpoint on a
         system node that is derived from a current ground temperature.
@@ -9232,87 +3871,16 @@ class SetpointManagerFollowGroundTemperature(object):
         This setpoint manager is primarily intended for condenser or plant loops
         using some type of ground heat exchanger.
     """
-    internal_name = "SetpointManager:FollowGroundTemperature"
-    field_count = 7
-    required_fields = ["Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:FollowGroundTemperature', 'pyname': u'SetpointManagerFollowGroundTemperature', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference ground temperature object type', {'name': u'Reference Ground Temperature Object Type', 'pyname': u'reference_ground_temperature_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'offset temperature difference', {'name': u'Offset Temperature Difference', 'pyname': u'offset_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:FollowGroundTemperature`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Reference Ground Temperature Object Type"] = None
-        self._data["Offset Temperature Difference"] = None
-        self._data["Maximum Setpoint Temperature"] = None
-        self._data["Minimum Setpoint Temperature"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reference_ground_temperature_object_type = None
-        else:
-            self.reference_ground_temperature_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.offset_temperature_difference = None
-        else:
-            self.offset_temperature_difference = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_setpoint_temperature = None
-        else:
-            self.maximum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_setpoint_temperature = None
-        else:
-            self.minimum_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -9335,19 +3903,7 @@ class SetpointManagerFollowGroundTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowGroundTemperature.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowGroundTemperature.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowGroundTemperature.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -9364,10 +3920,6 @@ class SetpointManagerFollowGroundTemperature(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
-                      - MinimumTemperature
-                      - MaximumTemperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9375,47 +3927,7 @@ class SetpointManagerFollowGroundTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowGroundTemperature.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowGroundTemperature.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowGroundTemperature.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            vals["minimumtemperature"] = "MinimumTemperature"
-            vals["maximumtemperature"] = "MaximumTemperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerFollowGroundTemperature.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerFollowGroundTemperature.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def reference_ground_temperature_object_type(self):
@@ -9432,59 +3944,13 @@ class SetpointManagerFollowGroundTemperature(object):
 
         Args:
             value (str): value for IDD Field `Reference Ground Temperature Object Type`
-                Accepted values are:
-                      - Site:GroundTemperature:BuildingSurface
-                      - Site:GroundTemperature:Shallow
-                      - Site:GroundTemperature:Deep
-                      - Site:GroundTemperature:FCfactorMethod
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowGroundTemperature.reference_ground_temperature_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowGroundTemperature.reference_ground_temperature_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowGroundTemperature.reference_ground_temperature_object_type`')
-            vals = {}
-            vals["site:groundtemperature:buildingsurface"] = "Site:GroundTemperature:BuildingSurface"
-            vals["site:groundtemperature:shallow"] = "Site:GroundTemperature:Shallow"
-            vals["site:groundtemperature:deep"] = "Site:GroundTemperature:Deep"
-            vals["site:groundtemperature:fcfactormethod"] = "Site:GroundTemperature:FCfactorMethod"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerFollowGroundTemperature.reference_ground_temperature_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerFollowGroundTemperature.reference_ground_temperature_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Reference Ground Temperature Object Type"] = value
+        self["Reference Ground Temperature Object Type"] = value
 
     @property
     def offset_temperature_difference(self):
@@ -9508,13 +3974,7 @@ class SetpointManagerFollowGroundTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerFollowGroundTemperature.offset_temperature_difference`'.format(value))
-        self._data["Offset Temperature Difference"] = value
+        self["Offset Temperature Difference"] = value
 
     @property
     def maximum_setpoint_temperature(self):
@@ -9538,13 +3998,7 @@ class SetpointManagerFollowGroundTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerFollowGroundTemperature.maximum_setpoint_temperature`'.format(value))
-        self._data["Maximum Setpoint Temperature"] = value
+        self["Maximum Setpoint Temperature"] = value
 
     @property
     def minimum_setpoint_temperature(self):
@@ -9568,13 +4022,7 @@ class SetpointManagerFollowGroundTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerFollowGroundTemperature.minimum_setpoint_temperature`'.format(value))
-        self._data["Minimum Setpoint Temperature"] = value
+        self["Minimum Setpoint Temperature"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -9598,212 +4046,24 @@ class SetpointManagerFollowGroundTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerFollowGroundTemperature.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerFollowGroundTemperature.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerFollowGroundTemperature.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerFollowGroundTemperature:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerFollowGroundTemperature:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerFollowGroundTemperature: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerFollowGroundTemperature: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerCondenserEnteringReset(object):
+class SetpointManagerCondenserEnteringReset(DataObject):
     """ Corresponds to IDD object `SetpointManager:CondenserEnteringReset`
         This setpoint manager uses one curve to determine the optimum condenser entering water temperature
         for a given timestep and two other curves to place boundary conditions on the setpoint value.
     """
-    internal_name = "SetpointManager:CondenserEnteringReset"
-    field_count = 10
-    required_fields = ["Name", "Control Variable", "Default Condenser Entering Water Temperature Schedule Name", "Minimum Design Wetbulb Temperature Curve Name", "Minimum Outside Air Wetbulb Temperature Curve Name", "Optimized Cond Entering Water Temperature Curve Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 10
-    extensible_keys = []
+    schema = {'min-fields': 10, 'name': u'SetpointManager:CondenserEnteringReset', 'pyname': u'SetpointManagerCondenserEnteringReset', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'default condenser entering water temperature schedule name', {'name': u'Default Condenser Entering Water Temperature Schedule Name', 'pyname': u'default_condenser_entering_water_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum design wetbulb temperature curve name', {'name': u'Minimum Design Wetbulb Temperature Curve Name', 'pyname': u'minimum_design_wetbulb_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outside air wetbulb temperature curve name', {'name': u'Minimum Outside Air Wetbulb Temperature Curve Name', 'pyname': u'minimum_outside_air_wetbulb_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'optimized cond entering water temperature curve name', {'name': u'Optimized Cond Entering Water Temperature Curve Name', 'pyname': u'optimized_cond_entering_water_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum lift', {'name': u'Minimum Lift', 'pyname': u'minimum_lift', 'default': 11.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum condenser entering water temperature', {'name': u'Maximum Condenser Entering Water Temperature', 'pyname': u'maximum_condenser_entering_water_temperature', 'default': 32.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'cooling tower design inlet air wet-bulb temperature', {'name': u'Cooling Tower Design Inlet Air Wet-Bulb Temperature', 'pyname': u'cooling_tower_design_inlet_air_wetbulb_temperature', 'default': 25.56, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:CondenserEnteringReset`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Default Condenser Entering Water Temperature Schedule Name"] = None
-        self._data["Minimum Design Wetbulb Temperature Curve Name"] = None
-        self._data["Minimum Outside Air Wetbulb Temperature Curve Name"] = None
-        self._data["Optimized Cond Entering Water Temperature Curve Name"] = None
-        self._data["Minimum Lift"] = None
-        self._data["Maximum Condenser Entering Water Temperature"] = None
-        self._data["Cooling Tower Design Inlet Air Wet-Bulb Temperature"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.default_condenser_entering_water_temperature_schedule_name = None
-        else:
-            self.default_condenser_entering_water_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_design_wetbulb_temperature_curve_name = None
-        else:
-            self.minimum_design_wetbulb_temperature_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outside_air_wetbulb_temperature_curve_name = None
-        else:
-            self.minimum_outside_air_wetbulb_temperature_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.optimized_cond_entering_water_temperature_curve_name = None
-        else:
-            self.optimized_cond_entering_water_temperature_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_lift = None
-        else:
-            self.minimum_lift = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_condenser_entering_water_temperature = None
-        else:
-            self.maximum_condenser_entering_water_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_tower_design_inlet_air_wetbulb_temperature = None
-        else:
-            self.cooling_tower_design_inlet_air_wetbulb_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -9826,19 +4086,7 @@ class SetpointManagerCondenserEnteringReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerCondenserEnteringReset.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerCondenserEnteringReset.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerCondenserEnteringReset.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -9855,8 +4103,6 @@ class SetpointManagerCondenserEnteringReset(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9864,45 +4110,7 @@ class SetpointManagerCondenserEnteringReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerCondenserEnteringReset.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerCondenserEnteringReset.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerCondenserEnteringReset.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerCondenserEnteringReset.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerCondenserEnteringReset.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def default_condenser_entering_water_temperature_schedule_name(self):
@@ -9928,19 +4136,7 @@ class SetpointManagerCondenserEnteringReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerCondenserEnteringReset.default_condenser_entering_water_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerCondenserEnteringReset.default_condenser_entering_water_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerCondenserEnteringReset.default_condenser_entering_water_temperature_schedule_name`')
-        self._data["Default Condenser Entering Water Temperature Schedule Name"] = value
+        self["Default Condenser Entering Water Temperature Schedule Name"] = value
 
     @property
     def minimum_design_wetbulb_temperature_curve_name(self):
@@ -9964,19 +4160,7 @@ class SetpointManagerCondenserEnteringReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerCondenserEnteringReset.minimum_design_wetbulb_temperature_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerCondenserEnteringReset.minimum_design_wetbulb_temperature_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerCondenserEnteringReset.minimum_design_wetbulb_temperature_curve_name`')
-        self._data["Minimum Design Wetbulb Temperature Curve Name"] = value
+        self["Minimum Design Wetbulb Temperature Curve Name"] = value
 
     @property
     def minimum_outside_air_wetbulb_temperature_curve_name(self):
@@ -10000,19 +4184,7 @@ class SetpointManagerCondenserEnteringReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerCondenserEnteringReset.minimum_outside_air_wetbulb_temperature_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerCondenserEnteringReset.minimum_outside_air_wetbulb_temperature_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerCondenserEnteringReset.minimum_outside_air_wetbulb_temperature_curve_name`')
-        self._data["Minimum Outside Air Wetbulb Temperature Curve Name"] = value
+        self["Minimum Outside Air Wetbulb Temperature Curve Name"] = value
 
     @property
     def optimized_cond_entering_water_temperature_curve_name(self):
@@ -10036,19 +4208,7 @@ class SetpointManagerCondenserEnteringReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerCondenserEnteringReset.optimized_cond_entering_water_temperature_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerCondenserEnteringReset.optimized_cond_entering_water_temperature_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerCondenserEnteringReset.optimized_cond_entering_water_temperature_curve_name`')
-        self._data["Optimized Cond Entering Water Temperature Curve Name"] = value
+        self["Optimized Cond Entering Water Temperature Curve Name"] = value
 
     @property
     def minimum_lift(self):
@@ -10073,13 +4233,7 @@ class SetpointManagerCondenserEnteringReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerCondenserEnteringReset.minimum_lift`'.format(value))
-        self._data["Minimum Lift"] = value
+        self["Minimum Lift"] = value
 
     @property
     def maximum_condenser_entering_water_temperature(self):
@@ -10104,13 +4258,7 @@ class SetpointManagerCondenserEnteringReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerCondenserEnteringReset.maximum_condenser_entering_water_temperature`'.format(value))
-        self._data["Maximum Condenser Entering Water Temperature"] = value
+        self["Maximum Condenser Entering Water Temperature"] = value
 
     @property
     def cooling_tower_design_inlet_air_wetbulb_temperature(self):
@@ -10135,13 +4283,7 @@ class SetpointManagerCondenserEnteringReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerCondenserEnteringReset.cooling_tower_design_inlet_air_wetbulb_temperature`'.format(value))
-        self._data["Cooling Tower Design Inlet Air Wet-Bulb Temperature"] = value
+        self["Cooling Tower Design Inlet Air Wet-Bulb Temperature"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -10165,172 +4307,24 @@ class SetpointManagerCondenserEnteringReset(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerCondenserEnteringReset.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerCondenserEnteringReset.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerCondenserEnteringReset.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerCondenserEnteringReset:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerCondenserEnteringReset:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerCondenserEnteringReset: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerCondenserEnteringReset: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerCondenserEnteringResetIdeal(object):
+class SetpointManagerCondenserEnteringResetIdeal(DataObject):
     """ Corresponds to IDD object `SetpointManager:CondenserEnteringReset:Ideal`
         This setpoint manager determine the ideal optimum condenser entering water temperature
         setpoint for a given timestep.
     """
-    internal_name = "SetpointManager:CondenserEnteringReset:Ideal"
-    field_count = 5
-    required_fields = ["Name", "Control Variable", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'SetpointManager:CondenserEnteringReset:Ideal', 'pyname': u'SetpointManagerCondenserEnteringResetIdeal', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum lift', {'name': u'Minimum Lift', 'pyname': u'minimum_lift', 'default': 11.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum condenser entering water temperature', {'name': u'Maximum Condenser Entering Water Temperature', 'pyname': u'maximum_condenser_entering_water_temperature', 'default': 32.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:CondenserEnteringReset:Ideal`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Minimum Lift"] = None
-        self._data["Maximum Condenser Entering Water Temperature"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_lift = None
-        else:
-            self.minimum_lift = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_condenser_entering_water_temperature = None
-        else:
-            self.maximum_condenser_entering_water_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -10353,19 +4347,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerCondenserEnteringResetIdeal.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerCondenserEnteringResetIdeal.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerCondenserEnteringResetIdeal.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -10382,8 +4364,6 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
                 Default value: Temperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10391,45 +4371,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerCondenserEnteringResetIdeal.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerCondenserEnteringResetIdeal.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerCondenserEnteringResetIdeal.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SetpointManagerCondenserEnteringResetIdeal.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SetpointManagerCondenserEnteringResetIdeal.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def minimum_lift(self):
@@ -10454,13 +4396,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerCondenserEnteringResetIdeal.minimum_lift`'.format(value))
-        self._data["Minimum Lift"] = value
+        self["Minimum Lift"] = value
 
     @property
     def maximum_condenser_entering_water_temperature(self):
@@ -10485,13 +4421,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerCondenserEnteringResetIdeal.maximum_condenser_entering_water_temperature`'.format(value))
-        self._data["Maximum Condenser Entering Water Temperature"] = value
+        self["Maximum Condenser Entering Water Temperature"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -10515,173 +4445,25 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerCondenserEnteringResetIdeal.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerCondenserEnteringResetIdeal.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerCondenserEnteringResetIdeal.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerCondenserEnteringResetIdeal:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerCondenserEnteringResetIdeal:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerCondenserEnteringResetIdeal: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerCondenserEnteringResetIdeal: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerSingleZoneOneStageCooling(object):
+class SetpointManagerSingleZoneOneStageCooling(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:OneStageCooling`
         This object can be used with CoilSystem:Cooling:DX to model on/off cycling control
         of single stage air systems. Setpoints are modulated to run coil full on or full off
         depending on zone conditions. Intended for use with ZoneControl:Thermostat:StagedDualSetpoint
     """
-    internal_name = "SetpointManager:SingleZone:OneStageCooling"
-    field_count = 5
-    required_fields = ["Name", "Cooling Stage On Supply Air Setpoint Temperature", "Cooling Stage Off Supply Air Setpoint Temperature", "Control Zone Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:SingleZone:OneStageCooling', 'pyname': u'SetpointManagerSingleZoneOneStageCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling stage on supply air setpoint temperature', {'name': u'Cooling Stage On Supply Air Setpoint Temperature', 'pyname': u'cooling_stage_on_supply_air_setpoint_temperature', 'default': -99.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'cooling stage off supply air setpoint temperature', {'name': u'Cooling Stage Off Supply Air Setpoint Temperature', 'pyname': u'cooling_stage_off_supply_air_setpoint_temperature', 'default': 99.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:OneStageCooling`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Cooling Stage On Supply Air Setpoint Temperature"] = None
-        self._data["Cooling Stage Off Supply Air Setpoint Temperature"] = None
-        self._data["Control Zone Name"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_stage_on_supply_air_setpoint_temperature = None
-        else:
-            self.cooling_stage_on_supply_air_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_stage_off_supply_air_setpoint_temperature = None
-        else:
-            self.cooling_stage_off_supply_air_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_zone_name = None
-        else:
-            self.control_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -10704,19 +4486,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneOneStageCooling.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneOneStageCooling.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneOneStageCooling.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def cooling_stage_on_supply_air_setpoint_temperature(self):
@@ -10742,13 +4512,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerSingleZoneOneStageCooling.cooling_stage_on_supply_air_setpoint_temperature`'.format(value))
-        self._data["Cooling Stage On Supply Air Setpoint Temperature"] = value
+        self["Cooling Stage On Supply Air Setpoint Temperature"] = value
 
     @property
     def cooling_stage_off_supply_air_setpoint_temperature(self):
@@ -10774,13 +4538,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerSingleZoneOneStageCooling.cooling_stage_off_supply_air_setpoint_temperature`'.format(value))
-        self._data["Cooling Stage Off Supply Air Setpoint Temperature"] = value
+        self["Cooling Stage Off Supply Air Setpoint Temperature"] = value
 
     @property
     def control_zone_name(self):
@@ -10803,19 +4561,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneOneStageCooling.control_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneOneStageCooling.control_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneOneStageCooling.control_zone_name`')
-        self._data["Control Zone Name"] = value
+        self["Control Zone Name"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -10839,174 +4585,26 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneOneStageCooling.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneOneStageCooling.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneOneStageCooling.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
+        self["Setpoint Node or NodeList Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerSingleZoneOneStageCooling:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerSingleZoneOneStageCooling:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerSingleZoneOneStageCooling: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerSingleZoneOneStageCooling: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SetpointManagerSingleZoneOneStageHeating(object):
+class SetpointManagerSingleZoneOneStageHeating(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:OneStageHeating`
         This object can be used with CoilSystem:Heating:DX, Coil:Heating:Gas,
         Coil:Heating:Electric to model on/off cycling control of single stage air systems.
         Setpoints are modulated to run coil full on or full off depending on zone conditions.
         Intended for use with ZoneControl:Thermostat:StagedDualSetpoint.
     """
-    internal_name = "SetpointManager:SingleZone:OneStageHeating"
-    field_count = 5
-    required_fields = ["Name", "Heating Stage On Supply Air Setpoint Temperature", "Heating Stage Off Supply Air Setpoint Temperature", "Control Zone Name", "Setpoint Node or NodeList Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SetpointManager:SingleZone:OneStageHeating', 'pyname': u'SetpointManagerSingleZoneOneStageHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating stage on supply air setpoint temperature', {'name': u'Heating Stage On Supply Air Setpoint Temperature', 'pyname': u'heating_stage_on_supply_air_setpoint_temperature', 'default': 99.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'heating stage off supply air setpoint temperature', {'name': u'Heating Stage Off Supply Air Setpoint Temperature', 'pyname': u'heating_stage_off_supply_air_setpoint_temperature', 'default': -99.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:OneStageHeating`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Heating Stage On Supply Air Setpoint Temperature"] = None
-        self._data["Heating Stage Off Supply Air Setpoint Temperature"] = None
-        self._data["Control Zone Name"] = None
-        self._data["Setpoint Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_stage_on_supply_air_setpoint_temperature = None
-        else:
-            self.heating_stage_on_supply_air_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_stage_off_supply_air_setpoint_temperature = None
-        else:
-            self.heating_stage_off_supply_air_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_zone_name = None
-        else:
-            self.control_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.setpoint_node_or_nodelist_name = None
-        else:
-            self.setpoint_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -11029,19 +4627,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneOneStageHeating.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneOneStageHeating.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneOneStageHeating.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def heating_stage_on_supply_air_setpoint_temperature(self):
@@ -11067,13 +4653,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerSingleZoneOneStageHeating.heating_stage_on_supply_air_setpoint_temperature`'.format(value))
-        self._data["Heating Stage On Supply Air Setpoint Temperature"] = value
+        self["Heating Stage On Supply Air Setpoint Temperature"] = value
 
     @property
     def heating_stage_off_supply_air_setpoint_temperature(self):
@@ -11099,13 +4679,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SetpointManagerSingleZoneOneStageHeating.heating_stage_off_supply_air_setpoint_temperature`'.format(value))
-        self._data["Heating Stage Off Supply Air Setpoint Temperature"] = value
+        self["Heating Stage Off Supply Air Setpoint Temperature"] = value
 
     @property
     def control_zone_name(self):
@@ -11128,19 +4702,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneOneStageHeating.control_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneOneStageHeating.control_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneOneStageHeating.control_zone_name`')
-        self._data["Control Zone Name"] = value
+        self["Control Zone Name"] = value
 
     @property
     def setpoint_node_or_nodelist_name(self):
@@ -11164,98 +4726,4 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SetpointManagerSingleZoneOneStageHeating.setpoint_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SetpointManagerSingleZoneOneStageHeating.setpoint_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SetpointManagerSingleZoneOneStageHeating.setpoint_node_or_nodelist_name`')
-        self._data["Setpoint Node or NodeList Name"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SetpointManagerSingleZoneOneStageHeating:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SetpointManagerSingleZoneOneStageHeating:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SetpointManagerSingleZoneOneStageHeating: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SetpointManagerSingleZoneOneStageHeating: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Setpoint Node or NodeList Name"] = value

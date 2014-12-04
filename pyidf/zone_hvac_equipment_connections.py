@@ -1,11 +1,14 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class ZoneHvacEquipmentList(object):
+
+
+class ZoneHvacEquipmentList(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:EquipmentList`
         List equipment in simulation order.  Note that an ZoneHVAC:AirDistributionUnit or
         AirTerminal:SingleDuct:Uncontrolled object must be listed in this statement if there is a forced
@@ -20,47 +23,16 @@ class ZoneHvacEquipmentList(object):
         be assigned sequence 2 or higher so that it will see the net load after the DOAS air is added
         to the zone.
     """
-    internal_name = "ZoneHVAC:EquipmentList"
-    field_count = 1
-    required_fields = ["Name"]
-    extensible_fields = 4
-    format = None
-    min_fields = 0
-    extensible_keys = ["Zone Equipment 1 Object Type", "Zone Equipment 1 Name", "Zone Equipment 1 Cooling Sequence", "Zone Equipment 1 Heating or No-Load Sequence"]
+    schema = {'min-fields': 0, 'name': u'ZoneHVAC:EquipmentList', 'pyname': u'ZoneHvacEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'zone equipment 1 object type', {'name': u'Zone Equipment 1 Object Type', 'pyname': u'zone_equipment_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone equipment 1 name', {'name': u'Zone Equipment 1 Name', 'pyname': u'zone_equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone equipment 1 cooling sequence', {'name': u'Zone Equipment 1 Cooling Sequence', 'pyname': u'zone_equipment_1_cooling_sequence', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'zone equipment 1 heating or no-load sequence', {'name': u'Zone Equipment 1 Heating or No-Load Sequence', 'pyname': u'zone_equipment_1_heating_or_noload_sequence', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:EquipmentList`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -83,19 +55,7 @@ class ZoneHvacEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEquipmentList.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEquipmentList.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEquipmentList.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     def add_extensible(self,
                        zone_equipment_1_object_type=None,
@@ -108,34 +68,6 @@ class ZoneHvacEquipmentList(object):
         Args:
 
             zone_equipment_1_object_type (str): value for IDD Field `Zone Equipment 1 Object Type`
-                Accepted values are:
-                      - ZoneHVAC:TerminalUnit:VariableRefrigerantFlow
-                      - ZoneHVAC:AirDistributionUnit
-                      - AirTerminal:SingleDuct:Uncontrolled
-                      - ZoneHVAC:EnergyRecoveryVentilator
-                      - ZoneHVAC:FourPipeFanCoil
-                      - ZoneHVAC:OutdoorAirUnit
-                      - ZoneHVAC:PackagedTerminalAirConditioner
-                      - ZoneHVAC:PackagedTerminalHeatPump
-                      - ZoneHVAC:UnitHeater
-                      - ZoneHVAC:UnitVentilator
-                      - ZoneHVAC:VentilatedSlab
-                      - ZoneHVAC:WaterToAirHeatPump
-                      - ZoneHVAC:WindowAirConditioner
-                      - ZoneHVAC:Baseboard:RadiantConvective:Electric
-                      - ZoneHVAC:Baseboard:RadiantConvective:Water
-                      - ZoneHVAC:Baseboard:RadiantConvective:Steam
-                      - ZoneHVAC:Baseboard:Convective:Electric
-                      - ZoneHVAC:Baseboard:Convective:Water
-                      - ZoneHVAC:HighTemperatureRadiant
-                      - ZoneHVAC:LowTemperatureRadiant:VariableFlow
-                      - ZoneHVAC:LowTemperatureRadiant:ConstantFlow
-                      - ZoneHVAC:LowTemperatureRadiant:Electric
-                      - ZoneHVAC:Dehumidifier:DX
-                      - ZoneHVAC:IdealLoadsAirSystem
-                      - ZoneHVAC:RefrigerationChillerSet
-                      - Fan:ZoneExhaust
-                      - WaterHeater:HeatPump
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -154,10 +86,14 @@ class ZoneHvacEquipmentList(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_zone_equipment_1_object_type(zone_equipment_1_object_type))
-        vals.append(self._check_zone_equipment_1_name(zone_equipment_1_name))
-        vals.append(self._check_zone_equipment_1_cooling_sequence(zone_equipment_1_cooling_sequence))
-        vals.append(self._check_zone_equipment_1_heating_or_noload_sequence(zone_equipment_1_heating_or_noload_sequence))
+        zone_equipment_1_object_type = self.check_value("Zone Equipment 1 Object Type", zone_equipment_1_object_type)
+        vals.append(zone_equipment_1_object_type)
+        zone_equipment_1_name = self.check_value("Zone Equipment 1 Name", zone_equipment_1_name)
+        vals.append(zone_equipment_1_name)
+        zone_equipment_1_cooling_sequence = self.check_value("Zone Equipment 1 Cooling Sequence", zone_equipment_1_cooling_sequence)
+        vals.append(zone_equipment_1_cooling_sequence)
+        zone_equipment_1_heating_or_noload_sequence = self.check_value("Zone Equipment 1 Heating or No-Load Sequence", zone_equipment_1_heating_or_noload_sequence)
+        vals.append(zone_equipment_1_heating_or_noload_sequence)
         self._data["extensibles"].append(vals)
 
     @property
@@ -166,295 +102,23 @@ class ZoneHvacEquipmentList(object):
         """
         return self._data["extensibles"]
 
-    def _check_zone_equipment_1_object_type(self, value):
-        """ Validates falue of field `Zone Equipment 1 Object Type`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEquipmentList.zone_equipment_1_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEquipmentList.zone_equipment_1_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEquipmentList.zone_equipment_1_object_type`')
-            vals = {}
-            vals["zonehvac:terminalunit:variablerefrigerantflow"] = "ZoneHVAC:TerminalUnit:VariableRefrigerantFlow"
-            vals["zonehvac:airdistributionunit"] = "ZoneHVAC:AirDistributionUnit"
-            vals["airterminal:singleduct:uncontrolled"] = "AirTerminal:SingleDuct:Uncontrolled"
-            vals["zonehvac:energyrecoveryventilator"] = "ZoneHVAC:EnergyRecoveryVentilator"
-            vals["zonehvac:fourpipefancoil"] = "ZoneHVAC:FourPipeFanCoil"
-            vals["zonehvac:outdoorairunit"] = "ZoneHVAC:OutdoorAirUnit"
-            vals["zonehvac:packagedterminalairconditioner"] = "ZoneHVAC:PackagedTerminalAirConditioner"
-            vals["zonehvac:packagedterminalheatpump"] = "ZoneHVAC:PackagedTerminalHeatPump"
-            vals["zonehvac:unitheater"] = "ZoneHVAC:UnitHeater"
-            vals["zonehvac:unitventilator"] = "ZoneHVAC:UnitVentilator"
-            vals["zonehvac:ventilatedslab"] = "ZoneHVAC:VentilatedSlab"
-            vals["zonehvac:watertoairheatpump"] = "ZoneHVAC:WaterToAirHeatPump"
-            vals["zonehvac:windowairconditioner"] = "ZoneHVAC:WindowAirConditioner"
-            vals["zonehvac:baseboard:radiantconvective:electric"] = "ZoneHVAC:Baseboard:RadiantConvective:Electric"
-            vals["zonehvac:baseboard:radiantconvective:water"] = "ZoneHVAC:Baseboard:RadiantConvective:Water"
-            vals["zonehvac:baseboard:radiantconvective:steam"] = "ZoneHVAC:Baseboard:RadiantConvective:Steam"
-            vals["zonehvac:baseboard:convective:electric"] = "ZoneHVAC:Baseboard:Convective:Electric"
-            vals["zonehvac:baseboard:convective:water"] = "ZoneHVAC:Baseboard:Convective:Water"
-            vals["zonehvac:hightemperatureradiant"] = "ZoneHVAC:HighTemperatureRadiant"
-            vals["zonehvac:lowtemperatureradiant:variableflow"] = "ZoneHVAC:LowTemperatureRadiant:VariableFlow"
-            vals["zonehvac:lowtemperatureradiant:constantflow"] = "ZoneHVAC:LowTemperatureRadiant:ConstantFlow"
-            vals["zonehvac:lowtemperatureradiant:electric"] = "ZoneHVAC:LowTemperatureRadiant:Electric"
-            vals["zonehvac:dehumidifier:dx"] = "ZoneHVAC:Dehumidifier:DX"
-            vals["zonehvac:idealloadsairsystem"] = "ZoneHVAC:IdealLoadsAirSystem"
-            vals["zonehvac:refrigerationchillerset"] = "ZoneHVAC:RefrigerationChillerSet"
-            vals["fan:zoneexhaust"] = "Fan:ZoneExhaust"
-            vals["waterheater:heatpump"] = "WaterHeater:HeatPump"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacEquipmentList.zone_equipment_1_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacEquipmentList.zone_equipment_1_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        return value
 
-    def _check_zone_equipment_1_name(self, value):
-        """ Validates falue of field `Zone Equipment 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEquipmentList.zone_equipment_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEquipmentList.zone_equipment_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEquipmentList.zone_equipment_1_name`')
-        return value
-
-    def _check_zone_equipment_1_cooling_sequence(self, value):
-        """ Validates falue of field `Zone Equipment 1 Cooling Sequence`
-        """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `ZoneHvacEquipmentList.zone_equipment_1_cooling_sequence`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `ZoneHvacEquipmentList.zone_equipment_1_cooling_sequence`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `ZoneHvacEquipmentList.zone_equipment_1_cooling_sequence`')
-        return value
-
-    def _check_zone_equipment_1_heating_or_noload_sequence(self, value):
-        """ Validates falue of field `Zone Equipment 1 Heating or No-Load Sequence`
-        """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `ZoneHvacEquipmentList.zone_equipment_1_heating_or_noload_sequence`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `ZoneHvacEquipmentList.zone_equipment_1_heating_or_noload_sequence`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `ZoneHvacEquipmentList.zone_equipment_1_heating_or_noload_sequence`')
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacEquipmentList:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacEquipmentList:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacEquipmentList: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacEquipmentList: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacEquipmentConnections(object):
+class ZoneHvacEquipmentConnections(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:EquipmentConnections`
         Specifies the HVAC equipment connections for a zone. Node names are specified for the
         zone air node, air inlet nodes, air exhaust nodes, and the air return node. A zone
         equipment list is referenced which lists all HVAC equipment connected to the zone.
     """
-    internal_name = "ZoneHVAC:EquipmentConnections"
-    field_count = 6
-    required_fields = ["Zone Name", "Zone Conditioning Equipment List Name", "Zone Air Node Name", "Zone Return Air Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'ZoneHVAC:EquipmentConnections', 'pyname': u'ZoneHvacEquipmentConnections', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone conditioning equipment list name', {'name': u'Zone Conditioning Equipment List Name', 'pyname': u'zone_conditioning_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone air inlet node or nodelist name', {'name': u'Zone Air Inlet Node or NodeList Name', 'pyname': u'zone_air_inlet_node_or_nodelist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone air exhaust node or nodelist name', {'name': u'Zone Air Exhaust Node or NodeList Name', 'pyname': u'zone_air_exhaust_node_or_nodelist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone air node name', {'name': u'Zone Air Node Name', 'pyname': u'zone_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone return air node name', {'name': u'Zone Return Air Node Name', 'pyname': u'zone_return_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:EquipmentConnections`
         """
         self._data = OrderedDict()
-        self._data["Zone Name"] = None
-        self._data["Zone Conditioning Equipment List Name"] = None
-        self._data["Zone Air Inlet Node or NodeList Name"] = None
-        self._data["Zone Air Exhaust Node or NodeList Name"] = None
-        self._data["Zone Air Node Name"] = None
-        self._data["Zone Return Air Node Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_conditioning_equipment_list_name = None
-        else:
-            self.zone_conditioning_equipment_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_air_inlet_node_or_nodelist_name = None
-        else:
-            self.zone_air_inlet_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_air_exhaust_node_or_nodelist_name = None
-        else:
-            self.zone_air_exhaust_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_air_node_name = None
-        else:
-            self.zone_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_return_air_node_name = None
-        else:
-            self.zone_return_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def zone_name(self):
@@ -477,19 +141,7 @@ class ZoneHvacEquipmentConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEquipmentConnections.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEquipmentConnections.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEquipmentConnections.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def zone_conditioning_equipment_list_name(self):
@@ -513,19 +165,7 @@ class ZoneHvacEquipmentConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEquipmentConnections.zone_conditioning_equipment_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEquipmentConnections.zone_conditioning_equipment_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEquipmentConnections.zone_conditioning_equipment_list_name`')
-        self._data["Zone Conditioning Equipment List Name"] = value
+        self["Zone Conditioning Equipment List Name"] = value
 
     @property
     def zone_air_inlet_node_or_nodelist_name(self):
@@ -548,19 +188,7 @@ class ZoneHvacEquipmentConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEquipmentConnections.zone_air_inlet_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEquipmentConnections.zone_air_inlet_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEquipmentConnections.zone_air_inlet_node_or_nodelist_name`')
-        self._data["Zone Air Inlet Node or NodeList Name"] = value
+        self["Zone Air Inlet Node or NodeList Name"] = value
 
     @property
     def zone_air_exhaust_node_or_nodelist_name(self):
@@ -583,19 +211,7 @@ class ZoneHvacEquipmentConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEquipmentConnections.zone_air_exhaust_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEquipmentConnections.zone_air_exhaust_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEquipmentConnections.zone_air_exhaust_node_or_nodelist_name`')
-        self._data["Zone Air Exhaust Node or NodeList Name"] = value
+        self["Zone Air Exhaust Node or NodeList Name"] = value
 
     @property
     def zone_air_node_name(self):
@@ -618,19 +234,7 @@ class ZoneHvacEquipmentConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEquipmentConnections.zone_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEquipmentConnections.zone_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEquipmentConnections.zone_air_node_name`')
-        self._data["Zone Air Node Name"] = value
+        self["Zone Air Node Name"] = value
 
     @property
     def zone_return_air_node_name(self):
@@ -653,98 +257,4 @@ class ZoneHvacEquipmentConnections(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEquipmentConnections.zone_return_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEquipmentConnections.zone_return_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEquipmentConnections.zone_return_air_node_name`')
-        self._data["Zone Return Air Node Name"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacEquipmentConnections:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacEquipmentConnections:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacEquipmentConnections: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacEquipmentConnections: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Zone Return Air Node Name"] = value

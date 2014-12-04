@@ -1,90 +1,30 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class LoadProfilePlant(object):
+
+
+class LoadProfilePlant(DataObject):
     """ Corresponds to IDD object `LoadProfile:Plant`
         Used to simulate a scheduled plant loop demand profile.  Load and flow rate are
         specified using schedules. Positive values are heating loads, and negative values are
         cooling loads. The actual load met is dependent on the performance of the supply
         loop components.
     """
-    internal_name = "LoadProfile:Plant"
-    field_count = 6
-    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name", "Load Schedule Name", "Peak Flow Rate", "Flow Rate Fraction Schedule Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'LoadProfile:Plant', 'pyname': u'LoadProfilePlant', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'load schedule name', {'name': u'Load Schedule Name', 'pyname': u'load_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'peak flow rate', {'name': u'Peak Flow Rate', 'pyname': u'peak_flow_rate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate fraction schedule name', {'name': u'Flow Rate Fraction Schedule Name', 'pyname': u'flow_rate_fraction_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LoadProfile:Plant`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Inlet Node Name"] = None
-        self._data["Outlet Node Name"] = None
-        self._data["Load Schedule Name"] = None
-        self._data["Peak Flow Rate"] = None
-        self._data["Flow Rate Fraction Schedule Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inlet_node_name = None
-        else:
-            self.inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outlet_node_name = None
-        else:
-            self.outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.load_schedule_name = None
-        else:
-            self.load_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.peak_flow_rate = None
-        else:
-            self.peak_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_rate_fraction_schedule_name = None
-        else:
-            self.flow_rate_fraction_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -107,19 +47,7 @@ class LoadProfilePlant(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LoadProfilePlant.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LoadProfilePlant.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LoadProfilePlant.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def inlet_node_name(self):
@@ -142,19 +70,7 @@ class LoadProfilePlant(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LoadProfilePlant.inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LoadProfilePlant.inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LoadProfilePlant.inlet_node_name`')
-        self._data["Inlet Node Name"] = value
+        self["Inlet Node Name"] = value
 
     @property
     def outlet_node_name(self):
@@ -177,19 +93,7 @@ class LoadProfilePlant(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LoadProfilePlant.outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LoadProfilePlant.outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LoadProfilePlant.outlet_node_name`')
-        self._data["Outlet Node Name"] = value
+        self["Outlet Node Name"] = value
 
     @property
     def load_schedule_name(self):
@@ -213,19 +117,7 @@ class LoadProfilePlant(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LoadProfilePlant.load_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LoadProfilePlant.load_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LoadProfilePlant.load_schedule_name`')
-        self._data["Load Schedule Name"] = value
+        self["Load Schedule Name"] = value
 
     @property
     def peak_flow_rate(self):
@@ -249,13 +141,7 @@ class LoadProfilePlant(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `LoadProfilePlant.peak_flow_rate`'.format(value))
-        self._data["Peak Flow Rate"] = value
+        self["Peak Flow Rate"] = value
 
     @property
     def flow_rate_fraction_schedule_name(self):
@@ -278,98 +164,4 @@ class LoadProfilePlant(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `LoadProfilePlant.flow_rate_fraction_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `LoadProfilePlant.flow_rate_fraction_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `LoadProfilePlant.flow_rate_fraction_schedule_name`')
-        self._data["Flow Rate Fraction Schedule Name"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field LoadProfilePlant:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field LoadProfilePlant:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for LoadProfilePlant: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for LoadProfilePlant: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Flow Rate Fraction Schedule Name"] = value

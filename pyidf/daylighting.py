@@ -1,11 +1,14 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class DaylightingControls(object):
+
+
+class DaylightingControls(DataObject):
     """ Corresponds to IDD object `Daylighting:Controls`
         Dimming of overhead electric lighting is determined from
         interior daylight illuminance calculated at one or two reference points.
@@ -13,191 +16,16 @@ class DaylightingControls(object):
         Daylighting Reference Point CoordinateSystem field
         Glare from daylighting is also calculated.
     """
-    internal_name = "Daylighting:Controls"
-    field_count = 20
-    required_fields = ["Zone Name", "X-Coordinate of First Reference Point", "Y-Coordinate of First Reference Point", "Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis"]
-    extensible_fields = 0
-    format = None
-    min_fields = 19
-    extensible_keys = []
+    schema = {'min-fields': 19, 'name': u'Daylighting:Controls', 'pyname': u'DaylightingControls', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'total daylighting reference points', {'name': u'Total Daylighting Reference Points', 'pyname': u'total_daylighting_reference_points', 'default': 1, 'maximum': 2, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'x-coordinate of first reference point', {'name': u'X-Coordinate of First Reference Point', 'pyname': u'xcoordinate_of_first_reference_point', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y-coordinate of first reference point', {'name': u'Y-Coordinate of First Reference Point', 'pyname': u'ycoordinate_of_first_reference_point', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'z-coordinate of first reference point', {'name': u'Z-Coordinate of First Reference Point', 'pyname': u'zcoordinate_of_first_reference_point', 'default': 0.8, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'x-coordinate of second reference point', {'name': u'X-Coordinate of Second Reference Point', 'pyname': u'xcoordinate_of_second_reference_point', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y-coordinate of second reference point', {'name': u'Y-Coordinate of Second Reference Point', 'pyname': u'ycoordinate_of_second_reference_point', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'z-coordinate of second reference point', {'name': u'Z-Coordinate of Second Reference Point', 'pyname': u'zcoordinate_of_second_reference_point', 'default': 0.8, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fraction of zone controlled by first reference point', {'name': u'Fraction of Zone Controlled by First Reference Point', 'pyname': u'fraction_of_zone_controlled_by_first_reference_point', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of zone controlled by second reference point', {'name': u'Fraction of Zone Controlled by Second Reference Point', 'pyname': u'fraction_of_zone_controlled_by_second_reference_point', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'illuminance setpoint at first reference point', {'name': u'Illuminance Setpoint at First Reference Point', 'pyname': u'illuminance_setpoint_at_first_reference_point', 'default': 500.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'lux'}), (u'illuminance setpoint at second reference point', {'name': u'Illuminance Setpoint at Second Reference Point', 'pyname': u'illuminance_setpoint_at_second_reference_point', 'default': 500.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'lux'}), (u'lighting control type', {'name': u'Lighting Control Type', 'pyname': u'lighting_control_type', 'default': 1, 'maximum': 3, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'glare calculation azimuth angle of view direction clockwise from zone y-axis', {'name': u'Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis', 'pyname': u'glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis', 'maximum': 360.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'maximum allowable discomfort glare index', {'name': u'Maximum Allowable Discomfort Glare Index', 'pyname': u'maximum_allowable_discomfort_glare_index', 'default': 22.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'minimum input power fraction for continuous dimming control', {'name': u'Minimum Input Power Fraction for Continuous Dimming Control', 'pyname': u'minimum_input_power_fraction_for_continuous_dimming_control', 'default': 0.3, 'maximum': 0.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'minimum light output fraction for continuous dimming control', {'name': u'Minimum Light Output Fraction for Continuous Dimming Control', 'pyname': u'minimum_light_output_fraction_for_continuous_dimming_control', 'default': 0.2, 'maximum': 0.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'number of stepped control steps', {'name': u'Number of Stepped Control Steps', 'pyname': u'number_of_stepped_control_steps', 'default': 1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'probability lighting will be reset when needed in manual stepped control', {'name': u'Probability Lighting will be Reset When Needed in Manual Stepped Control', 'pyname': u'probability_lighting_will_be_reset_when_needed_in_manual_stepped_control', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:Controls`
         """
         self._data = OrderedDict()
-        self._data["Zone Name"] = None
-        self._data["Total Daylighting Reference Points"] = None
-        self._data["X-Coordinate of First Reference Point"] = None
-        self._data["Y-Coordinate of First Reference Point"] = None
-        self._data["Z-Coordinate of First Reference Point"] = None
-        self._data["X-Coordinate of Second Reference Point"] = None
-        self._data["Y-Coordinate of Second Reference Point"] = None
-        self._data["Z-Coordinate of Second Reference Point"] = None
-        self._data["Fraction of Zone Controlled by First Reference Point"] = None
-        self._data["Fraction of Zone Controlled by Second Reference Point"] = None
-        self._data["Illuminance Setpoint at First Reference Point"] = None
-        self._data["Illuminance Setpoint at Second Reference Point"] = None
-        self._data["Lighting Control Type"] = None
-        self._data["Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis"] = None
-        self._data["Maximum Allowable Discomfort Glare Index"] = None
-        self._data["Minimum Input Power Fraction for Continuous Dimming Control"] = None
-        self._data["Minimum Light Output Fraction for Continuous Dimming Control"] = None
-        self._data["Number of Stepped Control Steps"] = None
-        self._data["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = None
-        self._data["Availability Schedule Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.total_daylighting_reference_points = None
-        else:
-            self.total_daylighting_reference_points = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.xcoordinate_of_first_reference_point = None
-        else:
-            self.xcoordinate_of_first_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ycoordinate_of_first_reference_point = None
-        else:
-            self.ycoordinate_of_first_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zcoordinate_of_first_reference_point = None
-        else:
-            self.zcoordinate_of_first_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.xcoordinate_of_second_reference_point = None
-        else:
-            self.xcoordinate_of_second_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ycoordinate_of_second_reference_point = None
-        else:
-            self.ycoordinate_of_second_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zcoordinate_of_second_reference_point = None
-        else:
-            self.zcoordinate_of_second_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fraction_of_zone_controlled_by_first_reference_point = None
-        else:
-            self.fraction_of_zone_controlled_by_first_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fraction_of_zone_controlled_by_second_reference_point = None
-        else:
-            self.fraction_of_zone_controlled_by_second_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.illuminance_setpoint_at_first_reference_point = None
-        else:
-            self.illuminance_setpoint_at_first_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.illuminance_setpoint_at_second_reference_point = None
-        else:
-            self.illuminance_setpoint_at_second_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.lighting_control_type = None
-        else:
-            self.lighting_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis = None
-        else:
-            self.glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_allowable_discomfort_glare_index = None
-        else:
-            self.maximum_allowable_discomfort_glare_index = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_input_power_fraction_for_continuous_dimming_control = None
-        else:
-            self.minimum_input_power_fraction_for_continuous_dimming_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_light_output_fraction_for_continuous_dimming_control = None
-        else:
-            self.minimum_light_output_fraction_for_continuous_dimming_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_stepped_control_steps = None
-        else:
-            self.number_of_stepped_control_steps = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control = None
-        else:
-            self.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def zone_name(self):
@@ -220,19 +48,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingControls.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingControls.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingControls.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def total_daylighting_reference_points(self):
@@ -258,26 +74,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DaylightingControls.total_daylighting_reference_points`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DaylightingControls.total_daylighting_reference_points`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `DaylightingControls.total_daylighting_reference_points`')
-            if value > 2:
-                raise ValueError('value need to be smaller 2 '
-                                 'for field `DaylightingControls.total_daylighting_reference_points`')
-        self._data["Total Daylighting Reference Points"] = value
+        self["Total Daylighting Reference Points"] = value
 
     @property
     def xcoordinate_of_first_reference_point(self):
@@ -301,13 +98,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.xcoordinate_of_first_reference_point`'.format(value))
-        self._data["X-Coordinate of First Reference Point"] = value
+        self["X-Coordinate of First Reference Point"] = value
 
     @property
     def ycoordinate_of_first_reference_point(self):
@@ -331,13 +122,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.ycoordinate_of_first_reference_point`'.format(value))
-        self._data["Y-Coordinate of First Reference Point"] = value
+        self["Y-Coordinate of First Reference Point"] = value
 
     @property
     def zcoordinate_of_first_reference_point(self):
@@ -362,13 +147,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.zcoordinate_of_first_reference_point`'.format(value))
-        self._data["Z-Coordinate of First Reference Point"] = value
+        self["Z-Coordinate of First Reference Point"] = value
 
     @property
     def xcoordinate_of_second_reference_point(self):
@@ -393,13 +172,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.xcoordinate_of_second_reference_point`'.format(value))
-        self._data["X-Coordinate of Second Reference Point"] = value
+        self["X-Coordinate of Second Reference Point"] = value
 
     @property
     def ycoordinate_of_second_reference_point(self):
@@ -424,13 +197,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.ycoordinate_of_second_reference_point`'.format(value))
-        self._data["Y-Coordinate of Second Reference Point"] = value
+        self["Y-Coordinate of Second Reference Point"] = value
 
     @property
     def zcoordinate_of_second_reference_point(self):
@@ -455,13 +222,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.zcoordinate_of_second_reference_point`'.format(value))
-        self._data["Z-Coordinate of Second Reference Point"] = value
+        self["Z-Coordinate of Second Reference Point"] = value
 
     @property
     def fraction_of_zone_controlled_by_first_reference_point(self):
@@ -479,7 +240,6 @@ class DaylightingControls(object):
         Args:
             value (float): value for IDD Field `Fraction of Zone Controlled by First Reference Point`
                 Default value: 1.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -487,19 +247,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.fraction_of_zone_controlled_by_first_reference_point`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingControls.fraction_of_zone_controlled_by_first_reference_point`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `DaylightingControls.fraction_of_zone_controlled_by_first_reference_point`')
-        self._data["Fraction of Zone Controlled by First Reference Point"] = value
+        self["Fraction of Zone Controlled by First Reference Point"] = value
 
     @property
     def fraction_of_zone_controlled_by_second_reference_point(self):
@@ -511,13 +259,11 @@ class DaylightingControls(object):
         return self._data["Fraction of Zone Controlled by Second Reference Point"]
 
     @fraction_of_zone_controlled_by_second_reference_point.setter
-    def fraction_of_zone_controlled_by_second_reference_point(self, value=0.0):
+    def fraction_of_zone_controlled_by_second_reference_point(self, value=None):
         """  Corresponds to IDD Field `Fraction of Zone Controlled by Second Reference Point`
 
         Args:
             value (float): value for IDD Field `Fraction of Zone Controlled by Second Reference Point`
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -525,19 +271,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.fraction_of_zone_controlled_by_second_reference_point`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingControls.fraction_of_zone_controlled_by_second_reference_point`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `DaylightingControls.fraction_of_zone_controlled_by_second_reference_point`')
-        self._data["Fraction of Zone Controlled by Second Reference Point"] = value
+        self["Fraction of Zone Controlled by Second Reference Point"] = value
 
     @property
     def illuminance_setpoint_at_first_reference_point(self):
@@ -556,23 +290,13 @@ class DaylightingControls(object):
             value (float): value for IDD Field `Illuminance Setpoint at First Reference Point`
                 Units: lux
                 Default value: 500.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.illuminance_setpoint_at_first_reference_point`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingControls.illuminance_setpoint_at_first_reference_point`')
-        self._data["Illuminance Setpoint at First Reference Point"] = value
+        self["Illuminance Setpoint at First Reference Point"] = value
 
     @property
     def illuminance_setpoint_at_second_reference_point(self):
@@ -591,23 +315,13 @@ class DaylightingControls(object):
             value (float): value for IDD Field `Illuminance Setpoint at Second Reference Point`
                 Units: lux
                 Default value: 500.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.illuminance_setpoint_at_second_reference_point`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingControls.illuminance_setpoint_at_second_reference_point`')
-        self._data["Illuminance Setpoint at Second Reference Point"] = value
+        self["Illuminance Setpoint at Second Reference Point"] = value
 
     @property
     def lighting_control_type(self):
@@ -634,26 +348,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DaylightingControls.lighting_control_type`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DaylightingControls.lighting_control_type`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `DaylightingControls.lighting_control_type`')
-            if value > 3:
-                raise ValueError('value need to be smaller 3 '
-                                 'for field `DaylightingControls.lighting_control_type`')
-        self._data["Lighting Control Type"] = value
+        self["Lighting Control Type"] = value
 
     @property
     def glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis(self):
@@ -671,7 +366,6 @@ class DaylightingControls(object):
         Args:
             value (float): value for IDD Field `Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis`
                 Units: deg
-                value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -679,19 +373,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingControls.glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis`')
-            if value > 360.0:
-                raise ValueError('value need to be smaller 360.0 '
-                                 'for field `DaylightingControls.glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis`')
-        self._data["Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis"] = value
+        self["Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis"] = value
 
     @property
     def maximum_allowable_discomfort_glare_index(self):
@@ -717,16 +399,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.maximum_allowable_discomfort_glare_index`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `DaylightingControls.maximum_allowable_discomfort_glare_index`')
-        self._data["Maximum Allowable Discomfort Glare Index"] = value
+        self["Maximum Allowable Discomfort Glare Index"] = value
 
     @property
     def minimum_input_power_fraction_for_continuous_dimming_control(self):
@@ -744,7 +417,6 @@ class DaylightingControls(object):
         Args:
             value (float): value for IDD Field `Minimum Input Power Fraction for Continuous Dimming Control`
                 Default value: 0.3
-                value >= 0.0
                 value <= 0.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -752,19 +424,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.minimum_input_power_fraction_for_continuous_dimming_control`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingControls.minimum_input_power_fraction_for_continuous_dimming_control`')
-            if value > 0.6:
-                raise ValueError('value need to be smaller 0.6 '
-                                 'for field `DaylightingControls.minimum_input_power_fraction_for_continuous_dimming_control`')
-        self._data["Minimum Input Power Fraction for Continuous Dimming Control"] = value
+        self["Minimum Input Power Fraction for Continuous Dimming Control"] = value
 
     @property
     def minimum_light_output_fraction_for_continuous_dimming_control(self):
@@ -782,7 +442,6 @@ class DaylightingControls(object):
         Args:
             value (float): value for IDD Field `Minimum Light Output Fraction for Continuous Dimming Control`
                 Default value: 0.2
-                value >= 0.0
                 value <= 0.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -790,19 +449,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.minimum_light_output_fraction_for_continuous_dimming_control`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingControls.minimum_light_output_fraction_for_continuous_dimming_control`')
-            if value > 0.6:
-                raise ValueError('value need to be smaller 0.6 '
-                                 'for field `DaylightingControls.minimum_light_output_fraction_for_continuous_dimming_control`')
-        self._data["Minimum Light Output Fraction for Continuous Dimming Control"] = value
+        self["Minimum Light Output Fraction for Continuous Dimming Control"] = value
 
     @property
     def number_of_stepped_control_steps(self):
@@ -827,20 +474,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DaylightingControls.number_of_stepped_control_steps`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DaylightingControls.number_of_stepped_control_steps`'.format(value))
-        self._data["Number of Stepped Control Steps"] = value
+        self["Number of Stepped Control Steps"] = value
 
     @property
     def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(self):
@@ -858,7 +492,6 @@ class DaylightingControls(object):
         Args:
             value (float): value for IDD Field `Probability Lighting will be Reset When Needed in Manual Stepped Control`
                 Default value: 1.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -866,19 +499,7 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingControls.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingControls.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `DaylightingControls.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`')
-        self._data["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = value
+        self["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = value
 
     @property
     def availability_schedule_name(self):
@@ -901,196 +522,24 @@ class DaylightingControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingControls.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingControls.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingControls.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DaylightingControls:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DaylightingControls:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DaylightingControls: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DaylightingControls: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DaylightingDelightControls(object):
+class DaylightingDelightControls(DataObject):
     """ Corresponds to IDD object `Daylighting:DELight:Controls`
         Dimming of overhead electric lighting is determined from
         DElight calculated interior daylight illuminance at one or more reference points.
     """
-    internal_name = "Daylighting:DELight:Controls"
-    field_count = 8
-    required_fields = ["Name", "Zone Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 8
-    extensible_keys = []
+    schema = {'min-fields': 8, 'name': u'Daylighting:DELight:Controls', 'pyname': u'DaylightingDelightControls', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'lighting control type', {'name': u'Lighting Control Type', 'pyname': u'lighting_control_type', 'default': 1, 'maximum': 3, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'minimum input power fraction for continuous dimming control', {'name': u'Minimum Input Power Fraction for Continuous Dimming Control', 'pyname': u'minimum_input_power_fraction_for_continuous_dimming_control', 'default': 0.3, 'maximum': 0.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'minimum light output fraction for continuous dimming control', {'name': u'Minimum Light Output Fraction for Continuous Dimming Control', 'pyname': u'minimum_light_output_fraction_for_continuous_dimming_control', 'default': 0.2, 'maximum': 0.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'number of stepped control steps', {'name': u'Number of Stepped Control Steps', 'pyname': u'number_of_stepped_control_steps', 'default': 1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'probability lighting will be reset when needed in manual stepped control', {'name': u'Probability Lighting will be Reset When Needed in Manual Stepped Control', 'pyname': u'probability_lighting_will_be_reset_when_needed_in_manual_stepped_control', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'gridding resolution', {'name': u'Gridding Resolution', 'pyname': u'gridding_resolution', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:DELight:Controls`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Lighting Control Type"] = None
-        self._data["Minimum Input Power Fraction for Continuous Dimming Control"] = None
-        self._data["Minimum Light Output Fraction for Continuous Dimming Control"] = None
-        self._data["Number of Stepped Control Steps"] = None
-        self._data["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = None
-        self._data["Gridding Resolution"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.lighting_control_type = None
-        else:
-            self.lighting_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_input_power_fraction_for_continuous_dimming_control = None
-        else:
-            self.minimum_input_power_fraction_for_continuous_dimming_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_light_output_fraction_for_continuous_dimming_control = None
-        else:
-            self.minimum_light_output_fraction_for_continuous_dimming_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_stepped_control_steps = None
-        else:
-            self.number_of_stepped_control_steps = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control = None
-        else:
-            self.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.gridding_resolution = None
-        else:
-            self.gridding_resolution = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1113,19 +562,7 @@ class DaylightingDelightControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDelightControls.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDelightControls.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDelightControls.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_name(self):
@@ -1149,19 +586,7 @@ class DaylightingDelightControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDelightControls.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDelightControls.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDelightControls.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def lighting_control_type(self):
@@ -1188,26 +613,7 @@ class DaylightingDelightControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DaylightingDelightControls.lighting_control_type`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DaylightingDelightControls.lighting_control_type`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `DaylightingDelightControls.lighting_control_type`')
-            if value > 3:
-                raise ValueError('value need to be smaller 3 '
-                                 'for field `DaylightingDelightControls.lighting_control_type`')
-        self._data["Lighting Control Type"] = value
+        self["Lighting Control Type"] = value
 
     @property
     def minimum_input_power_fraction_for_continuous_dimming_control(self):
@@ -1225,7 +631,6 @@ class DaylightingDelightControls(object):
         Args:
             value (float): value for IDD Field `Minimum Input Power Fraction for Continuous Dimming Control`
                 Default value: 0.3
-                value >= 0.0
                 value <= 0.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1233,19 +638,7 @@ class DaylightingDelightControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDelightControls.minimum_input_power_fraction_for_continuous_dimming_control`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingDelightControls.minimum_input_power_fraction_for_continuous_dimming_control`')
-            if value > 0.6:
-                raise ValueError('value need to be smaller 0.6 '
-                                 'for field `DaylightingDelightControls.minimum_input_power_fraction_for_continuous_dimming_control`')
-        self._data["Minimum Input Power Fraction for Continuous Dimming Control"] = value
+        self["Minimum Input Power Fraction for Continuous Dimming Control"] = value
 
     @property
     def minimum_light_output_fraction_for_continuous_dimming_control(self):
@@ -1263,7 +656,6 @@ class DaylightingDelightControls(object):
         Args:
             value (float): value for IDD Field `Minimum Light Output Fraction for Continuous Dimming Control`
                 Default value: 0.2
-                value >= 0.0
                 value <= 0.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1271,19 +663,7 @@ class DaylightingDelightControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDelightControls.minimum_light_output_fraction_for_continuous_dimming_control`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingDelightControls.minimum_light_output_fraction_for_continuous_dimming_control`')
-            if value > 0.6:
-                raise ValueError('value need to be smaller 0.6 '
-                                 'for field `DaylightingDelightControls.minimum_light_output_fraction_for_continuous_dimming_control`')
-        self._data["Minimum Light Output Fraction for Continuous Dimming Control"] = value
+        self["Minimum Light Output Fraction for Continuous Dimming Control"] = value
 
     @property
     def number_of_stepped_control_steps(self):
@@ -1308,20 +688,7 @@ class DaylightingDelightControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `DaylightingDelightControls.number_of_stepped_control_steps`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `DaylightingDelightControls.number_of_stepped_control_steps`'.format(value))
-        self._data["Number of Stepped Control Steps"] = value
+        self["Number of Stepped Control Steps"] = value
 
     @property
     def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(self):
@@ -1333,13 +700,11 @@ class DaylightingDelightControls(object):
         return self._data["Probability Lighting will be Reset When Needed in Manual Stepped Control"]
 
     @probability_lighting_will_be_reset_when_needed_in_manual_stepped_control.setter
-    def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(self, value=0.0):
+    def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(self, value=None):
         """  Corresponds to IDD Field `Probability Lighting will be Reset When Needed in Manual Stepped Control`
 
         Args:
             value (float): value for IDD Field `Probability Lighting will be Reset When Needed in Manual Stepped Control`
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1347,19 +712,7 @@ class DaylightingDelightControls(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDelightControls.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingDelightControls.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `DaylightingDelightControls.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`')
-        self._data["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = value
+        self["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = value
 
     @property
     def gridding_resolution(self):
@@ -1382,194 +735,32 @@ class DaylightingDelightControls(object):
         Args:
             value (float): value for IDD Field `Gridding Resolution`
                 Units: m2
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDelightControls.gridding_resolution`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `DaylightingDelightControls.gridding_resolution`')
-        self._data["Gridding Resolution"] = value
+        self["Gridding Resolution"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DaylightingDelightControls:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DaylightingDelightControls:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DaylightingDelightControls: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DaylightingDelightControls: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DaylightingDelightReferencePoint(object):
+class DaylightingDelightReferencePoint(DataObject):
     """ Corresponds to IDD object `Daylighting:DELight:ReferencePoint`
         DElight reference point for illuminance calculation and electric lighting dimming.
         reference points are given in coordinates specified in the GlobalGeometryRules object
         Daylighting Reference Point CoordinateSystem field
         There is a maximum number of 100 reference points per DElight daylighting zone.
     """
-    internal_name = "Daylighting:DELight:ReferencePoint"
-    field_count = 7
-    required_fields = ["DElight Name", "X-coordinate of Reference Point", "Y-coordinate of Reference Point", "Z-coordinate of Reference Point", "Fraction of Zone Controlled by Reference Point", "Illuminance Setpoint at Reference Point"]
-    extensible_fields = 0
-    format = None
-    min_fields = 7
-    extensible_keys = []
+    schema = {'min-fields': 7, 'name': u'Daylighting:DELight:ReferencePoint', 'pyname': u'DaylightingDelightReferencePoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'delight name', {'name': u'DElight Name', 'pyname': u'delight_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'x-coordinate of reference point', {'name': u'X-coordinate of Reference Point', 'pyname': u'xcoordinate_of_reference_point', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y-coordinate of reference point', {'name': u'Y-coordinate of Reference Point', 'pyname': u'ycoordinate_of_reference_point', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'z-coordinate of reference point', {'name': u'Z-coordinate of Reference Point', 'pyname': u'zcoordinate_of_reference_point', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fraction of zone controlled by reference point', {'name': u'Fraction of Zone Controlled by Reference Point', 'pyname': u'fraction_of_zone_controlled_by_reference_point', 'default': 1.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'illuminance setpoint at reference point', {'name': u'Illuminance Setpoint at Reference Point', 'pyname': u'illuminance_setpoint_at_reference_point', 'default': 500.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'lux'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:DELight:ReferencePoint`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["DElight Name"] = None
-        self._data["X-coordinate of Reference Point"] = None
-        self._data["Y-coordinate of Reference Point"] = None
-        self._data["Z-coordinate of Reference Point"] = None
-        self._data["Fraction of Zone Controlled by Reference Point"] = None
-        self._data["Illuminance Setpoint at Reference Point"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.delight_name = None
-        else:
-            self.delight_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.xcoordinate_of_reference_point = None
-        else:
-            self.xcoordinate_of_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ycoordinate_of_reference_point = None
-        else:
-            self.ycoordinate_of_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zcoordinate_of_reference_point = None
-        else:
-            self.zcoordinate_of_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fraction_of_zone_controlled_by_reference_point = None
-        else:
-            self.fraction_of_zone_controlled_by_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.illuminance_setpoint_at_reference_point = None
-        else:
-            self.illuminance_setpoint_at_reference_point = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1592,19 +783,7 @@ class DaylightingDelightReferencePoint(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDelightReferencePoint.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDelightReferencePoint.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDelightReferencePoint.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def delight_name(self):
@@ -1627,19 +806,7 @@ class DaylightingDelightReferencePoint(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDelightReferencePoint.delight_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDelightReferencePoint.delight_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDelightReferencePoint.delight_name`')
-        self._data["DElight Name"] = value
+        self["DElight Name"] = value
 
     @property
     def xcoordinate_of_reference_point(self):
@@ -1663,13 +830,7 @@ class DaylightingDelightReferencePoint(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDelightReferencePoint.xcoordinate_of_reference_point`'.format(value))
-        self._data["X-coordinate of Reference Point"] = value
+        self["X-coordinate of Reference Point"] = value
 
     @property
     def ycoordinate_of_reference_point(self):
@@ -1693,13 +854,7 @@ class DaylightingDelightReferencePoint(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDelightReferencePoint.ycoordinate_of_reference_point`'.format(value))
-        self._data["Y-coordinate of Reference Point"] = value
+        self["Y-coordinate of Reference Point"] = value
 
     @property
     def zcoordinate_of_reference_point(self):
@@ -1723,13 +878,7 @@ class DaylightingDelightReferencePoint(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDelightReferencePoint.zcoordinate_of_reference_point`'.format(value))
-        self._data["Z-coordinate of Reference Point"] = value
+        self["Z-coordinate of Reference Point"] = value
 
     @property
     def fraction_of_zone_controlled_by_reference_point(self):
@@ -1747,7 +896,6 @@ class DaylightingDelightReferencePoint(object):
         Args:
             value (float): value for IDD Field `Fraction of Zone Controlled by Reference Point`
                 Default value: 1.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1755,19 +903,7 @@ class DaylightingDelightReferencePoint(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDelightReferencePoint.fraction_of_zone_controlled_by_reference_point`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingDelightReferencePoint.fraction_of_zone_controlled_by_reference_point`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `DaylightingDelightReferencePoint.fraction_of_zone_controlled_by_reference_point`')
-        self._data["Fraction of Zone Controlled by Reference Point"] = value
+        self["Fraction of Zone Controlled by Reference Point"] = value
 
     @property
     def illuminance_setpoint_at_reference_point(self):
@@ -1786,175 +922,29 @@ class DaylightingDelightReferencePoint(object):
             value (float): value for IDD Field `Illuminance Setpoint at Reference Point`
                 Units: lux
                 Default value: 500.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDelightReferencePoint.illuminance_setpoint_at_reference_point`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingDelightReferencePoint.illuminance_setpoint_at_reference_point`')
-        self._data["Illuminance Setpoint at Reference Point"] = value
+        self["Illuminance Setpoint at Reference Point"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DaylightingDelightReferencePoint:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DaylightingDelightReferencePoint:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DaylightingDelightReferencePoint: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DaylightingDelightReferencePoint: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DaylightingDelightComplexFenestration(object):
+class DaylightingDelightComplexFenestration(DataObject):
     """ Corresponds to IDD object `Daylighting:DELight:ComplexFenestration`
         Used for DElight Complex Fenestration of all types
     """
-    internal_name = "Daylighting:DELight:ComplexFenestration"
-    field_count = 5
-    required_fields = ["Name", "Complex Fenestration Type", "Building Surface Name", "Window Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'Daylighting:DELight:ComplexFenestration', 'pyname': u'DaylightingDelightComplexFenestration', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'complex fenestration type', {'name': u'Complex Fenestration Type', 'pyname': u'complex_fenestration_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'building surface name', {'name': u'Building Surface Name', 'pyname': u'building_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'window name', {'name': u'Window Name', 'pyname': u'window_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fenestration rotation', {'name': u'Fenestration Rotation', 'pyname': u'fenestration_rotation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:DELight:ComplexFenestration`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Complex Fenestration Type"] = None
-        self._data["Building Surface Name"] = None
-        self._data["Window Name"] = None
-        self._data["Fenestration Rotation"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.complex_fenestration_type = None
-        else:
-            self.complex_fenestration_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.building_surface_name = None
-        else:
-            self.building_surface_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_name = None
-        else:
-            self.window_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fenestration_rotation = None
-        else:
-            self.fenestration_rotation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1978,19 +968,7 @@ class DaylightingDelightComplexFenestration(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDelightComplexFenestration.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDelightComplexFenestration.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDelightComplexFenestration.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def complex_fenestration_type(self):
@@ -2014,19 +992,7 @@ class DaylightingDelightComplexFenestration(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDelightComplexFenestration.complex_fenestration_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDelightComplexFenestration.complex_fenestration_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDelightComplexFenestration.complex_fenestration_type`')
-        self._data["Complex Fenestration Type"] = value
+        self["Complex Fenestration Type"] = value
 
     @property
     def building_surface_name(self):
@@ -2052,19 +1018,7 @@ class DaylightingDelightComplexFenestration(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDelightComplexFenestration.building_surface_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDelightComplexFenestration.building_surface_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDelightComplexFenestration.building_surface_name`')
-        self._data["Building Surface Name"] = value
+        self["Building Surface Name"] = value
 
     @property
     def window_name(self):
@@ -2090,19 +1044,7 @@ class DaylightingDelightComplexFenestration(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDelightComplexFenestration.window_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDelightComplexFenestration.window_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDelightComplexFenestration.window_name`')
-        self._data["Window Name"] = value
+        self["Window Name"] = value
 
     @property
     def fenestration_rotation(self):
@@ -2114,7 +1056,7 @@ class DaylightingDelightComplexFenestration(object):
         return self._data["Fenestration Rotation"]
 
     @fenestration_rotation.setter
-    def fenestration_rotation(self, value=0.0):
+    def fenestration_rotation(self, value=None):
         """  Corresponds to IDD Field `Fenestration Rotation`
         In-plane counter-clockwise rotation angle of the Complex Fenestration
         optical reference direction and the base edge of the Complex Fenestration.
@@ -2124,198 +1066,31 @@ class DaylightingDelightComplexFenestration(object):
         Args:
             value (float): value for IDD Field `Fenestration Rotation`
                 Units: deg
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDelightComplexFenestration.fenestration_rotation`'.format(value))
-        self._data["Fenestration Rotation"] = value
+        self["Fenestration Rotation"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DaylightingDelightComplexFenestration:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DaylightingDelightComplexFenestration:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DaylightingDelightComplexFenestration: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DaylightingDelightComplexFenestration: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DaylightingDeviceTubular(object):
+class DaylightingDeviceTubular(DataObject):
     """ Corresponds to IDD object `DaylightingDevice:Tubular`
         Defines a tubular daylighting device (TDD) consisting of three components:
         a dome, a pipe, and a diffuser. The dome and diffuser are defined separately using the
         FenestrationSurface:Detailed object.
     """
-    internal_name = "DaylightingDevice:Tubular"
-    field_count = 7
-    required_fields = ["Name", "Dome Name", "Diffuser Name", "Construction Name", "Diameter", "Total Length", "Effective Thermal Resistance"]
-    extensible_fields = 2
-    format = None
-    min_fields = 0
-    extensible_keys = ["Transition Zone 1 Name", "Transition Zone 1 Length"]
+    schema = {'min-fields': 0, 'name': u'DaylightingDevice:Tubular', 'pyname': u'DaylightingDeviceTubular', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'dome name', {'name': u'Dome Name', 'pyname': u'dome_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'diffuser name', {'name': u'Diffuser Name', 'pyname': u'diffuser_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'diameter', {'name': u'Diameter', 'pyname': u'diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'total length', {'name': u'Total Length', 'pyname': u'total_length', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'effective thermal resistance', {'name': u'Effective Thermal Resistance', 'pyname': u'effective_thermal_resistance', 'default': 0.28, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2-K/W'})]), 'extensible-fields': OrderedDict([(u'transition zone 1 name', {'name': u'Transition Zone 1 Name', 'pyname': u'transition_zone_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'transition zone 1 length', {'name': u'Transition Zone 1 Length', 'pyname': u'transition_zone_1_length', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DaylightingDevice:Tubular`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Dome Name"] = None
-        self._data["Diffuser Name"] = None
-        self._data["Construction Name"] = None
-        self._data["Diameter"] = None
-        self._data["Total Length"] = None
-        self._data["Effective Thermal Resistance"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.dome_name = None
-        else:
-            self.dome_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.diffuser_name = None
-        else:
-            self.diffuser_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.construction_name = None
-        else:
-            self.construction_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.diameter = None
-        else:
-            self.diameter = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.total_length = None
-        else:
-            self.total_length = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.effective_thermal_resistance = None
-        else:
-            self.effective_thermal_resistance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2338,19 +1113,7 @@ class DaylightingDeviceTubular(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDeviceTubular.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDeviceTubular.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDeviceTubular.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def dome_name(self):
@@ -2374,19 +1137,7 @@ class DaylightingDeviceTubular(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDeviceTubular.dome_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDeviceTubular.dome_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDeviceTubular.dome_name`')
-        self._data["Dome Name"] = value
+        self["Dome Name"] = value
 
     @property
     def diffuser_name(self):
@@ -2411,19 +1162,7 @@ class DaylightingDeviceTubular(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDeviceTubular.diffuser_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDeviceTubular.diffuser_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDeviceTubular.diffuser_name`')
-        self._data["Diffuser Name"] = value
+        self["Diffuser Name"] = value
 
     @property
     def construction_name(self):
@@ -2446,19 +1185,7 @@ class DaylightingDeviceTubular(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDeviceTubular.construction_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDeviceTubular.construction_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDeviceTubular.construction_name`')
-        self._data["Construction Name"] = value
+        self["Construction Name"] = value
 
     @property
     def diameter(self):
@@ -2476,23 +1203,13 @@ class DaylightingDeviceTubular(object):
         Args:
             value (float): value for IDD Field `Diameter`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDeviceTubular.diameter`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `DaylightingDeviceTubular.diameter`')
-        self._data["Diameter"] = value
+        self["Diameter"] = value
 
     @property
     def total_length(self):
@@ -2511,23 +1228,13 @@ class DaylightingDeviceTubular(object):
         Args:
             value (float): value for IDD Field `Total Length`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDeviceTubular.total_length`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `DaylightingDeviceTubular.total_length`')
-        self._data["Total Length"] = value
+        self["Total Length"] = value
 
     @property
     def effective_thermal_resistance(self):
@@ -2547,23 +1254,13 @@ class DaylightingDeviceTubular(object):
             value (float): value for IDD Field `Effective Thermal Resistance`
                 Units: m2-K/W
                 Default value: 0.28
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDeviceTubular.effective_thermal_resistance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `DaylightingDeviceTubular.effective_thermal_resistance`')
-        self._data["Effective Thermal Resistance"] = value
+        self["Effective Thermal Resistance"] = value
 
     def add_extensible(self,
                        transition_zone_1_name=None,
@@ -2579,13 +1276,14 @@ class DaylightingDeviceTubular(object):
 
             transition_zone_1_length (float): value for IDD Field `Transition Zone 1 Length`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_transition_zone_1_name(transition_zone_1_name))
-        vals.append(self._check_transition_zone_1_length(transition_zone_1_length))
+        transition_zone_1_name = self.check_value("Transition Zone 1 Name", transition_zone_1_name)
+        vals.append(transition_zone_1_name)
+        transition_zone_1_length = self.check_value("Transition Zone 1 Length", transition_zone_1_length)
+        vals.append(transition_zone_1_length)
         self._data["extensibles"].append(vals)
 
     @property
@@ -2594,198 +1292,23 @@ class DaylightingDeviceTubular(object):
         """
         return self._data["extensibles"]
 
-    def _check_transition_zone_1_name(self, value):
-        """ Validates falue of field `Transition Zone 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDeviceTubular.transition_zone_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDeviceTubular.transition_zone_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDeviceTubular.transition_zone_1_name`')
-        return value
 
-    def _check_transition_zone_1_length(self, value):
-        """ Validates falue of field `Transition Zone 1 Length`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDeviceTubular.transition_zone_1_length`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingDeviceTubular.transition_zone_1_length`')
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DaylightingDeviceTubular:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DaylightingDeviceTubular:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DaylightingDeviceTubular: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DaylightingDeviceTubular: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DaylightingDeviceShelf(object):
+class DaylightingDeviceShelf(DataObject):
     """ Corresponds to IDD object `DaylightingDevice:Shelf`
         Defines a daylighting which can have an inside shelf, an outside shelf, or both.
         The inside shelf is defined as a building surface and the outside shelf is defined
         as a shading surface.
     """
-    internal_name = "DaylightingDevice:Shelf"
-    field_count = 6
-    required_fields = ["Name", "Window Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'DaylightingDevice:Shelf', 'pyname': u'DaylightingDeviceShelf', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'window name', {'name': u'Window Name', 'pyname': u'window_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inside shelf name', {'name': u'Inside Shelf Name', 'pyname': u'inside_shelf_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside shelf name', {'name': u'Outside Shelf Name', 'pyname': u'outside_shelf_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside shelf construction name', {'name': u'Outside Shelf Construction Name', 'pyname': u'outside_shelf_construction_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'view factor to outside shelf', {'name': u'View Factor to Outside Shelf', 'pyname': u'view_factor_to_outside_shelf', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DaylightingDevice:Shelf`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Window Name"] = None
-        self._data["Inside Shelf Name"] = None
-        self._data["Outside Shelf Name"] = None
-        self._data["Outside Shelf Construction Name"] = None
-        self._data["View Factor to Outside Shelf"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.window_name = None
-        else:
-            self.window_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inside_shelf_name = None
-        else:
-            self.inside_shelf_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outside_shelf_name = None
-        else:
-            self.outside_shelf_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outside_shelf_construction_name = None
-        else:
-            self.outside_shelf_construction_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.view_factor_to_outside_shelf = None
-        else:
-            self.view_factor_to_outside_shelf = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2808,19 +1331,7 @@ class DaylightingDeviceShelf(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDeviceShelf.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDeviceShelf.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDeviceShelf.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def window_name(self):
@@ -2843,19 +1354,7 @@ class DaylightingDeviceShelf(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDeviceShelf.window_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDeviceShelf.window_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDeviceShelf.window_name`')
-        self._data["Window Name"] = value
+        self["Window Name"] = value
 
     @property
     def inside_shelf_name(self):
@@ -2880,19 +1379,7 @@ class DaylightingDeviceShelf(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDeviceShelf.inside_shelf_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDeviceShelf.inside_shelf_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDeviceShelf.inside_shelf_name`')
-        self._data["Inside Shelf Name"] = value
+        self["Inside Shelf Name"] = value
 
     @property
     def outside_shelf_name(self):
@@ -2916,19 +1403,7 @@ class DaylightingDeviceShelf(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDeviceShelf.outside_shelf_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDeviceShelf.outside_shelf_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDeviceShelf.outside_shelf_name`')
-        self._data["Outside Shelf Name"] = value
+        self["Outside Shelf Name"] = value
 
     @property
     def outside_shelf_construction_name(self):
@@ -2952,19 +1427,7 @@ class DaylightingDeviceShelf(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDeviceShelf.outside_shelf_construction_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDeviceShelf.outside_shelf_construction_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDeviceShelf.outside_shelf_construction_name`')
-        self._data["Outside Shelf Construction Name"] = value
+        self["Outside Shelf Construction Name"] = value
 
     @property
     def view_factor_to_outside_shelf(self):
@@ -2981,7 +1444,6 @@ class DaylightingDeviceShelf(object):
 
         Args:
             value (float): value for IDD Field `View Factor to Outside Shelf`
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2989,173 +1451,25 @@ class DaylightingDeviceShelf(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDeviceShelf.view_factor_to_outside_shelf`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingDeviceShelf.view_factor_to_outside_shelf`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `DaylightingDeviceShelf.view_factor_to_outside_shelf`')
-        self._data["View Factor to Outside Shelf"] = value
+        self["View Factor to Outside Shelf"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DaylightingDeviceShelf:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DaylightingDeviceShelf:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DaylightingDeviceShelf: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DaylightingDeviceShelf: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DaylightingDeviceLightWell(object):
+class DaylightingDeviceLightWell(DataObject):
     """ Corresponds to IDD object `DaylightingDevice:LightWell`
         Applies only to exterior windows in daylighting-controlled zones or
         in zones that share an interior window with a daylighting-controlled  zone.
         Generally used with skylights.
     """
-    internal_name = "DaylightingDevice:LightWell"
-    field_count = 5
-    required_fields = ["Exterior Window Name", "Height of Well", "Perimeter of Bottom of Well", "Area of Bottom of Well", "Visible Reflectance of Well Walls"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'DaylightingDevice:LightWell', 'pyname': u'DaylightingDeviceLightWell', 'format': None, 'fields': OrderedDict([(u'exterior window name', {'name': u'Exterior Window Name', 'pyname': u'exterior_window_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'height of well', {'name': u'Height of Well', 'pyname': u'height_of_well', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'perimeter of bottom of well', {'name': u'Perimeter of Bottom of Well', 'pyname': u'perimeter_of_bottom_of_well', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'area of bottom of well', {'name': u'Area of Bottom of Well', 'pyname': u'area_of_bottom_of_well', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'visible reflectance of well walls', {'name': u'Visible Reflectance of Well Walls', 'pyname': u'visible_reflectance_of_well_walls', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DaylightingDevice:LightWell`
         """
         self._data = OrderedDict()
-        self._data["Exterior Window Name"] = None
-        self._data["Height of Well"] = None
-        self._data["Perimeter of Bottom of Well"] = None
-        self._data["Area of Bottom of Well"] = None
-        self._data["Visible Reflectance of Well Walls"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.exterior_window_name = None
-        else:
-            self.exterior_window_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.height_of_well = None
-        else:
-            self.height_of_well = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.perimeter_of_bottom_of_well = None
-        else:
-            self.perimeter_of_bottom_of_well = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.area_of_bottom_of_well = None
-        else:
-            self.area_of_bottom_of_well = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.visible_reflectance_of_well_walls = None
-        else:
-            self.visible_reflectance_of_well_walls = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def exterior_window_name(self):
@@ -3178,19 +1492,7 @@ class DaylightingDeviceLightWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DaylightingDeviceLightWell.exterior_window_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DaylightingDeviceLightWell.exterior_window_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DaylightingDeviceLightWell.exterior_window_name`')
-        self._data["Exterior Window Name"] = value
+        self["Exterior Window Name"] = value
 
     @property
     def height_of_well(self):
@@ -3209,23 +1511,13 @@ class DaylightingDeviceLightWell(object):
         Args:
             value (float): value for IDD Field `Height of Well`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDeviceLightWell.height_of_well`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingDeviceLightWell.height_of_well`')
-        self._data["Height of Well"] = value
+        self["Height of Well"] = value
 
     @property
     def perimeter_of_bottom_of_well(self):
@@ -3243,23 +1535,13 @@ class DaylightingDeviceLightWell(object):
         Args:
             value (float): value for IDD Field `Perimeter of Bottom of Well`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDeviceLightWell.perimeter_of_bottom_of_well`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `DaylightingDeviceLightWell.perimeter_of_bottom_of_well`')
-        self._data["Perimeter of Bottom of Well"] = value
+        self["Perimeter of Bottom of Well"] = value
 
     @property
     def area_of_bottom_of_well(self):
@@ -3277,23 +1559,13 @@ class DaylightingDeviceLightWell(object):
         Args:
             value (float): value for IDD Field `Area of Bottom of Well`
                 Units: m2
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDeviceLightWell.area_of_bottom_of_well`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `DaylightingDeviceLightWell.area_of_bottom_of_well`')
-        self._data["Area of Bottom of Well"] = value
+        self["Area of Bottom of Well"] = value
 
     @property
     def visible_reflectance_of_well_walls(self):
@@ -3311,7 +1583,6 @@ class DaylightingDeviceLightWell(object):
         Args:
             value (float): value for IDD Field `Visible Reflectance of Well Walls`
                 Units: dimensionless
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3319,140 +1590,24 @@ class DaylightingDeviceLightWell(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DaylightingDeviceLightWell.visible_reflectance_of_well_walls`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DaylightingDeviceLightWell.visible_reflectance_of_well_walls`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `DaylightingDeviceLightWell.visible_reflectance_of_well_walls`')
-        self._data["Visible Reflectance of Well Walls"] = value
+        self["Visible Reflectance of Well Walls"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DaylightingDeviceLightWell:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DaylightingDeviceLightWell:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DaylightingDeviceLightWell: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DaylightingDeviceLightWell: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputDaylightFactors(object):
+class OutputDaylightFactors(DataObject):
     """ Corresponds to IDD object `Output:DaylightFactors`
         Reports hourly daylight factors for each exterior window for four sky types
         (clear, turbid clear, intermediate, and overcast).
     """
-    internal_name = "Output:DaylightFactors"
-    field_count = 1
-    required_fields = ["Reporting Days"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:DaylightFactors', 'pyname': u'OutputDaylightFactors', 'format': None, 'fields': OrderedDict([(u'reporting days', {'name': u'Reporting Days', 'pyname': u'reporting_days', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:DaylightFactors`
         """
         self._data = OrderedDict()
-        self._data["Reporting Days"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.reporting_days = None
-        else:
-            self.reporting_days = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def reporting_days(self):
@@ -3469,240 +1624,30 @@ class OutputDaylightFactors(object):
 
         Args:
             value (str): value for IDD Field `Reporting Days`
-                Accepted values are:
-                      - SizingDays
-                      - AllShadowCalculationDays
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputDaylightFactors.reporting_days`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputDaylightFactors.reporting_days`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputDaylightFactors.reporting_days`')
-            vals = {}
-            vals["sizingdays"] = "SizingDays"
-            vals["allshadowcalculationdays"] = "AllShadowCalculationDays"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputDaylightFactors.reporting_days`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputDaylightFactors.reporting_days`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Reporting Days"] = value
+        self["Reporting Days"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputDaylightFactors:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputDaylightFactors:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputDaylightFactors: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputDaylightFactors: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputIlluminanceMap(object):
+class OutputIlluminanceMap(DataObject):
     """ Corresponds to IDD object `Output:IlluminanceMap`
         reference points are given in coordinates specified in the GlobalGeometryRules object
         Daylighting Reference Point CoordinateSystem field
     """
-    internal_name = "Output:IlluminanceMap"
-    field_count = 9
-    required_fields = ["Name", "Zone Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 9
-    extensible_keys = []
+    schema = {'min-fields': 9, 'name': u'Output:IlluminanceMap', 'pyname': u'OutputIlluminanceMap', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'z height', {'name': u'Z height', 'pyname': u'z_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'x minimum coordinate', {'name': u'X Minimum Coordinate', 'pyname': u'x_minimum_coordinate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'x maximum coordinate', {'name': u'X Maximum Coordinate', 'pyname': u'x_maximum_coordinate', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'number of x grid points', {'name': u'Number of X Grid Points', 'pyname': u'number_of_x_grid_points', 'default': 2, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'y minimum coordinate', {'name': u'Y Minimum Coordinate', 'pyname': u'y_minimum_coordinate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y maximum coordinate', {'name': u'Y Maximum Coordinate', 'pyname': u'y_maximum_coordinate', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'number of y grid points', {'name': u'Number of Y Grid Points', 'pyname': u'number_of_y_grid_points', 'default': 2, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:IlluminanceMap`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Z height"] = None
-        self._data["X Minimum Coordinate"] = None
-        self._data["X Maximum Coordinate"] = None
-        self._data["Number of X Grid Points"] = None
-        self._data["Y Minimum Coordinate"] = None
-        self._data["Y Maximum Coordinate"] = None
-        self._data["Number of Y Grid Points"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.z_height = None
-        else:
-            self.z_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.x_minimum_coordinate = None
-        else:
-            self.x_minimum_coordinate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.x_maximum_coordinate = None
-        else:
-            self.x_maximum_coordinate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_x_grid_points = None
-        else:
-            self.number_of_x_grid_points = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.y_minimum_coordinate = None
-        else:
-            self.y_minimum_coordinate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.y_maximum_coordinate = None
-        else:
-            self.y_maximum_coordinate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_y_grid_points = None
-        else:
-            self.number_of_y_grid_points = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3725,19 +1670,7 @@ class OutputIlluminanceMap(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputIlluminanceMap.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputIlluminanceMap.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputIlluminanceMap.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_name(self):
@@ -3760,19 +1693,7 @@ class OutputIlluminanceMap(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputIlluminanceMap.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputIlluminanceMap.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputIlluminanceMap.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def z_height(self):
@@ -3784,26 +1705,19 @@ class OutputIlluminanceMap(object):
         return self._data["Z height"]
 
     @z_height.setter
-    def z_height(self, value=0.0):
+    def z_height(self, value=None):
         """  Corresponds to IDD Field `Z height`
 
         Args:
             value (float): value for IDD Field `Z height`
                 Units: m
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `OutputIlluminanceMap.z_height`'.format(value))
-        self._data["Z height"] = value
+        self["Z height"] = value
 
     @property
     def x_minimum_coordinate(self):
@@ -3815,26 +1729,19 @@ class OutputIlluminanceMap(object):
         return self._data["X Minimum Coordinate"]
 
     @x_minimum_coordinate.setter
-    def x_minimum_coordinate(self, value=0.0):
+    def x_minimum_coordinate(self, value=None):
         """  Corresponds to IDD Field `X Minimum Coordinate`
 
         Args:
             value (float): value for IDD Field `X Minimum Coordinate`
                 Units: m
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `OutputIlluminanceMap.x_minimum_coordinate`'.format(value))
-        self._data["X Minimum Coordinate"] = value
+        self["X Minimum Coordinate"] = value
 
     @property
     def x_maximum_coordinate(self):
@@ -3859,13 +1766,7 @@ class OutputIlluminanceMap(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `OutputIlluminanceMap.x_maximum_coordinate`'.format(value))
-        self._data["X Maximum Coordinate"] = value
+        self["X Maximum Coordinate"] = value
 
     @property
     def number_of_x_grid_points(self):
@@ -3884,30 +1785,13 @@ class OutputIlluminanceMap(object):
         Args:
             value (int): value for IDD Field `Number of X Grid Points`
                 Default value: 2
-                value > 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputIlluminanceMap.number_of_x_grid_points`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputIlluminanceMap.number_of_x_grid_points`'.format(value))
-            if value <= 0:
-                raise ValueError('value need to be greater 0 '
-                                 'for field `OutputIlluminanceMap.number_of_x_grid_points`')
-        self._data["Number of X Grid Points"] = value
+        self["Number of X Grid Points"] = value
 
     @property
     def y_minimum_coordinate(self):
@@ -3919,26 +1803,19 @@ class OutputIlluminanceMap(object):
         return self._data["Y Minimum Coordinate"]
 
     @y_minimum_coordinate.setter
-    def y_minimum_coordinate(self, value=0.0):
+    def y_minimum_coordinate(self, value=None):
         """  Corresponds to IDD Field `Y Minimum Coordinate`
 
         Args:
             value (float): value for IDD Field `Y Minimum Coordinate`
                 Units: m
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `OutputIlluminanceMap.y_minimum_coordinate`'.format(value))
-        self._data["Y Minimum Coordinate"] = value
+        self["Y Minimum Coordinate"] = value
 
     @property
     def y_maximum_coordinate(self):
@@ -3963,13 +1840,7 @@ class OutputIlluminanceMap(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `OutputIlluminanceMap.y_maximum_coordinate`'.format(value))
-        self._data["Y Maximum Coordinate"] = value
+        self["Y Maximum Coordinate"] = value
 
     @property
     def number_of_y_grid_points(self):
@@ -3988,153 +1859,32 @@ class OutputIlluminanceMap(object):
         Args:
             value (int): value for IDD Field `Number of Y Grid Points`
                 Default value: 2
-                value > 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputIlluminanceMap.number_of_y_grid_points`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputIlluminanceMap.number_of_y_grid_points`'.format(value))
-            if value <= 0:
-                raise ValueError('value need to be greater 0 '
-                                 'for field `OutputIlluminanceMap.number_of_y_grid_points`')
-        self._data["Number of Y Grid Points"] = value
+        self["Number of Y Grid Points"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputIlluminanceMap:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputIlluminanceMap:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputIlluminanceMap: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputIlluminanceMap: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputControlIlluminanceMapStyle(object):
+class OutputControlIlluminanceMapStyle(DataObject):
     """ Corresponds to IDD object `OutputControl:IlluminanceMap:Style`
         default style for the Daylighting Illuminance Map is comma -- this works well for
         importing into spreadsheet programs such as Excel(tm) but not so well for word
         processing progams -- there tab may be a better choice.  fixed puts spaces between
         the "columns"
     """
-    internal_name = "OutputControl:IlluminanceMap:Style"
-    field_count = 1
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'OutputControl:IlluminanceMap:Style', 'pyname': u'OutputControlIlluminanceMapStyle', 'format': None, 'fields': OrderedDict([(u'column separator', {'name': u'Column Separator', 'pyname': u'column_separator', 'default': u'Comma', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:IlluminanceMap:Style`
         """
         self._data = OrderedDict()
-        self._data["Column Separator"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.column_separator = None
-        else:
-            self.column_separator = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def column_separator(self):
@@ -4151,10 +1901,6 @@ class OutputControlIlluminanceMapStyle(object):
 
         Args:
             value (str): value for IDD Field `Column Separator`
-                Accepted values are:
-                      - Comma
-                      - Tab
-                      - Fixed
                 Default value: Comma
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4162,126 +1908,4 @@ class OutputControlIlluminanceMapStyle(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlIlluminanceMapStyle.column_separator`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlIlluminanceMapStyle.column_separator`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlIlluminanceMapStyle.column_separator`')
-            vals = {}
-            vals["comma"] = "Comma"
-            vals["tab"] = "Tab"
-            vals["fixed"] = "Fixed"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlIlluminanceMapStyle.column_separator`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlIlluminanceMapStyle.column_separator`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Column Separator"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputControlIlluminanceMapStyle:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputControlIlluminanceMapStyle:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputControlIlluminanceMapStyle: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputControlIlluminanceMapStyle: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Column Separator"] = value

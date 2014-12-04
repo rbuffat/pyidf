@@ -1,64 +1,28 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class GroundHeatTransferControl(object):
+
+
+class GroundHeatTransferControl(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Control`
         Object determines if the Slab and Basement preprocessors
         are going to be executed.
     """
-    internal_name = "GroundHeatTransfer:Control"
-    field_count = 3
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Control', 'pyname': u'GroundHeatTransferControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'run basement preprocessor', {'name': u'Run Basement Preprocessor', 'pyname': u'run_basement_preprocessor', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'run slab preprocessor', {'name': u'Run Slab Preprocessor', 'pyname': u'run_slab_preprocessor', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Control`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Run Basement Preprocessor"] = None
-        self._data["Run Slab Preprocessor"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.run_basement_preprocessor = None
-        else:
-            self.run_basement_preprocessor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.run_slab_preprocessor = None
-        else:
-            self.run_slab_preprocessor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -82,19 +46,7 @@ class GroundHeatTransferControl(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `GroundHeatTransferControl.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `GroundHeatTransferControl.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `GroundHeatTransferControl.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def run_basement_preprocessor(self):
@@ -111,9 +63,6 @@ class GroundHeatTransferControl(object):
 
         Args:
             value (str): value for IDD Field `Run Basement Preprocessor`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -121,46 +70,7 @@ class GroundHeatTransferControl(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `GroundHeatTransferControl.run_basement_preprocessor`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `GroundHeatTransferControl.run_basement_preprocessor`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `GroundHeatTransferControl.run_basement_preprocessor`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `GroundHeatTransferControl.run_basement_preprocessor`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `GroundHeatTransferControl.run_basement_preprocessor`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Run Basement Preprocessor"] = value
+        self["Run Basement Preprocessor"] = value
 
     @property
     def run_slab_preprocessor(self):
@@ -177,9 +87,6 @@ class GroundHeatTransferControl(object):
 
         Args:
             value (str): value for IDD Field `Run Slab Preprocessor`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -187,230 +94,23 @@ class GroundHeatTransferControl(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `GroundHeatTransferControl.run_slab_preprocessor`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `GroundHeatTransferControl.run_slab_preprocessor`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `GroundHeatTransferControl.run_slab_preprocessor`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `GroundHeatTransferControl.run_slab_preprocessor`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `GroundHeatTransferControl.run_slab_preprocessor`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Run Slab Preprocessor"] = value
+        self["Run Slab Preprocessor"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferControl:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferControl:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferControl: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferControl: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferSlabMaterials(object):
+class GroundHeatTransferSlabMaterials(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:Materials`
         Object gives an overall description of the slab ground heat transfer model.
     """
-    internal_name = "GroundHeatTransfer:Slab:Materials"
-    field_count = 9
-    required_fields = ["NMAT: Number of materials"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:Materials', 'pyname': u'GroundHeatTransferSlabMaterials', 'format': None, 'fields': OrderedDict([(u'nmat: number of materials', {'name': u'NMAT: Number of materials', 'pyname': u'nmat_number_of_materials', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'albedo: surface albedo: no snow', {'name': u'ALBEDO: Surface Albedo: No Snow', 'pyname': u'albedo_surface_albedo_no_snow', 'default': 0.16, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'albedo: surface albedo: snow', {'name': u'ALBEDO: Surface Albedo: Snow', 'pyname': u'albedo_surface_albedo_snow', 'default': 0.4, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'epslw: surface emissivity: no snow', {'name': u'EPSLW: Surface Emissivity: No Snow', 'pyname': u'epslw_surface_emissivity_no_snow', 'default': 0.94, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'epslw: surface emissivity: snow', {'name': u'EPSLW: Surface Emissivity: Snow', 'pyname': u'epslw_surface_emissivity_snow', 'default': 0.86, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'z0: surface roughness: no snow', {'name': u'Z0: Surface Roughness: No Snow', 'pyname': u'z0_surface_roughness_no_snow', 'default': 0.75, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'cm'}), (u'z0: surface roughness: snow', {'name': u'Z0: Surface Roughness: Snow', 'pyname': u'z0_surface_roughness_snow', 'default': 0.25, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'cm'}), (u'hin: indoor hconv: downward flow', {'name': u'HIN: Indoor HConv: Downward Flow', 'pyname': u'hin_indoor_hconv_downward_flow', 'default': 6.13, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: indoor hconv: upward', {'name': u'HIN: Indoor HConv: Upward', 'pyname': u'hin_indoor_hconv_upward', 'default': 9.26, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:Materials`
         """
         self._data = OrderedDict()
-        self._data["NMAT: Number of materials"] = None
-        self._data["ALBEDO: Surface Albedo: No Snow"] = None
-        self._data["ALBEDO: Surface Albedo: Snow"] = None
-        self._data["EPSLW: Surface Emissivity: No Snow"] = None
-        self._data["EPSLW: Surface Emissivity: Snow"] = None
-        self._data["Z0: Surface Roughness: No Snow"] = None
-        self._data["Z0: Surface Roughness: Snow"] = None
-        self._data["HIN: Indoor HConv: Downward Flow"] = None
-        self._data["HIN: Indoor HConv: Upward"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.nmat_number_of_materials = None
-        else:
-            self.nmat_number_of_materials = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.albedo_surface_albedo_no_snow = None
-        else:
-            self.albedo_surface_albedo_no_snow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.albedo_surface_albedo_snow = None
-        else:
-            self.albedo_surface_albedo_snow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.epslw_surface_emissivity_no_snow = None
-        else:
-            self.epslw_surface_emissivity_no_snow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.epslw_surface_emissivity_snow = None
-        else:
-            self.epslw_surface_emissivity_snow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.z0_surface_roughness_no_snow = None
-        else:
-            self.z0_surface_roughness_no_snow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.z0_surface_roughness_snow = None
-        else:
-            self.z0_surface_roughness_snow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hin_indoor_hconv_downward_flow = None
-        else:
-            self.hin_indoor_hconv_downward_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hin_indoor_hconv_upward = None
-        else:
-            self.hin_indoor_hconv_upward = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def nmat_number_of_materials(self):
@@ -429,23 +129,13 @@ class GroundHeatTransferSlabMaterials(object):
 
         Args:
             value (float): value for IDD Field `NMAT: Number of materials`
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMaterials.nmat_number_of_materials`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMaterials.nmat_number_of_materials`')
-        self._data["NMAT: Number of materials"] = value
+        self["NMAT: Number of materials"] = value
 
     @property
     def albedo_surface_albedo_no_snow(self):
@@ -467,7 +157,6 @@ class GroundHeatTransferSlabMaterials(object):
         Args:
             value (float): value for IDD Field `ALBEDO: Surface Albedo: No Snow`
                 Default value: 0.16
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -475,19 +164,7 @@ class GroundHeatTransferSlabMaterials(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMaterials.albedo_surface_albedo_no_snow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferSlabMaterials.albedo_surface_albedo_no_snow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `GroundHeatTransferSlabMaterials.albedo_surface_albedo_no_snow`')
-        self._data["ALBEDO: Surface Albedo: No Snow"] = value
+        self["ALBEDO: Surface Albedo: No Snow"] = value
 
     @property
     def albedo_surface_albedo_snow(self):
@@ -505,7 +182,6 @@ class GroundHeatTransferSlabMaterials(object):
         Args:
             value (float): value for IDD Field `ALBEDO: Surface Albedo: Snow`
                 Default value: 0.4
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -513,19 +189,7 @@ class GroundHeatTransferSlabMaterials(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMaterials.albedo_surface_albedo_snow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferSlabMaterials.albedo_surface_albedo_snow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `GroundHeatTransferSlabMaterials.albedo_surface_albedo_snow`')
-        self._data["ALBEDO: Surface Albedo: Snow"] = value
+        self["ALBEDO: Surface Albedo: Snow"] = value
 
     @property
     def epslw_surface_emissivity_no_snow(self):
@@ -546,23 +210,13 @@ class GroundHeatTransferSlabMaterials(object):
         Args:
             value (float): value for IDD Field `EPSLW: Surface Emissivity: No Snow`
                 Default value: 0.94
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMaterials.epslw_surface_emissivity_no_snow`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMaterials.epslw_surface_emissivity_no_snow`')
-        self._data["EPSLW: Surface Emissivity: No Snow"] = value
+        self["EPSLW: Surface Emissivity: No Snow"] = value
 
     @property
     def epslw_surface_emissivity_snow(self):
@@ -580,23 +234,13 @@ class GroundHeatTransferSlabMaterials(object):
         Args:
             value (float): value for IDD Field `EPSLW: Surface Emissivity: Snow`
                 Default value: 0.86
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMaterials.epslw_surface_emissivity_snow`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMaterials.epslw_surface_emissivity_snow`')
-        self._data["EPSLW: Surface Emissivity: Snow"] = value
+        self["EPSLW: Surface Emissivity: Snow"] = value
 
     @property
     def z0_surface_roughness_no_snow(self):
@@ -617,23 +261,13 @@ class GroundHeatTransferSlabMaterials(object):
             value (float): value for IDD Field `Z0: Surface Roughness: No Snow`
                 Units: cm
                 Default value: 0.75
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMaterials.z0_surface_roughness_no_snow`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMaterials.z0_surface_roughness_no_snow`')
-        self._data["Z0: Surface Roughness: No Snow"] = value
+        self["Z0: Surface Roughness: No Snow"] = value
 
     @property
     def z0_surface_roughness_snow(self):
@@ -653,23 +287,13 @@ class GroundHeatTransferSlabMaterials(object):
             value (float): value for IDD Field `Z0: Surface Roughness: Snow`
                 Units: cm
                 Default value: 0.25
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMaterials.z0_surface_roughness_snow`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMaterials.z0_surface_roughness_snow`')
-        self._data["Z0: Surface Roughness: Snow"] = value
+        self["Z0: Surface Roughness: Snow"] = value
 
     @property
     def hin_indoor_hconv_downward_flow(self):
@@ -694,23 +318,13 @@ class GroundHeatTransferSlabMaterials(object):
             value (float): value for IDD Field `HIN: Indoor HConv: Downward Flow`
                 Units: W/m2-K
                 Default value: 6.13
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMaterials.hin_indoor_hconv_downward_flow`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMaterials.hin_indoor_hconv_downward_flow`')
-        self._data["HIN: Indoor HConv: Downward Flow"] = value
+        self["HIN: Indoor HConv: Downward Flow"] = value
 
     @property
     def hin_indoor_hconv_upward(self):
@@ -730,184 +344,30 @@ class GroundHeatTransferSlabMaterials(object):
             value (float): value for IDD Field `HIN: Indoor HConv: Upward`
                 Units: W/m2-K
                 Default value: 9.26
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMaterials.hin_indoor_hconv_upward`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMaterials.hin_indoor_hconv_upward`')
-        self._data["HIN: Indoor HConv: Upward"] = value
+        self["HIN: Indoor HConv: Upward"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferSlabMaterials:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferSlabMaterials:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferSlabMaterials: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferSlabMaterials: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferSlabMatlProps(object):
+class GroundHeatTransferSlabMatlProps(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:MatlProps`
         This object contains the material properties for the materials
         used in the model. The fields are mostly self explanatory.
     """
-    internal_name = "GroundHeatTransfer:Slab:MatlProps"
-    field_count = 6
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:MatlProps', 'pyname': u'GroundHeatTransferSlabMatlProps', 'format': None, 'fields': OrderedDict([(u'rho: slab material density', {'name': u'RHO: Slab Material density', 'pyname': u'rho_slab_material_density', 'default': 2300.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'rho: soil density', {'name': u'RHO: Soil Density', 'pyname': u'rho_soil_density', 'default': 1200.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'cp: slab cp', {'name': u'CP: Slab CP', 'pyname': u'cp_slab_cp', 'default': 650.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'cp: soil cp', {'name': u'CP: Soil CP', 'pyname': u'cp_soil_cp', 'default': 1200.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'tcon: slab k', {'name': u'TCON: Slab k', 'pyname': u'tcon_slab_k', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'tcon: soil k', {'name': u'TCON: Soil k', 'pyname': u'tcon_soil_k', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:MatlProps`
         """
         self._data = OrderedDict()
-        self._data["RHO: Slab Material density"] = None
-        self._data["RHO: Soil Density"] = None
-        self._data["CP: Slab CP"] = None
-        self._data["CP: Soil CP"] = None
-        self._data["TCON: Slab k"] = None
-        self._data["TCON: Soil k"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.rho_slab_material_density = None
-        else:
-            self.rho_slab_material_density = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rho_soil_density = None
-        else:
-            self.rho_soil_density = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cp_slab_cp = None
-        else:
-            self.cp_slab_cp = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cp_soil_cp = None
-        else:
-            self.cp_soil_cp = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tcon_slab_k = None
-        else:
-            self.tcon_slab_k = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tcon_soil_k = None
-        else:
-            self.tcon_soil_k = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def rho_slab_material_density(self):
@@ -928,23 +388,13 @@ class GroundHeatTransferSlabMatlProps(object):
             value (float): value for IDD Field `RHO: Slab Material density`
                 Units: kg/m3
                 Default value: 2300.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMatlProps.rho_slab_material_density`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMatlProps.rho_slab_material_density`')
-        self._data["RHO: Slab Material density"] = value
+        self["RHO: Slab Material density"] = value
 
     @property
     def rho_soil_density(self):
@@ -965,23 +415,13 @@ class GroundHeatTransferSlabMatlProps(object):
             value (float): value for IDD Field `RHO: Soil Density`
                 Units: kg/m3
                 Default value: 1200.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMatlProps.rho_soil_density`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMatlProps.rho_soil_density`')
-        self._data["RHO: Soil Density"] = value
+        self["RHO: Soil Density"] = value
 
     @property
     def cp_slab_cp(self):
@@ -1002,23 +442,13 @@ class GroundHeatTransferSlabMatlProps(object):
             value (float): value for IDD Field `CP: Slab CP`
                 Units: J/kg-K
                 Default value: 650.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMatlProps.cp_slab_cp`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMatlProps.cp_slab_cp`')
-        self._data["CP: Slab CP"] = value
+        self["CP: Slab CP"] = value
 
     @property
     def cp_soil_cp(self):
@@ -1039,23 +469,13 @@ class GroundHeatTransferSlabMatlProps(object):
             value (float): value for IDD Field `CP: Soil CP`
                 Units: J/kg-K
                 Default value: 1200.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMatlProps.cp_soil_cp`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMatlProps.cp_soil_cp`')
-        self._data["CP: Soil CP"] = value
+        self["CP: Soil CP"] = value
 
     @property
     def tcon_slab_k(self):
@@ -1076,23 +496,13 @@ class GroundHeatTransferSlabMatlProps(object):
             value (float): value for IDD Field `TCON: Slab k`
                 Units: W/m-K
                 Default value: 0.9
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMatlProps.tcon_slab_k`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMatlProps.tcon_slab_k`')
-        self._data["TCON: Slab k"] = value
+        self["TCON: Slab k"] = value
 
     @property
     def tcon_soil_k(self):
@@ -1113,175 +523,29 @@ class GroundHeatTransferSlabMatlProps(object):
             value (float): value for IDD Field `TCON: Soil k`
                 Units: W/m-K
                 Default value: 1.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabMatlProps.tcon_soil_k`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferSlabMatlProps.tcon_soil_k`')
-        self._data["TCON: Soil k"] = value
+        self["TCON: Soil k"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferSlabMatlProps:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferSlabMatlProps:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferSlabMatlProps: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferSlabMatlProps: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferSlabBoundConds(object):
+class GroundHeatTransferSlabBoundConds(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:BoundConds`
         Supplies some of the boundary conditions used in the ground heat transfer calculations.
     """
-    internal_name = "GroundHeatTransfer:Slab:BoundConds"
-    field_count = 5
-    required_fields = ["EVTR: Is surface evapotranspiration modeled", "FIXBC: is the lower boundary at a fixed temperature", "USRHflag: Is the ground surface h specified by the user?"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:BoundConds', 'pyname': u'GroundHeatTransferSlabBoundConds', 'format': None, 'fields': OrderedDict([(u'evtr: is surface evapotranspiration modeled', {'name': u'EVTR: Is surface evapotranspiration modeled', 'pyname': u'evtr_is_surface_evapotranspiration_modeled', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fixbc: is the lower boundary at a fixed temperature', {'name': u'FIXBC: is the lower boundary at a fixed temperature', 'pyname': u'fixbc_is_the_lower_boundary_at_a_fixed_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tdeepin', {'name': u'TDEEPin', 'pyname': u'tdeepin', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'usrhflag: is the ground surface h specified by the user?', {'name': u'USRHflag: Is the ground surface h specified by the user?', 'pyname': u'usrhflag_is_the_ground_surface_h_specified_by_the_user', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'userh: user specified ground surface heat transfer coefficient', {'name': u'USERH: User specified ground surface heat transfer coefficient', 'pyname': u'userh_user_specified_ground_surface_heat_transfer_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:BoundConds`
         """
         self._data = OrderedDict()
-        self._data["EVTR: Is surface evapotranspiration modeled"] = None
-        self._data["FIXBC: is the lower boundary at a fixed temperature"] = None
-        self._data["TDEEPin"] = None
-        self._data["USRHflag: Is the ground surface h specified by the user?"] = None
-        self._data["USERH: User specified ground surface heat transfer coefficient"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.evtr_is_surface_evapotranspiration_modeled = None
-        else:
-            self.evtr_is_surface_evapotranspiration_modeled = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fixbc_is_the_lower_boundary_at_a_fixed_temperature = None
-        else:
-            self.fixbc_is_the_lower_boundary_at_a_fixed_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tdeepin = None
-        else:
-            self.tdeepin = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.usrhflag_is_the_ground_surface_h_specified_by_the_user = None
-        else:
-            self.usrhflag_is_the_ground_surface_h_specified_by_the_user = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.userh_user_specified_ground_surface_heat_transfer_coefficient = None
-        else:
-            self.userh_user_specified_ground_surface_heat_transfer_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def evtr_is_surface_evapotranspiration_modeled(self):
@@ -1303,55 +567,13 @@ class GroundHeatTransferSlabBoundConds(object):
 
         Args:
             value (str): value for IDD Field `EVTR: Is surface evapotranspiration modeled`
-                Accepted values are:
-                      - TRUE
-                      - FALSE
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `GroundHeatTransferSlabBoundConds.evtr_is_surface_evapotranspiration_modeled`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `GroundHeatTransferSlabBoundConds.evtr_is_surface_evapotranspiration_modeled`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `GroundHeatTransferSlabBoundConds.evtr_is_surface_evapotranspiration_modeled`')
-            vals = {}
-            vals["true"] = "TRUE"
-            vals["false"] = "FALSE"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `GroundHeatTransferSlabBoundConds.evtr_is_surface_evapotranspiration_modeled`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `GroundHeatTransferSlabBoundConds.evtr_is_surface_evapotranspiration_modeled`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["EVTR: Is surface evapotranspiration modeled"] = value
+        self["EVTR: Is surface evapotranspiration modeled"] = value
 
     @property
     def fixbc_is_the_lower_boundary_at_a_fixed_temperature(self):
@@ -1372,55 +594,13 @@ class GroundHeatTransferSlabBoundConds(object):
 
         Args:
             value (str): value for IDD Field `FIXBC: is the lower boundary at a fixed temperature`
-                Accepted values are:
-                      - TRUE
-                      - FALSE
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `GroundHeatTransferSlabBoundConds.fixbc_is_the_lower_boundary_at_a_fixed_temperature`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `GroundHeatTransferSlabBoundConds.fixbc_is_the_lower_boundary_at_a_fixed_temperature`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `GroundHeatTransferSlabBoundConds.fixbc_is_the_lower_boundary_at_a_fixed_temperature`')
-            vals = {}
-            vals["true"] = "TRUE"
-            vals["false"] = "FALSE"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `GroundHeatTransferSlabBoundConds.fixbc_is_the_lower_boundary_at_a_fixed_temperature`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `GroundHeatTransferSlabBoundConds.fixbc_is_the_lower_boundary_at_a_fixed_temperature`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["FIXBC: is the lower boundary at a fixed temperature"] = value
+        self["FIXBC: is the lower boundary at a fixed temperature"] = value
 
     @property
     def tdeepin(self):
@@ -1446,13 +626,7 @@ class GroundHeatTransferSlabBoundConds(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBoundConds.tdeepin`'.format(value))
-        self._data["TDEEPin"] = value
+        self["TDEEPin"] = value
 
     @property
     def usrhflag_is_the_ground_surface_h_specified_by_the_user(self):
@@ -1473,55 +647,13 @@ class GroundHeatTransferSlabBoundConds(object):
 
         Args:
             value (str): value for IDD Field `USRHflag: Is the ground surface h specified by the user?`
-                Accepted values are:
-                      - TRUE
-                      - FALSE
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `GroundHeatTransferSlabBoundConds.usrhflag_is_the_ground_surface_h_specified_by_the_user`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `GroundHeatTransferSlabBoundConds.usrhflag_is_the_ground_surface_h_specified_by_the_user`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `GroundHeatTransferSlabBoundConds.usrhflag_is_the_ground_surface_h_specified_by_the_user`')
-            vals = {}
-            vals["true"] = "TRUE"
-            vals["false"] = "FALSE"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `GroundHeatTransferSlabBoundConds.usrhflag_is_the_ground_surface_h_specified_by_the_user`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `GroundHeatTransferSlabBoundConds.usrhflag_is_the_ground_surface_h_specified_by_the_user`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["USRHflag: Is the ground surface h specified by the user?"] = value
+        self["USRHflag: Is the ground surface h specified by the user?"] = value
 
     @property
     def userh_user_specified_ground_surface_heat_transfer_coefficient(self):
@@ -1547,97 +679,10 @@ class GroundHeatTransferSlabBoundConds(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBoundConds.userh_user_specified_ground_surface_heat_transfer_coefficient`'.format(value))
-        self._data["USERH: User specified ground surface heat transfer coefficient"] = value
+        self["USERH: User specified ground surface heat transfer coefficient"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferSlabBoundConds:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferSlabBoundConds:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferSlabBoundConds: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferSlabBoundConds: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferSlabBldgProps(object):
+class GroundHeatTransferSlabBldgProps(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:BldgProps`
         Object provides information about the building and its operating conditions
         Monthly Average Temperature SetPoint fields
@@ -1649,167 +694,16 @@ class GroundHeatTransferSlabBldgProps(object):
         insulated floor boundary condition, and then using the resulting
         monthly average zone temperatures in these fields.
     """
-    internal_name = "GroundHeatTransfer:Slab:BldgProps"
-    field_count = 17
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:BldgProps', 'pyname': u'GroundHeatTransferSlabBldgProps', 'format': None, 'fields': OrderedDict([(u'iyrs: number of years to iterate', {'name': u'IYRS: Number of years to iterate', 'pyname': u'iyrs_number_of_years_to_iterate', 'default': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'shape: slab shape', {'name': u'Shape: Slab shape', 'pyname': u'shape_slab_shape', 'maximum': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'hbldg: building height', {'name': u'HBLDG: Building height', 'pyname': u'hbldg_building_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'tin1: january indoor average temperature setpoint', {'name': u'TIN1: January Indoor Average Temperature Setpoint', 'pyname': u'tin1_january_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin2: february indoor average temperature setpoint', {'name': u'TIN2: February Indoor Average Temperature Setpoint', 'pyname': u'tin2_february_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin3: march indoor average temperature setpoint', {'name': u'TIN3: March Indoor Average Temperature Setpoint', 'pyname': u'tin3_march_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin4: april indoor average temperature setpoint', {'name': u'TIN4: April Indoor Average Temperature Setpoint', 'pyname': u'tin4_april_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin5: may indoor average temperature setpoint', {'name': u'TIN5: May Indoor Average Temperature Setpoint', 'pyname': u'tin5_may_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin6: june indoor average temperature setpoint', {'name': u'TIN6: June Indoor Average Temperature Setpoint', 'pyname': u'tin6_june_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin7: july indoor average temperature setpoint', {'name': u'TIN7: July Indoor Average Temperature Setpoint', 'pyname': u'tin7_july_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin8: august indoor average temperature setpoint', {'name': u'TIN8: August Indoor Average Temperature Setpoint', 'pyname': u'tin8_august_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin9: september indoor average temperature setpoint', {'name': u'TIN9: September Indoor Average Temperature Setpoint', 'pyname': u'tin9_september_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin10: october indoor average temperature setpoint', {'name': u'TIN10: October Indoor Average Temperature Setpoint', 'pyname': u'tin10_october_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin11: november indoor average temperature setpoint', {'name': u'TIN11: November Indoor Average Temperature Setpoint', 'pyname': u'tin11_november_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin12: december indoor average temperature setpoint', {'name': u'TIN12: December Indoor Average Temperature Setpoint', 'pyname': u'tin12_december_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tinamp: daily indoor sine wave variation amplitude', {'name': u'TINAmp: Daily Indoor sine wave variation amplitude', 'pyname': u'tinamp_daily_indoor_sine_wave_variation_amplitude', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'convtol: convergence tolerance', {'name': u'ConvTol: Convergence Tolerance', 'pyname': u'convtol_convergence_tolerance', 'default': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:BldgProps`
         """
         self._data = OrderedDict()
-        self._data["IYRS: Number of years to iterate"] = None
-        self._data["Shape: Slab shape"] = None
-        self._data["HBLDG: Building height"] = None
-        self._data["TIN1: January Indoor Average Temperature Setpoint"] = None
-        self._data["TIN2: February Indoor Average Temperature Setpoint"] = None
-        self._data["TIN3: March Indoor Average Temperature Setpoint"] = None
-        self._data["TIN4: April Indoor Average Temperature Setpoint"] = None
-        self._data["TIN5: May Indoor Average Temperature Setpoint"] = None
-        self._data["TIN6: June Indoor Average Temperature Setpoint"] = None
-        self._data["TIN7: July Indoor Average Temperature Setpoint"] = None
-        self._data["TIN8: August Indoor Average Temperature Setpoint"] = None
-        self._data["TIN9: September Indoor Average Temperature Setpoint"] = None
-        self._data["TIN10: October Indoor Average Temperature Setpoint"] = None
-        self._data["TIN11: November Indoor Average Temperature Setpoint"] = None
-        self._data["TIN12: December Indoor Average Temperature Setpoint"] = None
-        self._data["TINAmp: Daily Indoor sine wave variation amplitude"] = None
-        self._data["ConvTol: Convergence Tolerance"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.iyrs_number_of_years_to_iterate = None
-        else:
-            self.iyrs_number_of_years_to_iterate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.shape_slab_shape = None
-        else:
-            self.shape_slab_shape = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hbldg_building_height = None
-        else:
-            self.hbldg_building_height = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin1_january_indoor_average_temperature_setpoint = None
-        else:
-            self.tin1_january_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin2_february_indoor_average_temperature_setpoint = None
-        else:
-            self.tin2_february_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin3_march_indoor_average_temperature_setpoint = None
-        else:
-            self.tin3_march_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin4_april_indoor_average_temperature_setpoint = None
-        else:
-            self.tin4_april_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin5_may_indoor_average_temperature_setpoint = None
-        else:
-            self.tin5_may_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin6_june_indoor_average_temperature_setpoint = None
-        else:
-            self.tin6_june_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin7_july_indoor_average_temperature_setpoint = None
-        else:
-            self.tin7_july_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin8_august_indoor_average_temperature_setpoint = None
-        else:
-            self.tin8_august_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin9_september_indoor_average_temperature_setpoint = None
-        else:
-            self.tin9_september_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin10_october_indoor_average_temperature_setpoint = None
-        else:
-            self.tin10_october_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin11_november_indoor_average_temperature_setpoint = None
-        else:
-            self.tin11_november_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tin12_december_indoor_average_temperature_setpoint = None
-        else:
-            self.tin12_december_indoor_average_temperature_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tinamp_daily_indoor_sine_wave_variation_amplitude = None
-        else:
-            self.tinamp_daily_indoor_sine_wave_variation_amplitude = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.convtol_convergence_tolerance = None
-        else:
-            self.convtol_convergence_tolerance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def iyrs_number_of_years_to_iterate(self):
@@ -1839,16 +733,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.iyrs_number_of_years_to_iterate`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `GroundHeatTransferSlabBldgProps.iyrs_number_of_years_to_iterate`')
-        self._data["IYRS: Number of years to iterate"] = value
+        self["IYRS: Number of years to iterate"] = value
 
     @property
     def shape_slab_shape(self):
@@ -1866,27 +751,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `Shape: Slab shape`
-                value >= 0.0
-                value <= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.shape_slab_shape`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferSlabBldgProps.shape_slab_shape`')
-            if value > 0.0:
-                raise ValueError('value need to be smaller 0.0 '
-                                 'for field `GroundHeatTransferSlabBldgProps.shape_slab_shape`')
-        self._data["Shape: Slab shape"] = value
+        self["Shape: Slab shape"] = value
 
     @property
     def hbldg_building_height(self):
@@ -1907,23 +778,13 @@ class GroundHeatTransferSlabBldgProps(object):
         Args:
             value (float): value for IDD Field `HBLDG: Building height`
                 Units: m
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.hbldg_building_height`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferSlabBldgProps.hbldg_building_height`')
-        self._data["HBLDG: Building height"] = value
+        self["HBLDG: Building height"] = value
 
     @property
     def tin1_january_indoor_average_temperature_setpoint(self):
@@ -1949,13 +810,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin1_january_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN1: January Indoor Average Temperature Setpoint"] = value
+        self["TIN1: January Indoor Average Temperature Setpoint"] = value
 
     @property
     def tin2_february_indoor_average_temperature_setpoint(self):
@@ -1981,13 +836,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin2_february_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN2: February Indoor Average Temperature Setpoint"] = value
+        self["TIN2: February Indoor Average Temperature Setpoint"] = value
 
     @property
     def tin3_march_indoor_average_temperature_setpoint(self):
@@ -2013,13 +862,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin3_march_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN3: March Indoor Average Temperature Setpoint"] = value
+        self["TIN3: March Indoor Average Temperature Setpoint"] = value
 
     @property
     def tin4_april_indoor_average_temperature_setpoint(self):
@@ -2045,13 +888,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin4_april_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN4: April Indoor Average Temperature Setpoint"] = value
+        self["TIN4: April Indoor Average Temperature Setpoint"] = value
 
     @property
     def tin5_may_indoor_average_temperature_setpoint(self):
@@ -2077,13 +914,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin5_may_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN5: May Indoor Average Temperature Setpoint"] = value
+        self["TIN5: May Indoor Average Temperature Setpoint"] = value
 
     @property
     def tin6_june_indoor_average_temperature_setpoint(self):
@@ -2109,13 +940,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin6_june_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN6: June Indoor Average Temperature Setpoint"] = value
+        self["TIN6: June Indoor Average Temperature Setpoint"] = value
 
     @property
     def tin7_july_indoor_average_temperature_setpoint(self):
@@ -2141,13 +966,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin7_july_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN7: July Indoor Average Temperature Setpoint"] = value
+        self["TIN7: July Indoor Average Temperature Setpoint"] = value
 
     @property
     def tin8_august_indoor_average_temperature_setpoint(self):
@@ -2173,13 +992,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin8_august_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN8: August Indoor Average Temperature Setpoint"] = value
+        self["TIN8: August Indoor Average Temperature Setpoint"] = value
 
     @property
     def tin9_september_indoor_average_temperature_setpoint(self):
@@ -2205,13 +1018,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin9_september_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN9: September Indoor Average Temperature Setpoint"] = value
+        self["TIN9: September Indoor Average Temperature Setpoint"] = value
 
     @property
     def tin10_october_indoor_average_temperature_setpoint(self):
@@ -2237,13 +1044,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin10_october_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN10: October Indoor Average Temperature Setpoint"] = value
+        self["TIN10: October Indoor Average Temperature Setpoint"] = value
 
     @property
     def tin11_november_indoor_average_temperature_setpoint(self):
@@ -2269,13 +1070,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin11_november_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN11: November Indoor Average Temperature Setpoint"] = value
+        self["TIN11: November Indoor Average Temperature Setpoint"] = value
 
     @property
     def tin12_december_indoor_average_temperature_setpoint(self):
@@ -2301,13 +1096,7 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tin12_december_indoor_average_temperature_setpoint`'.format(value))
-        self._data["TIN12: December Indoor Average Temperature Setpoint"] = value
+        self["TIN12: December Indoor Average Temperature Setpoint"] = value
 
     @property
     def tinamp_daily_indoor_sine_wave_variation_amplitude(self):
@@ -2319,7 +1108,7 @@ class GroundHeatTransferSlabBldgProps(object):
         return self._data["TINAmp: Daily Indoor sine wave variation amplitude"]
 
     @tinamp_daily_indoor_sine_wave_variation_amplitude.setter
-    def tinamp_daily_indoor_sine_wave_variation_amplitude(self, value=0.0):
+    def tinamp_daily_indoor_sine_wave_variation_amplitude(self, value=None):
         """  Corresponds to IDD Field `TINAmp: Daily Indoor sine wave variation amplitude`
         This field permits imposing a daily sinusoidal variation
         in the indoor setpoint temperature to simulate the effect
@@ -2329,20 +1118,13 @@ class GroundHeatTransferSlabBldgProps(object):
         Args:
             value (float): value for IDD Field `TINAmp: Daily Indoor sine wave variation amplitude`
                 Units: deltaC
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.tinamp_daily_indoor_sine_wave_variation_amplitude`'.format(value))
-        self._data["TINAmp: Daily Indoor sine wave variation amplitude"] = value
+        self["TINAmp: Daily Indoor sine wave variation amplitude"] = value
 
     @property
     def convtol_convergence_tolerance(self):
@@ -2369,167 +1151,25 @@ class GroundHeatTransferSlabBldgProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabBldgProps.convtol_convergence_tolerance`'.format(value))
-        self._data["ConvTol: Convergence Tolerance"] = value
+        self["ConvTol: Convergence Tolerance"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferSlabBldgProps:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferSlabBldgProps:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferSlabBldgProps: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferSlabBldgProps: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferSlabInsulation(object):
+class GroundHeatTransferSlabInsulation(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:Insulation`
         This object supplies the information about insulation used around the slab.
         There are two possible configurations: under the slab or vertical insulation
         around the slab.
     """
-    internal_name = "GroundHeatTransfer:Slab:Insulation"
-    field_count = 5
-    required_fields = ["IVINS: Flag: Is there vertical insulation"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:Insulation', 'pyname': u'GroundHeatTransferSlabInsulation', 'format': None, 'fields': OrderedDict([(u'rins: r value of under slab insulation', {'name': u'RINS: R value of under slab insulation', 'pyname': u'rins_r_value_of_under_slab_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'dins: width of strip of under slab insulation', {'name': u'DINS: Width of strip of under slab insulation', 'pyname': u'dins_width_of_strip_of_under_slab_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'rvins: r value of vertical insulation', {'name': u'RVINS: R value of vertical insulation', 'pyname': u'rvins_r_value_of_vertical_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'zvins: depth of vertical insulation', {'name': u'ZVINS: Depth of vertical insulation', 'pyname': u'zvins_depth_of_vertical_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'ivins: flag: is there vertical insulation', {'name': u'IVINS: Flag: Is there vertical insulation', 'pyname': u'ivins_flag_is_there_vertical_insulation', 'default': u'0', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'int'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:Insulation`
         """
         self._data = OrderedDict()
-        self._data["RINS: R value of under slab insulation"] = None
-        self._data["DINS: Width of strip of under slab insulation"] = None
-        self._data["RVINS: R value of vertical insulation"] = None
-        self._data["ZVINS: Depth of vertical insulation"] = None
-        self._data["IVINS: Flag: Is there vertical insulation"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.rins_r_value_of_under_slab_insulation = None
-        else:
-            self.rins_r_value_of_under_slab_insulation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.dins_width_of_strip_of_under_slab_insulation = None
-        else:
-            self.dins_width_of_strip_of_under_slab_insulation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rvins_r_value_of_vertical_insulation = None
-        else:
-            self.rvins_r_value_of_vertical_insulation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zvins_depth_of_vertical_insulation = None
-        else:
-            self.zvins_depth_of_vertical_insulation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ivins_flag_is_there_vertical_insulation = None
-        else:
-            self.ivins_flag_is_there_vertical_insulation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def rins_r_value_of_under_slab_insulation(self):
@@ -2541,7 +1181,7 @@ class GroundHeatTransferSlabInsulation(object):
         return self._data["RINS: R value of under slab insulation"]
 
     @rins_r_value_of_under_slab_insulation.setter
-    def rins_r_value_of_under_slab_insulation(self, value=0.0):
+    def rins_r_value_of_under_slab_insulation(self, value=None):
         """  Corresponds to IDD Field `RINS: R value of under slab insulation`
         This field provides the thermal resistance value
         of the under slab insulation. It should be zero
@@ -2551,20 +1191,13 @@ class GroundHeatTransferSlabInsulation(object):
         Args:
             value (float): value for IDD Field `RINS: R value of under slab insulation`
                 Units: m2-K/W
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabInsulation.rins_r_value_of_under_slab_insulation`'.format(value))
-        self._data["RINS: R value of under slab insulation"] = value
+        self["RINS: R value of under slab insulation"] = value
 
     @property
     def dins_width_of_strip_of_under_slab_insulation(self):
@@ -2576,7 +1209,7 @@ class GroundHeatTransferSlabInsulation(object):
         return self._data["DINS: Width of strip of under slab insulation"]
 
     @dins_width_of_strip_of_under_slab_insulation.setter
-    def dins_width_of_strip_of_under_slab_insulation(self, value=0.0):
+    def dins_width_of_strip_of_under_slab_insulation(self, value=None):
         """  Corresponds to IDD Field `DINS: Width of strip of under slab insulation`
         This specifies the width of the perimeter strip of insulation
         under the slab. It should be zero if for the vertical insulation
@@ -2586,20 +1219,13 @@ class GroundHeatTransferSlabInsulation(object):
         Args:
             value (float): value for IDD Field `DINS: Width of strip of under slab insulation`
                 Units: m
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabInsulation.dins_width_of_strip_of_under_slab_insulation`'.format(value))
-        self._data["DINS: Width of strip of under slab insulation"] = value
+        self["DINS: Width of strip of under slab insulation"] = value
 
     @property
     def rvins_r_value_of_vertical_insulation(self):
@@ -2611,7 +1237,7 @@ class GroundHeatTransferSlabInsulation(object):
         return self._data["RVINS: R value of vertical insulation"]
 
     @rvins_r_value_of_vertical_insulation.setter
-    def rvins_r_value_of_vertical_insulation(self, value=0.0):
+    def rvins_r_value_of_vertical_insulation(self, value=None):
         """  Corresponds to IDD Field `RVINS: R value of vertical insulation`
         This field specifies the thermal resistance of the vertical
         insulation. It should be zero if the under slab insulation
@@ -2621,20 +1247,13 @@ class GroundHeatTransferSlabInsulation(object):
         Args:
             value (float): value for IDD Field `RVINS: R value of vertical insulation`
                 Units: m2-K/W
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabInsulation.rvins_r_value_of_vertical_insulation`'.format(value))
-        self._data["RVINS: R value of vertical insulation"] = value
+        self["RVINS: R value of vertical insulation"] = value
 
     @property
     def zvins_depth_of_vertical_insulation(self):
@@ -2646,7 +1265,7 @@ class GroundHeatTransferSlabInsulation(object):
         return self._data["ZVINS: Depth of vertical insulation"]
 
     @zvins_depth_of_vertical_insulation.setter
-    def zvins_depth_of_vertical_insulation(self, value=0.0):
+    def zvins_depth_of_vertical_insulation(self, value=None):
         """  Corresponds to IDD Field `ZVINS: Depth of vertical insulation`
         This field specifies the depth of the vertical insulation
         into the ground in meters. It starts at the slab upper surface
@@ -2658,20 +1277,13 @@ class GroundHeatTransferSlabInsulation(object):
         Args:
             value (float): value for IDD Field `ZVINS: Depth of vertical insulation`
                 Units: m
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabInsulation.zvins_depth_of_vertical_insulation`'.format(value))
-        self._data["ZVINS: Depth of vertical insulation"] = value
+        self["ZVINS: Depth of vertical insulation"] = value
 
     @property
     def ivins_flag_is_there_vertical_insulation(self):
@@ -2690,9 +1302,6 @@ class GroundHeatTransferSlabInsulation(object):
 
         Args:
             value (str): value for IDD Field `IVINS: Flag: Is there vertical insulation`
-                Accepted values are:
-                      - 0
-                      - 1
                 Default value: 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2700,193 +1309,26 @@ class GroundHeatTransferSlabInsulation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `GroundHeatTransferSlabInsulation.ivins_flag_is_there_vertical_insulation`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `GroundHeatTransferSlabInsulation.ivins_flag_is_there_vertical_insulation`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `GroundHeatTransferSlabInsulation.ivins_flag_is_there_vertical_insulation`')
-            vals = {}
-            vals["0"] = "0"
-            vals["1"] = "1"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `GroundHeatTransferSlabInsulation.ivins_flag_is_there_vertical_insulation`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `GroundHeatTransferSlabInsulation.ivins_flag_is_there_vertical_insulation`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["IVINS: Flag: Is there vertical insulation"] = value
+        self["IVINS: Flag: Is there vertical insulation"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferSlabInsulation:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferSlabInsulation:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferSlabInsulation: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferSlabInsulation: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferSlabEquivalentSlab(object):
+class GroundHeatTransferSlabEquivalentSlab(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:EquivalentSlab`
         Using an equivalent slab allows non-rectangular shapes to be modeled accurately.
         Object uses the area - perimeter (area/perimeter) ratio to determine the
         size of an equivalent rectangular slab.
         EnergyPlus users normally use this option.
     """
-    internal_name = "GroundHeatTransfer:Slab:EquivalentSlab"
-    field_count = 4
-    required_fields = ["APRatio: The area to perimeter ratio for this slab"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:EquivalentSlab', 'pyname': u'GroundHeatTransferSlabEquivalentSlab', 'format': None, 'fields': OrderedDict([(u'apratio: the area to perimeter ratio for this slab', {'name': u'APRatio: The area to perimeter ratio for this slab', 'pyname': u'apratio_the_area_to_perimeter_ratio_for_this_slab', 'maximum': 22.0, 'required-field': True, 'autosizable': False, 'minimum': 1.5, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slabdepth: thickness of slab on grade', {'name': u'SLABDEPTH: Thickness of slab on grade', 'pyname': u'slabdepth_thickness_of_slab_on_grade', 'default': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'clearance: distance from edge of slab to domain edge', {'name': u'CLEARANCE: Distance from edge of slab to domain edge', 'pyname': u'clearance_distance_from_edge_of_slab_to_domain_edge', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'zclearance: distance from bottom of slab to domain bottom', {'name': u'ZCLEARANCE: Distance from bottom of slab to domain bottom', 'pyname': u'zclearance_distance_from_bottom_of_slab_to_domain_bottom', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:EquivalentSlab`
         """
         self._data = OrderedDict()
-        self._data["APRatio: The area to perimeter ratio for this slab"] = None
-        self._data["SLABDEPTH: Thickness of slab on grade"] = None
-        self._data["CLEARANCE: Distance from edge of slab to domain edge"] = None
-        self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.apratio_the_area_to_perimeter_ratio_for_this_slab = None
-        else:
-            self.apratio_the_area_to_perimeter_ratio_for_this_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.slabdepth_thickness_of_slab_on_grade = None
-        else:
-            self.slabdepth_thickness_of_slab_on_grade = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.clearance_distance_from_edge_of_slab_to_domain_edge = None
-        else:
-            self.clearance_distance_from_edge_of_slab_to_domain_edge = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zclearance_distance_from_bottom_of_slab_to_domain_bottom = None
-        else:
-            self.zclearance_distance_from_bottom_of_slab_to_domain_bottom = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self):
@@ -2913,19 +1355,7 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabEquivalentSlab.apratio_the_area_to_perimeter_ratio_for_this_slab`'.format(value))
-            if value < 1.5:
-                raise ValueError('value need to be greater or equal 1.5 '
-                                 'for field `GroundHeatTransferSlabEquivalentSlab.apratio_the_area_to_perimeter_ratio_for_this_slab`')
-            if value > 22.0:
-                raise ValueError('value need to be smaller 22.0 '
-                                 'for field `GroundHeatTransferSlabEquivalentSlab.apratio_the_area_to_perimeter_ratio_for_this_slab`')
-        self._data["APRatio: The area to perimeter ratio for this slab"] = value
+        self["APRatio: The area to perimeter ratio for this slab"] = value
 
     @property
     def slabdepth_thickness_of_slab_on_grade(self):
@@ -2957,13 +1387,7 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabEquivalentSlab.slabdepth_thickness_of_slab_on_grade`'.format(value))
-        self._data["SLABDEPTH: Thickness of slab on grade"] = value
+        self["SLABDEPTH: Thickness of slab on grade"] = value
 
     @property
     def clearance_distance_from_edge_of_slab_to_domain_edge(self):
@@ -2992,13 +1416,7 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabEquivalentSlab.clearance_distance_from_edge_of_slab_to_domain_edge`'.format(value))
-        self._data["CLEARANCE: Distance from edge of slab to domain edge"] = value
+        self["CLEARANCE: Distance from edge of slab to domain edge"] = value
 
     @property
     def zclearance_distance_from_bottom_of_slab_to_domain_bottom(self):
@@ -3026,168 +1444,26 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabEquivalentSlab.zclearance_distance_from_bottom_of_slab_to_domain_bottom`'.format(value))
-        self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = value
+        self["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferSlabEquivalentSlab:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferSlabEquivalentSlab:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferSlabEquivalentSlab: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferSlabEquivalentSlab: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferSlabAutoGrid(object):
+class GroundHeatTransferSlabAutoGrid(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:AutoGrid`
         AutoGrid only necessary when EquivalentSlab option not chosen.
         Not normally needed by EnergyPlus users.
         This object permits user selection of rectangular slab dimensions.
         NO SLAB DIMENSIONS LESS THAN 6 m.
     """
-    internal_name = "GroundHeatTransfer:Slab:AutoGrid"
-    field_count = 5
-    required_fields = ["SLABX: X dimension of the building slab", "SLABY: Y dimension of the building slab"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:AutoGrid', 'pyname': u'GroundHeatTransferSlabAutoGrid', 'format': None, 'fields': OrderedDict([(u'slabx: x dimension of the building slab', {'name': u'SLABX: X dimension of the building slab', 'pyname': u'slabx_x_dimension_of_the_building_slab', 'required-field': True, 'autosizable': False, 'minimum': 6.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slaby: y dimension of the building slab', {'name': u'SLABY: Y dimension of the building slab', 'pyname': u'slaby_y_dimension_of_the_building_slab', 'required-field': True, 'autosizable': False, 'minimum': 6.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slabdepth: thickness of slab on grade', {'name': u'SLABDEPTH: Thickness of slab on grade', 'pyname': u'slabdepth_thickness_of_slab_on_grade', 'default': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'clearance: distance from edge of slab to domain edge', {'name': u'CLEARANCE: Distance from edge of slab to domain edge', 'pyname': u'clearance_distance_from_edge_of_slab_to_domain_edge', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'zclearance: distance from bottom of slab to domain bottom', {'name': u'ZCLEARANCE: Distance from bottom of slab to domain bottom', 'pyname': u'zclearance_distance_from_bottom_of_slab_to_domain_bottom', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:AutoGrid`
         """
         self._data = OrderedDict()
-        self._data["SLABX: X dimension of the building slab"] = None
-        self._data["SLABY: Y dimension of the building slab"] = None
-        self._data["SLABDEPTH: Thickness of slab on grade"] = None
-        self._data["CLEARANCE: Distance from edge of slab to domain edge"] = None
-        self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.slabx_x_dimension_of_the_building_slab = None
-        else:
-            self.slabx_x_dimension_of_the_building_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.slaby_y_dimension_of_the_building_slab = None
-        else:
-            self.slaby_y_dimension_of_the_building_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.slabdepth_thickness_of_slab_on_grade = None
-        else:
-            self.slabdepth_thickness_of_slab_on_grade = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.clearance_distance_from_edge_of_slab_to_domain_edge = None
-        else:
-            self.clearance_distance_from_edge_of_slab_to_domain_edge = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zclearance_distance_from_bottom_of_slab_to_domain_bottom = None
-        else:
-            self.zclearance_distance_from_bottom_of_slab_to_domain_bottom = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def slabx_x_dimension_of_the_building_slab(self):
@@ -3213,16 +1489,7 @@ class GroundHeatTransferSlabAutoGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabAutoGrid.slabx_x_dimension_of_the_building_slab`'.format(value))
-            if value < 6.0:
-                raise ValueError('value need to be greater or equal 6.0 '
-                                 'for field `GroundHeatTransferSlabAutoGrid.slabx_x_dimension_of_the_building_slab`')
-        self._data["SLABX: X dimension of the building slab"] = value
+        self["SLABX: X dimension of the building slab"] = value
 
     @property
     def slaby_y_dimension_of_the_building_slab(self):
@@ -3248,16 +1515,7 @@ class GroundHeatTransferSlabAutoGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabAutoGrid.slaby_y_dimension_of_the_building_slab`'.format(value))
-            if value < 6.0:
-                raise ValueError('value need to be greater or equal 6.0 '
-                                 'for field `GroundHeatTransferSlabAutoGrid.slaby_y_dimension_of_the_building_slab`')
-        self._data["SLABY: Y dimension of the building slab"] = value
+        self["SLABY: Y dimension of the building slab"] = value
 
     @property
     def slabdepth_thickness_of_slab_on_grade(self):
@@ -3282,13 +1540,7 @@ class GroundHeatTransferSlabAutoGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabAutoGrid.slabdepth_thickness_of_slab_on_grade`'.format(value))
-        self._data["SLABDEPTH: Thickness of slab on grade"] = value
+        self["SLABDEPTH: Thickness of slab on grade"] = value
 
     @property
     def clearance_distance_from_edge_of_slab_to_domain_edge(self):
@@ -3313,13 +1565,7 @@ class GroundHeatTransferSlabAutoGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabAutoGrid.clearance_distance_from_edge_of_slab_to_domain_edge`'.format(value))
-        self._data["CLEARANCE: Distance from edge of slab to domain edge"] = value
+        self["CLEARANCE: Distance from edge of slab to domain edge"] = value
 
     @property
     def zclearance_distance_from_bottom_of_slab_to_domain_bottom(self):
@@ -3344,167 +1590,25 @@ class GroundHeatTransferSlabAutoGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabAutoGrid.zclearance_distance_from_bottom_of_slab_to_domain_bottom`'.format(value))
-        self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = value
+        self["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferSlabAutoGrid:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferSlabAutoGrid:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferSlabAutoGrid: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferSlabAutoGrid: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferSlabManualGrid(object):
+class GroundHeatTransferSlabManualGrid(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:ManualGrid`
         Manual Grid only necessary when using manual gridding (not recommended)
         Used only in special cases when previous two objects are not used.
         User must input complete gridding information.
     """
-    internal_name = "GroundHeatTransfer:Slab:ManualGrid"
-    field_count = 5
-    required_fields = ["NX: Number of cells in the X direction", "NY: Number of cells in the Y direction", "NZ: Number of cells in the Z direction", "IBOX: X direction cell indicator of slab edge", "JBOX: Y direction cell indicator of slab edge"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:ManualGrid', 'pyname': u'GroundHeatTransferSlabManualGrid', 'format': None, 'fields': OrderedDict([(u'nx: number of cells in the x direction', {'name': u'NX: Number of cells in the X direction', 'pyname': u'nx_number_of_cells_in_the_x_direction', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'ny: number of cells in the y direction', {'name': u'NY: Number of cells in the Y direction', 'pyname': u'ny_number_of_cells_in_the_y_direction', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'nz: number of cells in the z direction', {'name': u'NZ: Number of cells in the Z direction', 'pyname': u'nz_number_of_cells_in_the_z_direction', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'ibox: x direction cell indicator of slab edge', {'name': u'IBOX: X direction cell indicator of slab edge', 'pyname': u'ibox_x_direction_cell_indicator_of_slab_edge', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'jbox: y direction cell indicator of slab edge', {'name': u'JBOX: Y direction cell indicator of slab edge', 'pyname': u'jbox_y_direction_cell_indicator_of_slab_edge', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:ManualGrid`
         """
         self._data = OrderedDict()
-        self._data["NX: Number of cells in the X direction"] = None
-        self._data["NY: Number of cells in the Y direction"] = None
-        self._data["NZ: Number of cells in the Z direction"] = None
-        self._data["IBOX: X direction cell indicator of slab edge"] = None
-        self._data["JBOX: Y direction cell indicator of slab edge"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.nx_number_of_cells_in_the_x_direction = None
-        else:
-            self.nx_number_of_cells_in_the_x_direction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ny_number_of_cells_in_the_y_direction = None
-        else:
-            self.ny_number_of_cells_in_the_y_direction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nz_number_of_cells_in_the_z_direction = None
-        else:
-            self.nz_number_of_cells_in_the_z_direction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ibox_x_direction_cell_indicator_of_slab_edge = None
-        else:
-            self.ibox_x_direction_cell_indicator_of_slab_edge = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.jbox_y_direction_cell_indicator_of_slab_edge = None
-        else:
-            self.jbox_y_direction_cell_indicator_of_slab_edge = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def nx_number_of_cells_in_the_x_direction(self):
@@ -3528,16 +1632,7 @@ class GroundHeatTransferSlabManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabManualGrid.nx_number_of_cells_in_the_x_direction`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `GroundHeatTransferSlabManualGrid.nx_number_of_cells_in_the_x_direction`')
-        self._data["NX: Number of cells in the X direction"] = value
+        self["NX: Number of cells in the X direction"] = value
 
     @property
     def ny_number_of_cells_in_the_y_direction(self):
@@ -3561,16 +1656,7 @@ class GroundHeatTransferSlabManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabManualGrid.ny_number_of_cells_in_the_y_direction`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `GroundHeatTransferSlabManualGrid.ny_number_of_cells_in_the_y_direction`')
-        self._data["NY: Number of cells in the Y direction"] = value
+        self["NY: Number of cells in the Y direction"] = value
 
     @property
     def nz_number_of_cells_in_the_z_direction(self):
@@ -3594,16 +1680,7 @@ class GroundHeatTransferSlabManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabManualGrid.nz_number_of_cells_in_the_z_direction`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `GroundHeatTransferSlabManualGrid.nz_number_of_cells_in_the_z_direction`')
-        self._data["NZ: Number of cells in the Z direction"] = value
+        self["NZ: Number of cells in the Z direction"] = value
 
     @property
     def ibox_x_direction_cell_indicator_of_slab_edge(self):
@@ -3627,13 +1704,7 @@ class GroundHeatTransferSlabManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabManualGrid.ibox_x_direction_cell_indicator_of_slab_edge`'.format(value))
-        self._data["IBOX: X direction cell indicator of slab edge"] = value
+        self["IBOX: X direction cell indicator of slab edge"] = value
 
     @property
     def jbox_y_direction_cell_indicator_of_slab_edge(self):
@@ -3657,142 +1728,24 @@ class GroundHeatTransferSlabManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferSlabManualGrid.jbox_y_direction_cell_indicator_of_slab_edge`'.format(value))
-        self._data["JBOX: Y direction cell indicator of slab edge"] = value
+        self["JBOX: Y direction cell indicator of slab edge"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferSlabManualGrid:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferSlabManualGrid:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferSlabManualGrid: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferSlabManualGrid: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferBasementSimParameters(object):
+class GroundHeatTransferBasementSimParameters(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:SimParameters`
         Specifies certain parameters that control the Basement preprocessor ground heat
         transfer simulation.
     """
-    internal_name = "GroundHeatTransfer:Basement:SimParameters"
-    field_count = 2
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:SimParameters', 'pyname': u'GroundHeatTransferBasementSimParameters', 'format': None, 'fields': OrderedDict([(u'f: multiplier for the adi solution', {'name': u'F: Multiplier for the ADI solution', 'pyname': u'f_multiplier_for_the_adi_solution', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'iyrs: maximum number of yearly iterations:', {'name': u'IYRS: Maximum number of yearly iterations:', 'pyname': u'iyrs_maximum_number_of_yearly_iterations', 'default': 15.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:SimParameters`
         """
         self._data = OrderedDict()
-        self._data["F: Multiplier for the ADI solution"] = None
-        self._data["IYRS: Maximum number of yearly iterations:"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.f_multiplier_for_the_adi_solution = None
-        else:
-            self.f_multiplier_for_the_adi_solution = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.iyrs_maximum_number_of_yearly_iterations = None
-        else:
-            self.iyrs_maximum_number_of_yearly_iterations = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def f_multiplier_for_the_adi_solution(self):
@@ -3811,7 +1764,6 @@ class GroundHeatTransferBasementSimParameters(object):
 
         Args:
             value (float): value for IDD Field `F: Multiplier for the ADI solution`
-                value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3819,19 +1771,7 @@ class GroundHeatTransferBasementSimParameters(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementSimParameters.f_multiplier_for_the_adi_solution`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementSimParameters.f_multiplier_for_the_adi_solution`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `GroundHeatTransferBasementSimParameters.f_multiplier_for_the_adi_solution`')
-        self._data["F: Multiplier for the ADI solution"] = value
+        self["F: Multiplier for the ADI solution"] = value
 
     @property
     def iyrs_maximum_number_of_yearly_iterations(self):
@@ -3850,289 +1790,31 @@ class GroundHeatTransferBasementSimParameters(object):
         Args:
             value (float): value for IDD Field `IYRS: Maximum number of yearly iterations:`
                 Default value: 15.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementSimParameters.iyrs_maximum_number_of_yearly_iterations`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementSimParameters.iyrs_maximum_number_of_yearly_iterations`')
-        self._data["IYRS: Maximum number of yearly iterations:"] = value
+        self["IYRS: Maximum number of yearly iterations:"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferBasementSimParameters:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferBasementSimParameters:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferBasementSimParameters: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferBasementSimParameters: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferBasementMatlProps(object):
+class GroundHeatTransferBasementMatlProps(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:MatlProps`
         Specifies the material properties for the Basement preprocessor ground heat
         transfer simulation. Only the Foundation Wall, Floor Slab, Soil,
         and Gravel properties are currently used.
     """
-    internal_name = "GroundHeatTransfer:Basement:MatlProps"
-    field_count = 19
-    required_fields = ["NMAT: Number of materials in this domain"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:MatlProps', 'pyname': u'GroundHeatTransferBasementMatlProps', 'format': None, 'fields': OrderedDict([(u'nmat: number of materials in this domain', {'name': u'NMAT: Number of materials in this domain', 'pyname': u'nmat_number_of_materials_in_this_domain', 'maximum': 6.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'density for foundation wall', {'name': u'Density for Foundation Wall', 'pyname': u'density_for_foundation_wall', 'default': 2243.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'density for floor slab', {'name': u'density for Floor Slab', 'pyname': u'density_for_floor_slab', 'default': 2243.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'density for ceiling', {'name': u'density for Ceiling', 'pyname': u'density_for_ceiling', 'default': 311.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'density for soil', {'name': u'density for Soil', 'pyname': u'density_for_soil', 'default': 1500.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'density for gravel', {'name': u'density for Gravel', 'pyname': u'density_for_gravel', 'default': 2000.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'density for wood', {'name': u'density for Wood', 'pyname': u'density_for_wood', 'default': 449.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'specific heat for foundation wall', {'name': u'Specific heat for foundation wall', 'pyname': u'specific_heat_for_foundation_wall', 'default': 880.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'specific heat for floor slab', {'name': u'Specific heat for floor slab', 'pyname': u'specific_heat_for_floor_slab', 'default': 880.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'specific heat for ceiling', {'name': u'Specific heat for ceiling', 'pyname': u'specific_heat_for_ceiling', 'default': 1530.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'specific heat for soil', {'name': u'Specific heat for soil', 'pyname': u'specific_heat_for_soil', 'default': 840.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'specific heat for gravel', {'name': u'Specific heat for gravel', 'pyname': u'specific_heat_for_gravel', 'default': 720.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'specific heat for wood', {'name': u'Specific heat for wood', 'pyname': u'specific_heat_for_wood', 'default': 1530.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'thermal conductivity for foundation wall', {'name': u'Thermal conductivity for foundation wall', 'pyname': u'thermal_conductivity_for_foundation_wall', 'default': 1.4, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'thermal conductivity for floor slab', {'name': u'Thermal conductivity for floor slab', 'pyname': u'thermal_conductivity_for_floor_slab', 'default': 1.4, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'thermal conductivity for ceiling', {'name': u'Thermal conductivity for ceiling', 'pyname': u'thermal_conductivity_for_ceiling', 'default': 0.09, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'thermal conductivity for soil', {'name': u'thermal conductivity for soil', 'pyname': u'thermal_conductivity_for_soil', 'default': 1.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'thermal conductivity for gravel', {'name': u'thermal conductivity for gravel', 'pyname': u'thermal_conductivity_for_gravel', 'default': 1.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'thermal conductivity for wood', {'name': u'thermal conductivity for wood', 'pyname': u'thermal_conductivity_for_wood', 'default': 0.12, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:MatlProps`
         """
         self._data = OrderedDict()
-        self._data["NMAT: Number of materials in this domain"] = None
-        self._data["Density for Foundation Wall"] = None
-        self._data["density for Floor Slab"] = None
-        self._data["density for Ceiling"] = None
-        self._data["density for Soil"] = None
-        self._data["density for Gravel"] = None
-        self._data["density for Wood"] = None
-        self._data["Specific heat for foundation wall"] = None
-        self._data["Specific heat for floor slab"] = None
-        self._data["Specific heat for ceiling"] = None
-        self._data["Specific heat for soil"] = None
-        self._data["Specific heat for gravel"] = None
-        self._data["Specific heat for wood"] = None
-        self._data["Thermal conductivity for foundation wall"] = None
-        self._data["Thermal conductivity for floor slab"] = None
-        self._data["Thermal conductivity for ceiling"] = None
-        self._data["thermal conductivity for soil"] = None
-        self._data["thermal conductivity for gravel"] = None
-        self._data["thermal conductivity for wood"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.nmat_number_of_materials_in_this_domain = None
-        else:
-            self.nmat_number_of_materials_in_this_domain = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.density_for_foundation_wall = None
-        else:
-            self.density_for_foundation_wall = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.density_for_floor_slab = None
-        else:
-            self.density_for_floor_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.density_for_ceiling = None
-        else:
-            self.density_for_ceiling = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.density_for_soil = None
-        else:
-            self.density_for_soil = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.density_for_gravel = None
-        else:
-            self.density_for_gravel = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.density_for_wood = None
-        else:
-            self.density_for_wood = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.specific_heat_for_foundation_wall = None
-        else:
-            self.specific_heat_for_foundation_wall = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.specific_heat_for_floor_slab = None
-        else:
-            self.specific_heat_for_floor_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.specific_heat_for_ceiling = None
-        else:
-            self.specific_heat_for_ceiling = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.specific_heat_for_soil = None
-        else:
-            self.specific_heat_for_soil = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.specific_heat_for_gravel = None
-        else:
-            self.specific_heat_for_gravel = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.specific_heat_for_wood = None
-        else:
-            self.specific_heat_for_wood = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.thermal_conductivity_for_foundation_wall = None
-        else:
-            self.thermal_conductivity_for_foundation_wall = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.thermal_conductivity_for_floor_slab = None
-        else:
-            self.thermal_conductivity_for_floor_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.thermal_conductivity_for_ceiling = None
-        else:
-            self.thermal_conductivity_for_ceiling = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.thermal_conductivity_for_soil = None
-        else:
-            self.thermal_conductivity_for_soil = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.thermal_conductivity_for_gravel = None
-        else:
-            self.thermal_conductivity_for_gravel = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.thermal_conductivity_for_wood = None
-        else:
-            self.thermal_conductivity_for_wood = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def nmat_number_of_materials_in_this_domain(self):
@@ -4156,16 +1838,7 @@ class GroundHeatTransferBasementMatlProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.nmat_number_of_materials_in_this_domain`'.format(value))
-            if value > 6.0:
-                raise ValueError('value need to be smaller 6.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.nmat_number_of_materials_in_this_domain`')
-        self._data["NMAT: Number of materials in this domain"] = value
+        self["NMAT: Number of materials in this domain"] = value
 
     @property
     def density_for_foundation_wall(self):
@@ -4184,23 +1857,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `Density for Foundation Wall`
                 Units: kg/m3
                 Default value: 2243.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.density_for_foundation_wall`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.density_for_foundation_wall`')
-        self._data["Density for Foundation Wall"] = value
+        self["Density for Foundation Wall"] = value
 
     @property
     def density_for_floor_slab(self):
@@ -4219,23 +1882,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `density for Floor Slab`
                 Units: kg/m3
                 Default value: 2243.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.density_for_floor_slab`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.density_for_floor_slab`')
-        self._data["density for Floor Slab"] = value
+        self["density for Floor Slab"] = value
 
     @property
     def density_for_ceiling(self):
@@ -4254,23 +1907,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `density for Ceiling`
                 Units: kg/m3
                 Default value: 311.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.density_for_ceiling`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.density_for_ceiling`')
-        self._data["density for Ceiling"] = value
+        self["density for Ceiling"] = value
 
     @property
     def density_for_soil(self):
@@ -4289,23 +1932,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `density for Soil`
                 Units: kg/m3
                 Default value: 1500.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.density_for_soil`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.density_for_soil`')
-        self._data["density for Soil"] = value
+        self["density for Soil"] = value
 
     @property
     def density_for_gravel(self):
@@ -4324,23 +1957,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `density for Gravel`
                 Units: kg/m3
                 Default value: 2000.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.density_for_gravel`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.density_for_gravel`')
-        self._data["density for Gravel"] = value
+        self["density for Gravel"] = value
 
     @property
     def density_for_wood(self):
@@ -4359,23 +1982,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `density for Wood`
                 Units: kg/m3
                 Default value: 449.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.density_for_wood`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.density_for_wood`')
-        self._data["density for Wood"] = value
+        self["density for Wood"] = value
 
     @property
     def specific_heat_for_foundation_wall(self):
@@ -4394,23 +2007,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `Specific heat for foundation wall`
                 Units: J/kg-K
                 Default value: 880.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.specific_heat_for_foundation_wall`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.specific_heat_for_foundation_wall`')
-        self._data["Specific heat for foundation wall"] = value
+        self["Specific heat for foundation wall"] = value
 
     @property
     def specific_heat_for_floor_slab(self):
@@ -4429,23 +2032,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `Specific heat for floor slab`
                 Units: J/kg-K
                 Default value: 880.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.specific_heat_for_floor_slab`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.specific_heat_for_floor_slab`')
-        self._data["Specific heat for floor slab"] = value
+        self["Specific heat for floor slab"] = value
 
     @property
     def specific_heat_for_ceiling(self):
@@ -4464,23 +2057,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `Specific heat for ceiling`
                 Units: J/kg-K
                 Default value: 1530.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.specific_heat_for_ceiling`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.specific_heat_for_ceiling`')
-        self._data["Specific heat for ceiling"] = value
+        self["Specific heat for ceiling"] = value
 
     @property
     def specific_heat_for_soil(self):
@@ -4499,23 +2082,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `Specific heat for soil`
                 Units: J/kg-K
                 Default value: 840.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.specific_heat_for_soil`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.specific_heat_for_soil`')
-        self._data["Specific heat for soil"] = value
+        self["Specific heat for soil"] = value
 
     @property
     def specific_heat_for_gravel(self):
@@ -4534,23 +2107,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `Specific heat for gravel`
                 Units: J/kg-K
                 Default value: 720.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.specific_heat_for_gravel`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.specific_heat_for_gravel`')
-        self._data["Specific heat for gravel"] = value
+        self["Specific heat for gravel"] = value
 
     @property
     def specific_heat_for_wood(self):
@@ -4569,23 +2132,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `Specific heat for wood`
                 Units: J/kg-K
                 Default value: 1530.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.specific_heat_for_wood`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.specific_heat_for_wood`')
-        self._data["Specific heat for wood"] = value
+        self["Specific heat for wood"] = value
 
     @property
     def thermal_conductivity_for_foundation_wall(self):
@@ -4604,23 +2157,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `Thermal conductivity for foundation wall`
                 Units: W/m-K
                 Default value: 1.4
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_foundation_wall`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_foundation_wall`')
-        self._data["Thermal conductivity for foundation wall"] = value
+        self["Thermal conductivity for foundation wall"] = value
 
     @property
     def thermal_conductivity_for_floor_slab(self):
@@ -4639,23 +2182,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `Thermal conductivity for floor slab`
                 Units: W/m-K
                 Default value: 1.4
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_floor_slab`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_floor_slab`')
-        self._data["Thermal conductivity for floor slab"] = value
+        self["Thermal conductivity for floor slab"] = value
 
     @property
     def thermal_conductivity_for_ceiling(self):
@@ -4674,23 +2207,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `Thermal conductivity for ceiling`
                 Units: W/m-K
                 Default value: 0.09
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_ceiling`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_ceiling`')
-        self._data["Thermal conductivity for ceiling"] = value
+        self["Thermal conductivity for ceiling"] = value
 
     @property
     def thermal_conductivity_for_soil(self):
@@ -4709,23 +2232,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `thermal conductivity for soil`
                 Units: W/m-K
                 Default value: 1.1
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_soil`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_soil`')
-        self._data["thermal conductivity for soil"] = value
+        self["thermal conductivity for soil"] = value
 
     @property
     def thermal_conductivity_for_gravel(self):
@@ -4744,23 +2257,13 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `thermal conductivity for gravel`
                 Units: W/m-K
                 Default value: 1.9
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_gravel`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_gravel`')
-        self._data["thermal conductivity for gravel"] = value
+        self["thermal conductivity for gravel"] = value
 
     @property
     def thermal_conductivity_for_wood(self):
@@ -4779,152 +2282,30 @@ class GroundHeatTransferBasementMatlProps(object):
             value (float): value for IDD Field `thermal conductivity for wood`
                 Units: W/m-K
                 Default value: 0.12
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_wood`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementMatlProps.thermal_conductivity_for_wood`')
-        self._data["thermal conductivity for wood"] = value
+        self["thermal conductivity for wood"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferBasementMatlProps:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferBasementMatlProps:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferBasementMatlProps: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferBasementMatlProps: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferBasementInsulation(object):
+class GroundHeatTransferBasementInsulation(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:Insulation`
         Describes the insulation used on an exterior basement wall for the Basement
         preprocessor ground heat transfer simulation.
     """
-    internal_name = "GroundHeatTransfer:Basement:Insulation"
-    field_count = 2
-    required_fields = ["INSFULL: Flag: Is the wall fully insulated?"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:Insulation', 'pyname': u'GroundHeatTransferBasementInsulation', 'format': None, 'fields': OrderedDict([(u'rext: r value of any exterior insulation', {'name': u'REXT: R Value of any exterior insulation', 'pyname': u'rext_r_value_of_any_exterior_insulation', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'insfull: flag: is the wall fully insulated?', {'name': u'INSFULL: Flag: Is the wall fully insulated?', 'pyname': u'insfull_flag_is_the_wall_fully_insulated', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:Insulation`
         """
         self._data = OrderedDict()
-        self._data["REXT: R Value of any exterior insulation"] = None
-        self._data["INSFULL: Flag: Is the wall fully insulated?"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.rext_r_value_of_any_exterior_insulation = None
-        else:
-            self.rext_r_value_of_any_exterior_insulation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.insfull_flag_is_the_wall_fully_insulated = None
-        else:
-            self.insfull_flag_is_the_wall_fully_insulated = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def rext_r_value_of_any_exterior_insulation(self):
@@ -4942,23 +2323,13 @@ class GroundHeatTransferBasementInsulation(object):
         Args:
             value (float): value for IDD Field `REXT: R Value of any exterior insulation`
                 Units: m2-K/W
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementInsulation.rext_r_value_of_any_exterior_insulation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementInsulation.rext_r_value_of_any_exterior_insulation`')
-        self._data["REXT: R Value of any exterior insulation"] = value
+        self["REXT: R Value of any exterior insulation"] = value
 
     @property
     def insfull_flag_is_the_wall_fully_insulated(self):
@@ -4977,224 +2348,30 @@ class GroundHeatTransferBasementInsulation(object):
 
         Args:
             value (str): value for IDD Field `INSFULL: Flag: Is the wall fully insulated?`
-                Accepted values are:
-                      - TRUE
-                      - FALSE
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `GroundHeatTransferBasementInsulation.insfull_flag_is_the_wall_fully_insulated`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `GroundHeatTransferBasementInsulation.insfull_flag_is_the_wall_fully_insulated`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `GroundHeatTransferBasementInsulation.insfull_flag_is_the_wall_fully_insulated`')
-            vals = {}
-            vals["true"] = "TRUE"
-            vals["false"] = "FALSE"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `GroundHeatTransferBasementInsulation.insfull_flag_is_the_wall_fully_insulated`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `GroundHeatTransferBasementInsulation.insfull_flag_is_the_wall_fully_insulated`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["INSFULL: Flag: Is the wall fully insulated?"] = value
+        self["INSFULL: Flag: Is the wall fully insulated?"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferBasementInsulation:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferBasementInsulation:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferBasementInsulation: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferBasementInsulation: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferBasementSurfaceProps(object):
+class GroundHeatTransferBasementSurfaceProps(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:SurfaceProps`
         Specifies the soil surface properties for the Basement preprocessor ground
         heat transfer simulation.
     """
-    internal_name = "GroundHeatTransfer:Basement:SurfaceProps"
-    field_count = 7
-    required_fields = ["PET: Flag, Potential evapotranspiration on?"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:SurfaceProps', 'pyname': u'GroundHeatTransferBasementSurfaceProps', 'format': None, 'fields': OrderedDict([(u'albedo: surface albedo for no snow conditions', {'name': u'ALBEDO: Surface albedo for No snow conditions', 'pyname': u'albedo_surface_albedo_for_no_snow_conditions', 'default': 0.16, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'albedo: surface albedo for snow conditions', {'name': u'ALBEDO: Surface albedo for snow conditions', 'pyname': u'albedo_surface_albedo_for_snow_conditions', 'default': 0.4, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'epsln: surface emissivity no snow', {'name': u'EPSLN: Surface emissivity No Snow', 'pyname': u'epsln_surface_emissivity_no_snow', 'default': 0.94, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'epsln: surface emissivity with snow', {'name': u'EPSLN: Surface emissivity with Snow', 'pyname': u'epsln_surface_emissivity_with_snow', 'default': 0.86, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'veght: surface roughness no snow conditions', {'name': u'VEGHT: Surface roughness No snow conditions', 'pyname': u'veght_surface_roughness_no_snow_conditions', 'default': 6.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'cm'}), (u'veght: surface roughness snow conditions', {'name': u'VEGHT: Surface roughness Snow conditions', 'pyname': u'veght_surface_roughness_snow_conditions', 'default': 0.25, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'cm'}), (u'pet: flag, potential evapotranspiration on?', {'name': u'PET: Flag, Potential evapotranspiration on?', 'pyname': u'pet_flag_potential_evapotranspiration_on', 'default': u'FALSE', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:SurfaceProps`
         """
         self._data = OrderedDict()
-        self._data["ALBEDO: Surface albedo for No snow conditions"] = None
-        self._data["ALBEDO: Surface albedo for snow conditions"] = None
-        self._data["EPSLN: Surface emissivity No Snow"] = None
-        self._data["EPSLN: Surface emissivity with Snow"] = None
-        self._data["VEGHT: Surface roughness No snow conditions"] = None
-        self._data["VEGHT: Surface roughness Snow conditions"] = None
-        self._data["PET: Flag, Potential evapotranspiration on?"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.albedo_surface_albedo_for_no_snow_conditions = None
-        else:
-            self.albedo_surface_albedo_for_no_snow_conditions = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.albedo_surface_albedo_for_snow_conditions = None
-        else:
-            self.albedo_surface_albedo_for_snow_conditions = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.epsln_surface_emissivity_no_snow = None
-        else:
-            self.epsln_surface_emissivity_no_snow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.epsln_surface_emissivity_with_snow = None
-        else:
-            self.epsln_surface_emissivity_with_snow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.veght_surface_roughness_no_snow_conditions = None
-        else:
-            self.veght_surface_roughness_no_snow_conditions = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.veght_surface_roughness_snow_conditions = None
-        else:
-            self.veght_surface_roughness_snow_conditions = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pet_flag_potential_evapotranspiration_on = None
-        else:
-            self.pet_flag_potential_evapotranspiration_on = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def albedo_surface_albedo_for_no_snow_conditions(self):
@@ -5212,7 +2389,6 @@ class GroundHeatTransferBasementSurfaceProps(object):
         Args:
             value (float): value for IDD Field `ALBEDO: Surface albedo for No snow conditions`
                 Default value: 0.16
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5220,19 +2396,7 @@ class GroundHeatTransferBasementSurfaceProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementSurfaceProps.albedo_surface_albedo_for_no_snow_conditions`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.albedo_surface_albedo_for_no_snow_conditions`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.albedo_surface_albedo_for_no_snow_conditions`')
-        self._data["ALBEDO: Surface albedo for No snow conditions"] = value
+        self["ALBEDO: Surface albedo for No snow conditions"] = value
 
     @property
     def albedo_surface_albedo_for_snow_conditions(self):
@@ -5250,7 +2414,6 @@ class GroundHeatTransferBasementSurfaceProps(object):
         Args:
             value (float): value for IDD Field `ALBEDO: Surface albedo for snow conditions`
                 Default value: 0.4
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5258,19 +2421,7 @@ class GroundHeatTransferBasementSurfaceProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementSurfaceProps.albedo_surface_albedo_for_snow_conditions`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.albedo_surface_albedo_for_snow_conditions`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.albedo_surface_albedo_for_snow_conditions`')
-        self._data["ALBEDO: Surface albedo for snow conditions"] = value
+        self["ALBEDO: Surface albedo for snow conditions"] = value
 
     @property
     def epsln_surface_emissivity_no_snow(self):
@@ -5288,7 +2439,6 @@ class GroundHeatTransferBasementSurfaceProps(object):
         Args:
             value (float): value for IDD Field `EPSLN: Surface emissivity No Snow`
                 Default value: 0.94
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5296,19 +2446,7 @@ class GroundHeatTransferBasementSurfaceProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementSurfaceProps.epsln_surface_emissivity_no_snow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.epsln_surface_emissivity_no_snow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.epsln_surface_emissivity_no_snow`')
-        self._data["EPSLN: Surface emissivity No Snow"] = value
+        self["EPSLN: Surface emissivity No Snow"] = value
 
     @property
     def epsln_surface_emissivity_with_snow(self):
@@ -5326,7 +2464,6 @@ class GroundHeatTransferBasementSurfaceProps(object):
         Args:
             value (float): value for IDD Field `EPSLN: Surface emissivity with Snow`
                 Default value: 0.86
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5334,19 +2471,7 @@ class GroundHeatTransferBasementSurfaceProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementSurfaceProps.epsln_surface_emissivity_with_snow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.epsln_surface_emissivity_with_snow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.epsln_surface_emissivity_with_snow`')
-        self._data["EPSLN: Surface emissivity with Snow"] = value
+        self["EPSLN: Surface emissivity with Snow"] = value
 
     @property
     def veght_surface_roughness_no_snow_conditions(self):
@@ -5365,23 +2490,13 @@ class GroundHeatTransferBasementSurfaceProps(object):
             value (float): value for IDD Field `VEGHT: Surface roughness No snow conditions`
                 Units: cm
                 Default value: 6.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementSurfaceProps.veght_surface_roughness_no_snow_conditions`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.veght_surface_roughness_no_snow_conditions`')
-        self._data["VEGHT: Surface roughness No snow conditions"] = value
+        self["VEGHT: Surface roughness No snow conditions"] = value
 
     @property
     def veght_surface_roughness_snow_conditions(self):
@@ -5400,23 +2515,13 @@ class GroundHeatTransferBasementSurfaceProps(object):
             value (float): value for IDD Field `VEGHT: Surface roughness Snow conditions`
                 Units: cm
                 Default value: 0.25
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementSurfaceProps.veght_surface_roughness_snow_conditions`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.veght_surface_roughness_snow_conditions`')
-        self._data["VEGHT: Surface roughness Snow conditions"] = value
+        self["VEGHT: Surface roughness Snow conditions"] = value
 
     @property
     def pet_flag_potential_evapotranspiration_on(self):
@@ -5434,9 +2539,6 @@ class GroundHeatTransferBasementSurfaceProps(object):
 
         Args:
             value (str): value for IDD Field `PET: Flag, Potential evapotranspiration on?`
-                Accepted values are:
-                      - TRUE
-                      - FALSE
                 Default value: FALSE
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5444,199 +2546,24 @@ class GroundHeatTransferBasementSurfaceProps(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `GroundHeatTransferBasementSurfaceProps.pet_flag_potential_evapotranspiration_on`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.pet_flag_potential_evapotranspiration_on`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `GroundHeatTransferBasementSurfaceProps.pet_flag_potential_evapotranspiration_on`')
-            vals = {}
-            vals["true"] = "TRUE"
-            vals["false"] = "FALSE"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `GroundHeatTransferBasementSurfaceProps.pet_flag_potential_evapotranspiration_on`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `GroundHeatTransferBasementSurfaceProps.pet_flag_potential_evapotranspiration_on`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["PET: Flag, Potential evapotranspiration on?"] = value
+        self["PET: Flag, Potential evapotranspiration on?"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferBasementSurfaceProps:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferBasementSurfaceProps:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferBasementSurfaceProps: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferBasementSurfaceProps: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferBasementBldgData(object):
+class GroundHeatTransferBasementBldgData(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:BldgData`
         Specifies the surface and gravel thicknesses used for the Basement
         preprocessor ground heat transfer simulation.
     """
-    internal_name = "GroundHeatTransfer:Basement:BldgData"
-    field_count = 5
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:BldgData', 'pyname': u'GroundHeatTransferBasementBldgData', 'format': None, 'fields': OrderedDict([(u'dwall: wall thickness', {'name': u'DWALL: Wall thickness', 'pyname': u'dwall_wall_thickness', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.2, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'dslab: floor slab thickness', {'name': u'DSLAB: Floor slab thickness', 'pyname': u'dslab_floor_slab_thickness', 'default': 0.1, 'minimum>': 0.0, 'maximum': 0.25, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'dgravxy: width of gravel pit beside basement wall', {'name': u'DGRAVXY: Width of gravel pit beside basement wall', 'pyname': u'dgravxy_width_of_gravel_pit_beside_basement_wall', 'default': 0.3, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'dgravzn: gravel depth extending above the floor slab', {'name': u'DGRAVZN: Gravel depth extending above the floor slab', 'pyname': u'dgravzn_gravel_depth_extending_above_the_floor_slab', 'default': 0.2, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'dgravzp: gravel depth below the floor slab', {'name': u'DGRAVZP: Gravel depth below the floor slab', 'pyname': u'dgravzp_gravel_depth_below_the_floor_slab', 'default': 0.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:BldgData`
         """
         self._data = OrderedDict()
-        self._data["DWALL: Wall thickness"] = None
-        self._data["DSLAB: Floor slab thickness"] = None
-        self._data["DGRAVXY: Width of gravel pit beside basement wall"] = None
-        self._data["DGRAVZN: Gravel depth extending above the floor slab"] = None
-        self._data["DGRAVZP: Gravel depth below the floor slab"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.dwall_wall_thickness = None
-        else:
-            self.dwall_wall_thickness = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.dslab_floor_slab_thickness = None
-        else:
-            self.dslab_floor_slab_thickness = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.dgravxy_width_of_gravel_pit_beside_basement_wall = None
-        else:
-            self.dgravxy_width_of_gravel_pit_beside_basement_wall = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.dgravzn_gravel_depth_extending_above_the_floor_slab = None
-        else:
-            self.dgravzn_gravel_depth_extending_above_the_floor_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.dgravzp_gravel_depth_below_the_floor_slab = None
-        else:
-            self.dgravzp_gravel_depth_below_the_floor_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def dwall_wall_thickness(self):
@@ -5662,16 +2589,7 @@ class GroundHeatTransferBasementBldgData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementBldgData.dwall_wall_thickness`'.format(value))
-            if value < 0.2:
-                raise ValueError('value need to be greater or equal 0.2 '
-                                 'for field `GroundHeatTransferBasementBldgData.dwall_wall_thickness`')
-        self._data["DWALL: Wall thickness"] = value
+        self["DWALL: Wall thickness"] = value
 
     @property
     def dslab_floor_slab_thickness(self):
@@ -5690,7 +2608,6 @@ class GroundHeatTransferBasementBldgData(object):
             value (float): value for IDD Field `DSLAB: Floor slab thickness`
                 Units: m
                 Default value: 0.1
-                value > 0.0
                 value <= 0.25
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5698,19 +2615,7 @@ class GroundHeatTransferBasementBldgData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementBldgData.dslab_floor_slab_thickness`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementBldgData.dslab_floor_slab_thickness`')
-            if value > 0.25:
-                raise ValueError('value need to be smaller 0.25 '
-                                 'for field `GroundHeatTransferBasementBldgData.dslab_floor_slab_thickness`')
-        self._data["DSLAB: Floor slab thickness"] = value
+        self["DSLAB: Floor slab thickness"] = value
 
     @property
     def dgravxy_width_of_gravel_pit_beside_basement_wall(self):
@@ -5729,23 +2634,13 @@ class GroundHeatTransferBasementBldgData(object):
             value (float): value for IDD Field `DGRAVXY: Width of gravel pit beside basement wall`
                 Units: m
                 Default value: 0.3
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementBldgData.dgravxy_width_of_gravel_pit_beside_basement_wall`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementBldgData.dgravxy_width_of_gravel_pit_beside_basement_wall`')
-        self._data["DGRAVXY: Width of gravel pit beside basement wall"] = value
+        self["DGRAVXY: Width of gravel pit beside basement wall"] = value
 
     @property
     def dgravzn_gravel_depth_extending_above_the_floor_slab(self):
@@ -5764,23 +2659,13 @@ class GroundHeatTransferBasementBldgData(object):
             value (float): value for IDD Field `DGRAVZN: Gravel depth extending above the floor slab`
                 Units: m
                 Default value: 0.2
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementBldgData.dgravzn_gravel_depth_extending_above_the_floor_slab`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementBldgData.dgravzn_gravel_depth_extending_above_the_floor_slab`')
-        self._data["DGRAVZN: Gravel depth extending above the floor slab"] = value
+        self["DGRAVZN: Gravel depth extending above the floor slab"] = value
 
     @property
     def dgravzp_gravel_depth_below_the_floor_slab(self):
@@ -5799,192 +2684,30 @@ class GroundHeatTransferBasementBldgData(object):
             value (float): value for IDD Field `DGRAVZP: Gravel depth below the floor slab`
                 Units: m
                 Default value: 0.1
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementBldgData.dgravzp_gravel_depth_below_the_floor_slab`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementBldgData.dgravzp_gravel_depth_below_the_floor_slab`')
-        self._data["DGRAVZP: Gravel depth below the floor slab"] = value
+        self["DGRAVZP: Gravel depth below the floor slab"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferBasementBldgData:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferBasementBldgData:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferBasementBldgData: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferBasementBldgData: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferBasementInterior(object):
+class GroundHeatTransferBasementInterior(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:Interior`
         Provides the information needed to simulate the inside boundary conditions for
         the Basement preprocessor ground heat transfer simulation.
     """
-    internal_name = "GroundHeatTransfer:Basement:Interior"
-    field_count = 7
-    required_fields = ["COND: Flag: Is the basement conditioned?"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:Interior', 'pyname': u'GroundHeatTransferBasementInterior', 'format': None, 'fields': OrderedDict([(u'cond: flag: is the basement conditioned?', {'name': u'COND: Flag: Is the basement conditioned?', 'pyname': u'cond_flag_is_the_basement_conditioned', 'default': u'TRUE', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hin: downward convection only heat transfer coefficient', {'name': u'HIN: Downward convection only heat transfer coefficient', 'pyname': u'hin_downward_convection_only_heat_transfer_coefficient', 'default': 0.92, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: upward convection only heat transfer coefficient', {'name': u'HIN: Upward convection only heat transfer coefficient', 'pyname': u'hin_upward_convection_only_heat_transfer_coefficient', 'default': 4.04, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: horizontal convection only heat transfer coefficient', {'name': u'HIN: Horizontal convection only heat transfer coefficient', 'pyname': u'hin_horizontal_convection_only_heat_transfer_coefficient', 'default': 3.08, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: downward combined (convection and radiation) heat transfer coefficient', {'name': u'HIN: Downward combined (convection and radiation) heat transfer coefficient', 'pyname': u'hin_downward_combined_convection_and_radiation_heat_transfer_coefficient', 'default': 6.13, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: upward combined (convection and radiation) heat transfer coefficient', {'name': u'HIN: Upward combined (convection and radiation) heat transfer coefficient', 'pyname': u'hin_upward_combined_convection_and_radiation_heat_transfer_coefficient', 'default': 9.26, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: horizontal combined (convection and radiation) heat transfer coefficient', {'name': u'HIN: Horizontal combined (convection and radiation) heat transfer coefficient', 'pyname': u'hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient', 'default': 8.29, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:Interior`
         """
         self._data = OrderedDict()
-        self._data["COND: Flag: Is the basement conditioned?"] = None
-        self._data["HIN: Downward convection only heat transfer coefficient"] = None
-        self._data["HIN: Upward convection only heat transfer coefficient"] = None
-        self._data["HIN: Horizontal convection only heat transfer coefficient"] = None
-        self._data["HIN: Downward combined (convection and radiation) heat transfer coefficient"] = None
-        self._data["HIN: Upward combined (convection and radiation) heat transfer coefficient"] = None
-        self._data["HIN: Horizontal combined (convection and radiation) heat transfer coefficient"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.cond_flag_is_the_basement_conditioned = None
-        else:
-            self.cond_flag_is_the_basement_conditioned = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hin_downward_convection_only_heat_transfer_coefficient = None
-        else:
-            self.hin_downward_convection_only_heat_transfer_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hin_upward_convection_only_heat_transfer_coefficient = None
-        else:
-            self.hin_upward_convection_only_heat_transfer_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hin_horizontal_convection_only_heat_transfer_coefficient = None
-        else:
-            self.hin_horizontal_convection_only_heat_transfer_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hin_downward_combined_convection_and_radiation_heat_transfer_coefficient = None
-        else:
-            self.hin_downward_combined_convection_and_radiation_heat_transfer_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hin_upward_combined_convection_and_radiation_heat_transfer_coefficient = None
-        else:
-            self.hin_upward_combined_convection_and_radiation_heat_transfer_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient = None
-        else:
-            self.hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def cond_flag_is_the_basement_conditioned(self):
@@ -6002,9 +2725,6 @@ class GroundHeatTransferBasementInterior(object):
 
         Args:
             value (str): value for IDD Field `COND: Flag: Is the basement conditioned?`
-                Accepted values are:
-                      - TRUE
-                      - FALSE
                 Default value: TRUE
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6012,46 +2732,7 @@ class GroundHeatTransferBasementInterior(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `GroundHeatTransferBasementInterior.cond_flag_is_the_basement_conditioned`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `GroundHeatTransferBasementInterior.cond_flag_is_the_basement_conditioned`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `GroundHeatTransferBasementInterior.cond_flag_is_the_basement_conditioned`')
-            vals = {}
-            vals["true"] = "TRUE"
-            vals["false"] = "FALSE"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `GroundHeatTransferBasementInterior.cond_flag_is_the_basement_conditioned`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `GroundHeatTransferBasementInterior.cond_flag_is_the_basement_conditioned`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["COND: Flag: Is the basement conditioned?"] = value
+        self["COND: Flag: Is the basement conditioned?"] = value
 
     @property
     def hin_downward_convection_only_heat_transfer_coefficient(self):
@@ -6070,23 +2751,13 @@ class GroundHeatTransferBasementInterior(object):
             value (float): value for IDD Field `HIN: Downward convection only heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 0.92
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementInterior.hin_downward_convection_only_heat_transfer_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementInterior.hin_downward_convection_only_heat_transfer_coefficient`')
-        self._data["HIN: Downward convection only heat transfer coefficient"] = value
+        self["HIN: Downward convection only heat transfer coefficient"] = value
 
     @property
     def hin_upward_convection_only_heat_transfer_coefficient(self):
@@ -6105,23 +2776,13 @@ class GroundHeatTransferBasementInterior(object):
             value (float): value for IDD Field `HIN: Upward convection only heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 4.04
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementInterior.hin_upward_convection_only_heat_transfer_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementInterior.hin_upward_convection_only_heat_transfer_coefficient`')
-        self._data["HIN: Upward convection only heat transfer coefficient"] = value
+        self["HIN: Upward convection only heat transfer coefficient"] = value
 
     @property
     def hin_horizontal_convection_only_heat_transfer_coefficient(self):
@@ -6140,23 +2801,13 @@ class GroundHeatTransferBasementInterior(object):
             value (float): value for IDD Field `HIN: Horizontal convection only heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 3.08
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementInterior.hin_horizontal_convection_only_heat_transfer_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementInterior.hin_horizontal_convection_only_heat_transfer_coefficient`')
-        self._data["HIN: Horizontal convection only heat transfer coefficient"] = value
+        self["HIN: Horizontal convection only heat transfer coefficient"] = value
 
     @property
     def hin_downward_combined_convection_and_radiation_heat_transfer_coefficient(self):
@@ -6175,23 +2826,13 @@ class GroundHeatTransferBasementInterior(object):
             value (float): value for IDD Field `HIN: Downward combined (convection and radiation) heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 6.13
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementInterior.hin_downward_combined_convection_and_radiation_heat_transfer_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementInterior.hin_downward_combined_convection_and_radiation_heat_transfer_coefficient`')
-        self._data["HIN: Downward combined (convection and radiation) heat transfer coefficient"] = value
+        self["HIN: Downward combined (convection and radiation) heat transfer coefficient"] = value
 
     @property
     def hin_upward_combined_convection_and_radiation_heat_transfer_coefficient(self):
@@ -6210,23 +2851,13 @@ class GroundHeatTransferBasementInterior(object):
             value (float): value for IDD Field `HIN: Upward combined (convection and radiation) heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 9.26
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementInterior.hin_upward_combined_convection_and_radiation_heat_transfer_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementInterior.hin_upward_combined_convection_and_radiation_heat_transfer_coefficient`')
-        self._data["HIN: Upward combined (convection and radiation) heat transfer coefficient"] = value
+        self["HIN: Upward combined (convection and radiation) heat transfer coefficient"] = value
 
     @property
     def hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient(self):
@@ -6245,239 +2876,29 @@ class GroundHeatTransferBasementInterior(object):
             value (float): value for IDD Field `HIN: Horizontal combined (convection and radiation) heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 8.29
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementInterior.hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementInterior.hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient`')
-        self._data["HIN: Horizontal combined (convection and radiation) heat transfer coefficient"] = value
+        self["HIN: Horizontal combined (convection and radiation) heat transfer coefficient"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferBasementInterior:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferBasementInterior:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferBasementInterior: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferBasementInterior: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferBasementComBldg(object):
+class GroundHeatTransferBasementComBldg(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:ComBldg`
         ComBldg contains the monthly average temperatures (C) and possibility of daily variation amplitude
     """
-    internal_name = "GroundHeatTransfer:Basement:ComBldg"
-    field_count = 13
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:ComBldg', 'pyname': u'GroundHeatTransferBasementComBldg', 'format': None, 'fields': OrderedDict([(u'january average temperature', {'name': u'January average temperature', 'pyname': u'january_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'february average temperature', {'name': u'February average temperature', 'pyname': u'february_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'march average temperature', {'name': u'March average temperature', 'pyname': u'march_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'april average temperature', {'name': u'April average temperature', 'pyname': u'april_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'may average temperature', {'name': u'May average temperature', 'pyname': u'may_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'june average temperature', {'name': u'June average temperature', 'pyname': u'june_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'july average temperature', {'name': u'July average temperature', 'pyname': u'july_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'august average temperature', {'name': u'August average temperature', 'pyname': u'august_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'september average temperature', {'name': u'September average temperature', 'pyname': u'september_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'october average temperature', {'name': u'October average temperature', 'pyname': u'october_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'november average temperature', {'name': u'November average temperature', 'pyname': u'november_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'december average temperature', {'name': u'December average temperature', 'pyname': u'december_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'daily variation sine wave amplitude', {'name': u'Daily variation sine wave amplitude', 'pyname': u'daily_variation_sine_wave_amplitude', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:ComBldg`
         """
         self._data = OrderedDict()
-        self._data["January average temperature"] = None
-        self._data["February average temperature"] = None
-        self._data["March average temperature"] = None
-        self._data["April average temperature"] = None
-        self._data["May average temperature"] = None
-        self._data["June average temperature"] = None
-        self._data["July average temperature"] = None
-        self._data["August average temperature"] = None
-        self._data["September average temperature"] = None
-        self._data["October average temperature"] = None
-        self._data["November average temperature"] = None
-        self._data["December average temperature"] = None
-        self._data["Daily variation sine wave amplitude"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.january_average_temperature = None
-        else:
-            self.january_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.february_average_temperature = None
-        else:
-            self.february_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.march_average_temperature = None
-        else:
-            self.march_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.april_average_temperature = None
-        else:
-            self.april_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.may_average_temperature = None
-        else:
-            self.may_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.june_average_temperature = None
-        else:
-            self.june_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.july_average_temperature = None
-        else:
-            self.july_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.august_average_temperature = None
-        else:
-            self.august_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.september_average_temperature = None
-        else:
-            self.september_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.october_average_temperature = None
-        else:
-            self.october_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.november_average_temperature = None
-        else:
-            self.november_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.december_average_temperature = None
-        else:
-            self.december_average_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.daily_variation_sine_wave_amplitude = None
-        else:
-            self.daily_variation_sine_wave_amplitude = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def january_average_temperature(self):
@@ -6502,13 +2923,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.january_average_temperature`'.format(value))
-        self._data["January average temperature"] = value
+        self["January average temperature"] = value
 
     @property
     def february_average_temperature(self):
@@ -6533,13 +2948,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.february_average_temperature`'.format(value))
-        self._data["February average temperature"] = value
+        self["February average temperature"] = value
 
     @property
     def march_average_temperature(self):
@@ -6564,13 +2973,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.march_average_temperature`'.format(value))
-        self._data["March average temperature"] = value
+        self["March average temperature"] = value
 
     @property
     def april_average_temperature(self):
@@ -6595,13 +2998,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.april_average_temperature`'.format(value))
-        self._data["April average temperature"] = value
+        self["April average temperature"] = value
 
     @property
     def may_average_temperature(self):
@@ -6626,13 +3023,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.may_average_temperature`'.format(value))
-        self._data["May average temperature"] = value
+        self["May average temperature"] = value
 
     @property
     def june_average_temperature(self):
@@ -6657,13 +3048,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.june_average_temperature`'.format(value))
-        self._data["June average temperature"] = value
+        self["June average temperature"] = value
 
     @property
     def july_average_temperature(self):
@@ -6688,13 +3073,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.july_average_temperature`'.format(value))
-        self._data["July average temperature"] = value
+        self["July average temperature"] = value
 
     @property
     def august_average_temperature(self):
@@ -6719,13 +3098,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.august_average_temperature`'.format(value))
-        self._data["August average temperature"] = value
+        self["August average temperature"] = value
 
     @property
     def september_average_temperature(self):
@@ -6750,13 +3123,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.september_average_temperature`'.format(value))
-        self._data["September average temperature"] = value
+        self["September average temperature"] = value
 
     @property
     def october_average_temperature(self):
@@ -6781,13 +3148,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.october_average_temperature`'.format(value))
-        self._data["October average temperature"] = value
+        self["October average temperature"] = value
 
     @property
     def november_average_temperature(self):
@@ -6812,13 +3173,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.november_average_temperature`'.format(value))
-        self._data["November average temperature"] = value
+        self["November average temperature"] = value
 
     @property
     def december_average_temperature(self):
@@ -6843,13 +3198,7 @@ class GroundHeatTransferBasementComBldg(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.december_average_temperature`'.format(value))
-        self._data["December average temperature"] = value
+        self["December average temperature"] = value
 
     @property
     def daily_variation_sine_wave_amplitude(self):
@@ -6861,157 +3210,38 @@ class GroundHeatTransferBasementComBldg(object):
         return self._data["Daily variation sine wave amplitude"]
 
     @daily_variation_sine_wave_amplitude.setter
-    def daily_variation_sine_wave_amplitude(self, value=0.0):
+    def daily_variation_sine_wave_amplitude(self, value=None):
         """  Corresponds to IDD Field `Daily variation sine wave amplitude`
         (Normally zero, just for checking)
 
         Args:
             value (float): value for IDD Field `Daily variation sine wave amplitude`
                 Units: deltaC
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementComBldg.daily_variation_sine_wave_amplitude`'.format(value))
-        self._data["Daily variation sine wave amplitude"] = value
+        self["Daily variation sine wave amplitude"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferBasementComBldg:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferBasementComBldg:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferBasementComBldg: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferBasementComBldg: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferBasementEquivSlab(object):
+class GroundHeatTransferBasementEquivSlab(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:EquivSlab`
         Using an equivalent slab allows non-rectangular shapes to be
         modeled accurately.
         The simulation default should be EquivSizing=True
     """
-    internal_name = "GroundHeatTransfer:Basement:EquivSlab"
-    field_count = 2
-    required_fields = ["APRatio: The area to perimeter ratio for this slab", "EquivSizing: Flag"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:EquivSlab', 'pyname': u'GroundHeatTransferBasementEquivSlab', 'format': None, 'fields': OrderedDict([(u'apratio: the area to perimeter ratio for this slab', {'name': u'APRatio: The area to perimeter ratio for this slab', 'pyname': u'apratio_the_area_to_perimeter_ratio_for_this_slab', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'equivsizing: flag', {'name': u'EquivSizing: Flag', 'pyname': u'equivsizing_flag', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:EquivSlab`
         """
         self._data = OrderedDict()
-        self._data["APRatio: The area to perimeter ratio for this slab"] = None
-        self._data["EquivSizing: Flag"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.apratio_the_area_to_perimeter_ratio_for_this_slab = None
-        else:
-            self.apratio_the_area_to_perimeter_ratio_for_this_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equivsizing_flag = None
-        else:
-            self.equivsizing_flag = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self):
@@ -7029,23 +3259,13 @@ class GroundHeatTransferBasementEquivSlab(object):
         Args:
             value (float): value for IDD Field `APRatio: The area to perimeter ratio for this slab`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementEquivSlab.apratio_the_area_to_perimeter_ratio_for_this_slab`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `GroundHeatTransferBasementEquivSlab.apratio_the_area_to_perimeter_ratio_for_this_slab`')
-        self._data["APRatio: The area to perimeter ratio for this slab"] = value
+        self["APRatio: The area to perimeter ratio for this slab"] = value
 
     @property
     def equivsizing_flag(self):
@@ -7065,191 +3285,29 @@ class GroundHeatTransferBasementEquivSlab(object):
 
         Args:
             value (str): value for IDD Field `EquivSizing: Flag`
-                Accepted values are:
-                      - TRUE
-                      - FALSE
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `GroundHeatTransferBasementEquivSlab.equivsizing_flag`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `GroundHeatTransferBasementEquivSlab.equivsizing_flag`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `GroundHeatTransferBasementEquivSlab.equivsizing_flag`')
-            vals = {}
-            vals["true"] = "TRUE"
-            vals["false"] = "FALSE"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `GroundHeatTransferBasementEquivSlab.equivsizing_flag`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `GroundHeatTransferBasementEquivSlab.equivsizing_flag`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["EquivSizing: Flag"] = value
+        self["EquivSizing: Flag"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferBasementEquivSlab:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferBasementEquivSlab:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferBasementEquivSlab: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferBasementEquivSlab: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferBasementEquivAutoGrid(object):
+class GroundHeatTransferBasementEquivAutoGrid(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:EquivAutoGrid`
         EquivAutoGrid necessary when EquivSizing=TRUE, TRUE is is the normal case.
     """
-    internal_name = "GroundHeatTransfer:Basement:EquivAutoGrid"
-    field_count = 3
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:EquivAutoGrid', 'pyname': u'GroundHeatTransferBasementEquivAutoGrid', 'format': None, 'fields': OrderedDict([(u'clearance: distance from outside of wall to edge of 3-d ground domain', {'name': u'CLEARANCE: Distance from outside of wall to edge of 3-D ground domain', 'pyname': u'clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain', 'default': 15.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slabdepth: thickness of the floor slab', {'name': u'SlabDepth: Thickness of the floor slab', 'pyname': u'slabdepth_thickness_of_the_floor_slab', 'default': 0.1, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'basedepth: depth of the basement wall below grade', {'name': u'BaseDepth: Depth of the basement wall below grade', 'pyname': u'basedepth_depth_of_the_basement_wall_below_grade', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:EquivAutoGrid`
         """
         self._data = OrderedDict()
-        self._data["CLEARANCE: Distance from outside of wall to edge of 3-D ground domain"] = None
-        self._data["SlabDepth: Thickness of the floor slab"] = None
-        self._data["BaseDepth: Depth of the basement wall below grade"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain = None
-        else:
-            self.clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.slabdepth_thickness_of_the_floor_slab = None
-        else:
-            self.slabdepth_thickness_of_the_floor_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.basedepth_depth_of_the_basement_wall_below_grade = None
-        else:
-            self.basedepth_depth_of_the_basement_wall_below_grade = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain(self):
@@ -7268,23 +3326,13 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
             value (float): value for IDD Field `CLEARANCE: Distance from outside of wall to edge of 3-D ground domain`
                 Units: m
                 Default value: 15.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementEquivAutoGrid.clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementEquivAutoGrid.clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain`')
-        self._data["CLEARANCE: Distance from outside of wall to edge of 3-D ground domain"] = value
+        self["CLEARANCE: Distance from outside of wall to edge of 3-D ground domain"] = value
 
     @property
     def slabdepth_thickness_of_the_floor_slab(self):
@@ -7303,23 +3351,13 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
             value (float): value for IDD Field `SlabDepth: Thickness of the floor slab`
                 Units: m
                 Default value: 0.1
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementEquivAutoGrid.slabdepth_thickness_of_the_floor_slab`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementEquivAutoGrid.slabdepth_thickness_of_the_floor_slab`')
-        self._data["SlabDepth: Thickness of the floor slab"] = value
+        self["SlabDepth: Thickness of the floor slab"] = value
 
     @property
     def basedepth_depth_of_the_basement_wall_below_grade(self):
@@ -7338,185 +3376,31 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
             value (float): value for IDD Field `BaseDepth: Depth of the basement wall below grade`
                 Units: m
                 Default value: 2.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementEquivAutoGrid.basedepth_depth_of_the_basement_wall_below_grade`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementEquivAutoGrid.basedepth_depth_of_the_basement_wall_below_grade`')
-        self._data["BaseDepth: Depth of the basement wall below grade"] = value
+        self["BaseDepth: Depth of the basement wall below grade"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferBasementEquivAutoGrid:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferBasementEquivAutoGrid:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferBasementEquivAutoGrid: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferBasementEquivAutoGrid: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferBasementAutoGrid(object):
+class GroundHeatTransferBasementAutoGrid(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:AutoGrid`
         AutoGrid only necessary when EquivSizing is false
         If the modelled building is not a rectangle or square, Equivalent
         sizing MUST be used to get accurate results
     """
-    internal_name = "GroundHeatTransfer:Basement:AutoGrid"
-    field_count = 6
-    required_fields = ["SLABX: X dimension of the building slab", "SLABY: Y dimension of the building slab"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:AutoGrid', 'pyname': u'GroundHeatTransferBasementAutoGrid', 'format': None, 'fields': OrderedDict([(u'clearance: distance from outside of wall to edge,', {'name': u'CLEARANCE: Distance from outside of wall to edge,', 'pyname': u'clearance_distance_from_outside_of_wall_to_edge_', 'default': 15.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slabx: x dimension of the building slab', {'name': u'SLABX: X dimension of the building slab', 'pyname': u'slabx_x_dimension_of_the_building_slab', 'maximum': 60.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slaby: y dimension of the building slab', {'name': u'SLABY: Y dimension of the building slab', 'pyname': u'slaby_y_dimension_of_the_building_slab', 'maximum': 60.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'concagheight: height of the foundation wall above grade', {'name': u'ConcAGHeight: Height of the foundation wall above grade', 'pyname': u'concagheight_height_of_the_foundation_wall_above_grade', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slabdepth: thickness of the floor slab', {'name': u'SlabDepth: Thickness of the floor slab', 'pyname': u'slabdepth_thickness_of_the_floor_slab', 'default': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'basedepth: depth of the basement wall below grade', {'name': u'BaseDepth: Depth of the basement wall below grade', 'pyname': u'basedepth_depth_of_the_basement_wall_below_grade', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:AutoGrid`
         """
         self._data = OrderedDict()
-        self._data["CLEARANCE: Distance from outside of wall to edge,"] = None
-        self._data["SLABX: X dimension of the building slab"] = None
-        self._data["SLABY: Y dimension of the building slab"] = None
-        self._data["ConcAGHeight: Height of the foundation wall above grade"] = None
-        self._data["SlabDepth: Thickness of the floor slab"] = None
-        self._data["BaseDepth: Depth of the basement wall below grade"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.clearance_distance_from_outside_of_wall_to_edge_ = None
-        else:
-            self.clearance_distance_from_outside_of_wall_to_edge_ = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.slabx_x_dimension_of_the_building_slab = None
-        else:
-            self.slabx_x_dimension_of_the_building_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.slaby_y_dimension_of_the_building_slab = None
-        else:
-            self.slaby_y_dimension_of_the_building_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.concagheight_height_of_the_foundation_wall_above_grade = None
-        else:
-            self.concagheight_height_of_the_foundation_wall_above_grade = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.slabdepth_thickness_of_the_floor_slab = None
-        else:
-            self.slabdepth_thickness_of_the_floor_slab = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.basedepth_depth_of_the_basement_wall_below_grade = None
-        else:
-            self.basedepth_depth_of_the_basement_wall_below_grade = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def clearance_distance_from_outside_of_wall_to_edge_(self):
@@ -7535,23 +3419,13 @@ class GroundHeatTransferBasementAutoGrid(object):
             value (float): value for IDD Field `CLEARANCE: Distance from outside of wall to edge,`
                 Units: m
                 Default value: 15.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementAutoGrid.clearance_distance_from_outside_of_wall_to_edge_`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementAutoGrid.clearance_distance_from_outside_of_wall_to_edge_`')
-        self._data["CLEARANCE: Distance from outside of wall to edge,"] = value
+        self["CLEARANCE: Distance from outside of wall to edge,"] = value
 
     @property
     def slabx_x_dimension_of_the_building_slab(self):
@@ -7569,7 +3443,6 @@ class GroundHeatTransferBasementAutoGrid(object):
         Args:
             value (float): value for IDD Field `SLABX: X dimension of the building slab`
                 Units: m
-                value >= 0.0
                 value <= 60.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7577,19 +3450,7 @@ class GroundHeatTransferBasementAutoGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementAutoGrid.slabx_x_dimension_of_the_building_slab`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementAutoGrid.slabx_x_dimension_of_the_building_slab`')
-            if value > 60.0:
-                raise ValueError('value need to be smaller 60.0 '
-                                 'for field `GroundHeatTransferBasementAutoGrid.slabx_x_dimension_of_the_building_slab`')
-        self._data["SLABX: X dimension of the building slab"] = value
+        self["SLABX: X dimension of the building slab"] = value
 
     @property
     def slaby_y_dimension_of_the_building_slab(self):
@@ -7607,7 +3468,6 @@ class GroundHeatTransferBasementAutoGrid(object):
         Args:
             value (float): value for IDD Field `SLABY: Y dimension of the building slab`
                 Units: m
-                value >= 0.0
                 value <= 60.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7615,19 +3475,7 @@ class GroundHeatTransferBasementAutoGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementAutoGrid.slaby_y_dimension_of_the_building_slab`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementAutoGrid.slaby_y_dimension_of_the_building_slab`')
-            if value > 60.0:
-                raise ValueError('value need to be smaller 60.0 '
-                                 'for field `GroundHeatTransferBasementAutoGrid.slaby_y_dimension_of_the_building_slab`')
-        self._data["SLABY: Y dimension of the building slab"] = value
+        self["SLABY: Y dimension of the building slab"] = value
 
     @property
     def concagheight_height_of_the_foundation_wall_above_grade(self):
@@ -7639,30 +3487,19 @@ class GroundHeatTransferBasementAutoGrid(object):
         return self._data["ConcAGHeight: Height of the foundation wall above grade"]
 
     @concagheight_height_of_the_foundation_wall_above_grade.setter
-    def concagheight_height_of_the_foundation_wall_above_grade(self, value=0.0):
+    def concagheight_height_of_the_foundation_wall_above_grade(self, value=None):
         """  Corresponds to IDD Field `ConcAGHeight: Height of the foundation wall above grade`
 
         Args:
             value (float): value for IDD Field `ConcAGHeight: Height of the foundation wall above grade`
                 Units: m
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementAutoGrid.concagheight_height_of_the_foundation_wall_above_grade`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementAutoGrid.concagheight_height_of_the_foundation_wall_above_grade`')
-        self._data["ConcAGHeight: Height of the foundation wall above grade"] = value
+        self["ConcAGHeight: Height of the foundation wall above grade"] = value
 
     @property
     def slabdepth_thickness_of_the_floor_slab(self):
@@ -7687,13 +3524,7 @@ class GroundHeatTransferBasementAutoGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementAutoGrid.slabdepth_thickness_of_the_floor_slab`'.format(value))
-        self._data["SlabDepth: Thickness of the floor slab"] = value
+        self["SlabDepth: Thickness of the floor slab"] = value
 
     @property
     def basedepth_depth_of_the_basement_wall_below_grade(self):
@@ -7712,191 +3543,29 @@ class GroundHeatTransferBasementAutoGrid(object):
             value (float): value for IDD Field `BaseDepth: Depth of the basement wall below grade`
                 Units: m
                 Default value: 2.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementAutoGrid.basedepth_depth_of_the_basement_wall_below_grade`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `GroundHeatTransferBasementAutoGrid.basedepth_depth_of_the_basement_wall_below_grade`')
-        self._data["BaseDepth: Depth of the basement wall below grade"] = value
+        self["BaseDepth: Depth of the basement wall below grade"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferBasementAutoGrid:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferBasementAutoGrid:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferBasementAutoGrid: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferBasementAutoGrid: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class GroundHeatTransferBasementManualGrid(object):
+class GroundHeatTransferBasementManualGrid(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:ManualGrid`
         Manual Grid only necessary using manual gridding (not recommended)
     """
-    internal_name = "GroundHeatTransfer:Basement:ManualGrid"
-    field_count = 7
-    required_fields = ["NX: Number of cells in the X direction: 20]", "NY: Number of cells in the Y direction: 20]", "NZAG: Number of cells in the Z direction. above grade: 4 Always]", "NZBG: Number of cells in Z direction. below grade: 10-35]", "IBASE: X direction cell indicator of slab edge: 5-20]", "JBASE: Y direction cell indicator of slab edge: 5-20]", "KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:ManualGrid', 'pyname': u'GroundHeatTransferBasementManualGrid', 'format': None, 'fields': OrderedDict([(u'nx: number of cells in the x direction: 20]', {'name': u'NX: Number of cells in the X direction: 20]', 'pyname': u'nx_number_of_cells_in_the_x_direction_20', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'ny: number of cells in the y direction: 20]', {'name': u'NY: Number of cells in the Y direction: 20]', 'pyname': u'ny_number_of_cells_in_the_y_direction_20', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'nzag: number of cells in the z direction. above grade: 4 always]', {'name': u'NZAG: Number of cells in the Z direction. above grade: 4 Always]', 'pyname': u'nzag_number_of_cells_in_the_z_direction_above_grade_4_always', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'nzbg: number of cells in z direction. below grade: 10-35]', {'name': u'NZBG: Number of cells in Z direction. below grade: 10-35]', 'pyname': u'nzbg_number_of_cells_in_z_direction_below_grade_1035', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'ibase: x direction cell indicator of slab edge: 5-20]', {'name': u'IBASE: X direction cell indicator of slab edge: 5-20]', 'pyname': u'ibase_x_direction_cell_indicator_of_slab_edge_520', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'jbase: y direction cell indicator of slab edge: 5-20]', {'name': u'JBASE: Y direction cell indicator of slab edge: 5-20]', 'pyname': u'jbase_y_direction_cell_indicator_of_slab_edge_520', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'kbase: z direction cell indicator of the top of the floor slab: 5-20]', {'name': u'KBASE: Z direction cell indicator of the top of the floor slab: 5-20]', 'pyname': u'kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:ManualGrid`
         """
         self._data = OrderedDict()
-        self._data["NX: Number of cells in the X direction: 20]"] = None
-        self._data["NY: Number of cells in the Y direction: 20]"] = None
-        self._data["NZAG: Number of cells in the Z direction. above grade: 4 Always]"] = None
-        self._data["NZBG: Number of cells in Z direction. below grade: 10-35]"] = None
-        self._data["IBASE: X direction cell indicator of slab edge: 5-20]"] = None
-        self._data["JBASE: Y direction cell indicator of slab edge: 5-20]"] = None
-        self._data["KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.nx_number_of_cells_in_the_x_direction_20 = None
-        else:
-            self.nx_number_of_cells_in_the_x_direction_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ny_number_of_cells_in_the_y_direction_20 = None
-        else:
-            self.ny_number_of_cells_in_the_y_direction_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nzag_number_of_cells_in_the_z_direction_above_grade_4_always = None
-        else:
-            self.nzag_number_of_cells_in_the_z_direction_above_grade_4_always = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nzbg_number_of_cells_in_z_direction_below_grade_1035 = None
-        else:
-            self.nzbg_number_of_cells_in_z_direction_below_grade_1035 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ibase_x_direction_cell_indicator_of_slab_edge_520 = None
-        else:
-            self.ibase_x_direction_cell_indicator_of_slab_edge_520 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.jbase_y_direction_cell_indicator_of_slab_edge_520 = None
-        else:
-            self.jbase_y_direction_cell_indicator_of_slab_edge_520 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520 = None
-        else:
-            self.kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def nx_number_of_cells_in_the_x_direction_20(self):
@@ -7920,16 +3589,7 @@ class GroundHeatTransferBasementManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementManualGrid.nx_number_of_cells_in_the_x_direction_20`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `GroundHeatTransferBasementManualGrid.nx_number_of_cells_in_the_x_direction_20`')
-        self._data["NX: Number of cells in the X direction: 20]"] = value
+        self["NX: Number of cells in the X direction: 20]"] = value
 
     @property
     def ny_number_of_cells_in_the_y_direction_20(self):
@@ -7953,16 +3613,7 @@ class GroundHeatTransferBasementManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementManualGrid.ny_number_of_cells_in_the_y_direction_20`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `GroundHeatTransferBasementManualGrid.ny_number_of_cells_in_the_y_direction_20`')
-        self._data["NY: Number of cells in the Y direction: 20]"] = value
+        self["NY: Number of cells in the Y direction: 20]"] = value
 
     @property
     def nzag_number_of_cells_in_the_z_direction_above_grade_4_always(self):
@@ -7986,16 +3637,7 @@ class GroundHeatTransferBasementManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementManualGrid.nzag_number_of_cells_in_the_z_direction_above_grade_4_always`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `GroundHeatTransferBasementManualGrid.nzag_number_of_cells_in_the_z_direction_above_grade_4_always`')
-        self._data["NZAG: Number of cells in the Z direction. above grade: 4 Always]"] = value
+        self["NZAG: Number of cells in the Z direction. above grade: 4 Always]"] = value
 
     @property
     def nzbg_number_of_cells_in_z_direction_below_grade_1035(self):
@@ -8019,16 +3661,7 @@ class GroundHeatTransferBasementManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementManualGrid.nzbg_number_of_cells_in_z_direction_below_grade_1035`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `GroundHeatTransferBasementManualGrid.nzbg_number_of_cells_in_z_direction_below_grade_1035`')
-        self._data["NZBG: Number of cells in Z direction. below grade: 10-35]"] = value
+        self["NZBG: Number of cells in Z direction. below grade: 10-35]"] = value
 
     @property
     def ibase_x_direction_cell_indicator_of_slab_edge_520(self):
@@ -8051,13 +3684,7 @@ class GroundHeatTransferBasementManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementManualGrid.ibase_x_direction_cell_indicator_of_slab_edge_520`'.format(value))
-        self._data["IBASE: X direction cell indicator of slab edge: 5-20]"] = value
+        self["IBASE: X direction cell indicator of slab edge: 5-20]"] = value
 
     @property
     def jbase_y_direction_cell_indicator_of_slab_edge_520(self):
@@ -8080,13 +3707,7 @@ class GroundHeatTransferBasementManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementManualGrid.jbase_y_direction_cell_indicator_of_slab_edge_520`'.format(value))
-        self._data["JBASE: Y direction cell indicator of slab edge: 5-20]"] = value
+        self["JBASE: Y direction cell indicator of slab edge: 5-20]"] = value
 
     @property
     def kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520(self):
@@ -8109,92 +3730,4 @@ class GroundHeatTransferBasementManualGrid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `GroundHeatTransferBasementManualGrid.kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520`'.format(value))
-        self._data["KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field GroundHeatTransferBasementManualGrid:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field GroundHeatTransferBasementManualGrid:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for GroundHeatTransferBasementManualGrid: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for GroundHeatTransferBasementManualGrid: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"] = value

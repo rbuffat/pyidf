@@ -1,160 +1,28 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class HeatExchangerAirToAirFlatPlate(object):
+
+
+class HeatExchangerAirToAirFlatPlate(DataObject):
     """ Corresponds to IDD object `HeatExchanger:AirToAir:FlatPlate`
         Flat plate air-to-air heat exchanger, typically used for exhaust or relief air heat
         recovery.
     """
-    internal_name = "HeatExchanger:AirToAir:FlatPlate"
-    field_count = 15
-    required_fields = ["Name", "Nominal Supply Air Flow Rate", "Nominal Supply Air Inlet Temperature", "Nominal Supply Air Outlet Temperature", "Nominal Secondary Air Flow Rate", "Nominal Secondary Air Inlet Temperature", "Supply Air Inlet Node Name", "Supply Air Outlet Node Name", "Secondary Air Inlet Node Name", "Secondary Air Outlet Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 15
-    extensible_keys = []
+    schema = {'min-fields': 15, 'name': u'HeatExchanger:AirToAir:FlatPlate', 'pyname': u'HeatExchangerAirToAirFlatPlate', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'flow arrangement type', {'name': u'Flow Arrangement Type', 'pyname': u'flow_arrangement_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'economizer lockout', {'name': u'Economizer Lockout', 'pyname': u'economizer_lockout', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ratio of supply to secondary ha values', {'name': u'Ratio of Supply to Secondary hA Values', 'pyname': u'ratio_of_supply_to_secondary_ha_values', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'nominal supply air flow rate', {'name': u'Nominal Supply Air Flow Rate', 'pyname': u'nominal_supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal supply air inlet temperature', {'name': u'Nominal Supply Air Inlet Temperature', 'pyname': u'nominal_supply_air_inlet_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal supply air outlet temperature', {'name': u'Nominal Supply Air Outlet Temperature', 'pyname': u'nominal_supply_air_outlet_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal secondary air flow rate', {'name': u'Nominal Secondary Air Flow Rate', 'pyname': u'nominal_secondary_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal secondary air inlet temperature', {'name': u'Nominal Secondary Air Inlet Temperature', 'pyname': u'nominal_secondary_air_inlet_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal electric power', {'name': u'Nominal Electric Power', 'pyname': u'nominal_electric_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air outlet node name', {'name': u'Supply Air Outlet Node Name', 'pyname': u'supply_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air outlet node name', {'name': u'Secondary Air Outlet Node Name', 'pyname': u'secondary_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:AirToAir:FlatPlate`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Flow Arrangement Type"] = None
-        self._data["Economizer Lockout"] = None
-        self._data["Ratio of Supply to Secondary hA Values"] = None
-        self._data["Nominal Supply Air Flow Rate"] = None
-        self._data["Nominal Supply Air Inlet Temperature"] = None
-        self._data["Nominal Supply Air Outlet Temperature"] = None
-        self._data["Nominal Secondary Air Flow Rate"] = None
-        self._data["Nominal Secondary Air Inlet Temperature"] = None
-        self._data["Nominal Electric Power"] = None
-        self._data["Supply Air Inlet Node Name"] = None
-        self._data["Supply Air Outlet Node Name"] = None
-        self._data["Secondary Air Inlet Node Name"] = None
-        self._data["Secondary Air Outlet Node Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_arrangement_type = None
-        else:
-            self.flow_arrangement_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.economizer_lockout = None
-        else:
-            self.economizer_lockout = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ratio_of_supply_to_secondary_ha_values = None
-        else:
-            self.ratio_of_supply_to_secondary_ha_values = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_supply_air_flow_rate = None
-        else:
-            self.nominal_supply_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_supply_air_inlet_temperature = None
-        else:
-            self.nominal_supply_air_inlet_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_supply_air_outlet_temperature = None
-        else:
-            self.nominal_supply_air_outlet_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_secondary_air_flow_rate = None
-        else:
-            self.nominal_secondary_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_secondary_air_inlet_temperature = None
-        else:
-            self.nominal_secondary_air_inlet_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_electric_power = None
-        else:
-            self.nominal_electric_power = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_inlet_node_name = None
-        else:
-            self.supply_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_outlet_node_name = None
-        else:
-            self.supply_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.secondary_air_inlet_node_name = None
-        else:
-            self.secondary_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.secondary_air_outlet_node_name = None
-        else:
-            self.secondary_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -177,19 +45,7 @@ class HeatExchangerAirToAirFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirFlatPlate.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirFlatPlate.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -214,19 +70,7 @@ class HeatExchangerAirToAirFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirFlatPlate.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirFlatPlate.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def flow_arrangement_type(self):
@@ -243,57 +87,13 @@ class HeatExchangerAirToAirFlatPlate(object):
 
         Args:
             value (str): value for IDD Field `Flow Arrangement Type`
-                Accepted values are:
-                      - CounterFlow
-                      - ParallelFlow
-                      - CrossFlowBothUnmixed
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.flow_arrangement_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirFlatPlate.flow_arrangement_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirFlatPlate.flow_arrangement_type`')
-            vals = {}
-            vals["counterflow"] = "CounterFlow"
-            vals["parallelflow"] = "ParallelFlow"
-            vals["crossflowbothunmixed"] = "CrossFlowBothUnmixed"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `HeatExchangerAirToAirFlatPlate.flow_arrangement_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `HeatExchangerAirToAirFlatPlate.flow_arrangement_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Flow Arrangement Type"] = value
+        self["Flow Arrangement Type"] = value
 
     @property
     def economizer_lockout(self):
@@ -312,9 +112,6 @@ class HeatExchangerAirToAirFlatPlate(object):
 
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -322,46 +119,7 @@ class HeatExchangerAirToAirFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.economizer_lockout`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirFlatPlate.economizer_lockout`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirFlatPlate.economizer_lockout`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `HeatExchangerAirToAirFlatPlate.economizer_lockout`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `HeatExchangerAirToAirFlatPlate.economizer_lockout`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Economizer Lockout"] = value
+        self["Economizer Lockout"] = value
 
     @property
     def ratio_of_supply_to_secondary_ha_values(self):
@@ -379,23 +137,13 @@ class HeatExchangerAirToAirFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `Ratio of Supply to Secondary hA Values`
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.ratio_of_supply_to_secondary_ha_values`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirFlatPlate.ratio_of_supply_to_secondary_ha_values`')
-        self._data["Ratio of Supply to Secondary hA Values"] = value
+        self["Ratio of Supply to Secondary hA Values"] = value
 
     @property
     def nominal_supply_air_flow_rate(self):
@@ -413,23 +161,13 @@ class HeatExchangerAirToAirFlatPlate(object):
         Args:
             value (float): value for IDD Field `Nominal Supply Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.nominal_supply_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `HeatExchangerAirToAirFlatPlate.nominal_supply_air_flow_rate`')
-        self._data["Nominal Supply Air Flow Rate"] = value
+        self["Nominal Supply Air Flow Rate"] = value
 
     @property
     def nominal_supply_air_inlet_temperature(self):
@@ -453,13 +191,7 @@ class HeatExchangerAirToAirFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.nominal_supply_air_inlet_temperature`'.format(value))
-        self._data["Nominal Supply Air Inlet Temperature"] = value
+        self["Nominal Supply Air Inlet Temperature"] = value
 
     @property
     def nominal_supply_air_outlet_temperature(self):
@@ -483,13 +215,7 @@ class HeatExchangerAirToAirFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.nominal_supply_air_outlet_temperature`'.format(value))
-        self._data["Nominal Supply Air Outlet Temperature"] = value
+        self["Nominal Supply Air Outlet Temperature"] = value
 
     @property
     def nominal_secondary_air_flow_rate(self):
@@ -507,23 +233,13 @@ class HeatExchangerAirToAirFlatPlate(object):
         Args:
             value (float): value for IDD Field `Nominal Secondary Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.nominal_secondary_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `HeatExchangerAirToAirFlatPlate.nominal_secondary_air_flow_rate`')
-        self._data["Nominal Secondary Air Flow Rate"] = value
+        self["Nominal Secondary Air Flow Rate"] = value
 
     @property
     def nominal_secondary_air_inlet_temperature(self):
@@ -547,13 +263,7 @@ class HeatExchangerAirToAirFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.nominal_secondary_air_inlet_temperature`'.format(value))
-        self._data["Nominal Secondary Air Inlet Temperature"] = value
+        self["Nominal Secondary Air Inlet Temperature"] = value
 
     @property
     def nominal_electric_power(self):
@@ -578,13 +288,7 @@ class HeatExchangerAirToAirFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.nominal_electric_power`'.format(value))
-        self._data["Nominal Electric Power"] = value
+        self["Nominal Electric Power"] = value
 
     @property
     def supply_air_inlet_node_name(self):
@@ -607,19 +311,7 @@ class HeatExchangerAirToAirFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.supply_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirFlatPlate.supply_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirFlatPlate.supply_air_inlet_node_name`')
-        self._data["Supply Air Inlet Node Name"] = value
+        self["Supply Air Inlet Node Name"] = value
 
     @property
     def supply_air_outlet_node_name(self):
@@ -642,19 +334,7 @@ class HeatExchangerAirToAirFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.supply_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirFlatPlate.supply_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirFlatPlate.supply_air_outlet_node_name`')
-        self._data["Supply Air Outlet Node Name"] = value
+        self["Supply Air Outlet Node Name"] = value
 
     @property
     def secondary_air_inlet_node_name(self):
@@ -677,19 +357,7 @@ class HeatExchangerAirToAirFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.secondary_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirFlatPlate.secondary_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirFlatPlate.secondary_air_inlet_node_name`')
-        self._data["Secondary Air Inlet Node Name"] = value
+        self["Secondary Air Inlet Node Name"] = value
 
     @property
     def secondary_air_outlet_node_name(self):
@@ -712,317 +380,25 @@ class HeatExchangerAirToAirFlatPlate(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirFlatPlate.secondary_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirFlatPlate.secondary_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirFlatPlate.secondary_air_outlet_node_name`')
-        self._data["Secondary Air Outlet Node Name"] = value
+        self["Secondary Air Outlet Node Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field HeatExchangerAirToAirFlatPlate:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field HeatExchangerAirToAirFlatPlate:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for HeatExchangerAirToAirFlatPlate: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for HeatExchangerAirToAirFlatPlate: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class HeatExchangerAirToAirSensibleAndLatent(object):
+class HeatExchangerAirToAirSensibleAndLatent(DataObject):
     """ Corresponds to IDD object `HeatExchanger:AirToAir:SensibleAndLatent`
         This object models an air-to-air heat exchanger using effectiveness relationships.
         The heat exchanger can transfer sensible energy, latent energy, or both between the
         supply (primary) and exhaust (secondary) air streams.
     """
-    internal_name = "HeatExchanger:AirToAir:SensibleAndLatent"
-    field_count = 23
-    required_fields = ["Name", "Nominal Supply Air Flow Rate", "Supply Air Inlet Node Name", "Supply Air Outlet Node Name", "Exhaust Air Inlet Node Name", "Exhaust Air Outlet Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 19
-    extensible_keys = []
+    schema = {'min-fields': 19, 'name': u'HeatExchanger:AirToAir:SensibleAndLatent', 'pyname': u'HeatExchangerAirToAirSensibleAndLatent', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nominal supply air flow rate', {'name': u'Nominal Supply Air Flow Rate', 'pyname': u'nominal_supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'sensible effectiveness at 100% heating air flow', {'name': u'Sensible Effectiveness at 100% Heating Air Flow', 'pyname': u'sensible_effectiveness_at_100_heating_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'latent effectiveness at 100% heating air flow', {'name': u'Latent Effectiveness at 100% Heating Air Flow', 'pyname': u'latent_effectiveness_at_100_heating_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sensible effectiveness at 75% heating air flow', {'name': u'Sensible Effectiveness at 75% Heating Air Flow', 'pyname': u'sensible_effectiveness_at_75_heating_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'latent effectiveness at 75% heating air flow', {'name': u'Latent Effectiveness at 75% Heating Air Flow', 'pyname': u'latent_effectiveness_at_75_heating_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sensible effectiveness at 100% cooling air flow', {'name': u'Sensible Effectiveness at 100% Cooling Air Flow', 'pyname': u'sensible_effectiveness_at_100_cooling_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'latent effectiveness at 100% cooling air flow', {'name': u'Latent Effectiveness at 100% Cooling Air Flow', 'pyname': u'latent_effectiveness_at_100_cooling_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sensible effectiveness at 75% cooling air flow', {'name': u'Sensible Effectiveness at 75% Cooling Air Flow', 'pyname': u'sensible_effectiveness_at_75_cooling_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'latent effectiveness at 75% cooling air flow', {'name': u'Latent Effectiveness at 75% Cooling Air Flow', 'pyname': u'latent_effectiveness_at_75_cooling_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air outlet node name', {'name': u'Supply Air Outlet Node Name', 'pyname': u'supply_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'exhaust air inlet node name', {'name': u'Exhaust Air Inlet Node Name', 'pyname': u'exhaust_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'exhaust air outlet node name', {'name': u'Exhaust Air Outlet Node Name', 'pyname': u'exhaust_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'nominal electric power', {'name': u'Nominal Electric Power', 'pyname': u'nominal_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'supply air outlet temperature control', {'name': u'Supply Air Outlet Temperature Control', 'pyname': u'supply_air_outlet_temperature_control', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat exchanger type', {'name': u'Heat Exchanger Type', 'pyname': u'heat_exchanger_type', 'default': u'Plate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'frost control type', {'name': u'Frost Control Type', 'pyname': u'frost_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'threshold temperature', {'name': u'Threshold Temperature', 'pyname': u'threshold_temperature', 'default': 1.7, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'initial defrost time fraction', {'name': u'Initial Defrost Time Fraction', 'pyname': u'initial_defrost_time_fraction', 'default': 0.083, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'rate of defrost time fraction increase', {'name': u'Rate of Defrost Time Fraction Increase', 'pyname': u'rate_of_defrost_time_fraction_increase', 'default': 0.012, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/K'}), (u'economizer lockout', {'name': u'Economizer Lockout', 'pyname': u'economizer_lockout', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:AirToAir:SensibleAndLatent`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Nominal Supply Air Flow Rate"] = None
-        self._data["Sensible Effectiveness at 100% Heating Air Flow"] = None
-        self._data["Latent Effectiveness at 100% Heating Air Flow"] = None
-        self._data["Sensible Effectiveness at 75% Heating Air Flow"] = None
-        self._data["Latent Effectiveness at 75% Heating Air Flow"] = None
-        self._data["Sensible Effectiveness at 100% Cooling Air Flow"] = None
-        self._data["Latent Effectiveness at 100% Cooling Air Flow"] = None
-        self._data["Sensible Effectiveness at 75% Cooling Air Flow"] = None
-        self._data["Latent Effectiveness at 75% Cooling Air Flow"] = None
-        self._data["Supply Air Inlet Node Name"] = None
-        self._data["Supply Air Outlet Node Name"] = None
-        self._data["Exhaust Air Inlet Node Name"] = None
-        self._data["Exhaust Air Outlet Node Name"] = None
-        self._data["Nominal Electric Power"] = None
-        self._data["Supply Air Outlet Temperature Control"] = None
-        self._data["Heat Exchanger Type"] = None
-        self._data["Frost Control Type"] = None
-        self._data["Threshold Temperature"] = None
-        self._data["Initial Defrost Time Fraction"] = None
-        self._data["Rate of Defrost Time Fraction Increase"] = None
-        self._data["Economizer Lockout"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_supply_air_flow_rate = None
-        else:
-            self.nominal_supply_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.sensible_effectiveness_at_100_heating_air_flow = None
-        else:
-            self.sensible_effectiveness_at_100_heating_air_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.latent_effectiveness_at_100_heating_air_flow = None
-        else:
-            self.latent_effectiveness_at_100_heating_air_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.sensible_effectiveness_at_75_heating_air_flow = None
-        else:
-            self.sensible_effectiveness_at_75_heating_air_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.latent_effectiveness_at_75_heating_air_flow = None
-        else:
-            self.latent_effectiveness_at_75_heating_air_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.sensible_effectiveness_at_100_cooling_air_flow = None
-        else:
-            self.sensible_effectiveness_at_100_cooling_air_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.latent_effectiveness_at_100_cooling_air_flow = None
-        else:
-            self.latent_effectiveness_at_100_cooling_air_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.sensible_effectiveness_at_75_cooling_air_flow = None
-        else:
-            self.sensible_effectiveness_at_75_cooling_air_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.latent_effectiveness_at_75_cooling_air_flow = None
-        else:
-            self.latent_effectiveness_at_75_cooling_air_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_inlet_node_name = None
-        else:
-            self.supply_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_outlet_node_name = None
-        else:
-            self.supply_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_air_inlet_node_name = None
-        else:
-            self.exhaust_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_air_outlet_node_name = None
-        else:
-            self.exhaust_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_electric_power = None
-        else:
-            self.nominal_electric_power = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_outlet_temperature_control = None
-        else:
-            self.supply_air_outlet_temperature_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heat_exchanger_type = None
-        else:
-            self.heat_exchanger_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.frost_control_type = None
-        else:
-            self.frost_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.threshold_temperature = None
-        else:
-            self.threshold_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.initial_defrost_time_fraction = None
-        else:
-            self.initial_defrost_time_fraction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rate_of_defrost_time_fraction_increase = None
-        else:
-            self.rate_of_defrost_time_fraction_increase = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.economizer_lockout = None
-        else:
-            self.economizer_lockout = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1045,19 +421,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -1082,19 +446,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def nominal_supply_air_flow_rate(self):
@@ -1112,35 +464,13 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Nominal Supply Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Nominal Supply Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.nominal_supply_air_flow_rate`'.format(value))
-                    self._data["Nominal Supply Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.nominal_supply_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.nominal_supply_air_flow_rate`')
-        self._data["Nominal Supply Air Flow Rate"] = value
+        self["Nominal Supply Air Flow Rate"] = value
 
     @property
     def sensible_effectiveness_at_100_heating_air_flow(self):
@@ -1152,14 +482,12 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         return self._data["Sensible Effectiveness at 100% Heating Air Flow"]
 
     @sensible_effectiveness_at_100_heating_air_flow.setter
-    def sensible_effectiveness_at_100_heating_air_flow(self, value=0.0):
+    def sensible_effectiveness_at_100_heating_air_flow(self, value=None):
         """  Corresponds to IDD Field `Sensible Effectiveness at 100% Heating Air Flow`
 
         Args:
             value (float): value for IDD Field `Sensible Effectiveness at 100% Heating Air Flow`
                 Units: dimensionless
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1167,19 +495,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_100_heating_air_flow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_100_heating_air_flow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_100_heating_air_flow`')
-        self._data["Sensible Effectiveness at 100% Heating Air Flow"] = value
+        self["Sensible Effectiveness at 100% Heating Air Flow"] = value
 
     @property
     def latent_effectiveness_at_100_heating_air_flow(self):
@@ -1191,14 +507,12 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         return self._data["Latent Effectiveness at 100% Heating Air Flow"]
 
     @latent_effectiveness_at_100_heating_air_flow.setter
-    def latent_effectiveness_at_100_heating_air_flow(self, value=0.0):
+    def latent_effectiveness_at_100_heating_air_flow(self, value=None):
         """  Corresponds to IDD Field `Latent Effectiveness at 100% Heating Air Flow`
 
         Args:
             value (float): value for IDD Field `Latent Effectiveness at 100% Heating Air Flow`
                 Units: dimensionless
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1206,19 +520,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_100_heating_air_flow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_100_heating_air_flow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_100_heating_air_flow`')
-        self._data["Latent Effectiveness at 100% Heating Air Flow"] = value
+        self["Latent Effectiveness at 100% Heating Air Flow"] = value
 
     @property
     def sensible_effectiveness_at_75_heating_air_flow(self):
@@ -1230,14 +532,12 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         return self._data["Sensible Effectiveness at 75% Heating Air Flow"]
 
     @sensible_effectiveness_at_75_heating_air_flow.setter
-    def sensible_effectiveness_at_75_heating_air_flow(self, value=0.0):
+    def sensible_effectiveness_at_75_heating_air_flow(self, value=None):
         """  Corresponds to IDD Field `Sensible Effectiveness at 75% Heating Air Flow`
 
         Args:
             value (float): value for IDD Field `Sensible Effectiveness at 75% Heating Air Flow`
                 Units: dimensionless
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1245,19 +545,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_75_heating_air_flow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_75_heating_air_flow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_75_heating_air_flow`')
-        self._data["Sensible Effectiveness at 75% Heating Air Flow"] = value
+        self["Sensible Effectiveness at 75% Heating Air Flow"] = value
 
     @property
     def latent_effectiveness_at_75_heating_air_flow(self):
@@ -1269,14 +557,12 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         return self._data["Latent Effectiveness at 75% Heating Air Flow"]
 
     @latent_effectiveness_at_75_heating_air_flow.setter
-    def latent_effectiveness_at_75_heating_air_flow(self, value=0.0):
+    def latent_effectiveness_at_75_heating_air_flow(self, value=None):
         """  Corresponds to IDD Field `Latent Effectiveness at 75% Heating Air Flow`
 
         Args:
             value (float): value for IDD Field `Latent Effectiveness at 75% Heating Air Flow`
                 Units: dimensionless
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1284,19 +570,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_75_heating_air_flow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_75_heating_air_flow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_75_heating_air_flow`')
-        self._data["Latent Effectiveness at 75% Heating Air Flow"] = value
+        self["Latent Effectiveness at 75% Heating Air Flow"] = value
 
     @property
     def sensible_effectiveness_at_100_cooling_air_flow(self):
@@ -1308,14 +582,12 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         return self._data["Sensible Effectiveness at 100% Cooling Air Flow"]
 
     @sensible_effectiveness_at_100_cooling_air_flow.setter
-    def sensible_effectiveness_at_100_cooling_air_flow(self, value=0.0):
+    def sensible_effectiveness_at_100_cooling_air_flow(self, value=None):
         """  Corresponds to IDD Field `Sensible Effectiveness at 100% Cooling Air Flow`
 
         Args:
             value (float): value for IDD Field `Sensible Effectiveness at 100% Cooling Air Flow`
                 Units: dimensionless
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1323,19 +595,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_100_cooling_air_flow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_100_cooling_air_flow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_100_cooling_air_flow`')
-        self._data["Sensible Effectiveness at 100% Cooling Air Flow"] = value
+        self["Sensible Effectiveness at 100% Cooling Air Flow"] = value
 
     @property
     def latent_effectiveness_at_100_cooling_air_flow(self):
@@ -1347,14 +607,12 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         return self._data["Latent Effectiveness at 100% Cooling Air Flow"]
 
     @latent_effectiveness_at_100_cooling_air_flow.setter
-    def latent_effectiveness_at_100_cooling_air_flow(self, value=0.0):
+    def latent_effectiveness_at_100_cooling_air_flow(self, value=None):
         """  Corresponds to IDD Field `Latent Effectiveness at 100% Cooling Air Flow`
 
         Args:
             value (float): value for IDD Field `Latent Effectiveness at 100% Cooling Air Flow`
                 Units: dimensionless
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1362,19 +620,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_100_cooling_air_flow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_100_cooling_air_flow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_100_cooling_air_flow`')
-        self._data["Latent Effectiveness at 100% Cooling Air Flow"] = value
+        self["Latent Effectiveness at 100% Cooling Air Flow"] = value
 
     @property
     def sensible_effectiveness_at_75_cooling_air_flow(self):
@@ -1386,14 +632,12 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         return self._data["Sensible Effectiveness at 75% Cooling Air Flow"]
 
     @sensible_effectiveness_at_75_cooling_air_flow.setter
-    def sensible_effectiveness_at_75_cooling_air_flow(self, value=0.0):
+    def sensible_effectiveness_at_75_cooling_air_flow(self, value=None):
         """  Corresponds to IDD Field `Sensible Effectiveness at 75% Cooling Air Flow`
 
         Args:
             value (float): value for IDD Field `Sensible Effectiveness at 75% Cooling Air Flow`
                 Units: dimensionless
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1401,19 +645,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_75_cooling_air_flow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_75_cooling_air_flow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.sensible_effectiveness_at_75_cooling_air_flow`')
-        self._data["Sensible Effectiveness at 75% Cooling Air Flow"] = value
+        self["Sensible Effectiveness at 75% Cooling Air Flow"] = value
 
     @property
     def latent_effectiveness_at_75_cooling_air_flow(self):
@@ -1425,14 +657,12 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         return self._data["Latent Effectiveness at 75% Cooling Air Flow"]
 
     @latent_effectiveness_at_75_cooling_air_flow.setter
-    def latent_effectiveness_at_75_cooling_air_flow(self, value=0.0):
+    def latent_effectiveness_at_75_cooling_air_flow(self, value=None):
         """  Corresponds to IDD Field `Latent Effectiveness at 75% Cooling Air Flow`
 
         Args:
             value (float): value for IDD Field `Latent Effectiveness at 75% Cooling Air Flow`
                 Units: dimensionless
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1440,19 +670,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_75_cooling_air_flow`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_75_cooling_air_flow`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.latent_effectiveness_at_75_cooling_air_flow`')
-        self._data["Latent Effectiveness at 75% Cooling Air Flow"] = value
+        self["Latent Effectiveness at 75% Cooling Air Flow"] = value
 
     @property
     def supply_air_inlet_node_name(self):
@@ -1475,19 +693,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.supply_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.supply_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.supply_air_inlet_node_name`')
-        self._data["Supply Air Inlet Node Name"] = value
+        self["Supply Air Inlet Node Name"] = value
 
     @property
     def supply_air_outlet_node_name(self):
@@ -1510,19 +716,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_node_name`')
-        self._data["Supply Air Outlet Node Name"] = value
+        self["Supply Air Outlet Node Name"] = value
 
     @property
     def exhaust_air_inlet_node_name(self):
@@ -1545,19 +739,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.exhaust_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.exhaust_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.exhaust_air_inlet_node_name`')
-        self._data["Exhaust Air Inlet Node Name"] = value
+        self["Exhaust Air Inlet Node Name"] = value
 
     @property
     def exhaust_air_outlet_node_name(self):
@@ -1580,19 +762,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.exhaust_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.exhaust_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.exhaust_air_outlet_node_name`')
-        self._data["Exhaust Air Outlet Node Name"] = value
+        self["Exhaust Air Outlet Node Name"] = value
 
     @property
     def nominal_electric_power(self):
@@ -1604,31 +774,20 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         return self._data["Nominal Electric Power"]
 
     @nominal_electric_power.setter
-    def nominal_electric_power(self, value=0.0):
+    def nominal_electric_power(self, value=None):
         """  Corresponds to IDD Field `Nominal Electric Power`
 
         Args:
             value (float): value for IDD Field `Nominal Electric Power`
                 Units: W
                 IP-Units: W
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.nominal_electric_power`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.nominal_electric_power`')
-        self._data["Nominal Electric Power"] = value
+        self["Nominal Electric Power"] = value
 
     @property
     def supply_air_outlet_temperature_control(self):
@@ -1645,9 +804,6 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Outlet Temperature Control`
-                Accepted values are:
-                      - No
-                      - Yes
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1655,46 +811,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_temperature_control`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_temperature_control`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_temperature_control`')
-            vals = {}
-            vals["no"] = "No"
-            vals["yes"] = "Yes"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_temperature_control`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `HeatExchangerAirToAirSensibleAndLatent.supply_air_outlet_temperature_control`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Outlet Temperature Control"] = value
+        self["Supply Air Outlet Temperature Control"] = value
 
     @property
     def heat_exchanger_type(self):
@@ -1711,9 +828,6 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (str): value for IDD Field `Heat Exchanger Type`
-                Accepted values are:
-                      - Plate
-                      - Rotary
                 Default value: Plate
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1721,46 +835,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.heat_exchanger_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.heat_exchanger_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.heat_exchanger_type`')
-            vals = {}
-            vals["plate"] = "Plate"
-            vals["rotary"] = "Rotary"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `HeatExchangerAirToAirSensibleAndLatent.heat_exchanger_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `HeatExchangerAirToAirSensibleAndLatent.heat_exchanger_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heat Exchanger Type"] = value
+        self["Heat Exchanger Type"] = value
 
     @property
     def frost_control_type(self):
@@ -1777,11 +852,6 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (str): value for IDD Field `Frost Control Type`
-                Accepted values are:
-                      - None
-                      - ExhaustAirRecirculation
-                      - ExhaustOnly
-                      - MinimumExhaustTemperature
                 Default value: None
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1789,48 +859,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.frost_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.frost_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.frost_control_type`')
-            vals = {}
-            vals["none"] = "None"
-            vals["exhaustairrecirculation"] = "ExhaustAirRecirculation"
-            vals["exhaustonly"] = "ExhaustOnly"
-            vals["minimumexhausttemperature"] = "MinimumExhaustTemperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `HeatExchangerAirToAirSensibleAndLatent.frost_control_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `HeatExchangerAirToAirSensibleAndLatent.frost_control_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Frost Control Type"] = value
+        self["Frost Control Type"] = value
 
     @property
     def threshold_temperature(self):
@@ -1858,13 +887,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.threshold_temperature`'.format(value))
-        self._data["Threshold Temperature"] = value
+        self["Threshold Temperature"] = value
 
     @property
     def initial_defrost_time_fraction(self):
@@ -1885,7 +908,6 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             value (float): value for IDD Field `Initial Defrost Time Fraction`
                 Units: dimensionless
                 Default value: 0.083
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1893,19 +915,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.initial_defrost_time_fraction`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.initial_defrost_time_fraction`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.initial_defrost_time_fraction`')
-        self._data["Initial Defrost Time Fraction"] = value
+        self["Initial Defrost Time Fraction"] = value
 
     @property
     def rate_of_defrost_time_fraction_increase(self):
@@ -1926,23 +936,13 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
             value (float): value for IDD Field `Rate of Defrost Time Fraction Increase`
                 Units: 1/K
                 Default value: 0.012
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.rate_of_defrost_time_fraction_increase`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.rate_of_defrost_time_fraction_increase`')
-        self._data["Rate of Defrost Time Fraction Increase"] = value
+        self["Rate of Defrost Time Fraction Increase"] = value
 
     @property
     def economizer_lockout(self):
@@ -1961,9 +961,6 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1971,130 +968,10 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerAirToAirSensibleAndLatent.economizer_lockout`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.economizer_lockout`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerAirToAirSensibleAndLatent.economizer_lockout`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `HeatExchangerAirToAirSensibleAndLatent.economizer_lockout`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `HeatExchangerAirToAirSensibleAndLatent.economizer_lockout`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Economizer Lockout"] = value
+        self["Economizer Lockout"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field HeatExchangerAirToAirSensibleAndLatent:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field HeatExchangerAirToAirSensibleAndLatent:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for HeatExchangerAirToAirSensibleAndLatent: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for HeatExchangerAirToAirSensibleAndLatent: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class HeatExchangerDesiccantBalancedFlow(object):
+class HeatExchangerDesiccantBalancedFlow(DataObject):
     """ Corresponds to IDD object `HeatExchanger:Desiccant:BalancedFlow`
         This object models a balanced desiccant heat exchanger.
         The heat exchanger transfers both sensible and latent energy between the
@@ -2102,103 +979,16 @@ class HeatExchangerDesiccantBalancedFlow(object):
         are assumed to be the same on both the process and regeneration sides of the
         heat exchanger.
     """
-    internal_name = "HeatExchanger:Desiccant:BalancedFlow"
-    field_count = 9
-    required_fields = ["Name", "Regeneration Air Inlet Node Name", "Regeneration Air Outlet Node Name", "Process Air Inlet Node Name", "Process Air Outlet Node Name", "Heat Exchanger Performance Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 8
-    extensible_keys = []
+    schema = {'min-fields': 8, 'name': u'HeatExchanger:Desiccant:BalancedFlow', 'pyname': u'HeatExchangerDesiccantBalancedFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration air inlet node name', {'name': u'Regeneration Air Inlet Node Name', 'pyname': u'regeneration_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration air outlet node name', {'name': u'Regeneration Air Outlet Node Name', 'pyname': u'regeneration_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'process air inlet node name', {'name': u'Process Air Inlet Node Name', 'pyname': u'process_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'process air outlet node name', {'name': u'Process Air Outlet Node Name', 'pyname': u'process_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat exchanger performance object type', {'name': u'Heat Exchanger Performance Object Type', 'pyname': u'heat_exchanger_performance_object_type', 'default': u'HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat exchanger performance name', {'name': u'Heat Exchanger Performance Name', 'pyname': u'heat_exchanger_performance_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'economizer lockout', {'name': u'Economizer Lockout', 'pyname': u'economizer_lockout', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:Desiccant:BalancedFlow`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Regeneration Air Inlet Node Name"] = None
-        self._data["Regeneration Air Outlet Node Name"] = None
-        self._data["Process Air Inlet Node Name"] = None
-        self._data["Process Air Outlet Node Name"] = None
-        self._data["Heat Exchanger Performance Object Type"] = None
-        self._data["Heat Exchanger Performance Name"] = None
-        self._data["Economizer Lockout"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_air_inlet_node_name = None
-        else:
-            self.regeneration_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_air_outlet_node_name = None
-        else:
-            self.regeneration_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.process_air_inlet_node_name = None
-        else:
-            self.process_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.process_air_outlet_node_name = None
-        else:
-            self.process_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heat_exchanger_performance_object_type = None
-        else:
-            self.heat_exchanger_performance_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heat_exchanger_performance_name = None
-        else:
-            self.heat_exchanger_performance_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.economizer_lockout = None
-        else:
-            self.economizer_lockout = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2221,19 +1011,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerDesiccantBalancedFlow.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -2258,19 +1036,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerDesiccantBalancedFlow.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def regeneration_air_inlet_node_name(self):
@@ -2293,19 +1059,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerDesiccantBalancedFlow.regeneration_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.regeneration_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.regeneration_air_inlet_node_name`')
-        self._data["Regeneration Air Inlet Node Name"] = value
+        self["Regeneration Air Inlet Node Name"] = value
 
     @property
     def regeneration_air_outlet_node_name(self):
@@ -2328,19 +1082,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerDesiccantBalancedFlow.regeneration_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.regeneration_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.regeneration_air_outlet_node_name`')
-        self._data["Regeneration Air Outlet Node Name"] = value
+        self["Regeneration Air Outlet Node Name"] = value
 
     @property
     def process_air_inlet_node_name(self):
@@ -2363,19 +1105,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerDesiccantBalancedFlow.process_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.process_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.process_air_inlet_node_name`')
-        self._data["Process Air Inlet Node Name"] = value
+        self["Process Air Inlet Node Name"] = value
 
     @property
     def process_air_outlet_node_name(self):
@@ -2398,19 +1128,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerDesiccantBalancedFlow.process_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.process_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.process_air_outlet_node_name`')
-        self._data["Process Air Outlet Node Name"] = value
+        self["Process Air Outlet Node Name"] = value
 
     @property
     def heat_exchanger_performance_object_type(self):
@@ -2427,8 +1145,6 @@ class HeatExchangerDesiccantBalancedFlow(object):
 
         Args:
             value (str): value for IDD Field `Heat Exchanger Performance Object Type`
-                Accepted values are:
-                      - HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1
                 Default value: HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2436,45 +1152,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_object_type`')
-            vals = {}
-            vals["heatexchanger:desiccant:balancedflow:performancedatatype1"] = "HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heat Exchanger Performance Object Type"] = value
+        self["Heat Exchanger Performance Object Type"] = value
 
     @property
     def heat_exchanger_performance_name(self):
@@ -2497,19 +1175,7 @@ class HeatExchangerDesiccantBalancedFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.heat_exchanger_performance_name`')
-        self._data["Heat Exchanger Performance Name"] = value
+        self["Heat Exchanger Performance Name"] = value
 
     @property
     def economizer_lockout(self):
@@ -2528,9 +1194,6 @@ class HeatExchangerDesiccantBalancedFlow(object):
 
         Args:
             value (str): value for IDD Field `Economizer Lockout`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2538,130 +1201,10 @@ class HeatExchangerDesiccantBalancedFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerDesiccantBalancedFlow.economizer_lockout`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.economizer_lockout`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerDesiccantBalancedFlow.economizer_lockout`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `HeatExchangerDesiccantBalancedFlow.economizer_lockout`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `HeatExchangerDesiccantBalancedFlow.economizer_lockout`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Economizer Lockout"] = value
+        self["Economizer Lockout"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field HeatExchangerDesiccantBalancedFlow:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field HeatExchangerDesiccantBalancedFlow:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for HeatExchangerDesiccantBalancedFlow: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for HeatExchangerDesiccantBalancedFlow: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
+class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
     """ Corresponds to IDD object `HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1`
         RTO = B1 + B2*RWI + B3*RTI + B4*(RWI/RTI) + B5*PWI + B6*PTI + B7*(PWI/PTI)
         + B8*RFV
@@ -2676,447 +1219,16 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         PTI = Dry-bulb temperature of the process inlet air (C)
         RFV = Regeneration Face Velocity (m/s)
     """
-    internal_name = "HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1"
-    field_count = 52
-    required_fields = ["Name", "Nominal Air Face Velocity", "Temperature Equation Coefficient 1", "Temperature Equation Coefficient 2", "Temperature Equation Coefficient 3", "Temperature Equation Coefficient 4", "Temperature Equation Coefficient 5", "Temperature Equation Coefficient 6", "Temperature Equation Coefficient 7", "Temperature Equation Coefficient 8", "Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation", "Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation", "Minimum Regeneration Inlet Air Temperature for Temperature Equation", "Maximum Regeneration Inlet Air Temperature for Temperature Equation", "Minimum Process Inlet Air Humidity Ratio for Temperature Equation", "Maximum Process Inlet Air Humidity Ratio for Temperature Equation", "Minimum Process Inlet Air Temperature for Temperature Equation", "Maximum Process Inlet Air Temperature for Temperature Equation", "Minimum Regeneration Air Velocity for Temperature Equation", "Maximum Regeneration Air Velocity for Temperature Equation", "Minimum Regeneration Outlet Air Temperature for Temperature Equation", "Maximum Regeneration Outlet Air Temperature for Temperature Equation", "Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation", "Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation", "Minimum Process Inlet Air Relative Humidity for Temperature Equation", "Maximum Process Inlet Air Relative Humidity for Temperature Equation", "Humidity Ratio Equation Coefficient 1", "Humidity Ratio Equation Coefficient 2", "Humidity Ratio Equation Coefficient 3", "Humidity Ratio Equation Coefficient 4", "Humidity Ratio Equation Coefficient 5", "Humidity Ratio Equation Coefficient 6", "Humidity Ratio Equation Coefficient 7", "Humidity Ratio Equation Coefficient 8", "Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation", "Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation", "Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation", "Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation", "Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation", "Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation", "Minimum Process Inlet Air Temperature for Humidity Ratio Equation", "Maximum Process Inlet Air Temperature for Humidity Ratio Equation", "Minimum Regeneration Air Velocity for Humidity Ratio Equation", "Maximum Regeneration Air Velocity for Humidity Ratio Equation", "Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation", "Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation", "Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation", "Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation", "Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation", "Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"]
-    extensible_fields = 0
-    format = None
-    min_fields = 52
-    extensible_keys = []
+    schema = {'min-fields': 52, 'name': u'HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1', 'pyname': u'HeatExchangerDesiccantBalancedFlowPerformanceDataType1', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'nominal air flow rate', {'name': u'Nominal Air Flow Rate', 'pyname': u'nominal_air_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal air face velocity', {'name': u'Nominal Air Face Velocity', 'pyname': u'nominal_air_face_velocity', 'minimum>': 0.0, 'maximum': 6.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'nominal electric power', {'name': u'Nominal Electric Power', 'pyname': u'nominal_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'temperature equation coefficient 1', {'name': u'Temperature Equation Coefficient 1', 'pyname': u'temperature_equation_coefficient_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 2', {'name': u'Temperature Equation Coefficient 2', 'pyname': u'temperature_equation_coefficient_2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 3', {'name': u'Temperature Equation Coefficient 3', 'pyname': u'temperature_equation_coefficient_3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 4', {'name': u'Temperature Equation Coefficient 4', 'pyname': u'temperature_equation_coefficient_4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 5', {'name': u'Temperature Equation Coefficient 5', 'pyname': u'temperature_equation_coefficient_5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 6', {'name': u'Temperature Equation Coefficient 6', 'pyname': u'temperature_equation_coefficient_6', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 7', {'name': u'Temperature Equation Coefficient 7', 'pyname': u'temperature_equation_coefficient_7', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 8', {'name': u'Temperature Equation Coefficient 8', 'pyname': u'temperature_equation_coefficient_8', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum regeneration inlet air humidity ratio for temperature equation', {'name': u'Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation', 'pyname': u'minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum regeneration inlet air humidity ratio for temperature equation', {'name': u'Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation', 'pyname': u'maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum regeneration inlet air temperature for temperature equation', {'name': u'Minimum Regeneration Inlet Air Temperature for Temperature Equation', 'pyname': u'minimum_regeneration_inlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum regeneration inlet air temperature for temperature equation', {'name': u'Maximum Regeneration Inlet Air Temperature for Temperature Equation', 'pyname': u'maximum_regeneration_inlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum process inlet air humidity ratio for temperature equation', {'name': u'Minimum Process Inlet Air Humidity Ratio for Temperature Equation', 'pyname': u'minimum_process_inlet_air_humidity_ratio_for_temperature_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum process inlet air humidity ratio for temperature equation', {'name': u'Maximum Process Inlet Air Humidity Ratio for Temperature Equation', 'pyname': u'maximum_process_inlet_air_humidity_ratio_for_temperature_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum process inlet air temperature for temperature equation', {'name': u'Minimum Process Inlet Air Temperature for Temperature Equation', 'pyname': u'minimum_process_inlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum process inlet air temperature for temperature equation', {'name': u'Maximum Process Inlet Air Temperature for Temperature Equation', 'pyname': u'maximum_process_inlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum regeneration air velocity for temperature equation', {'name': u'Minimum Regeneration Air Velocity for Temperature Equation', 'pyname': u'minimum_regeneration_air_velocity_for_temperature_equation', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'maximum regeneration air velocity for temperature equation', {'name': u'Maximum Regeneration Air Velocity for Temperature Equation', 'pyname': u'maximum_regeneration_air_velocity_for_temperature_equation', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'minimum regeneration outlet air temperature for temperature equation', {'name': u'Minimum Regeneration Outlet Air Temperature for Temperature Equation', 'pyname': u'minimum_regeneration_outlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum regeneration outlet air temperature for temperature equation', {'name': u'Maximum Regeneration Outlet Air Temperature for Temperature Equation', 'pyname': u'maximum_regeneration_outlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum regeneration inlet air relative humidity for temperature equation', {'name': u'Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation', 'pyname': u'minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'maximum regeneration inlet air relative humidity for temperature equation', {'name': u'Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation', 'pyname': u'maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'minimum process inlet air relative humidity for temperature equation', {'name': u'Minimum Process Inlet Air Relative Humidity for Temperature Equation', 'pyname': u'minimum_process_inlet_air_relative_humidity_for_temperature_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'maximum process inlet air relative humidity for temperature equation', {'name': u'Maximum Process Inlet Air Relative Humidity for Temperature Equation', 'pyname': u'maximum_process_inlet_air_relative_humidity_for_temperature_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'humidity ratio equation coefficient 1', {'name': u'Humidity Ratio Equation Coefficient 1', 'pyname': u'humidity_ratio_equation_coefficient_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 2', {'name': u'Humidity Ratio Equation Coefficient 2', 'pyname': u'humidity_ratio_equation_coefficient_2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 3', {'name': u'Humidity Ratio Equation Coefficient 3', 'pyname': u'humidity_ratio_equation_coefficient_3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 4', {'name': u'Humidity Ratio Equation Coefficient 4', 'pyname': u'humidity_ratio_equation_coefficient_4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 5', {'name': u'Humidity Ratio Equation Coefficient 5', 'pyname': u'humidity_ratio_equation_coefficient_5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 6', {'name': u'Humidity Ratio Equation Coefficient 6', 'pyname': u'humidity_ratio_equation_coefficient_6', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 7', {'name': u'Humidity Ratio Equation Coefficient 7', 'pyname': u'humidity_ratio_equation_coefficient_7', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 8', {'name': u'Humidity Ratio Equation Coefficient 8', 'pyname': u'humidity_ratio_equation_coefficient_8', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum regeneration inlet air humidity ratio for humidity ratio equation', {'name': u'Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum regeneration inlet air humidity ratio for humidity ratio equation', {'name': u'Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum regeneration inlet air temperature for humidity ratio equation', {'name': u'Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation', 'pyname': u'minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum regeneration inlet air temperature for humidity ratio equation', {'name': u'Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation', 'pyname': u'maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum process inlet air humidity ratio for humidity ratio equation', {'name': u'Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum process inlet air humidity ratio for humidity ratio equation', {'name': u'Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum process inlet air temperature for humidity ratio equation', {'name': u'Minimum Process Inlet Air Temperature for Humidity Ratio Equation', 'pyname': u'minimum_process_inlet_air_temperature_for_humidity_ratio_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum process inlet air temperature for humidity ratio equation', {'name': u'Maximum Process Inlet Air Temperature for Humidity Ratio Equation', 'pyname': u'maximum_process_inlet_air_temperature_for_humidity_ratio_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum regeneration air velocity for humidity ratio equation', {'name': u'Minimum Regeneration Air Velocity for Humidity Ratio Equation', 'pyname': u'minimum_regeneration_air_velocity_for_humidity_ratio_equation', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'maximum regeneration air velocity for humidity ratio equation', {'name': u'Maximum Regeneration Air Velocity for Humidity Ratio Equation', 'pyname': u'maximum_regeneration_air_velocity_for_humidity_ratio_equation', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'minimum regeneration outlet air humidity ratio for humidity ratio equation', {'name': u'Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum regeneration outlet air humidity ratio for humidity ratio equation', {'name': u'Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum regeneration inlet air relative humidity for humidity ratio equation', {'name': u'Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation', 'pyname': u'minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'maximum regeneration inlet air relative humidity for humidity ratio equation', {'name': u'Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation', 'pyname': u'maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'minimum process inlet air relative humidity for humidity ratio equation', {'name': u'Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation', 'pyname': u'minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'maximum process inlet air relative humidity for humidity ratio equation', {'name': u'Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation', 'pyname': u'maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Nominal Air Flow Rate"] = None
-        self._data["Nominal Air Face Velocity"] = None
-        self._data["Nominal Electric Power"] = None
-        self._data["Temperature Equation Coefficient 1"] = None
-        self._data["Temperature Equation Coefficient 2"] = None
-        self._data["Temperature Equation Coefficient 3"] = None
-        self._data["Temperature Equation Coefficient 4"] = None
-        self._data["Temperature Equation Coefficient 5"] = None
-        self._data["Temperature Equation Coefficient 6"] = None
-        self._data["Temperature Equation Coefficient 7"] = None
-        self._data["Temperature Equation Coefficient 8"] = None
-        self._data["Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation"] = None
-        self._data["Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation"] = None
-        self._data["Minimum Regeneration Inlet Air Temperature for Temperature Equation"] = None
-        self._data["Maximum Regeneration Inlet Air Temperature for Temperature Equation"] = None
-        self._data["Minimum Process Inlet Air Humidity Ratio for Temperature Equation"] = None
-        self._data["Maximum Process Inlet Air Humidity Ratio for Temperature Equation"] = None
-        self._data["Minimum Process Inlet Air Temperature for Temperature Equation"] = None
-        self._data["Maximum Process Inlet Air Temperature for Temperature Equation"] = None
-        self._data["Minimum Regeneration Air Velocity for Temperature Equation"] = None
-        self._data["Maximum Regeneration Air Velocity for Temperature Equation"] = None
-        self._data["Minimum Regeneration Outlet Air Temperature for Temperature Equation"] = None
-        self._data["Maximum Regeneration Outlet Air Temperature for Temperature Equation"] = None
-        self._data["Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation"] = None
-        self._data["Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation"] = None
-        self._data["Minimum Process Inlet Air Relative Humidity for Temperature Equation"] = None
-        self._data["Maximum Process Inlet Air Relative Humidity for Temperature Equation"] = None
-        self._data["Humidity Ratio Equation Coefficient 1"] = None
-        self._data["Humidity Ratio Equation Coefficient 2"] = None
-        self._data["Humidity Ratio Equation Coefficient 3"] = None
-        self._data["Humidity Ratio Equation Coefficient 4"] = None
-        self._data["Humidity Ratio Equation Coefficient 5"] = None
-        self._data["Humidity Ratio Equation Coefficient 6"] = None
-        self._data["Humidity Ratio Equation Coefficient 7"] = None
-        self._data["Humidity Ratio Equation Coefficient 8"] = None
-        self._data["Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"] = None
-        self._data["Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"] = None
-        self._data["Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = None
-        self._data["Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = None
-        self._data["Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"] = None
-        self._data["Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"] = None
-        self._data["Minimum Process Inlet Air Temperature for Humidity Ratio Equation"] = None
-        self._data["Maximum Process Inlet Air Temperature for Humidity Ratio Equation"] = None
-        self._data["Minimum Regeneration Air Velocity for Humidity Ratio Equation"] = None
-        self._data["Maximum Regeneration Air Velocity for Humidity Ratio Equation"] = None
-        self._data["Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"] = None
-        self._data["Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"] = None
-        self._data["Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"] = None
-        self._data["Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"] = None
-        self._data["Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = None
-        self._data["Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_air_flow_rate = None
-        else:
-            self.nominal_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_air_face_velocity = None
-        else:
-            self.nominal_air_face_velocity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_electric_power = None
-        else:
-            self.nominal_electric_power = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_equation_coefficient_1 = None
-        else:
-            self.temperature_equation_coefficient_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_equation_coefficient_2 = None
-        else:
-            self.temperature_equation_coefficient_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_equation_coefficient_3 = None
-        else:
-            self.temperature_equation_coefficient_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_equation_coefficient_4 = None
-        else:
-            self.temperature_equation_coefficient_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_equation_coefficient_5 = None
-        else:
-            self.temperature_equation_coefficient_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_equation_coefficient_6 = None
-        else:
-            self.temperature_equation_coefficient_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_equation_coefficient_7 = None
-        else:
-            self.temperature_equation_coefficient_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_equation_coefficient_8 = None
-        else:
-            self.temperature_equation_coefficient_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation = None
-        else:
-            self.minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation = None
-        else:
-            self.maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_regeneration_inlet_air_temperature_for_temperature_equation = None
-        else:
-            self.minimum_regeneration_inlet_air_temperature_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_regeneration_inlet_air_temperature_for_temperature_equation = None
-        else:
-            self.maximum_regeneration_inlet_air_temperature_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_process_inlet_air_humidity_ratio_for_temperature_equation = None
-        else:
-            self.minimum_process_inlet_air_humidity_ratio_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_process_inlet_air_humidity_ratio_for_temperature_equation = None
-        else:
-            self.maximum_process_inlet_air_humidity_ratio_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_process_inlet_air_temperature_for_temperature_equation = None
-        else:
-            self.minimum_process_inlet_air_temperature_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_process_inlet_air_temperature_for_temperature_equation = None
-        else:
-            self.maximum_process_inlet_air_temperature_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_regeneration_air_velocity_for_temperature_equation = None
-        else:
-            self.minimum_regeneration_air_velocity_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_regeneration_air_velocity_for_temperature_equation = None
-        else:
-            self.maximum_regeneration_air_velocity_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_regeneration_outlet_air_temperature_for_temperature_equation = None
-        else:
-            self.minimum_regeneration_outlet_air_temperature_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_regeneration_outlet_air_temperature_for_temperature_equation = None
-        else:
-            self.maximum_regeneration_outlet_air_temperature_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation = None
-        else:
-            self.minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation = None
-        else:
-            self.maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_process_inlet_air_relative_humidity_for_temperature_equation = None
-        else:
-            self.minimum_process_inlet_air_relative_humidity_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_process_inlet_air_relative_humidity_for_temperature_equation = None
-        else:
-            self.maximum_process_inlet_air_relative_humidity_for_temperature_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidity_ratio_equation_coefficient_1 = None
-        else:
-            self.humidity_ratio_equation_coefficient_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidity_ratio_equation_coefficient_2 = None
-        else:
-            self.humidity_ratio_equation_coefficient_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidity_ratio_equation_coefficient_3 = None
-        else:
-            self.humidity_ratio_equation_coefficient_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidity_ratio_equation_coefficient_4 = None
-        else:
-            self.humidity_ratio_equation_coefficient_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidity_ratio_equation_coefficient_5 = None
-        else:
-            self.humidity_ratio_equation_coefficient_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidity_ratio_equation_coefficient_6 = None
-        else:
-            self.humidity_ratio_equation_coefficient_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidity_ratio_equation_coefficient_7 = None
-        else:
-            self.humidity_ratio_equation_coefficient_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidity_ratio_equation_coefficient_8 = None
-        else:
-            self.humidity_ratio_equation_coefficient_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation = None
-        else:
-            self.minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation = None
-        else:
-            self.maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation = None
-        else:
-            self.minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation = None
-        else:
-            self.maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation = None
-        else:
-            self.minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation = None
-        else:
-            self.maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_process_inlet_air_temperature_for_humidity_ratio_equation = None
-        else:
-            self.minimum_process_inlet_air_temperature_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_process_inlet_air_temperature_for_humidity_ratio_equation = None
-        else:
-            self.maximum_process_inlet_air_temperature_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_regeneration_air_velocity_for_humidity_ratio_equation = None
-        else:
-            self.minimum_regeneration_air_velocity_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_regeneration_air_velocity_for_humidity_ratio_equation = None
-        else:
-            self.maximum_regeneration_air_velocity_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation = None
-        else:
-            self.minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation = None
-        else:
-            self.maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation = None
-        else:
-            self.minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation = None
-        else:
-            self.maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation = None
-        else:
-            self.minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation = None
-        else:
-            self.maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3139,19 +1251,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def nominal_air_flow_rate(self):
@@ -3171,23 +1271,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Nominal Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_air_flow_rate`')
-        self._data["Nominal Air Flow Rate"] = value
+        self["Nominal Air Flow Rate"] = value
 
     @property
     def nominal_air_face_velocity(self):
@@ -3205,7 +1295,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Nominal Air Face Velocity`
                 Units: m/s
-                value > 0.0
                 value <= 6.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3213,19 +1302,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_air_face_velocity`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_air_face_velocity`')
-            if value > 6.0:
-                raise ValueError('value need to be smaller 6.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_air_face_velocity`')
-        self._data["Nominal Air Face Velocity"] = value
+        self["Nominal Air Face Velocity"] = value
 
     @property
     def nominal_electric_power(self):
@@ -3237,7 +1314,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         return self._data["Nominal Electric Power"]
 
     @nominal_electric_power.setter
-    def nominal_electric_power(self, value=0.0):
+    def nominal_electric_power(self, value=None):
         """  Corresponds to IDD Field `Nominal Electric Power`
         Parasitic electric power (e.g., desiccant wheel motor)
 
@@ -3245,24 +1322,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
             value (float): value for IDD Field `Nominal Electric Power`
                 Units: W
                 IP-Units: W
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_electric_power`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.nominal_electric_power`')
-        self._data["Nominal Electric Power"] = value
+        self["Nominal Electric Power"] = value
 
     @property
     def temperature_equation_coefficient_1(self):
@@ -3285,13 +1351,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_1`'.format(value))
-        self._data["Temperature Equation Coefficient 1"] = value
+        self["Temperature Equation Coefficient 1"] = value
 
     @property
     def temperature_equation_coefficient_2(self):
@@ -3314,13 +1374,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_2`'.format(value))
-        self._data["Temperature Equation Coefficient 2"] = value
+        self["Temperature Equation Coefficient 2"] = value
 
     @property
     def temperature_equation_coefficient_3(self):
@@ -3343,13 +1397,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_3`'.format(value))
-        self._data["Temperature Equation Coefficient 3"] = value
+        self["Temperature Equation Coefficient 3"] = value
 
     @property
     def temperature_equation_coefficient_4(self):
@@ -3372,13 +1420,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_4`'.format(value))
-        self._data["Temperature Equation Coefficient 4"] = value
+        self["Temperature Equation Coefficient 4"] = value
 
     @property
     def temperature_equation_coefficient_5(self):
@@ -3401,13 +1443,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_5`'.format(value))
-        self._data["Temperature Equation Coefficient 5"] = value
+        self["Temperature Equation Coefficient 5"] = value
 
     @property
     def temperature_equation_coefficient_6(self):
@@ -3430,13 +1466,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_6`'.format(value))
-        self._data["Temperature Equation Coefficient 6"] = value
+        self["Temperature Equation Coefficient 6"] = value
 
     @property
     def temperature_equation_coefficient_7(self):
@@ -3459,13 +1489,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_7`'.format(value))
-        self._data["Temperature Equation Coefficient 7"] = value
+        self["Temperature Equation Coefficient 7"] = value
 
     @property
     def temperature_equation_coefficient_8(self):
@@ -3488,13 +1512,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.temperature_equation_coefficient_8`'.format(value))
-        self._data["Temperature Equation Coefficient 8"] = value
+        self["Temperature Equation Coefficient 8"] = value
 
     @property
     def minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation(self):
@@ -3512,7 +1530,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation`
                 Units: kgWater/kgDryAir
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3520,19 +1537,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation`')
-        self._data["Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation"] = value
+        self["Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation"] = value
 
     @property
     def maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation(self):
@@ -3550,7 +1555,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation`
                 Units: kgWater/kgDryAir
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3558,19 +1562,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation`')
-        self._data["Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation"] = value
+        self["Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation"] = value
 
     @property
     def minimum_regeneration_inlet_air_temperature_for_temperature_equation(self):
@@ -3594,13 +1586,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_temperature_for_temperature_equation`'.format(value))
-        self._data["Minimum Regeneration Inlet Air Temperature for Temperature Equation"] = value
+        self["Minimum Regeneration Inlet Air Temperature for Temperature Equation"] = value
 
     @property
     def maximum_regeneration_inlet_air_temperature_for_temperature_equation(self):
@@ -3624,13 +1610,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_temperature_for_temperature_equation`'.format(value))
-        self._data["Maximum Regeneration Inlet Air Temperature for Temperature Equation"] = value
+        self["Maximum Regeneration Inlet Air Temperature for Temperature Equation"] = value
 
     @property
     def minimum_process_inlet_air_humidity_ratio_for_temperature_equation(self):
@@ -3648,7 +1628,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Minimum Process Inlet Air Humidity Ratio for Temperature Equation`
                 Units: kgWater/kgDryAir
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3656,19 +1635,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_humidity_ratio_for_temperature_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_humidity_ratio_for_temperature_equation`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_humidity_ratio_for_temperature_equation`')
-        self._data["Minimum Process Inlet Air Humidity Ratio for Temperature Equation"] = value
+        self["Minimum Process Inlet Air Humidity Ratio for Temperature Equation"] = value
 
     @property
     def maximum_process_inlet_air_humidity_ratio_for_temperature_equation(self):
@@ -3686,7 +1653,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Maximum Process Inlet Air Humidity Ratio for Temperature Equation`
                 Units: kgWater/kgDryAir
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3694,19 +1660,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_humidity_ratio_for_temperature_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_humidity_ratio_for_temperature_equation`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_humidity_ratio_for_temperature_equation`')
-        self._data["Maximum Process Inlet Air Humidity Ratio for Temperature Equation"] = value
+        self["Maximum Process Inlet Air Humidity Ratio for Temperature Equation"] = value
 
     @property
     def minimum_process_inlet_air_temperature_for_temperature_equation(self):
@@ -3730,13 +1684,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_temperature_for_temperature_equation`'.format(value))
-        self._data["Minimum Process Inlet Air Temperature for Temperature Equation"] = value
+        self["Minimum Process Inlet Air Temperature for Temperature Equation"] = value
 
     @property
     def maximum_process_inlet_air_temperature_for_temperature_equation(self):
@@ -3760,13 +1708,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_temperature_for_temperature_equation`'.format(value))
-        self._data["Maximum Process Inlet Air Temperature for Temperature Equation"] = value
+        self["Maximum Process Inlet Air Temperature for Temperature Equation"] = value
 
     @property
     def minimum_regeneration_air_velocity_for_temperature_equation(self):
@@ -3784,23 +1726,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Minimum Regeneration Air Velocity for Temperature Equation`
                 Units: m/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_air_velocity_for_temperature_equation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_air_velocity_for_temperature_equation`')
-        self._data["Minimum Regeneration Air Velocity for Temperature Equation"] = value
+        self["Minimum Regeneration Air Velocity for Temperature Equation"] = value
 
     @property
     def maximum_regeneration_air_velocity_for_temperature_equation(self):
@@ -3818,23 +1750,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Maximum Regeneration Air Velocity for Temperature Equation`
                 Units: m/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_air_velocity_for_temperature_equation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_air_velocity_for_temperature_equation`')
-        self._data["Maximum Regeneration Air Velocity for Temperature Equation"] = value
+        self["Maximum Regeneration Air Velocity for Temperature Equation"] = value
 
     @property
     def minimum_regeneration_outlet_air_temperature_for_temperature_equation(self):
@@ -3858,13 +1780,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_outlet_air_temperature_for_temperature_equation`'.format(value))
-        self._data["Minimum Regeneration Outlet Air Temperature for Temperature Equation"] = value
+        self["Minimum Regeneration Outlet Air Temperature for Temperature Equation"] = value
 
     @property
     def maximum_regeneration_outlet_air_temperature_for_temperature_equation(self):
@@ -3888,13 +1804,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_outlet_air_temperature_for_temperature_equation`'.format(value))
-        self._data["Maximum Regeneration Outlet Air Temperature for Temperature Equation"] = value
+        self["Maximum Regeneration Outlet Air Temperature for Temperature Equation"] = value
 
     @property
     def minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation(self):
@@ -3912,7 +1822,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation`
                 Units: percent
-                value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3920,19 +1829,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation`')
-        self._data["Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation"] = value
+        self["Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation"] = value
 
     @property
     def maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation(self):
@@ -3950,7 +1847,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation`
                 Units: percent
-                value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3958,19 +1854,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation`')
-        self._data["Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation"] = value
+        self["Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation"] = value
 
     @property
     def minimum_process_inlet_air_relative_humidity_for_temperature_equation(self):
@@ -3988,7 +1872,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Minimum Process Inlet Air Relative Humidity for Temperature Equation`
                 Units: percent
-                value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3996,19 +1879,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_relative_humidity_for_temperature_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_relative_humidity_for_temperature_equation`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_relative_humidity_for_temperature_equation`')
-        self._data["Minimum Process Inlet Air Relative Humidity for Temperature Equation"] = value
+        self["Minimum Process Inlet Air Relative Humidity for Temperature Equation"] = value
 
     @property
     def maximum_process_inlet_air_relative_humidity_for_temperature_equation(self):
@@ -4026,7 +1897,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Maximum Process Inlet Air Relative Humidity for Temperature Equation`
                 Units: percent
-                value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4034,19 +1904,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_relative_humidity_for_temperature_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_relative_humidity_for_temperature_equation`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_relative_humidity_for_temperature_equation`')
-        self._data["Maximum Process Inlet Air Relative Humidity for Temperature Equation"] = value
+        self["Maximum Process Inlet Air Relative Humidity for Temperature Equation"] = value
 
     @property
     def humidity_ratio_equation_coefficient_1(self):
@@ -4069,13 +1927,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_1`'.format(value))
-        self._data["Humidity Ratio Equation Coefficient 1"] = value
+        self["Humidity Ratio Equation Coefficient 1"] = value
 
     @property
     def humidity_ratio_equation_coefficient_2(self):
@@ -4098,13 +1950,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_2`'.format(value))
-        self._data["Humidity Ratio Equation Coefficient 2"] = value
+        self["Humidity Ratio Equation Coefficient 2"] = value
 
     @property
     def humidity_ratio_equation_coefficient_3(self):
@@ -4127,13 +1973,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_3`'.format(value))
-        self._data["Humidity Ratio Equation Coefficient 3"] = value
+        self["Humidity Ratio Equation Coefficient 3"] = value
 
     @property
     def humidity_ratio_equation_coefficient_4(self):
@@ -4156,13 +1996,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_4`'.format(value))
-        self._data["Humidity Ratio Equation Coefficient 4"] = value
+        self["Humidity Ratio Equation Coefficient 4"] = value
 
     @property
     def humidity_ratio_equation_coefficient_5(self):
@@ -4185,13 +2019,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_5`'.format(value))
-        self._data["Humidity Ratio Equation Coefficient 5"] = value
+        self["Humidity Ratio Equation Coefficient 5"] = value
 
     @property
     def humidity_ratio_equation_coefficient_6(self):
@@ -4214,13 +2042,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_6`'.format(value))
-        self._data["Humidity Ratio Equation Coefficient 6"] = value
+        self["Humidity Ratio Equation Coefficient 6"] = value
 
     @property
     def humidity_ratio_equation_coefficient_7(self):
@@ -4243,13 +2065,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_7`'.format(value))
-        self._data["Humidity Ratio Equation Coefficient 7"] = value
+        self["Humidity Ratio Equation Coefficient 7"] = value
 
     @property
     def humidity_ratio_equation_coefficient_8(self):
@@ -4272,13 +2088,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.humidity_ratio_equation_coefficient_8`'.format(value))
-        self._data["Humidity Ratio Equation Coefficient 8"] = value
+        self["Humidity Ratio Equation Coefficient 8"] = value
 
     @property
     def minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation(self):
@@ -4296,7 +2106,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation`
                 Units: kgWater/kgDryAir
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4304,19 +2113,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation`')
-        self._data["Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self["Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
     def maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation(self):
@@ -4334,7 +2131,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation`
                 Units: kgWater/kgDryAir
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4342,19 +2138,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation`')
-        self._data["Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self["Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
     def minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation(self):
@@ -4378,13 +2162,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation`'.format(value))
-        self._data["Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = value
+        self["Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = value
 
     @property
     def maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation(self):
@@ -4408,13 +2186,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation`'.format(value))
-        self._data["Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = value
+        self["Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = value
 
     @property
     def minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation(self):
@@ -4432,7 +2204,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation`
                 Units: kgWater/kgDryAir
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4440,19 +2211,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation`')
-        self._data["Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self["Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
     def maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation(self):
@@ -4470,7 +2229,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation`
                 Units: kgWater/kgDryAir
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4478,19 +2236,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation`')
-        self._data["Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self["Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
     def minimum_process_inlet_air_temperature_for_humidity_ratio_equation(self):
@@ -4514,13 +2260,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_temperature_for_humidity_ratio_equation`'.format(value))
-        self._data["Minimum Process Inlet Air Temperature for Humidity Ratio Equation"] = value
+        self["Minimum Process Inlet Air Temperature for Humidity Ratio Equation"] = value
 
     @property
     def maximum_process_inlet_air_temperature_for_humidity_ratio_equation(self):
@@ -4544,13 +2284,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_temperature_for_humidity_ratio_equation`'.format(value))
-        self._data["Maximum Process Inlet Air Temperature for Humidity Ratio Equation"] = value
+        self["Maximum Process Inlet Air Temperature for Humidity Ratio Equation"] = value
 
     @property
     def minimum_regeneration_air_velocity_for_humidity_ratio_equation(self):
@@ -4568,23 +2302,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Minimum Regeneration Air Velocity for Humidity Ratio Equation`
                 Units: m/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_air_velocity_for_humidity_ratio_equation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_air_velocity_for_humidity_ratio_equation`')
-        self._data["Minimum Regeneration Air Velocity for Humidity Ratio Equation"] = value
+        self["Minimum Regeneration Air Velocity for Humidity Ratio Equation"] = value
 
     @property
     def maximum_regeneration_air_velocity_for_humidity_ratio_equation(self):
@@ -4602,23 +2326,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Maximum Regeneration Air Velocity for Humidity Ratio Equation`
                 Units: m/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_air_velocity_for_humidity_ratio_equation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_air_velocity_for_humidity_ratio_equation`')
-        self._data["Maximum Regeneration Air Velocity for Humidity Ratio Equation"] = value
+        self["Maximum Regeneration Air Velocity for Humidity Ratio Equation"] = value
 
     @property
     def minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation(self):
@@ -4636,7 +2350,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation`
                 Units: kgWater/kgDryAir
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4644,19 +2357,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation`')
-        self._data["Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self["Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
     def maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation(self):
@@ -4674,7 +2375,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation`
                 Units: kgWater/kgDryAir
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4682,19 +2382,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation`')
-        self._data["Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self["Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
     def minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation(self):
@@ -4712,7 +2400,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation`
                 Units: percent
-                value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4720,19 +2407,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation`')
-        self._data["Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
+        self["Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
 
     @property
     def maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation(self):
@@ -4750,7 +2425,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation`
                 Units: percent
-                value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4758,19 +2432,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation`')
-        self._data["Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
+        self["Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
 
     @property
     def minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation(self):
@@ -4788,7 +2450,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation`
                 Units: percent
-                value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4796,19 +2457,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation`')
-        self._data["Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
+        self["Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
 
     @property
     def maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation(self):
@@ -4826,7 +2475,6 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Args:
             value (float): value for IDD Field `Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation`
                 Units: percent
-                value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4834,98 +2482,4 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `HeatExchangerDesiccantBalancedFlowPerformanceDataType1.maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation`')
-        self._data["Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field HeatExchangerDesiccantBalancedFlowPerformanceDataType1:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field HeatExchangerDesiccantBalancedFlowPerformanceDataType1:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for HeatExchangerDesiccantBalancedFlowPerformanceDataType1: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for HeatExchangerDesiccantBalancedFlowPerformanceDataType1: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = value

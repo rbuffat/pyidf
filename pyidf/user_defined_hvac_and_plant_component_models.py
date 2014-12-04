@@ -1,176 +1,28 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class ZoneHvacForcedAirUserDefined(object):
+
+
+class ZoneHvacForcedAirUserDefined(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:ForcedAir:UserDefined`
         Defines a generic zone air unit for custom modeling
         using Energy Management System or External Interface
     """
-    internal_name = "ZoneHVAC:ForcedAir:UserDefined"
-    field_count = 17
-    required_fields = ["Name", "Primary Air Inlet Node Name", "Primary Air Outlet Node Name", "Number of Plant Loop Connections"]
-    extensible_fields = 0
-    format = None
-    min_fields = 8
-    extensible_keys = []
+    schema = {'min-fields': 8, 'name': u'ZoneHVAC:ForcedAir:UserDefined', 'pyname': u'ZoneHvacForcedAirUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'overall model simulation program calling manager name', {'name': u'Overall Model Simulation Program Calling Manager Name', 'pyname': u'overall_model_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'model setup and sizing program calling manager name', {'name': u'Model Setup and Sizing Program Calling Manager Name', 'pyname': u'model_setup_and_sizing_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'primary air inlet node name', {'name': u'Primary Air Inlet Node Name', 'pyname': u'primary_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'primary air outlet node name', {'name': u'Primary Air Outlet Node Name', 'pyname': u'primary_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air outlet node name', {'name': u'Secondary Air Outlet Node Name', 'pyname': u'secondary_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'number of plant loop connections', {'name': u'Number of Plant Loop Connections', 'pyname': u'number_of_plant_loop_connections', 'maximum': 3, 'required-field': True, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'plant connection 1 inlet node name', {'name': u'Plant Connection 1 Inlet Node Name', 'pyname': u'plant_connection_1_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 1 outlet node name', {'name': u'Plant Connection 1 Outlet Node Name', 'pyname': u'plant_connection_1_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 inlet node name', {'name': u'Plant Connection 2 Inlet Node Name', 'pyname': u'plant_connection_2_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 outlet node name', {'name': u'Plant Connection 2 Outlet Node Name', 'pyname': u'plant_connection_2_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 3 inlet node name', {'name': u'Plant Connection 3 Inlet Node Name', 'pyname': u'plant_connection_3_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 3 outlet node name', {'name': u'Plant Connection 3 Outlet Node Name', 'pyname': u'plant_connection_3_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply inlet water storage tank name', {'name': u'Supply Inlet Water Storage Tank Name', 'pyname': u'supply_inlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'collection outlet water storage tank name', {'name': u'Collection Outlet Water Storage Tank Name', 'pyname': u'collection_outlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient zone name', {'name': u'Ambient Zone Name', 'pyname': u'ambient_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:ForcedAir:UserDefined`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Overall Model Simulation Program Calling Manager Name"] = None
-        self._data["Model Setup and Sizing Program Calling Manager Name"] = None
-        self._data["Primary Air Inlet Node Name"] = None
-        self._data["Primary Air Outlet Node Name"] = None
-        self._data["Secondary Air Inlet Node Name"] = None
-        self._data["Secondary Air Outlet Node Name"] = None
-        self._data["Number of Plant Loop Connections"] = None
-        self._data["Plant Connection 1 Inlet Node Name"] = None
-        self._data["Plant Connection 1 Outlet Node Name"] = None
-        self._data["Plant Connection 2 Inlet Node Name"] = None
-        self._data["Plant Connection 2 Outlet Node Name"] = None
-        self._data["Plant Connection 3 Inlet Node Name"] = None
-        self._data["Plant Connection 3 Outlet Node Name"] = None
-        self._data["Supply Inlet Water Storage Tank Name"] = None
-        self._data["Collection Outlet Water Storage Tank Name"] = None
-        self._data["Ambient Zone Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.overall_model_simulation_program_calling_manager_name = None
-        else:
-            self.overall_model_simulation_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.model_setup_and_sizing_program_calling_manager_name = None
-        else:
-            self.model_setup_and_sizing_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.primary_air_inlet_node_name = None
-        else:
-            self.primary_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.primary_air_outlet_node_name = None
-        else:
-            self.primary_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.secondary_air_inlet_node_name = None
-        else:
-            self.secondary_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.secondary_air_outlet_node_name = None
-        else:
-            self.secondary_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_plant_loop_connections = None
-        else:
-            self.number_of_plant_loop_connections = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_1_inlet_node_name = None
-        else:
-            self.plant_connection_1_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_1_outlet_node_name = None
-        else:
-            self.plant_connection_1_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_2_inlet_node_name = None
-        else:
-            self.plant_connection_2_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_2_outlet_node_name = None
-        else:
-            self.plant_connection_2_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_3_inlet_node_name = None
-        else:
-            self.plant_connection_3_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_3_outlet_node_name = None
-        else:
-            self.plant_connection_3_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_inlet_water_storage_tank_name = None
-        else:
-            self.supply_inlet_water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.collection_outlet_water_storage_tank_name = None
-        else:
-            self.collection_outlet_water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ambient_zone_name = None
-        else:
-            self.ambient_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -194,19 +46,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def overall_model_simulation_program_calling_manager_name(self):
@@ -229,19 +69,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.overall_model_simulation_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.overall_model_simulation_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.overall_model_simulation_program_calling_manager_name`')
-        self._data["Overall Model Simulation Program Calling Manager Name"] = value
+        self["Overall Model Simulation Program Calling Manager Name"] = value
 
     @property
     def model_setup_and_sizing_program_calling_manager_name(self):
@@ -264,19 +92,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.model_setup_and_sizing_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.model_setup_and_sizing_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.model_setup_and_sizing_program_calling_manager_name`')
-        self._data["Model Setup and Sizing Program Calling Manager Name"] = value
+        self["Model Setup and Sizing Program Calling Manager Name"] = value
 
     @property
     def primary_air_inlet_node_name(self):
@@ -300,19 +116,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.primary_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.primary_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.primary_air_inlet_node_name`')
-        self._data["Primary Air Inlet Node Name"] = value
+        self["Primary Air Inlet Node Name"] = value
 
     @property
     def primary_air_outlet_node_name(self):
@@ -336,19 +140,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.primary_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.primary_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.primary_air_outlet_node_name`')
-        self._data["Primary Air Outlet Node Name"] = value
+        self["Primary Air Outlet Node Name"] = value
 
     @property
     def secondary_air_inlet_node_name(self):
@@ -372,19 +164,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.secondary_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.secondary_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.secondary_air_inlet_node_name`')
-        self._data["Secondary Air Inlet Node Name"] = value
+        self["Secondary Air Inlet Node Name"] = value
 
     @property
     def secondary_air_outlet_node_name(self):
@@ -408,19 +188,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.secondary_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.secondary_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.secondary_air_outlet_node_name`')
-        self._data["Secondary Air Outlet Node Name"] = value
+        self["Secondary Air Outlet Node Name"] = value
 
     @property
     def number_of_plant_loop_connections(self):
@@ -437,7 +205,6 @@ class ZoneHvacForcedAirUserDefined(object):
 
         Args:
             value (int): value for IDD Field `Number of Plant Loop Connections`
-                value >= 0
                 value <= 3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -445,26 +212,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `ZoneHvacForcedAirUserDefined.number_of_plant_loop_connections`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `ZoneHvacForcedAirUserDefined.number_of_plant_loop_connections`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `ZoneHvacForcedAirUserDefined.number_of_plant_loop_connections`')
-            if value > 3:
-                raise ValueError('value need to be smaller 3 '
-                                 'for field `ZoneHvacForcedAirUserDefined.number_of_plant_loop_connections`')
-        self._data["Number of Plant Loop Connections"] = value
+        self["Number of Plant Loop Connections"] = value
 
     @property
     def plant_connection_1_inlet_node_name(self):
@@ -487,19 +235,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.plant_connection_1_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_1_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_1_inlet_node_name`')
-        self._data["Plant Connection 1 Inlet Node Name"] = value
+        self["Plant Connection 1 Inlet Node Name"] = value
 
     @property
     def plant_connection_1_outlet_node_name(self):
@@ -522,19 +258,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.plant_connection_1_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_1_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_1_outlet_node_name`')
-        self._data["Plant Connection 1 Outlet Node Name"] = value
+        self["Plant Connection 1 Outlet Node Name"] = value
 
     @property
     def plant_connection_2_inlet_node_name(self):
@@ -557,19 +281,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.plant_connection_2_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_2_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_2_inlet_node_name`')
-        self._data["Plant Connection 2 Inlet Node Name"] = value
+        self["Plant Connection 2 Inlet Node Name"] = value
 
     @property
     def plant_connection_2_outlet_node_name(self):
@@ -592,19 +304,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.plant_connection_2_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_2_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_2_outlet_node_name`')
-        self._data["Plant Connection 2 Outlet Node Name"] = value
+        self["Plant Connection 2 Outlet Node Name"] = value
 
     @property
     def plant_connection_3_inlet_node_name(self):
@@ -627,19 +327,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.plant_connection_3_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_3_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_3_inlet_node_name`')
-        self._data["Plant Connection 3 Inlet Node Name"] = value
+        self["Plant Connection 3 Inlet Node Name"] = value
 
     @property
     def plant_connection_3_outlet_node_name(self):
@@ -662,19 +350,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.plant_connection_3_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_3_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.plant_connection_3_outlet_node_name`')
-        self._data["Plant Connection 3 Outlet Node Name"] = value
+        self["Plant Connection 3 Outlet Node Name"] = value
 
     @property
     def supply_inlet_water_storage_tank_name(self):
@@ -698,19 +374,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.supply_inlet_water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.supply_inlet_water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.supply_inlet_water_storage_tank_name`')
-        self._data["Supply Inlet Water Storage Tank Name"] = value
+        self["Supply Inlet Water Storage Tank Name"] = value
 
     @property
     def collection_outlet_water_storage_tank_name(self):
@@ -734,19 +398,7 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.collection_outlet_water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.collection_outlet_water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.collection_outlet_water_storage_tank_name`')
-        self._data["Collection Outlet Water Storage Tank Name"] = value
+        self["Collection Outlet Water Storage Tank Name"] = value
 
     @property
     def ambient_zone_name(self):
@@ -770,252 +422,24 @@ class ZoneHvacForcedAirUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacForcedAirUserDefined.ambient_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacForcedAirUserDefined.ambient_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacForcedAirUserDefined.ambient_zone_name`')
-        self._data["Ambient Zone Name"] = value
+        self["Ambient Zone Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacForcedAirUserDefined:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacForcedAirUserDefined:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacForcedAirUserDefined: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacForcedAirUserDefined: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class AirTerminalSingleDuctUserDefined(object):
+class AirTerminalSingleDuctUserDefined(DataObject):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:UserDefined`
         Defines a generic single duct air terminal unit for custom modeling
         using Energy Management System or External Interface
     """
-    internal_name = "AirTerminal:SingleDuct:UserDefined"
-    field_count = 15
-    required_fields = ["Name", "Primary Air Inlet Node Name", "Primary Air Outlet Node Name", "Number of Plant Loop Connections", "Plant Connection 1 Inlet Node Name", "Plant Connection 1 Outlet Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 8
-    extensible_keys = []
+    schema = {'min-fields': 8, 'name': u'AirTerminal:SingleDuct:UserDefined', 'pyname': u'AirTerminalSingleDuctUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'overall model simulation program calling manager name', {'name': u'Overall Model Simulation Program Calling Manager Name', 'pyname': u'overall_model_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'model setup and sizing program calling manager name', {'name': u'Model Setup and Sizing Program Calling Manager Name', 'pyname': u'model_setup_and_sizing_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'primary air inlet node name', {'name': u'Primary Air Inlet Node Name', 'pyname': u'primary_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'primary air outlet node name', {'name': u'Primary Air Outlet Node Name', 'pyname': u'primary_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air outlet node name', {'name': u'Secondary Air Outlet Node Name', 'pyname': u'secondary_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'number of plant loop connections', {'name': u'Number of Plant Loop Connections', 'pyname': u'number_of_plant_loop_connections', 'maximum': 2, 'required-field': True, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'plant connection 1 inlet node name', {'name': u'Plant Connection 1 Inlet Node Name', 'pyname': u'plant_connection_1_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 1 outlet node name', {'name': u'Plant Connection 1 Outlet Node Name', 'pyname': u'plant_connection_1_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 inlet node name', {'name': u'Plant Connection 2 Inlet Node Name', 'pyname': u'plant_connection_2_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 outlet node name', {'name': u'Plant Connection 2 Outlet Node Name', 'pyname': u'plant_connection_2_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply inlet water storage tank name', {'name': u'Supply Inlet Water Storage Tank Name', 'pyname': u'supply_inlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'collection outlet water storage tank name', {'name': u'Collection Outlet Water Storage Tank Name', 'pyname': u'collection_outlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient zone name', {'name': u'Ambient Zone Name', 'pyname': u'ambient_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:UserDefined`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Overall Model Simulation Program Calling Manager Name"] = None
-        self._data["Model Setup and Sizing Program Calling Manager Name"] = None
-        self._data["Primary Air Inlet Node Name"] = None
-        self._data["Primary Air Outlet Node Name"] = None
-        self._data["Secondary Air Inlet Node Name"] = None
-        self._data["Secondary Air Outlet Node Name"] = None
-        self._data["Number of Plant Loop Connections"] = None
-        self._data["Plant Connection 1 Inlet Node Name"] = None
-        self._data["Plant Connection 1 Outlet Node Name"] = None
-        self._data["Plant Connection 2 Inlet Node Name"] = None
-        self._data["Plant Connection 2 Outlet Node Name"] = None
-        self._data["Supply Inlet Water Storage Tank Name"] = None
-        self._data["Collection Outlet Water Storage Tank Name"] = None
-        self._data["Ambient Zone Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.overall_model_simulation_program_calling_manager_name = None
-        else:
-            self.overall_model_simulation_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.model_setup_and_sizing_program_calling_manager_name = None
-        else:
-            self.model_setup_and_sizing_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.primary_air_inlet_node_name = None
-        else:
-            self.primary_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.primary_air_outlet_node_name = None
-        else:
-            self.primary_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.secondary_air_inlet_node_name = None
-        else:
-            self.secondary_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.secondary_air_outlet_node_name = None
-        else:
-            self.secondary_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_plant_loop_connections = None
-        else:
-            self.number_of_plant_loop_connections = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_1_inlet_node_name = None
-        else:
-            self.plant_connection_1_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_1_outlet_node_name = None
-        else:
-            self.plant_connection_1_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_2_inlet_node_name = None
-        else:
-            self.plant_connection_2_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_2_outlet_node_name = None
-        else:
-            self.plant_connection_2_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_inlet_water_storage_tank_name = None
-        else:
-            self.supply_inlet_water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.collection_outlet_water_storage_tank_name = None
-        else:
-            self.collection_outlet_water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ambient_zone_name = None
-        else:
-            self.ambient_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1039,19 +463,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def overall_model_simulation_program_calling_manager_name(self):
@@ -1074,19 +486,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.overall_model_simulation_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.overall_model_simulation_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.overall_model_simulation_program_calling_manager_name`')
-        self._data["Overall Model Simulation Program Calling Manager Name"] = value
+        self["Overall Model Simulation Program Calling Manager Name"] = value
 
     @property
     def model_setup_and_sizing_program_calling_manager_name(self):
@@ -1109,19 +509,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.model_setup_and_sizing_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.model_setup_and_sizing_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.model_setup_and_sizing_program_calling_manager_name`')
-        self._data["Model Setup and Sizing Program Calling Manager Name"] = value
+        self["Model Setup and Sizing Program Calling Manager Name"] = value
 
     @property
     def primary_air_inlet_node_name(self):
@@ -1145,19 +533,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.primary_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.primary_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.primary_air_inlet_node_name`')
-        self._data["Primary Air Inlet Node Name"] = value
+        self["Primary Air Inlet Node Name"] = value
 
     @property
     def primary_air_outlet_node_name(self):
@@ -1181,19 +557,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.primary_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.primary_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.primary_air_outlet_node_name`')
-        self._data["Primary Air Outlet Node Name"] = value
+        self["Primary Air Outlet Node Name"] = value
 
     @property
     def secondary_air_inlet_node_name(self):
@@ -1217,19 +581,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.secondary_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.secondary_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.secondary_air_inlet_node_name`')
-        self._data["Secondary Air Inlet Node Name"] = value
+        self["Secondary Air Inlet Node Name"] = value
 
     @property
     def secondary_air_outlet_node_name(self):
@@ -1253,19 +605,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.secondary_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.secondary_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.secondary_air_outlet_node_name`')
-        self._data["Secondary Air Outlet Node Name"] = value
+        self["Secondary Air Outlet Node Name"] = value
 
     @property
     def number_of_plant_loop_connections(self):
@@ -1282,7 +622,6 @@ class AirTerminalSingleDuctUserDefined(object):
 
         Args:
             value (int): value for IDD Field `Number of Plant Loop Connections`
-                value >= 0
                 value <= 2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1290,26 +629,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `AirTerminalSingleDuctUserDefined.number_of_plant_loop_connections`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `AirTerminalSingleDuctUserDefined.number_of_plant_loop_connections`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `AirTerminalSingleDuctUserDefined.number_of_plant_loop_connections`')
-            if value > 2:
-                raise ValueError('value need to be smaller 2 '
-                                 'for field `AirTerminalSingleDuctUserDefined.number_of_plant_loop_connections`')
-        self._data["Number of Plant Loop Connections"] = value
+        self["Number of Plant Loop Connections"] = value
 
     @property
     def plant_connection_1_inlet_node_name(self):
@@ -1332,19 +652,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.plant_connection_1_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.plant_connection_1_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.plant_connection_1_inlet_node_name`')
-        self._data["Plant Connection 1 Inlet Node Name"] = value
+        self["Plant Connection 1 Inlet Node Name"] = value
 
     @property
     def plant_connection_1_outlet_node_name(self):
@@ -1367,19 +675,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.plant_connection_1_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.plant_connection_1_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.plant_connection_1_outlet_node_name`')
-        self._data["Plant Connection 1 Outlet Node Name"] = value
+        self["Plant Connection 1 Outlet Node Name"] = value
 
     @property
     def plant_connection_2_inlet_node_name(self):
@@ -1402,19 +698,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.plant_connection_2_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.plant_connection_2_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.plant_connection_2_inlet_node_name`')
-        self._data["Plant Connection 2 Inlet Node Name"] = value
+        self["Plant Connection 2 Inlet Node Name"] = value
 
     @property
     def plant_connection_2_outlet_node_name(self):
@@ -1437,19 +721,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.plant_connection_2_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.plant_connection_2_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.plant_connection_2_outlet_node_name`')
-        self._data["Plant Connection 2 Outlet Node Name"] = value
+        self["Plant Connection 2 Outlet Node Name"] = value
 
     @property
     def supply_inlet_water_storage_tank_name(self):
@@ -1473,19 +745,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.supply_inlet_water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.supply_inlet_water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.supply_inlet_water_storage_tank_name`')
-        self._data["Supply Inlet Water Storage Tank Name"] = value
+        self["Supply Inlet Water Storage Tank Name"] = value
 
     @property
     def collection_outlet_water_storage_tank_name(self):
@@ -1509,19 +769,7 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.collection_outlet_water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.collection_outlet_water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.collection_outlet_water_storage_tank_name`')
-        self._data["Collection Outlet Water Storage Tank Name"] = value
+        self["Collection Outlet Water Storage Tank Name"] = value
 
     @property
     def ambient_zone_name(self):
@@ -1545,244 +793,24 @@ class AirTerminalSingleDuctUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirTerminalSingleDuctUserDefined.ambient_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirTerminalSingleDuctUserDefined.ambient_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirTerminalSingleDuctUserDefined.ambient_zone_name`')
-        self._data["Ambient Zone Name"] = value
+        self["Ambient Zone Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field AirTerminalSingleDuctUserDefined:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field AirTerminalSingleDuctUserDefined:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for AirTerminalSingleDuctUserDefined: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for AirTerminalSingleDuctUserDefined: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CoilUserDefined(object):
+class CoilUserDefined(DataObject):
     """ Corresponds to IDD object `Coil:UserDefined`
         Defines a generic air system component for custom modeling
         using Energy Management System or External Interface
     """
-    internal_name = "Coil:UserDefined"
-    field_count = 14
-    required_fields = ["Name", "Model Setup and Sizing Program Calling Manager Name", "Number of Air Connections", "Air Connection 1 Inlet Node Name", "Air Connection 1 Outlet Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 9
-    extensible_keys = []
+    schema = {'min-fields': 9, 'name': u'Coil:UserDefined', 'pyname': u'CoilUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'overall model simulation program calling manager name', {'name': u'Overall Model Simulation Program Calling Manager Name', 'pyname': u'overall_model_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'model setup and sizing program calling manager name', {'name': u'Model Setup and Sizing Program Calling Manager Name', 'pyname': u'model_setup_and_sizing_program_calling_manager_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of air connections', {'name': u'Number of Air Connections', 'pyname': u'number_of_air_connections', 'maximum': 2, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'air connection 1 inlet node name', {'name': u'Air Connection 1 Inlet Node Name', 'pyname': u'air_connection_1_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection 1 outlet node name', {'name': u'Air Connection 1 Outlet Node Name', 'pyname': u'air_connection_1_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection 2 inlet node name', {'name': u'Air Connection 2 Inlet Node Name', 'pyname': u'air_connection_2_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection 2 outlet node name', {'name': u'Air Connection 2 Outlet Node Name', 'pyname': u'air_connection_2_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection is used', {'name': u'Plant Connection is Used', 'pyname': u'plant_connection_is_used', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection inlet node name', {'name': u'Plant Connection Inlet Node Name', 'pyname': u'plant_connection_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection outlet node name', {'name': u'Plant Connection Outlet Node Name', 'pyname': u'plant_connection_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply inlet water storage tank name', {'name': u'Supply Inlet Water Storage Tank Name', 'pyname': u'supply_inlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'collection outlet water storage tank name', {'name': u'Collection Outlet Water Storage Tank Name', 'pyname': u'collection_outlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient zone name', {'name': u'Ambient Zone Name', 'pyname': u'ambient_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:UserDefined`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Overall Model Simulation Program Calling Manager Name"] = None
-        self._data["Model Setup and Sizing Program Calling Manager Name"] = None
-        self._data["Number of Air Connections"] = None
-        self._data["Air Connection 1 Inlet Node Name"] = None
-        self._data["Air Connection 1 Outlet Node Name"] = None
-        self._data["Air Connection 2 Inlet Node Name"] = None
-        self._data["Air Connection 2 Outlet Node Name"] = None
-        self._data["Plant Connection is Used"] = None
-        self._data["Plant Connection Inlet Node Name"] = None
-        self._data["Plant Connection Outlet Node Name"] = None
-        self._data["Supply Inlet Water Storage Tank Name"] = None
-        self._data["Collection Outlet Water Storage Tank Name"] = None
-        self._data["Ambient Zone Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.overall_model_simulation_program_calling_manager_name = None
-        else:
-            self.overall_model_simulation_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.model_setup_and_sizing_program_calling_manager_name = None
-        else:
-            self.model_setup_and_sizing_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_air_connections = None
-        else:
-            self.number_of_air_connections = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_connection_1_inlet_node_name = None
-        else:
-            self.air_connection_1_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_connection_1_outlet_node_name = None
-        else:
-            self.air_connection_1_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_connection_2_inlet_node_name = None
-        else:
-            self.air_connection_2_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_connection_2_outlet_node_name = None
-        else:
-            self.air_connection_2_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_is_used = None
-        else:
-            self.plant_connection_is_used = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_inlet_node_name = None
-        else:
-            self.plant_connection_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_outlet_node_name = None
-        else:
-            self.plant_connection_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_inlet_water_storage_tank_name = None
-        else:
-            self.supply_inlet_water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.collection_outlet_water_storage_tank_name = None
-        else:
-            self.collection_outlet_water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ambient_zone_name = None
-        else:
-            self.ambient_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1806,19 +834,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def overall_model_simulation_program_calling_manager_name(self):
@@ -1841,19 +857,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.overall_model_simulation_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.overall_model_simulation_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.overall_model_simulation_program_calling_manager_name`')
-        self._data["Overall Model Simulation Program Calling Manager Name"] = value
+        self["Overall Model Simulation Program Calling Manager Name"] = value
 
     @property
     def model_setup_and_sizing_program_calling_manager_name(self):
@@ -1876,19 +880,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.model_setup_and_sizing_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.model_setup_and_sizing_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.model_setup_and_sizing_program_calling_manager_name`')
-        self._data["Model Setup and Sizing Program Calling Manager Name"] = value
+        self["Model Setup and Sizing Program Calling Manager Name"] = value
 
     @property
     def number_of_air_connections(self):
@@ -1913,26 +905,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `CoilUserDefined.number_of_air_connections`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `CoilUserDefined.number_of_air_connections`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `CoilUserDefined.number_of_air_connections`')
-            if value > 2:
-                raise ValueError('value need to be smaller 2 '
-                                 'for field `CoilUserDefined.number_of_air_connections`')
-        self._data["Number of Air Connections"] = value
+        self["Number of Air Connections"] = value
 
     @property
     def air_connection_1_inlet_node_name(self):
@@ -1956,19 +929,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.air_connection_1_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.air_connection_1_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.air_connection_1_inlet_node_name`')
-        self._data["Air Connection 1 Inlet Node Name"] = value
+        self["Air Connection 1 Inlet Node Name"] = value
 
     @property
     def air_connection_1_outlet_node_name(self):
@@ -1992,19 +953,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.air_connection_1_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.air_connection_1_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.air_connection_1_outlet_node_name`')
-        self._data["Air Connection 1 Outlet Node Name"] = value
+        self["Air Connection 1 Outlet Node Name"] = value
 
     @property
     def air_connection_2_inlet_node_name(self):
@@ -2028,19 +977,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.air_connection_2_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.air_connection_2_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.air_connection_2_inlet_node_name`')
-        self._data["Air Connection 2 Inlet Node Name"] = value
+        self["Air Connection 2 Inlet Node Name"] = value
 
     @property
     def air_connection_2_outlet_node_name(self):
@@ -2064,19 +1001,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.air_connection_2_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.air_connection_2_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.air_connection_2_outlet_node_name`')
-        self._data["Air Connection 2 Outlet Node Name"] = value
+        self["Air Connection 2 Outlet Node Name"] = value
 
     @property
     def plant_connection_is_used(self):
@@ -2093,55 +1018,13 @@ class CoilUserDefined(object):
 
         Args:
             value (str): value for IDD Field `Plant Connection is Used`
-                Accepted values are:
-                      - Yes
-                      - No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.plant_connection_is_used`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.plant_connection_is_used`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.plant_connection_is_used`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CoilUserDefined.plant_connection_is_used`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CoilUserDefined.plant_connection_is_used`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Plant Connection is Used"] = value
+        self["Plant Connection is Used"] = value
 
     @property
     def plant_connection_inlet_node_name(self):
@@ -2164,19 +1047,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.plant_connection_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.plant_connection_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.plant_connection_inlet_node_name`')
-        self._data["Plant Connection Inlet Node Name"] = value
+        self["Plant Connection Inlet Node Name"] = value
 
     @property
     def plant_connection_outlet_node_name(self):
@@ -2199,19 +1070,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.plant_connection_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.plant_connection_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.plant_connection_outlet_node_name`')
-        self._data["Plant Connection Outlet Node Name"] = value
+        self["Plant Connection Outlet Node Name"] = value
 
     @property
     def supply_inlet_water_storage_tank_name(self):
@@ -2235,19 +1094,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.supply_inlet_water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.supply_inlet_water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.supply_inlet_water_storage_tank_name`')
-        self._data["Supply Inlet Water Storage Tank Name"] = value
+        self["Supply Inlet Water Storage Tank Name"] = value
 
     @property
     def collection_outlet_water_storage_tank_name(self):
@@ -2271,19 +1118,7 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.collection_outlet_water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.collection_outlet_water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.collection_outlet_water_storage_tank_name`')
-        self._data["Collection Outlet Water Storage Tank Name"] = value
+        self["Collection Outlet Water Storage Tank Name"] = value
 
     @property
     def ambient_zone_name(self):
@@ -2307,388 +1142,24 @@ class CoilUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CoilUserDefined.ambient_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CoilUserDefined.ambient_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CoilUserDefined.ambient_zone_name`')
-        self._data["Ambient Zone Name"] = value
+        self["Ambient Zone Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CoilUserDefined:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CoilUserDefined:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CoilUserDefined: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CoilUserDefined: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class PlantComponentUserDefined(object):
+class PlantComponentUserDefined(DataObject):
     """ Corresponds to IDD object `PlantComponent:UserDefined`
         Defines a generic plant component for custom modeling
         using Energy Management System or External Interface
     """
-    internal_name = "PlantComponent:UserDefined"
-    field_count = 32
-    required_fields = ["Name", "Number of Plant Loop Connections", "Plant Connection 1 Inlet Node Name", "Plant Connection 1 Outlet Node Name", "Plant Connection 1 Loading Mode", "Plant Connection 1 Loop Flow Request Mode"]
-    extensible_fields = 0
-    format = None
-    min_fields = 9
-    extensible_keys = []
+    schema = {'min-fields': 9, 'name': u'PlantComponent:UserDefined', 'pyname': u'PlantComponentUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'main model program calling manager name', {'name': u'Main Model Program Calling Manager Name', 'pyname': u'main_model_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of plant loop connections', {'name': u'Number of Plant Loop Connections', 'pyname': u'number_of_plant_loop_connections', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'plant connection 1 inlet node name', {'name': u'Plant Connection 1 Inlet Node Name', 'pyname': u'plant_connection_1_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 1 outlet node name', {'name': u'Plant Connection 1 Outlet Node Name', 'pyname': u'plant_connection_1_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 1 loading mode', {'name': u'Plant Connection 1 Loading Mode', 'pyname': u'plant_connection_1_loading_mode', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 1 loop flow request mode', {'name': u'Plant Connection 1 Loop Flow Request Mode', 'pyname': u'plant_connection_1_loop_flow_request_mode', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 1 initialization program calling manager name', {'name': u'Plant Connection 1 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_1_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 1 simulation program calling manager name', {'name': u'Plant Connection 1 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_1_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 2 inlet node name', {'name': u'Plant Connection 2 Inlet Node Name', 'pyname': u'plant_connection_2_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 outlet node name', {'name': u'Plant Connection 2 Outlet Node Name', 'pyname': u'plant_connection_2_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 loading mode', {'name': u'Plant Connection 2 Loading Mode', 'pyname': u'plant_connection_2_loading_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 2 loop flow request mode', {'name': u'Plant Connection 2 Loop Flow Request Mode', 'pyname': u'plant_connection_2_loop_flow_request_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 2 initialization program calling manager name', {'name': u'Plant Connection 2 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_2_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 2 simulation program calling manager name', {'name': u'Plant Connection 2 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_2_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 3 inlet node name', {'name': u'Plant Connection 3 Inlet Node Name', 'pyname': u'plant_connection_3_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 3 outlet node name', {'name': u'Plant Connection 3 Outlet Node Name', 'pyname': u'plant_connection_3_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 3 loading mode', {'name': u'Plant Connection 3 Loading Mode', 'pyname': u'plant_connection_3_loading_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 3 loop flow request mode', {'name': u'Plant Connection 3 Loop Flow Request Mode', 'pyname': u'plant_connection_3_loop_flow_request_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 3 initialization program calling manager name', {'name': u'Plant Connection 3 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_3_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 3 simulation program calling manager name', {'name': u'Plant Connection 3 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_3_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 4 inlet node name', {'name': u'Plant Connection 4 Inlet Node Name', 'pyname': u'plant_connection_4_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 4 outlet node name', {'name': u'Plant Connection 4 Outlet Node Name', 'pyname': u'plant_connection_4_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 4 loading mode', {'name': u'Plant Connection 4 Loading Mode', 'pyname': u'plant_connection_4_loading_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 4 loop flow request mode', {'name': u'Plant Connection 4 Loop Flow Request Mode', 'pyname': u'plant_connection_4_loop_flow_request_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 4 initialization program calling manager name', {'name': u'Plant Connection 4 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_4_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 4 simulation program calling manager name', {'name': u'Plant Connection 4 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_4_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air connection inlet node name', {'name': u'Air Connection Inlet Node Name', 'pyname': u'air_connection_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection outlet node name', {'name': u'Air Connection Outlet Node Name', 'pyname': u'air_connection_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply inlet water storage tank name', {'name': u'Supply Inlet Water Storage Tank Name', 'pyname': u'supply_inlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'collection outlet water storage tank name', {'name': u'Collection Outlet Water Storage Tank Name', 'pyname': u'collection_outlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient zone name', {'name': u'Ambient Zone Name', 'pyname': u'ambient_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantComponent:UserDefined`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Main Model Program Calling Manager Name"] = None
-        self._data["Number of Plant Loop Connections"] = None
-        self._data["Plant Connection 1 Inlet Node Name"] = None
-        self._data["Plant Connection 1 Outlet Node Name"] = None
-        self._data["Plant Connection 1 Loading Mode"] = None
-        self._data["Plant Connection 1 Loop Flow Request Mode"] = None
-        self._data["Plant Connection 1 Initialization Program Calling Manager Name"] = None
-        self._data["Plant Connection 1 Simulation Program Calling Manager Name"] = None
-        self._data["Plant Connection 2 Inlet Node Name"] = None
-        self._data["Plant Connection 2 Outlet Node Name"] = None
-        self._data["Plant Connection 2 Loading Mode"] = None
-        self._data["Plant Connection 2 Loop Flow Request Mode"] = None
-        self._data["Plant Connection 2 Initialization Program Calling Manager Name"] = None
-        self._data["Plant Connection 2 Simulation Program Calling Manager Name"] = None
-        self._data["Plant Connection 3 Inlet Node Name"] = None
-        self._data["Plant Connection 3 Outlet Node Name"] = None
-        self._data["Plant Connection 3 Loading Mode"] = None
-        self._data["Plant Connection 3 Loop Flow Request Mode"] = None
-        self._data["Plant Connection 3 Initialization Program Calling Manager Name"] = None
-        self._data["Plant Connection 3 Simulation Program Calling Manager Name"] = None
-        self._data["Plant Connection 4 Inlet Node Name"] = None
-        self._data["Plant Connection 4 Outlet Node Name"] = None
-        self._data["Plant Connection 4 Loading Mode"] = None
-        self._data["Plant Connection 4 Loop Flow Request Mode"] = None
-        self._data["Plant Connection 4 Initialization Program Calling Manager Name"] = None
-        self._data["Plant Connection 4 Simulation Program Calling Manager Name"] = None
-        self._data["Air Connection Inlet Node Name"] = None
-        self._data["Air Connection Outlet Node Name"] = None
-        self._data["Supply Inlet Water Storage Tank Name"] = None
-        self._data["Collection Outlet Water Storage Tank Name"] = None
-        self._data["Ambient Zone Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.main_model_program_calling_manager_name = None
-        else:
-            self.main_model_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_plant_loop_connections = None
-        else:
-            self.number_of_plant_loop_connections = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_1_inlet_node_name = None
-        else:
-            self.plant_connection_1_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_1_outlet_node_name = None
-        else:
-            self.plant_connection_1_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_1_loading_mode = None
-        else:
-            self.plant_connection_1_loading_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_1_loop_flow_request_mode = None
-        else:
-            self.plant_connection_1_loop_flow_request_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_1_initialization_program_calling_manager_name = None
-        else:
-            self.plant_connection_1_initialization_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_1_simulation_program_calling_manager_name = None
-        else:
-            self.plant_connection_1_simulation_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_2_inlet_node_name = None
-        else:
-            self.plant_connection_2_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_2_outlet_node_name = None
-        else:
-            self.plant_connection_2_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_2_loading_mode = None
-        else:
-            self.plant_connection_2_loading_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_2_loop_flow_request_mode = None
-        else:
-            self.plant_connection_2_loop_flow_request_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_2_initialization_program_calling_manager_name = None
-        else:
-            self.plant_connection_2_initialization_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_2_simulation_program_calling_manager_name = None
-        else:
-            self.plant_connection_2_simulation_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_3_inlet_node_name = None
-        else:
-            self.plant_connection_3_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_3_outlet_node_name = None
-        else:
-            self.plant_connection_3_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_3_loading_mode = None
-        else:
-            self.plant_connection_3_loading_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_3_loop_flow_request_mode = None
-        else:
-            self.plant_connection_3_loop_flow_request_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_3_initialization_program_calling_manager_name = None
-        else:
-            self.plant_connection_3_initialization_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_3_simulation_program_calling_manager_name = None
-        else:
-            self.plant_connection_3_simulation_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_4_inlet_node_name = None
-        else:
-            self.plant_connection_4_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_4_outlet_node_name = None
-        else:
-            self.plant_connection_4_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_4_loading_mode = None
-        else:
-            self.plant_connection_4_loading_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_4_loop_flow_request_mode = None
-        else:
-            self.plant_connection_4_loop_flow_request_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_4_initialization_program_calling_manager_name = None
-        else:
-            self.plant_connection_4_initialization_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.plant_connection_4_simulation_program_calling_manager_name = None
-        else:
-            self.plant_connection_4_simulation_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_connection_inlet_node_name = None
-        else:
-            self.air_connection_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_connection_outlet_node_name = None
-        else:
-            self.air_connection_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_inlet_water_storage_tank_name = None
-        else:
-            self.supply_inlet_water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.collection_outlet_water_storage_tank_name = None
-        else:
-            self.collection_outlet_water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ambient_zone_name = None
-        else:
-            self.ambient_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2712,19 +1183,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def main_model_program_calling_manager_name(self):
@@ -2747,19 +1206,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.main_model_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.main_model_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.main_model_program_calling_manager_name`')
-        self._data["Main Model Program Calling Manager Name"] = value
+        self["Main Model Program Calling Manager Name"] = value
 
     @property
     def number_of_plant_loop_connections(self):
@@ -2784,26 +1231,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `PlantComponentUserDefined.number_of_plant_loop_connections`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `PlantComponentUserDefined.number_of_plant_loop_connections`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `PlantComponentUserDefined.number_of_plant_loop_connections`')
-            if value > 4:
-                raise ValueError('value need to be smaller 4 '
-                                 'for field `PlantComponentUserDefined.number_of_plant_loop_connections`')
-        self._data["Number of Plant Loop Connections"] = value
+        self["Number of Plant Loop Connections"] = value
 
     @property
     def plant_connection_1_inlet_node_name(self):
@@ -2826,19 +1254,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_1_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_inlet_node_name`')
-        self._data["Plant Connection 1 Inlet Node Name"] = value
+        self["Plant Connection 1 Inlet Node Name"] = value
 
     @property
     def plant_connection_1_outlet_node_name(self):
@@ -2861,19 +1277,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_1_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_outlet_node_name`')
-        self._data["Plant Connection 1 Outlet Node Name"] = value
+        self["Plant Connection 1 Outlet Node Name"] = value
 
     @property
     def plant_connection_1_loading_mode(self):
@@ -2890,61 +1294,13 @@ class PlantComponentUserDefined(object):
 
         Args:
             value (str): value for IDD Field `Plant Connection 1 Loading Mode`
-                Accepted values are:
-                      - DemandsLoad
-                      - MeetsLoadWithPassiveCapacity
-                      - MeetsLoadWithNominalCapacity
-                      - MeetsLoadWithNominalCapacityLowOutLimit
-                      - MeetsLoadWithNominalCapacityHiOutLimit
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_1_loading_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_loading_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_loading_mode`')
-            vals = {}
-            vals["demandsload"] = "DemandsLoad"
-            vals["meetsloadwithpassivecapacity"] = "MeetsLoadWithPassiveCapacity"
-            vals["meetsloadwithnominalcapacity"] = "MeetsLoadWithNominalCapacity"
-            vals["meetsloadwithnominalcapacitylowoutlimit"] = "MeetsLoadWithNominalCapacityLowOutLimit"
-            vals["meetsloadwithnominalcapacityhioutlimit"] = "MeetsLoadWithNominalCapacityHiOutLimit"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `PlantComponentUserDefined.plant_connection_1_loading_mode`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `PlantComponentUserDefined.plant_connection_1_loading_mode`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Plant Connection 1 Loading Mode"] = value
+        self["Plant Connection 1 Loading Mode"] = value
 
     @property
     def plant_connection_1_loop_flow_request_mode(self):
@@ -2967,19 +1323,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_1_loop_flow_request_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_loop_flow_request_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_loop_flow_request_mode`')
-        self._data["Plant Connection 1 Loop Flow Request Mode"] = value
+        self["Plant Connection 1 Loop Flow Request Mode"] = value
 
     @property
     def plant_connection_1_initialization_program_calling_manager_name(self):
@@ -3002,19 +1346,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_1_initialization_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_initialization_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_initialization_program_calling_manager_name`')
-        self._data["Plant Connection 1 Initialization Program Calling Manager Name"] = value
+        self["Plant Connection 1 Initialization Program Calling Manager Name"] = value
 
     @property
     def plant_connection_1_simulation_program_calling_manager_name(self):
@@ -3037,19 +1369,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_1_simulation_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_simulation_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_1_simulation_program_calling_manager_name`')
-        self._data["Plant Connection 1 Simulation Program Calling Manager Name"] = value
+        self["Plant Connection 1 Simulation Program Calling Manager Name"] = value
 
     @property
     def plant_connection_2_inlet_node_name(self):
@@ -3072,19 +1392,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_2_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_inlet_node_name`')
-        self._data["Plant Connection 2 Inlet Node Name"] = value
+        self["Plant Connection 2 Inlet Node Name"] = value
 
     @property
     def plant_connection_2_outlet_node_name(self):
@@ -3107,19 +1415,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_2_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_outlet_node_name`')
-        self._data["Plant Connection 2 Outlet Node Name"] = value
+        self["Plant Connection 2 Outlet Node Name"] = value
 
     @property
     def plant_connection_2_loading_mode(self):
@@ -3136,61 +1432,13 @@ class PlantComponentUserDefined(object):
 
         Args:
             value (str): value for IDD Field `Plant Connection 2 Loading Mode`
-                Accepted values are:
-                      - DemandsLoad
-                      - MeetLoadWithPassiveCapacity
-                      - MeetLoadWithNominalCapacity
-                      - MeetLoadWithNominalCapacityLowOutLimit
-                      - MeetLoadWithNominalCapacityHiOutLimit
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_2_loading_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_loading_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_loading_mode`')
-            vals = {}
-            vals["demandsload"] = "DemandsLoad"
-            vals["meetloadwithpassivecapacity"] = "MeetLoadWithPassiveCapacity"
-            vals["meetloadwithnominalcapacity"] = "MeetLoadWithNominalCapacity"
-            vals["meetloadwithnominalcapacitylowoutlimit"] = "MeetLoadWithNominalCapacityLowOutLimit"
-            vals["meetloadwithnominalcapacityhioutlimit"] = "MeetLoadWithNominalCapacityHiOutLimit"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `PlantComponentUserDefined.plant_connection_2_loading_mode`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `PlantComponentUserDefined.plant_connection_2_loading_mode`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Plant Connection 2 Loading Mode"] = value
+        self["Plant Connection 2 Loading Mode"] = value
 
     @property
     def plant_connection_2_loop_flow_request_mode(self):
@@ -3213,19 +1461,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_2_loop_flow_request_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_loop_flow_request_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_loop_flow_request_mode`')
-        self._data["Plant Connection 2 Loop Flow Request Mode"] = value
+        self["Plant Connection 2 Loop Flow Request Mode"] = value
 
     @property
     def plant_connection_2_initialization_program_calling_manager_name(self):
@@ -3248,19 +1484,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_2_initialization_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_initialization_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_initialization_program_calling_manager_name`')
-        self._data["Plant Connection 2 Initialization Program Calling Manager Name"] = value
+        self["Plant Connection 2 Initialization Program Calling Manager Name"] = value
 
     @property
     def plant_connection_2_simulation_program_calling_manager_name(self):
@@ -3283,19 +1507,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_2_simulation_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_simulation_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_2_simulation_program_calling_manager_name`')
-        self._data["Plant Connection 2 Simulation Program Calling Manager Name"] = value
+        self["Plant Connection 2 Simulation Program Calling Manager Name"] = value
 
     @property
     def plant_connection_3_inlet_node_name(self):
@@ -3318,19 +1530,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_3_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_inlet_node_name`')
-        self._data["Plant Connection 3 Inlet Node Name"] = value
+        self["Plant Connection 3 Inlet Node Name"] = value
 
     @property
     def plant_connection_3_outlet_node_name(self):
@@ -3353,19 +1553,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_3_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_outlet_node_name`')
-        self._data["Plant Connection 3 Outlet Node Name"] = value
+        self["Plant Connection 3 Outlet Node Name"] = value
 
     @property
     def plant_connection_3_loading_mode(self):
@@ -3382,61 +1570,13 @@ class PlantComponentUserDefined(object):
 
         Args:
             value (str): value for IDD Field `Plant Connection 3 Loading Mode`
-                Accepted values are:
-                      - DemandsLoad
-                      - MeetLoadWithPassiveCapacity
-                      - MeetLoadWithNominalCapacity
-                      - MeetLoadWithNominalCapacityLowOutLimit
-                      - MeetLoadWithNominalCapacityHiOutLimit
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_3_loading_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_loading_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_loading_mode`')
-            vals = {}
-            vals["demandsload"] = "DemandsLoad"
-            vals["meetloadwithpassivecapacity"] = "MeetLoadWithPassiveCapacity"
-            vals["meetloadwithnominalcapacity"] = "MeetLoadWithNominalCapacity"
-            vals["meetloadwithnominalcapacitylowoutlimit"] = "MeetLoadWithNominalCapacityLowOutLimit"
-            vals["meetloadwithnominalcapacityhioutlimit"] = "MeetLoadWithNominalCapacityHiOutLimit"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `PlantComponentUserDefined.plant_connection_3_loading_mode`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `PlantComponentUserDefined.plant_connection_3_loading_mode`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Plant Connection 3 Loading Mode"] = value
+        self["Plant Connection 3 Loading Mode"] = value
 
     @property
     def plant_connection_3_loop_flow_request_mode(self):
@@ -3459,19 +1599,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_3_loop_flow_request_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_loop_flow_request_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_loop_flow_request_mode`')
-        self._data["Plant Connection 3 Loop Flow Request Mode"] = value
+        self["Plant Connection 3 Loop Flow Request Mode"] = value
 
     @property
     def plant_connection_3_initialization_program_calling_manager_name(self):
@@ -3494,19 +1622,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_3_initialization_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_initialization_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_initialization_program_calling_manager_name`')
-        self._data["Plant Connection 3 Initialization Program Calling Manager Name"] = value
+        self["Plant Connection 3 Initialization Program Calling Manager Name"] = value
 
     @property
     def plant_connection_3_simulation_program_calling_manager_name(self):
@@ -3529,19 +1645,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_3_simulation_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_simulation_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_3_simulation_program_calling_manager_name`')
-        self._data["Plant Connection 3 Simulation Program Calling Manager Name"] = value
+        self["Plant Connection 3 Simulation Program Calling Manager Name"] = value
 
     @property
     def plant_connection_4_inlet_node_name(self):
@@ -3564,19 +1668,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_4_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_inlet_node_name`')
-        self._data["Plant Connection 4 Inlet Node Name"] = value
+        self["Plant Connection 4 Inlet Node Name"] = value
 
     @property
     def plant_connection_4_outlet_node_name(self):
@@ -3599,19 +1691,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_4_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_outlet_node_name`')
-        self._data["Plant Connection 4 Outlet Node Name"] = value
+        self["Plant Connection 4 Outlet Node Name"] = value
 
     @property
     def plant_connection_4_loading_mode(self):
@@ -3628,61 +1708,13 @@ class PlantComponentUserDefined(object):
 
         Args:
             value (str): value for IDD Field `Plant Connection 4 Loading Mode`
-                Accepted values are:
-                      - DemandsLoad
-                      - MeetLoadWithPassiveCapacity
-                      - MeetLoadWithNominalCapacity
-                      - MeetLoadWithNominalCapacityLowOutLimit
-                      - MeetLoadWithNominalCapacityHiOutLimit
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_4_loading_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_loading_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_loading_mode`')
-            vals = {}
-            vals["demandsload"] = "DemandsLoad"
-            vals["meetloadwithpassivecapacity"] = "MeetLoadWithPassiveCapacity"
-            vals["meetloadwithnominalcapacity"] = "MeetLoadWithNominalCapacity"
-            vals["meetloadwithnominalcapacitylowoutlimit"] = "MeetLoadWithNominalCapacityLowOutLimit"
-            vals["meetloadwithnominalcapacityhioutlimit"] = "MeetLoadWithNominalCapacityHiOutLimit"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `PlantComponentUserDefined.plant_connection_4_loading_mode`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `PlantComponentUserDefined.plant_connection_4_loading_mode`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Plant Connection 4 Loading Mode"] = value
+        self["Plant Connection 4 Loading Mode"] = value
 
     @property
     def plant_connection_4_loop_flow_request_mode(self):
@@ -3705,19 +1737,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_4_loop_flow_request_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_loop_flow_request_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_loop_flow_request_mode`')
-        self._data["Plant Connection 4 Loop Flow Request Mode"] = value
+        self["Plant Connection 4 Loop Flow Request Mode"] = value
 
     @property
     def plant_connection_4_initialization_program_calling_manager_name(self):
@@ -3740,19 +1760,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_4_initialization_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_initialization_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_initialization_program_calling_manager_name`')
-        self._data["Plant Connection 4 Initialization Program Calling Manager Name"] = value
+        self["Plant Connection 4 Initialization Program Calling Manager Name"] = value
 
     @property
     def plant_connection_4_simulation_program_calling_manager_name(self):
@@ -3775,19 +1783,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.plant_connection_4_simulation_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_simulation_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.plant_connection_4_simulation_program_calling_manager_name`')
-        self._data["Plant Connection 4 Simulation Program Calling Manager Name"] = value
+        self["Plant Connection 4 Simulation Program Calling Manager Name"] = value
 
     @property
     def air_connection_inlet_node_name(self):
@@ -3811,19 +1807,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.air_connection_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.air_connection_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.air_connection_inlet_node_name`')
-        self._data["Air Connection Inlet Node Name"] = value
+        self["Air Connection Inlet Node Name"] = value
 
     @property
     def air_connection_outlet_node_name(self):
@@ -3847,19 +1831,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.air_connection_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.air_connection_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.air_connection_outlet_node_name`')
-        self._data["Air Connection Outlet Node Name"] = value
+        self["Air Connection Outlet Node Name"] = value
 
     @property
     def supply_inlet_water_storage_tank_name(self):
@@ -3883,19 +1855,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.supply_inlet_water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.supply_inlet_water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.supply_inlet_water_storage_tank_name`')
-        self._data["Supply Inlet Water Storage Tank Name"] = value
+        self["Supply Inlet Water Storage Tank Name"] = value
 
     @property
     def collection_outlet_water_storage_tank_name(self):
@@ -3919,19 +1879,7 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.collection_outlet_water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.collection_outlet_water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.collection_outlet_water_storage_tank_name`')
-        self._data["Collection Outlet Water Storage Tank Name"] = value
+        self["Collection Outlet Water Storage Tank Name"] = value
 
     @property
     def ambient_zone_name(self):
@@ -3955,316 +1903,24 @@ class PlantComponentUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantComponentUserDefined.ambient_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantComponentUserDefined.ambient_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantComponentUserDefined.ambient_zone_name`')
-        self._data["Ambient Zone Name"] = value
+        self["Ambient Zone Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field PlantComponentUserDefined:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field PlantComponentUserDefined:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for PlantComponentUserDefined: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for PlantComponentUserDefined: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class PlantEquipmentOperationUserDefined(object):
+class PlantEquipmentOperationUserDefined(DataObject):
     """ Corresponds to IDD object `PlantEquipmentOperation:UserDefined`
         Defines a generic plant operation scheme for custom supervisory control
         using Energy Management System or External Interface to dispatch loads
     """
-    internal_name = "PlantEquipmentOperation:UserDefined"
-    field_count = 23
-    required_fields = ["Name", "Main Model Program Calling Manager Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'PlantEquipmentOperation:UserDefined', 'pyname': u'PlantEquipmentOperationUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'main model program calling manager name', {'name': u'Main Model Program Calling Manager Name', 'pyname': u'main_model_program_calling_manager_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'initialization program calling manager name', {'name': u'Initialization Program Calling Manager Name', 'pyname': u'initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:UserDefined`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Main Model Program Calling Manager Name"] = None
-        self._data["Initialization Program Calling Manager Name"] = None
-        self._data["Equipment 1 Object Type"] = None
-        self._data["Equipment 1 Name"] = None
-        self._data["Equipment 2 Object Type"] = None
-        self._data["Equipment 2 Name"] = None
-        self._data["Equipment 3 Object Type"] = None
-        self._data["Equipment 3 Name"] = None
-        self._data["Equipment 4 Object Type"] = None
-        self._data["Equipment 4 Name"] = None
-        self._data["Equipment 5 Object Type"] = None
-        self._data["Equipment 5 Name"] = None
-        self._data["Equipment 6 Object Type"] = None
-        self._data["Equipment 6 Name"] = None
-        self._data["Equipment 7 Object Type"] = None
-        self._data["Equipment 7 Name"] = None
-        self._data["Equipment 8 Object Type"] = None
-        self._data["Equipment 8 Name"] = None
-        self._data["Equipment 9 Object Type"] = None
-        self._data["Equipment 9 Name"] = None
-        self._data["Equipment 10 Object Type"] = None
-        self._data["Equipment 10 Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.main_model_program_calling_manager_name = None
-        else:
-            self.main_model_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.initialization_program_calling_manager_name = None
-        else:
-            self.initialization_program_calling_manager_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_1_object_type = None
-        else:
-            self.equipment_1_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_1_name = None
-        else:
-            self.equipment_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_2_object_type = None
-        else:
-            self.equipment_2_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_2_name = None
-        else:
-            self.equipment_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_3_object_type = None
-        else:
-            self.equipment_3_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_3_name = None
-        else:
-            self.equipment_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_4_object_type = None
-        else:
-            self.equipment_4_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_4_name = None
-        else:
-            self.equipment_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_5_object_type = None
-        else:
-            self.equipment_5_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_5_name = None
-        else:
-            self.equipment_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_6_object_type = None
-        else:
-            self.equipment_6_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_6_name = None
-        else:
-            self.equipment_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_7_object_type = None
-        else:
-            self.equipment_7_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_7_name = None
-        else:
-            self.equipment_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_8_object_type = None
-        else:
-            self.equipment_8_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_8_name = None
-        else:
-            self.equipment_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_9_object_type = None
-        else:
-            self.equipment_9_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_9_name = None
-        else:
-            self.equipment_9_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_10_object_type = None
-        else:
-            self.equipment_10_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.equipment_10_name = None
-        else:
-            self.equipment_10_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -4288,19 +1944,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def main_model_program_calling_manager_name(self):
@@ -4323,19 +1967,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.main_model_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.main_model_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.main_model_program_calling_manager_name`')
-        self._data["Main Model Program Calling Manager Name"] = value
+        self["Main Model Program Calling Manager Name"] = value
 
     @property
     def initialization_program_calling_manager_name(self):
@@ -4358,19 +1990,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.initialization_program_calling_manager_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.initialization_program_calling_manager_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.initialization_program_calling_manager_name`')
-        self._data["Initialization Program Calling Manager Name"] = value
+        self["Initialization Program Calling Manager Name"] = value
 
     @property
     def equipment_1_object_type(self):
@@ -4393,19 +2013,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_1_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_1_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_1_object_type`')
-        self._data["Equipment 1 Object Type"] = value
+        self["Equipment 1 Object Type"] = value
 
     @property
     def equipment_1_name(self):
@@ -4428,19 +2036,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_1_name`')
-        self._data["Equipment 1 Name"] = value
+        self["Equipment 1 Name"] = value
 
     @property
     def equipment_2_object_type(self):
@@ -4463,19 +2059,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_2_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_2_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_2_object_type`')
-        self._data["Equipment 2 Object Type"] = value
+        self["Equipment 2 Object Type"] = value
 
     @property
     def equipment_2_name(self):
@@ -4498,19 +2082,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_2_name`')
-        self._data["Equipment 2 Name"] = value
+        self["Equipment 2 Name"] = value
 
     @property
     def equipment_3_object_type(self):
@@ -4533,19 +2105,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_3_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_3_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_3_object_type`')
-        self._data["Equipment 3 Object Type"] = value
+        self["Equipment 3 Object Type"] = value
 
     @property
     def equipment_3_name(self):
@@ -4568,19 +2128,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_3_name`')
-        self._data["Equipment 3 Name"] = value
+        self["Equipment 3 Name"] = value
 
     @property
     def equipment_4_object_type(self):
@@ -4603,19 +2151,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_4_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_4_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_4_object_type`')
-        self._data["Equipment 4 Object Type"] = value
+        self["Equipment 4 Object Type"] = value
 
     @property
     def equipment_4_name(self):
@@ -4638,19 +2174,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_4_name`')
-        self._data["Equipment 4 Name"] = value
+        self["Equipment 4 Name"] = value
 
     @property
     def equipment_5_object_type(self):
@@ -4673,19 +2197,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_5_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_5_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_5_object_type`')
-        self._data["Equipment 5 Object Type"] = value
+        self["Equipment 5 Object Type"] = value
 
     @property
     def equipment_5_name(self):
@@ -4708,19 +2220,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_5_name`')
-        self._data["Equipment 5 Name"] = value
+        self["Equipment 5 Name"] = value
 
     @property
     def equipment_6_object_type(self):
@@ -4743,19 +2243,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_6_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_6_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_6_object_type`')
-        self._data["Equipment 6 Object Type"] = value
+        self["Equipment 6 Object Type"] = value
 
     @property
     def equipment_6_name(self):
@@ -4778,19 +2266,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_6_name`')
-        self._data["Equipment 6 Name"] = value
+        self["Equipment 6 Name"] = value
 
     @property
     def equipment_7_object_type(self):
@@ -4813,19 +2289,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_7_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_7_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_7_object_type`')
-        self._data["Equipment 7 Object Type"] = value
+        self["Equipment 7 Object Type"] = value
 
     @property
     def equipment_7_name(self):
@@ -4848,19 +2312,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_7_name`')
-        self._data["Equipment 7 Name"] = value
+        self["Equipment 7 Name"] = value
 
     @property
     def equipment_8_object_type(self):
@@ -4883,19 +2335,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_8_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_8_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_8_object_type`')
-        self._data["Equipment 8 Object Type"] = value
+        self["Equipment 8 Object Type"] = value
 
     @property
     def equipment_8_name(self):
@@ -4918,19 +2358,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_8_name`')
-        self._data["Equipment 8 Name"] = value
+        self["Equipment 8 Name"] = value
 
     @property
     def equipment_9_object_type(self):
@@ -4953,19 +2381,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_9_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_9_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_9_object_type`')
-        self._data["Equipment 9 Object Type"] = value
+        self["Equipment 9 Object Type"] = value
 
     @property
     def equipment_9_name(self):
@@ -4988,19 +2404,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_9_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_9_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_9_name`')
-        self._data["Equipment 9 Name"] = value
+        self["Equipment 9 Name"] = value
 
     @property
     def equipment_10_object_type(self):
@@ -5023,19 +2427,7 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_10_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_10_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_10_object_type`')
-        self._data["Equipment 10 Object Type"] = value
+        self["Equipment 10 Object Type"] = value
 
     @property
     def equipment_10_name(self):
@@ -5058,98 +2450,4 @@ class PlantEquipmentOperationUserDefined(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `PlantEquipmentOperationUserDefined.equipment_10_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_10_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `PlantEquipmentOperationUserDefined.equipment_10_name`')
-        self._data["Equipment 10 Name"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field PlantEquipmentOperationUserDefined:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field PlantEquipmentOperationUserDefined:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for PlantEquipmentOperationUserDefined: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for PlantEquipmentOperationUserDefined: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Equipment 10 Name"] = value

@@ -1,80 +1,28 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class SiteLocation(object):
+
+
+class SiteLocation(DataObject):
     """ Corresponds to IDD object `Site:Location`
         Specifies the building's location. Only one location is allowed.
         Weather data file location, if it exists, will override this object.
     """
-    internal_name = "Site:Location"
-    field_count = 5
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'Site:Location', 'pyname': u'SiteLocation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'latitude', {'name': u'Latitude', 'pyname': u'latitude', 'default': 0.0, 'maximum': 90.0, 'required-field': False, 'autosizable': False, 'minimum': -90.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'longitude', {'name': u'Longitude', 'pyname': u'longitude', 'default': 0.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': -180.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'time zone', {'name': u'Time Zone', 'pyname': u'time_zone', 'default': 0.0, 'maximum': 14.0, 'required-field': False, 'autosizable': False, 'minimum': -12.0, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'elevation', {'name': u'Elevation', 'pyname': u'elevation', 'default': 0.0, 'maximum<': 8900.0, 'required-field': False, 'autosizable': False, 'minimum': -300.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:Location`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Latitude"] = None
-        self._data["Longitude"] = None
-        self._data["Time Zone"] = None
-        self._data["Elevation"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.latitude = None
-        else:
-            self.latitude = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.longitude = None
-        else:
-            self.longitude = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.time_zone = None
-        else:
-            self.time_zone = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.elevation = None
-        else:
-            self.elevation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -97,19 +45,7 @@ class SiteLocation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteLocation.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteLocation.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteLocation.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def latitude(self):
@@ -121,14 +57,13 @@ class SiteLocation(object):
         return self._data["Latitude"]
 
     @latitude.setter
-    def latitude(self, value=0.0):
+    def latitude(self, value=None):
         """  Corresponds to IDD Field `Latitude`
         + is North, - is South, degree minutes represented in decimal (i.e. 30 minutes is .5)
 
         Args:
             value (float): value for IDD Field `Latitude`
                 Units: deg
-                Default value: 0.0
                 value >= -90.0
                 value <= 90.0
                 if `value` is None it will not be checked against the
@@ -137,19 +72,7 @@ class SiteLocation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteLocation.latitude`'.format(value))
-            if value < -90.0:
-                raise ValueError('value need to be greater or equal -90.0 '
-                                 'for field `SiteLocation.latitude`')
-            if value > 90.0:
-                raise ValueError('value need to be smaller 90.0 '
-                                 'for field `SiteLocation.latitude`')
-        self._data["Latitude"] = value
+        self["Latitude"] = value
 
     @property
     def longitude(self):
@@ -161,14 +84,13 @@ class SiteLocation(object):
         return self._data["Longitude"]
 
     @longitude.setter
-    def longitude(self, value=0.0):
+    def longitude(self, value=None):
         """  Corresponds to IDD Field `Longitude`
         - is West, + is East, degree minutes represented in decimal (i.e. 30 minutes is .5)
 
         Args:
             value (float): value for IDD Field `Longitude`
                 Units: deg
-                Default value: 0.0
                 value >= -180.0
                 value <= 180.0
                 if `value` is None it will not be checked against the
@@ -177,19 +99,7 @@ class SiteLocation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteLocation.longitude`'.format(value))
-            if value < -180.0:
-                raise ValueError('value need to be greater or equal -180.0 '
-                                 'for field `SiteLocation.longitude`')
-            if value > 180.0:
-                raise ValueError('value need to be smaller 180.0 '
-                                 'for field `SiteLocation.longitude`')
-        self._data["Longitude"] = value
+        self["Longitude"] = value
 
     @property
     def time_zone(self):
@@ -201,7 +111,7 @@ class SiteLocation(object):
         return self._data["Time Zone"]
 
     @time_zone.setter
-    def time_zone(self, value=0.0):
+    def time_zone(self, value=None):
         """  Corresponds to IDD Field `Time Zone`
         basic these limits on the WorldTimeZone Map (2003)
         Time relative to GMT. Decimal hours.
@@ -209,7 +119,6 @@ class SiteLocation(object):
         Args:
             value (float): value for IDD Field `Time Zone`
                 Units: hr
-                Default value: 0.0
                 value >= -12.0
                 value <= 14.0
                 if `value` is None it will not be checked against the
@@ -218,19 +127,7 @@ class SiteLocation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteLocation.time_zone`'.format(value))
-            if value < -12.0:
-                raise ValueError('value need to be greater or equal -12.0 '
-                                 'for field `SiteLocation.time_zone`')
-            if value > 14.0:
-                raise ValueError('value need to be smaller 14.0 '
-                                 'for field `SiteLocation.time_zone`')
-        self._data["Time Zone"] = value
+        self["Time Zone"] = value
 
     @property
     def elevation(self):
@@ -242,13 +139,12 @@ class SiteLocation(object):
         return self._data["Elevation"]
 
     @elevation.setter
-    def elevation(self, value=0.0):
+    def elevation(self, value=None):
         """  Corresponds to IDD Field `Elevation`
 
         Args:
             value (float): value for IDD Field `Elevation`
                 Units: m
-                Default value: 0.0
                 value >= -300.0
                 value < 8900.0
                 if `value` is None it will not be checked against the
@@ -257,103 +153,10 @@ class SiteLocation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteLocation.elevation`'.format(value))
-            if value < -300.0:
-                raise ValueError('value need to be greater or equal -300.0 '
-                                 'for field `SiteLocation.elevation`')
-            if value >= 8900.0:
-                raise ValueError('value need to be smaller 8900.0 '
-                                 'for field `SiteLocation.elevation`')
-        self._data["Elevation"] = value
+        self["Elevation"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteLocation:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteLocation:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteLocation: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteLocation: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SizingPeriodDesignDay(object):
+class SizingPeriodDesignDay(DataObject):
     """ Corresponds to IDD object `SizingPeriod:DesignDay`
         The design day object creates the parameters for the program to create
         the 24 hour weather profile that can be used for sizing as well as
@@ -362,239 +165,16 @@ class SizingPeriodDesignDay(object):
         schedules for either sizing or simple tests), min/max temperatures,
         wind speeds, and solar radiation values.
     """
-    internal_name = "SizingPeriod:DesignDay"
-    field_count = 26
-    required_fields = ["Name", "Month", "Day of Month", "Day Type", "Wind Speed", "Wind Direction"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SizingPeriod:DesignDay', 'pyname': u'SizingPeriodDesignDay', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'month', {'name': u'Month', 'pyname': u'month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'day of month', {'name': u'Day of Month', 'pyname': u'day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'day type', {'name': u'Day Type', 'pyname': u'day_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum dry-bulb temperature', {'name': u'Maximum Dry-Bulb Temperature', 'pyname': u'maximum_drybulb_temperature', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -90.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'daily dry-bulb temperature range', {'name': u'Daily Dry-Bulb Temperature Range', 'pyname': u'daily_drybulb_temperature_range', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature range modifier type', {'name': u'Dry-Bulb Temperature Range Modifier Type', 'pyname': u'drybulb_temperature_range_modifier_type', 'default': u'DefaultMultipliers', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'dry-bulb temperature range modifier day schedule name', {'name': u'Dry-Bulb Temperature Range Modifier Day Schedule Name', 'pyname': u'drybulb_temperature_range_modifier_day_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'humidity condition type', {'name': u'Humidity Condition Type', 'pyname': u'humidity_condition_type', 'default': u'WetBulb', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wetbulb or dewpoint at maximum dry-bulb', {'name': u'Wetbulb or DewPoint at Maximum Dry-Bulb', 'pyname': u'wetbulb_or_dewpoint_at_maximum_drybulb', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'humidity condition day schedule name', {'name': u'Humidity Condition Day Schedule Name', 'pyname': u'humidity_condition_day_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'humidity ratio at maximum dry-bulb', {'name': u'Humidity Ratio at Maximum Dry-Bulb', 'pyname': u'humidity_ratio_at_maximum_drybulb', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'enthalpy at maximum dry-bulb  !will require units transition.', {'name': u'Enthalpy at Maximum Dry-Bulb  !will require units transition.', 'pyname': u'enthalpy_at_maximum_drybulb_will_require_units_transition_', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'daily wet-bulb temperature range', {'name': u'Daily Wet-Bulb Temperature Range', 'pyname': u'daily_wetbulb_temperature_range', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'barometric pressure', {'name': u'Barometric Pressure', 'pyname': u'barometric_pressure', 'maximum': 120000.0, 'required-field': False, 'autosizable': False, 'minimum': 31000.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'wind speed', {'name': u'Wind Speed', 'pyname': u'wind_speed', 'maximum': 40.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'wind direction', {'name': u'Wind Direction', 'pyname': u'wind_direction', 'maximum': 360.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'rain indicator', {'name': u'Rain Indicator', 'pyname': u'rain_indicator', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'snow indicator', {'name': u'Snow Indicator', 'pyname': u'snow_indicator', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'daylight saving time indicator', {'name': u'Daylight Saving Time Indicator', 'pyname': u'daylight_saving_time_indicator', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'solar model indicator', {'name': u'Solar Model Indicator', 'pyname': u'solar_model_indicator', 'default': u'ASHRAEClearSky', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'beam solar day schedule name', {'name': u'Beam Solar Day Schedule Name', 'pyname': u'beam_solar_day_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'diffuse solar day schedule name', {'name': u'Diffuse Solar Day Schedule Name', 'pyname': u'diffuse_solar_day_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ashrae clear sky optical depth for beam irradiance (taub)', {'name': u'ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)', 'pyname': u'ashrae_clear_sky_optical_depth_for_beam_irradiance_taub', 'default': 0.0, 'maximum': 1.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'ashrae clear sky optical depth for diffuse irradiance (taud)', {'name': u'ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)', 'pyname': u'ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud', 'default': 0.0, 'maximum': 3.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'sky clearness', {'name': u'Sky Clearness', 'pyname': u'sky_clearness', 'default': 0.0, 'maximum': 1.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SizingPeriod:DesignDay`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Month"] = None
-        self._data["Day of Month"] = None
-        self._data["Day Type"] = None
-        self._data["Maximum Dry-Bulb Temperature"] = None
-        self._data["Daily Dry-Bulb Temperature Range"] = None
-        self._data["Dry-Bulb Temperature Range Modifier Type"] = None
-        self._data["Dry-Bulb Temperature Range Modifier Day Schedule Name"] = None
-        self._data["Humidity Condition Type"] = None
-        self._data["Wetbulb or DewPoint at Maximum Dry-Bulb"] = None
-        self._data["Humidity Condition Day Schedule Name"] = None
-        self._data["Humidity Ratio at Maximum Dry-Bulb"] = None
-        self._data["Enthalpy at Maximum Dry-Bulb  !will require units transition."] = None
-        self._data["Daily Wet-Bulb Temperature Range"] = None
-        self._data["Barometric Pressure"] = None
-        self._data["Wind Speed"] = None
-        self._data["Wind Direction"] = None
-        self._data["Rain Indicator"] = None
-        self._data["Snow Indicator"] = None
-        self._data["Daylight Saving Time Indicator"] = None
-        self._data["Solar Model Indicator"] = None
-        self._data["Beam Solar Day Schedule Name"] = None
-        self._data["Diffuse Solar Day Schedule Name"] = None
-        self._data["ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"] = None
-        self._data["ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"] = None
-        self._data["Sky Clearness"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.month = None
-        else:
-            self.month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.day_of_month = None
-        else:
-            self.day_of_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.day_type = None
-        else:
-            self.day_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_drybulb_temperature = None
-        else:
-            self.maximum_drybulb_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.daily_drybulb_temperature_range = None
-        else:
-            self.daily_drybulb_temperature_range = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drybulb_temperature_range_modifier_type = None
-        else:
-            self.drybulb_temperature_range_modifier_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drybulb_temperature_range_modifier_day_schedule_name = None
-        else:
-            self.drybulb_temperature_range_modifier_day_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidity_condition_type = None
-        else:
-            self.humidity_condition_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wetbulb_or_dewpoint_at_maximum_drybulb = None
-        else:
-            self.wetbulb_or_dewpoint_at_maximum_drybulb = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidity_condition_day_schedule_name = None
-        else:
-            self.humidity_condition_day_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidity_ratio_at_maximum_drybulb = None
-        else:
-            self.humidity_ratio_at_maximum_drybulb = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.enthalpy_at_maximum_drybulb_will_require_units_transition_ = None
-        else:
-            self.enthalpy_at_maximum_drybulb_will_require_units_transition_ = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.daily_wetbulb_temperature_range = None
-        else:
-            self.daily_wetbulb_temperature_range = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.barometric_pressure = None
-        else:
-            self.barometric_pressure = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wind_speed = None
-        else:
-            self.wind_speed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wind_direction = None
-        else:
-            self.wind_direction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rain_indicator = None
-        else:
-            self.rain_indicator = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.snow_indicator = None
-        else:
-            self.snow_indicator = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.daylight_saving_time_indicator = None
-        else:
-            self.daylight_saving_time_indicator = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.solar_model_indicator = None
-        else:
-            self.solar_model_indicator = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.beam_solar_day_schedule_name = None
-        else:
-            self.beam_solar_day_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.diffuse_solar_day_schedule_name = None
-        else:
-            self.diffuse_solar_day_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ashrae_clear_sky_optical_depth_for_beam_irradiance_taub = None
-        else:
-            self.ashrae_clear_sky_optical_depth_for_beam_irradiance_taub = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud = None
-        else:
-            self.ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.sky_clearness = None
-        else:
-            self.sky_clearness = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -617,19 +197,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def month(self):
@@ -654,26 +222,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `SizingPeriodDesignDay.month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `SizingPeriodDesignDay.month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `SizingPeriodDesignDay.month`')
-            if value > 12:
-                raise ValueError('value need to be smaller 12 '
-                                 'for field `SizingPeriodDesignDay.month`')
-        self._data["Month"] = value
+        self["Month"] = value
 
     @property
     def day_of_month(self):
@@ -699,26 +248,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `SizingPeriodDesignDay.day_of_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `SizingPeriodDesignDay.day_of_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `SizingPeriodDesignDay.day_of_month`')
-            if value > 31:
-                raise ValueError('value need to be smaller 31 '
-                                 'for field `SizingPeriodDesignDay.day_of_month`')
-        self._data["Day of Month"] = value
+        self["Day of Month"] = value
 
     @property
     def day_type(self):
@@ -736,75 +266,13 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (str): value for IDD Field `Day Type`
-                Accepted values are:
-                      - Sunday
-                      - Monday
-                      - Tuesday
-                      - Wednesday
-                      - Thursday
-                      - Friday
-                      - Saturday
-                      - Holiday
-                      - SummerDesignDay
-                      - WinterDesignDay
-                      - CustomDay1
-                      - CustomDay2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.day_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.day_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.day_type`')
-            vals = {}
-            vals["sunday"] = "Sunday"
-            vals["monday"] = "Monday"
-            vals["tuesday"] = "Tuesday"
-            vals["wednesday"] = "Wednesday"
-            vals["thursday"] = "Thursday"
-            vals["friday"] = "Friday"
-            vals["saturday"] = "Saturday"
-            vals["holiday"] = "Holiday"
-            vals["summerdesignday"] = "SummerDesignDay"
-            vals["winterdesignday"] = "WinterDesignDay"
-            vals["customday1"] = "CustomDay1"
-            vals["customday2"] = "CustomDay2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodDesignDay.day_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodDesignDay.day_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Day Type"] = value
+        self["Day Type"] = value
 
     @property
     def maximum_drybulb_temperature(self):
@@ -832,19 +300,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.maximum_drybulb_temperature`'.format(value))
-            if value < -90.0:
-                raise ValueError('value need to be greater or equal -90.0 '
-                                 'for field `SizingPeriodDesignDay.maximum_drybulb_temperature`')
-            if value > 70.0:
-                raise ValueError('value need to be smaller 70.0 '
-                                 'for field `SizingPeriodDesignDay.maximum_drybulb_temperature`')
-        self._data["Maximum Dry-Bulb Temperature"] = value
+        self["Maximum Dry-Bulb Temperature"] = value
 
     @property
     def daily_drybulb_temperature_range(self):
@@ -856,7 +312,7 @@ class SizingPeriodDesignDay(object):
         return self._data["Daily Dry-Bulb Temperature Range"]
 
     @daily_drybulb_temperature_range.setter
-    def daily_drybulb_temperature_range(self, value=0.0):
+    def daily_drybulb_temperature_range(self, value=None):
         """  Corresponds to IDD Field `Daily Dry-Bulb Temperature Range`
         Must still produce appropriate maximum dry bulb (within range)
         This field is not needed if Dry-Bulb Temperature Range Modifier Type
@@ -865,24 +321,13 @@ class SizingPeriodDesignDay(object):
         Args:
             value (float): value for IDD Field `Daily Dry-Bulb Temperature Range`
                 Units: deltaC
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.daily_drybulb_temperature_range`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SizingPeriodDesignDay.daily_drybulb_temperature_range`')
-        self._data["Daily Dry-Bulb Temperature Range"] = value
+        self["Daily Dry-Bulb Temperature Range"] = value
 
     @property
     def drybulb_temperature_range_modifier_type(self):
@@ -900,11 +345,6 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (str): value for IDD Field `Dry-Bulb Temperature Range Modifier Type`
-                Accepted values are:
-                      - MultiplierSchedule
-                      - DifferenceSchedule
-                      - TemperatureProfileSchedule
-                      - DefaultMultipliers
                 Default value: DefaultMultipliers
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -912,48 +352,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.drybulb_temperature_range_modifier_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.drybulb_temperature_range_modifier_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.drybulb_temperature_range_modifier_type`')
-            vals = {}
-            vals["multiplierschedule"] = "MultiplierSchedule"
-            vals["differenceschedule"] = "DifferenceSchedule"
-            vals["temperatureprofileschedule"] = "TemperatureProfileSchedule"
-            vals["defaultmultipliers"] = "DefaultMultipliers"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodDesignDay.drybulb_temperature_range_modifier_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodDesignDay.drybulb_temperature_range_modifier_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Dry-Bulb Temperature Range Modifier Type"] = value
+        self["Dry-Bulb Temperature Range Modifier Type"] = value
 
     @property
     def drybulb_temperature_range_modifier_day_schedule_name(self):
@@ -987,19 +386,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.drybulb_temperature_range_modifier_day_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.drybulb_temperature_range_modifier_day_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.drybulb_temperature_range_modifier_day_schedule_name`')
-        self._data["Dry-Bulb Temperature Range Modifier Day Schedule Name"] = value
+        self["Dry-Bulb Temperature Range Modifier Day Schedule Name"] = value
 
     @property
     def humidity_condition_type(self):
@@ -1018,15 +405,6 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (str): value for IDD Field `Humidity Condition Type`
-                Accepted values are:
-                      - WetBulb
-                      - DewPoint
-                      - HumidityRatio
-                      - Enthalpy
-                      - RelativeHumiditySchedule
-                      - WetBulbProfileMultiplierSchedule
-                      - WetBulbProfileDifferenceSchedule
-                      - WetBulbProfileDefaultMultipliers
                 Default value: WetBulb
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1034,52 +412,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.humidity_condition_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.humidity_condition_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.humidity_condition_type`')
-            vals = {}
-            vals["wetbulb"] = "WetBulb"
-            vals["dewpoint"] = "DewPoint"
-            vals["humidityratio"] = "HumidityRatio"
-            vals["enthalpy"] = "Enthalpy"
-            vals["relativehumidityschedule"] = "RelativeHumiditySchedule"
-            vals["wetbulbprofilemultiplierschedule"] = "WetBulbProfileMultiplierSchedule"
-            vals["wetbulbprofiledifferenceschedule"] = "WetBulbProfileDifferenceSchedule"
-            vals["wetbulbprofiledefaultmultipliers"] = "WetBulbProfileDefaultMultipliers"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodDesignDay.humidity_condition_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodDesignDay.humidity_condition_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Humidity Condition Type"] = value
+        self["Humidity Condition Type"] = value
 
     @property
     def wetbulb_or_dewpoint_at_maximum_drybulb(self):
@@ -1107,13 +440,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.wetbulb_or_dewpoint_at_maximum_drybulb`'.format(value))
-        self._data["Wetbulb or DewPoint at Maximum Dry-Bulb"] = value
+        self["Wetbulb or DewPoint at Maximum Dry-Bulb"] = value
 
     @property
     def humidity_condition_day_schedule_name(self):
@@ -1145,19 +472,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.humidity_condition_day_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.humidity_condition_day_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.humidity_condition_day_schedule_name`')
-        self._data["Humidity Condition Day Schedule Name"] = value
+        self["Humidity Condition Day Schedule Name"] = value
 
     @property
     def humidity_ratio_at_maximum_drybulb(self):
@@ -1183,13 +498,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.humidity_ratio_at_maximum_drybulb`'.format(value))
-        self._data["Humidity Ratio at Maximum Dry-Bulb"] = value
+        self["Humidity Ratio at Maximum Dry-Bulb"] = value
 
     @property
     def enthalpy_at_maximum_drybulb_will_require_units_transition_(self):
@@ -1215,13 +524,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.enthalpy_at_maximum_drybulb_will_require_units_transition_`'.format(value))
-        self._data["Enthalpy at Maximum Dry-Bulb  !will require units transition."] = value
+        self["Enthalpy at Maximum Dry-Bulb  !will require units transition."] = value
 
     @property
     def daily_wetbulb_temperature_range(self):
@@ -1247,13 +550,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.daily_wetbulb_temperature_range`'.format(value))
-        self._data["Daily Wet-Bulb Temperature Range"] = value
+        self["Daily Wet-Bulb Temperature Range"] = value
 
     @property
     def barometric_pressure(self):
@@ -1282,19 +579,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.barometric_pressure`'.format(value))
-            if value < 31000.0:
-                raise ValueError('value need to be greater or equal 31000.0 '
-                                 'for field `SizingPeriodDesignDay.barometric_pressure`')
-            if value > 120000.0:
-                raise ValueError('value need to be smaller 120000.0 '
-                                 'for field `SizingPeriodDesignDay.barometric_pressure`')
-        self._data["Barometric Pressure"] = value
+        self["Barometric Pressure"] = value
 
     @property
     def wind_speed(self):
@@ -1313,7 +598,6 @@ class SizingPeriodDesignDay(object):
             value (float): value for IDD Field `Wind Speed`
                 Units: m/s
                 IP-Units: miles/hr
-                value >= 0.0
                 value <= 40.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1321,19 +605,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.wind_speed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SizingPeriodDesignDay.wind_speed`')
-            if value > 40.0:
-                raise ValueError('value need to be smaller 40.0 '
-                                 'for field `SizingPeriodDesignDay.wind_speed`')
-        self._data["Wind Speed"] = value
+        self["Wind Speed"] = value
 
     @property
     def wind_direction(self):
@@ -1353,7 +625,6 @@ class SizingPeriodDesignDay(object):
         Args:
             value (float): value for IDD Field `Wind Direction`
                 Units: deg
-                value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1361,19 +632,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.wind_direction`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SizingPeriodDesignDay.wind_direction`')
-            if value > 360.0:
-                raise ValueError('value need to be smaller 360.0 '
-                                 'for field `SizingPeriodDesignDay.wind_direction`')
-        self._data["Wind Direction"] = value
+        self["Wind Direction"] = value
 
     @property
     def rain_indicator(self):
@@ -1391,9 +650,6 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (str): value for IDD Field `Rain Indicator`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1401,46 +657,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.rain_indicator`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.rain_indicator`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.rain_indicator`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodDesignDay.rain_indicator`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodDesignDay.rain_indicator`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Rain Indicator"] = value
+        self["Rain Indicator"] = value
 
     @property
     def snow_indicator(self):
@@ -1458,9 +675,6 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (str): value for IDD Field `Snow Indicator`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1468,46 +682,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.snow_indicator`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.snow_indicator`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.snow_indicator`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodDesignDay.snow_indicator`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodDesignDay.snow_indicator`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Snow Indicator"] = value
+        self["Snow Indicator"] = value
 
     @property
     def daylight_saving_time_indicator(self):
@@ -1526,9 +701,6 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (str): value for IDD Field `Daylight Saving Time Indicator`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1536,46 +708,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.daylight_saving_time_indicator`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.daylight_saving_time_indicator`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.daylight_saving_time_indicator`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodDesignDay.daylight_saving_time_indicator`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodDesignDay.daylight_saving_time_indicator`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Daylight Saving Time Indicator"] = value
+        self["Daylight Saving Time Indicator"] = value
 
     @property
     def solar_model_indicator(self):
@@ -1592,11 +725,6 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (str): value for IDD Field `Solar Model Indicator`
-                Accepted values are:
-                      - ASHRAEClearSky
-                      - ZhangHuang
-                      - Schedule
-                      - ASHRAETau
                 Default value: ASHRAEClearSky
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1604,48 +732,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.solar_model_indicator`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.solar_model_indicator`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.solar_model_indicator`')
-            vals = {}
-            vals["ashraeclearsky"] = "ASHRAEClearSky"
-            vals["zhanghuang"] = "ZhangHuang"
-            vals["schedule"] = "Schedule"
-            vals["ashraetau"] = "ASHRAETau"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodDesignDay.solar_model_indicator`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodDesignDay.solar_model_indicator`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Solar Model Indicator"] = value
+        self["Solar Model Indicator"] = value
 
     @property
     def beam_solar_day_schedule_name(self):
@@ -1669,19 +756,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.beam_solar_day_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.beam_solar_day_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.beam_solar_day_schedule_name`')
-        self._data["Beam Solar Day Schedule Name"] = value
+        self["Beam Solar Day Schedule Name"] = value
 
     @property
     def diffuse_solar_day_schedule_name(self):
@@ -1705,19 +780,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodDesignDay.diffuse_solar_day_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodDesignDay.diffuse_solar_day_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodDesignDay.diffuse_solar_day_schedule_name`')
-        self._data["Diffuse Solar Day Schedule Name"] = value
+        self["Diffuse Solar Day Schedule Name"] = value
 
     @property
     def ashrae_clear_sky_optical_depth_for_beam_irradiance_taub(self):
@@ -1729,15 +792,13 @@ class SizingPeriodDesignDay(object):
         return self._data["ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"]
 
     @ashrae_clear_sky_optical_depth_for_beam_irradiance_taub.setter
-    def ashrae_clear_sky_optical_depth_for_beam_irradiance_taub(self, value=0.0):
+    def ashrae_clear_sky_optical_depth_for_beam_irradiance_taub(self, value=None):
         """  Corresponds to IDD Field `ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)`
         Required if Solar Model Indicator = ASHRAETau
 
         Args:
             value (float): value for IDD Field `ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)`
                 Units: dimensionless
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1745,19 +806,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.ashrae_clear_sky_optical_depth_for_beam_irradiance_taub`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SizingPeriodDesignDay.ashrae_clear_sky_optical_depth_for_beam_irradiance_taub`')
-            if value > 1.2:
-                raise ValueError('value need to be smaller 1.2 '
-                                 'for field `SizingPeriodDesignDay.ashrae_clear_sky_optical_depth_for_beam_irradiance_taub`')
-        self._data["ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"] = value
+        self["ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"] = value
 
     @property
     def ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud(self):
@@ -1769,15 +818,13 @@ class SizingPeriodDesignDay(object):
         return self._data["ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"]
 
     @ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud.setter
-    def ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud(self, value=0.0):
+    def ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud(self, value=None):
         """  Corresponds to IDD Field `ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)`
         Required if Solar Model Indicator = ASHRAETau
 
         Args:
             value (float): value for IDD Field `ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)`
                 Units: dimensionless
-                Default value: 0.0
-                value >= 0.0
                 value <= 3.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1785,19 +832,7 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SizingPeriodDesignDay.ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud`')
-            if value > 3.0:
-                raise ValueError('value need to be smaller 3.0 '
-                                 'for field `SizingPeriodDesignDay.ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud`')
-        self._data["ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"] = value
+        self["ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"] = value
 
     @property
     def sky_clearness(self):
@@ -1809,15 +844,13 @@ class SizingPeriodDesignDay(object):
         return self._data["Sky Clearness"]
 
     @sky_clearness.setter
-    def sky_clearness(self, value=0.0):
+    def sky_clearness(self, value=None):
         """  Corresponds to IDD Field `Sky Clearness`
         Used if Sky Model Indicator = ASHRAEClearSky or ZhangHuang
         0.0 is totally unclear, 1.0 is totally clear
 
         Args:
             value (float): value for IDD Field `Sky Clearness`
-                Default value: 0.0
-                value >= 0.0
                 value <= 1.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1825,195 +858,23 @@ class SizingPeriodDesignDay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SizingPeriodDesignDay.sky_clearness`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SizingPeriodDesignDay.sky_clearness`')
-            if value > 1.2:
-                raise ValueError('value need to be smaller 1.2 '
-                                 'for field `SizingPeriodDesignDay.sky_clearness`')
-        self._data["Sky Clearness"] = value
+        self["Sky Clearness"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SizingPeriodDesignDay:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SizingPeriodDesignDay:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SizingPeriodDesignDay: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SizingPeriodDesignDay: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SizingPeriodWeatherFileDays(object):
+class SizingPeriodWeatherFileDays(DataObject):
     """ Corresponds to IDD object `SizingPeriod:WeatherFileDays`
         Use a weather file period for design sizing calculations.
     """
-    internal_name = "SizingPeriod:WeatherFileDays"
-    field_count = 8
-    required_fields = ["Name", "Begin Month", "Begin Day of Month", "End Month", "End Day of Month"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SizingPeriod:WeatherFileDays', 'pyname': u'SizingPeriodWeatherFileDays', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'begin month', {'name': u'Begin Month', 'pyname': u'begin_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'begin day of month', {'name': u'Begin Day of Month', 'pyname': u'begin_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end month', {'name': u'End Month', 'pyname': u'end_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end day of month', {'name': u'End Day of Month', 'pyname': u'end_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'day of week for start day', {'name': u'Day of Week for Start Day', 'pyname': u'day_of_week_for_start_day', 'default': u'Monday', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file daylight saving period', {'name': u'Use Weather File Daylight Saving Period', 'pyname': u'use_weather_file_daylight_saving_period', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file rain and snow indicators', {'name': u'Use Weather File Rain and Snow Indicators', 'pyname': u'use_weather_file_rain_and_snow_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SizingPeriod:WeatherFileDays`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Begin Month"] = None
-        self._data["Begin Day of Month"] = None
-        self._data["End Month"] = None
-        self._data["End Day of Month"] = None
-        self._data["Day of Week for Start Day"] = None
-        self._data["Use Weather File Daylight Saving Period"] = None
-        self._data["Use Weather File Rain and Snow Indicators"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.begin_month = None
-        else:
-            self.begin_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.begin_day_of_month = None
-        else:
-            self.begin_day_of_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.end_month = None
-        else:
-            self.end_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.end_day_of_month = None
-        else:
-            self.end_day_of_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.day_of_week_for_start_day = None
-        else:
-            self.day_of_week_for_start_day = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_daylight_saving_period = None
-        else:
-            self.use_weather_file_daylight_saving_period = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_rain_and_snow_indicators = None
-        else:
-            self.use_weather_file_rain_and_snow_indicators = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2037,19 +898,7 @@ class SizingPeriodWeatherFileDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodWeatherFileDays.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodWeatherFileDays.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodWeatherFileDays.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def begin_month(self):
@@ -2074,26 +923,7 @@ class SizingPeriodWeatherFileDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `SizingPeriodWeatherFileDays.begin_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `SizingPeriodWeatherFileDays.begin_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `SizingPeriodWeatherFileDays.begin_month`')
-            if value > 12:
-                raise ValueError('value need to be smaller 12 '
-                                 'for field `SizingPeriodWeatherFileDays.begin_month`')
-        self._data["Begin Month"] = value
+        self["Begin Month"] = value
 
     @property
     def begin_day_of_month(self):
@@ -2118,26 +948,7 @@ class SizingPeriodWeatherFileDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `SizingPeriodWeatherFileDays.begin_day_of_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `SizingPeriodWeatherFileDays.begin_day_of_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `SizingPeriodWeatherFileDays.begin_day_of_month`')
-            if value > 31:
-                raise ValueError('value need to be smaller 31 '
-                                 'for field `SizingPeriodWeatherFileDays.begin_day_of_month`')
-        self._data["Begin Day of Month"] = value
+        self["Begin Day of Month"] = value
 
     @property
     def end_month(self):
@@ -2162,26 +973,7 @@ class SizingPeriodWeatherFileDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `SizingPeriodWeatherFileDays.end_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `SizingPeriodWeatherFileDays.end_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `SizingPeriodWeatherFileDays.end_month`')
-            if value > 12:
-                raise ValueError('value need to be smaller 12 '
-                                 'for field `SizingPeriodWeatherFileDays.end_month`')
-        self._data["End Month"] = value
+        self["End Month"] = value
 
     @property
     def end_day_of_month(self):
@@ -2206,26 +998,7 @@ class SizingPeriodWeatherFileDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `SizingPeriodWeatherFileDays.end_day_of_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `SizingPeriodWeatherFileDays.end_day_of_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `SizingPeriodWeatherFileDays.end_day_of_month`')
-            if value > 31:
-                raise ValueError('value need to be smaller 31 '
-                                 'for field `SizingPeriodWeatherFileDays.end_day_of_month`')
-        self._data["End Day of Month"] = value
+        self["End Day of Month"] = value
 
     @property
     def day_of_week_for_start_day(self):
@@ -2247,18 +1020,6 @@ class SizingPeriodWeatherFileDays(object):
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
-                Accepted values are:
-                      - Sunday
-                      - Monday
-                      - Tuesday
-                      - Wednesday
-                      - Thursday
-                      - Friday
-                      - Saturday
-                      - SummerDesignDay
-                      - WinterDesignDay
-                      - CustomDay1
-                      - CustomDay2
                 Default value: Monday
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2266,55 +1027,7 @@ class SizingPeriodWeatherFileDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodWeatherFileDays.day_of_week_for_start_day`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodWeatherFileDays.day_of_week_for_start_day`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodWeatherFileDays.day_of_week_for_start_day`')
-            vals = {}
-            vals["sunday"] = "Sunday"
-            vals["monday"] = "Monday"
-            vals["tuesday"] = "Tuesday"
-            vals["wednesday"] = "Wednesday"
-            vals["thursday"] = "Thursday"
-            vals["friday"] = "Friday"
-            vals["saturday"] = "Saturday"
-            vals["summerdesignday"] = "SummerDesignDay"
-            vals["winterdesignday"] = "WinterDesignDay"
-            vals["customday1"] = "CustomDay1"
-            vals["customday2"] = "CustomDay2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodWeatherFileDays.day_of_week_for_start_day`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodWeatherFileDays.day_of_week_for_start_day`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Day of Week for Start Day"] = value
+        self["Day of Week for Start Day"] = value
 
     @property
     def use_weather_file_daylight_saving_period(self):
@@ -2333,9 +1046,6 @@ class SizingPeriodWeatherFileDays(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2343,46 +1053,7 @@ class SizingPeriodWeatherFileDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodWeatherFileDays.use_weather_file_daylight_saving_period`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodWeatherFileDays.use_weather_file_daylight_saving_period`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodWeatherFileDays.use_weather_file_daylight_saving_period`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodWeatherFileDays.use_weather_file_daylight_saving_period`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodWeatherFileDays.use_weather_file_daylight_saving_period`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Daylight Saving Period"] = value
+        self["Use Weather File Daylight Saving Period"] = value
 
     @property
     def use_weather_file_rain_and_snow_indicators(self):
@@ -2399,9 +1070,6 @@ class SizingPeriodWeatherFileDays(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain and Snow Indicators`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2409,201 +1077,26 @@ class SizingPeriodWeatherFileDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodWeatherFileDays.use_weather_file_rain_and_snow_indicators`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodWeatherFileDays.use_weather_file_rain_and_snow_indicators`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodWeatherFileDays.use_weather_file_rain_and_snow_indicators`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodWeatherFileDays.use_weather_file_rain_and_snow_indicators`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodWeatherFileDays.use_weather_file_rain_and_snow_indicators`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Rain and Snow Indicators"] = value
+        self["Use Weather File Rain and Snow Indicators"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SizingPeriodWeatherFileDays:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SizingPeriodWeatherFileDays:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SizingPeriodWeatherFileDays: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SizingPeriodWeatherFileDays: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SizingPeriodWeatherFileConditionType(object):
+class SizingPeriodWeatherFileConditionType(DataObject):
     """ Corresponds to IDD object `SizingPeriod:WeatherFileConditionType`
         Use a weather file period for design sizing calculations.
         EPW weather files are created with typical and extreme periods
         created heuristically from the weather file data.  For more
         details on these periods, see AuxiliaryPrograms document.
     """
-    internal_name = "SizingPeriod:WeatherFileConditionType"
-    field_count = 5
-    required_fields = ["Name", "Period Selection"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'SizingPeriod:WeatherFileConditionType', 'pyname': u'SizingPeriodWeatherFileConditionType', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'period selection', {'name': u'Period Selection', 'pyname': u'period_selection', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'day of week for start day', {'name': u'Day of Week for Start Day', 'pyname': u'day_of_week_for_start_day', 'default': u'Monday', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file daylight saving period', {'name': u'Use Weather File Daylight Saving Period', 'pyname': u'use_weather_file_daylight_saving_period', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file rain and snow indicators', {'name': u'Use Weather File Rain and Snow Indicators', 'pyname': u'use_weather_file_rain_and_snow_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SizingPeriod:WeatherFileConditionType`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Period Selection"] = None
-        self._data["Day of Week for Start Day"] = None
-        self._data["Use Weather File Daylight Saving Period"] = None
-        self._data["Use Weather File Rain and Snow Indicators"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.period_selection = None
-        else:
-            self.period_selection = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.day_of_week_for_start_day = None
-        else:
-            self.day_of_week_for_start_day = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_daylight_saving_period = None
-        else:
-            self.use_weather_file_daylight_saving_period = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_rain_and_snow_indicators = None
-        else:
-            self.use_weather_file_rain_and_snow_indicators = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2627,19 +1120,7 @@ class SizingPeriodWeatherFileConditionType(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodWeatherFileConditionType.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodWeatherFileConditionType.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodWeatherFileConditionType.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def period_selection(self):
@@ -2659,83 +1140,13 @@ class SizingPeriodWeatherFileConditionType(object):
 
         Args:
             value (str): value for IDD Field `Period Selection`
-                Accepted values are:
-                      - SummerExtreme
-                      - SummerTypical
-                      - WinterExtreme
-                      - WinterTypical
-                      - AutumnTypical
-                      - SpringTypical
-                      - WetSeason
-                      - DrySeason
-                      - NoDrySeason
-                      - NoWetSeason
-                      - TropicalHot
-                      - TropicalCold
-                      - NoDrySeasonMax
-                      - NoDrySeasonMin
-                      - NoWetSeasonMax
-                      - NoWetSeasonMin
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodWeatherFileConditionType.period_selection`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodWeatherFileConditionType.period_selection`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodWeatherFileConditionType.period_selection`')
-            vals = {}
-            vals["summerextreme"] = "SummerExtreme"
-            vals["summertypical"] = "SummerTypical"
-            vals["winterextreme"] = "WinterExtreme"
-            vals["wintertypical"] = "WinterTypical"
-            vals["autumntypical"] = "AutumnTypical"
-            vals["springtypical"] = "SpringTypical"
-            vals["wetseason"] = "WetSeason"
-            vals["dryseason"] = "DrySeason"
-            vals["nodryseason"] = "NoDrySeason"
-            vals["nowetseason"] = "NoWetSeason"
-            vals["tropicalhot"] = "TropicalHot"
-            vals["tropicalcold"] = "TropicalCold"
-            vals["nodryseasonmax"] = "NoDrySeasonMax"
-            vals["nodryseasonmin"] = "NoDrySeasonMin"
-            vals["nowetseasonmax"] = "NoWetSeasonMax"
-            vals["nowetseasonmin"] = "NoWetSeasonMin"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodWeatherFileConditionType.period_selection`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodWeatherFileConditionType.period_selection`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Period Selection"] = value
+        self["Period Selection"] = value
 
     @property
     def day_of_week_for_start_day(self):
@@ -2757,18 +1168,6 @@ class SizingPeriodWeatherFileConditionType(object):
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
-                Accepted values are:
-                      - Sunday
-                      - Monday
-                      - Tuesday
-                      - Wednesday
-                      - Thursday
-                      - Friday
-                      - Saturday
-                      - SummerDesignDay
-                      - WinterDesignDay
-                      - CustomDay1
-                      - CustomDay2
                 Default value: Monday
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2776,55 +1175,7 @@ class SizingPeriodWeatherFileConditionType(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodWeatherFileConditionType.day_of_week_for_start_day`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodWeatherFileConditionType.day_of_week_for_start_day`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodWeatherFileConditionType.day_of_week_for_start_day`')
-            vals = {}
-            vals["sunday"] = "Sunday"
-            vals["monday"] = "Monday"
-            vals["tuesday"] = "Tuesday"
-            vals["wednesday"] = "Wednesday"
-            vals["thursday"] = "Thursday"
-            vals["friday"] = "Friday"
-            vals["saturday"] = "Saturday"
-            vals["summerdesignday"] = "SummerDesignDay"
-            vals["winterdesignday"] = "WinterDesignDay"
-            vals["customday1"] = "CustomDay1"
-            vals["customday2"] = "CustomDay2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodWeatherFileConditionType.day_of_week_for_start_day`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodWeatherFileConditionType.day_of_week_for_start_day`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Day of Week for Start Day"] = value
+        self["Day of Week for Start Day"] = value
 
     @property
     def use_weather_file_daylight_saving_period(self):
@@ -2843,9 +1194,6 @@ class SizingPeriodWeatherFileConditionType(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2853,46 +1201,7 @@ class SizingPeriodWeatherFileConditionType(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodWeatherFileConditionType.use_weather_file_daylight_saving_period`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodWeatherFileConditionType.use_weather_file_daylight_saving_period`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodWeatherFileConditionType.use_weather_file_daylight_saving_period`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodWeatherFileConditionType.use_weather_file_daylight_saving_period`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodWeatherFileConditionType.use_weather_file_daylight_saving_period`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Daylight Saving Period"] = value
+        self["Use Weather File Daylight Saving Period"] = value
 
     @property
     def use_weather_file_rain_and_snow_indicators(self):
@@ -2909,9 +1218,6 @@ class SizingPeriodWeatherFileConditionType(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain and Snow Indicators`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2919,271 +1225,24 @@ class SizingPeriodWeatherFileConditionType(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SizingPeriodWeatherFileConditionType.use_weather_file_rain_and_snow_indicators`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SizingPeriodWeatherFileConditionType.use_weather_file_rain_and_snow_indicators`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SizingPeriodWeatherFileConditionType.use_weather_file_rain_and_snow_indicators`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SizingPeriodWeatherFileConditionType.use_weather_file_rain_and_snow_indicators`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SizingPeriodWeatherFileConditionType.use_weather_file_rain_and_snow_indicators`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Rain and Snow Indicators"] = value
+        self["Use Weather File Rain and Snow Indicators"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SizingPeriodWeatherFileConditionType:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SizingPeriodWeatherFileConditionType:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SizingPeriodWeatherFileConditionType: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SizingPeriodWeatherFileConditionType: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class RunPeriod(object):
+class RunPeriod(DataObject):
     """ Corresponds to IDD object `RunPeriod`
         Specified a range of dates and other parameters for a weather file simulation.
         Multiple run periods may be input, but they may not overlap.
     """
-    internal_name = "RunPeriod"
-    field_count = 14
-    required_fields = ["Begin Month", "Begin Day of Month", "End Month", "End Day of Month"]
-    extensible_fields = 0
-    format = None
-    min_fields = 11
-    extensible_keys = []
+    schema = {'min-fields': 11, 'name': u'RunPeriod', 'pyname': u'RunPeriod', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'begin month', {'name': u'Begin Month', 'pyname': u'begin_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'begin day of month', {'name': u'Begin Day of Month', 'pyname': u'begin_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end month', {'name': u'End Month', 'pyname': u'end_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end day of month', {'name': u'End Day of Month', 'pyname': u'end_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'day of week for start day', {'name': u'Day of Week for Start Day', 'pyname': u'day_of_week_for_start_day', 'default': u'UseWeatherFile', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file holidays and special days', {'name': u'Use Weather File Holidays and Special Days', 'pyname': u'use_weather_file_holidays_and_special_days', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file daylight saving period', {'name': u'Use Weather File Daylight Saving Period', 'pyname': u'use_weather_file_daylight_saving_period', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'apply weekend holiday rule', {'name': u'Apply Weekend Holiday Rule', 'pyname': u'apply_weekend_holiday_rule', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file rain indicators', {'name': u'Use Weather File Rain Indicators', 'pyname': u'use_weather_file_rain_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file snow indicators', {'name': u'Use Weather File Snow Indicators', 'pyname': u'use_weather_file_snow_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'number of times runperiod to be repeated', {'name': u'Number of Times Runperiod to be Repeated', 'pyname': u'number_of_times_runperiod_to_be_repeated', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'increment day of week on repeat', {'name': u'Increment Day of Week on repeat', 'pyname': u'increment_day_of_week_on_repeat', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'start year', {'name': u'Start Year', 'pyname': u'start_year', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RunPeriod`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Begin Month"] = None
-        self._data["Begin Day of Month"] = None
-        self._data["End Month"] = None
-        self._data["End Day of Month"] = None
-        self._data["Day of Week for Start Day"] = None
-        self._data["Use Weather File Holidays and Special Days"] = None
-        self._data["Use Weather File Daylight Saving Period"] = None
-        self._data["Apply Weekend Holiday Rule"] = None
-        self._data["Use Weather File Rain Indicators"] = None
-        self._data["Use Weather File Snow Indicators"] = None
-        self._data["Number of Times Runperiod to be Repeated"] = None
-        self._data["Increment Day of Week on repeat"] = None
-        self._data["Start Year"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.begin_month = None
-        else:
-            self.begin_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.begin_day_of_month = None
-        else:
-            self.begin_day_of_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.end_month = None
-        else:
-            self.end_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.end_day_of_month = None
-        else:
-            self.end_day_of_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.day_of_week_for_start_day = None
-        else:
-            self.day_of_week_for_start_day = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_holidays_and_special_days = None
-        else:
-            self.use_weather_file_holidays_and_special_days = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_daylight_saving_period = None
-        else:
-            self.use_weather_file_daylight_saving_period = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.apply_weekend_holiday_rule = None
-        else:
-            self.apply_weekend_holiday_rule = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_rain_indicators = None
-        else:
-            self.use_weather_file_rain_indicators = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_snow_indicators = None
-        else:
-            self.use_weather_file_snow_indicators = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_times_runperiod_to_be_repeated = None
-        else:
-            self.number_of_times_runperiod_to_be_repeated = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.increment_day_of_week_on_repeat = None
-        else:
-            self.increment_day_of_week_on_repeat = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.start_year = None
-        else:
-            self.start_year = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3208,19 +1267,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriod.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriod.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriod.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def begin_month(self):
@@ -3245,26 +1292,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `RunPeriod.begin_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `RunPeriod.begin_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `RunPeriod.begin_month`')
-            if value > 12:
-                raise ValueError('value need to be smaller 12 '
-                                 'for field `RunPeriod.begin_month`')
-        self._data["Begin Month"] = value
+        self["Begin Month"] = value
 
     @property
     def begin_day_of_month(self):
@@ -3289,26 +1317,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `RunPeriod.begin_day_of_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `RunPeriod.begin_day_of_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `RunPeriod.begin_day_of_month`')
-            if value > 31:
-                raise ValueError('value need to be smaller 31 '
-                                 'for field `RunPeriod.begin_day_of_month`')
-        self._data["Begin Day of Month"] = value
+        self["Begin Day of Month"] = value
 
     @property
     def end_month(self):
@@ -3333,26 +1342,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `RunPeriod.end_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `RunPeriod.end_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `RunPeriod.end_month`')
-            if value > 12:
-                raise ValueError('value need to be smaller 12 '
-                                 'for field `RunPeriod.end_month`')
-        self._data["End Month"] = value
+        self["End Month"] = value
 
     @property
     def end_day_of_month(self):
@@ -3377,26 +1367,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `RunPeriod.end_day_of_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `RunPeriod.end_day_of_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `RunPeriod.end_day_of_month`')
-            if value > 31:
-                raise ValueError('value need to be smaller 31 '
-                                 'for field `RunPeriod.end_day_of_month`')
-        self._data["End Day of Month"] = value
+        self["End Day of Month"] = value
 
     @property
     def day_of_week_for_start_day(self):
@@ -3414,15 +1385,6 @@ class RunPeriod(object):
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
-                Accepted values are:
-                      - Sunday
-                      - Monday
-                      - Tuesday
-                      - Wednesday
-                      - Thursday
-                      - Friday
-                      - Saturday
-                      - UseWeatherFile
                 Default value: UseWeatherFile
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3430,52 +1392,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriod.day_of_week_for_start_day`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriod.day_of_week_for_start_day`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriod.day_of_week_for_start_day`')
-            vals = {}
-            vals["sunday"] = "Sunday"
-            vals["monday"] = "Monday"
-            vals["tuesday"] = "Tuesday"
-            vals["wednesday"] = "Wednesday"
-            vals["thursday"] = "Thursday"
-            vals["friday"] = "Friday"
-            vals["saturday"] = "Saturday"
-            vals["useweatherfile"] = "UseWeatherFile"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriod.day_of_week_for_start_day`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriod.day_of_week_for_start_day`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Day of Week for Start Day"] = value
+        self["Day of Week for Start Day"] = value
 
     @property
     def use_weather_file_holidays_and_special_days(self):
@@ -3495,9 +1412,6 @@ class RunPeriod(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Holidays and Special Days`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3505,46 +1419,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriod.use_weather_file_holidays_and_special_days`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriod.use_weather_file_holidays_and_special_days`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriod.use_weather_file_holidays_and_special_days`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriod.use_weather_file_holidays_and_special_days`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriod.use_weather_file_holidays_and_special_days`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Holidays and Special Days"] = value
+        self["Use Weather File Holidays and Special Days"] = value
 
     @property
     def use_weather_file_daylight_saving_period(self):
@@ -3563,9 +1438,6 @@ class RunPeriod(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3573,46 +1445,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriod.use_weather_file_daylight_saving_period`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriod.use_weather_file_daylight_saving_period`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriod.use_weather_file_daylight_saving_period`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriod.use_weather_file_daylight_saving_period`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriod.use_weather_file_daylight_saving_period`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Daylight Saving Period"] = value
+        self["Use Weather File Daylight Saving Period"] = value
 
     @property
     def apply_weekend_holiday_rule(self):
@@ -3630,9 +1463,6 @@ class RunPeriod(object):
 
         Args:
             value (str): value for IDD Field `Apply Weekend Holiday Rule`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3640,46 +1470,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriod.apply_weekend_holiday_rule`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriod.apply_weekend_holiday_rule`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriod.apply_weekend_holiday_rule`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriod.apply_weekend_holiday_rule`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriod.apply_weekend_holiday_rule`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Apply Weekend Holiday Rule"] = value
+        self["Apply Weekend Holiday Rule"] = value
 
     @property
     def use_weather_file_rain_indicators(self):
@@ -3696,9 +1487,6 @@ class RunPeriod(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain Indicators`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3706,46 +1494,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriod.use_weather_file_rain_indicators`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriod.use_weather_file_rain_indicators`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriod.use_weather_file_rain_indicators`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriod.use_weather_file_rain_indicators`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriod.use_weather_file_rain_indicators`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Rain Indicators"] = value
+        self["Use Weather File Rain Indicators"] = value
 
     @property
     def use_weather_file_snow_indicators(self):
@@ -3762,9 +1511,6 @@ class RunPeriod(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Snow Indicators`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3772,46 +1518,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriod.use_weather_file_snow_indicators`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriod.use_weather_file_snow_indicators`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriod.use_weather_file_snow_indicators`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriod.use_weather_file_snow_indicators`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriod.use_weather_file_snow_indicators`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Snow Indicators"] = value
+        self["Use Weather File Snow Indicators"] = value
 
     @property
     def number_of_times_runperiod_to_be_repeated(self):
@@ -3836,23 +1543,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `RunPeriod.number_of_times_runperiod_to_be_repeated`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `RunPeriod.number_of_times_runperiod_to_be_repeated`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `RunPeriod.number_of_times_runperiod_to_be_repeated`')
-        self._data["Number of Times Runperiod to be Repeated"] = value
+        self["Number of Times Runperiod to be Repeated"] = value
 
     @property
     def increment_day_of_week_on_repeat(self):
@@ -3869,9 +1560,6 @@ class RunPeriod(object):
 
         Args:
             value (str): value for IDD Field `Increment Day of Week on repeat`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3879,46 +1567,7 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriod.increment_day_of_week_on_repeat`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriod.increment_day_of_week_on_repeat`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriod.increment_day_of_week_on_repeat`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriod.increment_day_of_week_on_repeat`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriod.increment_day_of_week_on_repeat`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Increment Day of Week on repeat"] = value
+        self["Increment Day of Week on repeat"] = value
 
     @property
     def start_year(self):
@@ -3944,229 +1593,23 @@ class RunPeriod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `RunPeriod.start_year`'.format(value))
-        self._data["Start Year"] = value
+        self["Start Year"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field RunPeriod:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field RunPeriod:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for RunPeriod: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for RunPeriod: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class RunPeriodCustomRange(object):
+class RunPeriodCustomRange(DataObject):
     """ Corresponds to IDD object `RunPeriod:CustomRange`
         run simulation for a custom created weather file
     """
-    internal_name = "RunPeriod:CustomRange"
-    field_count = 13
-    required_fields = ["Begin Month", "Begin Day of Month", "Begin Year", "End Month", "End Day of Month", "End Year"]
-    extensible_fields = 0
-    format = None
-    min_fields = 13
-    extensible_keys = []
+    schema = {'min-fields': 13, 'name': u'RunPeriod:CustomRange', 'pyname': u'RunPeriodCustomRange', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'begin month', {'name': u'Begin Month', 'pyname': u'begin_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'begin day of month', {'name': u'Begin Day of Month', 'pyname': u'begin_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'begin year', {'name': u'Begin Year', 'pyname': u'begin_year', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'end month', {'name': u'End Month', 'pyname': u'end_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end day of month', {'name': u'End Day of Month', 'pyname': u'end_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end year', {'name': u'End Year', 'pyname': u'end_year', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'day of week for start day', {'name': u'Day of Week for Start Day', 'pyname': u'day_of_week_for_start_day', 'default': u'UseWeatherFile', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file holidays and special days', {'name': u'Use Weather File Holidays and Special Days', 'pyname': u'use_weather_file_holidays_and_special_days', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file daylight saving period', {'name': u'Use Weather File Daylight Saving Period', 'pyname': u'use_weather_file_daylight_saving_period', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'apply weekend holiday rule', {'name': u'Apply Weekend Holiday Rule', 'pyname': u'apply_weekend_holiday_rule', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file rain indicators', {'name': u'Use Weather File Rain Indicators', 'pyname': u'use_weather_file_rain_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file snow indicators', {'name': u'Use Weather File Snow Indicators', 'pyname': u'use_weather_file_snow_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RunPeriod:CustomRange`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Begin Month"] = None
-        self._data["Begin Day of Month"] = None
-        self._data["Begin Year"] = None
-        self._data["End Month"] = None
-        self._data["End Day of Month"] = None
-        self._data["End Year"] = None
-        self._data["Day of Week for Start Day"] = None
-        self._data["Use Weather File Holidays and Special Days"] = None
-        self._data["Use Weather File Daylight Saving Period"] = None
-        self._data["Apply Weekend Holiday Rule"] = None
-        self._data["Use Weather File Rain Indicators"] = None
-        self._data["Use Weather File Snow Indicators"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.begin_month = None
-        else:
-            self.begin_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.begin_day_of_month = None
-        else:
-            self.begin_day_of_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.begin_year = None
-        else:
-            self.begin_year = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.end_month = None
-        else:
-            self.end_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.end_day_of_month = None
-        else:
-            self.end_day_of_month = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.end_year = None
-        else:
-            self.end_year = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.day_of_week_for_start_day = None
-        else:
-            self.day_of_week_for_start_day = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_holidays_and_special_days = None
-        else:
-            self.use_weather_file_holidays_and_special_days = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_daylight_saving_period = None
-        else:
-            self.use_weather_file_daylight_saving_period = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.apply_weekend_holiday_rule = None
-        else:
-            self.apply_weekend_holiday_rule = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_rain_indicators = None
-        else:
-            self.use_weather_file_rain_indicators = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.use_weather_file_snow_indicators = None
-        else:
-            self.use_weather_file_snow_indicators = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -4191,19 +1634,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodCustomRange.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodCustomRange.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodCustomRange.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def begin_month(self):
@@ -4228,26 +1659,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `RunPeriodCustomRange.begin_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `RunPeriodCustomRange.begin_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `RunPeriodCustomRange.begin_month`')
-            if value > 12:
-                raise ValueError('value need to be smaller 12 '
-                                 'for field `RunPeriodCustomRange.begin_month`')
-        self._data["Begin Month"] = value
+        self["Begin Month"] = value
 
     @property
     def begin_day_of_month(self):
@@ -4272,26 +1684,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `RunPeriodCustomRange.begin_day_of_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `RunPeriodCustomRange.begin_day_of_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `RunPeriodCustomRange.begin_day_of_month`')
-            if value > 31:
-                raise ValueError('value need to be smaller 31 '
-                                 'for field `RunPeriodCustomRange.begin_day_of_month`')
-        self._data["Begin Day of Month"] = value
+        self["Begin Day of Month"] = value
 
     @property
     def begin_year(self):
@@ -4315,13 +1708,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `RunPeriodCustomRange.begin_year`'.format(value))
-        self._data["Begin Year"] = value
+        self["Begin Year"] = value
 
     @property
     def end_month(self):
@@ -4346,26 +1733,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `RunPeriodCustomRange.end_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `RunPeriodCustomRange.end_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `RunPeriodCustomRange.end_month`')
-            if value > 12:
-                raise ValueError('value need to be smaller 12 '
-                                 'for field `RunPeriodCustomRange.end_month`')
-        self._data["End Month"] = value
+        self["End Month"] = value
 
     @property
     def end_day_of_month(self):
@@ -4390,26 +1758,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `RunPeriodCustomRange.end_day_of_month`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `RunPeriodCustomRange.end_day_of_month`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `RunPeriodCustomRange.end_day_of_month`')
-            if value > 31:
-                raise ValueError('value need to be smaller 31 '
-                                 'for field `RunPeriodCustomRange.end_day_of_month`')
-        self._data["End Day of Month"] = value
+        self["End Day of Month"] = value
 
     @property
     def end_year(self):
@@ -4433,13 +1782,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `RunPeriodCustomRange.end_year`'.format(value))
-        self._data["End Year"] = value
+        self["End Year"] = value
 
     @property
     def day_of_week_for_start_day(self):
@@ -4457,15 +1800,6 @@ class RunPeriodCustomRange(object):
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
-                Accepted values are:
-                      - Sunday
-                      - Monday
-                      - Tuesday
-                      - Wednesday
-                      - Thursday
-                      - Friday
-                      - Saturday
-                      - UseWeatherFile
                 Default value: UseWeatherFile
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4473,52 +1807,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodCustomRange.day_of_week_for_start_day`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodCustomRange.day_of_week_for_start_day`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodCustomRange.day_of_week_for_start_day`')
-            vals = {}
-            vals["sunday"] = "Sunday"
-            vals["monday"] = "Monday"
-            vals["tuesday"] = "Tuesday"
-            vals["wednesday"] = "Wednesday"
-            vals["thursday"] = "Thursday"
-            vals["friday"] = "Friday"
-            vals["saturday"] = "Saturday"
-            vals["useweatherfile"] = "UseWeatherFile"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriodCustomRange.day_of_week_for_start_day`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriodCustomRange.day_of_week_for_start_day`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Day of Week for Start Day"] = value
+        self["Day of Week for Start Day"] = value
 
     @property
     def use_weather_file_holidays_and_special_days(self):
@@ -4538,9 +1827,6 @@ class RunPeriodCustomRange(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Holidays and Special Days`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4548,46 +1834,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodCustomRange.use_weather_file_holidays_and_special_days`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodCustomRange.use_weather_file_holidays_and_special_days`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodCustomRange.use_weather_file_holidays_and_special_days`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriodCustomRange.use_weather_file_holidays_and_special_days`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriodCustomRange.use_weather_file_holidays_and_special_days`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Holidays and Special Days"] = value
+        self["Use Weather File Holidays and Special Days"] = value
 
     @property
     def use_weather_file_daylight_saving_period(self):
@@ -4606,9 +1853,6 @@ class RunPeriodCustomRange(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4616,46 +1860,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodCustomRange.use_weather_file_daylight_saving_period`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodCustomRange.use_weather_file_daylight_saving_period`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodCustomRange.use_weather_file_daylight_saving_period`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriodCustomRange.use_weather_file_daylight_saving_period`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriodCustomRange.use_weather_file_daylight_saving_period`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Daylight Saving Period"] = value
+        self["Use Weather File Daylight Saving Period"] = value
 
     @property
     def apply_weekend_holiday_rule(self):
@@ -4673,9 +1878,6 @@ class RunPeriodCustomRange(object):
 
         Args:
             value (str): value for IDD Field `Apply Weekend Holiday Rule`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4683,46 +1885,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodCustomRange.apply_weekend_holiday_rule`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodCustomRange.apply_weekend_holiday_rule`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodCustomRange.apply_weekend_holiday_rule`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriodCustomRange.apply_weekend_holiday_rule`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriodCustomRange.apply_weekend_holiday_rule`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Apply Weekend Holiday Rule"] = value
+        self["Apply Weekend Holiday Rule"] = value
 
     @property
     def use_weather_file_rain_indicators(self):
@@ -4739,9 +1902,6 @@ class RunPeriodCustomRange(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain Indicators`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4749,46 +1909,7 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodCustomRange.use_weather_file_rain_indicators`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodCustomRange.use_weather_file_rain_indicators`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodCustomRange.use_weather_file_rain_indicators`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriodCustomRange.use_weather_file_rain_indicators`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriodCustomRange.use_weather_file_rain_indicators`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Rain Indicators"] = value
+        self["Use Weather File Rain Indicators"] = value
 
     @property
     def use_weather_file_snow_indicators(self):
@@ -4805,9 +1926,6 @@ class RunPeriodCustomRange(object):
 
         Args:
             value (str): value for IDD Field `Use Weather File Snow Indicators`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4815,130 +1933,10 @@ class RunPeriodCustomRange(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodCustomRange.use_weather_file_snow_indicators`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodCustomRange.use_weather_file_snow_indicators`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodCustomRange.use_weather_file_snow_indicators`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriodCustomRange.use_weather_file_snow_indicators`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriodCustomRange.use_weather_file_snow_indicators`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Use Weather File Snow Indicators"] = value
+        self["Use Weather File Snow Indicators"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field RunPeriodCustomRange:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field RunPeriodCustomRange:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for RunPeriodCustomRange: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for RunPeriodCustomRange: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class RunPeriodControlSpecialDays(object):
+class RunPeriodControlSpecialDays(DataObject):
     """ Corresponds to IDD object `RunPeriodControl:SpecialDays`
         This object sets up holidays/special days to be used during weather file
         run periods.  (These are not used with SizingPeriod:* objects.)
@@ -4947,63 +1945,16 @@ class RunPeriodControlSpecialDays(object):
         any specification shown here.  (No error message on duplicate days or overlapping
         days).
     """
-    internal_name = "RunPeriodControl:SpecialDays"
-    field_count = 4
-    required_fields = ["Name", "Start Date", "Special Day Type"]
-    extensible_fields = 0
-    format = None
-    min_fields = 4
-    extensible_keys = []
+    schema = {'min-fields': 4, 'name': u'RunPeriodControl:SpecialDays', 'pyname': u'RunPeriodControlSpecialDays', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'start date', {'name': u'Start Date', 'pyname': u'start_date', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'duration', {'name': u'Duration', 'pyname': u'duration', 'default': 1.0, 'maximum': 366.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real', 'unit': u'days'}), (u'special day type', {'name': u'Special Day Type', 'pyname': u'special_day_type', 'default': u'Holiday', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RunPeriodControl:SpecialDays`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Start Date"] = None
-        self._data["Duration"] = None
-        self._data["Special Day Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.start_date = None
-        else:
-            self.start_date = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.duration = None
-        else:
-            self.duration = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.special_day_type = None
-        else:
-            self.special_day_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -5026,19 +1977,7 @@ class RunPeriodControlSpecialDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodControlSpecialDays.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodControlSpecialDays.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodControlSpecialDays.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def start_date(self):
@@ -5071,19 +2010,7 @@ class RunPeriodControlSpecialDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodControlSpecialDays.start_date`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodControlSpecialDays.start_date`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodControlSpecialDays.start_date`')
-        self._data["Start Date"] = value
+        self["Start Date"] = value
 
     @property
     def duration(self):
@@ -5110,19 +2037,7 @@ class RunPeriodControlSpecialDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `RunPeriodControlSpecialDays.duration`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `RunPeriodControlSpecialDays.duration`')
-            if value > 366.0:
-                raise ValueError('value need to be smaller 366.0 '
-                                 'for field `RunPeriodControlSpecialDays.duration`')
-        self._data["Duration"] = value
+        self["Duration"] = value
 
     @property
     def special_day_type(self):
@@ -5140,12 +2055,6 @@ class RunPeriodControlSpecialDays(object):
 
         Args:
             value (str): value for IDD Field `Special Day Type`
-                Accepted values are:
-                      - Holiday
-                      - SummerDesignDay
-                      - WinterDesignDay
-                      - CustomDay1
-                      - CustomDay2
                 Default value: Holiday
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5153,180 +2062,26 @@ class RunPeriodControlSpecialDays(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodControlSpecialDays.special_day_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodControlSpecialDays.special_day_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodControlSpecialDays.special_day_type`')
-            vals = {}
-            vals["holiday"] = "Holiday"
-            vals["summerdesignday"] = "SummerDesignDay"
-            vals["winterdesignday"] = "WinterDesignDay"
-            vals["customday1"] = "CustomDay1"
-            vals["customday2"] = "CustomDay2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RunPeriodControlSpecialDays.special_day_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RunPeriodControlSpecialDays.special_day_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Special Day Type"] = value
+        self["Special Day Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field RunPeriodControlSpecialDays:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field RunPeriodControlSpecialDays:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for RunPeriodControlSpecialDays: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for RunPeriodControlSpecialDays: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class RunPeriodControlDaylightSavingTime(object):
+class RunPeriodControlDaylightSavingTime(DataObject):
     """ Corresponds to IDD object `RunPeriodControl:DaylightSavingTime`
         This object sets up the daylight saving time period for any RunPeriod.
         Ignores any daylight saving time period on the weather file and uses this definition.
         These are not used with SizingPeriod:DesignDay objects.
         Use with SizingPeriod:WeatherFileDays object can be controlled in that object.
     """
-    internal_name = "RunPeriodControl:DaylightSavingTime"
-    field_count = 2
-    required_fields = ["Start Date", "End Date"]
-    extensible_fields = 0
-    format = None
-    min_fields = 2
-    extensible_keys = []
+    schema = {'min-fields': 2, 'name': u'RunPeriodControl:DaylightSavingTime', 'pyname': u'RunPeriodControlDaylightSavingTime', 'format': None, 'fields': OrderedDict([(u'start date', {'name': u'Start Date', 'pyname': u'start_date', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'end date', {'name': u'End Date', 'pyname': u'end_date', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RunPeriodControl:DaylightSavingTime`
         """
         self._data = OrderedDict()
-        self._data["Start Date"] = None
-        self._data["End Date"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.start_date = None
-        else:
-            self.start_date = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.end_date = None
-        else:
-            self.end_date = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def start_date(self):
@@ -5349,19 +2104,7 @@ class RunPeriodControlDaylightSavingTime(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodControlDaylightSavingTime.start_date`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodControlDaylightSavingTime.start_date`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodControlDaylightSavingTime.start_date`')
-        self._data["Start Date"] = value
+        self["Start Date"] = value
 
     @property
     def end_date(self):
@@ -5394,155 +2137,23 @@ class RunPeriodControlDaylightSavingTime(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RunPeriodControlDaylightSavingTime.end_date`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RunPeriodControlDaylightSavingTime.end_date`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RunPeriodControlDaylightSavingTime.end_date`')
-        self._data["End Date"] = value
+        self["End Date"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field RunPeriodControlDaylightSavingTime:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field RunPeriodControlDaylightSavingTime:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for RunPeriodControlDaylightSavingTime: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for RunPeriodControlDaylightSavingTime: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class WeatherPropertySkyTemperature(object):
+class WeatherPropertySkyTemperature(DataObject):
     """ Corresponds to IDD object `WeatherProperty:SkyTemperature`
         This object is used to override internal sky temperature calculations.
     """
-    internal_name = "WeatherProperty:SkyTemperature"
-    field_count = 3
-    required_fields = ["Calculation Type", "Schedule Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'WeatherProperty:SkyTemperature', 'pyname': u'WeatherPropertySkyTemperature', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'calculation type', {'name': u'Calculation Type', 'pyname': u'calculation_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WeatherProperty:SkyTemperature`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Calculation Type"] = None
-        self._data["Schedule Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.calculation_type = None
-        else:
-            self.calculation_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -5568,19 +2179,7 @@ class WeatherPropertySkyTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WeatherPropertySkyTemperature.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WeatherPropertySkyTemperature.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WeatherPropertySkyTemperature.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def calculation_type(self):
@@ -5597,57 +2196,13 @@ class WeatherPropertySkyTemperature(object):
 
         Args:
             value (str): value for IDD Field `Calculation Type`
-                Accepted values are:
-                      - ScheduleValue
-                      - DifferenceScheduleDryBulbValue
-                      - DifferenceScheduleDewPointValue
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WeatherPropertySkyTemperature.calculation_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WeatherPropertySkyTemperature.calculation_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WeatherPropertySkyTemperature.calculation_type`')
-            vals = {}
-            vals["schedulevalue"] = "ScheduleValue"
-            vals["differencescheduledrybulbvalue"] = "DifferenceScheduleDryBulbValue"
-            vals["differencescheduledewpointvalue"] = "DifferenceScheduleDewPointValue"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `WeatherPropertySkyTemperature.calculation_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `WeatherPropertySkyTemperature.calculation_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Calculation Type"] = value
+        self["Calculation Type"] = value
 
     @property
     def schedule_name(self):
@@ -5673,165 +2228,25 @@ class WeatherPropertySkyTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `WeatherPropertySkyTemperature.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `WeatherPropertySkyTemperature.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `WeatherPropertySkyTemperature.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field WeatherPropertySkyTemperature:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field WeatherPropertySkyTemperature:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for WeatherPropertySkyTemperature: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for WeatherPropertySkyTemperature: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteWeatherStation(object):
+class SiteWeatherStation(DataObject):
     """ Corresponds to IDD object `Site:WeatherStation`
         This object should only be used for non-standard weather data.  Standard weather data
         such as TMY2, IWEC, and ASHRAE design day data are all measured at the
         default conditions and do not require this object.
     """
-    internal_name = "Site:WeatherStation"
-    field_count = 4
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Site:WeatherStation', 'pyname': u'SiteWeatherStation', 'format': None, 'fields': OrderedDict([(u'wind sensor height above ground', {'name': u'Wind Sensor Height Above Ground', 'pyname': u'wind_sensor_height_above_ground', 'default': 10.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'wind speed profile exponent', {'name': u'Wind Speed Profile Exponent', 'pyname': u'wind_speed_profile_exponent', 'default': 0.14, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'wind speed profile boundary layer thickness', {'name': u'Wind Speed Profile Boundary Layer Thickness', 'pyname': u'wind_speed_profile_boundary_layer_thickness', 'default': 270.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'air temperature sensor height above ground', {'name': u'Air Temperature Sensor Height Above Ground', 'pyname': u'air_temperature_sensor_height_above_ground', 'default': 1.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:WeatherStation`
         """
         self._data = OrderedDict()
-        self._data["Wind Sensor Height Above Ground"] = None
-        self._data["Wind Speed Profile Exponent"] = None
-        self._data["Wind Speed Profile Boundary Layer Thickness"] = None
-        self._data["Air Temperature Sensor Height Above Ground"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.wind_sensor_height_above_ground = None
-        else:
-            self.wind_sensor_height_above_ground = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wind_speed_profile_exponent = None
-        else:
-            self.wind_speed_profile_exponent = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wind_speed_profile_boundary_layer_thickness = None
-        else:
-            self.wind_speed_profile_boundary_layer_thickness = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_temperature_sensor_height_above_ground = None
-        else:
-            self.air_temperature_sensor_height_above_ground = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def wind_sensor_height_above_ground(self):
@@ -5850,23 +2265,13 @@ class SiteWeatherStation(object):
             value (float): value for IDD Field `Wind Sensor Height Above Ground`
                 Units: m
                 Default value: 10.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteWeatherStation.wind_sensor_height_above_ground`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SiteWeatherStation.wind_sensor_height_above_ground`')
-        self._data["Wind Sensor Height Above Ground"] = value
+        self["Wind Sensor Height Above Ground"] = value
 
     @property
     def wind_speed_profile_exponent(self):
@@ -5884,23 +2289,13 @@ class SiteWeatherStation(object):
         Args:
             value (float): value for IDD Field `Wind Speed Profile Exponent`
                 Default value: 0.14
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteWeatherStation.wind_speed_profile_exponent`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteWeatherStation.wind_speed_profile_exponent`')
-        self._data["Wind Speed Profile Exponent"] = value
+        self["Wind Speed Profile Exponent"] = value
 
     @property
     def wind_speed_profile_boundary_layer_thickness(self):
@@ -5919,23 +2314,13 @@ class SiteWeatherStation(object):
             value (float): value for IDD Field `Wind Speed Profile Boundary Layer Thickness`
                 Units: m
                 Default value: 270.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteWeatherStation.wind_speed_profile_boundary_layer_thickness`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteWeatherStation.wind_speed_profile_boundary_layer_thickness`')
-        self._data["Wind Speed Profile Boundary Layer Thickness"] = value
+        self["Wind Speed Profile Boundary Layer Thickness"] = value
 
     @property
     def air_temperature_sensor_height_above_ground(self):
@@ -5954,162 +2339,32 @@ class SiteWeatherStation(object):
             value (float): value for IDD Field `Air Temperature Sensor Height Above Ground`
                 Units: m
                 Default value: 1.5
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteWeatherStation.air_temperature_sensor_height_above_ground`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteWeatherStation.air_temperature_sensor_height_above_ground`')
-        self._data["Air Temperature Sensor Height Above Ground"] = value
+        self["Air Temperature Sensor Height Above Ground"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteWeatherStation:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteWeatherStation:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteWeatherStation: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteWeatherStation: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteHeightVariation(object):
+class SiteHeightVariation(DataObject):
     """ Corresponds to IDD object `Site:HeightVariation`
         This object is used if the user requires advanced control over height-dependent
         variations in wind speed and temperature.  When this object is not present, the default model
         for temperature dependence on height is used, and the wind speed is modeled according
         to the Terrain field of the BUILDING object.
     """
-    internal_name = "Site:HeightVariation"
-    field_count = 3
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Site:HeightVariation', 'pyname': u'SiteHeightVariation', 'format': None, 'fields': OrderedDict([(u'wind speed profile exponent', {'name': u'Wind Speed Profile Exponent', 'pyname': u'wind_speed_profile_exponent', 'default': 0.22, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'wind speed profile boundary layer thickness', {'name': u'Wind Speed Profile Boundary Layer Thickness', 'pyname': u'wind_speed_profile_boundary_layer_thickness', 'default': 370.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'air temperature gradient coefficient', {'name': u'Air Temperature Gradient Coefficient', 'pyname': u'air_temperature_gradient_coefficient', 'default': 0.0065, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'K/m'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:HeightVariation`
         """
         self._data = OrderedDict()
-        self._data["Wind Speed Profile Exponent"] = None
-        self._data["Wind Speed Profile Boundary Layer Thickness"] = None
-        self._data["Air Temperature Gradient Coefficient"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.wind_speed_profile_exponent = None
-        else:
-            self.wind_speed_profile_exponent = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wind_speed_profile_boundary_layer_thickness = None
-        else:
-            self.wind_speed_profile_boundary_layer_thickness = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_temperature_gradient_coefficient = None
-        else:
-            self.air_temperature_gradient_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def wind_speed_profile_exponent(self):
@@ -6128,23 +2383,13 @@ class SiteHeightVariation(object):
         Args:
             value (float): value for IDD Field `Wind Speed Profile Exponent`
                 Default value: 0.22
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteHeightVariation.wind_speed_profile_exponent`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteHeightVariation.wind_speed_profile_exponent`')
-        self._data["Wind Speed Profile Exponent"] = value
+        self["Wind Speed Profile Exponent"] = value
 
     @property
     def wind_speed_profile_boundary_layer_thickness(self):
@@ -6163,23 +2408,13 @@ class SiteHeightVariation(object):
             value (float): value for IDD Field `Wind Speed Profile Boundary Layer Thickness`
                 Units: m
                 Default value: 370.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteHeightVariation.wind_speed_profile_boundary_layer_thickness`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SiteHeightVariation.wind_speed_profile_boundary_layer_thickness`')
-        self._data["Wind Speed Profile Boundary Layer Thickness"] = value
+        self["Wind Speed Profile Boundary Layer Thickness"] = value
 
     @property
     def air_temperature_gradient_coefficient(self):
@@ -6199,107 +2434,16 @@ class SiteHeightVariation(object):
             value (float): value for IDD Field `Air Temperature Gradient Coefficient`
                 Units: K/m
                 Default value: 0.0065
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteHeightVariation.air_temperature_gradient_coefficient`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteHeightVariation.air_temperature_gradient_coefficient`')
-        self._data["Air Temperature Gradient Coefficient"] = value
+        self["Air Temperature Gradient Coefficient"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteHeightVariation:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteHeightVariation:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteHeightVariation: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteHeightVariation: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteGroundTemperatureBuildingSurface(object):
+class SiteGroundTemperatureBuildingSurface(DataObject):
     """ Corresponds to IDD object `Site:GroundTemperature:BuildingSurface`
         These temperatures are specifically for those surfaces that have the outside environment
         of "Ground".  Documentation about what values these should be is located in the
@@ -6310,127 +2454,16 @@ class SiteGroundTemperatureBuildingSurface(object):
         average ground temperatures (see Auxiliary Programs).  For typical commercial
         buildings in the USA, a reasonable default value is 2C less than the average indoor space temperature.
     """
-    internal_name = "Site:GroundTemperature:BuildingSurface"
-    field_count = 12
-    required_fields = ["January Ground Temperature", "February Ground Temperature", "March Ground Temperature", "April Ground Temperature", "May Ground Temperature", "June Ground Temperature", "July Ground Temperature", "August Ground Temperature", "September Ground Temperature", "October Ground Temperature", "November Ground Temperature", "December Ground Temperature"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 12
-    extensible_keys = []
+    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:BuildingSurface', 'pyname': u'SiteGroundTemperatureBuildingSurface', 'format': None, 'fields': OrderedDict([(u'january ground temperature', {'name': u'January Ground Temperature', 'pyname': u'january_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february ground temperature', {'name': u'February Ground Temperature', 'pyname': u'february_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march ground temperature', {'name': u'March Ground Temperature', 'pyname': u'march_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april ground temperature', {'name': u'April Ground Temperature', 'pyname': u'april_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may ground temperature', {'name': u'May Ground Temperature', 'pyname': u'may_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june ground temperature', {'name': u'June Ground Temperature', 'pyname': u'june_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july ground temperature', {'name': u'July Ground Temperature', 'pyname': u'july_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august ground temperature', {'name': u'August Ground Temperature', 'pyname': u'august_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september ground temperature', {'name': u'September Ground Temperature', 'pyname': u'september_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october ground temperature', {'name': u'October Ground Temperature', 'pyname': u'october_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november ground temperature', {'name': u'November Ground Temperature', 'pyname': u'november_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december ground temperature', {'name': u'December Ground Temperature', 'pyname': u'december_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundTemperature:BuildingSurface`
         """
         self._data = OrderedDict()
-        self._data["January Ground Temperature"] = None
-        self._data["February Ground Temperature"] = None
-        self._data["March Ground Temperature"] = None
-        self._data["April Ground Temperature"] = None
-        self._data["May Ground Temperature"] = None
-        self._data["June Ground Temperature"] = None
-        self._data["July Ground Temperature"] = None
-        self._data["August Ground Temperature"] = None
-        self._data["September Ground Temperature"] = None
-        self._data["October Ground Temperature"] = None
-        self._data["November Ground Temperature"] = None
-        self._data["December Ground Temperature"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.january_ground_temperature = None
-        else:
-            self.january_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.february_ground_temperature = None
-        else:
-            self.february_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.march_ground_temperature = None
-        else:
-            self.march_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.april_ground_temperature = None
-        else:
-            self.april_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.may_ground_temperature = None
-        else:
-            self.may_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.june_ground_temperature = None
-        else:
-            self.june_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.july_ground_temperature = None
-        else:
-            self.july_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.august_ground_temperature = None
-        else:
-            self.august_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.september_ground_temperature = None
-        else:
-            self.september_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.october_ground_temperature = None
-        else:
-            self.october_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.november_ground_temperature = None
-        else:
-            self.november_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.december_ground_temperature = None
-        else:
-            self.december_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def january_ground_temperature(self):
@@ -6455,13 +2488,7 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.january_ground_temperature`'.format(value))
-        self._data["January Ground Temperature"] = value
+        self["January Ground Temperature"] = value
 
     @property
     def february_ground_temperature(self):
@@ -6486,13 +2513,7 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.february_ground_temperature`'.format(value))
-        self._data["February Ground Temperature"] = value
+        self["February Ground Temperature"] = value
 
     @property
     def march_ground_temperature(self):
@@ -6517,13 +2538,7 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.march_ground_temperature`'.format(value))
-        self._data["March Ground Temperature"] = value
+        self["March Ground Temperature"] = value
 
     @property
     def april_ground_temperature(self):
@@ -6548,13 +2563,7 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.april_ground_temperature`'.format(value))
-        self._data["April Ground Temperature"] = value
+        self["April Ground Temperature"] = value
 
     @property
     def may_ground_temperature(self):
@@ -6579,13 +2588,7 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.may_ground_temperature`'.format(value))
-        self._data["May Ground Temperature"] = value
+        self["May Ground Temperature"] = value
 
     @property
     def june_ground_temperature(self):
@@ -6610,13 +2613,7 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.june_ground_temperature`'.format(value))
-        self._data["June Ground Temperature"] = value
+        self["June Ground Temperature"] = value
 
     @property
     def july_ground_temperature(self):
@@ -6641,13 +2638,7 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.july_ground_temperature`'.format(value))
-        self._data["July Ground Temperature"] = value
+        self["July Ground Temperature"] = value
 
     @property
     def august_ground_temperature(self):
@@ -6672,13 +2663,7 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.august_ground_temperature`'.format(value))
-        self._data["August Ground Temperature"] = value
+        self["August Ground Temperature"] = value
 
     @property
     def september_ground_temperature(self):
@@ -6703,13 +2688,7 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.september_ground_temperature`'.format(value))
-        self._data["September Ground Temperature"] = value
+        self["September Ground Temperature"] = value
 
     @property
     def october_ground_temperature(self):
@@ -6734,13 +2713,7 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.october_ground_temperature`'.format(value))
-        self._data["October Ground Temperature"] = value
+        self["October Ground Temperature"] = value
 
     @property
     def november_ground_temperature(self):
@@ -6765,13 +2738,7 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.november_ground_temperature`'.format(value))
-        self._data["November Ground Temperature"] = value
+        self["November Ground Temperature"] = value
 
     @property
     def december_ground_temperature(self):
@@ -6796,223 +2763,25 @@ class SiteGroundTemperatureBuildingSurface(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureBuildingSurface.december_ground_temperature`'.format(value))
-        self._data["December Ground Temperature"] = value
+        self["December Ground Temperature"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteGroundTemperatureBuildingSurface:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteGroundTemperatureBuildingSurface:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteGroundTemperatureBuildingSurface: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteGroundTemperatureBuildingSurface: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteGroundTemperatureFcfactorMethod(object):
+class SiteGroundTemperatureFcfactorMethod(DataObject):
     """ Corresponds to IDD object `Site:GroundTemperature:FCfactorMethod`
         These temperatures are specifically for underground walls and ground floors
         defined with the C-factor and F-factor methods, and should be close to the
         monthly average outdoor air temperature delayed by 3 months for the location.
     """
-    internal_name = "Site:GroundTemperature:FCfactorMethod"
-    field_count = 12
-    required_fields = ["January Ground Temperature", "February Ground Temperature", "March Ground Temperature", "April Ground Temperature", "May Ground Temperature", "June Ground Temperature", "July Ground Temperature", "August Ground Temperature", "September Ground Temperature", "October Ground Temperature", "November Ground Temperature", "December Ground Temperature"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 12
-    extensible_keys = []
+    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:FCfactorMethod', 'pyname': u'SiteGroundTemperatureFcfactorMethod', 'format': None, 'fields': OrderedDict([(u'january ground temperature', {'name': u'January Ground Temperature', 'pyname': u'january_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february ground temperature', {'name': u'February Ground Temperature', 'pyname': u'february_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march ground temperature', {'name': u'March Ground Temperature', 'pyname': u'march_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april ground temperature', {'name': u'April Ground Temperature', 'pyname': u'april_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may ground temperature', {'name': u'May Ground Temperature', 'pyname': u'may_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june ground temperature', {'name': u'June Ground Temperature', 'pyname': u'june_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july ground temperature', {'name': u'July Ground Temperature', 'pyname': u'july_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august ground temperature', {'name': u'August Ground Temperature', 'pyname': u'august_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september ground temperature', {'name': u'September Ground Temperature', 'pyname': u'september_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october ground temperature', {'name': u'October Ground Temperature', 'pyname': u'october_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november ground temperature', {'name': u'November Ground Temperature', 'pyname': u'november_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december ground temperature', {'name': u'December Ground Temperature', 'pyname': u'december_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundTemperature:FCfactorMethod`
         """
         self._data = OrderedDict()
-        self._data["January Ground Temperature"] = None
-        self._data["February Ground Temperature"] = None
-        self._data["March Ground Temperature"] = None
-        self._data["April Ground Temperature"] = None
-        self._data["May Ground Temperature"] = None
-        self._data["June Ground Temperature"] = None
-        self._data["July Ground Temperature"] = None
-        self._data["August Ground Temperature"] = None
-        self._data["September Ground Temperature"] = None
-        self._data["October Ground Temperature"] = None
-        self._data["November Ground Temperature"] = None
-        self._data["December Ground Temperature"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.january_ground_temperature = None
-        else:
-            self.january_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.february_ground_temperature = None
-        else:
-            self.february_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.march_ground_temperature = None
-        else:
-            self.march_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.april_ground_temperature = None
-        else:
-            self.april_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.may_ground_temperature = None
-        else:
-            self.may_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.june_ground_temperature = None
-        else:
-            self.june_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.july_ground_temperature = None
-        else:
-            self.july_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.august_ground_temperature = None
-        else:
-            self.august_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.september_ground_temperature = None
-        else:
-            self.september_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.october_ground_temperature = None
-        else:
-            self.october_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.november_ground_temperature = None
-        else:
-            self.november_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.december_ground_temperature = None
-        else:
-            self.december_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def january_ground_temperature(self):
@@ -7037,13 +2806,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.january_ground_temperature`'.format(value))
-        self._data["January Ground Temperature"] = value
+        self["January Ground Temperature"] = value
 
     @property
     def february_ground_temperature(self):
@@ -7068,13 +2831,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.february_ground_temperature`'.format(value))
-        self._data["February Ground Temperature"] = value
+        self["February Ground Temperature"] = value
 
     @property
     def march_ground_temperature(self):
@@ -7099,13 +2856,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.march_ground_temperature`'.format(value))
-        self._data["March Ground Temperature"] = value
+        self["March Ground Temperature"] = value
 
     @property
     def april_ground_temperature(self):
@@ -7130,13 +2881,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.april_ground_temperature`'.format(value))
-        self._data["April Ground Temperature"] = value
+        self["April Ground Temperature"] = value
 
     @property
     def may_ground_temperature(self):
@@ -7161,13 +2906,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.may_ground_temperature`'.format(value))
-        self._data["May Ground Temperature"] = value
+        self["May Ground Temperature"] = value
 
     @property
     def june_ground_temperature(self):
@@ -7192,13 +2931,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.june_ground_temperature`'.format(value))
-        self._data["June Ground Temperature"] = value
+        self["June Ground Temperature"] = value
 
     @property
     def july_ground_temperature(self):
@@ -7223,13 +2956,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.july_ground_temperature`'.format(value))
-        self._data["July Ground Temperature"] = value
+        self["July Ground Temperature"] = value
 
     @property
     def august_ground_temperature(self):
@@ -7254,13 +2981,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.august_ground_temperature`'.format(value))
-        self._data["August Ground Temperature"] = value
+        self["August Ground Temperature"] = value
 
     @property
     def september_ground_temperature(self):
@@ -7285,13 +3006,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.september_ground_temperature`'.format(value))
-        self._data["September Ground Temperature"] = value
+        self["September Ground Temperature"] = value
 
     @property
     def october_ground_temperature(self):
@@ -7316,13 +3031,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.october_ground_temperature`'.format(value))
-        self._data["October Ground Temperature"] = value
+        self["October Ground Temperature"] = value
 
     @property
     def november_ground_temperature(self):
@@ -7347,13 +3056,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.november_ground_temperature`'.format(value))
-        self._data["November Ground Temperature"] = value
+        self["November Ground Temperature"] = value
 
     @property
     def december_ground_temperature(self):
@@ -7378,223 +3081,25 @@ class SiteGroundTemperatureFcfactorMethod(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureFcfactorMethod.december_ground_temperature`'.format(value))
-        self._data["December Ground Temperature"] = value
+        self["December Ground Temperature"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteGroundTemperatureFcfactorMethod:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteGroundTemperatureFcfactorMethod:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteGroundTemperatureFcfactorMethod: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteGroundTemperatureFcfactorMethod: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteGroundTemperatureShallow(object):
+class SiteGroundTemperatureShallow(DataObject):
     """ Corresponds to IDD object `Site:GroundTemperature:Shallow`
         These temperatures are specifically for the Surface Ground Heat Exchanger and
         should probably be close to the average outdoor air temperature for the location.
         They are not used in other models.
     """
-    internal_name = "Site:GroundTemperature:Shallow"
-    field_count = 12
-    required_fields = ["January Surface Ground Temperature", "February Surface Ground Temperature", "March Surface Ground Temperature", "April Surface Ground Temperature", "May Surface Ground Temperature", "June Surface Ground Temperature", "July Surface Ground Temperature", "August Surface Ground Temperature", "September Surface Ground Temperature", "October Surface Ground Temperature", "November Surface Ground Temperature", "December Surface Ground Temperature"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 12
-    extensible_keys = []
+    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:Shallow', 'pyname': u'SiteGroundTemperatureShallow', 'format': None, 'fields': OrderedDict([(u'january surface ground temperature', {'name': u'January Surface Ground Temperature', 'pyname': u'january_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february surface ground temperature', {'name': u'February Surface Ground Temperature', 'pyname': u'february_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march surface ground temperature', {'name': u'March Surface Ground Temperature', 'pyname': u'march_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april surface ground temperature', {'name': u'April Surface Ground Temperature', 'pyname': u'april_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may surface ground temperature', {'name': u'May Surface Ground Temperature', 'pyname': u'may_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june surface ground temperature', {'name': u'June Surface Ground Temperature', 'pyname': u'june_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july surface ground temperature', {'name': u'July Surface Ground Temperature', 'pyname': u'july_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august surface ground temperature', {'name': u'August Surface Ground Temperature', 'pyname': u'august_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september surface ground temperature', {'name': u'September Surface Ground Temperature', 'pyname': u'september_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october surface ground temperature', {'name': u'October Surface Ground Temperature', 'pyname': u'october_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november surface ground temperature', {'name': u'November Surface Ground Temperature', 'pyname': u'november_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december surface ground temperature', {'name': u'December Surface Ground Temperature', 'pyname': u'december_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundTemperature:Shallow`
         """
         self._data = OrderedDict()
-        self._data["January Surface Ground Temperature"] = None
-        self._data["February Surface Ground Temperature"] = None
-        self._data["March Surface Ground Temperature"] = None
-        self._data["April Surface Ground Temperature"] = None
-        self._data["May Surface Ground Temperature"] = None
-        self._data["June Surface Ground Temperature"] = None
-        self._data["July Surface Ground Temperature"] = None
-        self._data["August Surface Ground Temperature"] = None
-        self._data["September Surface Ground Temperature"] = None
-        self._data["October Surface Ground Temperature"] = None
-        self._data["November Surface Ground Temperature"] = None
-        self._data["December Surface Ground Temperature"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.january_surface_ground_temperature = None
-        else:
-            self.january_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.february_surface_ground_temperature = None
-        else:
-            self.february_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.march_surface_ground_temperature = None
-        else:
-            self.march_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.april_surface_ground_temperature = None
-        else:
-            self.april_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.may_surface_ground_temperature = None
-        else:
-            self.may_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.june_surface_ground_temperature = None
-        else:
-            self.june_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.july_surface_ground_temperature = None
-        else:
-            self.july_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.august_surface_ground_temperature = None
-        else:
-            self.august_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.september_surface_ground_temperature = None
-        else:
-            self.september_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.october_surface_ground_temperature = None
-        else:
-            self.october_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.november_surface_ground_temperature = None
-        else:
-            self.november_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.december_surface_ground_temperature = None
-        else:
-            self.december_surface_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def january_surface_ground_temperature(self):
@@ -7619,13 +3124,7 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.january_surface_ground_temperature`'.format(value))
-        self._data["January Surface Ground Temperature"] = value
+        self["January Surface Ground Temperature"] = value
 
     @property
     def february_surface_ground_temperature(self):
@@ -7650,13 +3149,7 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.february_surface_ground_temperature`'.format(value))
-        self._data["February Surface Ground Temperature"] = value
+        self["February Surface Ground Temperature"] = value
 
     @property
     def march_surface_ground_temperature(self):
@@ -7681,13 +3174,7 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.march_surface_ground_temperature`'.format(value))
-        self._data["March Surface Ground Temperature"] = value
+        self["March Surface Ground Temperature"] = value
 
     @property
     def april_surface_ground_temperature(self):
@@ -7712,13 +3199,7 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.april_surface_ground_temperature`'.format(value))
-        self._data["April Surface Ground Temperature"] = value
+        self["April Surface Ground Temperature"] = value
 
     @property
     def may_surface_ground_temperature(self):
@@ -7743,13 +3224,7 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.may_surface_ground_temperature`'.format(value))
-        self._data["May Surface Ground Temperature"] = value
+        self["May Surface Ground Temperature"] = value
 
     @property
     def june_surface_ground_temperature(self):
@@ -7774,13 +3249,7 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.june_surface_ground_temperature`'.format(value))
-        self._data["June Surface Ground Temperature"] = value
+        self["June Surface Ground Temperature"] = value
 
     @property
     def july_surface_ground_temperature(self):
@@ -7805,13 +3274,7 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.july_surface_ground_temperature`'.format(value))
-        self._data["July Surface Ground Temperature"] = value
+        self["July Surface Ground Temperature"] = value
 
     @property
     def august_surface_ground_temperature(self):
@@ -7836,13 +3299,7 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.august_surface_ground_temperature`'.format(value))
-        self._data["August Surface Ground Temperature"] = value
+        self["August Surface Ground Temperature"] = value
 
     @property
     def september_surface_ground_temperature(self):
@@ -7867,13 +3324,7 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.september_surface_ground_temperature`'.format(value))
-        self._data["September Surface Ground Temperature"] = value
+        self["September Surface Ground Temperature"] = value
 
     @property
     def october_surface_ground_temperature(self):
@@ -7898,13 +3349,7 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.october_surface_ground_temperature`'.format(value))
-        self._data["October Surface Ground Temperature"] = value
+        self["October Surface Ground Temperature"] = value
 
     @property
     def november_surface_ground_temperature(self):
@@ -7929,13 +3374,7 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.november_surface_ground_temperature`'.format(value))
-        self._data["November Surface Ground Temperature"] = value
+        self["November Surface Ground Temperature"] = value
 
     @property
     def december_surface_ground_temperature(self):
@@ -7960,223 +3399,25 @@ class SiteGroundTemperatureShallow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureShallow.december_surface_ground_temperature`'.format(value))
-        self._data["December Surface Ground Temperature"] = value
+        self["December Surface Ground Temperature"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteGroundTemperatureShallow:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteGroundTemperatureShallow:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteGroundTemperatureShallow: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteGroundTemperatureShallow: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteGroundTemperatureDeep(object):
+class SiteGroundTemperatureDeep(DataObject):
     """ Corresponds to IDD object `Site:GroundTemperature:Deep`
         These temperatures are specifically for the ground heat exchangers that would use
         "deep" (3-4 m depth) ground temperatures for their heat source.
         They are not used in other models.
     """
-    internal_name = "Site:GroundTemperature:Deep"
-    field_count = 12
-    required_fields = ["January Deep Ground Temperature", "February Deep Ground Temperature", "March Deep Ground Temperature", "April Deep Ground Temperature", "May Deep Ground Temperature", "June Deep Ground Temperature", "July Deep Ground Temperature", "August Deep Ground Temperature", "September Deep Ground Temperature", "October Deep Ground Temperature", "November Deep Ground Temperature", "December Deep Ground Temperature"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 12
-    extensible_keys = []
+    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:Deep', 'pyname': u'SiteGroundTemperatureDeep', 'format': None, 'fields': OrderedDict([(u'january deep ground temperature', {'name': u'January Deep Ground Temperature', 'pyname': u'january_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february deep ground temperature', {'name': u'February Deep Ground Temperature', 'pyname': u'february_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march deep ground temperature', {'name': u'March Deep Ground Temperature', 'pyname': u'march_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april deep ground temperature', {'name': u'April Deep Ground Temperature', 'pyname': u'april_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may deep ground temperature', {'name': u'May Deep Ground Temperature', 'pyname': u'may_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june deep ground temperature', {'name': u'June Deep Ground Temperature', 'pyname': u'june_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july deep ground temperature', {'name': u'July Deep Ground Temperature', 'pyname': u'july_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august deep ground temperature', {'name': u'August Deep Ground Temperature', 'pyname': u'august_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september deep ground temperature', {'name': u'September Deep Ground Temperature', 'pyname': u'september_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october deep ground temperature', {'name': u'October Deep Ground Temperature', 'pyname': u'october_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november deep ground temperature', {'name': u'November Deep Ground Temperature', 'pyname': u'november_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december deep ground temperature', {'name': u'December Deep Ground Temperature', 'pyname': u'december_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundTemperature:Deep`
         """
         self._data = OrderedDict()
-        self._data["January Deep Ground Temperature"] = None
-        self._data["February Deep Ground Temperature"] = None
-        self._data["March Deep Ground Temperature"] = None
-        self._data["April Deep Ground Temperature"] = None
-        self._data["May Deep Ground Temperature"] = None
-        self._data["June Deep Ground Temperature"] = None
-        self._data["July Deep Ground Temperature"] = None
-        self._data["August Deep Ground Temperature"] = None
-        self._data["September Deep Ground Temperature"] = None
-        self._data["October Deep Ground Temperature"] = None
-        self._data["November Deep Ground Temperature"] = None
-        self._data["December Deep Ground Temperature"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.january_deep_ground_temperature = None
-        else:
-            self.january_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.february_deep_ground_temperature = None
-        else:
-            self.february_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.march_deep_ground_temperature = None
-        else:
-            self.march_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.april_deep_ground_temperature = None
-        else:
-            self.april_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.may_deep_ground_temperature = None
-        else:
-            self.may_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.june_deep_ground_temperature = None
-        else:
-            self.june_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.july_deep_ground_temperature = None
-        else:
-            self.july_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.august_deep_ground_temperature = None
-        else:
-            self.august_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.september_deep_ground_temperature = None
-        else:
-            self.september_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.october_deep_ground_temperature = None
-        else:
-            self.october_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.november_deep_ground_temperature = None
-        else:
-            self.november_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.december_deep_ground_temperature = None
-        else:
-            self.december_deep_ground_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def january_deep_ground_temperature(self):
@@ -8201,13 +3442,7 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.january_deep_ground_temperature`'.format(value))
-        self._data["January Deep Ground Temperature"] = value
+        self["January Deep Ground Temperature"] = value
 
     @property
     def february_deep_ground_temperature(self):
@@ -8232,13 +3467,7 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.february_deep_ground_temperature`'.format(value))
-        self._data["February Deep Ground Temperature"] = value
+        self["February Deep Ground Temperature"] = value
 
     @property
     def march_deep_ground_temperature(self):
@@ -8263,13 +3492,7 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.march_deep_ground_temperature`'.format(value))
-        self._data["March Deep Ground Temperature"] = value
+        self["March Deep Ground Temperature"] = value
 
     @property
     def april_deep_ground_temperature(self):
@@ -8294,13 +3517,7 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.april_deep_ground_temperature`'.format(value))
-        self._data["April Deep Ground Temperature"] = value
+        self["April Deep Ground Temperature"] = value
 
     @property
     def may_deep_ground_temperature(self):
@@ -8325,13 +3542,7 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.may_deep_ground_temperature`'.format(value))
-        self._data["May Deep Ground Temperature"] = value
+        self["May Deep Ground Temperature"] = value
 
     @property
     def june_deep_ground_temperature(self):
@@ -8356,13 +3567,7 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.june_deep_ground_temperature`'.format(value))
-        self._data["June Deep Ground Temperature"] = value
+        self["June Deep Ground Temperature"] = value
 
     @property
     def july_deep_ground_temperature(self):
@@ -8387,13 +3592,7 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.july_deep_ground_temperature`'.format(value))
-        self._data["July Deep Ground Temperature"] = value
+        self["July Deep Ground Temperature"] = value
 
     @property
     def august_deep_ground_temperature(self):
@@ -8418,13 +3617,7 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.august_deep_ground_temperature`'.format(value))
-        self._data["August Deep Ground Temperature"] = value
+        self["August Deep Ground Temperature"] = value
 
     @property
     def september_deep_ground_temperature(self):
@@ -8449,13 +3642,7 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.september_deep_ground_temperature`'.format(value))
-        self._data["September Deep Ground Temperature"] = value
+        self["September Deep Ground Temperature"] = value
 
     @property
     def october_deep_ground_temperature(self):
@@ -8480,13 +3667,7 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.october_deep_ground_temperature`'.format(value))
-        self._data["October Deep Ground Temperature"] = value
+        self["October Deep Ground Temperature"] = value
 
     @property
     def november_deep_ground_temperature(self):
@@ -8511,13 +3692,7 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.november_deep_ground_temperature`'.format(value))
-        self._data["November Deep Ground Temperature"] = value
+        self["November Deep Ground Temperature"] = value
 
     @property
     def december_deep_ground_temperature(self):
@@ -8542,318 +3717,24 @@ class SiteGroundTemperatureDeep(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundTemperatureDeep.december_deep_ground_temperature`'.format(value))
-        self._data["December Deep Ground Temperature"] = value
+        self["December Deep Ground Temperature"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteGroundTemperatureDeep:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteGroundTemperatureDeep:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteGroundTemperatureDeep: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteGroundTemperatureDeep: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteGroundDomain(object):
+class SiteGroundDomain(DataObject):
     """ Corresponds to IDD object `Site:GroundDomain`
         Ground coupled slab model for on-grade and
         in-grade cases with or without insulation.
     """
-    internal_name = "Site:GroundDomain"
-    field_count = 24
-    required_fields = ["Name", "Ground Domain Depth", "Perimeter Offset", "Soil Thermal Conductivity", "Soil Density", "Soil Specific Heat", "Kusuda-Achenbach Average Surface Temperature", "Kusuda-Achenbach Average Amplitude of Surface Temperature", "Kusuda-Achenbach Phase Shift of Minimum Surface Temperature", "Slab Boundary Condition Model Name", "Slab Location", "Vertical Insulation", "Simulation Timestep"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Site:GroundDomain', 'pyname': u'SiteGroundDomain', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ground domain depth', {'name': u'Ground Domain Depth', 'pyname': u'ground_domain_depth', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'aspect ratio', {'name': u'Aspect Ratio', 'pyname': u'aspect_ratio', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'perimeter offset', {'name': u'Perimeter Offset', 'pyname': u'perimeter_offset', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'soil thermal conductivity', {'name': u'Soil Thermal Conductivity', 'pyname': u'soil_thermal_conductivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'soil density', {'name': u'Soil Density', 'pyname': u'soil_density', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m3'}), (u'soil specific heat', {'name': u'Soil Specific Heat', 'pyname': u'soil_specific_heat', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'soil moisture content volume fraction', {'name': u'Soil Moisture Content Volume Fraction', 'pyname': u'soil_moisture_content_volume_fraction', 'default': 30.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'soil moisture content volume fraction at saturation', {'name': u'Soil Moisture Content Volume Fraction at Saturation', 'pyname': u'soil_moisture_content_volume_fraction_at_saturation', 'default': 50.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'kusuda-achenbach average surface temperature', {'name': u'Kusuda-Achenbach Average Surface Temperature', 'pyname': u'kusudaachenbach_average_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'kusuda-achenbach average amplitude of surface temperature', {'name': u'Kusuda-Achenbach Average Amplitude of Surface Temperature', 'pyname': u'kusudaachenbach_average_amplitude_of_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'kusuda-achenbach phase shift of minimum surface temperature', {'name': u'Kusuda-Achenbach Phase Shift of Minimum Surface Temperature', 'pyname': u'kusudaachenbach_phase_shift_of_minimum_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'days'}), (u'evapotranspiration ground cover parameter', {'name': u'Evapotranspiration Ground Cover Parameter', 'pyname': u'evapotranspiration_ground_cover_parameter', 'default': 0.4, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slab boundary condition model name', {'name': u'Slab Boundary Condition Model Name', 'pyname': u'slab_boundary_condition_model_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'slab location', {'name': u'Slab Location', 'pyname': u'slab_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'slab material name', {'name': u'Slab Material Name', 'pyname': u'slab_material_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'horizontal insulation', {'name': u'Horizontal Insulation', 'pyname': u'horizontal_insulation', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'horizontal insulation material name', {'name': u'Horizontal Insulation Material Name', 'pyname': u'horizontal_insulation_material_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'horizontal insulation extents', {'name': u'Horizontal Insulation Extents', 'pyname': u'horizontal_insulation_extents', 'default': u'Full', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'perimeter insulation width', {'name': u'Perimeter Insulation Width', 'pyname': u'perimeter_insulation_width', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertical insulation', {'name': u'Vertical Insulation', 'pyname': u'vertical_insulation', 'default': u'No', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'vertical insulation material name', {'name': u'Vertical Insulation Material Name', 'pyname': u'vertical_insulation_material_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'vertical insulation depth', {'name': u'Vertical Insulation Depth', 'pyname': u'vertical_insulation_depth', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'simulation timestep', {'name': u'Simulation Timestep', 'pyname': u'simulation_timestep', 'default': u'Hourly', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundDomain`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Ground Domain Depth"] = None
-        self._data["Aspect Ratio"] = None
-        self._data["Perimeter Offset"] = None
-        self._data["Soil Thermal Conductivity"] = None
-        self._data["Soil Density"] = None
-        self._data["Soil Specific Heat"] = None
-        self._data["Soil Moisture Content Volume Fraction"] = None
-        self._data["Soil Moisture Content Volume Fraction at Saturation"] = None
-        self._data["Kusuda-Achenbach Average Surface Temperature"] = None
-        self._data["Kusuda-Achenbach Average Amplitude of Surface Temperature"] = None
-        self._data["Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"] = None
-        self._data["Evapotranspiration Ground Cover Parameter"] = None
-        self._data["Slab Boundary Condition Model Name"] = None
-        self._data["Slab Location"] = None
-        self._data["Slab Material Name"] = None
-        self._data["Horizontal Insulation"] = None
-        self._data["Horizontal Insulation Material Name"] = None
-        self._data["Horizontal Insulation Extents"] = None
-        self._data["Perimeter Insulation Width"] = None
-        self._data["Vertical Insulation"] = None
-        self._data["Vertical Insulation Material Name"] = None
-        self._data["Vertical Insulation Depth"] = None
-        self._data["Simulation Timestep"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ground_domain_depth = None
-        else:
-            self.ground_domain_depth = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.aspect_ratio = None
-        else:
-            self.aspect_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.perimeter_offset = None
-        else:
-            self.perimeter_offset = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.soil_thermal_conductivity = None
-        else:
-            self.soil_thermal_conductivity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.soil_density = None
-        else:
-            self.soil_density = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.soil_specific_heat = None
-        else:
-            self.soil_specific_heat = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.soil_moisture_content_volume_fraction = None
-        else:
-            self.soil_moisture_content_volume_fraction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.soil_moisture_content_volume_fraction_at_saturation = None
-        else:
-            self.soil_moisture_content_volume_fraction_at_saturation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.kusudaachenbach_average_surface_temperature = None
-        else:
-            self.kusudaachenbach_average_surface_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.kusudaachenbach_average_amplitude_of_surface_temperature = None
-        else:
-            self.kusudaachenbach_average_amplitude_of_surface_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.kusudaachenbach_phase_shift_of_minimum_surface_temperature = None
-        else:
-            self.kusudaachenbach_phase_shift_of_minimum_surface_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.evapotranspiration_ground_cover_parameter = None
-        else:
-            self.evapotranspiration_ground_cover_parameter = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.slab_boundary_condition_model_name = None
-        else:
-            self.slab_boundary_condition_model_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.slab_location = None
-        else:
-            self.slab_location = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.slab_material_name = None
-        else:
-            self.slab_material_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.horizontal_insulation = None
-        else:
-            self.horizontal_insulation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.horizontal_insulation_material_name = None
-        else:
-            self.horizontal_insulation_material_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.horizontal_insulation_extents = None
-        else:
-            self.horizontal_insulation_extents = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.perimeter_insulation_width = None
-        else:
-            self.perimeter_insulation_width = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.vertical_insulation = None
-        else:
-            self.vertical_insulation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.vertical_insulation_material_name = None
-        else:
-            self.vertical_insulation_material_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.vertical_insulation_depth = None
-        else:
-            self.vertical_insulation_depth = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.simulation_timestep = None
-        else:
-            self.simulation_timestep = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -8876,19 +3757,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteGroundDomain.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteGroundDomain.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteGroundDomain.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def ground_domain_depth(self):
@@ -8906,23 +3775,13 @@ class SiteGroundDomain(object):
         Args:
             value (float): value for IDD Field `Ground Domain Depth`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.ground_domain_depth`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SiteGroundDomain.ground_domain_depth`')
-        self._data["Ground Domain Depth"] = value
+        self["Ground Domain Depth"] = value
 
     @property
     def aspect_ratio(self):
@@ -8946,13 +3805,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.aspect_ratio`'.format(value))
-        self._data["Aspect Ratio"] = value
+        self["Aspect Ratio"] = value
 
     @property
     def perimeter_offset(self):
@@ -8970,23 +3823,13 @@ class SiteGroundDomain(object):
         Args:
             value (float): value for IDD Field `Perimeter Offset`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.perimeter_offset`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SiteGroundDomain.perimeter_offset`')
-        self._data["Perimeter Offset"] = value
+        self["Perimeter Offset"] = value
 
     @property
     def soil_thermal_conductivity(self):
@@ -9004,23 +3847,13 @@ class SiteGroundDomain(object):
         Args:
             value (float): value for IDD Field `Soil Thermal Conductivity`
                 Units: W/m-K
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.soil_thermal_conductivity`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SiteGroundDomain.soil_thermal_conductivity`')
-        self._data["Soil Thermal Conductivity"] = value
+        self["Soil Thermal Conductivity"] = value
 
     @property
     def soil_density(self):
@@ -9038,23 +3871,13 @@ class SiteGroundDomain(object):
         Args:
             value (float): value for IDD Field `Soil Density`
                 Units: kg/m3
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.soil_density`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SiteGroundDomain.soil_density`')
-        self._data["Soil Density"] = value
+        self["Soil Density"] = value
 
     @property
     def soil_specific_heat(self):
@@ -9072,23 +3895,13 @@ class SiteGroundDomain(object):
         Args:
             value (float): value for IDD Field `Soil Specific Heat`
                 Units: J/kg-K
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.soil_specific_heat`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SiteGroundDomain.soil_specific_heat`')
-        self._data["Soil Specific Heat"] = value
+        self["Soil Specific Heat"] = value
 
     @property
     def soil_moisture_content_volume_fraction(self):
@@ -9107,7 +3920,6 @@ class SiteGroundDomain(object):
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction`
                 Units: percent
                 Default value: 30.0
-                value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9115,19 +3927,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.soil_moisture_content_volume_fraction`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundDomain.soil_moisture_content_volume_fraction`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `SiteGroundDomain.soil_moisture_content_volume_fraction`')
-        self._data["Soil Moisture Content Volume Fraction"] = value
+        self["Soil Moisture Content Volume Fraction"] = value
 
     @property
     def soil_moisture_content_volume_fraction_at_saturation(self):
@@ -9146,7 +3946,6 @@ class SiteGroundDomain(object):
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction at Saturation`
                 Units: percent
                 Default value: 50.0
-                value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9154,19 +3953,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.soil_moisture_content_volume_fraction_at_saturation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundDomain.soil_moisture_content_volume_fraction_at_saturation`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `SiteGroundDomain.soil_moisture_content_volume_fraction_at_saturation`')
-        self._data["Soil Moisture Content Volume Fraction at Saturation"] = value
+        self["Soil Moisture Content Volume Fraction at Saturation"] = value
 
     @property
     def kusudaachenbach_average_surface_temperature(self):
@@ -9191,13 +3978,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.kusudaachenbach_average_surface_temperature`'.format(value))
-        self._data["Kusuda-Achenbach Average Surface Temperature"] = value
+        self["Kusuda-Achenbach Average Surface Temperature"] = value
 
     @property
     def kusudaachenbach_average_amplitude_of_surface_temperature(self):
@@ -9222,13 +4003,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.kusudaachenbach_average_amplitude_of_surface_temperature`'.format(value))
-        self._data["Kusuda-Achenbach Average Amplitude of Surface Temperature"] = value
+        self["Kusuda-Achenbach Average Amplitude of Surface Temperature"] = value
 
     @property
     def kusudaachenbach_phase_shift_of_minimum_surface_temperature(self):
@@ -9254,13 +4029,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.kusudaachenbach_phase_shift_of_minimum_surface_temperature`'.format(value))
-        self._data["Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"] = value
+        self["Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"] = value
 
     @property
     def evapotranspiration_ground_cover_parameter(self):
@@ -9284,7 +4053,6 @@ class SiteGroundDomain(object):
         Args:
             value (float): value for IDD Field `Evapotranspiration Ground Cover Parameter`
                 Default value: 0.4
-                value >= 0.0
                 value <= 1.5
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9292,19 +4060,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.evapotranspiration_ground_cover_parameter`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundDomain.evapotranspiration_ground_cover_parameter`')
-            if value > 1.5:
-                raise ValueError('value need to be smaller 1.5 '
-                                 'for field `SiteGroundDomain.evapotranspiration_ground_cover_parameter`')
-        self._data["Evapotranspiration Ground Cover Parameter"] = value
+        self["Evapotranspiration Ground Cover Parameter"] = value
 
     @property
     def slab_boundary_condition_model_name(self):
@@ -9327,19 +4083,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteGroundDomain.slab_boundary_condition_model_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteGroundDomain.slab_boundary_condition_model_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteGroundDomain.slab_boundary_condition_model_name`')
-        self._data["Slab Boundary Condition Model Name"] = value
+        self["Slab Boundary Condition Model Name"] = value
 
     @property
     def slab_location(self):
@@ -9357,55 +4101,13 @@ class SiteGroundDomain(object):
 
         Args:
             value (str): value for IDD Field `Slab Location`
-                Accepted values are:
-                      - InGrade
-                      - OnGrade
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteGroundDomain.slab_location`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteGroundDomain.slab_location`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteGroundDomain.slab_location`')
-            vals = {}
-            vals["ingrade"] = "InGrade"
-            vals["ongrade"] = "OnGrade"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SiteGroundDomain.slab_location`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SiteGroundDomain.slab_location`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Slab Location"] = value
+        self["Slab Location"] = value
 
     @property
     def slab_material_name(self):
@@ -9429,19 +4131,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteGroundDomain.slab_material_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteGroundDomain.slab_material_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteGroundDomain.slab_material_name`')
-        self._data["Slab Material Name"] = value
+        self["Slab Material Name"] = value
 
     @property
     def horizontal_insulation(self):
@@ -9460,9 +4150,6 @@ class SiteGroundDomain(object):
 
         Args:
             value (str): value for IDD Field `Horizontal Insulation`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9470,46 +4157,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteGroundDomain.horizontal_insulation`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteGroundDomain.horizontal_insulation`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteGroundDomain.horizontal_insulation`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SiteGroundDomain.horizontal_insulation`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SiteGroundDomain.horizontal_insulation`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Horizontal Insulation"] = value
+        self["Horizontal Insulation"] = value
 
     @property
     def horizontal_insulation_material_name(self):
@@ -9533,19 +4181,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteGroundDomain.horizontal_insulation_material_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteGroundDomain.horizontal_insulation_material_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteGroundDomain.horizontal_insulation_material_name`')
-        self._data["Horizontal Insulation Material Name"] = value
+        self["Horizontal Insulation Material Name"] = value
 
     @property
     def horizontal_insulation_extents(self):
@@ -9564,9 +4200,6 @@ class SiteGroundDomain(object):
 
         Args:
             value (str): value for IDD Field `Horizontal Insulation Extents`
-                Accepted values are:
-                      - Full
-                      - Perimeter
                 Default value: Full
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9574,46 +4207,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteGroundDomain.horizontal_insulation_extents`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteGroundDomain.horizontal_insulation_extents`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteGroundDomain.horizontal_insulation_extents`')
-            vals = {}
-            vals["full"] = "Full"
-            vals["perimeter"] = "Perimeter"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SiteGroundDomain.horizontal_insulation_extents`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SiteGroundDomain.horizontal_insulation_extents`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Horizontal Insulation Extents"] = value
+        self["Horizontal Insulation Extents"] = value
 
     @property
     def perimeter_insulation_width(self):
@@ -9632,23 +4226,13 @@ class SiteGroundDomain(object):
         Args:
             value (float): value for IDD Field `Perimeter Insulation Width`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.perimeter_insulation_width`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SiteGroundDomain.perimeter_insulation_width`')
-        self._data["Perimeter Insulation Width"] = value
+        self["Perimeter Insulation Width"] = value
 
     @property
     def vertical_insulation(self):
@@ -9666,9 +4250,6 @@ class SiteGroundDomain(object):
 
         Args:
             value (str): value for IDD Field `Vertical Insulation`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9676,46 +4257,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteGroundDomain.vertical_insulation`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteGroundDomain.vertical_insulation`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteGroundDomain.vertical_insulation`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SiteGroundDomain.vertical_insulation`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SiteGroundDomain.vertical_insulation`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Vertical Insulation"] = value
+        self["Vertical Insulation"] = value
 
     @property
     def vertical_insulation_material_name(self):
@@ -9739,19 +4281,7 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteGroundDomain.vertical_insulation_material_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteGroundDomain.vertical_insulation_material_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteGroundDomain.vertical_insulation_material_name`')
-        self._data["Vertical Insulation Material Name"] = value
+        self["Vertical Insulation Material Name"] = value
 
     @property
     def vertical_insulation_depth(self):
@@ -9771,23 +4301,13 @@ class SiteGroundDomain(object):
         Args:
             value (float): value for IDD Field `Vertical Insulation Depth`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundDomain.vertical_insulation_depth`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `SiteGroundDomain.vertical_insulation_depth`')
-        self._data["Vertical Insulation Depth"] = value
+        self["Vertical Insulation Depth"] = value
 
     @property
     def simulation_timestep(self):
@@ -9805,9 +4325,6 @@ class SiteGroundDomain(object):
 
         Args:
             value (str): value for IDD Field `Simulation Timestep`
-                Accepted values are:
-                      - Hourly
-                      - Timestep
                 Default value: Hourly
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9815,256 +4332,25 @@ class SiteGroundDomain(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteGroundDomain.simulation_timestep`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteGroundDomain.simulation_timestep`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteGroundDomain.simulation_timestep`')
-            vals = {}
-            vals["hourly"] = "Hourly"
-            vals["timestep"] = "Timestep"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SiteGroundDomain.simulation_timestep`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SiteGroundDomain.simulation_timestep`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Simulation Timestep"] = value
+        self["Simulation Timestep"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteGroundDomain:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteGroundDomain:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteGroundDomain: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteGroundDomain: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteGroundReflectance(object):
+class SiteGroundReflectance(DataObject):
     """ Corresponds to IDD object `Site:GroundReflectance`
         Specifies the ground reflectance values used to calculate ground reflected solar.
         The ground reflectance can be further modified when snow is on the ground
         by Site:GroundReflectance:SnowModifier.
     """
-    internal_name = "Site:GroundReflectance"
-    field_count = 12
-    required_fields = []
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 12
-    extensible_keys = []
+    schema = {'min-fields': 12, 'name': u'Site:GroundReflectance', 'pyname': u'SiteGroundReflectance', 'format': None, 'fields': OrderedDict([(u'january ground reflectance', {'name': u'January Ground Reflectance', 'pyname': u'january_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'february ground reflectance', {'name': u'February Ground Reflectance', 'pyname': u'february_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'march ground reflectance', {'name': u'March Ground Reflectance', 'pyname': u'march_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'april ground reflectance', {'name': u'April Ground Reflectance', 'pyname': u'april_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'may ground reflectance', {'name': u'May Ground Reflectance', 'pyname': u'may_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'june ground reflectance', {'name': u'June Ground Reflectance', 'pyname': u'june_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'july ground reflectance', {'name': u'July Ground Reflectance', 'pyname': u'july_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'august ground reflectance', {'name': u'August Ground Reflectance', 'pyname': u'august_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'september ground reflectance', {'name': u'September Ground Reflectance', 'pyname': u'september_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'october ground reflectance', {'name': u'October Ground Reflectance', 'pyname': u'october_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'november ground reflectance', {'name': u'November Ground Reflectance', 'pyname': u'november_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'december ground reflectance', {'name': u'December Ground Reflectance', 'pyname': u'december_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundReflectance`
         """
         self._data = OrderedDict()
-        self._data["January Ground Reflectance"] = None
-        self._data["February Ground Reflectance"] = None
-        self._data["March Ground Reflectance"] = None
-        self._data["April Ground Reflectance"] = None
-        self._data["May Ground Reflectance"] = None
-        self._data["June Ground Reflectance"] = None
-        self._data["July Ground Reflectance"] = None
-        self._data["August Ground Reflectance"] = None
-        self._data["September Ground Reflectance"] = None
-        self._data["October Ground Reflectance"] = None
-        self._data["November Ground Reflectance"] = None
-        self._data["December Ground Reflectance"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.january_ground_reflectance = None
-        else:
-            self.january_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.february_ground_reflectance = None
-        else:
-            self.february_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.march_ground_reflectance = None
-        else:
-            self.march_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.april_ground_reflectance = None
-        else:
-            self.april_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.may_ground_reflectance = None
-        else:
-            self.may_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.june_ground_reflectance = None
-        else:
-            self.june_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.july_ground_reflectance = None
-        else:
-            self.july_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.august_ground_reflectance = None
-        else:
-            self.august_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.september_ground_reflectance = None
-        else:
-            self.september_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.october_ground_reflectance = None
-        else:
-            self.october_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.november_ground_reflectance = None
-        else:
-            self.november_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.december_ground_reflectance = None
-        else:
-            self.december_ground_reflectance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def january_ground_reflectance(self):
@@ -10083,7 +4369,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `January Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10091,19 +4376,7 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.january_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.january_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.january_ground_reflectance`')
-        self._data["January Ground Reflectance"] = value
+        self["January Ground Reflectance"] = value
 
     @property
     def february_ground_reflectance(self):
@@ -10122,7 +4395,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `February Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10130,19 +4402,7 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.february_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.february_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.february_ground_reflectance`')
-        self._data["February Ground Reflectance"] = value
+        self["February Ground Reflectance"] = value
 
     @property
     def march_ground_reflectance(self):
@@ -10161,7 +4421,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `March Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10169,19 +4428,7 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.march_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.march_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.march_ground_reflectance`')
-        self._data["March Ground Reflectance"] = value
+        self["March Ground Reflectance"] = value
 
     @property
     def april_ground_reflectance(self):
@@ -10200,7 +4447,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `April Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10208,19 +4454,7 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.april_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.april_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.april_ground_reflectance`')
-        self._data["April Ground Reflectance"] = value
+        self["April Ground Reflectance"] = value
 
     @property
     def may_ground_reflectance(self):
@@ -10239,7 +4473,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `May Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10247,19 +4480,7 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.may_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.may_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.may_ground_reflectance`')
-        self._data["May Ground Reflectance"] = value
+        self["May Ground Reflectance"] = value
 
     @property
     def june_ground_reflectance(self):
@@ -10278,7 +4499,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `June Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10286,19 +4506,7 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.june_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.june_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.june_ground_reflectance`')
-        self._data["June Ground Reflectance"] = value
+        self["June Ground Reflectance"] = value
 
     @property
     def july_ground_reflectance(self):
@@ -10317,7 +4525,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `July Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10325,19 +4532,7 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.july_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.july_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.july_ground_reflectance`')
-        self._data["July Ground Reflectance"] = value
+        self["July Ground Reflectance"] = value
 
     @property
     def august_ground_reflectance(self):
@@ -10356,7 +4551,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `August Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10364,19 +4558,7 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.august_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.august_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.august_ground_reflectance`')
-        self._data["August Ground Reflectance"] = value
+        self["August Ground Reflectance"] = value
 
     @property
     def september_ground_reflectance(self):
@@ -10395,7 +4577,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `September Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10403,19 +4584,7 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.september_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.september_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.september_ground_reflectance`')
-        self._data["September Ground Reflectance"] = value
+        self["September Ground Reflectance"] = value
 
     @property
     def october_ground_reflectance(self):
@@ -10434,7 +4603,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `October Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10442,19 +4610,7 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.october_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.october_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.october_ground_reflectance`')
-        self._data["October Ground Reflectance"] = value
+        self["October Ground Reflectance"] = value
 
     @property
     def november_ground_reflectance(self):
@@ -10473,7 +4629,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `November Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10481,19 +4636,7 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.november_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.november_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.november_ground_reflectance`')
-        self._data["November Ground Reflectance"] = value
+        self["November Ground Reflectance"] = value
 
     @property
     def december_ground_reflectance(self):
@@ -10512,7 +4655,6 @@ class SiteGroundReflectance(object):
             value (float): value for IDD Field `December Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10520,149 +4662,25 @@ class SiteGroundReflectance(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectance.december_ground_reflectance`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectance.december_ground_reflectance`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `SiteGroundReflectance.december_ground_reflectance`')
-        self._data["December Ground Reflectance"] = value
+        self["December Ground Reflectance"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteGroundReflectance:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteGroundReflectance:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteGroundReflectance: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteGroundReflectance: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteGroundReflectanceSnowModifier(object):
+class SiteGroundReflectanceSnowModifier(DataObject):
     """ Corresponds to IDD object `Site:GroundReflectance:SnowModifier`
         Specifies ground reflectance multipliers when snow resident on the ground.
         These multipliers are applied to the "normal" ground reflectances specified
         in Site:GroundReflectance.
     """
-    internal_name = "Site:GroundReflectance:SnowModifier"
-    field_count = 2
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Site:GroundReflectance:SnowModifier', 'pyname': u'SiteGroundReflectanceSnowModifier', 'format': None, 'fields': OrderedDict([(u'ground reflected solar modifier', {'name': u'Ground Reflected Solar Modifier', 'pyname': u'ground_reflected_solar_modifier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'daylighting ground reflected solar modifier', {'name': u'Daylighting Ground Reflected Solar Modifier', 'pyname': u'daylighting_ground_reflected_solar_modifier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundReflectance:SnowModifier`
         """
         self._data = OrderedDict()
-        self._data["Ground Reflected Solar Modifier"] = None
-        self._data["Daylighting Ground Reflected Solar Modifier"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.ground_reflected_solar_modifier = None
-        else:
-            self.ground_reflected_solar_modifier = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.daylighting_ground_reflected_solar_modifier = None
-        else:
-            self.daylighting_ground_reflected_solar_modifier = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def ground_reflected_solar_modifier(self):
@@ -10687,23 +4705,13 @@ class SiteGroundReflectanceSnowModifier(object):
         Args:
             value (float): value for IDD Field `Ground Reflected Solar Modifier`
                 Default value: 1.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectanceSnowModifier.ground_reflected_solar_modifier`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectanceSnowModifier.ground_reflected_solar_modifier`')
-        self._data["Ground Reflected Solar Modifier"] = value
+        self["Ground Reflected Solar Modifier"] = value
 
     @property
     def daylighting_ground_reflected_solar_modifier(self):
@@ -10728,169 +4736,31 @@ class SiteGroundReflectanceSnowModifier(object):
         Args:
             value (float): value for IDD Field `Daylighting Ground Reflected Solar Modifier`
                 Default value: 1.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteGroundReflectanceSnowModifier.daylighting_ground_reflected_solar_modifier`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteGroundReflectanceSnowModifier.daylighting_ground_reflected_solar_modifier`')
-        self._data["Daylighting Ground Reflected Solar Modifier"] = value
+        self["Daylighting Ground Reflected Solar Modifier"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteGroundReflectanceSnowModifier:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteGroundReflectanceSnowModifier:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteGroundReflectanceSnowModifier: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteGroundReflectanceSnowModifier: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteWaterMainsTemperature(object):
+class SiteWaterMainsTemperature(DataObject):
     """ Corresponds to IDD object `Site:WaterMainsTemperature`
         Used to calculate water mains temperatures delivered by underground water main pipes.
         Water mains temperatures are a function of outdoor climate conditions
         and vary with time of year.
     """
-    internal_name = "Site:WaterMainsTemperature"
-    field_count = 4
-    required_fields = ["Calculation Method"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Site:WaterMainsTemperature', 'pyname': u'SiteWaterMainsTemperature', 'format': None, 'fields': OrderedDict([(u'calculation method', {'name': u'Calculation Method', 'pyname': u'calculation_method', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'temperature schedule name', {'name': u'Temperature Schedule Name', 'pyname': u'temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'annual average outdoor air temperature', {'name': u'Annual Average Outdoor Air Temperature', 'pyname': u'annual_average_outdoor_air_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum difference in monthly average outdoor air temperatures', {'name': u'Maximum Difference In Monthly Average Outdoor Air Temperatures', 'pyname': u'maximum_difference_in_monthly_average_outdoor_air_temperatures', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:WaterMainsTemperature`
         """
         self._data = OrderedDict()
-        self._data["Calculation Method"] = None
-        self._data["Temperature Schedule Name"] = None
-        self._data["Annual Average Outdoor Air Temperature"] = None
-        self._data["Maximum Difference In Monthly Average Outdoor Air Temperatures"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.calculation_method = None
-        else:
-            self.calculation_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_schedule_name = None
-        else:
-            self.temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.annual_average_outdoor_air_temperature = None
-        else:
-            self.annual_average_outdoor_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_difference_in_monthly_average_outdoor_air_temperatures = None
-        else:
-            self.maximum_difference_in_monthly_average_outdoor_air_temperatures = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def calculation_method(self):
@@ -10907,55 +4777,13 @@ class SiteWaterMainsTemperature(object):
 
         Args:
             value (str): value for IDD Field `Calculation Method`
-                Accepted values are:
-                      - Schedule
-                      - Correlation
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteWaterMainsTemperature.calculation_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteWaterMainsTemperature.calculation_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteWaterMainsTemperature.calculation_method`')
-            vals = {}
-            vals["schedule"] = "Schedule"
-            vals["correlation"] = "Correlation"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SiteWaterMainsTemperature.calculation_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SiteWaterMainsTemperature.calculation_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Calculation Method"] = value
+        self["Calculation Method"] = value
 
     @property
     def temperature_schedule_name(self):
@@ -10978,19 +4806,7 @@ class SiteWaterMainsTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteWaterMainsTemperature.temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteWaterMainsTemperature.temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteWaterMainsTemperature.temperature_schedule_name`')
-        self._data["Temperature Schedule Name"] = value
+        self["Temperature Schedule Name"] = value
 
     @property
     def annual_average_outdoor_air_temperature(self):
@@ -11014,13 +4830,7 @@ class SiteWaterMainsTemperature(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteWaterMainsTemperature.annual_average_outdoor_air_temperature`'.format(value))
-        self._data["Annual Average Outdoor Air Temperature"] = value
+        self["Annual Average Outdoor Air Temperature"] = value
 
     @property
     def maximum_difference_in_monthly_average_outdoor_air_temperatures(self):
@@ -11038,168 +4848,30 @@ class SiteWaterMainsTemperature(object):
         Args:
             value (float): value for IDD Field `Maximum Difference In Monthly Average Outdoor Air Temperatures`
                 Units: deltaC
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteWaterMainsTemperature.maximum_difference_in_monthly_average_outdoor_air_temperatures`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SiteWaterMainsTemperature.maximum_difference_in_monthly_average_outdoor_air_temperatures`')
-        self._data["Maximum Difference In Monthly Average Outdoor Air Temperatures"] = value
+        self["Maximum Difference In Monthly Average Outdoor Air Temperatures"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteWaterMainsTemperature:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteWaterMainsTemperature:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteWaterMainsTemperature: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteWaterMainsTemperature: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SitePrecipitation(object):
+class SitePrecipitation(DataObject):
     """ Corresponds to IDD object `Site:Precipitation`
         Used to describe the amount of water precipitation at the building site.
         Precipitation includes both rain and the equivalent water content of snow.
     """
-    internal_name = "Site:Precipitation"
-    field_count = 4
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Site:Precipitation', 'pyname': u'SitePrecipitation', 'format': None, 'fields': OrderedDict([(u'precipitation model type', {'name': u'Precipitation Model Type', 'pyname': u'precipitation_model_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design level for total annual precipitation', {'name': u'Design Level for Total Annual Precipitation', 'pyname': u'design_level_for_total_annual_precipitation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm/yr'}), (u'precipitation rates schedule name', {'name': u'Precipitation Rates Schedule Name', 'pyname': u'precipitation_rates_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'average total annual precipitation', {'name': u'Average Total Annual Precipitation', 'pyname': u'average_total_annual_precipitation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm/yr'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:Precipitation`
         """
         self._data = OrderedDict()
-        self._data["Precipitation Model Type"] = None
-        self._data["Design Level for Total Annual Precipitation"] = None
-        self._data["Precipitation Rates Schedule Name"] = None
-        self._data["Average Total Annual Precipitation"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.precipitation_model_type = None
-        else:
-            self.precipitation_model_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_level_for_total_annual_precipitation = None
-        else:
-            self.design_level_for_total_annual_precipitation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.precipitation_rates_schedule_name = None
-        else:
-            self.precipitation_rates_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.average_total_annual_precipitation = None
-        else:
-            self.average_total_annual_precipitation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def precipitation_model_type(self):
@@ -11216,53 +4888,13 @@ class SitePrecipitation(object):
 
         Args:
             value (str): value for IDD Field `Precipitation Model Type`
-                Accepted values are:
-                      - ScheduleAndDesignLevel
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SitePrecipitation.precipitation_model_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SitePrecipitation.precipitation_model_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SitePrecipitation.precipitation_model_type`')
-            vals = {}
-            vals["scheduleanddesignlevel"] = "ScheduleAndDesignLevel"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SitePrecipitation.precipitation_model_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SitePrecipitation.precipitation_model_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Precipitation Model Type"] = value
+        self["Precipitation Model Type"] = value
 
     @property
     def design_level_for_total_annual_precipitation(self):
@@ -11287,13 +4919,7 @@ class SitePrecipitation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SitePrecipitation.design_level_for_total_annual_precipitation`'.format(value))
-        self._data["Design Level for Total Annual Precipitation"] = value
+        self["Design Level for Total Annual Precipitation"] = value
 
     @property
     def precipitation_rates_schedule_name(self):
@@ -11318,19 +4944,7 @@ class SitePrecipitation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SitePrecipitation.precipitation_rates_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SitePrecipitation.precipitation_rates_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SitePrecipitation.precipitation_rates_schedule_name`')
-        self._data["Precipitation Rates Schedule Name"] = value
+        self["Precipitation Rates Schedule Name"] = value
 
     @property
     def average_total_annual_precipitation(self):
@@ -11349,160 +4963,30 @@ class SitePrecipitation(object):
         Args:
             value (float): value for IDD Field `Average Total Annual Precipitation`
                 Units: m/yr
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SitePrecipitation.average_total_annual_precipitation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `SitePrecipitation.average_total_annual_precipitation`')
-        self._data["Average Total Annual Precipitation"] = value
+        self["Average Total Annual Precipitation"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SitePrecipitation:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SitePrecipitation:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SitePrecipitation: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SitePrecipitation: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class RoofIrrigation(object):
+class RoofIrrigation(DataObject):
     """ Corresponds to IDD object `RoofIrrigation`
         Used to describe the amount of irrigation on the ecoroof surface over the course
         of the simulation runperiod.
     """
-    internal_name = "RoofIrrigation"
-    field_count = 3
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'RoofIrrigation', 'pyname': u'RoofIrrigation', 'format': None, 'fields': OrderedDict([(u'irrigation model type', {'name': u'Irrigation Model Type', 'pyname': u'irrigation_model_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'irrigation rate schedule name', {'name': u'Irrigation Rate Schedule Name', 'pyname': u'irrigation_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'irrigation maximum saturation threshold', {'name': u'Irrigation Maximum Saturation Threshold', 'pyname': u'irrigation_maximum_saturation_threshold', 'default': 40.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'percent'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoofIrrigation`
         """
         self._data = OrderedDict()
-        self._data["Irrigation Model Type"] = None
-        self._data["Irrigation Rate Schedule Name"] = None
-        self._data["Irrigation Maximum Saturation Threshold"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.irrigation_model_type = None
-        else:
-            self.irrigation_model_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.irrigation_rate_schedule_name = None
-        else:
-            self.irrigation_rate_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.irrigation_maximum_saturation_threshold = None
-        else:
-            self.irrigation_maximum_saturation_threshold = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def irrigation_model_type(self):
@@ -11521,55 +5005,13 @@ class RoofIrrigation(object):
 
         Args:
             value (str): value for IDD Field `Irrigation Model Type`
-                Accepted values are:
-                      - Schedule
-                      - SmartSchedule
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RoofIrrigation.irrigation_model_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RoofIrrigation.irrigation_model_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RoofIrrigation.irrigation_model_type`')
-            vals = {}
-            vals["schedule"] = "Schedule"
-            vals["smartschedule"] = "SmartSchedule"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `RoofIrrigation.irrigation_model_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `RoofIrrigation.irrigation_model_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Irrigation Model Type"] = value
+        self["Irrigation Model Type"] = value
 
     @property
     def irrigation_rate_schedule_name(self):
@@ -11594,19 +5036,7 @@ class RoofIrrigation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `RoofIrrigation.irrigation_rate_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `RoofIrrigation.irrigation_rate_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `RoofIrrigation.irrigation_rate_schedule_name`')
-        self._data["Irrigation Rate Schedule Name"] = value
+        self["Irrigation Rate Schedule Name"] = value
 
     @property
     def irrigation_maximum_saturation_threshold(self):
@@ -11627,7 +5057,6 @@ class RoofIrrigation(object):
             value (float): value for IDD Field `Irrigation Maximum Saturation Threshold`
                 Units: percent
                 Default value: 40.0
-                value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11635,163 +5064,23 @@ class RoofIrrigation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `RoofIrrigation.irrigation_maximum_saturation_threshold`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `RoofIrrigation.irrigation_maximum_saturation_threshold`')
-            if value > 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `RoofIrrigation.irrigation_maximum_saturation_threshold`')
-        self._data["Irrigation Maximum Saturation Threshold"] = value
+        self["Irrigation Maximum Saturation Threshold"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field RoofIrrigation:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field RoofIrrigation:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for RoofIrrigation: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for RoofIrrigation: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteSolarAndVisibleSpectrum(object):
+class SiteSolarAndVisibleSpectrum(DataObject):
     """ Corresponds to IDD object `Site:SolarAndVisibleSpectrum`
         If this object is omitted, the default solar and visible spectrum data will be used.
     """
-    internal_name = "Site:SolarAndVisibleSpectrum"
-    field_count = 4
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Site:SolarAndVisibleSpectrum', 'pyname': u'SiteSolarAndVisibleSpectrum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'spectrum data method', {'name': u'Spectrum Data Method', 'pyname': u'spectrum_data_method', 'default': u'Default', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'solar spectrum data object name', {'name': u'Solar Spectrum Data Object Name', 'pyname': u'solar_spectrum_data_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'visible spectrum data object name', {'name': u'Visible Spectrum Data Object Name', 'pyname': u'visible_spectrum_data_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:SolarAndVisibleSpectrum`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Spectrum Data Method"] = None
-        self._data["Solar Spectrum Data Object Name"] = None
-        self._data["Visible Spectrum Data Object Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_data_method = None
-        else:
-            self.spectrum_data_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.solar_spectrum_data_object_name = None
-        else:
-            self.solar_spectrum_data_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.visible_spectrum_data_object_name = None
-        else:
-            self.visible_spectrum_data_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -11814,19 +5103,7 @@ class SiteSolarAndVisibleSpectrum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteSolarAndVisibleSpectrum.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteSolarAndVisibleSpectrum.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteSolarAndVisibleSpectrum.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def spectrum_data_method(self):
@@ -11846,9 +5123,6 @@ class SiteSolarAndVisibleSpectrum(object):
 
         Args:
             value (str): value for IDD Field `Spectrum Data Method`
-                Accepted values are:
-                      - Default
-                      - UserDefined
                 Default value: Default
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11856,46 +5130,7 @@ class SiteSolarAndVisibleSpectrum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteSolarAndVisibleSpectrum.spectrum_data_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteSolarAndVisibleSpectrum.spectrum_data_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteSolarAndVisibleSpectrum.spectrum_data_method`')
-            vals = {}
-            vals["default"] = "Default"
-            vals["userdefined"] = "UserDefined"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SiteSolarAndVisibleSpectrum.spectrum_data_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SiteSolarAndVisibleSpectrum.spectrum_data_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Spectrum Data Method"] = value
+        self["Spectrum Data Method"] = value
 
     @property
     def solar_spectrum_data_object_name(self):
@@ -11918,19 +5153,7 @@ class SiteSolarAndVisibleSpectrum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteSolarAndVisibleSpectrum.solar_spectrum_data_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteSolarAndVisibleSpectrum.solar_spectrum_data_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteSolarAndVisibleSpectrum.solar_spectrum_data_object_name`')
-        self._data["Solar Spectrum Data Object Name"] = value
+        self["Solar Spectrum Data Object Name"] = value
 
     @property
     def visible_spectrum_data_object_name(self):
@@ -11953,1861 +5176,25 @@ class SiteSolarAndVisibleSpectrum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteSolarAndVisibleSpectrum.visible_spectrum_data_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteSolarAndVisibleSpectrum.visible_spectrum_data_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteSolarAndVisibleSpectrum.visible_spectrum_data_object_name`')
-        self._data["Visible Spectrum Data Object Name"] = value
+        self["Visible Spectrum Data Object Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteSolarAndVisibleSpectrum:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteSolarAndVisibleSpectrum:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteSolarAndVisibleSpectrum: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteSolarAndVisibleSpectrum: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class SiteSpectrumData(object):
+class SiteSpectrumData(DataObject):
     """ Corresponds to IDD object `Site:SpectrumData`
         Spectrum Data Type is followed by up to 107 sets of normal-incidence measured values of
         [wavelength, spectrum] for wavelengths covering the solar (0.25 to 2.5 microns) or visible
         spectrum (0.38 to 0.78 microns)
     """
-    internal_name = "Site:SpectrumData"
-    field_count = 216
-    required_fields = ["Name", "Spectrum Data Type"]
-    extensible_fields = 0
-    format = None
-    min_fields = 8
-    extensible_keys = []
+    schema = {'min-fields': 8, 'name': u'Site:SpectrumData', 'pyname': u'SiteSpectrumData', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'spectrum data type', {'name': u'Spectrum Data Type', 'pyname': u'spectrum_data_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wavelength 1', {'name': u'Wavelength 1', 'pyname': u'wavelength_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 1', {'name': u'Spectrum 1', 'pyname': u'spectrum_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 2', {'name': u'Wavelength 2', 'pyname': u'wavelength_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 2', {'name': u'Spectrum 2', 'pyname': u'spectrum_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 3', {'name': u'Wavelength 3', 'pyname': u'wavelength_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 3', {'name': u'Spectrum 3', 'pyname': u'spectrum_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 4', {'name': u'Wavelength 4', 'pyname': u'wavelength_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 4', {'name': u'Spectrum 4', 'pyname': u'spectrum_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 5', {'name': u'Wavelength 5', 'pyname': u'wavelength_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 5', {'name': u'Spectrum 5', 'pyname': u'spectrum_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 6', {'name': u'Wavelength 6', 'pyname': u'wavelength_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 6', {'name': u'Spectrum 6', 'pyname': u'spectrum_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 7', {'name': u'Wavelength 7', 'pyname': u'wavelength_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 7', {'name': u'Spectrum 7', 'pyname': u'spectrum_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 8', {'name': u'Wavelength 8', 'pyname': u'wavelength_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 8', {'name': u'Spectrum 8', 'pyname': u'spectrum_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 9', {'name': u'Wavelength 9', 'pyname': u'wavelength_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 9', {'name': u'Spectrum 9', 'pyname': u'spectrum_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 10', {'name': u'Wavelength 10', 'pyname': u'wavelength_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 10', {'name': u'Spectrum 10', 'pyname': u'spectrum_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 11', {'name': u'Wavelength 11', 'pyname': u'wavelength_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 11', {'name': u'Spectrum 11', 'pyname': u'spectrum_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 12', {'name': u'Wavelength 12', 'pyname': u'wavelength_12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 12', {'name': u'Spectrum 12', 'pyname': u'spectrum_12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 13', {'name': u'Wavelength 13', 'pyname': u'wavelength_13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 13', {'name': u'Spectrum 13', 'pyname': u'spectrum_13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 14', {'name': u'Wavelength 14', 'pyname': u'wavelength_14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 14', {'name': u'Spectrum 14', 'pyname': u'spectrum_14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 15', {'name': u'Wavelength 15', 'pyname': u'wavelength_15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 15', {'name': u'Spectrum 15', 'pyname': u'spectrum_15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 16', {'name': u'Wavelength 16', 'pyname': u'wavelength_16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 16', {'name': u'Spectrum 16', 'pyname': u'spectrum_16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 17', {'name': u'Wavelength 17', 'pyname': u'wavelength_17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 17', {'name': u'Spectrum 17', 'pyname': u'spectrum_17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 18', {'name': u'Wavelength 18', 'pyname': u'wavelength_18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 18', {'name': u'Spectrum 18', 'pyname': u'spectrum_18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 19', {'name': u'Wavelength 19', 'pyname': u'wavelength_19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 19', {'name': u'Spectrum 19', 'pyname': u'spectrum_19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 20', {'name': u'Wavelength 20', 'pyname': u'wavelength_20', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 20', {'name': u'Spectrum 20', 'pyname': u'spectrum_20', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 21', {'name': u'Wavelength 21', 'pyname': u'wavelength_21', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 21', {'name': u'Spectrum 21', 'pyname': u'spectrum_21', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 22', {'name': u'Wavelength 22', 'pyname': u'wavelength_22', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 22', {'name': u'Spectrum 22', 'pyname': u'spectrum_22', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 23', {'name': u'Wavelength 23', 'pyname': u'wavelength_23', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 23', {'name': u'Spectrum 23', 'pyname': u'spectrum_23', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 24', {'name': u'Wavelength 24', 'pyname': u'wavelength_24', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 24', {'name': u'Spectrum 24', 'pyname': u'spectrum_24', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 25', {'name': u'Wavelength 25', 'pyname': u'wavelength_25', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 25', {'name': u'Spectrum 25', 'pyname': u'spectrum_25', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 26', {'name': u'Wavelength 26', 'pyname': u'wavelength_26', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 26', {'name': u'Spectrum 26', 'pyname': u'spectrum_26', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 27', {'name': u'Wavelength 27', 'pyname': u'wavelength_27', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 27', {'name': u'Spectrum 27', 'pyname': u'spectrum_27', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 28', {'name': u'Wavelength 28', 'pyname': u'wavelength_28', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 28', {'name': u'Spectrum 28', 'pyname': u'spectrum_28', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 29', {'name': u'Wavelength 29', 'pyname': u'wavelength_29', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 29', {'name': u'Spectrum 29', 'pyname': u'spectrum_29', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 30', {'name': u'Wavelength 30', 'pyname': u'wavelength_30', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 30', {'name': u'Spectrum 30', 'pyname': u'spectrum_30', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 31', {'name': u'Wavelength 31', 'pyname': u'wavelength_31', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 31', {'name': u'Spectrum 31', 'pyname': u'spectrum_31', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 32', {'name': u'Wavelength 32', 'pyname': u'wavelength_32', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 32', {'name': u'Spectrum 32', 'pyname': u'spectrum_32', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 33', {'name': u'Wavelength 33', 'pyname': u'wavelength_33', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 33', {'name': u'Spectrum 33', 'pyname': u'spectrum_33', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 34', {'name': u'Wavelength 34', 'pyname': u'wavelength_34', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 34', {'name': u'Spectrum 34', 'pyname': u'spectrum_34', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 35', {'name': u'Wavelength 35', 'pyname': u'wavelength_35', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 35', {'name': u'Spectrum 35', 'pyname': u'spectrum_35', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 36', {'name': u'Wavelength 36', 'pyname': u'wavelength_36', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 36', {'name': u'Spectrum 36', 'pyname': u'spectrum_36', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 37', {'name': u'Wavelength 37', 'pyname': u'wavelength_37', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 37', {'name': u'Spectrum 37', 'pyname': u'spectrum_37', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 38', {'name': u'Wavelength 38', 'pyname': u'wavelength_38', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 38', {'name': u'Spectrum 38', 'pyname': u'spectrum_38', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 39', {'name': u'Wavelength 39', 'pyname': u'wavelength_39', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 39', {'name': u'Spectrum 39', 'pyname': u'spectrum_39', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 40', {'name': u'Wavelength 40', 'pyname': u'wavelength_40', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 40', {'name': u'Spectrum 40', 'pyname': u'spectrum_40', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 41', {'name': u'Wavelength 41', 'pyname': u'wavelength_41', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 41', {'name': u'Spectrum 41', 'pyname': u'spectrum_41', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 42', {'name': u'Wavelength 42', 'pyname': u'wavelength_42', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 42', {'name': u'Spectrum 42', 'pyname': u'spectrum_42', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 43', {'name': u'Wavelength 43', 'pyname': u'wavelength_43', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 43', {'name': u'Spectrum 43', 'pyname': u'spectrum_43', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 44', {'name': u'Wavelength 44', 'pyname': u'wavelength_44', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 44', {'name': u'Spectrum 44', 'pyname': u'spectrum_44', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 45', {'name': u'Wavelength 45', 'pyname': u'wavelength_45', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 45', {'name': u'Spectrum 45', 'pyname': u'spectrum_45', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 46', {'name': u'Wavelength 46', 'pyname': u'wavelength_46', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 46', {'name': u'Spectrum 46', 'pyname': u'spectrum_46', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 47', {'name': u'Wavelength 47', 'pyname': u'wavelength_47', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 47', {'name': u'Spectrum 47', 'pyname': u'spectrum_47', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 48', {'name': u'Wavelength 48', 'pyname': u'wavelength_48', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 48', {'name': u'Spectrum 48', 'pyname': u'spectrum_48', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 49', {'name': u'Wavelength 49', 'pyname': u'wavelength_49', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 49', {'name': u'Spectrum 49', 'pyname': u'spectrum_49', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 50', {'name': u'Wavelength 50', 'pyname': u'wavelength_50', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 50', {'name': u'Spectrum 50', 'pyname': u'spectrum_50', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 51', {'name': u'Wavelength 51', 'pyname': u'wavelength_51', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 51', {'name': u'Spectrum 51', 'pyname': u'spectrum_51', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 52', {'name': u'Wavelength 52', 'pyname': u'wavelength_52', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 52', {'name': u'Spectrum 52', 'pyname': u'spectrum_52', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 53', {'name': u'Wavelength 53', 'pyname': u'wavelength_53', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 53', {'name': u'Spectrum 53', 'pyname': u'spectrum_53', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 54', {'name': u'Wavelength 54', 'pyname': u'wavelength_54', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 54', {'name': u'Spectrum 54', 'pyname': u'spectrum_54', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 55', {'name': u'Wavelength 55', 'pyname': u'wavelength_55', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 55', {'name': u'Spectrum 55', 'pyname': u'spectrum_55', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 56', {'name': u'Wavelength 56', 'pyname': u'wavelength_56', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 56', {'name': u'Spectrum 56', 'pyname': u'spectrum_56', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 57', {'name': u'Wavelength 57', 'pyname': u'wavelength_57', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 57', {'name': u'Spectrum 57', 'pyname': u'spectrum_57', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 58', {'name': u'Wavelength 58', 'pyname': u'wavelength_58', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 58', {'name': u'Spectrum 58', 'pyname': u'spectrum_58', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 59', {'name': u'Wavelength 59', 'pyname': u'wavelength_59', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 59', {'name': u'Spectrum 59', 'pyname': u'spectrum_59', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 60', {'name': u'Wavelength 60', 'pyname': u'wavelength_60', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 60', {'name': u'Spectrum 60', 'pyname': u'spectrum_60', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 61', {'name': u'Wavelength 61', 'pyname': u'wavelength_61', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 61', {'name': u'Spectrum 61', 'pyname': u'spectrum_61', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 62', {'name': u'Wavelength 62', 'pyname': u'wavelength_62', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 62', {'name': u'Spectrum 62', 'pyname': u'spectrum_62', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 63', {'name': u'Wavelength 63', 'pyname': u'wavelength_63', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 63', {'name': u'Spectrum 63', 'pyname': u'spectrum_63', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 64', {'name': u'Wavelength 64', 'pyname': u'wavelength_64', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 64', {'name': u'Spectrum 64', 'pyname': u'spectrum_64', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 65', {'name': u'Wavelength 65', 'pyname': u'wavelength_65', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 65', {'name': u'Spectrum 65', 'pyname': u'spectrum_65', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 66', {'name': u'Wavelength 66', 'pyname': u'wavelength_66', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 66', {'name': u'Spectrum 66', 'pyname': u'spectrum_66', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 67', {'name': u'Wavelength 67', 'pyname': u'wavelength_67', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 67', {'name': u'Spectrum 67', 'pyname': u'spectrum_67', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 68', {'name': u'Wavelength 68', 'pyname': u'wavelength_68', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 68', {'name': u'Spectrum 68', 'pyname': u'spectrum_68', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 69', {'name': u'Wavelength 69', 'pyname': u'wavelength_69', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 69', {'name': u'Spectrum 69', 'pyname': u'spectrum_69', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 70', {'name': u'Wavelength 70', 'pyname': u'wavelength_70', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 70', {'name': u'Spectrum 70', 'pyname': u'spectrum_70', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 71', {'name': u'Wavelength 71', 'pyname': u'wavelength_71', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 71', {'name': u'Spectrum 71', 'pyname': u'spectrum_71', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 72', {'name': u'Wavelength 72', 'pyname': u'wavelength_72', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 72', {'name': u'Spectrum 72', 'pyname': u'spectrum_72', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 73', {'name': u'Wavelength 73', 'pyname': u'wavelength_73', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 73', {'name': u'Spectrum 73', 'pyname': u'spectrum_73', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 74', {'name': u'Wavelength 74', 'pyname': u'wavelength_74', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 74', {'name': u'Spectrum 74', 'pyname': u'spectrum_74', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 75', {'name': u'Wavelength 75', 'pyname': u'wavelength_75', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 75', {'name': u'Spectrum 75', 'pyname': u'spectrum_75', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 76', {'name': u'Wavelength 76', 'pyname': u'wavelength_76', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 76', {'name': u'Spectrum 76', 'pyname': u'spectrum_76', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 77', {'name': u'Wavelength 77', 'pyname': u'wavelength_77', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 77', {'name': u'Spectrum 77', 'pyname': u'spectrum_77', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 78', {'name': u'Wavelength 78', 'pyname': u'wavelength_78', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 78', {'name': u'Spectrum 78', 'pyname': u'spectrum_78', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 79', {'name': u'Wavelength 79', 'pyname': u'wavelength_79', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 79', {'name': u'Spectrum 79', 'pyname': u'spectrum_79', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 80', {'name': u'Wavelength 80', 'pyname': u'wavelength_80', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 80', {'name': u'Spectrum 80', 'pyname': u'spectrum_80', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 81', {'name': u'Wavelength 81', 'pyname': u'wavelength_81', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 81', {'name': u'Spectrum 81', 'pyname': u'spectrum_81', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 82', {'name': u'Wavelength 82', 'pyname': u'wavelength_82', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 82', {'name': u'Spectrum 82', 'pyname': u'spectrum_82', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 83', {'name': u'Wavelength 83', 'pyname': u'wavelength_83', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 83', {'name': u'Spectrum 83', 'pyname': u'spectrum_83', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 84', {'name': u'Wavelength 84', 'pyname': u'wavelength_84', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 84', {'name': u'Spectrum 84', 'pyname': u'spectrum_84', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 85', {'name': u'Wavelength 85', 'pyname': u'wavelength_85', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 85', {'name': u'Spectrum 85', 'pyname': u'spectrum_85', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 86', {'name': u'Wavelength 86', 'pyname': u'wavelength_86', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 86', {'name': u'Spectrum 86', 'pyname': u'spectrum_86', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 87', {'name': u'Wavelength 87', 'pyname': u'wavelength_87', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 87', {'name': u'Spectrum 87', 'pyname': u'spectrum_87', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 88', {'name': u'Wavelength 88', 'pyname': u'wavelength_88', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 88', {'name': u'Spectrum 88', 'pyname': u'spectrum_88', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 89', {'name': u'Wavelength 89', 'pyname': u'wavelength_89', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 89', {'name': u'Spectrum 89', 'pyname': u'spectrum_89', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 90', {'name': u'Wavelength 90', 'pyname': u'wavelength_90', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 90', {'name': u'Spectrum 90', 'pyname': u'spectrum_90', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 91', {'name': u'Wavelength 91', 'pyname': u'wavelength_91', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 91', {'name': u'Spectrum 91', 'pyname': u'spectrum_91', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 92', {'name': u'Wavelength 92', 'pyname': u'wavelength_92', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 92', {'name': u'Spectrum 92', 'pyname': u'spectrum_92', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 93', {'name': u'Wavelength 93', 'pyname': u'wavelength_93', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 93', {'name': u'Spectrum 93', 'pyname': u'spectrum_93', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 94', {'name': u'Wavelength 94', 'pyname': u'wavelength_94', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 94', {'name': u'Spectrum 94', 'pyname': u'spectrum_94', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 95', {'name': u'Wavelength 95', 'pyname': u'wavelength_95', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 95', {'name': u'Spectrum 95', 'pyname': u'spectrum_95', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 96', {'name': u'Wavelength 96', 'pyname': u'wavelength_96', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 96', {'name': u'Spectrum 96', 'pyname': u'spectrum_96', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 97', {'name': u'Wavelength 97', 'pyname': u'wavelength_97', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 97', {'name': u'Spectrum 97', 'pyname': u'spectrum_97', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 98', {'name': u'Wavelength 98', 'pyname': u'wavelength_98', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 98', {'name': u'Spectrum 98', 'pyname': u'spectrum_98', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 99', {'name': u'Wavelength 99', 'pyname': u'wavelength_99', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 99', {'name': u'Spectrum 99', 'pyname': u'spectrum_99', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 100', {'name': u'Wavelength 100', 'pyname': u'wavelength_100', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 100', {'name': u'Spectrum 100', 'pyname': u'spectrum_100', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 101', {'name': u'Wavelength 101', 'pyname': u'wavelength_101', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 101', {'name': u'Spectrum 101', 'pyname': u'spectrum_101', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 102', {'name': u'Wavelength 102', 'pyname': u'wavelength_102', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 102', {'name': u'Spectrum 102', 'pyname': u'spectrum_102', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 103', {'name': u'Wavelength 103', 'pyname': u'wavelength_103', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 103', {'name': u'Spectrum 103', 'pyname': u'spectrum_103', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 104', {'name': u'Wavelength 104', 'pyname': u'wavelength_104', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 104', {'name': u'Spectrum 104', 'pyname': u'spectrum_104', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 105', {'name': u'Wavelength 105', 'pyname': u'wavelength_105', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 105', {'name': u'Spectrum 105', 'pyname': u'spectrum_105', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 106', {'name': u'Wavelength 106', 'pyname': u'wavelength_106', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 106', {'name': u'Spectrum 106', 'pyname': u'spectrum_106', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 107', {'name': u'Wavelength 107', 'pyname': u'wavelength_107', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 107', {'name': u'Spectrum 107', 'pyname': u'spectrum_107', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:SpectrumData`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Spectrum Data Type"] = None
-        self._data["Wavelength 1"] = None
-        self._data["Spectrum 1"] = None
-        self._data["Wavelength 2"] = None
-        self._data["Spectrum 2"] = None
-        self._data["Wavelength 3"] = None
-        self._data["Spectrum 3"] = None
-        self._data["Wavelength 4"] = None
-        self._data["Spectrum 4"] = None
-        self._data["Wavelength 5"] = None
-        self._data["Spectrum 5"] = None
-        self._data["Wavelength 6"] = None
-        self._data["Spectrum 6"] = None
-        self._data["Wavelength 7"] = None
-        self._data["Spectrum 7"] = None
-        self._data["Wavelength 8"] = None
-        self._data["Spectrum 8"] = None
-        self._data["Wavelength 9"] = None
-        self._data["Spectrum 9"] = None
-        self._data["Wavelength 10"] = None
-        self._data["Spectrum 10"] = None
-        self._data["Wavelength 11"] = None
-        self._data["Spectrum 11"] = None
-        self._data["Wavelength 12"] = None
-        self._data["Spectrum 12"] = None
-        self._data["Wavelength 13"] = None
-        self._data["Spectrum 13"] = None
-        self._data["Wavelength 14"] = None
-        self._data["Spectrum 14"] = None
-        self._data["Wavelength 15"] = None
-        self._data["Spectrum 15"] = None
-        self._data["Wavelength 16"] = None
-        self._data["Spectrum 16"] = None
-        self._data["Wavelength 17"] = None
-        self._data["Spectrum 17"] = None
-        self._data["Wavelength 18"] = None
-        self._data["Spectrum 18"] = None
-        self._data["Wavelength 19"] = None
-        self._data["Spectrum 19"] = None
-        self._data["Wavelength 20"] = None
-        self._data["Spectrum 20"] = None
-        self._data["Wavelength 21"] = None
-        self._data["Spectrum 21"] = None
-        self._data["Wavelength 22"] = None
-        self._data["Spectrum 22"] = None
-        self._data["Wavelength 23"] = None
-        self._data["Spectrum 23"] = None
-        self._data["Wavelength 24"] = None
-        self._data["Spectrum 24"] = None
-        self._data["Wavelength 25"] = None
-        self._data["Spectrum 25"] = None
-        self._data["Wavelength 26"] = None
-        self._data["Spectrum 26"] = None
-        self._data["Wavelength 27"] = None
-        self._data["Spectrum 27"] = None
-        self._data["Wavelength 28"] = None
-        self._data["Spectrum 28"] = None
-        self._data["Wavelength 29"] = None
-        self._data["Spectrum 29"] = None
-        self._data["Wavelength 30"] = None
-        self._data["Spectrum 30"] = None
-        self._data["Wavelength 31"] = None
-        self._data["Spectrum 31"] = None
-        self._data["Wavelength 32"] = None
-        self._data["Spectrum 32"] = None
-        self._data["Wavelength 33"] = None
-        self._data["Spectrum 33"] = None
-        self._data["Wavelength 34"] = None
-        self._data["Spectrum 34"] = None
-        self._data["Wavelength 35"] = None
-        self._data["Spectrum 35"] = None
-        self._data["Wavelength 36"] = None
-        self._data["Spectrum 36"] = None
-        self._data["Wavelength 37"] = None
-        self._data["Spectrum 37"] = None
-        self._data["Wavelength 38"] = None
-        self._data["Spectrum 38"] = None
-        self._data["Wavelength 39"] = None
-        self._data["Spectrum 39"] = None
-        self._data["Wavelength 40"] = None
-        self._data["Spectrum 40"] = None
-        self._data["Wavelength 41"] = None
-        self._data["Spectrum 41"] = None
-        self._data["Wavelength 42"] = None
-        self._data["Spectrum 42"] = None
-        self._data["Wavelength 43"] = None
-        self._data["Spectrum 43"] = None
-        self._data["Wavelength 44"] = None
-        self._data["Spectrum 44"] = None
-        self._data["Wavelength 45"] = None
-        self._data["Spectrum 45"] = None
-        self._data["Wavelength 46"] = None
-        self._data["Spectrum 46"] = None
-        self._data["Wavelength 47"] = None
-        self._data["Spectrum 47"] = None
-        self._data["Wavelength 48"] = None
-        self._data["Spectrum 48"] = None
-        self._data["Wavelength 49"] = None
-        self._data["Spectrum 49"] = None
-        self._data["Wavelength 50"] = None
-        self._data["Spectrum 50"] = None
-        self._data["Wavelength 51"] = None
-        self._data["Spectrum 51"] = None
-        self._data["Wavelength 52"] = None
-        self._data["Spectrum 52"] = None
-        self._data["Wavelength 53"] = None
-        self._data["Spectrum 53"] = None
-        self._data["Wavelength 54"] = None
-        self._data["Spectrum 54"] = None
-        self._data["Wavelength 55"] = None
-        self._data["Spectrum 55"] = None
-        self._data["Wavelength 56"] = None
-        self._data["Spectrum 56"] = None
-        self._data["Wavelength 57"] = None
-        self._data["Spectrum 57"] = None
-        self._data["Wavelength 58"] = None
-        self._data["Spectrum 58"] = None
-        self._data["Wavelength 59"] = None
-        self._data["Spectrum 59"] = None
-        self._data["Wavelength 60"] = None
-        self._data["Spectrum 60"] = None
-        self._data["Wavelength 61"] = None
-        self._data["Spectrum 61"] = None
-        self._data["Wavelength 62"] = None
-        self._data["Spectrum 62"] = None
-        self._data["Wavelength 63"] = None
-        self._data["Spectrum 63"] = None
-        self._data["Wavelength 64"] = None
-        self._data["Spectrum 64"] = None
-        self._data["Wavelength 65"] = None
-        self._data["Spectrum 65"] = None
-        self._data["Wavelength 66"] = None
-        self._data["Spectrum 66"] = None
-        self._data["Wavelength 67"] = None
-        self._data["Spectrum 67"] = None
-        self._data["Wavelength 68"] = None
-        self._data["Spectrum 68"] = None
-        self._data["Wavelength 69"] = None
-        self._data["Spectrum 69"] = None
-        self._data["Wavelength 70"] = None
-        self._data["Spectrum 70"] = None
-        self._data["Wavelength 71"] = None
-        self._data["Spectrum 71"] = None
-        self._data["Wavelength 72"] = None
-        self._data["Spectrum 72"] = None
-        self._data["Wavelength 73"] = None
-        self._data["Spectrum 73"] = None
-        self._data["Wavelength 74"] = None
-        self._data["Spectrum 74"] = None
-        self._data["Wavelength 75"] = None
-        self._data["Spectrum 75"] = None
-        self._data["Wavelength 76"] = None
-        self._data["Spectrum 76"] = None
-        self._data["Wavelength 77"] = None
-        self._data["Spectrum 77"] = None
-        self._data["Wavelength 78"] = None
-        self._data["Spectrum 78"] = None
-        self._data["Wavelength 79"] = None
-        self._data["Spectrum 79"] = None
-        self._data["Wavelength 80"] = None
-        self._data["Spectrum 80"] = None
-        self._data["Wavelength 81"] = None
-        self._data["Spectrum 81"] = None
-        self._data["Wavelength 82"] = None
-        self._data["Spectrum 82"] = None
-        self._data["Wavelength 83"] = None
-        self._data["Spectrum 83"] = None
-        self._data["Wavelength 84"] = None
-        self._data["Spectrum 84"] = None
-        self._data["Wavelength 85"] = None
-        self._data["Spectrum 85"] = None
-        self._data["Wavelength 86"] = None
-        self._data["Spectrum 86"] = None
-        self._data["Wavelength 87"] = None
-        self._data["Spectrum 87"] = None
-        self._data["Wavelength 88"] = None
-        self._data["Spectrum 88"] = None
-        self._data["Wavelength 89"] = None
-        self._data["Spectrum 89"] = None
-        self._data["Wavelength 90"] = None
-        self._data["Spectrum 90"] = None
-        self._data["Wavelength 91"] = None
-        self._data["Spectrum 91"] = None
-        self._data["Wavelength 92"] = None
-        self._data["Spectrum 92"] = None
-        self._data["Wavelength 93"] = None
-        self._data["Spectrum 93"] = None
-        self._data["Wavelength 94"] = None
-        self._data["Spectrum 94"] = None
-        self._data["Wavelength 95"] = None
-        self._data["Spectrum 95"] = None
-        self._data["Wavelength 96"] = None
-        self._data["Spectrum 96"] = None
-        self._data["Wavelength 97"] = None
-        self._data["Spectrum 97"] = None
-        self._data["Wavelength 98"] = None
-        self._data["Spectrum 98"] = None
-        self._data["Wavelength 99"] = None
-        self._data["Spectrum 99"] = None
-        self._data["Wavelength 100"] = None
-        self._data["Spectrum 100"] = None
-        self._data["Wavelength 101"] = None
-        self._data["Spectrum 101"] = None
-        self._data["Wavelength 102"] = None
-        self._data["Spectrum 102"] = None
-        self._data["Wavelength 103"] = None
-        self._data["Spectrum 103"] = None
-        self._data["Wavelength 104"] = None
-        self._data["Spectrum 104"] = None
-        self._data["Wavelength 105"] = None
-        self._data["Spectrum 105"] = None
-        self._data["Wavelength 106"] = None
-        self._data["Spectrum 106"] = None
-        self._data["Wavelength 107"] = None
-        self._data["Spectrum 107"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_data_type = None
-        else:
-            self.spectrum_data_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_1 = None
-        else:
-            self.wavelength_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_1 = None
-        else:
-            self.spectrum_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_2 = None
-        else:
-            self.wavelength_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_2 = None
-        else:
-            self.spectrum_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_3 = None
-        else:
-            self.wavelength_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_3 = None
-        else:
-            self.spectrum_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_4 = None
-        else:
-            self.wavelength_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_4 = None
-        else:
-            self.spectrum_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_5 = None
-        else:
-            self.wavelength_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_5 = None
-        else:
-            self.spectrum_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_6 = None
-        else:
-            self.wavelength_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_6 = None
-        else:
-            self.spectrum_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_7 = None
-        else:
-            self.wavelength_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_7 = None
-        else:
-            self.spectrum_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_8 = None
-        else:
-            self.wavelength_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_8 = None
-        else:
-            self.spectrum_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_9 = None
-        else:
-            self.wavelength_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_9 = None
-        else:
-            self.spectrum_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_10 = None
-        else:
-            self.wavelength_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_10 = None
-        else:
-            self.spectrum_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_11 = None
-        else:
-            self.wavelength_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_11 = None
-        else:
-            self.spectrum_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_12 = None
-        else:
-            self.wavelength_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_12 = None
-        else:
-            self.spectrum_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_13 = None
-        else:
-            self.wavelength_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_13 = None
-        else:
-            self.spectrum_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_14 = None
-        else:
-            self.wavelength_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_14 = None
-        else:
-            self.spectrum_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_15 = None
-        else:
-            self.wavelength_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_15 = None
-        else:
-            self.spectrum_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_16 = None
-        else:
-            self.wavelength_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_16 = None
-        else:
-            self.spectrum_16 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_17 = None
-        else:
-            self.wavelength_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_17 = None
-        else:
-            self.spectrum_17 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_18 = None
-        else:
-            self.wavelength_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_18 = None
-        else:
-            self.spectrum_18 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_19 = None
-        else:
-            self.wavelength_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_19 = None
-        else:
-            self.spectrum_19 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_20 = None
-        else:
-            self.wavelength_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_20 = None
-        else:
-            self.spectrum_20 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_21 = None
-        else:
-            self.wavelength_21 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_21 = None
-        else:
-            self.spectrum_21 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_22 = None
-        else:
-            self.wavelength_22 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_22 = None
-        else:
-            self.spectrum_22 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_23 = None
-        else:
-            self.wavelength_23 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_23 = None
-        else:
-            self.spectrum_23 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_24 = None
-        else:
-            self.wavelength_24 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_24 = None
-        else:
-            self.spectrum_24 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_25 = None
-        else:
-            self.wavelength_25 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_25 = None
-        else:
-            self.spectrum_25 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_26 = None
-        else:
-            self.wavelength_26 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_26 = None
-        else:
-            self.spectrum_26 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_27 = None
-        else:
-            self.wavelength_27 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_27 = None
-        else:
-            self.spectrum_27 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_28 = None
-        else:
-            self.wavelength_28 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_28 = None
-        else:
-            self.spectrum_28 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_29 = None
-        else:
-            self.wavelength_29 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_29 = None
-        else:
-            self.spectrum_29 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_30 = None
-        else:
-            self.wavelength_30 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_30 = None
-        else:
-            self.spectrum_30 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_31 = None
-        else:
-            self.wavelength_31 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_31 = None
-        else:
-            self.spectrum_31 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_32 = None
-        else:
-            self.wavelength_32 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_32 = None
-        else:
-            self.spectrum_32 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_33 = None
-        else:
-            self.wavelength_33 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_33 = None
-        else:
-            self.spectrum_33 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_34 = None
-        else:
-            self.wavelength_34 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_34 = None
-        else:
-            self.spectrum_34 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_35 = None
-        else:
-            self.wavelength_35 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_35 = None
-        else:
-            self.spectrum_35 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_36 = None
-        else:
-            self.wavelength_36 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_36 = None
-        else:
-            self.spectrum_36 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_37 = None
-        else:
-            self.wavelength_37 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_37 = None
-        else:
-            self.spectrum_37 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_38 = None
-        else:
-            self.wavelength_38 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_38 = None
-        else:
-            self.spectrum_38 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_39 = None
-        else:
-            self.wavelength_39 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_39 = None
-        else:
-            self.spectrum_39 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_40 = None
-        else:
-            self.wavelength_40 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_40 = None
-        else:
-            self.spectrum_40 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_41 = None
-        else:
-            self.wavelength_41 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_41 = None
-        else:
-            self.spectrum_41 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_42 = None
-        else:
-            self.wavelength_42 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_42 = None
-        else:
-            self.spectrum_42 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_43 = None
-        else:
-            self.wavelength_43 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_43 = None
-        else:
-            self.spectrum_43 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_44 = None
-        else:
-            self.wavelength_44 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_44 = None
-        else:
-            self.spectrum_44 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_45 = None
-        else:
-            self.wavelength_45 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_45 = None
-        else:
-            self.spectrum_45 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_46 = None
-        else:
-            self.wavelength_46 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_46 = None
-        else:
-            self.spectrum_46 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_47 = None
-        else:
-            self.wavelength_47 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_47 = None
-        else:
-            self.spectrum_47 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_48 = None
-        else:
-            self.wavelength_48 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_48 = None
-        else:
-            self.spectrum_48 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_49 = None
-        else:
-            self.wavelength_49 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_49 = None
-        else:
-            self.spectrum_49 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_50 = None
-        else:
-            self.wavelength_50 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_50 = None
-        else:
-            self.spectrum_50 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_51 = None
-        else:
-            self.wavelength_51 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_51 = None
-        else:
-            self.spectrum_51 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_52 = None
-        else:
-            self.wavelength_52 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_52 = None
-        else:
-            self.spectrum_52 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_53 = None
-        else:
-            self.wavelength_53 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_53 = None
-        else:
-            self.spectrum_53 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_54 = None
-        else:
-            self.wavelength_54 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_54 = None
-        else:
-            self.spectrum_54 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_55 = None
-        else:
-            self.wavelength_55 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_55 = None
-        else:
-            self.spectrum_55 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_56 = None
-        else:
-            self.wavelength_56 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_56 = None
-        else:
-            self.spectrum_56 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_57 = None
-        else:
-            self.wavelength_57 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_57 = None
-        else:
-            self.spectrum_57 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_58 = None
-        else:
-            self.wavelength_58 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_58 = None
-        else:
-            self.spectrum_58 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_59 = None
-        else:
-            self.wavelength_59 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_59 = None
-        else:
-            self.spectrum_59 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_60 = None
-        else:
-            self.wavelength_60 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_60 = None
-        else:
-            self.spectrum_60 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_61 = None
-        else:
-            self.wavelength_61 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_61 = None
-        else:
-            self.spectrum_61 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_62 = None
-        else:
-            self.wavelength_62 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_62 = None
-        else:
-            self.spectrum_62 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_63 = None
-        else:
-            self.wavelength_63 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_63 = None
-        else:
-            self.spectrum_63 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_64 = None
-        else:
-            self.wavelength_64 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_64 = None
-        else:
-            self.spectrum_64 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_65 = None
-        else:
-            self.wavelength_65 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_65 = None
-        else:
-            self.spectrum_65 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_66 = None
-        else:
-            self.wavelength_66 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_66 = None
-        else:
-            self.spectrum_66 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_67 = None
-        else:
-            self.wavelength_67 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_67 = None
-        else:
-            self.spectrum_67 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_68 = None
-        else:
-            self.wavelength_68 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_68 = None
-        else:
-            self.spectrum_68 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_69 = None
-        else:
-            self.wavelength_69 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_69 = None
-        else:
-            self.spectrum_69 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_70 = None
-        else:
-            self.wavelength_70 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_70 = None
-        else:
-            self.spectrum_70 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_71 = None
-        else:
-            self.wavelength_71 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_71 = None
-        else:
-            self.spectrum_71 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_72 = None
-        else:
-            self.wavelength_72 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_72 = None
-        else:
-            self.spectrum_72 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_73 = None
-        else:
-            self.wavelength_73 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_73 = None
-        else:
-            self.spectrum_73 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_74 = None
-        else:
-            self.wavelength_74 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_74 = None
-        else:
-            self.spectrum_74 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_75 = None
-        else:
-            self.wavelength_75 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_75 = None
-        else:
-            self.spectrum_75 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_76 = None
-        else:
-            self.wavelength_76 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_76 = None
-        else:
-            self.spectrum_76 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_77 = None
-        else:
-            self.wavelength_77 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_77 = None
-        else:
-            self.spectrum_77 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_78 = None
-        else:
-            self.wavelength_78 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_78 = None
-        else:
-            self.spectrum_78 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_79 = None
-        else:
-            self.wavelength_79 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_79 = None
-        else:
-            self.spectrum_79 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_80 = None
-        else:
-            self.wavelength_80 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_80 = None
-        else:
-            self.spectrum_80 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_81 = None
-        else:
-            self.wavelength_81 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_81 = None
-        else:
-            self.spectrum_81 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_82 = None
-        else:
-            self.wavelength_82 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_82 = None
-        else:
-            self.spectrum_82 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_83 = None
-        else:
-            self.wavelength_83 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_83 = None
-        else:
-            self.spectrum_83 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_84 = None
-        else:
-            self.wavelength_84 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_84 = None
-        else:
-            self.spectrum_84 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_85 = None
-        else:
-            self.wavelength_85 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_85 = None
-        else:
-            self.spectrum_85 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_86 = None
-        else:
-            self.wavelength_86 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_86 = None
-        else:
-            self.spectrum_86 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_87 = None
-        else:
-            self.wavelength_87 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_87 = None
-        else:
-            self.spectrum_87 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_88 = None
-        else:
-            self.wavelength_88 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_88 = None
-        else:
-            self.spectrum_88 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_89 = None
-        else:
-            self.wavelength_89 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_89 = None
-        else:
-            self.spectrum_89 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_90 = None
-        else:
-            self.wavelength_90 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_90 = None
-        else:
-            self.spectrum_90 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_91 = None
-        else:
-            self.wavelength_91 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_91 = None
-        else:
-            self.spectrum_91 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_92 = None
-        else:
-            self.wavelength_92 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_92 = None
-        else:
-            self.spectrum_92 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_93 = None
-        else:
-            self.wavelength_93 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_93 = None
-        else:
-            self.spectrum_93 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_94 = None
-        else:
-            self.wavelength_94 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_94 = None
-        else:
-            self.spectrum_94 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_95 = None
-        else:
-            self.wavelength_95 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_95 = None
-        else:
-            self.spectrum_95 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_96 = None
-        else:
-            self.wavelength_96 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_96 = None
-        else:
-            self.spectrum_96 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_97 = None
-        else:
-            self.wavelength_97 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_97 = None
-        else:
-            self.spectrum_97 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_98 = None
-        else:
-            self.wavelength_98 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_98 = None
-        else:
-            self.spectrum_98 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_99 = None
-        else:
-            self.wavelength_99 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_99 = None
-        else:
-            self.spectrum_99 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_100 = None
-        else:
-            self.wavelength_100 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_100 = None
-        else:
-            self.spectrum_100 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_101 = None
-        else:
-            self.wavelength_101 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_101 = None
-        else:
-            self.spectrum_101 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_102 = None
-        else:
-            self.wavelength_102 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_102 = None
-        else:
-            self.spectrum_102 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_103 = None
-        else:
-            self.wavelength_103 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_103 = None
-        else:
-            self.spectrum_103 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_104 = None
-        else:
-            self.wavelength_104 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_104 = None
-        else:
-            self.spectrum_104 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_105 = None
-        else:
-            self.wavelength_105 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_105 = None
-        else:
-            self.spectrum_105 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_106 = None
-        else:
-            self.wavelength_106 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_106 = None
-        else:
-            self.spectrum_106 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.wavelength_107 = None
-        else:
-            self.wavelength_107 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.spectrum_107 = None
-        else:
-            self.spectrum_107 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -13830,19 +5217,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteSpectrumData.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteSpectrumData.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteSpectrumData.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def spectrum_data_type(self):
@@ -13859,55 +5234,13 @@ class SiteSpectrumData(object):
 
         Args:
             value (str): value for IDD Field `Spectrum Data Type`
-                Accepted values are:
-                      - Solar
-                      - Visible
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `SiteSpectrumData.spectrum_data_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `SiteSpectrumData.spectrum_data_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `SiteSpectrumData.spectrum_data_type`')
-            vals = {}
-            vals["solar"] = "Solar"
-            vals["visible"] = "Visible"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `SiteSpectrumData.spectrum_data_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `SiteSpectrumData.spectrum_data_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Spectrum Data Type"] = value
+        self["Spectrum Data Type"] = value
 
     @property
     def wavelength_1(self):
@@ -13931,13 +5264,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_1`'.format(value))
-        self._data["Wavelength 1"] = value
+        self["Wavelength 1"] = value
 
     @property
     def spectrum_1(self):
@@ -13960,13 +5287,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_1`'.format(value))
-        self._data["Spectrum 1"] = value
+        self["Spectrum 1"] = value
 
     @property
     def wavelength_2(self):
@@ -13990,13 +5311,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_2`'.format(value))
-        self._data["Wavelength 2"] = value
+        self["Wavelength 2"] = value
 
     @property
     def spectrum_2(self):
@@ -14019,13 +5334,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_2`'.format(value))
-        self._data["Spectrum 2"] = value
+        self["Spectrum 2"] = value
 
     @property
     def wavelength_3(self):
@@ -14049,13 +5358,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_3`'.format(value))
-        self._data["Wavelength 3"] = value
+        self["Wavelength 3"] = value
 
     @property
     def spectrum_3(self):
@@ -14078,13 +5381,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_3`'.format(value))
-        self._data["Spectrum 3"] = value
+        self["Spectrum 3"] = value
 
     @property
     def wavelength_4(self):
@@ -14108,13 +5405,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_4`'.format(value))
-        self._data["Wavelength 4"] = value
+        self["Wavelength 4"] = value
 
     @property
     def spectrum_4(self):
@@ -14137,13 +5428,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_4`'.format(value))
-        self._data["Spectrum 4"] = value
+        self["Spectrum 4"] = value
 
     @property
     def wavelength_5(self):
@@ -14167,13 +5452,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_5`'.format(value))
-        self._data["Wavelength 5"] = value
+        self["Wavelength 5"] = value
 
     @property
     def spectrum_5(self):
@@ -14196,13 +5475,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_5`'.format(value))
-        self._data["Spectrum 5"] = value
+        self["Spectrum 5"] = value
 
     @property
     def wavelength_6(self):
@@ -14226,13 +5499,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_6`'.format(value))
-        self._data["Wavelength 6"] = value
+        self["Wavelength 6"] = value
 
     @property
     def spectrum_6(self):
@@ -14255,13 +5522,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_6`'.format(value))
-        self._data["Spectrum 6"] = value
+        self["Spectrum 6"] = value
 
     @property
     def wavelength_7(self):
@@ -14285,13 +5546,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_7`'.format(value))
-        self._data["Wavelength 7"] = value
+        self["Wavelength 7"] = value
 
     @property
     def spectrum_7(self):
@@ -14314,13 +5569,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_7`'.format(value))
-        self._data["Spectrum 7"] = value
+        self["Spectrum 7"] = value
 
     @property
     def wavelength_8(self):
@@ -14344,13 +5593,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_8`'.format(value))
-        self._data["Wavelength 8"] = value
+        self["Wavelength 8"] = value
 
     @property
     def spectrum_8(self):
@@ -14373,13 +5616,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_8`'.format(value))
-        self._data["Spectrum 8"] = value
+        self["Spectrum 8"] = value
 
     @property
     def wavelength_9(self):
@@ -14403,13 +5640,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_9`'.format(value))
-        self._data["Wavelength 9"] = value
+        self["Wavelength 9"] = value
 
     @property
     def spectrum_9(self):
@@ -14432,13 +5663,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_9`'.format(value))
-        self._data["Spectrum 9"] = value
+        self["Spectrum 9"] = value
 
     @property
     def wavelength_10(self):
@@ -14462,13 +5687,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_10`'.format(value))
-        self._data["Wavelength 10"] = value
+        self["Wavelength 10"] = value
 
     @property
     def spectrum_10(self):
@@ -14491,13 +5710,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_10`'.format(value))
-        self._data["Spectrum 10"] = value
+        self["Spectrum 10"] = value
 
     @property
     def wavelength_11(self):
@@ -14521,13 +5734,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_11`'.format(value))
-        self._data["Wavelength 11"] = value
+        self["Wavelength 11"] = value
 
     @property
     def spectrum_11(self):
@@ -14550,13 +5757,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_11`'.format(value))
-        self._data["Spectrum 11"] = value
+        self["Spectrum 11"] = value
 
     @property
     def wavelength_12(self):
@@ -14580,13 +5781,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_12`'.format(value))
-        self._data["Wavelength 12"] = value
+        self["Wavelength 12"] = value
 
     @property
     def spectrum_12(self):
@@ -14609,13 +5804,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_12`'.format(value))
-        self._data["Spectrum 12"] = value
+        self["Spectrum 12"] = value
 
     @property
     def wavelength_13(self):
@@ -14639,13 +5828,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_13`'.format(value))
-        self._data["Wavelength 13"] = value
+        self["Wavelength 13"] = value
 
     @property
     def spectrum_13(self):
@@ -14668,13 +5851,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_13`'.format(value))
-        self._data["Spectrum 13"] = value
+        self["Spectrum 13"] = value
 
     @property
     def wavelength_14(self):
@@ -14698,13 +5875,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_14`'.format(value))
-        self._data["Wavelength 14"] = value
+        self["Wavelength 14"] = value
 
     @property
     def spectrum_14(self):
@@ -14727,13 +5898,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_14`'.format(value))
-        self._data["Spectrum 14"] = value
+        self["Spectrum 14"] = value
 
     @property
     def wavelength_15(self):
@@ -14757,13 +5922,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_15`'.format(value))
-        self._data["Wavelength 15"] = value
+        self["Wavelength 15"] = value
 
     @property
     def spectrum_15(self):
@@ -14786,13 +5945,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_15`'.format(value))
-        self._data["Spectrum 15"] = value
+        self["Spectrum 15"] = value
 
     @property
     def wavelength_16(self):
@@ -14816,13 +5969,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_16`'.format(value))
-        self._data["Wavelength 16"] = value
+        self["Wavelength 16"] = value
 
     @property
     def spectrum_16(self):
@@ -14845,13 +5992,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_16`'.format(value))
-        self._data["Spectrum 16"] = value
+        self["Spectrum 16"] = value
 
     @property
     def wavelength_17(self):
@@ -14875,13 +6016,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_17`'.format(value))
-        self._data["Wavelength 17"] = value
+        self["Wavelength 17"] = value
 
     @property
     def spectrum_17(self):
@@ -14904,13 +6039,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_17`'.format(value))
-        self._data["Spectrum 17"] = value
+        self["Spectrum 17"] = value
 
     @property
     def wavelength_18(self):
@@ -14934,13 +6063,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_18`'.format(value))
-        self._data["Wavelength 18"] = value
+        self["Wavelength 18"] = value
 
     @property
     def spectrum_18(self):
@@ -14963,13 +6086,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_18`'.format(value))
-        self._data["Spectrum 18"] = value
+        self["Spectrum 18"] = value
 
     @property
     def wavelength_19(self):
@@ -14993,13 +6110,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_19`'.format(value))
-        self._data["Wavelength 19"] = value
+        self["Wavelength 19"] = value
 
     @property
     def spectrum_19(self):
@@ -15022,13 +6133,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_19`'.format(value))
-        self._data["Spectrum 19"] = value
+        self["Spectrum 19"] = value
 
     @property
     def wavelength_20(self):
@@ -15052,13 +6157,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_20`'.format(value))
-        self._data["Wavelength 20"] = value
+        self["Wavelength 20"] = value
 
     @property
     def spectrum_20(self):
@@ -15081,13 +6180,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_20`'.format(value))
-        self._data["Spectrum 20"] = value
+        self["Spectrum 20"] = value
 
     @property
     def wavelength_21(self):
@@ -15111,13 +6204,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_21`'.format(value))
-        self._data["Wavelength 21"] = value
+        self["Wavelength 21"] = value
 
     @property
     def spectrum_21(self):
@@ -15140,13 +6227,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_21`'.format(value))
-        self._data["Spectrum 21"] = value
+        self["Spectrum 21"] = value
 
     @property
     def wavelength_22(self):
@@ -15170,13 +6251,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_22`'.format(value))
-        self._data["Wavelength 22"] = value
+        self["Wavelength 22"] = value
 
     @property
     def spectrum_22(self):
@@ -15199,13 +6274,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_22`'.format(value))
-        self._data["Spectrum 22"] = value
+        self["Spectrum 22"] = value
 
     @property
     def wavelength_23(self):
@@ -15229,13 +6298,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_23`'.format(value))
-        self._data["Wavelength 23"] = value
+        self["Wavelength 23"] = value
 
     @property
     def spectrum_23(self):
@@ -15258,13 +6321,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_23`'.format(value))
-        self._data["Spectrum 23"] = value
+        self["Spectrum 23"] = value
 
     @property
     def wavelength_24(self):
@@ -15288,13 +6345,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_24`'.format(value))
-        self._data["Wavelength 24"] = value
+        self["Wavelength 24"] = value
 
     @property
     def spectrum_24(self):
@@ -15317,13 +6368,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_24`'.format(value))
-        self._data["Spectrum 24"] = value
+        self["Spectrum 24"] = value
 
     @property
     def wavelength_25(self):
@@ -15347,13 +6392,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_25`'.format(value))
-        self._data["Wavelength 25"] = value
+        self["Wavelength 25"] = value
 
     @property
     def spectrum_25(self):
@@ -15376,13 +6415,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_25`'.format(value))
-        self._data["Spectrum 25"] = value
+        self["Spectrum 25"] = value
 
     @property
     def wavelength_26(self):
@@ -15406,13 +6439,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_26`'.format(value))
-        self._data["Wavelength 26"] = value
+        self["Wavelength 26"] = value
 
     @property
     def spectrum_26(self):
@@ -15435,13 +6462,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_26`'.format(value))
-        self._data["Spectrum 26"] = value
+        self["Spectrum 26"] = value
 
     @property
     def wavelength_27(self):
@@ -15465,13 +6486,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_27`'.format(value))
-        self._data["Wavelength 27"] = value
+        self["Wavelength 27"] = value
 
     @property
     def spectrum_27(self):
@@ -15494,13 +6509,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_27`'.format(value))
-        self._data["Spectrum 27"] = value
+        self["Spectrum 27"] = value
 
     @property
     def wavelength_28(self):
@@ -15524,13 +6533,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_28`'.format(value))
-        self._data["Wavelength 28"] = value
+        self["Wavelength 28"] = value
 
     @property
     def spectrum_28(self):
@@ -15553,13 +6556,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_28`'.format(value))
-        self._data["Spectrum 28"] = value
+        self["Spectrum 28"] = value
 
     @property
     def wavelength_29(self):
@@ -15583,13 +6580,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_29`'.format(value))
-        self._data["Wavelength 29"] = value
+        self["Wavelength 29"] = value
 
     @property
     def spectrum_29(self):
@@ -15612,13 +6603,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_29`'.format(value))
-        self._data["Spectrum 29"] = value
+        self["Spectrum 29"] = value
 
     @property
     def wavelength_30(self):
@@ -15642,13 +6627,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_30`'.format(value))
-        self._data["Wavelength 30"] = value
+        self["Wavelength 30"] = value
 
     @property
     def spectrum_30(self):
@@ -15671,13 +6650,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_30`'.format(value))
-        self._data["Spectrum 30"] = value
+        self["Spectrum 30"] = value
 
     @property
     def wavelength_31(self):
@@ -15701,13 +6674,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_31`'.format(value))
-        self._data["Wavelength 31"] = value
+        self["Wavelength 31"] = value
 
     @property
     def spectrum_31(self):
@@ -15730,13 +6697,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_31`'.format(value))
-        self._data["Spectrum 31"] = value
+        self["Spectrum 31"] = value
 
     @property
     def wavelength_32(self):
@@ -15760,13 +6721,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_32`'.format(value))
-        self._data["Wavelength 32"] = value
+        self["Wavelength 32"] = value
 
     @property
     def spectrum_32(self):
@@ -15789,13 +6744,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_32`'.format(value))
-        self._data["Spectrum 32"] = value
+        self["Spectrum 32"] = value
 
     @property
     def wavelength_33(self):
@@ -15819,13 +6768,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_33`'.format(value))
-        self._data["Wavelength 33"] = value
+        self["Wavelength 33"] = value
 
     @property
     def spectrum_33(self):
@@ -15848,13 +6791,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_33`'.format(value))
-        self._data["Spectrum 33"] = value
+        self["Spectrum 33"] = value
 
     @property
     def wavelength_34(self):
@@ -15878,13 +6815,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_34`'.format(value))
-        self._data["Wavelength 34"] = value
+        self["Wavelength 34"] = value
 
     @property
     def spectrum_34(self):
@@ -15907,13 +6838,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_34`'.format(value))
-        self._data["Spectrum 34"] = value
+        self["Spectrum 34"] = value
 
     @property
     def wavelength_35(self):
@@ -15937,13 +6862,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_35`'.format(value))
-        self._data["Wavelength 35"] = value
+        self["Wavelength 35"] = value
 
     @property
     def spectrum_35(self):
@@ -15966,13 +6885,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_35`'.format(value))
-        self._data["Spectrum 35"] = value
+        self["Spectrum 35"] = value
 
     @property
     def wavelength_36(self):
@@ -15996,13 +6909,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_36`'.format(value))
-        self._data["Wavelength 36"] = value
+        self["Wavelength 36"] = value
 
     @property
     def spectrum_36(self):
@@ -16025,13 +6932,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_36`'.format(value))
-        self._data["Spectrum 36"] = value
+        self["Spectrum 36"] = value
 
     @property
     def wavelength_37(self):
@@ -16055,13 +6956,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_37`'.format(value))
-        self._data["Wavelength 37"] = value
+        self["Wavelength 37"] = value
 
     @property
     def spectrum_37(self):
@@ -16084,13 +6979,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_37`'.format(value))
-        self._data["Spectrum 37"] = value
+        self["Spectrum 37"] = value
 
     @property
     def wavelength_38(self):
@@ -16114,13 +7003,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_38`'.format(value))
-        self._data["Wavelength 38"] = value
+        self["Wavelength 38"] = value
 
     @property
     def spectrum_38(self):
@@ -16143,13 +7026,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_38`'.format(value))
-        self._data["Spectrum 38"] = value
+        self["Spectrum 38"] = value
 
     @property
     def wavelength_39(self):
@@ -16173,13 +7050,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_39`'.format(value))
-        self._data["Wavelength 39"] = value
+        self["Wavelength 39"] = value
 
     @property
     def spectrum_39(self):
@@ -16202,13 +7073,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_39`'.format(value))
-        self._data["Spectrum 39"] = value
+        self["Spectrum 39"] = value
 
     @property
     def wavelength_40(self):
@@ -16232,13 +7097,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_40`'.format(value))
-        self._data["Wavelength 40"] = value
+        self["Wavelength 40"] = value
 
     @property
     def spectrum_40(self):
@@ -16261,13 +7120,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_40`'.format(value))
-        self._data["Spectrum 40"] = value
+        self["Spectrum 40"] = value
 
     @property
     def wavelength_41(self):
@@ -16291,13 +7144,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_41`'.format(value))
-        self._data["Wavelength 41"] = value
+        self["Wavelength 41"] = value
 
     @property
     def spectrum_41(self):
@@ -16320,13 +7167,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_41`'.format(value))
-        self._data["Spectrum 41"] = value
+        self["Spectrum 41"] = value
 
     @property
     def wavelength_42(self):
@@ -16350,13 +7191,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_42`'.format(value))
-        self._data["Wavelength 42"] = value
+        self["Wavelength 42"] = value
 
     @property
     def spectrum_42(self):
@@ -16379,13 +7214,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_42`'.format(value))
-        self._data["Spectrum 42"] = value
+        self["Spectrum 42"] = value
 
     @property
     def wavelength_43(self):
@@ -16409,13 +7238,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_43`'.format(value))
-        self._data["Wavelength 43"] = value
+        self["Wavelength 43"] = value
 
     @property
     def spectrum_43(self):
@@ -16438,13 +7261,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_43`'.format(value))
-        self._data["Spectrum 43"] = value
+        self["Spectrum 43"] = value
 
     @property
     def wavelength_44(self):
@@ -16468,13 +7285,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_44`'.format(value))
-        self._data["Wavelength 44"] = value
+        self["Wavelength 44"] = value
 
     @property
     def spectrum_44(self):
@@ -16497,13 +7308,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_44`'.format(value))
-        self._data["Spectrum 44"] = value
+        self["Spectrum 44"] = value
 
     @property
     def wavelength_45(self):
@@ -16527,13 +7332,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_45`'.format(value))
-        self._data["Wavelength 45"] = value
+        self["Wavelength 45"] = value
 
     @property
     def spectrum_45(self):
@@ -16556,13 +7355,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_45`'.format(value))
-        self._data["Spectrum 45"] = value
+        self["Spectrum 45"] = value
 
     @property
     def wavelength_46(self):
@@ -16586,13 +7379,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_46`'.format(value))
-        self._data["Wavelength 46"] = value
+        self["Wavelength 46"] = value
 
     @property
     def spectrum_46(self):
@@ -16615,13 +7402,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_46`'.format(value))
-        self._data["Spectrum 46"] = value
+        self["Spectrum 46"] = value
 
     @property
     def wavelength_47(self):
@@ -16645,13 +7426,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_47`'.format(value))
-        self._data["Wavelength 47"] = value
+        self["Wavelength 47"] = value
 
     @property
     def spectrum_47(self):
@@ -16674,13 +7449,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_47`'.format(value))
-        self._data["Spectrum 47"] = value
+        self["Spectrum 47"] = value
 
     @property
     def wavelength_48(self):
@@ -16704,13 +7473,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_48`'.format(value))
-        self._data["Wavelength 48"] = value
+        self["Wavelength 48"] = value
 
     @property
     def spectrum_48(self):
@@ -16733,13 +7496,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_48`'.format(value))
-        self._data["Spectrum 48"] = value
+        self["Spectrum 48"] = value
 
     @property
     def wavelength_49(self):
@@ -16763,13 +7520,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_49`'.format(value))
-        self._data["Wavelength 49"] = value
+        self["Wavelength 49"] = value
 
     @property
     def spectrum_49(self):
@@ -16792,13 +7543,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_49`'.format(value))
-        self._data["Spectrum 49"] = value
+        self["Spectrum 49"] = value
 
     @property
     def wavelength_50(self):
@@ -16822,13 +7567,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_50`'.format(value))
-        self._data["Wavelength 50"] = value
+        self["Wavelength 50"] = value
 
     @property
     def spectrum_50(self):
@@ -16851,13 +7590,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_50`'.format(value))
-        self._data["Spectrum 50"] = value
+        self["Spectrum 50"] = value
 
     @property
     def wavelength_51(self):
@@ -16881,13 +7614,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_51`'.format(value))
-        self._data["Wavelength 51"] = value
+        self["Wavelength 51"] = value
 
     @property
     def spectrum_51(self):
@@ -16910,13 +7637,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_51`'.format(value))
-        self._data["Spectrum 51"] = value
+        self["Spectrum 51"] = value
 
     @property
     def wavelength_52(self):
@@ -16940,13 +7661,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_52`'.format(value))
-        self._data["Wavelength 52"] = value
+        self["Wavelength 52"] = value
 
     @property
     def spectrum_52(self):
@@ -16969,13 +7684,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_52`'.format(value))
-        self._data["Spectrum 52"] = value
+        self["Spectrum 52"] = value
 
     @property
     def wavelength_53(self):
@@ -16999,13 +7708,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_53`'.format(value))
-        self._data["Wavelength 53"] = value
+        self["Wavelength 53"] = value
 
     @property
     def spectrum_53(self):
@@ -17028,13 +7731,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_53`'.format(value))
-        self._data["Spectrum 53"] = value
+        self["Spectrum 53"] = value
 
     @property
     def wavelength_54(self):
@@ -17058,13 +7755,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_54`'.format(value))
-        self._data["Wavelength 54"] = value
+        self["Wavelength 54"] = value
 
     @property
     def spectrum_54(self):
@@ -17087,13 +7778,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_54`'.format(value))
-        self._data["Spectrum 54"] = value
+        self["Spectrum 54"] = value
 
     @property
     def wavelength_55(self):
@@ -17117,13 +7802,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_55`'.format(value))
-        self._data["Wavelength 55"] = value
+        self["Wavelength 55"] = value
 
     @property
     def spectrum_55(self):
@@ -17146,13 +7825,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_55`'.format(value))
-        self._data["Spectrum 55"] = value
+        self["Spectrum 55"] = value
 
     @property
     def wavelength_56(self):
@@ -17176,13 +7849,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_56`'.format(value))
-        self._data["Wavelength 56"] = value
+        self["Wavelength 56"] = value
 
     @property
     def spectrum_56(self):
@@ -17205,13 +7872,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_56`'.format(value))
-        self._data["Spectrum 56"] = value
+        self["Spectrum 56"] = value
 
     @property
     def wavelength_57(self):
@@ -17235,13 +7896,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_57`'.format(value))
-        self._data["Wavelength 57"] = value
+        self["Wavelength 57"] = value
 
     @property
     def spectrum_57(self):
@@ -17264,13 +7919,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_57`'.format(value))
-        self._data["Spectrum 57"] = value
+        self["Spectrum 57"] = value
 
     @property
     def wavelength_58(self):
@@ -17294,13 +7943,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_58`'.format(value))
-        self._data["Wavelength 58"] = value
+        self["Wavelength 58"] = value
 
     @property
     def spectrum_58(self):
@@ -17323,13 +7966,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_58`'.format(value))
-        self._data["Spectrum 58"] = value
+        self["Spectrum 58"] = value
 
     @property
     def wavelength_59(self):
@@ -17353,13 +7990,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_59`'.format(value))
-        self._data["Wavelength 59"] = value
+        self["Wavelength 59"] = value
 
     @property
     def spectrum_59(self):
@@ -17382,13 +8013,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_59`'.format(value))
-        self._data["Spectrum 59"] = value
+        self["Spectrum 59"] = value
 
     @property
     def wavelength_60(self):
@@ -17412,13 +8037,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_60`'.format(value))
-        self._data["Wavelength 60"] = value
+        self["Wavelength 60"] = value
 
     @property
     def spectrum_60(self):
@@ -17441,13 +8060,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_60`'.format(value))
-        self._data["Spectrum 60"] = value
+        self["Spectrum 60"] = value
 
     @property
     def wavelength_61(self):
@@ -17471,13 +8084,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_61`'.format(value))
-        self._data["Wavelength 61"] = value
+        self["Wavelength 61"] = value
 
     @property
     def spectrum_61(self):
@@ -17500,13 +8107,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_61`'.format(value))
-        self._data["Spectrum 61"] = value
+        self["Spectrum 61"] = value
 
     @property
     def wavelength_62(self):
@@ -17530,13 +8131,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_62`'.format(value))
-        self._data["Wavelength 62"] = value
+        self["Wavelength 62"] = value
 
     @property
     def spectrum_62(self):
@@ -17559,13 +8154,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_62`'.format(value))
-        self._data["Spectrum 62"] = value
+        self["Spectrum 62"] = value
 
     @property
     def wavelength_63(self):
@@ -17589,13 +8178,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_63`'.format(value))
-        self._data["Wavelength 63"] = value
+        self["Wavelength 63"] = value
 
     @property
     def spectrum_63(self):
@@ -17618,13 +8201,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_63`'.format(value))
-        self._data["Spectrum 63"] = value
+        self["Spectrum 63"] = value
 
     @property
     def wavelength_64(self):
@@ -17648,13 +8225,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_64`'.format(value))
-        self._data["Wavelength 64"] = value
+        self["Wavelength 64"] = value
 
     @property
     def spectrum_64(self):
@@ -17677,13 +8248,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_64`'.format(value))
-        self._data["Spectrum 64"] = value
+        self["Spectrum 64"] = value
 
     @property
     def wavelength_65(self):
@@ -17707,13 +8272,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_65`'.format(value))
-        self._data["Wavelength 65"] = value
+        self["Wavelength 65"] = value
 
     @property
     def spectrum_65(self):
@@ -17736,13 +8295,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_65`'.format(value))
-        self._data["Spectrum 65"] = value
+        self["Spectrum 65"] = value
 
     @property
     def wavelength_66(self):
@@ -17766,13 +8319,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_66`'.format(value))
-        self._data["Wavelength 66"] = value
+        self["Wavelength 66"] = value
 
     @property
     def spectrum_66(self):
@@ -17795,13 +8342,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_66`'.format(value))
-        self._data["Spectrum 66"] = value
+        self["Spectrum 66"] = value
 
     @property
     def wavelength_67(self):
@@ -17825,13 +8366,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_67`'.format(value))
-        self._data["Wavelength 67"] = value
+        self["Wavelength 67"] = value
 
     @property
     def spectrum_67(self):
@@ -17854,13 +8389,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_67`'.format(value))
-        self._data["Spectrum 67"] = value
+        self["Spectrum 67"] = value
 
     @property
     def wavelength_68(self):
@@ -17884,13 +8413,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_68`'.format(value))
-        self._data["Wavelength 68"] = value
+        self["Wavelength 68"] = value
 
     @property
     def spectrum_68(self):
@@ -17913,13 +8436,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_68`'.format(value))
-        self._data["Spectrum 68"] = value
+        self["Spectrum 68"] = value
 
     @property
     def wavelength_69(self):
@@ -17943,13 +8460,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_69`'.format(value))
-        self._data["Wavelength 69"] = value
+        self["Wavelength 69"] = value
 
     @property
     def spectrum_69(self):
@@ -17972,13 +8483,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_69`'.format(value))
-        self._data["Spectrum 69"] = value
+        self["Spectrum 69"] = value
 
     @property
     def wavelength_70(self):
@@ -18002,13 +8507,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_70`'.format(value))
-        self._data["Wavelength 70"] = value
+        self["Wavelength 70"] = value
 
     @property
     def spectrum_70(self):
@@ -18031,13 +8530,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_70`'.format(value))
-        self._data["Spectrum 70"] = value
+        self["Spectrum 70"] = value
 
     @property
     def wavelength_71(self):
@@ -18061,13 +8554,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_71`'.format(value))
-        self._data["Wavelength 71"] = value
+        self["Wavelength 71"] = value
 
     @property
     def spectrum_71(self):
@@ -18090,13 +8577,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_71`'.format(value))
-        self._data["Spectrum 71"] = value
+        self["Spectrum 71"] = value
 
     @property
     def wavelength_72(self):
@@ -18120,13 +8601,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_72`'.format(value))
-        self._data["Wavelength 72"] = value
+        self["Wavelength 72"] = value
 
     @property
     def spectrum_72(self):
@@ -18149,13 +8624,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_72`'.format(value))
-        self._data["Spectrum 72"] = value
+        self["Spectrum 72"] = value
 
     @property
     def wavelength_73(self):
@@ -18179,13 +8648,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_73`'.format(value))
-        self._data["Wavelength 73"] = value
+        self["Wavelength 73"] = value
 
     @property
     def spectrum_73(self):
@@ -18208,13 +8671,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_73`'.format(value))
-        self._data["Spectrum 73"] = value
+        self["Spectrum 73"] = value
 
     @property
     def wavelength_74(self):
@@ -18238,13 +8695,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_74`'.format(value))
-        self._data["Wavelength 74"] = value
+        self["Wavelength 74"] = value
 
     @property
     def spectrum_74(self):
@@ -18267,13 +8718,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_74`'.format(value))
-        self._data["Spectrum 74"] = value
+        self["Spectrum 74"] = value
 
     @property
     def wavelength_75(self):
@@ -18297,13 +8742,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_75`'.format(value))
-        self._data["Wavelength 75"] = value
+        self["Wavelength 75"] = value
 
     @property
     def spectrum_75(self):
@@ -18326,13 +8765,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_75`'.format(value))
-        self._data["Spectrum 75"] = value
+        self["Spectrum 75"] = value
 
     @property
     def wavelength_76(self):
@@ -18356,13 +8789,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_76`'.format(value))
-        self._data["Wavelength 76"] = value
+        self["Wavelength 76"] = value
 
     @property
     def spectrum_76(self):
@@ -18385,13 +8812,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_76`'.format(value))
-        self._data["Spectrum 76"] = value
+        self["Spectrum 76"] = value
 
     @property
     def wavelength_77(self):
@@ -18415,13 +8836,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_77`'.format(value))
-        self._data["Wavelength 77"] = value
+        self["Wavelength 77"] = value
 
     @property
     def spectrum_77(self):
@@ -18444,13 +8859,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_77`'.format(value))
-        self._data["Spectrum 77"] = value
+        self["Spectrum 77"] = value
 
     @property
     def wavelength_78(self):
@@ -18474,13 +8883,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_78`'.format(value))
-        self._data["Wavelength 78"] = value
+        self["Wavelength 78"] = value
 
     @property
     def spectrum_78(self):
@@ -18503,13 +8906,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_78`'.format(value))
-        self._data["Spectrum 78"] = value
+        self["Spectrum 78"] = value
 
     @property
     def wavelength_79(self):
@@ -18533,13 +8930,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_79`'.format(value))
-        self._data["Wavelength 79"] = value
+        self["Wavelength 79"] = value
 
     @property
     def spectrum_79(self):
@@ -18562,13 +8953,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_79`'.format(value))
-        self._data["Spectrum 79"] = value
+        self["Spectrum 79"] = value
 
     @property
     def wavelength_80(self):
@@ -18592,13 +8977,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_80`'.format(value))
-        self._data["Wavelength 80"] = value
+        self["Wavelength 80"] = value
 
     @property
     def spectrum_80(self):
@@ -18621,13 +9000,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_80`'.format(value))
-        self._data["Spectrum 80"] = value
+        self["Spectrum 80"] = value
 
     @property
     def wavelength_81(self):
@@ -18651,13 +9024,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_81`'.format(value))
-        self._data["Wavelength 81"] = value
+        self["Wavelength 81"] = value
 
     @property
     def spectrum_81(self):
@@ -18680,13 +9047,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_81`'.format(value))
-        self._data["Spectrum 81"] = value
+        self["Spectrum 81"] = value
 
     @property
     def wavelength_82(self):
@@ -18710,13 +9071,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_82`'.format(value))
-        self._data["Wavelength 82"] = value
+        self["Wavelength 82"] = value
 
     @property
     def spectrum_82(self):
@@ -18739,13 +9094,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_82`'.format(value))
-        self._data["Spectrum 82"] = value
+        self["Spectrum 82"] = value
 
     @property
     def wavelength_83(self):
@@ -18769,13 +9118,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_83`'.format(value))
-        self._data["Wavelength 83"] = value
+        self["Wavelength 83"] = value
 
     @property
     def spectrum_83(self):
@@ -18798,13 +9141,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_83`'.format(value))
-        self._data["Spectrum 83"] = value
+        self["Spectrum 83"] = value
 
     @property
     def wavelength_84(self):
@@ -18828,13 +9165,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_84`'.format(value))
-        self._data["Wavelength 84"] = value
+        self["Wavelength 84"] = value
 
     @property
     def spectrum_84(self):
@@ -18857,13 +9188,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_84`'.format(value))
-        self._data["Spectrum 84"] = value
+        self["Spectrum 84"] = value
 
     @property
     def wavelength_85(self):
@@ -18887,13 +9212,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_85`'.format(value))
-        self._data["Wavelength 85"] = value
+        self["Wavelength 85"] = value
 
     @property
     def spectrum_85(self):
@@ -18916,13 +9235,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_85`'.format(value))
-        self._data["Spectrum 85"] = value
+        self["Spectrum 85"] = value
 
     @property
     def wavelength_86(self):
@@ -18946,13 +9259,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_86`'.format(value))
-        self._data["Wavelength 86"] = value
+        self["Wavelength 86"] = value
 
     @property
     def spectrum_86(self):
@@ -18975,13 +9282,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_86`'.format(value))
-        self._data["Spectrum 86"] = value
+        self["Spectrum 86"] = value
 
     @property
     def wavelength_87(self):
@@ -19005,13 +9306,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_87`'.format(value))
-        self._data["Wavelength 87"] = value
+        self["Wavelength 87"] = value
 
     @property
     def spectrum_87(self):
@@ -19034,13 +9329,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_87`'.format(value))
-        self._data["Spectrum 87"] = value
+        self["Spectrum 87"] = value
 
     @property
     def wavelength_88(self):
@@ -19064,13 +9353,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_88`'.format(value))
-        self._data["Wavelength 88"] = value
+        self["Wavelength 88"] = value
 
     @property
     def spectrum_88(self):
@@ -19093,13 +9376,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_88`'.format(value))
-        self._data["Spectrum 88"] = value
+        self["Spectrum 88"] = value
 
     @property
     def wavelength_89(self):
@@ -19123,13 +9400,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_89`'.format(value))
-        self._data["Wavelength 89"] = value
+        self["Wavelength 89"] = value
 
     @property
     def spectrum_89(self):
@@ -19152,13 +9423,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_89`'.format(value))
-        self._data["Spectrum 89"] = value
+        self["Spectrum 89"] = value
 
     @property
     def wavelength_90(self):
@@ -19182,13 +9447,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_90`'.format(value))
-        self._data["Wavelength 90"] = value
+        self["Wavelength 90"] = value
 
     @property
     def spectrum_90(self):
@@ -19211,13 +9470,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_90`'.format(value))
-        self._data["Spectrum 90"] = value
+        self["Spectrum 90"] = value
 
     @property
     def wavelength_91(self):
@@ -19241,13 +9494,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_91`'.format(value))
-        self._data["Wavelength 91"] = value
+        self["Wavelength 91"] = value
 
     @property
     def spectrum_91(self):
@@ -19270,13 +9517,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_91`'.format(value))
-        self._data["Spectrum 91"] = value
+        self["Spectrum 91"] = value
 
     @property
     def wavelength_92(self):
@@ -19300,13 +9541,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_92`'.format(value))
-        self._data["Wavelength 92"] = value
+        self["Wavelength 92"] = value
 
     @property
     def spectrum_92(self):
@@ -19329,13 +9564,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_92`'.format(value))
-        self._data["Spectrum 92"] = value
+        self["Spectrum 92"] = value
 
     @property
     def wavelength_93(self):
@@ -19359,13 +9588,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_93`'.format(value))
-        self._data["Wavelength 93"] = value
+        self["Wavelength 93"] = value
 
     @property
     def spectrum_93(self):
@@ -19388,13 +9611,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_93`'.format(value))
-        self._data["Spectrum 93"] = value
+        self["Spectrum 93"] = value
 
     @property
     def wavelength_94(self):
@@ -19418,13 +9635,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_94`'.format(value))
-        self._data["Wavelength 94"] = value
+        self["Wavelength 94"] = value
 
     @property
     def spectrum_94(self):
@@ -19447,13 +9658,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_94`'.format(value))
-        self._data["Spectrum 94"] = value
+        self["Spectrum 94"] = value
 
     @property
     def wavelength_95(self):
@@ -19477,13 +9682,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_95`'.format(value))
-        self._data["Wavelength 95"] = value
+        self["Wavelength 95"] = value
 
     @property
     def spectrum_95(self):
@@ -19506,13 +9705,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_95`'.format(value))
-        self._data["Spectrum 95"] = value
+        self["Spectrum 95"] = value
 
     @property
     def wavelength_96(self):
@@ -19536,13 +9729,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_96`'.format(value))
-        self._data["Wavelength 96"] = value
+        self["Wavelength 96"] = value
 
     @property
     def spectrum_96(self):
@@ -19565,13 +9752,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_96`'.format(value))
-        self._data["Spectrum 96"] = value
+        self["Spectrum 96"] = value
 
     @property
     def wavelength_97(self):
@@ -19595,13 +9776,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_97`'.format(value))
-        self._data["Wavelength 97"] = value
+        self["Wavelength 97"] = value
 
     @property
     def spectrum_97(self):
@@ -19624,13 +9799,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_97`'.format(value))
-        self._data["Spectrum 97"] = value
+        self["Spectrum 97"] = value
 
     @property
     def wavelength_98(self):
@@ -19654,13 +9823,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_98`'.format(value))
-        self._data["Wavelength 98"] = value
+        self["Wavelength 98"] = value
 
     @property
     def spectrum_98(self):
@@ -19683,13 +9846,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_98`'.format(value))
-        self._data["Spectrum 98"] = value
+        self["Spectrum 98"] = value
 
     @property
     def wavelength_99(self):
@@ -19713,13 +9870,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_99`'.format(value))
-        self._data["Wavelength 99"] = value
+        self["Wavelength 99"] = value
 
     @property
     def spectrum_99(self):
@@ -19742,13 +9893,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_99`'.format(value))
-        self._data["Spectrum 99"] = value
+        self["Spectrum 99"] = value
 
     @property
     def wavelength_100(self):
@@ -19772,13 +9917,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_100`'.format(value))
-        self._data["Wavelength 100"] = value
+        self["Wavelength 100"] = value
 
     @property
     def spectrum_100(self):
@@ -19801,13 +9940,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_100`'.format(value))
-        self._data["Spectrum 100"] = value
+        self["Spectrum 100"] = value
 
     @property
     def wavelength_101(self):
@@ -19831,13 +9964,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_101`'.format(value))
-        self._data["Wavelength 101"] = value
+        self["Wavelength 101"] = value
 
     @property
     def spectrum_101(self):
@@ -19860,13 +9987,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_101`'.format(value))
-        self._data["Spectrum 101"] = value
+        self["Spectrum 101"] = value
 
     @property
     def wavelength_102(self):
@@ -19890,13 +10011,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_102`'.format(value))
-        self._data["Wavelength 102"] = value
+        self["Wavelength 102"] = value
 
     @property
     def spectrum_102(self):
@@ -19919,13 +10034,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_102`'.format(value))
-        self._data["Spectrum 102"] = value
+        self["Spectrum 102"] = value
 
     @property
     def wavelength_103(self):
@@ -19949,13 +10058,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_103`'.format(value))
-        self._data["Wavelength 103"] = value
+        self["Wavelength 103"] = value
 
     @property
     def spectrum_103(self):
@@ -19978,13 +10081,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_103`'.format(value))
-        self._data["Spectrum 103"] = value
+        self["Spectrum 103"] = value
 
     @property
     def wavelength_104(self):
@@ -20008,13 +10105,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_104`'.format(value))
-        self._data["Wavelength 104"] = value
+        self["Wavelength 104"] = value
 
     @property
     def spectrum_104(self):
@@ -20037,13 +10128,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_104`'.format(value))
-        self._data["Spectrum 104"] = value
+        self["Spectrum 104"] = value
 
     @property
     def wavelength_105(self):
@@ -20067,13 +10152,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_105`'.format(value))
-        self._data["Wavelength 105"] = value
+        self["Wavelength 105"] = value
 
     @property
     def spectrum_105(self):
@@ -20096,13 +10175,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_105`'.format(value))
-        self._data["Spectrum 105"] = value
+        self["Spectrum 105"] = value
 
     @property
     def wavelength_106(self):
@@ -20126,13 +10199,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_106`'.format(value))
-        self._data["Wavelength 106"] = value
+        self["Wavelength 106"] = value
 
     @property
     def spectrum_106(self):
@@ -20155,13 +10222,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_106`'.format(value))
-        self._data["Spectrum 106"] = value
+        self["Spectrum 106"] = value
 
     @property
     def wavelength_107(self):
@@ -20185,13 +10246,7 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.wavelength_107`'.format(value))
-        self._data["Wavelength 107"] = value
+        self["Wavelength 107"] = value
 
     @property
     def spectrum_107(self):
@@ -20214,92 +10269,4 @@ class SiteSpectrumData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `SiteSpectrumData.spectrum_107`'.format(value))
-        self._data["Spectrum 107"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field SiteSpectrumData:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field SiteSpectrumData:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for SiteSpectrumData: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for SiteSpectrumData: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Spectrum 107"] = value

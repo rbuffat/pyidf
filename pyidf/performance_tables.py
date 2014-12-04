@@ -1,11 +1,14 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class TableOneIndependentVariable(object):
+
+
+class TableOneIndependentVariable(DataObject):
     """ Corresponds to IDD object `Table:OneIndependentVariable`
         Allows entry of tabular data pairs as alternate input
         for performance curve objects.
@@ -21,119 +24,16 @@ class TableOneIndependentVariable(object):
         Exponent Table Equation: Output = a + b*X**c
         Exponent solution requires a minimum of 4 data pairs
     """
-    internal_name = "Table:OneIndependentVariable"
-    field_count = 10
-    required_fields = ["Name", "Curve Type"]
-    extensible_fields = 2
-    format = None
-    min_fields = 14
-    extensible_keys = ["X Value", "Output Value"]
+    schema = {'min-fields': 14, 'name': u'Table:OneIndependentVariable', 'pyname': u'TableOneIndependentVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'curve type', {'name': u'Curve Type', 'pyname': u'curve_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'interpolation method', {'name': u'Interpolation Method', 'pyname': u'interpolation_method', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum value of x', {'name': u'Minimum Value of X', 'pyname': u'minimum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of X', 'pyname': u'maximum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum table output', {'name': u'Minimum Table Output', 'pyname': u'minimum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum table output', {'name': u'Maximum Table Output', 'pyname': u'maximum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'normalization reference', {'name': u'Normalization Reference', 'pyname': u'normalization_reference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'x value', {'name': u'X Value', 'pyname': u'x_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'output value', {'name': u'Output Value', 'pyname': u'output_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Table:OneIndependentVariable`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Curve Type"] = None
-        self._data["Interpolation Method"] = None
-        self._data["Minimum Value of X"] = None
-        self._data["Maximum Value of X"] = None
-        self._data["Minimum Table Output"] = None
-        self._data["Maximum Table Output"] = None
-        self._data["Input Unit Type for X"] = None
-        self._data["Output Unit Type"] = None
-        self._data["Normalization Reference"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.curve_type = None
-        else:
-            self.curve_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.interpolation_method = None
-        else:
-            self.interpolation_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_table_output = None
-        else:
-            self.minimum_table_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_table_output = None
-        else:
-            self.maximum_table_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.normalization_reference = None
-        else:
-            self.normalization_reference = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -156,19 +56,7 @@ class TableOneIndependentVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableOneIndependentVariable.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableOneIndependentVariable.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableOneIndependentVariable.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def curve_type(self):
@@ -185,61 +73,13 @@ class TableOneIndependentVariable(object):
 
         Args:
             value (str): value for IDD Field `Curve Type`
-                Accepted values are:
-                      - Linear
-                      - Quadratic
-                      - Cubic
-                      - Quartic
-                      - Exponent
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableOneIndependentVariable.curve_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableOneIndependentVariable.curve_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableOneIndependentVariable.curve_type`')
-            vals = {}
-            vals["linear"] = "Linear"
-            vals["quadratic"] = "Quadratic"
-            vals["cubic"] = "Cubic"
-            vals["quartic"] = "Quartic"
-            vals["exponent"] = "Exponent"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableOneIndependentVariable.curve_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableOneIndependentVariable.curve_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Curve Type"] = value
+        self["Curve Type"] = value
 
     @property
     def interpolation_method(self):
@@ -256,57 +96,13 @@ class TableOneIndependentVariable(object):
 
         Args:
             value (str): value for IDD Field `Interpolation Method`
-                Accepted values are:
-                      - LinearInterpolationOfTable
-                      - EvaluateCurveToLimits
-                      - LagrangeInterpolationLinearExtrapolation
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableOneIndependentVariable.interpolation_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableOneIndependentVariable.interpolation_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableOneIndependentVariable.interpolation_method`')
-            vals = {}
-            vals["linearinterpolationoftable"] = "LinearInterpolationOfTable"
-            vals["evaluatecurvetolimits"] = "EvaluateCurveToLimits"
-            vals["lagrangeinterpolationlinearextrapolation"] = "LagrangeInterpolationLinearExtrapolation"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableOneIndependentVariable.interpolation_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableOneIndependentVariable.interpolation_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Interpolation Method"] = value
+        self["Interpolation Method"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -332,13 +128,7 @@ class TableOneIndependentVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableOneIndependentVariable.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of X"] = value
+        self["Minimum Value of X"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -364,13 +154,7 @@ class TableOneIndependentVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableOneIndependentVariable.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of X"] = value
+        self["Maximum Value of X"] = value
 
     @property
     def minimum_table_output(self):
@@ -398,13 +182,7 @@ class TableOneIndependentVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableOneIndependentVariable.minimum_table_output`'.format(value))
-        self._data["Minimum Table Output"] = value
+        self["Minimum Table Output"] = value
 
     @property
     def maximum_table_output(self):
@@ -432,13 +210,7 @@ class TableOneIndependentVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableOneIndependentVariable.maximum_table_output`'.format(value))
-        self._data["Maximum Table Output"] = value
+        self["Maximum Table Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -455,13 +227,6 @@ class TableOneIndependentVariable(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -469,50 +234,7 @@ class TableOneIndependentVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableOneIndependentVariable.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableOneIndependentVariable.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableOneIndependentVariable.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableOneIndependentVariable.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableOneIndependentVariable.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X"] = value
+        self["Input Unit Type for X"] = value
 
     @property
     def output_unit_type(self):
@@ -529,10 +251,6 @@ class TableOneIndependentVariable(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -540,47 +258,7 @@ class TableOneIndependentVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableOneIndependentVariable.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableOneIndependentVariable.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableOneIndependentVariable.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableOneIndependentVariable.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableOneIndependentVariable.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
     @property
     def normalization_reference(self):
@@ -608,13 +286,7 @@ class TableOneIndependentVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableOneIndependentVariable.normalization_reference`'.format(value))
-        self._data["Normalization Reference"] = value
+        self["Normalization Reference"] = value
 
     def add_extensible(self,
                        x_value=None,
@@ -633,8 +305,10 @@ class TableOneIndependentVariable(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_x_value(x_value))
-        vals.append(self._check_output_value(output_value))
+        x_value = self.check_value("X Value", x_value)
+        vals.append(x_value)
+        output_value = self.check_value("Output Value", output_value)
+        vals.append(output_value)
         self._data["extensibles"].append(vals)
 
     @property
@@ -643,111 +317,8 @@ class TableOneIndependentVariable(object):
         """
         return self._data["extensibles"]
 
-    def _check_x_value(self, value):
-        """ Validates falue of field `X Value`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableOneIndependentVariable.x_value`'.format(value))
-        return value
 
-    def _check_output_value(self, value):
-        """ Validates falue of field `Output Value`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableOneIndependentVariable.output_value`'.format(value))
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field TableOneIndependentVariable:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field TableOneIndependentVariable:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for TableOneIndependentVariable: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for TableOneIndependentVariable: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class TableTwoIndependentVariables(object):
+class TableTwoIndependentVariables(DataObject):
     """ Corresponds to IDD object `Table:TwoIndependentVariables`
         Allows entry of tabular data pairs as alternate input
         for performance curve objects.
@@ -757,143 +328,16 @@ class TableTwoIndependentVariables(object):
         QuadraticLinear Table Equation: Output = a + bX + cX**2 + dY + eXY + fX**2Y
         QuadraticLinear solution requires a minimum of 6 data pairs
     """
-    internal_name = "Table:TwoIndependentVariables"
-    field_count = 13
-    required_fields = ["Name", "Curve Type"]
-    extensible_fields = 3
-    format = None
-    min_fields = 22
-    extensible_keys = ["X Value", "Y Value", "Output Value"]
+    schema = {'min-fields': 22, 'name': u'Table:TwoIndependentVariables', 'pyname': u'TableTwoIndependentVariables', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'curve type', {'name': u'Curve Type', 'pyname': u'curve_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'interpolation method', {'name': u'Interpolation Method', 'pyname': u'interpolation_method', 'default': u'LagrangeInterpolationLinearExtrapolation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum value of x', {'name': u'Minimum Value of X', 'pyname': u'minimum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of X', 'pyname': u'maximum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of Y', 'pyname': u'minimum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of Y', 'pyname': u'maximum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum table output', {'name': u'Minimum Table Output', 'pyname': u'minimum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum table output', {'name': u'Maximum Table Output', 'pyname': u'maximum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'normalization reference', {'name': u'Normalization Reference', 'pyname': u'normalization_reference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'x value', {'name': u'X Value', 'pyname': u'x_value', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'y value', {'name': u'Y Value', 'pyname': u'y_value', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'output value', {'name': u'Output Value', 'pyname': u'output_value', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Table:TwoIndependentVariables`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Curve Type"] = None
-        self._data["Interpolation Method"] = None
-        self._data["Minimum Value of X"] = None
-        self._data["Maximum Value of X"] = None
-        self._data["Minimum Value of Y"] = None
-        self._data["Maximum Value of Y"] = None
-        self._data["Minimum Table Output"] = None
-        self._data["Maximum Table Output"] = None
-        self._data["Input Unit Type for X"] = None
-        self._data["Input Unit Type for Y"] = None
-        self._data["Output Unit Type"] = None
-        self._data["Normalization Reference"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.curve_type = None
-        else:
-            self.curve_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.interpolation_method = None
-        else:
-            self.interpolation_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_y = None
-        else:
-            self.minimum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_y = None
-        else:
-            self.maximum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_table_output = None
-        else:
-            self.minimum_table_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_table_output = None
-        else:
-            self.maximum_table_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_y = None
-        else:
-            self.input_unit_type_for_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.normalization_reference = None
-        else:
-            self.normalization_reference = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -916,19 +360,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableTwoIndependentVariables.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableTwoIndependentVariables.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableTwoIndependentVariables.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def curve_type(self):
@@ -945,55 +377,13 @@ class TableTwoIndependentVariables(object):
 
         Args:
             value (str): value for IDD Field `Curve Type`
-                Accepted values are:
-                      - BiQuadratic
-                      - QuadraticLinear
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableTwoIndependentVariables.curve_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableTwoIndependentVariables.curve_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableTwoIndependentVariables.curve_type`')
-            vals = {}
-            vals["biquadratic"] = "BiQuadratic"
-            vals["quadraticlinear"] = "QuadraticLinear"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableTwoIndependentVariables.curve_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableTwoIndependentVariables.curve_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Curve Type"] = value
+        self["Curve Type"] = value
 
     @property
     def interpolation_method(self):
@@ -1010,10 +400,6 @@ class TableTwoIndependentVariables(object):
 
         Args:
             value (str): value for IDD Field `Interpolation Method`
-                Accepted values are:
-                      - LinearInterpolationOfTable
-                      - EvaluateCurveToLimits
-                      - LagrangeInterpolationLinearExtrapolation
                 Default value: LagrangeInterpolationLinearExtrapolation
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1021,47 +407,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableTwoIndependentVariables.interpolation_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableTwoIndependentVariables.interpolation_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableTwoIndependentVariables.interpolation_method`')
-            vals = {}
-            vals["linearinterpolationoftable"] = "LinearInterpolationOfTable"
-            vals["evaluatecurvetolimits"] = "EvaluateCurveToLimits"
-            vals["lagrangeinterpolationlinearextrapolation"] = "LagrangeInterpolationLinearExtrapolation"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableTwoIndependentVariables.interpolation_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableTwoIndependentVariables.interpolation_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Interpolation Method"] = value
+        self["Interpolation Method"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -1085,13 +431,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableTwoIndependentVariables.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of X"] = value
+        self["Minimum Value of X"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -1115,13 +455,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableTwoIndependentVariables.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of X"] = value
+        self["Maximum Value of X"] = value
 
     @property
     def minimum_value_of_y(self):
@@ -1145,13 +479,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableTwoIndependentVariables.minimum_value_of_y`'.format(value))
-        self._data["Minimum Value of Y"] = value
+        self["Minimum Value of Y"] = value
 
     @property
     def maximum_value_of_y(self):
@@ -1175,13 +503,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableTwoIndependentVariables.maximum_value_of_y`'.format(value))
-        self._data["Maximum Value of Y"] = value
+        self["Maximum Value of Y"] = value
 
     @property
     def minimum_table_output(self):
@@ -1206,13 +528,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableTwoIndependentVariables.minimum_table_output`'.format(value))
-        self._data["Minimum Table Output"] = value
+        self["Minimum Table Output"] = value
 
     @property
     def maximum_table_output(self):
@@ -1237,13 +553,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableTwoIndependentVariables.maximum_table_output`'.format(value))
-        self._data["Maximum Table Output"] = value
+        self["Maximum Table Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -1260,13 +570,6 @@ class TableTwoIndependentVariables(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1274,50 +577,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableTwoIndependentVariables.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableTwoIndependentVariables.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableTwoIndependentVariables.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableTwoIndependentVariables.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableTwoIndependentVariables.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X"] = value
+        self["Input Unit Type for X"] = value
 
     @property
     def input_unit_type_for_y(self):
@@ -1334,13 +594,6 @@ class TableTwoIndependentVariables(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1348,50 +601,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableTwoIndependentVariables.input_unit_type_for_y`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableTwoIndependentVariables.input_unit_type_for_y`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableTwoIndependentVariables.input_unit_type_for_y`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableTwoIndependentVariables.input_unit_type_for_y`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableTwoIndependentVariables.input_unit_type_for_y`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for Y"] = value
+        self["Input Unit Type for Y"] = value
 
     @property
     def output_unit_type(self):
@@ -1408,10 +618,6 @@ class TableTwoIndependentVariables(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1419,47 +625,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableTwoIndependentVariables.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableTwoIndependentVariables.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableTwoIndependentVariables.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableTwoIndependentVariables.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableTwoIndependentVariables.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
     @property
     def normalization_reference(self):
@@ -1485,13 +651,7 @@ class TableTwoIndependentVariables(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableTwoIndependentVariables.normalization_reference`'.format(value))
-        self._data["Normalization Reference"] = value
+        self["Normalization Reference"] = value
 
     def add_extensible(self,
                        x_value=None,
@@ -1515,9 +675,12 @@ class TableTwoIndependentVariables(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_x_value(x_value))
-        vals.append(self._check_y_value(y_value))
-        vals.append(self._check_output_value(output_value))
+        x_value = self.check_value("X Value", x_value)
+        vals.append(x_value)
+        y_value = self.check_value("Y Value", y_value)
+        vals.append(y_value)
+        output_value = self.check_value("Output Value", output_value)
+        vals.append(output_value)
         self._data["extensibles"].append(vals)
 
     @property
@@ -1526,122 +689,8 @@ class TableTwoIndependentVariables(object):
         """
         return self._data["extensibles"]
 
-    def _check_x_value(self, value):
-        """ Validates falue of field `X Value`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableTwoIndependentVariables.x_value`'.format(value))
-        return value
 
-    def _check_y_value(self, value):
-        """ Validates falue of field `Y Value`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableTwoIndependentVariables.y_value`'.format(value))
-        return value
-
-    def _check_output_value(self, value):
-        """ Validates falue of field `Output Value`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableTwoIndependentVariables.output_value`'.format(value))
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field TableTwoIndependentVariables:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field TableTwoIndependentVariables:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for TableTwoIndependentVariables: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for TableTwoIndependentVariables: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class TableMultiVariableLookup(object):
+class TableMultiVariableLookup(DataObject):
     """ Corresponds to IDD object `Table:MultiVariableLookup`
         The multi-variable lookup table can represent from 1 to 5 independent variables and
         can interpolate these independent variables up to a 4th order polynomial. The
@@ -1650,287 +699,16 @@ class TableMultiVariableLookup(object):
         is used to predict the table result and is based on the two nearest data points in the
         table for that particularindependent variable.
     """
-    internal_name = "Table:MultiVariableLookup"
-    field_count = 31
-    required_fields = ["Name"]
-    extensible_fields = 20
-    format = None
-    min_fields = 27
-    extensible_keys = ["Field 3 Determined by the Number of Independent Variables", "V1", "V2", "V3", "V4", "V5", "V6", "V7", "V8", "V9", "V10", "V11", "V12", "V13", "V14", "V15", "V16", "V17", "V18", "V19"]
+    schema = {'min-fields': 27, 'name': u'Table:MultiVariableLookup', 'pyname': u'TableMultiVariableLookup', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'interpolation method', {'name': u'Interpolation Method', 'pyname': u'interpolation_method', 'default': u'LagrangeInterpolationLinearExtrapolation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'number of interpolation points', {'name': u'Number of Interpolation Points', 'pyname': u'number_of_interpolation_points', 'default': 3, 'minimum>': 1, 'maximum': 4, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'curve type', {'name': u'Curve Type', 'pyname': u'curve_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'table data format', {'name': u'Table Data Format', 'pyname': u'table_data_format', 'default': u'SingleLineIndependentVariableWithMatrix', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'external file name', {'name': u'External File Name', 'pyname': u'external_file_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'x1 sort order', {'name': u'X1 Sort Order', 'pyname': u'x1_sort_order', 'default': u'Ascending', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'x2 sort order', {'name': u'X2 Sort Order', 'pyname': u'x2_sort_order', 'default': u'Ascending', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'normalization reference', {'name': u'Normalization Reference', 'pyname': u'normalization_reference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x1', {'name': u'Minimum Value of X1', 'pyname': u'minimum_value_of_x1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x1', {'name': u'Maximum Value of X1', 'pyname': u'maximum_value_of_x1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x2', {'name': u'Minimum Value of X2', 'pyname': u'minimum_value_of_x2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x2', {'name': u'Maximum Value of X2', 'pyname': u'maximum_value_of_x2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x3', {'name': u'Minimum Value of X3', 'pyname': u'minimum_value_of_x3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x3', {'name': u'Maximum Value of X3', 'pyname': u'maximum_value_of_x3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x4', {'name': u'Minimum Value of X4', 'pyname': u'minimum_value_of_x4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x4', {'name': u'Maximum Value of X4', 'pyname': u'maximum_value_of_x4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x5', {'name': u'Minimum Value of X5', 'pyname': u'minimum_value_of_x5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x5', {'name': u'Maximum Value of X5', 'pyname': u'maximum_value_of_x5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum table output', {'name': u'Minimum Table Output', 'pyname': u'minimum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum table output', {'name': u'Maximum Table Output', 'pyname': u'maximum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x1', {'name': u'Input Unit Type for X1', 'pyname': u'input_unit_type_for_x1', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x2', {'name': u'Input Unit Type for X2', 'pyname': u'input_unit_type_for_x2', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x3', {'name': u'Input Unit Type for X3', 'pyname': u'input_unit_type_for_x3', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x4', {'name': u'Input Unit Type for X4', 'pyname': u'input_unit_type_for_x4', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x5', {'name': u'Input Unit Type for X5', 'pyname': u'input_unit_type_for_x5', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'number of independent variables', {'name': u'Number of Independent Variables', 'pyname': u'number_of_independent_variables', 'minimum>': 0, 'maximum': 5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'number of values for independent variable x1', {'name': u'Number of Values for Independent Variable X1', 'pyname': u'number_of_values_for_independent_variable_x1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'field 1 determined by the number of independent variables', {'name': u'Field 1 Determined by the Number of Independent Variables', 'pyname': u'field_1_determined_by_the_number_of_independent_variables', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'field 2 determined by the number of independent variables', {'name': u'Field 2 Determined by the Number of Independent Variables', 'pyname': u'field_2_determined_by_the_number_of_independent_variables', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'field 3 determined by the number of independent variables', {'name': u'Field 3 Determined by the Number of Independent Variables', 'pyname': u'field_3_determined_by_the_number_of_independent_variables', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v1', {'name': u'V1', 'pyname': u'v1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v2', {'name': u'V2', 'pyname': u'v2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v3', {'name': u'V3', 'pyname': u'v3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v4', {'name': u'V4', 'pyname': u'v4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v5', {'name': u'V5', 'pyname': u'v5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v6', {'name': u'V6', 'pyname': u'v6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v7', {'name': u'V7', 'pyname': u'v7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v8', {'name': u'V8', 'pyname': u'v8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v9', {'name': u'V9', 'pyname': u'v9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v10', {'name': u'V10', 'pyname': u'v10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v11', {'name': u'V11', 'pyname': u'v11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v12', {'name': u'V12', 'pyname': u'v12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v13', {'name': u'V13', 'pyname': u'v13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v14', {'name': u'V14', 'pyname': u'v14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v15', {'name': u'V15', 'pyname': u'v15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v16', {'name': u'V16', 'pyname': u'v16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v17', {'name': u'V17', 'pyname': u'v17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v18', {'name': u'V18', 'pyname': u'v18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v19', {'name': u'V19', 'pyname': u'v19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Table:MultiVariableLookup`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Interpolation Method"] = None
-        self._data["Number of Interpolation Points"] = None
-        self._data["Curve Type"] = None
-        self._data["Table Data Format"] = None
-        self._data["External File Name"] = None
-        self._data["X1 Sort Order"] = None
-        self._data["X2 Sort Order"] = None
-        self._data["Normalization Reference"] = None
-        self._data["Minimum Value of X1"] = None
-        self._data["Maximum Value of X1"] = None
-        self._data["Minimum Value of X2"] = None
-        self._data["Maximum Value of X2"] = None
-        self._data["Minimum Value of X3"] = None
-        self._data["Maximum Value of X3"] = None
-        self._data["Minimum Value of X4"] = None
-        self._data["Maximum Value of X4"] = None
-        self._data["Minimum Value of X5"] = None
-        self._data["Maximum Value of X5"] = None
-        self._data["Minimum Table Output"] = None
-        self._data["Maximum Table Output"] = None
-        self._data["Input Unit Type for X1"] = None
-        self._data["Input Unit Type for X2"] = None
-        self._data["Input Unit Type for X3"] = None
-        self._data["Input Unit Type for X4"] = None
-        self._data["Input Unit Type for X5"] = None
-        self._data["Output Unit Type"] = None
-        self._data["Number of Independent Variables"] = None
-        self._data["Number of Values for Independent Variable X1"] = None
-        self._data["Field 1 Determined by the Number of Independent Variables"] = None
-        self._data["Field 2 Determined by the Number of Independent Variables"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.interpolation_method = None
-        else:
-            self.interpolation_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_interpolation_points = None
-        else:
-            self.number_of_interpolation_points = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.curve_type = None
-        else:
-            self.curve_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.table_data_format = None
-        else:
-            self.table_data_format = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.external_file_name = None
-        else:
-            self.external_file_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.x1_sort_order = None
-        else:
-            self.x1_sort_order = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.x2_sort_order = None
-        else:
-            self.x2_sort_order = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.normalization_reference = None
-        else:
-            self.normalization_reference = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x1 = None
-        else:
-            self.minimum_value_of_x1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x1 = None
-        else:
-            self.maximum_value_of_x1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x2 = None
-        else:
-            self.minimum_value_of_x2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x2 = None
-        else:
-            self.maximum_value_of_x2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x3 = None
-        else:
-            self.minimum_value_of_x3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x3 = None
-        else:
-            self.maximum_value_of_x3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x4 = None
-        else:
-            self.minimum_value_of_x4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x4 = None
-        else:
-            self.maximum_value_of_x4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x5 = None
-        else:
-            self.minimum_value_of_x5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x5 = None
-        else:
-            self.maximum_value_of_x5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_table_output = None
-        else:
-            self.minimum_table_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_table_output = None
-        else:
-            self.maximum_table_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x1 = None
-        else:
-            self.input_unit_type_for_x1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x2 = None
-        else:
-            self.input_unit_type_for_x2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x3 = None
-        else:
-            self.input_unit_type_for_x3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x4 = None
-        else:
-            self.input_unit_type_for_x4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x5 = None
-        else:
-            self.input_unit_type_for_x5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_independent_variables = None
-        else:
-            self.number_of_independent_variables = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_values_for_independent_variable_x1 = None
-        else:
-            self.number_of_values_for_independent_variable_x1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.field_1_determined_by_the_number_of_independent_variables = None
-        else:
-            self.field_1_determined_by_the_number_of_independent_variables = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.field_2_determined_by_the_number_of_independent_variables = None
-        else:
-            self.field_2_determined_by_the_number_of_independent_variables = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1953,19 +731,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def interpolation_method(self):
@@ -1982,10 +748,6 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (str): value for IDD Field `Interpolation Method`
-                Accepted values are:
-                      - LinearInterpolationOfTable
-                      - EvaluateCurveToLimits
-                      - LagrangeInterpolationLinearExtrapolation
                 Default value: LagrangeInterpolationLinearExtrapolation
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1993,47 +755,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.interpolation_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.interpolation_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.interpolation_method`')
-            vals = {}
-            vals["linearinterpolationoftable"] = "LinearInterpolationOfTable"
-            vals["evaluatecurvetolimits"] = "EvaluateCurveToLimits"
-            vals["lagrangeinterpolationlinearextrapolation"] = "LagrangeInterpolationLinearExtrapolation"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableMultiVariableLookup.interpolation_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableMultiVariableLookup.interpolation_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Interpolation Method"] = value
+        self["Interpolation Method"] = value
 
     @property
     def number_of_interpolation_points(self):
@@ -2059,26 +781,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `TableMultiVariableLookup.number_of_interpolation_points`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `TableMultiVariableLookup.number_of_interpolation_points`'.format(value))
-            if value <= 1:
-                raise ValueError('value need to be greater 1 '
-                                 'for field `TableMultiVariableLookup.number_of_interpolation_points`')
-            if value > 4:
-                raise ValueError('value need to be smaller 4 '
-                                 'for field `TableMultiVariableLookup.number_of_interpolation_points`')
-        self._data["Number of Interpolation Points"] = value
+        self["Number of Interpolation Points"] = value
 
     @property
     def curve_type(self):
@@ -2097,71 +800,13 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (str): value for IDD Field `Curve Type`
-                Accepted values are:
-                      - Linear
-                      - Quadratic
-                      - Cubic
-                      - Quartic
-                      - Exponent
-                      - BiQuadratic
-                      - QuadraticLinear
-                      - BiCubic
-                      - TriQuadratic
-                      - Other
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.curve_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.curve_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.curve_type`')
-            vals = {}
-            vals["linear"] = "Linear"
-            vals["quadratic"] = "Quadratic"
-            vals["cubic"] = "Cubic"
-            vals["quartic"] = "Quartic"
-            vals["exponent"] = "Exponent"
-            vals["biquadratic"] = "BiQuadratic"
-            vals["quadraticlinear"] = "QuadraticLinear"
-            vals["bicubic"] = "BiCubic"
-            vals["triquadratic"] = "TriQuadratic"
-            vals["other"] = "Other"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableMultiVariableLookup.curve_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableMultiVariableLookup.curve_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Curve Type"] = value
+        self["Curve Type"] = value
 
     @property
     def table_data_format(self):
@@ -2178,8 +823,6 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (str): value for IDD Field `Table Data Format`
-                Accepted values are:
-                      - SingleLineIndependentVariableWithMatrix
                 Default value: SingleLineIndependentVariableWithMatrix
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2187,45 +830,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.table_data_format`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.table_data_format`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.table_data_format`')
-            vals = {}
-            vals["singlelineindependentvariablewithmatrix"] = "SingleLineIndependentVariableWithMatrix"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableMultiVariableLookup.table_data_format`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableMultiVariableLookup.table_data_format`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Table Data Format"] = value
+        self["Table Data Format"] = value
 
     @property
     def external_file_name(self):
@@ -2248,19 +853,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.external_file_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.external_file_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.external_file_name`')
-        self._data["External File Name"] = value
+        self["External File Name"] = value
 
     @property
     def x1_sort_order(self):
@@ -2277,9 +870,6 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (str): value for IDD Field `X1 Sort Order`
-                Accepted values are:
-                      - Ascending
-                      - Descending
                 Default value: Ascending
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2287,46 +877,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.x1_sort_order`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.x1_sort_order`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.x1_sort_order`')
-            vals = {}
-            vals["ascending"] = "Ascending"
-            vals["descending"] = "Descending"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableMultiVariableLookup.x1_sort_order`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableMultiVariableLookup.x1_sort_order`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["X1 Sort Order"] = value
+        self["X1 Sort Order"] = value
 
     @property
     def x2_sort_order(self):
@@ -2343,9 +894,6 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (str): value for IDD Field `X2 Sort Order`
-                Accepted values are:
-                      - Ascending
-                      - Descending
                 Default value: Ascending
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2353,46 +901,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.x2_sort_order`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.x2_sort_order`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.x2_sort_order`')
-            vals = {}
-            vals["ascending"] = "Ascending"
-            vals["descending"] = "Descending"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableMultiVariableLookup.x2_sort_order`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableMultiVariableLookup.x2_sort_order`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["X2 Sort Order"] = value
+        self["X2 Sort Order"] = value
 
     @property
     def normalization_reference(self):
@@ -2419,13 +928,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.normalization_reference`'.format(value))
-        self._data["Normalization Reference"] = value
+        self["Normalization Reference"] = value
 
     @property
     def minimum_value_of_x1(self):
@@ -2449,13 +952,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.minimum_value_of_x1`'.format(value))
-        self._data["Minimum Value of X1"] = value
+        self["Minimum Value of X1"] = value
 
     @property
     def maximum_value_of_x1(self):
@@ -2479,13 +976,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.maximum_value_of_x1`'.format(value))
-        self._data["Maximum Value of X1"] = value
+        self["Maximum Value of X1"] = value
 
     @property
     def minimum_value_of_x2(self):
@@ -2509,13 +1000,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.minimum_value_of_x2`'.format(value))
-        self._data["Minimum Value of X2"] = value
+        self["Minimum Value of X2"] = value
 
     @property
     def maximum_value_of_x2(self):
@@ -2539,13 +1024,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.maximum_value_of_x2`'.format(value))
-        self._data["Maximum Value of X2"] = value
+        self["Maximum Value of X2"] = value
 
     @property
     def minimum_value_of_x3(self):
@@ -2569,13 +1048,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.minimum_value_of_x3`'.format(value))
-        self._data["Minimum Value of X3"] = value
+        self["Minimum Value of X3"] = value
 
     @property
     def maximum_value_of_x3(self):
@@ -2599,13 +1072,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.maximum_value_of_x3`'.format(value))
-        self._data["Maximum Value of X3"] = value
+        self["Maximum Value of X3"] = value
 
     @property
     def minimum_value_of_x4(self):
@@ -2629,13 +1096,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.minimum_value_of_x4`'.format(value))
-        self._data["Minimum Value of X4"] = value
+        self["Minimum Value of X4"] = value
 
     @property
     def maximum_value_of_x4(self):
@@ -2659,13 +1120,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.maximum_value_of_x4`'.format(value))
-        self._data["Maximum Value of X4"] = value
+        self["Maximum Value of X4"] = value
 
     @property
     def minimum_value_of_x5(self):
@@ -2689,13 +1144,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.minimum_value_of_x5`'.format(value))
-        self._data["Minimum Value of X5"] = value
+        self["Minimum Value of X5"] = value
 
     @property
     def maximum_value_of_x5(self):
@@ -2719,13 +1168,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.maximum_value_of_x5`'.format(value))
-        self._data["Maximum Value of X5"] = value
+        self["Maximum Value of X5"] = value
 
     @property
     def minimum_table_output(self):
@@ -2750,13 +1193,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.minimum_table_output`'.format(value))
-        self._data["Minimum Table Output"] = value
+        self["Minimum Table Output"] = value
 
     @property
     def maximum_table_output(self):
@@ -2781,13 +1218,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.maximum_table_output`'.format(value))
-        self._data["Maximum Table Output"] = value
+        self["Maximum Table Output"] = value
 
     @property
     def input_unit_type_for_x1(self):
@@ -2804,13 +1235,6 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X1`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2818,50 +1242,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.input_unit_type_for_x1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.input_unit_type_for_x1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.input_unit_type_for_x1`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableMultiVariableLookup.input_unit_type_for_x1`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableMultiVariableLookup.input_unit_type_for_x1`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X1"] = value
+        self["Input Unit Type for X1"] = value
 
     @property
     def input_unit_type_for_x2(self):
@@ -2878,13 +1259,6 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X2`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2892,50 +1266,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.input_unit_type_for_x2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.input_unit_type_for_x2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.input_unit_type_for_x2`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableMultiVariableLookup.input_unit_type_for_x2`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableMultiVariableLookup.input_unit_type_for_x2`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X2"] = value
+        self["Input Unit Type for X2"] = value
 
     @property
     def input_unit_type_for_x3(self):
@@ -2952,13 +1283,6 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X3`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2966,50 +1290,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.input_unit_type_for_x3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.input_unit_type_for_x3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.input_unit_type_for_x3`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableMultiVariableLookup.input_unit_type_for_x3`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableMultiVariableLookup.input_unit_type_for_x3`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X3"] = value
+        self["Input Unit Type for X3"] = value
 
     @property
     def input_unit_type_for_x4(self):
@@ -3026,13 +1307,6 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X4`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3040,50 +1314,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.input_unit_type_for_x4`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.input_unit_type_for_x4`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.input_unit_type_for_x4`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableMultiVariableLookup.input_unit_type_for_x4`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableMultiVariableLookup.input_unit_type_for_x4`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X4"] = value
+        self["Input Unit Type for X4"] = value
 
     @property
     def input_unit_type_for_x5(self):
@@ -3100,13 +1331,6 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X5`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3114,50 +1338,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.input_unit_type_for_x5`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.input_unit_type_for_x5`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.input_unit_type_for_x5`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableMultiVariableLookup.input_unit_type_for_x5`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableMultiVariableLookup.input_unit_type_for_x5`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X5"] = value
+        self["Input Unit Type for X5"] = value
 
     @property
     def output_unit_type(self):
@@ -3174,10 +1355,6 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3185,47 +1362,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `TableMultiVariableLookup.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `TableMultiVariableLookup.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `TableMultiVariableLookup.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `TableMultiVariableLookup.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `TableMultiVariableLookup.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
     @property
     def number_of_independent_variables(self):
@@ -3242,7 +1379,6 @@ class TableMultiVariableLookup(object):
 
         Args:
             value (int): value for IDD Field `Number of Independent Variables`
-                value > 0
                 value <= 5
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3250,26 +1386,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `TableMultiVariableLookup.number_of_independent_variables`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `TableMultiVariableLookup.number_of_independent_variables`'.format(value))
-            if value <= 0:
-                raise ValueError('value need to be greater 0 '
-                                 'for field `TableMultiVariableLookup.number_of_independent_variables`')
-            if value > 5:
-                raise ValueError('value need to be smaller 5 '
-                                 'for field `TableMultiVariableLookup.number_of_independent_variables`')
-        self._data["Number of Independent Variables"] = value
+        self["Number of Independent Variables"] = value
 
     @property
     def number_of_values_for_independent_variable_x1(self):
@@ -3292,20 +1409,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `TableMultiVariableLookup.number_of_values_for_independent_variable_x1`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `TableMultiVariableLookup.number_of_values_for_independent_variable_x1`'.format(value))
-        self._data["Number of Values for Independent Variable X1"] = value
+        self["Number of Values for Independent Variable X1"] = value
 
     @property
     def field_1_determined_by_the_number_of_independent_variables(self):
@@ -3328,13 +1432,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.field_1_determined_by_the_number_of_independent_variables`'.format(value))
-        self._data["Field 1 Determined by the Number of Independent Variables"] = value
+        self["Field 1 Determined by the Number of Independent Variables"] = value
 
     @property
     def field_2_determined_by_the_number_of_independent_variables(self):
@@ -3357,13 +1455,7 @@ class TableMultiVariableLookup(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.field_2_determined_by_the_number_of_independent_variables`'.format(value))
-        self._data["Field 2 Determined by the Number of Independent Variables"] = value
+        self["Field 2 Determined by the Number of Independent Variables"] = value
 
     def add_extensible(self,
                        field_3_determined_by_the_number_of_independent_variables=None,
@@ -3472,26 +1564,46 @@ class TableMultiVariableLookup(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_field_3_determined_by_the_number_of_independent_variables(field_3_determined_by_the_number_of_independent_variables))
-        vals.append(self._check_v1(v1))
-        vals.append(self._check_v2(v2))
-        vals.append(self._check_v3(v3))
-        vals.append(self._check_v4(v4))
-        vals.append(self._check_v5(v5))
-        vals.append(self._check_v6(v6))
-        vals.append(self._check_v7(v7))
-        vals.append(self._check_v8(v8))
-        vals.append(self._check_v9(v9))
-        vals.append(self._check_v10(v10))
-        vals.append(self._check_v11(v11))
-        vals.append(self._check_v12(v12))
-        vals.append(self._check_v13(v13))
-        vals.append(self._check_v14(v14))
-        vals.append(self._check_v15(v15))
-        vals.append(self._check_v16(v16))
-        vals.append(self._check_v17(v17))
-        vals.append(self._check_v18(v18))
-        vals.append(self._check_v19(v19))
+        field_3_determined_by_the_number_of_independent_variables = self.check_value("Field 3 Determined by the Number of Independent Variables", field_3_determined_by_the_number_of_independent_variables)
+        vals.append(field_3_determined_by_the_number_of_independent_variables)
+        v1 = self.check_value("V1", v1)
+        vals.append(v1)
+        v2 = self.check_value("V2", v2)
+        vals.append(v2)
+        v3 = self.check_value("V3", v3)
+        vals.append(v3)
+        v4 = self.check_value("V4", v4)
+        vals.append(v4)
+        v5 = self.check_value("V5", v5)
+        vals.append(v5)
+        v6 = self.check_value("V6", v6)
+        vals.append(v6)
+        v7 = self.check_value("V7", v7)
+        vals.append(v7)
+        v8 = self.check_value("V8", v8)
+        vals.append(v8)
+        v9 = self.check_value("V9", v9)
+        vals.append(v9)
+        v10 = self.check_value("V10", v10)
+        vals.append(v10)
+        v11 = self.check_value("V11", v11)
+        vals.append(v11)
+        v12 = self.check_value("V12", v12)
+        vals.append(v12)
+        v13 = self.check_value("V13", v13)
+        vals.append(v13)
+        v14 = self.check_value("V14", v14)
+        vals.append(v14)
+        v15 = self.check_value("V15", v15)
+        vals.append(v15)
+        v16 = self.check_value("V16", v16)
+        vals.append(v16)
+        v17 = self.check_value("V17", v17)
+        vals.append(v17)
+        v18 = self.check_value("V18", v18)
+        vals.append(v18)
+        v19 = self.check_value("V19", v19)
+        vals.append(v19)
         self._data["extensibles"].append(vals)
 
     @property
@@ -3499,305 +1611,3 @@ class TableMultiVariableLookup(object):
         """ Get list of all extensibles
         """
         return self._data["extensibles"]
-
-    def _check_field_3_determined_by_the_number_of_independent_variables(self, value):
-        """ Validates falue of field `Field 3 Determined by the Number of Independent Variables`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.field_3_determined_by_the_number_of_independent_variables`'.format(value))
-        return value
-
-    def _check_v1(self, value):
-        """ Validates falue of field `V1`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v1`'.format(value))
-        return value
-
-    def _check_v2(self, value):
-        """ Validates falue of field `V2`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v2`'.format(value))
-        return value
-
-    def _check_v3(self, value):
-        """ Validates falue of field `V3`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v3`'.format(value))
-        return value
-
-    def _check_v4(self, value):
-        """ Validates falue of field `V4`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v4`'.format(value))
-        return value
-
-    def _check_v5(self, value):
-        """ Validates falue of field `V5`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v5`'.format(value))
-        return value
-
-    def _check_v6(self, value):
-        """ Validates falue of field `V6`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v6`'.format(value))
-        return value
-
-    def _check_v7(self, value):
-        """ Validates falue of field `V7`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v7`'.format(value))
-        return value
-
-    def _check_v8(self, value):
-        """ Validates falue of field `V8`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v8`'.format(value))
-        return value
-
-    def _check_v9(self, value):
-        """ Validates falue of field `V9`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v9`'.format(value))
-        return value
-
-    def _check_v10(self, value):
-        """ Validates falue of field `V10`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v10`'.format(value))
-        return value
-
-    def _check_v11(self, value):
-        """ Validates falue of field `V11`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v11`'.format(value))
-        return value
-
-    def _check_v12(self, value):
-        """ Validates falue of field `V12`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v12`'.format(value))
-        return value
-
-    def _check_v13(self, value):
-        """ Validates falue of field `V13`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v13`'.format(value))
-        return value
-
-    def _check_v14(self, value):
-        """ Validates falue of field `V14`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v14`'.format(value))
-        return value
-
-    def _check_v15(self, value):
-        """ Validates falue of field `V15`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v15`'.format(value))
-        return value
-
-    def _check_v16(self, value):
-        """ Validates falue of field `V16`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v16`'.format(value))
-        return value
-
-    def _check_v17(self, value):
-        """ Validates falue of field `V17`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v17`'.format(value))
-        return value
-
-    def _check_v18(self, value):
-        """ Validates falue of field `V18`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v18`'.format(value))
-        return value
-
-    def _check_v19(self, value):
-        """ Validates falue of field `V19`
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `TableMultiVariableLookup.v19`'.format(value))
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field TableMultiVariableLookup:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field TableMultiVariableLookup:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for TableMultiVariableLookup: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for TableMultiVariableLookup: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])

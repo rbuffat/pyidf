@@ -1,11 +1,14 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class ZoneHvacIdealLoadsAirSystem(object):
+
+
+class ZoneHvacIdealLoadsAirSystem(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:IdealLoadsAirSystem`
         Ideal system used to calculate loads without modeling a full HVAC system. All that is
         required for the ideal system are zone controls, zone equipment configurations, and
@@ -14,247 +17,16 @@ class ZoneHvacIdealLoadsAirSystem(object):
         heat and moisture at 100% efficiency in order to meet the specified controls. Energy
         use is reported as DistrictHeating and DistrictCooling.
     """
-    internal_name = "ZoneHVAC:IdealLoadsAirSystem"
-    field_count = 27
-    required_fields = ["Name", "Zone Supply Air Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 26
-    extensible_keys = []
+    schema = {'min-fields': 26, 'name': u'ZoneHVAC:IdealLoadsAirSystem', 'pyname': u'ZoneHvacIdealLoadsAirSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone supply air node name', {'name': u'Zone Supply Air Node Name', 'pyname': u'zone_supply_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone exhaust air node name', {'name': u'Zone Exhaust Air Node Name', 'pyname': u'zone_exhaust_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum heating supply air temperature', {'name': u'Maximum Heating Supply Air Temperature', 'pyname': u'maximum_heating_supply_air_temperature', 'default': 50.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'maximum<': 100.0, 'unit': u'C'}), (u'minimum cooling supply air temperature', {'name': u'Minimum Cooling Supply Air Temperature', 'pyname': u'minimum_cooling_supply_air_temperature', 'default': 13.0, 'minimum>': -100.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'maximum<': 50.0, 'unit': u'C'}), (u'maximum heating supply air humidity ratio', {'name': u'Maximum Heating Supply Air Humidity Ratio', 'pyname': u'maximum_heating_supply_air_humidity_ratio', 'default': 0.0156, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum cooling supply air humidity ratio', {'name': u'Minimum Cooling Supply Air Humidity Ratio', 'pyname': u'minimum_cooling_supply_air_humidity_ratio', 'default': 0.0077, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kgWater/kgDryAir'}), (u'heating limit', {'name': u'Heating Limit', 'pyname': u'heating_limit', 'default': u'NoLimit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum heating air flow rate', {'name': u'Maximum Heating Air Flow Rate', 'pyname': u'maximum_heating_air_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'maximum sensible heating capacity', {'name': u'Maximum Sensible Heating Capacity', 'pyname': u'maximum_sensible_heating_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'cooling limit', {'name': u'Cooling Limit', 'pyname': u'cooling_limit', 'default': u'NoLimit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum cooling air flow rate', {'name': u'Maximum Cooling Air Flow Rate', 'pyname': u'maximum_cooling_air_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'maximum total cooling capacity', {'name': u'Maximum Total Cooling Capacity', 'pyname': u'maximum_total_cooling_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'heating availability schedule name', {'name': u'Heating Availability Schedule Name', 'pyname': u'heating_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling availability schedule name', {'name': u'Cooling Availability Schedule Name', 'pyname': u'cooling_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'ConstantSensibleHeatRatio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling sensible heat ratio', {'name': u'Cooling Sensible Heat Ratio', 'pyname': u'cooling_sensible_heat_ratio', 'default': 0.7, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'humidification control type', {'name': u'Humidification Control Type', 'pyname': u'humidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design specification outdoor air object name', {'name': u'Design Specification Outdoor Air Object Name', 'pyname': u'design_specification_outdoor_air_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outdoor air inlet node name', {'name': u'Outdoor Air Inlet Node Name', 'pyname': u'outdoor_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand controlled ventilation type', {'name': u'Demand Controlled Ventilation Type', 'pyname': u'demand_controlled_ventilation_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air economizer type', {'name': u'Outdoor Air Economizer Type', 'pyname': u'outdoor_air_economizer_type', 'default': u'NoEconomizer', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat recovery type', {'name': u'Heat Recovery Type', 'pyname': u'heat_recovery_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'sensible heat recovery effectiveness', {'name': u'Sensible Heat Recovery Effectiveness', 'pyname': u'sensible_heat_recovery_effectiveness', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'latent heat recovery effectiveness', {'name': u'Latent Heat Recovery Effectiveness', 'pyname': u'latent_heat_recovery_effectiveness', 'default': 0.65, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:IdealLoadsAirSystem`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Zone Supply Air Node Name"] = None
-        self._data["Zone Exhaust Air Node Name"] = None
-        self._data["Maximum Heating Supply Air Temperature"] = None
-        self._data["Minimum Cooling Supply Air Temperature"] = None
-        self._data["Maximum Heating Supply Air Humidity Ratio"] = None
-        self._data["Minimum Cooling Supply Air Humidity Ratio"] = None
-        self._data["Heating Limit"] = None
-        self._data["Maximum Heating Air Flow Rate"] = None
-        self._data["Maximum Sensible Heating Capacity"] = None
-        self._data["Cooling Limit"] = None
-        self._data["Maximum Cooling Air Flow Rate"] = None
-        self._data["Maximum Total Cooling Capacity"] = None
-        self._data["Heating Availability Schedule Name"] = None
-        self._data["Cooling Availability Schedule Name"] = None
-        self._data["Dehumidification Control Type"] = None
-        self._data["Cooling Sensible Heat Ratio"] = None
-        self._data["Humidification Control Type"] = None
-        self._data["Design Specification Outdoor Air Object Name"] = None
-        self._data["Outdoor Air Inlet Node Name"] = None
-        self._data["Demand Controlled Ventilation Type"] = None
-        self._data["Outdoor Air Economizer Type"] = None
-        self._data["Heat Recovery Type"] = None
-        self._data["Sensible Heat Recovery Effectiveness"] = None
-        self._data["Latent Heat Recovery Effectiveness"] = None
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_supply_air_node_name = None
-        else:
-            self.zone_supply_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_exhaust_air_node_name = None
-        else:
-            self.zone_exhaust_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_heating_supply_air_temperature = None
-        else:
-            self.maximum_heating_supply_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_cooling_supply_air_temperature = None
-        else:
-            self.minimum_cooling_supply_air_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_heating_supply_air_humidity_ratio = None
-        else:
-            self.maximum_heating_supply_air_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_cooling_supply_air_humidity_ratio = None
-        else:
-            self.minimum_cooling_supply_air_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_limit = None
-        else:
-            self.heating_limit = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_heating_air_flow_rate = None
-        else:
-            self.maximum_heating_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_sensible_heating_capacity = None
-        else:
-            self.maximum_sensible_heating_capacity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_limit = None
-        else:
-            self.cooling_limit = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_cooling_air_flow_rate = None
-        else:
-            self.maximum_cooling_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_total_cooling_capacity = None
-        else:
-            self.maximum_total_cooling_capacity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_availability_schedule_name = None
-        else:
-            self.heating_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_availability_schedule_name = None
-        else:
-            self.cooling_availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.dehumidification_control_type = None
-        else:
-            self.dehumidification_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_sensible_heat_ratio = None
-        else:
-            self.cooling_sensible_heat_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidification_control_type = None
-        else:
-            self.humidification_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_outdoor_air_object_name = None
-        else:
-            self.design_specification_outdoor_air_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_inlet_node_name = None
-        else:
-            self.outdoor_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.demand_controlled_ventilation_type = None
-        else:
-            self.demand_controlled_ventilation_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_economizer_type = None
-        else:
-            self.outdoor_air_economizer_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heat_recovery_type = None
-        else:
-            self.heat_recovery_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.sensible_heat_recovery_effectiveness = None
-        else:
-            self.sensible_heat_recovery_effectiveness = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.latent_heat_recovery_effectiveness = None
-        else:
-            self.latent_heat_recovery_effectiveness = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zonehvac_sizing_object_name = None
-        else:
-            self.design_specification_zonehvac_sizing_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -277,19 +49,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -314,19 +74,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def zone_supply_air_node_name(self):
@@ -350,19 +98,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.zone_supply_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.zone_supply_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.zone_supply_air_node_name`')
-        self._data["Zone Supply Air Node Name"] = value
+        self["Zone Supply Air Node Name"] = value
 
     @property
     def zone_exhaust_air_node_name(self):
@@ -388,19 +124,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.zone_exhaust_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.zone_exhaust_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.zone_exhaust_air_node_name`')
-        self._data["Zone Exhaust Air Node Name"] = value
+        self["Zone Exhaust Air Node Name"] = value
 
     @property
     def maximum_heating_supply_air_temperature(self):
@@ -419,7 +143,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
             value (float): value for IDD Field `Maximum Heating Supply Air Temperature`
                 Units: C
                 Default value: 50.0
-                value > 0.0
                 value < 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -427,19 +150,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.maximum_heating_supply_air_temperature`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.maximum_heating_supply_air_temperature`')
-            if value >= 100.0:
-                raise ValueError('value need to be smaller 100.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.maximum_heating_supply_air_temperature`')
-        self._data["Maximum Heating Supply Air Temperature"] = value
+        self["Maximum Heating Supply Air Temperature"] = value
 
     @property
     def minimum_cooling_supply_air_temperature(self):
@@ -466,19 +177,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.minimum_cooling_supply_air_temperature`'.format(value))
-            if value <= -100.0:
-                raise ValueError('value need to be greater -100.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.minimum_cooling_supply_air_temperature`')
-            if value >= 50.0:
-                raise ValueError('value need to be smaller 50.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.minimum_cooling_supply_air_temperature`')
-        self._data["Minimum Cooling Supply Air Temperature"] = value
+        self["Minimum Cooling Supply Air Temperature"] = value
 
     @property
     def maximum_heating_supply_air_humidity_ratio(self):
@@ -497,23 +196,13 @@ class ZoneHvacIdealLoadsAirSystem(object):
             value (float): value for IDD Field `Maximum Heating Supply Air Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.0156
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.maximum_heating_supply_air_humidity_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.maximum_heating_supply_air_humidity_ratio`')
-        self._data["Maximum Heating Supply Air Humidity Ratio"] = value
+        self["Maximum Heating Supply Air Humidity Ratio"] = value
 
     @property
     def minimum_cooling_supply_air_humidity_ratio(self):
@@ -532,23 +221,13 @@ class ZoneHvacIdealLoadsAirSystem(object):
             value (float): value for IDD Field `Minimum Cooling Supply Air Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.0077
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.minimum_cooling_supply_air_humidity_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.minimum_cooling_supply_air_humidity_ratio`')
-        self._data["Minimum Cooling Supply Air Humidity Ratio"] = value
+        self["Minimum Cooling Supply Air Humidity Ratio"] = value
 
     @property
     def heating_limit(self):
@@ -565,11 +244,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (str): value for IDD Field `Heating Limit`
-                Accepted values are:
-                      - NoLimit
-                      - LimitFlowRate
-                      - LimitCapacity
-                      - LimitFlowRateAndCapacity
                 Default value: NoLimit
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -577,48 +251,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.heating_limit`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.heating_limit`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.heating_limit`')
-            vals = {}
-            vals["nolimit"] = "NoLimit"
-            vals["limitflowrate"] = "LimitFlowRate"
-            vals["limitcapacity"] = "LimitCapacity"
-            vals["limitflowrateandcapacity"] = "LimitFlowRateAndCapacity"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacIdealLoadsAirSystem.heating_limit`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacIdealLoadsAirSystem.heating_limit`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heating Limit"] = value
+        self["Heating Limit"] = value
 
     @property
     def maximum_heating_air_flow_rate(self):
@@ -638,35 +271,13 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Heating Air Flow Rate`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Heating Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.maximum_heating_air_flow_rate`'.format(value))
-                    self._data["Maximum Heating Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.maximum_heating_air_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.maximum_heating_air_flow_rate`')
-        self._data["Maximum Heating Air Flow Rate"] = value
+        self["Maximum Heating Air Flow Rate"] = value
 
     @property
     def maximum_sensible_heating_capacity(self):
@@ -686,35 +297,13 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Sensible Heating Capacity`
                 Units: W
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Sensible Heating Capacity"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.maximum_sensible_heating_capacity`'.format(value))
-                    self._data["Maximum Sensible Heating Capacity"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.maximum_sensible_heating_capacity`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.maximum_sensible_heating_capacity`')
-        self._data["Maximum Sensible Heating Capacity"] = value
+        self["Maximum Sensible Heating Capacity"] = value
 
     @property
     def cooling_limit(self):
@@ -731,11 +320,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (str): value for IDD Field `Cooling Limit`
-                Accepted values are:
-                      - NoLimit
-                      - LimitFlowRate
-                      - LimitCapacity
-                      - LimitFlowRateAndCapacity
                 Default value: NoLimit
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -743,48 +327,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.cooling_limit`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.cooling_limit`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.cooling_limit`')
-            vals = {}
-            vals["nolimit"] = "NoLimit"
-            vals["limitflowrate"] = "LimitFlowRate"
-            vals["limitcapacity"] = "LimitCapacity"
-            vals["limitflowrateandcapacity"] = "LimitFlowRateAndCapacity"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacIdealLoadsAirSystem.cooling_limit`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacIdealLoadsAirSystem.cooling_limit`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Cooling Limit"] = value
+        self["Cooling Limit"] = value
 
     @property
     def maximum_cooling_air_flow_rate(self):
@@ -804,35 +347,13 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Cooling Air Flow Rate`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Cooling Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.maximum_cooling_air_flow_rate`'.format(value))
-                    self._data["Maximum Cooling Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.maximum_cooling_air_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.maximum_cooling_air_flow_rate`')
-        self._data["Maximum Cooling Air Flow Rate"] = value
+        self["Maximum Cooling Air Flow Rate"] = value
 
     @property
     def maximum_total_cooling_capacity(self):
@@ -851,35 +372,13 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Total Cooling Capacity`
                 Units: W
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Total Cooling Capacity"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.maximum_total_cooling_capacity`'.format(value))
-                    self._data["Maximum Total Cooling Capacity"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.maximum_total_cooling_capacity`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.maximum_total_cooling_capacity`')
-        self._data["Maximum Total Cooling Capacity"] = value
+        self["Maximum Total Cooling Capacity"] = value
 
     @property
     def heating_availability_schedule_name(self):
@@ -903,19 +402,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.heating_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.heating_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.heating_availability_schedule_name`')
-        self._data["Heating Availability Schedule Name"] = value
+        self["Heating Availability Schedule Name"] = value
 
     @property
     def cooling_availability_schedule_name(self):
@@ -939,19 +426,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.cooling_availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.cooling_availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.cooling_availability_schedule_name`')
-        self._data["Cooling Availability Schedule Name"] = value
+        self["Cooling Availability Schedule Name"] = value
 
     @property
     def dehumidification_control_type(self):
@@ -977,11 +452,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
-                Accepted values are:
-                      - ConstantSensibleHeatRatio
-                      - Humidistat
-                      - None
-                      - ConstantSupplyHumidityRatio
                 Default value: ConstantSensibleHeatRatio
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -989,48 +459,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.dehumidification_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.dehumidification_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.dehumidification_control_type`')
-            vals = {}
-            vals["constantsensibleheatratio"] = "ConstantSensibleHeatRatio"
-            vals["humidistat"] = "Humidistat"
-            vals["none"] = "None"
-            vals["constantsupplyhumidityratio"] = "ConstantSupplyHumidityRatio"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacIdealLoadsAirSystem.dehumidification_control_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacIdealLoadsAirSystem.dehumidification_control_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Dehumidification Control Type"] = value
+        self["Dehumidification Control Type"] = value
 
     @property
     def cooling_sensible_heat_ratio(self):
@@ -1050,7 +479,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
             value (float): value for IDD Field `Cooling Sensible Heat Ratio`
                 Units: dimensionless
                 Default value: 0.7
-                value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1058,19 +486,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.cooling_sensible_heat_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.cooling_sensible_heat_ratio`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.cooling_sensible_heat_ratio`')
-        self._data["Cooling Sensible Heat Ratio"] = value
+        self["Cooling Sensible Heat Ratio"] = value
 
     @property
     def humidification_control_type(self):
@@ -1092,10 +508,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (str): value for IDD Field `Humidification Control Type`
-                Accepted values are:
-                      - None
-                      - Humidistat
-                      - ConstantSupplyHumidityRatio
                 Default value: None
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1103,47 +515,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.humidification_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.humidification_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.humidification_control_type`')
-            vals = {}
-            vals["none"] = "None"
-            vals["humidistat"] = "Humidistat"
-            vals["constantsupplyhumidityratio"] = "ConstantSupplyHumidityRatio"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacIdealLoadsAirSystem.humidification_control_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacIdealLoadsAirSystem.humidification_control_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Humidification Control Type"] = value
+        self["Humidification Control Type"] = value
 
     @property
     def design_specification_outdoor_air_object_name(self):
@@ -1171,19 +543,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.design_specification_outdoor_air_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.design_specification_outdoor_air_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.design_specification_outdoor_air_object_name`')
-        self._data["Design Specification Outdoor Air Object Name"] = value
+        self["Design Specification Outdoor Air Object Name"] = value
 
     @property
     def outdoor_air_inlet_node_name(self):
@@ -1209,19 +569,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.outdoor_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.outdoor_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.outdoor_air_inlet_node_name`')
-        self._data["Outdoor Air Inlet Node Name"] = value
+        self["Outdoor Air Inlet Node Name"] = value
 
     @property
     def demand_controlled_ventilation_type(self):
@@ -1244,10 +592,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (str): value for IDD Field `Demand Controlled Ventilation Type`
-                Accepted values are:
-                      - None
-                      - OccupancySchedule
-                      - CO2Setpoint
                 Default value: None
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1255,47 +599,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.demand_controlled_ventilation_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.demand_controlled_ventilation_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.demand_controlled_ventilation_type`')
-            vals = {}
-            vals["none"] = "None"
-            vals["occupancyschedule"] = "OccupancySchedule"
-            vals["co2setpoint"] = "CO2Setpoint"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacIdealLoadsAirSystem.demand_controlled_ventilation_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacIdealLoadsAirSystem.demand_controlled_ventilation_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Demand Controlled Ventilation Type"] = value
+        self["Demand Controlled Ventilation Type"] = value
 
     @property
     def outdoor_air_economizer_type(self):
@@ -1315,10 +619,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (str): value for IDD Field `Outdoor Air Economizer Type`
-                Accepted values are:
-                      - NoEconomizer
-                      - DifferentialDryBulb
-                      - DifferentialEnthalpy
                 Default value: NoEconomizer
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1326,47 +626,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.outdoor_air_economizer_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.outdoor_air_economizer_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.outdoor_air_economizer_type`')
-            vals = {}
-            vals["noeconomizer"] = "NoEconomizer"
-            vals["differentialdrybulb"] = "DifferentialDryBulb"
-            vals["differentialenthalpy"] = "DifferentialEnthalpy"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacIdealLoadsAirSystem.outdoor_air_economizer_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacIdealLoadsAirSystem.outdoor_air_economizer_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Outdoor Air Economizer Type"] = value
+        self["Outdoor Air Economizer Type"] = value
 
     @property
     def heat_recovery_type(self):
@@ -1383,10 +643,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
-                Accepted values are:
-                      - None
-                      - Sensible
-                      - Enthalpy
                 Default value: None
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1394,47 +650,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.heat_recovery_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.heat_recovery_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.heat_recovery_type`')
-            vals = {}
-            vals["none"] = "None"
-            vals["sensible"] = "Sensible"
-            vals["enthalpy"] = "Enthalpy"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacIdealLoadsAirSystem.heat_recovery_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacIdealLoadsAirSystem.heat_recovery_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heat Recovery Type"] = value
+        self["Heat Recovery Type"] = value
 
     @property
     def sensible_heat_recovery_effectiveness(self):
@@ -1453,7 +669,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
             value (float): value for IDD Field `Sensible Heat Recovery Effectiveness`
                 Units: dimensionless
                 Default value: 0.7
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1461,19 +676,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.sensible_heat_recovery_effectiveness`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.sensible_heat_recovery_effectiveness`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.sensible_heat_recovery_effectiveness`')
-        self._data["Sensible Heat Recovery Effectiveness"] = value
+        self["Sensible Heat Recovery Effectiveness"] = value
 
     @property
     def latent_heat_recovery_effectiveness(self):
@@ -1493,7 +696,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
             value (float): value for IDD Field `Latent Heat Recovery Effectiveness`
                 Units: dimensionless
                 Default value: 0.65
-                value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1501,19 +703,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.latent_heat_recovery_effectiveness`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.latent_heat_recovery_effectiveness`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.latent_heat_recovery_effectiveness`')
-        self._data["Latent Heat Recovery Effectiveness"] = value
+        self["Latent Heat Recovery Effectiveness"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
@@ -1537,341 +727,25 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacIdealLoadsAirSystem.design_specification_zonehvac_sizing_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.design_specification_zonehvac_sizing_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacIdealLoadsAirSystem.design_specification_zonehvac_sizing_object_name`')
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
+        self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacIdealLoadsAirSystem:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacIdealLoadsAirSystem:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacIdealLoadsAirSystem: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacIdealLoadsAirSystem: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacFourPipeFanCoil(object):
+class ZoneHvacFourPipeFanCoil(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:FourPipeFanCoil`
         Four pipe fan coil system. Forced-convection hydronic heating-cooling unit with
         supply fan, hot water heating coil, chilled water cooling coil, and fixed-position
         outdoor air mixer.
     """
-    internal_name = "ZoneHVAC:FourPipeFanCoil"
-    field_count = 26
-    required_fields = ["Name", "Capacity Control Method", "Maximum Supply Air Flow Rate", "Maximum Outdoor Air Flow Rate", "Air Inlet Node Name", "Air Outlet Node Name", "Supply Air Fan Object Type", "Supply Air Fan Name", "Cooling Coil Object Type", "Cooling Coil Name", "Maximum Cold Water Flow Rate", "Heating Coil Object Type", "Heating Coil Name", "Maximum Hot Water Flow Rate"]
-    extensible_fields = 0
-    format = None
-    min_fields = 24
-    extensible_keys = []
+    schema = {'min-fields': 24, 'name': u'ZoneHVAC:FourPipeFanCoil', 'pyname': u'ZoneHvacFourPipeFanCoil', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity control method', {'name': u'Capacity Control Method', 'pyname': u'capacity_control_method', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum supply air flow rate', {'name': u'Maximum Supply Air Flow Rate', 'pyname': u'maximum_supply_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'low speed supply air flow ratio', {'name': u'Low Speed Supply Air Flow Ratio', 'pyname': u'low_speed_supply_air_flow_ratio', 'default': 0.33, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'medium speed supply air flow ratio', {'name': u'Medium Speed Supply Air Flow Ratio', 'pyname': u'medium_speed_supply_air_flow_ratio', 'default': 0.66, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum outdoor air flow rate', {'name': u'Maximum Outdoor Air Flow Rate', 'pyname': u'maximum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'outdoor air schedule name', {'name': u'Outdoor Air Schedule Name', 'pyname': u'outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum cold water flow rate', {'name': u'Maximum Cold Water Flow Rate', 'pyname': u'maximum_cold_water_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum cold water flow rate', {'name': u'Minimum Cold Water Flow Rate', 'pyname': u'minimum_cold_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'cooling convergence tolerance', {'name': u'Cooling Convergence Tolerance', 'pyname': u'cooling_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water flow rate', {'name': u'Maximum Hot Water Flow Rate', 'pyname': u'maximum_hot_water_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum hot water flow rate', {'name': u'Minimum Hot Water Flow Rate', 'pyname': u'minimum_hot_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:FourPipeFanCoil`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Capacity Control Method"] = None
-        self._data["Maximum Supply Air Flow Rate"] = None
-        self._data["Low Speed Supply Air Flow Ratio"] = None
-        self._data["Medium Speed Supply Air Flow Ratio"] = None
-        self._data["Maximum Outdoor Air Flow Rate"] = None
-        self._data["Outdoor Air Schedule Name"] = None
-        self._data["Air Inlet Node Name"] = None
-        self._data["Air Outlet Node Name"] = None
-        self._data["Outdoor Air Mixer Object Type"] = None
-        self._data["Outdoor Air Mixer Name"] = None
-        self._data["Supply Air Fan Object Type"] = None
-        self._data["Supply Air Fan Name"] = None
-        self._data["Cooling Coil Object Type"] = None
-        self._data["Cooling Coil Name"] = None
-        self._data["Maximum Cold Water Flow Rate"] = None
-        self._data["Minimum Cold Water Flow Rate"] = None
-        self._data["Cooling Convergence Tolerance"] = None
-        self._data["Heating Coil Object Type"] = None
-        self._data["Heating Coil Name"] = None
-        self._data["Maximum Hot Water Flow Rate"] = None
-        self._data["Minimum Hot Water Flow Rate"] = None
-        self._data["Heating Convergence Tolerance"] = None
-        self._data["Availability Manager List Name"] = None
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.capacity_control_method = None
-        else:
-            self.capacity_control_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_supply_air_flow_rate = None
-        else:
-            self.maximum_supply_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.low_speed_supply_air_flow_ratio = None
-        else:
-            self.low_speed_supply_air_flow_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.medium_speed_supply_air_flow_ratio = None
-        else:
-            self.medium_speed_supply_air_flow_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_air_flow_rate = None
-        else:
-            self.maximum_outdoor_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_schedule_name = None
-        else:
-            self.outdoor_air_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_inlet_node_name = None
-        else:
-            self.air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_outlet_node_name = None
-        else:
-            self.air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_mixer_object_type = None
-        else:
-            self.outdoor_air_mixer_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_mixer_name = None
-        else:
-            self.outdoor_air_mixer_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_object_type = None
-        else:
-            self.supply_air_fan_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_name = None
-        else:
-            self.supply_air_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_object_type = None
-        else:
-            self.cooling_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_name = None
-        else:
-            self.cooling_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_cold_water_flow_rate = None
-        else:
-            self.maximum_cold_water_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_cold_water_flow_rate = None
-        else:
-            self.minimum_cold_water_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_convergence_tolerance = None
-        else:
-            self.cooling_convergence_tolerance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_object_type = None
-        else:
-            self.heating_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_name = None
-        else:
-            self.heating_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_hot_water_flow_rate = None
-        else:
-            self.maximum_hot_water_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_hot_water_flow_rate = None
-        else:
-            self.minimum_hot_water_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_convergence_tolerance = None
-        else:
-            self.heating_convergence_tolerance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zonehvac_sizing_object_name = None
-        else:
-            self.design_specification_zonehvac_sizing_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1894,19 +768,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -1931,19 +793,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def capacity_control_method(self):
@@ -1960,59 +810,13 @@ class ZoneHvacFourPipeFanCoil(object):
 
         Args:
             value (str): value for IDD Field `Capacity Control Method`
-                Accepted values are:
-                      - ConstantFanVariableFlow
-                      - CyclingFan
-                      - VariableFanVariableFlow
-                      - VariableFanConstantFlow
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.capacity_control_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.capacity_control_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.capacity_control_method`')
-            vals = {}
-            vals["constantfanvariableflow"] = "ConstantFanVariableFlow"
-            vals["cyclingfan"] = "CyclingFan"
-            vals["variablefanvariableflow"] = "VariableFanVariableFlow"
-            vals["variablefanconstantflow"] = "VariableFanConstantFlow"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacFourPipeFanCoil.capacity_control_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacFourPipeFanCoil.capacity_control_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Capacity Control Method"] = value
+        self["Capacity Control Method"] = value
 
     @property
     def maximum_supply_air_flow_rate(self):
@@ -2036,25 +840,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacFourPipeFanCoil.maximum_supply_air_flow_rate`'.format(value))
-                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacFourPipeFanCoil.maximum_supply_air_flow_rate`'.format(value))
-        self._data["Maximum Supply Air Flow Rate"] = value
+        self["Maximum Supply Air Flow Rate"] = value
 
     @property
     def low_speed_supply_air_flow_ratio(self):
@@ -2072,23 +858,13 @@ class ZoneHvacFourPipeFanCoil(object):
         Args:
             value (float): value for IDD Field `Low Speed Supply Air Flow Ratio`
                 Default value: 0.33
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacFourPipeFanCoil.low_speed_supply_air_flow_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacFourPipeFanCoil.low_speed_supply_air_flow_ratio`')
-        self._data["Low Speed Supply Air Flow Ratio"] = value
+        self["Low Speed Supply Air Flow Ratio"] = value
 
     @property
     def medium_speed_supply_air_flow_ratio(self):
@@ -2108,23 +884,13 @@ class ZoneHvacFourPipeFanCoil(object):
         Args:
             value (float): value for IDD Field `Medium Speed Supply Air Flow Ratio`
                 Default value: 0.66
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacFourPipeFanCoil.medium_speed_supply_air_flow_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacFourPipeFanCoil.medium_speed_supply_air_flow_ratio`')
-        self._data["Medium Speed Supply Air Flow Ratio"] = value
+        self["Medium Speed Supply Air Flow Ratio"] = value
 
     @property
     def maximum_outdoor_air_flow_rate(self):
@@ -2148,25 +914,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacFourPipeFanCoil.maximum_outdoor_air_flow_rate`'.format(value))
-                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacFourPipeFanCoil.maximum_outdoor_air_flow_rate`'.format(value))
-        self._data["Maximum Outdoor Air Flow Rate"] = value
+        self["Maximum Outdoor Air Flow Rate"] = value
 
     @property
     def outdoor_air_schedule_name(self):
@@ -2190,19 +938,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.outdoor_air_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.outdoor_air_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.outdoor_air_schedule_name`')
-        self._data["Outdoor Air Schedule Name"] = value
+        self["Outdoor Air Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
@@ -2225,19 +961,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.air_inlet_node_name`')
-        self._data["Air Inlet Node Name"] = value
+        self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
@@ -2260,19 +984,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.air_outlet_node_name`')
-        self._data["Air Outlet Node Name"] = value
+        self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_mixer_object_type(self):
@@ -2290,53 +1002,13 @@ class ZoneHvacFourPipeFanCoil(object):
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Object Type`
-                Accepted values are:
-                      - OutdoorAir:Mixer
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.outdoor_air_mixer_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.outdoor_air_mixer_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.outdoor_air_mixer_object_type`')
-            vals = {}
-            vals["outdoorair:mixer"] = "OutdoorAir:Mixer"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacFourPipeFanCoil.outdoor_air_mixer_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacFourPipeFanCoil.outdoor_air_mixer_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Outdoor Air Mixer Object Type"] = value
+        self["Outdoor Air Mixer Object Type"] = value
 
     @property
     def outdoor_air_mixer_name(self):
@@ -2359,19 +1031,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.outdoor_air_mixer_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.outdoor_air_mixer_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.outdoor_air_mixer_name`')
-        self._data["Outdoor Air Mixer Name"] = value
+        self["Outdoor Air Mixer Name"] = value
 
     @property
     def supply_air_fan_object_type(self):
@@ -2393,57 +1053,13 @@ class ZoneHvacFourPipeFanCoil(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
-                Accepted values are:
-                      - Fan:OnOff
-                      - Fan:ConstantVolume
-                      - Fan:VariableVolume
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.supply_air_fan_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.supply_air_fan_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.supply_air_fan_object_type`')
-            vals = {}
-            vals["fan:onoff"] = "Fan:OnOff"
-            vals["fan:constantvolume"] = "Fan:ConstantVolume"
-            vals["fan:variablevolume"] = "Fan:VariableVolume"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacFourPipeFanCoil.supply_air_fan_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacFourPipeFanCoil.supply_air_fan_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Fan Object Type"] = value
+        self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_name(self):
@@ -2466,19 +1082,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.supply_air_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.supply_air_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.supply_air_fan_name`')
-        self._data["Supply Air Fan Name"] = value
+        self["Supply Air Fan Name"] = value
 
     @property
     def cooling_coil_object_type(self):
@@ -2495,57 +1099,13 @@ class ZoneHvacFourPipeFanCoil(object):
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
-                Accepted values are:
-                      - Coil:Cooling:Water
-                      - Coil:Cooling:Water:DetailedGeometry
-                      - CoilSystem:Cooling:Water:HeatExchangerAssisted
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.cooling_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.cooling_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.cooling_coil_object_type`')
-            vals = {}
-            vals["coil:cooling:water"] = "Coil:Cooling:Water"
-            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
-            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatExchangerAssisted"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacFourPipeFanCoil.cooling_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacFourPipeFanCoil.cooling_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Cooling Coil Object Type"] = value
+        self["Cooling Coil Object Type"] = value
 
     @property
     def cooling_coil_name(self):
@@ -2568,19 +1128,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.cooling_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.cooling_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.cooling_coil_name`')
-        self._data["Cooling Coil Name"] = value
+        self["Cooling Coil Name"] = value
 
     @property
     def maximum_cold_water_flow_rate(self):
@@ -2605,25 +1153,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Cold Water Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacFourPipeFanCoil.maximum_cold_water_flow_rate`'.format(value))
-                    self._data["Maximum Cold Water Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacFourPipeFanCoil.maximum_cold_water_flow_rate`'.format(value))
-        self._data["Maximum Cold Water Flow Rate"] = value
+        self["Maximum Cold Water Flow Rate"] = value
 
     @property
     def minimum_cold_water_flow_rate(self):
@@ -2635,27 +1165,20 @@ class ZoneHvacFourPipeFanCoil(object):
         return self._data["Minimum Cold Water Flow Rate"]
 
     @minimum_cold_water_flow_rate.setter
-    def minimum_cold_water_flow_rate(self, value=0.0):
+    def minimum_cold_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Minimum Cold Water Flow Rate`
 
         Args:
             value (float): value for IDD Field `Minimum Cold Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacFourPipeFanCoil.minimum_cold_water_flow_rate`'.format(value))
-        self._data["Minimum Cold Water Flow Rate"] = value
+        self["Minimum Cold Water Flow Rate"] = value
 
     @property
     def cooling_convergence_tolerance(self):
@@ -2673,23 +1196,13 @@ class ZoneHvacFourPipeFanCoil(object):
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
                 Default value: 0.001
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacFourPipeFanCoil.cooling_convergence_tolerance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacFourPipeFanCoil.cooling_convergence_tolerance`')
-        self._data["Cooling Convergence Tolerance"] = value
+        self["Cooling Convergence Tolerance"] = value
 
     @property
     def heating_coil_object_type(self):
@@ -2706,53 +1219,13 @@ class ZoneHvacFourPipeFanCoil(object):
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
-                Accepted values are:
-                      - Coil:Heating:Water
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.heating_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.heating_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.heating_coil_object_type`')
-            vals = {}
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacFourPipeFanCoil.heating_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacFourPipeFanCoil.heating_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heating Coil Object Type"] = value
+        self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_name(self):
@@ -2775,19 +1248,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.heating_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.heating_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.heating_coil_name`')
-        self._data["Heating Coil Name"] = value
+        self["Heating Coil Name"] = value
 
     @property
     def maximum_hot_water_flow_rate(self):
@@ -2812,25 +1273,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Hot Water Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacFourPipeFanCoil.maximum_hot_water_flow_rate`'.format(value))
-                    self._data["Maximum Hot Water Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacFourPipeFanCoil.maximum_hot_water_flow_rate`'.format(value))
-        self._data["Maximum Hot Water Flow Rate"] = value
+        self["Maximum Hot Water Flow Rate"] = value
 
     @property
     def minimum_hot_water_flow_rate(self):
@@ -2842,27 +1285,20 @@ class ZoneHvacFourPipeFanCoil(object):
         return self._data["Minimum Hot Water Flow Rate"]
 
     @minimum_hot_water_flow_rate.setter
-    def minimum_hot_water_flow_rate(self, value=0.0):
+    def minimum_hot_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Minimum Hot Water Flow Rate`
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacFourPipeFanCoil.minimum_hot_water_flow_rate`'.format(value))
-        self._data["Minimum Hot Water Flow Rate"] = value
+        self["Minimum Hot Water Flow Rate"] = value
 
     @property
     def heating_convergence_tolerance(self):
@@ -2880,23 +1316,13 @@ class ZoneHvacFourPipeFanCoil(object):
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
                 Default value: 0.001
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacFourPipeFanCoil.heating_convergence_tolerance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacFourPipeFanCoil.heating_convergence_tolerance`')
-        self._data["Heating Convergence Tolerance"] = value
+        self["Heating Convergence Tolerance"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -2920,19 +1346,7 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
@@ -2956,268 +1370,24 @@ class ZoneHvacFourPipeFanCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacFourPipeFanCoil.design_specification_zonehvac_sizing_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacFourPipeFanCoil.design_specification_zonehvac_sizing_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacFourPipeFanCoil.design_specification_zonehvac_sizing_object_name`')
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
+        self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacFourPipeFanCoil:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacFourPipeFanCoil:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacFourPipeFanCoil: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacFourPipeFanCoil: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacWindowAirConditioner(object):
+class ZoneHvacWindowAirConditioner(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:WindowAirConditioner`
         Window air conditioner. Forced-convection cooling-only unit with supply fan, direct
         expansion (DX) cooling coil, and fixed-position outdoor air mixer.
     """
-    internal_name = "ZoneHVAC:WindowAirConditioner"
-    field_count = 17
-    required_fields = ["Name", "Maximum Supply Air Flow Rate", "Maximum Outdoor Air Flow Rate", "Air Inlet Node Name", "Air Outlet Node Name", "Outdoor Air Mixer Object Type", "Outdoor Air Mixer Name", "Supply Air Fan Object Type", "Supply Air Fan Name", "Cooling Coil Object Type", "DX Cooling Coil Name", "Fan Placement"]
-    extensible_fields = 0
-    format = None
-    min_fields = 15
-    extensible_keys = []
+    schema = {'min-fields': 15, 'name': u'ZoneHVAC:WindowAirConditioner', 'pyname': u'ZoneHvacWindowAirConditioner', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air flow rate', {'name': u'Maximum Supply Air Flow Rate', 'pyname': u'maximum_supply_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum outdoor air flow rate', {'name': u'Maximum Outdoor Air Flow Rate', 'pyname': u'maximum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'dx cooling coil name', {'name': u'DX Cooling Coil Name', 'pyname': u'dx_cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling convergence tolerance', {'name': u'Cooling Convergence Tolerance', 'pyname': u'cooling_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:WindowAirConditioner`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Maximum Supply Air Flow Rate"] = None
-        self._data["Maximum Outdoor Air Flow Rate"] = None
-        self._data["Air Inlet Node Name"] = None
-        self._data["Air Outlet Node Name"] = None
-        self._data["Outdoor Air Mixer Object Type"] = None
-        self._data["Outdoor Air Mixer Name"] = None
-        self._data["Supply Air Fan Object Type"] = None
-        self._data["Supply Air Fan Name"] = None
-        self._data["Cooling Coil Object Type"] = None
-        self._data["DX Cooling Coil Name"] = None
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = None
-        self._data["Fan Placement"] = None
-        self._data["Cooling Convergence Tolerance"] = None
-        self._data["Availability Manager List Name"] = None
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_supply_air_flow_rate = None
-        else:
-            self.maximum_supply_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_air_flow_rate = None
-        else:
-            self.maximum_outdoor_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_inlet_node_name = None
-        else:
-            self.air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_outlet_node_name = None
-        else:
-            self.air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_mixer_object_type = None
-        else:
-            self.outdoor_air_mixer_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_mixer_name = None
-        else:
-            self.outdoor_air_mixer_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_object_type = None
-        else:
-            self.supply_air_fan_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_name = None
-        else:
-            self.supply_air_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_object_type = None
-        else:
-            self.cooling_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.dx_cooling_coil_name = None
-        else:
-            self.dx_cooling_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_operating_mode_schedule_name = None
-        else:
-            self.supply_air_fan_operating_mode_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fan_placement = None
-        else:
-            self.fan_placement = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_convergence_tolerance = None
-        else:
-            self.cooling_convergence_tolerance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zonehvac_sizing_object_name = None
-        else:
-            self.design_specification_zonehvac_sizing_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3240,19 +1410,7 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -3277,19 +1435,7 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def maximum_supply_air_flow_rate(self):
@@ -3313,25 +1459,7 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacWindowAirConditioner.maximum_supply_air_flow_rate`'.format(value))
-                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacWindowAirConditioner.maximum_supply_air_flow_rate`'.format(value))
-        self._data["Maximum Supply Air Flow Rate"] = value
+        self["Maximum Supply Air Flow Rate"] = value
 
     @property
     def maximum_outdoor_air_flow_rate(self):
@@ -3355,25 +1483,7 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacWindowAirConditioner.maximum_outdoor_air_flow_rate`'.format(value))
-                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacWindowAirConditioner.maximum_outdoor_air_flow_rate`'.format(value))
-        self._data["Maximum Outdoor Air Flow Rate"] = value
+        self["Maximum Outdoor Air Flow Rate"] = value
 
     @property
     def air_inlet_node_name(self):
@@ -3396,19 +1506,7 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.air_inlet_node_name`')
-        self._data["Air Inlet Node Name"] = value
+        self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
@@ -3431,19 +1529,7 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.air_outlet_node_name`')
-        self._data["Air Outlet Node Name"] = value
+        self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_mixer_object_type(self):
@@ -3461,53 +1547,13 @@ class ZoneHvacWindowAirConditioner(object):
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Object Type`
-                Accepted values are:
-                      - OutdoorAir:Mixer
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.outdoor_air_mixer_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.outdoor_air_mixer_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.outdoor_air_mixer_object_type`')
-            vals = {}
-            vals["outdoorair:mixer"] = "OutdoorAir:Mixer"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacWindowAirConditioner.outdoor_air_mixer_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacWindowAirConditioner.outdoor_air_mixer_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Outdoor Air Mixer Object Type"] = value
+        self["Outdoor Air Mixer Object Type"] = value
 
     @property
     def outdoor_air_mixer_name(self):
@@ -3530,19 +1576,7 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.outdoor_air_mixer_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.outdoor_air_mixer_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.outdoor_air_mixer_name`')
-        self._data["Outdoor Air Mixer Name"] = value
+        self["Outdoor Air Mixer Name"] = value
 
     @property
     def supply_air_fan_object_type(self):
@@ -3562,55 +1596,13 @@ class ZoneHvacWindowAirConditioner(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
-                Accepted values are:
-                      - Fan:OnOff
-                      - Fan:ConstantVolume
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.supply_air_fan_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.supply_air_fan_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.supply_air_fan_object_type`')
-            vals = {}
-            vals["fan:onoff"] = "Fan:OnOff"
-            vals["fan:constantvolume"] = "Fan:ConstantVolume"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacWindowAirConditioner.supply_air_fan_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacWindowAirConditioner.supply_air_fan_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Fan Object Type"] = value
+        self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_name(self):
@@ -3635,19 +1627,7 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.supply_air_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.supply_air_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.supply_air_fan_name`')
-        self._data["Supply Air Fan Name"] = value
+        self["Supply Air Fan Name"] = value
 
     @property
     def cooling_coil_object_type(self):
@@ -3664,55 +1644,13 @@ class ZoneHvacWindowAirConditioner(object):
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
-                Accepted values are:
-                      - Coil:Cooling:DX:SingleSpeed
-                      - CoilSystem:Cooling:DX:HeatExchangerAssisted
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.cooling_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.cooling_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.cooling_coil_object_type`')
-            vals = {}
-            vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
-            vals["coilsystem:cooling:dx:heatexchangerassisted"] = "CoilSystem:Cooling:DX:HeatExchangerAssisted"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacWindowAirConditioner.cooling_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacWindowAirConditioner.cooling_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Cooling Coil Object Type"] = value
+        self["Cooling Coil Object Type"] = value
 
     @property
     def dx_cooling_coil_name(self):
@@ -3735,19 +1673,7 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.dx_cooling_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.dx_cooling_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.dx_cooling_coil_name`')
-        self._data["DX Cooling Coil Name"] = value
+        self["DX Cooling Coil Name"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
@@ -3774,19 +1700,7 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.supply_air_fan_operating_mode_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.supply_air_fan_operating_mode_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.supply_air_fan_operating_mode_schedule_name`')
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = value
+        self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def fan_placement(self):
@@ -3803,55 +1717,13 @@ class ZoneHvacWindowAirConditioner(object):
 
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Accepted values are:
-                      - BlowThrough
-                      - DrawThrough
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.fan_placement`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.fan_placement`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.fan_placement`')
-            vals = {}
-            vals["blowthrough"] = "BlowThrough"
-            vals["drawthrough"] = "DrawThrough"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacWindowAirConditioner.fan_placement`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacWindowAirConditioner.fan_placement`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Fan Placement"] = value
+        self["Fan Placement"] = value
 
     @property
     def cooling_convergence_tolerance(self):
@@ -3869,23 +1741,13 @@ class ZoneHvacWindowAirConditioner(object):
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
                 Default value: 0.001
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacWindowAirConditioner.cooling_convergence_tolerance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacWindowAirConditioner.cooling_convergence_tolerance`')
-        self._data["Cooling Convergence Tolerance"] = value
+        self["Cooling Convergence Tolerance"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -3909,19 +1771,7 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
@@ -3945,309 +1795,25 @@ class ZoneHvacWindowAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWindowAirConditioner.design_specification_zonehvac_sizing_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWindowAirConditioner.design_specification_zonehvac_sizing_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWindowAirConditioner.design_specification_zonehvac_sizing_object_name`')
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
+        self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacWindowAirConditioner:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacWindowAirConditioner:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacWindowAirConditioner: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacWindowAirConditioner: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacPackagedTerminalAirConditioner(object):
+class ZoneHvacPackagedTerminalAirConditioner(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:PackagedTerminalAirConditioner`
         Packaged terminal air conditioner (PTAC).  Forced-convection heating-cooling unit
         with supply fan, direct expansion (DX) cooling coil, heating coil (gas, electric, hot
         water, or steam) and fixed-position outdoor air mixer.
     """
-    internal_name = "ZoneHVAC:PackagedTerminalAirConditioner"
-    field_count = 22
-    required_fields = ["Name", "Availability Schedule Name", "Air Inlet Node Name", "Air Outlet Node Name", "Outdoor Air Mixer Object Type", "Outdoor Air Mixer Name", "Supply Air Flow Rate During Cooling Operation", "Supply Air Flow Rate During Heating Operation", "Outdoor Air Flow Rate During Cooling Operation", "Outdoor Air Flow Rate During Heating Operation", "Supply Air Fan Object Type", "Supply Air Fan Name", "Heating Coil Object Type", "Heating Coil Name", "Cooling Coil Object Type", "Cooling Coil Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 18
-    extensible_keys = []
+    schema = {'min-fields': 18, 'name': u'ZoneHVAC:PackagedTerminalAirConditioner', 'pyname': u'ZoneHvacPackagedTerminalAirConditioner', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during cooling operation', {'name': u'Outdoor Air Flow Rate During Cooling Operation', 'pyname': u'outdoor_air_flow_rate_during_cooling_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during heating operation', {'name': u'Outdoor Air Flow Rate During Heating Operation', 'pyname': u'outdoor_air_flow_rate_during_heating_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate when no cooling or heating is needed', {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:PackagedTerminalAirConditioner`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Air Inlet Node Name"] = None
-        self._data["Air Outlet Node Name"] = None
-        self._data["Outdoor Air Mixer Object Type"] = None
-        self._data["Outdoor Air Mixer Name"] = None
-        self._data["Supply Air Flow Rate During Cooling Operation"] = None
-        self._data["Supply Air Flow Rate During Heating Operation"] = None
-        self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = None
-        self._data["Outdoor Air Flow Rate During Cooling Operation"] = None
-        self._data["Outdoor Air Flow Rate During Heating Operation"] = None
-        self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = None
-        self._data["Supply Air Fan Object Type"] = None
-        self._data["Supply Air Fan Name"] = None
-        self._data["Heating Coil Object Type"] = None
-        self._data["Heating Coil Name"] = None
-        self._data["Cooling Coil Object Type"] = None
-        self._data["Cooling Coil Name"] = None
-        self._data["Fan Placement"] = None
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = None
-        self._data["Availability Manager List Name"] = None
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_inlet_node_name = None
-        else:
-            self.air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_outlet_node_name = None
-        else:
-            self.air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_mixer_object_type = None
-        else:
-            self.outdoor_air_mixer_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_mixer_name = None
-        else:
-            self.outdoor_air_mixer_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_during_cooling_operation = None
-        else:
-            self.supply_air_flow_rate_during_cooling_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_during_heating_operation = None
-        else:
-            self.supply_air_flow_rate_during_heating_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = None
-        else:
-            self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_during_cooling_operation = None
-        else:
-            self.outdoor_air_flow_rate_during_cooling_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_during_heating_operation = None
-        else:
-            self.outdoor_air_flow_rate_during_heating_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = None
-        else:
-            self.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_object_type = None
-        else:
-            self.supply_air_fan_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_name = None
-        else:
-            self.supply_air_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_object_type = None
-        else:
-            self.heating_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_name = None
-        else:
-            self.heating_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_object_type = None
-        else:
-            self.cooling_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_name = None
-        else:
-            self.cooling_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fan_placement = None
-        else:
-            self.fan_placement = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_operating_mode_schedule_name = None
-        else:
-            self.supply_air_fan_operating_mode_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zonehvac_sizing_object_name = None
-        else:
-            self.design_specification_zonehvac_sizing_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -4271,19 +1837,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -4307,19 +1861,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
@@ -4343,19 +1885,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.air_inlet_node_name`')
-        self._data["Air Inlet Node Name"] = value
+        self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
@@ -4379,19 +1909,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.air_outlet_node_name`')
-        self._data["Air Outlet Node Name"] = value
+        self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_mixer_object_type(self):
@@ -4409,53 +1927,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Object Type`
-                Accepted values are:
-                      - OutdoorAir:Mixer
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_mixer_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_mixer_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_mixer_object_type`')
-            vals = {}
-            vals["outdoorair:mixer"] = "OutdoorAir:Mixer"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_mixer_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_mixer_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Outdoor Air Mixer Object Type"] = value
+        self["Outdoor Air Mixer Object Type"] = value
 
     @property
     def outdoor_air_mixer_name(self):
@@ -4479,19 +1957,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_mixer_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_mixer_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_mixer_name`')
-        self._data["Outdoor Air Mixer Name"] = value
+        self["Outdoor Air Mixer Name"] = value
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
@@ -4510,35 +1976,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_flow_rate_during_cooling_operation`'.format(value))
-                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_flow_rate_during_cooling_operation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_flow_rate_during_cooling_operation`')
-        self._data["Supply Air Flow Rate During Cooling Operation"] = value
+        self["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
@@ -4557,35 +2001,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_flow_rate_during_heating_operation`'.format(value))
-                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_flow_rate_during_heating_operation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_flow_rate_during_heating_operation`')
-        self._data["Supply Air Flow Rate During Heating Operation"] = value
+        self["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
@@ -4609,35 +2031,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-        self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def outdoor_air_flow_rate_during_cooling_operation(self):
@@ -4656,35 +2056,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_flow_rate_during_cooling_operation`'.format(value))
-                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_flow_rate_during_cooling_operation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_flow_rate_during_cooling_operation`')
-        self._data["Outdoor Air Flow Rate During Cooling Operation"] = value
+        self["Outdoor Air Flow Rate During Cooling Operation"] = value
 
     @property
     def outdoor_air_flow_rate_during_heating_operation(self):
@@ -4703,35 +2081,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_flow_rate_during_heating_operation`'.format(value))
-                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_flow_rate_during_heating_operation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_flow_rate_during_heating_operation`')
-        self._data["Outdoor Air Flow Rate During Heating Operation"] = value
+        self["Outdoor Air Flow Rate During Heating Operation"] = value
 
     @property
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
@@ -4754,35 +2110,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-        self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def supply_air_fan_object_type(self):
@@ -4802,55 +2136,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
-                Accepted values are:
-                      - Fan:OnOff
-                      - Fan:ConstantVolume
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_fan_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_fan_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_fan_object_type`')
-            vals = {}
-            vals["fan:onoff"] = "Fan:OnOff"
-            vals["fan:constantvolume"] = "Fan:ConstantVolume"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacPackagedTerminalAirConditioner.supply_air_fan_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacPackagedTerminalAirConditioner.supply_air_fan_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Fan Object Type"] = value
+        self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_name(self):
@@ -4874,19 +2166,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_fan_name`')
-        self._data["Supply Air Fan Name"] = value
+        self["Supply Air Fan Name"] = value
 
     @property
     def heating_coil_object_type(self):
@@ -4904,59 +2184,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
-                Accepted values are:
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Water
-                      - Coil:Heating:Steam
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.heating_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.heating_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.heating_coil_object_type`')
-            vals = {}
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacPackagedTerminalAirConditioner.heating_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacPackagedTerminalAirConditioner.heating_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heating Coil Object Type"] = value
+        self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_name(self):
@@ -4980,19 +2214,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.heating_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.heating_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.heating_coil_name`')
-        self._data["Heating Coil Name"] = value
+        self["Heating Coil Name"] = value
 
     @property
     def cooling_coil_object_type(self):
@@ -5013,57 +2235,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
-                Accepted values are:
-                      - Coil:Cooling:DX:SingleSpeed
-                      - Coil:Cooling:DX:VariableSpeed
-                      - CoilSystem:Cooling:DX:HeatExchangerAssisted
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.cooling_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.cooling_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.cooling_coil_object_type`')
-            vals = {}
-            vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
-            vals["coil:cooling:dx:variablespeed"] = "Coil:Cooling:DX:VariableSpeed"
-            vals["coilsystem:cooling:dx:heatexchangerassisted"] = "CoilSystem:Cooling:DX:HeatExchangerAssisted"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacPackagedTerminalAirConditioner.cooling_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacPackagedTerminalAirConditioner.cooling_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Cooling Coil Object Type"] = value
+        self["Cooling Coil Object Type"] = value
 
     @property
     def cooling_coil_name(self):
@@ -5087,19 +2265,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.cooling_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.cooling_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.cooling_coil_name`')
-        self._data["Cooling Coil Name"] = value
+        self["Cooling Coil Name"] = value
 
     @property
     def fan_placement(self):
@@ -5117,9 +2283,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Accepted values are:
-                      - BlowThrough
-                      - DrawThrough
                 Default value: DrawThrough
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5127,46 +2290,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.fan_placement`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.fan_placement`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.fan_placement`')
-            vals = {}
-            vals["blowthrough"] = "BlowThrough"
-            vals["drawthrough"] = "DrawThrough"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacPackagedTerminalAirConditioner.fan_placement`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacPackagedTerminalAirConditioner.fan_placement`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Fan Placement"] = value
+        self["Fan Placement"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
@@ -5192,19 +2316,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_fan_operating_mode_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_fan_operating_mode_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.supply_air_fan_operating_mode_schedule_name`')
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = value
+        self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -5228,19 +2340,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
@@ -5264,366 +2364,26 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalAirConditioner.design_specification_zonehvac_sizing_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.design_specification_zonehvac_sizing_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalAirConditioner.design_specification_zonehvac_sizing_object_name`')
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
+        self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacPackagedTerminalAirConditioner:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacPackagedTerminalAirConditioner:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacPackagedTerminalAirConditioner: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacPackagedTerminalAirConditioner: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacPackagedTerminalHeatPump(object):
+class ZoneHvacPackagedTerminalHeatPump(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:PackagedTerminalHeatPump`
         Packaged terminal heat pump (PTHP). Forced-convection heating-cooling unit with
         supply fan, direct expansion (DX) cooling coil, DX heating coil (air-to-air heat
         pump), supplemental heating coil (gas, electric, hot water, or steam), and
         fixed-position outdoor air mixer.
     """
-    internal_name = "ZoneHVAC:PackagedTerminalHeatPump"
-    field_count = 29
-    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Outdoor Air Mixer Object Type", "Outdoor Air Mixer Name", "Supply Air Flow Rate During Cooling Operation", "Supply Air Flow Rate During Heating Operation", "Outdoor Air Flow Rate During Cooling Operation", "Outdoor Air Flow Rate During Heating Operation", "Supply Air Fan Object Type", "Supply Air Fan Name", "Heating Coil Object Type", "Heating Coil Name", "Cooling Coil Object Type", "Cooling Coil Name", "Supplemental Heating Coil Object Type", "Supplemental Heating Coil Name", "Maximum Supply Air Temperature from Supplemental Heater"]
-    extensible_fields = 0
-    format = None
-    min_fields = 27
-    extensible_keys = []
+    schema = {'min-fields': 27, 'name': u'ZoneHVAC:PackagedTerminalHeatPump', 'pyname': u'ZoneHvacPackagedTerminalHeatPump', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during cooling operation', {'name': u'Outdoor Air Flow Rate During Cooling Operation', 'pyname': u'outdoor_air_flow_rate_during_cooling_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during heating operation', {'name': u'Outdoor Air Flow Rate During Heating Operation', 'pyname': u'outdoor_air_flow_rate_during_heating_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate when no cooling or heating is needed', {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'minimum outdoor dry-bulb temperature for compressor operation', {'name': u'Minimum Outdoor Dry-Bulb Temperature for Compressor Operation', 'pyname': u'minimum_outdoor_drybulb_temperature_for_compressor_operation', 'default': -8.0, 'required-field': False, 'autosizable': False, 'minimum': -20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling convergence tolerance', {'name': u'Cooling Convergence Tolerance', 'pyname': u'cooling_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature from supplemental heater', {'name': u'Maximum Supply Air Temperature from Supplemental Heater', 'pyname': u'maximum_supply_air_temperature_from_supplemental_heater', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'maximum': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:PackagedTerminalHeatPump`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Air Inlet Node Name"] = None
-        self._data["Air Outlet Node Name"] = None
-        self._data["Outdoor Air Mixer Object Type"] = None
-        self._data["Outdoor Air Mixer Name"] = None
-        self._data["Supply Air Flow Rate During Cooling Operation"] = None
-        self._data["Supply Air Flow Rate During Heating Operation"] = None
-        self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = None
-        self._data["Outdoor Air Flow Rate During Cooling Operation"] = None
-        self._data["Outdoor Air Flow Rate During Heating Operation"] = None
-        self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = None
-        self._data["Supply Air Fan Object Type"] = None
-        self._data["Supply Air Fan Name"] = None
-        self._data["Heating Coil Object Type"] = None
-        self._data["Heating Coil Name"] = None
-        self._data["Heating Convergence Tolerance"] = None
-        self._data["Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"] = None
-        self._data["Cooling Coil Object Type"] = None
-        self._data["Cooling Coil Name"] = None
-        self._data["Cooling Convergence Tolerance"] = None
-        self._data["Supplemental Heating Coil Object Type"] = None
-        self._data["Supplemental Heating Coil Name"] = None
-        self._data["Maximum Supply Air Temperature from Supplemental Heater"] = None
-        self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = None
-        self._data["Fan Placement"] = None
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = None
-        self._data["Availability Manager List Name"] = None
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_inlet_node_name = None
-        else:
-            self.air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_outlet_node_name = None
-        else:
-            self.air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_mixer_object_type = None
-        else:
-            self.outdoor_air_mixer_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_mixer_name = None
-        else:
-            self.outdoor_air_mixer_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_during_cooling_operation = None
-        else:
-            self.supply_air_flow_rate_during_cooling_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_during_heating_operation = None
-        else:
-            self.supply_air_flow_rate_during_heating_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = None
-        else:
-            self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_during_cooling_operation = None
-        else:
-            self.outdoor_air_flow_rate_during_cooling_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_during_heating_operation = None
-        else:
-            self.outdoor_air_flow_rate_during_heating_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = None
-        else:
-            self.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_object_type = None
-        else:
-            self.supply_air_fan_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_name = None
-        else:
-            self.supply_air_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_object_type = None
-        else:
-            self.heating_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_name = None
-        else:
-            self.heating_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_convergence_tolerance = None
-        else:
-            self.heating_convergence_tolerance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outdoor_drybulb_temperature_for_compressor_operation = None
-        else:
-            self.minimum_outdoor_drybulb_temperature_for_compressor_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_object_type = None
-        else:
-            self.cooling_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_name = None
-        else:
-            self.cooling_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_convergence_tolerance = None
-        else:
-            self.cooling_convergence_tolerance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supplemental_heating_coil_object_type = None
-        else:
-            self.supplemental_heating_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supplemental_heating_coil_name = None
-        else:
-            self.supplemental_heating_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_supply_air_temperature_from_supplemental_heater = None
-        else:
-            self.maximum_supply_air_temperature_from_supplemental_heater = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = None
-        else:
-            self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fan_placement = None
-        else:
-            self.fan_placement = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_operating_mode_schedule_name = None
-        else:
-            self.supply_air_fan_operating_mode_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zonehvac_sizing_object_name = None
-        else:
-            self.design_specification_zonehvac_sizing_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -5647,19 +2407,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -5685,19 +2433,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
@@ -5721,19 +2457,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.air_inlet_node_name`')
-        self._data["Air Inlet Node Name"] = value
+        self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
@@ -5757,19 +2481,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.air_outlet_node_name`')
-        self._data["Air Outlet Node Name"] = value
+        self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_mixer_object_type(self):
@@ -5787,53 +2499,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Object Type`
-                Accepted values are:
-                      - OutdoorAir:Mixer
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_mixer_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_mixer_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_mixer_object_type`')
-            vals = {}
-            vals["outdoorair:mixer"] = "OutdoorAir:Mixer"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_mixer_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_mixer_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Outdoor Air Mixer Object Type"] = value
+        self["Outdoor Air Mixer Object Type"] = value
 
     @property
     def outdoor_air_mixer_name(self):
@@ -5857,19 +2529,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_mixer_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_mixer_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_mixer_name`')
-        self._data["Outdoor Air Mixer Name"] = value
+        self["Outdoor Air Mixer Name"] = value
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
@@ -5888,35 +2548,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_flow_rate_during_cooling_operation`'.format(value))
-                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.supply_air_flow_rate_during_cooling_operation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_flow_rate_during_cooling_operation`')
-        self._data["Supply Air Flow Rate During Cooling Operation"] = value
+        self["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
@@ -5935,35 +2573,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_flow_rate_during_heating_operation`'.format(value))
-                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.supply_air_flow_rate_during_heating_operation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_flow_rate_during_heating_operation`')
-        self._data["Supply Air Flow Rate During Heating Operation"] = value
+        self["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
@@ -5986,35 +2602,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-        self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def outdoor_air_flow_rate_during_cooling_operation(self):
@@ -6033,35 +2627,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_flow_rate_during_cooling_operation`'.format(value))
-                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_flow_rate_during_cooling_operation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_flow_rate_during_cooling_operation`')
-        self._data["Outdoor Air Flow Rate During Cooling Operation"] = value
+        self["Outdoor Air Flow Rate During Cooling Operation"] = value
 
     @property
     def outdoor_air_flow_rate_during_heating_operation(self):
@@ -6080,35 +2652,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_flow_rate_during_heating_operation`'.format(value))
-                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_flow_rate_during_heating_operation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_flow_rate_during_heating_operation`')
-        self._data["Outdoor Air Flow Rate During Heating Operation"] = value
+        self["Outdoor Air Flow Rate During Heating Operation"] = value
 
     @property
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
@@ -6130,35 +2680,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-        self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def supply_air_fan_object_type(self):
@@ -6176,55 +2704,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
-                Accepted values are:
-                      - Fan:OnOff
-                      - Fan:ConstantVolume
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.supply_air_fan_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_fan_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_fan_object_type`')
-            vals = {}
-            vals["fan:onoff"] = "Fan:OnOff"
-            vals["fan:constantvolume"] = "Fan:ConstantVolume"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacPackagedTerminalHeatPump.supply_air_fan_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacPackagedTerminalHeatPump.supply_air_fan_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Fan Object Type"] = value
+        self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_name(self):
@@ -6248,19 +2734,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.supply_air_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_fan_name`')
-        self._data["Supply Air Fan Name"] = value
+        self["Supply Air Fan Name"] = value
 
     @property
     def heating_coil_object_type(self):
@@ -6279,55 +2753,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
-                Accepted values are:
-                      - Coil:Heating:DX:SingleSpeed
-                      - Coil:Heating:DX:VariableSpeed
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.heating_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.heating_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.heating_coil_object_type`')
-            vals = {}
-            vals["coil:heating:dx:singlespeed"] = "Coil:Heating:DX:SingleSpeed"
-            vals["coil:heating:dx:variablespeed"] = "Coil:Heating:DX:VariableSpeed"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacPackagedTerminalHeatPump.heating_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacPackagedTerminalHeatPump.heating_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heating Coil Object Type"] = value
+        self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_name(self):
@@ -6351,19 +2783,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.heating_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.heating_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.heating_coil_name`')
-        self._data["Heating Coil Name"] = value
+        self["Heating Coil Name"] = value
 
     @property
     def heating_convergence_tolerance(self):
@@ -6383,23 +2803,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
             value (float): value for IDD Field `Heating Convergence Tolerance`
                 Units: dimensionless
                 Default value: 0.001
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.heating_convergence_tolerance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.heating_convergence_tolerance`')
-        self._data["Heating Convergence Tolerance"] = value
+        self["Heating Convergence Tolerance"] = value
 
     @property
     def minimum_outdoor_drybulb_temperature_for_compressor_operation(self):
@@ -6427,16 +2837,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.minimum_outdoor_drybulb_temperature_for_compressor_operation`'.format(value))
-            if value < -20.0:
-                raise ValueError('value need to be greater or equal -20.0 '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.minimum_outdoor_drybulb_temperature_for_compressor_operation`')
-        self._data["Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"] = value
+        self["Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"] = value
 
     @property
     def cooling_coil_object_type(self):
@@ -6456,57 +2857,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
-                Accepted values are:
-                      - Coil:Cooling:DX:SingleSpeed
-                      - Coil:Cooling:DX:VariableSpeed
-                      - CoilSystem:Cooling:DX:HeatExchangerAssisted
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.cooling_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.cooling_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.cooling_coil_object_type`')
-            vals = {}
-            vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
-            vals["coil:cooling:dx:variablespeed"] = "Coil:Cooling:DX:VariableSpeed"
-            vals["coilsystem:cooling:dx:heatexchangerassisted"] = "CoilSystem:Cooling:DX:HeatExchangerAssisted"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacPackagedTerminalHeatPump.cooling_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacPackagedTerminalHeatPump.cooling_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Cooling Coil Object Type"] = value
+        self["Cooling Coil Object Type"] = value
 
     @property
     def cooling_coil_name(self):
@@ -6530,19 +2887,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.cooling_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.cooling_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.cooling_coil_name`')
-        self._data["Cooling Coil Name"] = value
+        self["Cooling Coil Name"] = value
 
     @property
     def cooling_convergence_tolerance(self):
@@ -6562,23 +2907,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
             value (float): value for IDD Field `Cooling Convergence Tolerance`
                 Units: dimensionless
                 Default value: 0.001
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.cooling_convergence_tolerance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.cooling_convergence_tolerance`')
-        self._data["Cooling Convergence Tolerance"] = value
+        self["Cooling Convergence Tolerance"] = value
 
     @property
     def supplemental_heating_coil_object_type(self):
@@ -6596,59 +2931,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Object Type`
-                Accepted values are:
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Water
-                      - Coil:Heating:Steam
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.supplemental_heating_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supplemental_heating_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supplemental_heating_coil_object_type`')
-            vals = {}
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacPackagedTerminalHeatPump.supplemental_heating_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacPackagedTerminalHeatPump.supplemental_heating_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supplemental Heating Coil Object Type"] = value
+        self["Supplemental Heating Coil Object Type"] = value
 
     @property
     def supplemental_heating_coil_name(self):
@@ -6672,19 +2961,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.supplemental_heating_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supplemental_heating_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supplemental_heating_coil_name`')
-        self._data["Supplemental Heating Coil Name"] = value
+        self["Supplemental Heating Coil Name"] = value
 
     @property
     def maximum_supply_air_temperature_from_supplemental_heater(self):
@@ -6709,25 +2986,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
-                    self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
-        self._data["Maximum Supply Air Temperature from Supplemental Heater"] = value
+        self["Maximum Supply Air Temperature from Supplemental Heater"] = value
 
     @property
     def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self):
@@ -6754,16 +3013,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`'.format(value))
-            if value > 21.0:
-                raise ValueError('value need to be smaller 21.0 '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`')
-        self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
+        self["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
 
     @property
     def fan_placement(self):
@@ -6781,9 +3031,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Accepted values are:
-                      - BlowThrough
-                      - DrawThrough
                 Default value: DrawThrough
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6791,46 +3038,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.fan_placement`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.fan_placement`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.fan_placement`')
-            vals = {}
-            vals["blowthrough"] = "BlowThrough"
-            vals["drawthrough"] = "DrawThrough"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacPackagedTerminalHeatPump.fan_placement`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacPackagedTerminalHeatPump.fan_placement`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Fan Placement"] = value
+        self["Fan Placement"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
@@ -6857,19 +3065,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.supply_air_fan_operating_mode_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_fan_operating_mode_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.supply_air_fan_operating_mode_schedule_name`')
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = value
+        self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -6893,19 +3089,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
@@ -6929,389 +3113,25 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacPackagedTerminalHeatPump.design_specification_zonehvac_sizing_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.design_specification_zonehvac_sizing_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacPackagedTerminalHeatPump.design_specification_zonehvac_sizing_object_name`')
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
+        self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacPackagedTerminalHeatPump:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacPackagedTerminalHeatPump:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacPackagedTerminalHeatPump: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacPackagedTerminalHeatPump: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacWaterToAirHeatPump(object):
+class ZoneHvacWaterToAirHeatPump(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:WaterToAirHeatPump`
         Water-to-air heat pump. Forced-convection heating-cooling unit with supply fan,
         water-to-air cooling and heating coils, supplemental heating coil (gas, electric, hot
         water, or steam), and fixed-position outdoor air mixer.
     """
-    internal_name = "ZoneHVAC:WaterToAirHeatPump"
-    field_count = 32
-    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Supply Air Flow Rate During Cooling Operation", "Supply Air Flow Rate During Heating Operation", "Outdoor Air Flow Rate During Cooling Operation", "Outdoor Air Flow Rate During Heating Operation", "Supply Air Fan Object Type", "Supply Air Fan Name", "Heating Coil Object Type", "Heating Coil Name", "Cooling Coil Object Type", "Cooling Coil Name", "Supplemental Heating Coil Object Type", "Supplemental Heating Coil Name", "Maximum Supply Air Temperature from Supplemental Heater"]
-    extensible_fields = 0
-    format = None
-    min_fields = 25
-    extensible_keys = []
+    schema = {'min-fields': 25, 'name': u'ZoneHVAC:WaterToAirHeatPump', 'pyname': u'ZoneHvacWaterToAirHeatPump', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during cooling operation', {'name': u'Outdoor Air Flow Rate During Cooling Operation', 'pyname': u'outdoor_air_flow_rate_during_cooling_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during heating operation', {'name': u'Outdoor Air Flow Rate During Heating Operation', 'pyname': u'outdoor_air_flow_rate_during_heating_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate when no cooling or heating is needed', {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum cycling rate', {'name': u'Maximum Cycling Rate', 'pyname': u'maximum_cycling_rate', 'default': 2.5, 'maximum': 5.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'cycles/hr'}), (u'heat pump time constant', {'name': u'Heat Pump Time Constant', 'pyname': u'heat_pump_time_constant', 'default': 60.0, 'maximum': 500.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'fraction of on-cycle power use', {'name': u'Fraction of On-Cycle Power Use', 'pyname': u'fraction_of_oncycle_power_use', 'default': 0.01, 'maximum': 0.05, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'heat pump fan delay time', {'name': u'Heat Pump Fan Delay Time', 'pyname': u'heat_pump_fan_delay_time', 'default': 60.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u's'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature from supplemental heater', {'name': u'Maximum Supply Air Temperature from Supplemental Heater', 'pyname': u'maximum_supply_air_temperature_from_supplemental_heater', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'maximum': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'outdoor dry-bulb temperature sensor node name', {'name': u'Outdoor Dry-Bulb Temperature Sensor Node Name', 'pyname': u'outdoor_drybulb_temperature_sensor_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat pump coil water flow mode', {'name': u'Heat Pump Coil Water Flow Mode', 'pyname': u'heat_pump_coil_water_flow_mode', 'default': u'Cycling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:WaterToAirHeatPump`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Air Inlet Node Name"] = None
-        self._data["Air Outlet Node Name"] = None
-        self._data["Outdoor Air Mixer Object Type"] = None
-        self._data["Outdoor Air Mixer Name"] = None
-        self._data["Supply Air Flow Rate During Cooling Operation"] = None
-        self._data["Supply Air Flow Rate During Heating Operation"] = None
-        self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = None
-        self._data["Outdoor Air Flow Rate During Cooling Operation"] = None
-        self._data["Outdoor Air Flow Rate During Heating Operation"] = None
-        self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = None
-        self._data["Supply Air Fan Object Type"] = None
-        self._data["Supply Air Fan Name"] = None
-        self._data["Heating Coil Object Type"] = None
-        self._data["Heating Coil Name"] = None
-        self._data["Cooling Coil Object Type"] = None
-        self._data["Cooling Coil Name"] = None
-        self._data["Maximum Cycling Rate"] = None
-        self._data["Heat Pump Time Constant"] = None
-        self._data["Fraction of On-Cycle Power Use"] = None
-        self._data["Heat Pump Fan Delay Time"] = None
-        self._data["Supplemental Heating Coil Object Type"] = None
-        self._data["Supplemental Heating Coil Name"] = None
-        self._data["Maximum Supply Air Temperature from Supplemental Heater"] = None
-        self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = None
-        self._data["Outdoor Dry-Bulb Temperature Sensor Node Name"] = None
-        self._data["Fan Placement"] = None
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = None
-        self._data["Availability Manager List Name"] = None
-        self._data["Heat Pump Coil Water Flow Mode"] = None
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_inlet_node_name = None
-        else:
-            self.air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_outlet_node_name = None
-        else:
-            self.air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_mixer_object_type = None
-        else:
-            self.outdoor_air_mixer_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_mixer_name = None
-        else:
-            self.outdoor_air_mixer_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_during_cooling_operation = None
-        else:
-            self.supply_air_flow_rate_during_cooling_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_during_heating_operation = None
-        else:
-            self.supply_air_flow_rate_during_heating_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = None
-        else:
-            self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_during_cooling_operation = None
-        else:
-            self.outdoor_air_flow_rate_during_cooling_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_during_heating_operation = None
-        else:
-            self.outdoor_air_flow_rate_during_heating_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = None
-        else:
-            self.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_object_type = None
-        else:
-            self.supply_air_fan_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_name = None
-        else:
-            self.supply_air_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_object_type = None
-        else:
-            self.heating_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_name = None
-        else:
-            self.heating_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_object_type = None
-        else:
-            self.cooling_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_name = None
-        else:
-            self.cooling_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_cycling_rate = None
-        else:
-            self.maximum_cycling_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heat_pump_time_constant = None
-        else:
-            self.heat_pump_time_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fraction_of_oncycle_power_use = None
-        else:
-            self.fraction_of_oncycle_power_use = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heat_pump_fan_delay_time = None
-        else:
-            self.heat_pump_fan_delay_time = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supplemental_heating_coil_object_type = None
-        else:
-            self.supplemental_heating_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supplemental_heating_coil_name = None
-        else:
-            self.supplemental_heating_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_supply_air_temperature_from_supplemental_heater = None
-        else:
-            self.maximum_supply_air_temperature_from_supplemental_heater = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = None
-        else:
-            self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_drybulb_temperature_sensor_node_name = None
-        else:
-            self.outdoor_drybulb_temperature_sensor_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fan_placement = None
-        else:
-            self.fan_placement = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_operating_mode_schedule_name = None
-        else:
-            self.supply_air_fan_operating_mode_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heat_pump_coil_water_flow_mode = None
-        else:
-            self.heat_pump_coil_water_flow_mode = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zonehvac_sizing_object_name = None
-        else:
-            self.design_specification_zonehvac_sizing_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -7334,19 +3154,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -7371,19 +3179,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
@@ -7406,19 +3202,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.air_inlet_node_name`')
-        self._data["Air Inlet Node Name"] = value
+        self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
@@ -7441,19 +3225,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.air_outlet_node_name`')
-        self._data["Air Outlet Node Name"] = value
+        self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_mixer_object_type(self):
@@ -7471,53 +3243,13 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Object Type`
-                Accepted values are:
-                      - OutdoorAir:Mixer
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.outdoor_air_mixer_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_air_mixer_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_air_mixer_object_type`')
-            vals = {}
-            vals["outdoorair:mixer"] = "OutdoorAir:Mixer"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacWaterToAirHeatPump.outdoor_air_mixer_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacWaterToAirHeatPump.outdoor_air_mixer_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Outdoor Air Mixer Object Type"] = value
+        self["Outdoor Air Mixer Object Type"] = value
 
     @property
     def outdoor_air_mixer_name(self):
@@ -7542,19 +3274,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.outdoor_air_mixer_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_air_mixer_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_air_mixer_name`')
-        self._data["Outdoor Air Mixer Name"] = value
+        self["Outdoor Air Mixer Name"] = value
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
@@ -7573,35 +3293,13 @@ class ZoneHvacWaterToAirHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_flow_rate_during_cooling_operation`'.format(value))
-                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.supply_air_flow_rate_during_cooling_operation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_flow_rate_during_cooling_operation`')
-        self._data["Supply Air Flow Rate During Cooling Operation"] = value
+        self["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
@@ -7620,35 +3318,13 @@ class ZoneHvacWaterToAirHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_flow_rate_during_heating_operation`'.format(value))
-                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.supply_air_flow_rate_during_heating_operation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_flow_rate_during_heating_operation`')
-        self._data["Supply Air Flow Rate During Heating Operation"] = value
+        self["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
@@ -7671,35 +3347,13 @@ class ZoneHvacWaterToAirHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-        self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def outdoor_air_flow_rate_during_cooling_operation(self):
@@ -7718,35 +3372,13 @@ class ZoneHvacWaterToAirHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_air_flow_rate_during_cooling_operation`'.format(value))
-                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.outdoor_air_flow_rate_during_cooling_operation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_air_flow_rate_during_cooling_operation`')
-        self._data["Outdoor Air Flow Rate During Cooling Operation"] = value
+        self["Outdoor Air Flow Rate During Cooling Operation"] = value
 
     @property
     def outdoor_air_flow_rate_during_heating_operation(self):
@@ -7765,35 +3397,13 @@ class ZoneHvacWaterToAirHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_air_flow_rate_during_heating_operation`'.format(value))
-                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.outdoor_air_flow_rate_during_heating_operation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_air_flow_rate_during_heating_operation`')
-        self._data["Outdoor Air Flow Rate During Heating Operation"] = value
+        self["Outdoor Air Flow Rate During Heating Operation"] = value
 
     @property
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
@@ -7815,35 +3425,13 @@ class ZoneHvacWaterToAirHeatPump(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-        self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def supply_air_fan_object_type(self):
@@ -7861,53 +3449,13 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
-                Accepted values are:
-                      - Fan:OnOff
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.supply_air_fan_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_fan_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_fan_object_type`')
-            vals = {}
-            vals["fan:onoff"] = "Fan:OnOff"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacWaterToAirHeatPump.supply_air_fan_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacWaterToAirHeatPump.supply_air_fan_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Fan Object Type"] = value
+        self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_name(self):
@@ -7931,19 +3479,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.supply_air_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_fan_name`')
-        self._data["Supply Air Fan Name"] = value
+        self["Supply Air Fan Name"] = value
 
     @property
     def heating_coil_object_type(self):
@@ -7960,55 +3496,13 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
-                Accepted values are:
-                      - Coil:Heating:WaterToAirHeatPump:EquationFit
-                      - Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.heating_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.heating_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.heating_coil_object_type`')
-            vals = {}
-            vals["coil:heating:watertoairheatpump:equationfit"] = "Coil:Heating:WaterToAirHeatPump:EquationFit"
-            vals["coil:heating:watertoairheatpump:variablespeedequationfit"] = "Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacWaterToAirHeatPump.heating_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacWaterToAirHeatPump.heating_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heating Coil Object Type"] = value
+        self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_name(self):
@@ -8032,19 +3526,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.heating_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.heating_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.heating_coil_name`')
-        self._data["Heating Coil Name"] = value
+        self["Heating Coil Name"] = value
 
     @property
     def cooling_coil_object_type(self):
@@ -8061,55 +3543,13 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
-                Accepted values are:
-                      - Coil:Cooling:WaterToAirHeatPump:EquationFit
-                      - Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.cooling_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.cooling_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.cooling_coil_object_type`')
-            vals = {}
-            vals["coil:cooling:watertoairheatpump:equationfit"] = "Coil:Cooling:WaterToAirHeatPump:EquationFit"
-            vals["coil:cooling:watertoairheatpump:variablespeedequationfit"] = "Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacWaterToAirHeatPump.cooling_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacWaterToAirHeatPump.cooling_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Cooling Coil Object Type"] = value
+        self["Cooling Coil Object Type"] = value
 
     @property
     def cooling_coil_name(self):
@@ -8133,19 +3573,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.cooling_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.cooling_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.cooling_coil_name`')
-        self._data["Cooling Coil Name"] = value
+        self["Cooling Coil Name"] = value
 
     @property
     def maximum_cycling_rate(self):
@@ -8166,7 +3594,6 @@ class ZoneHvacWaterToAirHeatPump(object):
             value (float): value for IDD Field `Maximum Cycling Rate`
                 Units: cycles/hr
                 Default value: 2.5
-                value >= 0.0
                 value <= 5.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8174,19 +3601,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.maximum_cycling_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.maximum_cycling_rate`')
-            if value > 5.0:
-                raise ValueError('value need to be smaller 5.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.maximum_cycling_rate`')
-        self._data["Maximum Cycling Rate"] = value
+        self["Maximum Cycling Rate"] = value
 
     @property
     def heat_pump_time_constant(self):
@@ -8207,7 +3622,6 @@ class ZoneHvacWaterToAirHeatPump(object):
             value (float): value for IDD Field `Heat Pump Time Constant`
                 Units: s
                 Default value: 60.0
-                value >= 0.0
                 value <= 500.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8215,19 +3629,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.heat_pump_time_constant`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.heat_pump_time_constant`')
-            if value > 500.0:
-                raise ValueError('value need to be smaller 500.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.heat_pump_time_constant`')
-        self._data["Heat Pump Time Constant"] = value
+        self["Heat Pump Time Constant"] = value
 
     @property
     def fraction_of_oncycle_power_use(self):
@@ -8248,7 +3650,6 @@ class ZoneHvacWaterToAirHeatPump(object):
         Args:
             value (float): value for IDD Field `Fraction of On-Cycle Power Use`
                 Default value: 0.01
-                value >= 0.0
                 value <= 0.05
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8256,19 +3657,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.fraction_of_oncycle_power_use`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.fraction_of_oncycle_power_use`')
-            if value > 0.05:
-                raise ValueError('value need to be smaller 0.05 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.fraction_of_oncycle_power_use`')
-        self._data["Fraction of On-Cycle Power Use"] = value
+        self["Fraction of On-Cycle Power Use"] = value
 
     @property
     def heat_pump_fan_delay_time(self):
@@ -8290,23 +3679,13 @@ class ZoneHvacWaterToAirHeatPump(object):
             value (float): value for IDD Field `Heat Pump Fan Delay Time`
                 Units: s
                 Default value: 60.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.heat_pump_fan_delay_time`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.heat_pump_fan_delay_time`')
-        self._data["Heat Pump Fan Delay Time"] = value
+        self["Heat Pump Fan Delay Time"] = value
 
     @property
     def supplemental_heating_coil_object_type(self):
@@ -8324,59 +3703,13 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Object Type`
-                Accepted values are:
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Water
-                      - Coil:Heating:Steam
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.supplemental_heating_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supplemental_heating_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supplemental_heating_coil_object_type`')
-            vals = {}
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacWaterToAirHeatPump.supplemental_heating_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacWaterToAirHeatPump.supplemental_heating_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supplemental Heating Coil Object Type"] = value
+        self["Supplemental Heating Coil Object Type"] = value
 
     @property
     def supplemental_heating_coil_name(self):
@@ -8400,19 +3733,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.supplemental_heating_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supplemental_heating_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supplemental_heating_coil_name`')
-        self._data["Supplemental Heating Coil Name"] = value
+        self["Supplemental Heating Coil Name"] = value
 
     @property
     def maximum_supply_air_temperature_from_supplemental_heater(self):
@@ -8436,25 +3757,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacWaterToAirHeatPump.maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
-                    self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
-        self._data["Maximum Supply Air Temperature from Supplemental Heater"] = value
+        self["Maximum Supply Air Temperature from Supplemental Heater"] = value
 
     @property
     def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self):
@@ -8480,16 +3783,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`'.format(value))
-            if value > 21.0:
-                raise ValueError('value need to be smaller 21.0 '
-                                 'for field `ZoneHvacWaterToAirHeatPump.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`')
-        self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
+        self["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
 
     @property
     def outdoor_drybulb_temperature_sensor_node_name(self):
@@ -8512,19 +3806,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.outdoor_drybulb_temperature_sensor_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_drybulb_temperature_sensor_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.outdoor_drybulb_temperature_sensor_node_name`')
-        self._data["Outdoor Dry-Bulb Temperature Sensor Node Name"] = value
+        self["Outdoor Dry-Bulb Temperature Sensor Node Name"] = value
 
     @property
     def fan_placement(self):
@@ -8541,9 +3823,6 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Accepted values are:
-                      - BlowThrough
-                      - DrawThrough
                 Default value: BlowThrough
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8551,46 +3830,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.fan_placement`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.fan_placement`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.fan_placement`')
-            vals = {}
-            vals["blowthrough"] = "BlowThrough"
-            vals["drawthrough"] = "DrawThrough"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacWaterToAirHeatPump.fan_placement`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacWaterToAirHeatPump.fan_placement`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Fan Placement"] = value
+        self["Fan Placement"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
@@ -8617,19 +3857,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.supply_air_fan_operating_mode_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_fan_operating_mode_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.supply_air_fan_operating_mode_schedule_name`')
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = value
+        self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -8653,19 +3881,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
     @property
     def heat_pump_coil_water_flow_mode(self):
@@ -8686,10 +3902,6 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (str): value for IDD Field `Heat Pump Coil Water Flow Mode`
-                Accepted values are:
-                      - Constant
-                      - Cycling
-                      - ConstantOnDemand
                 Default value: Cycling
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8697,47 +3909,7 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.heat_pump_coil_water_flow_mode`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.heat_pump_coil_water_flow_mode`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.heat_pump_coil_water_flow_mode`')
-            vals = {}
-            vals["constant"] = "Constant"
-            vals["cycling"] = "Cycling"
-            vals["constantondemand"] = "ConstantOnDemand"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacWaterToAirHeatPump.heat_pump_coil_water_flow_mode`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacWaterToAirHeatPump.heat_pump_coil_water_flow_mode`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heat Pump Coil Water Flow Mode"] = value
+        self["Heat Pump Coil Water Flow Mode"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
@@ -8761,246 +3933,26 @@ class ZoneHvacWaterToAirHeatPump(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacWaterToAirHeatPump.design_specification_zonehvac_sizing_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacWaterToAirHeatPump.design_specification_zonehvac_sizing_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacWaterToAirHeatPump.design_specification_zonehvac_sizing_object_name`')
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
+        self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacWaterToAirHeatPump:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacWaterToAirHeatPump:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacWaterToAirHeatPump: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacWaterToAirHeatPump: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacDehumidifierDx(object):
+class ZoneHvacDehumidifierDx(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:Dehumidifier:DX`
         This object calculates the performance of zone (room) air dehumidifiers.
         Meant to model conventional direct expansion (DX) cooling-based room air
         dehumidifiers (reject 100% of condenser heat to the zone air), but this
         object might be able to be used to model other room air dehumidifier types.
     """
-    internal_name = "ZoneHVAC:Dehumidifier:DX"
-    field_count = 14
-    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Rated Water Removal", "Rated Energy Factor", "Rated Air Flow Rate", "Water Removal Curve Name", "Energy Factor Curve Name", "Part Load Fraction Correlation Curve Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 13
-    extensible_keys = []
+    schema = {'min-fields': 13, 'name': u'ZoneHVAC:Dehumidifier:DX', 'pyname': u'ZoneHvacDehumidifierDx', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated water removal', {'name': u'Rated Water Removal', 'pyname': u'rated_water_removal', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'L/day'}), (u'rated energy factor', {'name': u'Rated Energy Factor', 'pyname': u'rated_energy_factor', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'L/kWh'}), (u'rated air flow rate', {'name': u'Rated Air Flow Rate', 'pyname': u'rated_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'water removal curve name', {'name': u'Water Removal Curve Name', 'pyname': u'water_removal_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'energy factor curve name', {'name': u'Energy Factor Curve Name', 'pyname': u'energy_factor_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'part load fraction correlation curve name', {'name': u'Part Load Fraction Correlation Curve Name', 'pyname': u'part_load_fraction_correlation_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum dry-bulb temperature for dehumidifier operation', {'name': u'Minimum Dry-Bulb Temperature for Dehumidifier Operation', 'pyname': u'minimum_drybulb_temperature_for_dehumidifier_operation', 'default': 10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum dry-bulb temperature for dehumidifier operation', {'name': u'Maximum Dry-Bulb Temperature for Dehumidifier Operation', 'pyname': u'maximum_drybulb_temperature_for_dehumidifier_operation', 'default': 35.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'off-cycle parasitic electric load', {'name': u'Off-Cycle Parasitic Electric Load', 'pyname': u'offcycle_parasitic_electric_load', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'condensate collection water storage tank name', {'name': u'Condensate Collection Water Storage Tank Name', 'pyname': u'condensate_collection_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:Dehumidifier:DX`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Air Inlet Node Name"] = None
-        self._data["Air Outlet Node Name"] = None
-        self._data["Rated Water Removal"] = None
-        self._data["Rated Energy Factor"] = None
-        self._data["Rated Air Flow Rate"] = None
-        self._data["Water Removal Curve Name"] = None
-        self._data["Energy Factor Curve Name"] = None
-        self._data["Part Load Fraction Correlation Curve Name"] = None
-        self._data["Minimum Dry-Bulb Temperature for Dehumidifier Operation"] = None
-        self._data["Maximum Dry-Bulb Temperature for Dehumidifier Operation"] = None
-        self._data["Off-Cycle Parasitic Electric Load"] = None
-        self._data["Condensate Collection Water Storage Tank Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_inlet_node_name = None
-        else:
-            self.air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_outlet_node_name = None
-        else:
-            self.air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_water_removal = None
-        else:
-            self.rated_water_removal = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_energy_factor = None
-        else:
-            self.rated_energy_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_air_flow_rate = None
-        else:
-            self.rated_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_removal_curve_name = None
-        else:
-            self.water_removal_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.energy_factor_curve_name = None
-        else:
-            self.energy_factor_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.part_load_fraction_correlation_curve_name = None
-        else:
-            self.part_load_fraction_correlation_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_drybulb_temperature_for_dehumidifier_operation = None
-        else:
-            self.minimum_drybulb_temperature_for_dehumidifier_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_drybulb_temperature_for_dehumidifier_operation = None
-        else:
-            self.maximum_drybulb_temperature_for_dehumidifier_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.offcycle_parasitic_electric_load = None
-        else:
-            self.offcycle_parasitic_electric_load = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.condensate_collection_water_storage_tank_name = None
-        else:
-            self.condensate_collection_water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -9024,19 +3976,7 @@ class ZoneHvacDehumidifierDx(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacDehumidifierDx.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacDehumidifierDx.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacDehumidifierDx.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -9063,19 +4003,7 @@ class ZoneHvacDehumidifierDx(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacDehumidifierDx.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacDehumidifierDx.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacDehumidifierDx.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
@@ -9099,19 +4027,7 @@ class ZoneHvacDehumidifierDx(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacDehumidifierDx.air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacDehumidifierDx.air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacDehumidifierDx.air_inlet_node_name`')
-        self._data["Air Inlet Node Name"] = value
+        self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
@@ -9135,19 +4051,7 @@ class ZoneHvacDehumidifierDx(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacDehumidifierDx.air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacDehumidifierDx.air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacDehumidifierDx.air_outlet_node_name`')
-        self._data["Air Outlet Node Name"] = value
+        self["Air Outlet Node Name"] = value
 
     @property
     def rated_water_removal(self):
@@ -9166,23 +4070,13 @@ class ZoneHvacDehumidifierDx(object):
         Args:
             value (float): value for IDD Field `Rated Water Removal`
                 Units: L/day
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacDehumidifierDx.rated_water_removal`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacDehumidifierDx.rated_water_removal`')
-        self._data["Rated Water Removal"] = value
+        self["Rated Water Removal"] = value
 
     @property
     def rated_energy_factor(self):
@@ -9201,23 +4095,13 @@ class ZoneHvacDehumidifierDx(object):
         Args:
             value (float): value for IDD Field `Rated Energy Factor`
                 Units: L/kWh
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacDehumidifierDx.rated_energy_factor`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacDehumidifierDx.rated_energy_factor`')
-        self._data["Rated Energy Factor"] = value
+        self["Rated Energy Factor"] = value
 
     @property
     def rated_air_flow_rate(self):
@@ -9235,23 +4119,13 @@ class ZoneHvacDehumidifierDx(object):
         Args:
             value (float): value for IDD Field `Rated Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacDehumidifierDx.rated_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacDehumidifierDx.rated_air_flow_rate`')
-        self._data["Rated Air Flow Rate"] = value
+        self["Rated Air Flow Rate"] = value
 
     @property
     def water_removal_curve_name(self):
@@ -9282,19 +4156,7 @@ class ZoneHvacDehumidifierDx(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacDehumidifierDx.water_removal_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacDehumidifierDx.water_removal_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacDehumidifierDx.water_removal_curve_name`')
-        self._data["Water Removal Curve Name"] = value
+        self["Water Removal Curve Name"] = value
 
     @property
     def energy_factor_curve_name(self):
@@ -9325,19 +4187,7 @@ class ZoneHvacDehumidifierDx(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacDehumidifierDx.energy_factor_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacDehumidifierDx.energy_factor_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacDehumidifierDx.energy_factor_curve_name`')
-        self._data["Energy Factor Curve Name"] = value
+        self["Energy Factor Curve Name"] = value
 
     @property
     def part_load_fraction_correlation_curve_name(self):
@@ -9367,19 +4217,7 @@ class ZoneHvacDehumidifierDx(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacDehumidifierDx.part_load_fraction_correlation_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacDehumidifierDx.part_load_fraction_correlation_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacDehumidifierDx.part_load_fraction_correlation_curve_name`')
-        self._data["Part Load Fraction Correlation Curve Name"] = value
+        self["Part Load Fraction Correlation Curve Name"] = value
 
     @property
     def minimum_drybulb_temperature_for_dehumidifier_operation(self):
@@ -9406,13 +4244,7 @@ class ZoneHvacDehumidifierDx(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacDehumidifierDx.minimum_drybulb_temperature_for_dehumidifier_operation`'.format(value))
-        self._data["Minimum Dry-Bulb Temperature for Dehumidifier Operation"] = value
+        self["Minimum Dry-Bulb Temperature for Dehumidifier Operation"] = value
 
     @property
     def maximum_drybulb_temperature_for_dehumidifier_operation(self):
@@ -9439,13 +4271,7 @@ class ZoneHvacDehumidifierDx(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacDehumidifierDx.maximum_drybulb_temperature_for_dehumidifier_operation`'.format(value))
-        self._data["Maximum Dry-Bulb Temperature for Dehumidifier Operation"] = value
+        self["Maximum Dry-Bulb Temperature for Dehumidifier Operation"] = value
 
     @property
     def offcycle_parasitic_electric_load(self):
@@ -9457,7 +4283,7 @@ class ZoneHvacDehumidifierDx(object):
         return self._data["Off-Cycle Parasitic Electric Load"]
 
     @offcycle_parasitic_electric_load.setter
-    def offcycle_parasitic_electric_load(self, value=0.0):
+    def offcycle_parasitic_electric_load(self, value=None):
         """  Corresponds to IDD Field `Off-Cycle Parasitic Electric Load`
         Parasitic electric power consumed when the dehumidifier is available to operate, but
         does not operate (i.e., no high humidity load to be met).
@@ -9467,24 +4293,13 @@ class ZoneHvacDehumidifierDx(object):
         Args:
             value (float): value for IDD Field `Off-Cycle Parasitic Electric Load`
                 Units: W
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacDehumidifierDx.offcycle_parasitic_electric_load`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacDehumidifierDx.offcycle_parasitic_electric_load`')
-        self._data["Off-Cycle Parasitic Electric Load"] = value
+        self["Off-Cycle Parasitic Electric Load"] = value
 
     @property
     def condensate_collection_water_storage_tank_name(self):
@@ -9508,103 +4323,10 @@ class ZoneHvacDehumidifierDx(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacDehumidifierDx.condensate_collection_water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacDehumidifierDx.condensate_collection_water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacDehumidifierDx.condensate_collection_water_storage_tank_name`')
-        self._data["Condensate Collection Water Storage Tank Name"] = value
+        self["Condensate Collection Water Storage Tank Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacDehumidifierDx:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacDehumidifierDx:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacDehumidifierDx: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacDehumidifierDx: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacEnergyRecoveryVentilator(object):
+class ZoneHvacEnergyRecoveryVentilator(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:EnergyRecoveryVentilator`
         This compound component models a stand-alone energy recovery ventilator (ERV)
         that conditions outdoor ventilation air and supplies that air directly to a zone.
@@ -9612,119 +4334,16 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         supply air fan, exhaust air fan and an optional controller to avoid overheating
         of the supply air (economizer or free cooling operation).
     """
-    internal_name = "ZoneHVAC:EnergyRecoveryVentilator"
-    field_count = 11
-    required_fields = ["Name", "Heat Exchanger Name", "Supply Air Flow Rate", "Exhaust Air Flow Rate", "Supply Air Fan Name", "Exhaust Air Fan Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 7
-    extensible_keys = []
+    schema = {'min-fields': 7, 'name': u'ZoneHVAC:EnergyRecoveryVentilator', 'pyname': u'ZoneHvacEnergyRecoveryVentilator', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat exchanger name', {'name': u'Heat Exchanger Name', 'pyname': u'heat_exchanger_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air flow rate', {'name': u'Supply Air Flow Rate', 'pyname': u'supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'exhaust air flow rate', {'name': u'Exhaust Air Flow Rate', 'pyname': u'exhaust_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'exhaust air fan name', {'name': u'Exhaust Air Fan Name', 'pyname': u'exhaust_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller name', {'name': u'Controller Name', 'pyname': u'controller_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ventilation rate per unit floor area', {'name': u'Ventilation Rate per Unit Floor Area', 'pyname': u'ventilation_rate_per_unit_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'ventilation rate per occupant', {'name': u'Ventilation Rate per Occupant', 'pyname': u'ventilation_rate_per_occupant', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:EnergyRecoveryVentilator`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Heat Exchanger Name"] = None
-        self._data["Supply Air Flow Rate"] = None
-        self._data["Exhaust Air Flow Rate"] = None
-        self._data["Supply Air Fan Name"] = None
-        self._data["Exhaust Air Fan Name"] = None
-        self._data["Controller Name"] = None
-        self._data["Ventilation Rate per Unit Floor Area"] = None
-        self._data["Ventilation Rate per Occupant"] = None
-        self._data["Availability Manager List Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heat_exchanger_name = None
-        else:
-            self.heat_exchanger_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate = None
-        else:
-            self.supply_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_air_flow_rate = None
-        else:
-            self.exhaust_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_name = None
-        else:
-            self.supply_air_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_air_fan_name = None
-        else:
-            self.exhaust_air_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_name = None
-        else:
-            self.controller_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ventilation_rate_per_unit_floor_area = None
-        else:
-            self.ventilation_rate_per_unit_floor_area = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ventilation_rate_per_occupant = None
-        else:
-            self.ventilation_rate_per_occupant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -9747,19 +4366,7 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilator.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -9784,19 +4391,7 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilator.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def heat_exchanger_name(self):
@@ -9820,19 +4415,7 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilator.heat_exchanger_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.heat_exchanger_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.heat_exchanger_name`')
-        self._data["Heat Exchanger Name"] = value
+        self["Heat Exchanger Name"] = value
 
     @property
     def supply_air_flow_rate(self):
@@ -9851,35 +4434,13 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.supply_air_flow_rate`'.format(value))
-                    self._data["Supply Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilator.supply_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.supply_air_flow_rate`')
-        self._data["Supply Air Flow Rate"] = value
+        self["Supply Air Flow Rate"] = value
 
     @property
     def exhaust_air_flow_rate(self):
@@ -9898,35 +4459,13 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Exhaust Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Exhaust Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.exhaust_air_flow_rate`'.format(value))
-                    self._data["Exhaust Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilator.exhaust_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.exhaust_air_flow_rate`')
-        self._data["Exhaust Air Flow Rate"] = value
+        self["Exhaust Air Flow Rate"] = value
 
     @property
     def supply_air_fan_name(self):
@@ -9950,19 +4489,7 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilator.supply_air_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.supply_air_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.supply_air_fan_name`')
-        self._data["Supply Air Fan Name"] = value
+        self["Supply Air Fan Name"] = value
 
     @property
     def exhaust_air_fan_name(self):
@@ -9986,19 +4513,7 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilator.exhaust_air_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.exhaust_air_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.exhaust_air_fan_name`')
-        self._data["Exhaust Air Fan Name"] = value
+        self["Exhaust Air Fan Name"] = value
 
     @property
     def controller_name(self):
@@ -10022,19 +4537,7 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilator.controller_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.controller_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.controller_name`')
-        self._data["Controller Name"] = value
+        self["Controller Name"] = value
 
     @property
     def ventilation_rate_per_unit_floor_area(self):
@@ -10054,23 +4557,13 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         Args:
             value (float): value for IDD Field `Ventilation Rate per Unit Floor Area`
                 Units: m3/s-m2
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilator.ventilation_rate_per_unit_floor_area`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.ventilation_rate_per_unit_floor_area`')
-        self._data["Ventilation Rate per Unit Floor Area"] = value
+        self["Ventilation Rate per Unit Floor Area"] = value
 
     @property
     def ventilation_rate_per_occupant(self):
@@ -10090,23 +4583,13 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         Args:
             value (float): value for IDD Field `Ventilation Rate per Occupant`
                 Units: m3/s-person
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilator.ventilation_rate_per_occupant`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.ventilation_rate_per_occupant`')
-        self._data["Ventilation Rate per Occupant"] = value
+        self["Ventilation Rate per Occupant"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -10130,236 +4613,24 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilator.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilator.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacEnergyRecoveryVentilator:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacEnergyRecoveryVentilator:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacEnergyRecoveryVentilator: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacEnergyRecoveryVentilator: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacEnergyRecoveryVentilatorController(object):
+class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:EnergyRecoveryVentilator:Controller`
         This controller is used exclusively by the ZoneHVAC:EnergyRecoveryVentilator object
         to allow economizer (free cooling) operation when possible.
     """
-    internal_name = "ZoneHVAC:EnergyRecoveryVentilator:Controller"
-    field_count = 13
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 3
-    extensible_keys = []
+    schema = {'min-fields': 3, 'name': u'ZoneHVAC:EnergyRecoveryVentilator:Controller', 'pyname': u'ZoneHvacEnergyRecoveryVentilatorController', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'temperature high limit', {'name': u'Temperature High Limit', 'pyname': u'temperature_high_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'temperature low limit', {'name': u'Temperature Low Limit', 'pyname': u'temperature_low_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy high limit', {'name': u'Enthalpy High Limit', 'pyname': u'enthalpy_high_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'dewpoint temperature limit', {'name': u'Dewpoint Temperature Limit', 'pyname': u'dewpoint_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'electronic enthalpy limit curve name', {'name': u'Electronic Enthalpy Limit Curve Name', 'pyname': u'electronic_enthalpy_limit_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'exhaust air temperature limit', {'name': u'Exhaust Air Temperature Limit', 'pyname': u'exhaust_air_temperature_limit', 'default': u'NoExhaustAirTemperatureLimit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'exhaust air enthalpy limit', {'name': u'Exhaust Air Enthalpy Limit', 'pyname': u'exhaust_air_enthalpy_limit', 'default': u'NoExhaustAirEnthalpyLimit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'time of day economizer flow control schedule name', {'name': u'Time of Day Economizer Flow Control Schedule Name', 'pyname': u'time_of_day_economizer_flow_control_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high humidity control flag', {'name': u'High Humidity Control Flag', 'pyname': u'high_humidity_control_flag', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'humidistat control zone name', {'name': u'Humidistat Control Zone Name', 'pyname': u'humidistat_control_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high humidity outdoor air flow ratio', {'name': u'High Humidity Outdoor Air Flow Ratio', 'pyname': u'high_humidity_outdoor_air_flow_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'control high indoor humidity based on outdoor humidity ratio', {'name': u'Control High Indoor Humidity Based on Outdoor Humidity Ratio', 'pyname': u'control_high_indoor_humidity_based_on_outdoor_humidity_ratio', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:EnergyRecoveryVentilator:Controller`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Temperature High Limit"] = None
-        self._data["Temperature Low Limit"] = None
-        self._data["Enthalpy High Limit"] = None
-        self._data["Dewpoint Temperature Limit"] = None
-        self._data["Electronic Enthalpy Limit Curve Name"] = None
-        self._data["Exhaust Air Temperature Limit"] = None
-        self._data["Exhaust Air Enthalpy Limit"] = None
-        self._data["Time of Day Economizer Flow Control Schedule Name"] = None
-        self._data["High Humidity Control Flag"] = None
-        self._data["Humidistat Control Zone Name"] = None
-        self._data["High Humidity Outdoor Air Flow Ratio"] = None
-        self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_high_limit = None
-        else:
-            self.temperature_high_limit = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.temperature_low_limit = None
-        else:
-            self.temperature_low_limit = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.enthalpy_high_limit = None
-        else:
-            self.enthalpy_high_limit = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.dewpoint_temperature_limit = None
-        else:
-            self.dewpoint_temperature_limit = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.electronic_enthalpy_limit_curve_name = None
-        else:
-            self.electronic_enthalpy_limit_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_air_temperature_limit = None
-        else:
-            self.exhaust_air_temperature_limit = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_air_enthalpy_limit = None
-        else:
-            self.exhaust_air_enthalpy_limit = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.time_of_day_economizer_flow_control_schedule_name = None
-        else:
-            self.time_of_day_economizer_flow_control_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.high_humidity_control_flag = None
-        else:
-            self.high_humidity_control_flag = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidistat_control_zone_name = None
-        else:
-            self.humidistat_control_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.high_humidity_outdoor_air_flow_ratio = None
-        else:
-            self.high_humidity_outdoor_air_flow_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_high_indoor_humidity_based_on_outdoor_humidity_ratio = None
-        else:
-            self.control_high_indoor_humidity_based_on_outdoor_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -10382,19 +4653,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def temperature_high_limit(self):
@@ -10420,13 +4679,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.temperature_high_limit`'.format(value))
-        self._data["Temperature High Limit"] = value
+        self["Temperature High Limit"] = value
 
     @property
     def temperature_low_limit(self):
@@ -10452,13 +4705,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.temperature_low_limit`'.format(value))
-        self._data["Temperature Low Limit"] = value
+        self["Temperature Low Limit"] = value
 
     @property
     def enthalpy_high_limit(self):
@@ -10484,13 +4731,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.enthalpy_high_limit`'.format(value))
-        self._data["Enthalpy High Limit"] = value
+        self["Enthalpy High Limit"] = value
 
     @property
     def dewpoint_temperature_limit(self):
@@ -10516,13 +4757,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.dewpoint_temperature_limit`'.format(value))
-        self._data["Dewpoint Temperature Limit"] = value
+        self["Dewpoint Temperature Limit"] = value
 
     @property
     def electronic_enthalpy_limit_curve_name(self):
@@ -10549,19 +4784,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.electronic_enthalpy_limit_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.electronic_enthalpy_limit_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.electronic_enthalpy_limit_curve_name`')
-        self._data["Electronic Enthalpy Limit Curve Name"] = value
+        self["Electronic Enthalpy Limit Curve Name"] = value
 
     @property
     def exhaust_air_temperature_limit(self):
@@ -10578,9 +4801,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
 
         Args:
             value (str): value for IDD Field `Exhaust Air Temperature Limit`
-                Accepted values are:
-                      - ExhaustAirTemperatureLimit
-                      - NoExhaustAirTemperatureLimit
                 Default value: NoExhaustAirTemperatureLimit
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10588,46 +4808,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.exhaust_air_temperature_limit`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.exhaust_air_temperature_limit`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.exhaust_air_temperature_limit`')
-            vals = {}
-            vals["exhaustairtemperaturelimit"] = "ExhaustAirTemperatureLimit"
-            vals["noexhaustairtemperaturelimit"] = "NoExhaustAirTemperatureLimit"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacEnergyRecoveryVentilatorController.exhaust_air_temperature_limit`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacEnergyRecoveryVentilatorController.exhaust_air_temperature_limit`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Exhaust Air Temperature Limit"] = value
+        self["Exhaust Air Temperature Limit"] = value
 
     @property
     def exhaust_air_enthalpy_limit(self):
@@ -10644,9 +4825,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
 
         Args:
             value (str): value for IDD Field `Exhaust Air Enthalpy Limit`
-                Accepted values are:
-                      - ExhaustAirEnthalpyLimit
-                      - NoExhaustAirEnthalpyLimit
                 Default value: NoExhaustAirEnthalpyLimit
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10654,46 +4832,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.exhaust_air_enthalpy_limit`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.exhaust_air_enthalpy_limit`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.exhaust_air_enthalpy_limit`')
-            vals = {}
-            vals["exhaustairenthalpylimit"] = "ExhaustAirEnthalpyLimit"
-            vals["noexhaustairenthalpylimit"] = "NoExhaustAirEnthalpyLimit"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacEnergyRecoveryVentilatorController.exhaust_air_enthalpy_limit`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacEnergyRecoveryVentilatorController.exhaust_air_enthalpy_limit`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Exhaust Air Enthalpy Limit"] = value
+        self["Exhaust Air Enthalpy Limit"] = value
 
     @property
     def time_of_day_economizer_flow_control_schedule_name(self):
@@ -10719,19 +4858,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.time_of_day_economizer_flow_control_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.time_of_day_economizer_flow_control_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.time_of_day_economizer_flow_control_schedule_name`')
-        self._data["Time of Day Economizer Flow Control Schedule Name"] = value
+        self["Time of Day Economizer Flow Control Schedule Name"] = value
 
     @property
     def high_humidity_control_flag(self):
@@ -10750,9 +4877,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
 
         Args:
             value (str): value for IDD Field `High Humidity Control Flag`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10760,46 +4884,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.high_humidity_control_flag`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.high_humidity_control_flag`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.high_humidity_control_flag`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacEnergyRecoveryVentilatorController.high_humidity_control_flag`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacEnergyRecoveryVentilatorController.high_humidity_control_flag`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["High Humidity Control Flag"] = value
+        self["High Humidity Control Flag"] = value
 
     @property
     def humidistat_control_zone_name(self):
@@ -10823,19 +4908,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.humidistat_control_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.humidistat_control_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.humidistat_control_zone_name`')
-        self._data["Humidistat Control Zone Name"] = value
+        self["Humidistat Control Zone Name"] = value
 
     @property
     def high_humidity_outdoor_air_flow_ratio(self):
@@ -10855,23 +4928,13 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Args:
             value (float): value for IDD Field `High Humidity Outdoor Air Flow Ratio`
                 Default value: 1.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.high_humidity_outdoor_air_flow_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.high_humidity_outdoor_air_flow_ratio`')
-        self._data["High Humidity Outdoor Air Flow Ratio"] = value
+        self["High Humidity Outdoor Air Flow Ratio"] = value
 
     @property
     def control_high_indoor_humidity_based_on_outdoor_humidity_ratio(self):
@@ -10892,9 +4955,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
 
         Args:
             value (str): value for IDD Field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10902,360 +4962,25 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEnergyRecoveryVentilatorController.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEnergyRecoveryVentilatorController.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacEnergyRecoveryVentilatorController.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacEnergyRecoveryVentilatorController.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
+        self["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacEnergyRecoveryVentilatorController:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacEnergyRecoveryVentilatorController:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacEnergyRecoveryVentilatorController: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacEnergyRecoveryVentilatorController: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacUnitVentilator(object):
+class ZoneHvacUnitVentilator(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:UnitVentilator`
         Unit ventilator. Forced-convection ventilation unit with supply fan (constant-volume
         or variable-volume), optional chilled water cooling coil, optional heating coil
         (gas, electric, hot water, or steam) and controllable outdoor air mixer.
     """
-    internal_name = "ZoneHVAC:UnitVentilator"
-    field_count = 25
-    required_fields = ["Name", "Maximum Supply Air Flow Rate", "Outdoor Air Control Type", "Minimum Outdoor Air Flow Rate", "Minimum Outdoor Air Schedule Name", "Maximum Outdoor Air Flow Rate", "Maximum Outdoor Air Fraction or Temperature Schedule Name", "Air Inlet Node Name", "Air Outlet Node Name", "Outdoor Air Node Name", "Exhaust Air Node Name", "Mixed Air Node Name", "Supply Air Fan Object Type", "Supply Air Fan Name", "Coil Option"]
-    extensible_fields = 0
-    format = None
-    min_fields = 16
-    extensible_keys = []
+    schema = {'min-fields': 16, 'name': u'ZoneHVAC:UnitVentilator', 'pyname': u'ZoneHvacUnitVentilator', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air flow rate', {'name': u'Maximum Supply Air Flow Rate', 'pyname': u'maximum_supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'outdoor air control type', {'name': u'Outdoor Air Control Type', 'pyname': u'outdoor_air_control_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum outdoor air flow rate', {'name': u'Minimum Outdoor Air Flow Rate', 'pyname': u'minimum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum outdoor air schedule name', {'name': u'Minimum Outdoor Air Schedule Name', 'pyname': u'minimum_outdoor_air_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor air flow rate', {'name': u'Maximum Outdoor Air Flow Rate', 'pyname': u'maximum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'maximum outdoor air fraction or temperature schedule name', {'name': u'Maximum Outdoor Air Fraction or Temperature Schedule Name', 'pyname': u'maximum_outdoor_air_fraction_or_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air node name', {'name': u'Outdoor Air Node Name', 'pyname': u'outdoor_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'exhaust air node name', {'name': u'Exhaust Air Node Name', 'pyname': u'exhaust_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'mixed air node name', {'name': u'Mixed Air Node Name', 'pyname': u'mixed_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'coil option', {'name': u'Coil Option', 'pyname': u'coil_option', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling convergence tolerance', {'name': u'Cooling Convergence Tolerance', 'pyname': u'cooling_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:UnitVentilator`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Maximum Supply Air Flow Rate"] = None
-        self._data["Outdoor Air Control Type"] = None
-        self._data["Minimum Outdoor Air Flow Rate"] = None
-        self._data["Minimum Outdoor Air Schedule Name"] = None
-        self._data["Maximum Outdoor Air Flow Rate"] = None
-        self._data["Maximum Outdoor Air Fraction or Temperature Schedule Name"] = None
-        self._data["Air Inlet Node Name"] = None
-        self._data["Air Outlet Node Name"] = None
-        self._data["Outdoor Air Node Name"] = None
-        self._data["Exhaust Air Node Name"] = None
-        self._data["Mixed Air Node Name"] = None
-        self._data["Supply Air Fan Object Type"] = None
-        self._data["Supply Air Fan Name"] = None
-        self._data["Coil Option"] = None
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = None
-        self._data["Heating Coil Object Type"] = None
-        self._data["Heating Coil Name"] = None
-        self._data["Heating Convergence Tolerance"] = None
-        self._data["Cooling Coil Object Type"] = None
-        self._data["Cooling Coil Name"] = None
-        self._data["Cooling Convergence Tolerance"] = None
-        self._data["Availability Manager List Name"] = None
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_supply_air_flow_rate = None
-        else:
-            self.maximum_supply_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_control_type = None
-        else:
-            self.outdoor_air_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outdoor_air_flow_rate = None
-        else:
-            self.minimum_outdoor_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outdoor_air_schedule_name = None
-        else:
-            self.minimum_outdoor_air_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_air_flow_rate = None
-        else:
-            self.maximum_outdoor_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_air_fraction_or_temperature_schedule_name = None
-        else:
-            self.maximum_outdoor_air_fraction_or_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_inlet_node_name = None
-        else:
-            self.air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_outlet_node_name = None
-        else:
-            self.air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_node_name = None
-        else:
-            self.outdoor_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_air_node_name = None
-        else:
-            self.exhaust_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.mixed_air_node_name = None
-        else:
-            self.mixed_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_object_type = None
-        else:
-            self.supply_air_fan_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_name = None
-        else:
-            self.supply_air_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coil_option = None
-        else:
-            self.coil_option = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_operating_mode_schedule_name = None
-        else:
-            self.supply_air_fan_operating_mode_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_object_type = None
-        else:
-            self.heating_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_name = None
-        else:
-            self.heating_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_convergence_tolerance = None
-        else:
-            self.heating_convergence_tolerance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_object_type = None
-        else:
-            self.cooling_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_name = None
-        else:
-            self.cooling_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_convergence_tolerance = None
-        else:
-            self.cooling_convergence_tolerance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zonehvac_sizing_object_name = None
-        else:
-            self.design_specification_zonehvac_sizing_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -11278,19 +5003,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -11315,19 +5028,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def maximum_supply_air_flow_rate(self):
@@ -11345,35 +5046,13 @@ class ZoneHvacUnitVentilator(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacUnitVentilator.maximum_supply_air_flow_rate`'.format(value))
-                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacUnitVentilator.maximum_supply_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacUnitVentilator.maximum_supply_air_flow_rate`')
-        self._data["Maximum Supply Air Flow Rate"] = value
+        self["Maximum Supply Air Flow Rate"] = value
 
     @property
     def outdoor_air_control_type(self):
@@ -11390,57 +5069,13 @@ class ZoneHvacUnitVentilator(object):
 
         Args:
             value (str): value for IDD Field `Outdoor Air Control Type`
-                Accepted values are:
-                      - FixedAmount
-                      - VariablePercent
-                      - FixedTemperature
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.outdoor_air_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.outdoor_air_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.outdoor_air_control_type`')
-            vals = {}
-            vals["fixedamount"] = "FixedAmount"
-            vals["variablepercent"] = "VariablePercent"
-            vals["fixedtemperature"] = "FixedTemperature"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacUnitVentilator.outdoor_air_control_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacUnitVentilator.outdoor_air_control_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Outdoor Air Control Type"] = value
+        self["Outdoor Air Control Type"] = value
 
     @property
     def minimum_outdoor_air_flow_rate(self):
@@ -11458,35 +5093,13 @@ class ZoneHvacUnitVentilator(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacUnitVentilator.minimum_outdoor_air_flow_rate`'.format(value))
-                    self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacUnitVentilator.minimum_outdoor_air_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacUnitVentilator.minimum_outdoor_air_flow_rate`')
-        self._data["Minimum Outdoor Air Flow Rate"] = value
+        self["Minimum Outdoor Air Flow Rate"] = value
 
     @property
     def minimum_outdoor_air_schedule_name(self):
@@ -11510,19 +5123,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.minimum_outdoor_air_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.minimum_outdoor_air_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.minimum_outdoor_air_schedule_name`')
-        self._data["Minimum Outdoor Air Schedule Name"] = value
+        self["Minimum Outdoor Air Schedule Name"] = value
 
     @property
     def maximum_outdoor_air_flow_rate(self):
@@ -11540,35 +5141,13 @@ class ZoneHvacUnitVentilator(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacUnitVentilator.maximum_outdoor_air_flow_rate`'.format(value))
-                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacUnitVentilator.maximum_outdoor_air_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacUnitVentilator.maximum_outdoor_air_flow_rate`')
-        self._data["Maximum Outdoor Air Flow Rate"] = value
+        self["Maximum Outdoor Air Flow Rate"] = value
 
     @property
     def maximum_outdoor_air_fraction_or_temperature_schedule_name(self):
@@ -11592,19 +5171,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.maximum_outdoor_air_fraction_or_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.maximum_outdoor_air_fraction_or_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.maximum_outdoor_air_fraction_or_temperature_schedule_name`')
-        self._data["Maximum Outdoor Air Fraction or Temperature Schedule Name"] = value
+        self["Maximum Outdoor Air Fraction or Temperature Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
@@ -11627,19 +5194,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.air_inlet_node_name`')
-        self._data["Air Inlet Node Name"] = value
+        self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
@@ -11662,19 +5217,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.air_outlet_node_name`')
-        self._data["Air Outlet Node Name"] = value
+        self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_node_name(self):
@@ -11697,19 +5240,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.outdoor_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.outdoor_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.outdoor_air_node_name`')
-        self._data["Outdoor Air Node Name"] = value
+        self["Outdoor Air Node Name"] = value
 
     @property
     def exhaust_air_node_name(self):
@@ -11732,19 +5263,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.exhaust_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.exhaust_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.exhaust_air_node_name`')
-        self._data["Exhaust Air Node Name"] = value
+        self["Exhaust Air Node Name"] = value
 
     @property
     def mixed_air_node_name(self):
@@ -11768,19 +5287,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.mixed_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.mixed_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.mixed_air_node_name`')
-        self._data["Mixed Air Node Name"] = value
+        self["Mixed Air Node Name"] = value
 
     @property
     def supply_air_fan_object_type(self):
@@ -11799,57 +5306,13 @@ class ZoneHvacUnitVentilator(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
-                Accepted values are:
-                      - Fan:OnOff
-                      - Fan:ConstantVolume
-                      - Fan:VariableVolume
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.supply_air_fan_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.supply_air_fan_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.supply_air_fan_object_type`')
-            vals = {}
-            vals["fan:onoff"] = "Fan:OnOff"
-            vals["fan:constantvolume"] = "Fan:ConstantVolume"
-            vals["fan:variablevolume"] = "Fan:VariableVolume"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacUnitVentilator.supply_air_fan_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacUnitVentilator.supply_air_fan_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Fan Object Type"] = value
+        self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_name(self):
@@ -11872,19 +5335,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.supply_air_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.supply_air_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.supply_air_fan_name`')
-        self._data["Supply Air Fan Name"] = value
+        self["Supply Air Fan Name"] = value
 
     @property
     def coil_option(self):
@@ -11901,59 +5352,13 @@ class ZoneHvacUnitVentilator(object):
 
         Args:
             value (str): value for IDD Field `Coil Option`
-                Accepted values are:
-                      - None
-                      - Heating
-                      - Cooling
-                      - HeatingAndCooling
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.coil_option`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.coil_option`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.coil_option`')
-            vals = {}
-            vals["none"] = "None"
-            vals["heating"] = "Heating"
-            vals["cooling"] = "Cooling"
-            vals["heatingandcooling"] = "HeatingAndCooling"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacUnitVentilator.coil_option`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacUnitVentilator.coil_option`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Coil Option"] = value
+        self["Coil Option"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
@@ -11982,19 +5387,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.supply_air_fan_operating_mode_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.supply_air_fan_operating_mode_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.supply_air_fan_operating_mode_schedule_name`')
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = value
+        self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def heating_coil_object_type(self):
@@ -12011,59 +5404,13 @@ class ZoneHvacUnitVentilator(object):
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
-                Accepted values are:
-                      - Coil:Heating:Water
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Steam
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.heating_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.heating_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.heating_coil_object_type`')
-            vals = {}
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacUnitVentilator.heating_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacUnitVentilator.heating_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heating Coil Object Type"] = value
+        self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_name(self):
@@ -12086,19 +5433,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.heating_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.heating_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.heating_coil_name`')
-        self._data["Heating Coil Name"] = value
+        self["Heating Coil Name"] = value
 
     @property
     def heating_convergence_tolerance(self):
@@ -12116,23 +5451,13 @@ class ZoneHvacUnitVentilator(object):
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
                 Default value: 0.001
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacUnitVentilator.heating_convergence_tolerance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacUnitVentilator.heating_convergence_tolerance`')
-        self._data["Heating Convergence Tolerance"] = value
+        self["Heating Convergence Tolerance"] = value
 
     @property
     def cooling_coil_object_type(self):
@@ -12149,57 +5474,13 @@ class ZoneHvacUnitVentilator(object):
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
-                Accepted values are:
-                      - Coil:Cooling:Water
-                      - Coil:Cooling:Water:DetailedGeometry
-                      - CoilSystem:Cooling:Water:HeatExchangerAssisted
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.cooling_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.cooling_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.cooling_coil_object_type`')
-            vals = {}
-            vals["coil:cooling:water"] = "Coil:Cooling:Water"
-            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
-            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatExchangerAssisted"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacUnitVentilator.cooling_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacUnitVentilator.cooling_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Cooling Coil Object Type"] = value
+        self["Cooling Coil Object Type"] = value
 
     @property
     def cooling_coil_name(self):
@@ -12222,19 +5503,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.cooling_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.cooling_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.cooling_coil_name`')
-        self._data["Cooling Coil Name"] = value
+        self["Cooling Coil Name"] = value
 
     @property
     def cooling_convergence_tolerance(self):
@@ -12252,23 +5521,13 @@ class ZoneHvacUnitVentilator(object):
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
                 Default value: 0.001
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacUnitVentilator.cooling_convergence_tolerance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacUnitVentilator.cooling_convergence_tolerance`')
-        self._data["Cooling Convergence Tolerance"] = value
+        self["Cooling Convergence Tolerance"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -12292,19 +5551,7 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
@@ -12328,260 +5575,24 @@ class ZoneHvacUnitVentilator(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitVentilator.design_specification_zonehvac_sizing_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitVentilator.design_specification_zonehvac_sizing_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitVentilator.design_specification_zonehvac_sizing_object_name`')
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
+        self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacUnitVentilator:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacUnitVentilator:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacUnitVentilator: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacUnitVentilator: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacUnitHeater(object):
+class ZoneHvacUnitHeater(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:UnitHeater`
         Unit heater. Forced-convection heating-only unit with supply fan, heating coil
         (gas, electric, hot water, or steam) and fixed-position outdoor air mixer.
     """
-    internal_name = "ZoneHVAC:UnitHeater"
-    field_count = 16
-    required_fields = ["Name", "Availability Schedule Name", "Supply Air Fan Object Type", "Supply Air Fan Name", "Maximum Supply Air Flow Rate", "Heating Coil Object Type", "Heating Coil Name", "Supply Air Fan Operation During No Heating"]
-    extensible_fields = 0
-    format = None
-    min_fields = 11
-    extensible_keys = []
+    schema = {'min-fields': 11, 'name': u'ZoneHVAC:UnitHeater', 'pyname': u'ZoneHvacUnitHeater', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air flow rate', {'name': u'Maximum Supply Air Flow Rate', 'pyname': u'maximum_supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operation during no heating', {'name': u'Supply Air Fan Operation During No Heating', 'pyname': u'supply_air_fan_operation_during_no_heating', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:UnitHeater`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Air Inlet Node Name"] = None
-        self._data["Air Outlet Node Name"] = None
-        self._data["Supply Air Fan Object Type"] = None
-        self._data["Supply Air Fan Name"] = None
-        self._data["Maximum Supply Air Flow Rate"] = None
-        self._data["Heating Coil Object Type"] = None
-        self._data["Heating Coil Name"] = None
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = None
-        self._data["Supply Air Fan Operation During No Heating"] = None
-        self._data["Maximum Hot Water or Steam Flow Rate"] = None
-        self._data["Minimum Hot Water or Steam Flow Rate"] = None
-        self._data["Heating Convergence Tolerance"] = None
-        self._data["Availability Manager List Name"] = None
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_inlet_node_name = None
-        else:
-            self.air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_outlet_node_name = None
-        else:
-            self.air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_object_type = None
-        else:
-            self.supply_air_fan_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_name = None
-        else:
-            self.supply_air_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_supply_air_flow_rate = None
-        else:
-            self.maximum_supply_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_object_type = None
-        else:
-            self.heating_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_name = None
-        else:
-            self.heating_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_operating_mode_schedule_name = None
-        else:
-            self.supply_air_fan_operating_mode_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_operation_during_no_heating = None
-        else:
-            self.supply_air_fan_operation_during_no_heating = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_hot_water_or_steam_flow_rate = None
-        else:
-            self.maximum_hot_water_or_steam_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_hot_water_or_steam_flow_rate = None
-        else:
-            self.minimum_hot_water_or_steam_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_convergence_tolerance = None
-        else:
-            self.heating_convergence_tolerance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zonehvac_sizing_object_name = None
-        else:
-            self.design_specification_zonehvac_sizing_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -12604,19 +5615,7 @@ class ZoneHvacUnitHeater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -12639,19 +5638,7 @@ class ZoneHvacUnitHeater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
@@ -12674,19 +5661,7 @@ class ZoneHvacUnitHeater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.air_inlet_node_name`')
-        self._data["Air Inlet Node Name"] = value
+        self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
@@ -12709,19 +5684,7 @@ class ZoneHvacUnitHeater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.air_outlet_node_name`')
-        self._data["Air Outlet Node Name"] = value
+        self["Air Outlet Node Name"] = value
 
     @property
     def supply_air_fan_object_type(self):
@@ -12740,57 +5703,13 @@ class ZoneHvacUnitHeater(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
-                Accepted values are:
-                      - Fan:OnOff
-                      - Fan:ConstantVolume
-                      - Fan:VariableVolume
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.supply_air_fan_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.supply_air_fan_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.supply_air_fan_object_type`')
-            vals = {}
-            vals["fan:onoff"] = "Fan:OnOff"
-            vals["fan:constantvolume"] = "Fan:ConstantVolume"
-            vals["fan:variablevolume"] = "Fan:VariableVolume"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacUnitHeater.supply_air_fan_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacUnitHeater.supply_air_fan_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Fan Object Type"] = value
+        self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_name(self):
@@ -12813,19 +5732,7 @@ class ZoneHvacUnitHeater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.supply_air_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.supply_air_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.supply_air_fan_name`')
-        self._data["Supply Air Fan Name"] = value
+        self["Supply Air Fan Name"] = value
 
     @property
     def maximum_supply_air_flow_rate(self):
@@ -12843,35 +5750,13 @@ class ZoneHvacUnitHeater(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacUnitHeater.maximum_supply_air_flow_rate`'.format(value))
-                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacUnitHeater.maximum_supply_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacUnitHeater.maximum_supply_air_flow_rate`')
-        self._data["Maximum Supply Air Flow Rate"] = value
+        self["Maximum Supply Air Flow Rate"] = value
 
     @property
     def heating_coil_object_type(self):
@@ -12888,59 +5773,13 @@ class ZoneHvacUnitHeater(object):
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
-                Accepted values are:
-                      - Coil:Heating:Water
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Steam
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.heating_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.heating_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.heating_coil_object_type`')
-            vals = {}
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacUnitHeater.heating_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacUnitHeater.heating_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heating Coil Object Type"] = value
+        self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_name(self):
@@ -12963,19 +5802,7 @@ class ZoneHvacUnitHeater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.heating_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.heating_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.heating_coil_name`')
-        self._data["Heating Coil Name"] = value
+        self["Heating Coil Name"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
@@ -13004,19 +5831,7 @@ class ZoneHvacUnitHeater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.supply_air_fan_operating_mode_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.supply_air_fan_operating_mode_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.supply_air_fan_operating_mode_schedule_name`')
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = value
+        self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def supply_air_fan_operation_during_no_heating(self):
@@ -13040,55 +5855,13 @@ class ZoneHvacUnitHeater(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operation During No Heating`
-                Accepted values are:
-                      - Yes
-                      - No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.supply_air_fan_operation_during_no_heating`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.supply_air_fan_operation_during_no_heating`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.supply_air_fan_operation_during_no_heating`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacUnitHeater.supply_air_fan_operation_during_no_heating`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacUnitHeater.supply_air_fan_operation_during_no_heating`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Fan Operation During No Heating"] = value
+        self["Supply Air Fan Operation During No Heating"] = value
 
     @property
     def maximum_hot_water_or_steam_flow_rate(self):
@@ -13108,35 +5881,13 @@ class ZoneHvacUnitHeater(object):
             value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacUnitHeater.maximum_hot_water_or_steam_flow_rate`'.format(value))
-                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacUnitHeater.maximum_hot_water_or_steam_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacUnitHeater.maximum_hot_water_or_steam_flow_rate`')
-        self._data["Maximum Hot Water or Steam Flow Rate"] = value
+        self["Maximum Hot Water or Steam Flow Rate"] = value
 
     @property
     def minimum_hot_water_or_steam_flow_rate(self):
@@ -13148,7 +5899,7 @@ class ZoneHvacUnitHeater(object):
         return self._data["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
-    def minimum_hot_water_or_steam_flow_rate(self, value=0.0):
+    def minimum_hot_water_or_steam_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when heating coil is gas or electric
 
@@ -13156,24 +5907,13 @@ class ZoneHvacUnitHeater(object):
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacUnitHeater.minimum_hot_water_or_steam_flow_rate`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacUnitHeater.minimum_hot_water_or_steam_flow_rate`')
-        self._data["Minimum Hot Water or Steam Flow Rate"] = value
+        self["Minimum Hot Water or Steam Flow Rate"] = value
 
     @property
     def heating_convergence_tolerance(self):
@@ -13191,23 +5931,13 @@ class ZoneHvacUnitHeater(object):
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
                 Default value: 0.001
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacUnitHeater.heating_convergence_tolerance`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacUnitHeater.heating_convergence_tolerance`')
-        self._data["Heating Convergence Tolerance"] = value
+        self["Heating Convergence Tolerance"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -13231,19 +5961,7 @@ class ZoneHvacUnitHeater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
@@ -13267,276 +5985,24 @@ class ZoneHvacUnitHeater(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacUnitHeater.design_specification_zonehvac_sizing_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacUnitHeater.design_specification_zonehvac_sizing_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacUnitHeater.design_specification_zonehvac_sizing_object_name`')
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
+        self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacUnitHeater:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacUnitHeater:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacUnitHeater: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacUnitHeater: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacEvaporativeCoolerUnit(object):
+class ZoneHvacEvaporativeCoolerUnit(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:EvaporativeCoolerUnit`
         Zone evaporative cooler. Forced-convection cooling-only unit with supply fan,
         100% outdoor air supply.  Optional relief exaust node
     """
-    internal_name = "ZoneHVAC:EvaporativeCoolerUnit"
-    field_count = 18
-    required_fields = ["Name", "Availability Schedule Name", "Outdoor Air Inlet Node Name", "Cooler Outlet Node Name", "Supply Air Fan Object Type", "Supply Air Fan Name", "Design Supply Air Flow Rate", "Fan Placement", "Cooler Unit Control Method", "First Evaporative Cooler Object Type", "First Evaporative Cooler Object Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 15
-    extensible_keys = []
+    schema = {'min-fields': 15, 'name': u'ZoneHVAC:EvaporativeCoolerUnit', 'pyname': u'ZoneHvacEvaporativeCoolerUnit', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outdoor air inlet node name', {'name': u'Outdoor Air Inlet Node Name', 'pyname': u'outdoor_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooler outlet node name', {'name': u'Cooler Outlet Node Name', 'pyname': u'cooler_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone relief air node name', {'name': u'Zone Relief Air Node Name', 'pyname': u'zone_relief_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design supply air flow rate', {'name': u'Design Supply Air Flow Rate', 'pyname': u'design_supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooler unit control method', {'name': u'Cooler Unit Control Method', 'pyname': u'cooler_unit_control_method', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'throttling range temperature difference', {'name': u'Throttling Range Temperature Difference', 'pyname': u'throttling_range_temperature_difference', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'cooling load control threshold heat transfer rate', {'name': u'Cooling Load Control Threshold Heat Transfer Rate', 'pyname': u'cooling_load_control_threshold_heat_transfer_rate', 'default': 100.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'first evaporative cooler object type', {'name': u'First Evaporative Cooler Object Type', 'pyname': u'first_evaporative_cooler_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'first evaporative cooler object name', {'name': u'First Evaporative Cooler Object Name', 'pyname': u'first_evaporative_cooler_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'second evaporative cooler object type', {'name': u'Second Evaporative Cooler Object Type', 'pyname': u'second_evaporative_cooler_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'second evaporative cooler name', {'name': u'Second Evaporative Cooler Name', 'pyname': u'second_evaporative_cooler_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:EvaporativeCoolerUnit`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Availability Manager List Name"] = None
-        self._data["Outdoor Air Inlet Node Name"] = None
-        self._data["Cooler Outlet Node Name"] = None
-        self._data["Zone Relief Air Node Name"] = None
-        self._data["Supply Air Fan Object Type"] = None
-        self._data["Supply Air Fan Name"] = None
-        self._data["Design Supply Air Flow Rate"] = None
-        self._data["Fan Placement"] = None
-        self._data["Cooler Unit Control Method"] = None
-        self._data["Throttling Range Temperature Difference"] = None
-        self._data["Cooling Load Control Threshold Heat Transfer Rate"] = None
-        self._data["First Evaporative Cooler Object Type"] = None
-        self._data["First Evaporative Cooler Object Name"] = None
-        self._data["Second Evaporative Cooler Object Type"] = None
-        self._data["Second Evaporative Cooler Name"] = None
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_inlet_node_name = None
-        else:
-            self.outdoor_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooler_outlet_node_name = None
-        else:
-            self.cooler_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_relief_air_node_name = None
-        else:
-            self.zone_relief_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_object_type = None
-        else:
-            self.supply_air_fan_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_name = None
-        else:
-            self.supply_air_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_supply_air_flow_rate = None
-        else:
-            self.design_supply_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fan_placement = None
-        else:
-            self.fan_placement = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooler_unit_control_method = None
-        else:
-            self.cooler_unit_control_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.throttling_range_temperature_difference = None
-        else:
-            self.throttling_range_temperature_difference = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_load_control_threshold_heat_transfer_rate = None
-        else:
-            self.cooling_load_control_threshold_heat_transfer_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.first_evaporative_cooler_object_type = None
-        else:
-            self.first_evaporative_cooler_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.first_evaporative_cooler_object_name = None
-        else:
-            self.first_evaporative_cooler_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.second_evaporative_cooler_object_type = None
-        else:
-            self.second_evaporative_cooler_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.second_evaporative_cooler_name = None
-        else:
-            self.second_evaporative_cooler_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zonehvac_sizing_object_name = None
-        else:
-            self.design_specification_zonehvac_sizing_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -13559,19 +6025,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -13594,19 +6048,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -13630,19 +6072,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
     @property
     def outdoor_air_inlet_node_name(self):
@@ -13666,19 +6096,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.outdoor_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.outdoor_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.outdoor_air_inlet_node_name`')
-        self._data["Outdoor Air Inlet Node Name"] = value
+        self["Outdoor Air Inlet Node Name"] = value
 
     @property
     def cooler_outlet_node_name(self):
@@ -13702,19 +6120,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.cooler_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.cooler_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.cooler_outlet_node_name`')
-        self._data["Cooler Outlet Node Name"] = value
+        self["Cooler Outlet Node Name"] = value
 
     @property
     def zone_relief_air_node_name(self):
@@ -13738,19 +6144,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.zone_relief_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.zone_relief_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.zone_relief_air_node_name`')
-        self._data["Zone Relief Air Node Name"] = value
+        self["Zone Relief Air Node Name"] = value
 
     @property
     def supply_air_fan_object_type(self):
@@ -13767,59 +6161,13 @@ class ZoneHvacEvaporativeCoolerUnit(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
-                Accepted values are:
-                      - Fan:ConstantVolume
-                      - Fan:OnOff
-                      - Fan:VariableVolume
-                      - Fan:ComponentModel
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.supply_air_fan_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.supply_air_fan_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.supply_air_fan_object_type`')
-            vals = {}
-            vals["fan:constantvolume"] = "Fan:ConstantVolume"
-            vals["fan:onoff"] = "Fan:OnOff"
-            vals["fan:variablevolume"] = "Fan:VariableVolume"
-            vals["fan:componentmodel"] = "Fan:ComponentModel"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacEvaporativeCoolerUnit.supply_air_fan_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacEvaporativeCoolerUnit.supply_air_fan_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Fan Object Type"] = value
+        self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_name(self):
@@ -13842,19 +6190,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.supply_air_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.supply_air_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.supply_air_fan_name`')
-        self._data["Supply Air Fan Name"] = value
+        self["Supply Air Fan Name"] = value
 
     @property
     def design_supply_air_flow_rate(self):
@@ -13872,35 +6208,13 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Design Supply Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Design Supply Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.design_supply_air_flow_rate`'.format(value))
-                    self._data["Design Supply Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.design_supply_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.design_supply_air_flow_rate`')
-        self._data["Design Supply Air Flow Rate"] = value
+        self["Design Supply Air Flow Rate"] = value
 
     @property
     def fan_placement(self):
@@ -13917,55 +6231,13 @@ class ZoneHvacEvaporativeCoolerUnit(object):
 
         Args:
             value (str): value for IDD Field `Fan Placement`
-                Accepted values are:
-                      - BlowThrough
-                      - DrawThrough
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.fan_placement`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.fan_placement`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.fan_placement`')
-            vals = {}
-            vals["blowthrough"] = "BlowThrough"
-            vals["drawthrough"] = "DrawThrough"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacEvaporativeCoolerUnit.fan_placement`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacEvaporativeCoolerUnit.fan_placement`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Fan Placement"] = value
+        self["Fan Placement"] = value
 
     @property
     def cooler_unit_control_method(self):
@@ -13982,57 +6254,13 @@ class ZoneHvacEvaporativeCoolerUnit(object):
 
         Args:
             value (str): value for IDD Field `Cooler Unit Control Method`
-                Accepted values are:
-                      - ZoneTemperatureDeadbandOnOffCycling
-                      - ZoneCoolingLoadOnOffCycling
-                      - ZoneCoolingLoadVariableSpeedFan
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.cooler_unit_control_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.cooler_unit_control_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.cooler_unit_control_method`')
-            vals = {}
-            vals["zonetemperaturedeadbandonoffcycling"] = "ZoneTemperatureDeadbandOnOffCycling"
-            vals["zonecoolingloadonoffcycling"] = "ZoneCoolingLoadOnOffCycling"
-            vals["zonecoolingloadvariablespeedfan"] = "ZoneCoolingLoadVariableSpeedFan"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacEvaporativeCoolerUnit.cooler_unit_control_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacEvaporativeCoolerUnit.cooler_unit_control_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Cooler Unit Control Method"] = value
+        self["Cooler Unit Control Method"] = value
 
     @property
     def throttling_range_temperature_difference(self):
@@ -14052,23 +6280,13 @@ class ZoneHvacEvaporativeCoolerUnit(object):
             value (float): value for IDD Field `Throttling Range Temperature Difference`
                 Units: deltaC
                 Default value: 1.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.throttling_range_temperature_difference`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.throttling_range_temperature_difference`')
-        self._data["Throttling Range Temperature Difference"] = value
+        self["Throttling Range Temperature Difference"] = value
 
     @property
     def cooling_load_control_threshold_heat_transfer_rate(self):
@@ -14088,23 +6306,13 @@ class ZoneHvacEvaporativeCoolerUnit(object):
             value (float): value for IDD Field `Cooling Load Control Threshold Heat Transfer Rate`
                 Units: W
                 Default value: 100.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.cooling_load_control_threshold_heat_transfer_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.cooling_load_control_threshold_heat_transfer_rate`')
-        self._data["Cooling Load Control Threshold Heat Transfer Rate"] = value
+        self["Cooling Load Control Threshold Heat Transfer Rate"] = value
 
     @property
     def first_evaporative_cooler_object_type(self):
@@ -14121,61 +6329,13 @@ class ZoneHvacEvaporativeCoolerUnit(object):
 
         Args:
             value (str): value for IDD Field `First Evaporative Cooler Object Type`
-                Accepted values are:
-                      - EvaporativeCooler:Direct:CelDekPad
-                      - EvaporativeCooler:Direct:ResearchSpecial
-                      - EvaporativeCooler:Indirect:CelDekPad
-                      - EvaporativeCooler:Indirect:WetCoil
-                      - EvaporativeCooler:Indirect:ResearchSpecial
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.first_evaporative_cooler_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.first_evaporative_cooler_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.first_evaporative_cooler_object_type`')
-            vals = {}
-            vals["evaporativecooler:direct:celdekpad"] = "EvaporativeCooler:Direct:CelDekPad"
-            vals["evaporativecooler:direct:researchspecial"] = "EvaporativeCooler:Direct:ResearchSpecial"
-            vals["evaporativecooler:indirect:celdekpad"] = "EvaporativeCooler:Indirect:CelDekPad"
-            vals["evaporativecooler:indirect:wetcoil"] = "EvaporativeCooler:Indirect:WetCoil"
-            vals["evaporativecooler:indirect:researchspecial"] = "EvaporativeCooler:Indirect:ResearchSpecial"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacEvaporativeCoolerUnit.first_evaporative_cooler_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacEvaporativeCoolerUnit.first_evaporative_cooler_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["First Evaporative Cooler Object Type"] = value
+        self["First Evaporative Cooler Object Type"] = value
 
     @property
     def first_evaporative_cooler_object_name(self):
@@ -14198,19 +6358,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.first_evaporative_cooler_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.first_evaporative_cooler_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.first_evaporative_cooler_object_name`')
-        self._data["First Evaporative Cooler Object Name"] = value
+        self["First Evaporative Cooler Object Name"] = value
 
     @property
     def second_evaporative_cooler_object_type(self):
@@ -14229,61 +6377,13 @@ class ZoneHvacEvaporativeCoolerUnit(object):
 
         Args:
             value (str): value for IDD Field `Second Evaporative Cooler Object Type`
-                Accepted values are:
-                      - EvaporativeCooler:Direct:CelDekPad
-                      - EvaporativeCooler:Direct:ResearchSpecial
-                      - EvaporativeCooler:Indirect:CelDekPad
-                      - EvaporativeCooler:Indirect:WetCoil
-                      - EvaporativeCooler:Indirect:ResearchSpecial
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.second_evaporative_cooler_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.second_evaporative_cooler_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.second_evaporative_cooler_object_type`')
-            vals = {}
-            vals["evaporativecooler:direct:celdekpad"] = "EvaporativeCooler:Direct:CelDekPad"
-            vals["evaporativecooler:direct:researchspecial"] = "EvaporativeCooler:Direct:ResearchSpecial"
-            vals["evaporativecooler:indirect:celdekpad"] = "EvaporativeCooler:Indirect:CelDekPad"
-            vals["evaporativecooler:indirect:wetcoil"] = "EvaporativeCooler:Indirect:WetCoil"
-            vals["evaporativecooler:indirect:researchspecial"] = "EvaporativeCooler:Indirect:ResearchSpecial"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacEvaporativeCoolerUnit.second_evaporative_cooler_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacEvaporativeCoolerUnit.second_evaporative_cooler_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Second Evaporative Cooler Object Type"] = value
+        self["Second Evaporative Cooler Object Type"] = value
 
     @property
     def second_evaporative_cooler_name(self):
@@ -14307,19 +6407,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.second_evaporative_cooler_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.second_evaporative_cooler_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.second_evaporative_cooler_name`')
-        self._data["Second Evaporative Cooler Name"] = value
+        self["Second Evaporative Cooler Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
@@ -14343,285 +6431,25 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacEvaporativeCoolerUnit.design_specification_zonehvac_sizing_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.design_specification_zonehvac_sizing_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacEvaporativeCoolerUnit.design_specification_zonehvac_sizing_object_name`')
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
+        self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacEvaporativeCoolerUnit:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacEvaporativeCoolerUnit:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacEvaporativeCoolerUnit: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacEvaporativeCoolerUnit: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacOutdoorAirUnit(object):
+class ZoneHvacOutdoorAirUnit(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:OutdoorAirUnit`
         The zone outdoor air unit models a single-zone dedicated outdoor air system (DOAS).
         Forced-convection 100% outdoor air unit with supply fan and optional equipment
         including exhaust fan, heating coil, cooling coil, and heat recovery.
     """
-    internal_name = "ZoneHVAC:OutdoorAirUnit"
-    field_count = 19
-    required_fields = ["Name", "Zone Name", "Outdoor Air Flow Rate", "Outdoor Air Schedule Name", "Supply Fan Name", "Supply Fan Placement", "Unit Control Type", "Outdoor Air Node Name", "AirOutlet Node Name", "Supply FanOutlet Node Name", "Outdoor Air Unit List Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 18
-    extensible_keys = []
+    schema = {'min-fields': 18, 'name': u'ZoneHVAC:OutdoorAirUnit', 'pyname': u'ZoneHvacOutdoorAirUnit', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outdoor air flow rate', {'name': u'Outdoor Air Flow Rate', 'pyname': u'outdoor_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'outdoor air schedule name', {'name': u'Outdoor Air Schedule Name', 'pyname': u'outdoor_air_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan placement', {'name': u'Supply Fan Placement', 'pyname': u'supply_fan_placement', 'default': u'DrawThrough', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'exhaust fan name', {'name': u'Exhaust Fan Name', 'pyname': u'exhaust_fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'exhaust air flow rate', {'name': u'Exhaust Air Flow Rate', 'pyname': u'exhaust_air_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'exhaust air schedule name', {'name': u'Exhaust Air Schedule Name', 'pyname': u'exhaust_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'unit control type', {'name': u'Unit Control Type', 'pyname': u'unit_control_type', 'default': u'NeutralControl', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'high air control temperature schedule name', {'name': u'High Air Control Temperature Schedule Name', 'pyname': u'high_air_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'low air control temperature schedule name', {'name': u'Low Air Control Temperature Schedule Name', 'pyname': u'low_air_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outdoor air node name', {'name': u'Outdoor Air Node Name', 'pyname': u'outdoor_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'airoutlet node name', {'name': u'AirOutlet Node Name', 'pyname': u'airoutlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'airinlet node name', {'name': u'AirInlet Node Name', 'pyname': u'airinlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply fanoutlet node name', {'name': u'Supply FanOutlet Node Name', 'pyname': u'supply_fanoutlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air unit list name', {'name': u'Outdoor Air Unit List Name', 'pyname': u'outdoor_air_unit_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:OutdoorAirUnit`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Outdoor Air Flow Rate"] = None
-        self._data["Outdoor Air Schedule Name"] = None
-        self._data["Supply Fan Name"] = None
-        self._data["Supply Fan Placement"] = None
-        self._data["Exhaust Fan Name"] = None
-        self._data["Exhaust Air Flow Rate"] = None
-        self._data["Exhaust Air Schedule Name"] = None
-        self._data["Unit Control Type"] = None
-        self._data["High Air Control Temperature Schedule Name"] = None
-        self._data["Low Air Control Temperature Schedule Name"] = None
-        self._data["Outdoor Air Node Name"] = None
-        self._data["AirOutlet Node Name"] = None
-        self._data["AirInlet Node Name"] = None
-        self._data["Supply FanOutlet Node Name"] = None
-        self._data["Outdoor Air Unit List Name"] = None
-        self._data["Availability Manager List Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate = None
-        else:
-            self.outdoor_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_schedule_name = None
-        else:
-            self.outdoor_air_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_fan_name = None
-        else:
-            self.supply_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_fan_placement = None
-        else:
-            self.supply_fan_placement = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_fan_name = None
-        else:
-            self.exhaust_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_air_flow_rate = None
-        else:
-            self.exhaust_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_air_schedule_name = None
-        else:
-            self.exhaust_air_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.unit_control_type = None
-        else:
-            self.unit_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.high_air_control_temperature_schedule_name = None
-        else:
-            self.high_air_control_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.low_air_control_temperature_schedule_name = None
-        else:
-            self.low_air_control_temperature_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_node_name = None
-        else:
-            self.outdoor_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.airoutlet_node_name = None
-        else:
-            self.airoutlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.airinlet_node_name = None
-        else:
-            self.airinlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_fanoutlet_node_name = None
-        else:
-            self.supply_fanoutlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_unit_list_name = None
-        else:
-            self.outdoor_air_unit_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -14644,19 +6472,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -14681,19 +6497,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def zone_name(self):
@@ -14717,19 +6521,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def outdoor_air_flow_rate(self):
@@ -14747,35 +6539,13 @@ class ZoneHvacOutdoorAirUnit(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacOutdoorAirUnit.outdoor_air_flow_rate`'.format(value))
-                    self._data["Outdoor Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacOutdoorAirUnit.outdoor_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacOutdoorAirUnit.outdoor_air_flow_rate`')
-        self._data["Outdoor Air Flow Rate"] = value
+        self["Outdoor Air Flow Rate"] = value
 
     @property
     def outdoor_air_schedule_name(self):
@@ -14798,19 +6568,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.outdoor_air_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.outdoor_air_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.outdoor_air_schedule_name`')
-        self._data["Outdoor Air Schedule Name"] = value
+        self["Outdoor Air Schedule Name"] = value
 
     @property
     def supply_fan_name(self):
@@ -14835,19 +6593,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.supply_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.supply_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.supply_fan_name`')
-        self._data["Supply Fan Name"] = value
+        self["Supply Fan Name"] = value
 
     @property
     def supply_fan_placement(self):
@@ -14864,9 +6610,6 @@ class ZoneHvacOutdoorAirUnit(object):
 
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
-                Accepted values are:
-                      - BlowThrough
-                      - DrawThrough
                 Default value: DrawThrough
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14874,46 +6617,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.supply_fan_placement`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.supply_fan_placement`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.supply_fan_placement`')
-            vals = {}
-            vals["blowthrough"] = "BlowThrough"
-            vals["drawthrough"] = "DrawThrough"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacOutdoorAirUnit.supply_fan_placement`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacOutdoorAirUnit.supply_fan_placement`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Fan Placement"] = value
+        self["Supply Fan Placement"] = value
 
     @property
     def exhaust_fan_name(self):
@@ -14938,19 +6642,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.exhaust_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.exhaust_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.exhaust_fan_name`')
-        self._data["Exhaust Fan Name"] = value
+        self["Exhaust Fan Name"] = value
 
     @property
     def exhaust_air_flow_rate(self):
@@ -14974,25 +6666,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Exhaust Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacOutdoorAirUnit.exhaust_air_flow_rate`'.format(value))
-                    self._data["Exhaust Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacOutdoorAirUnit.exhaust_air_flow_rate`'.format(value))
-        self._data["Exhaust Air Flow Rate"] = value
+        self["Exhaust Air Flow Rate"] = value
 
     @property
     def exhaust_air_schedule_name(self):
@@ -15015,19 +6689,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.exhaust_air_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.exhaust_air_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.exhaust_air_schedule_name`')
-        self._data["Exhaust Air Schedule Name"] = value
+        self["Exhaust Air Schedule Name"] = value
 
     @property
     def unit_control_type(self):
@@ -15044,9 +6706,6 @@ class ZoneHvacOutdoorAirUnit(object):
 
         Args:
             value (str): value for IDD Field `Unit Control Type`
-                Accepted values are:
-                      - NeutralControl
-                      - TemperatureControl
                 Default value: NeutralControl
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15054,46 +6713,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.unit_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.unit_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.unit_control_type`')
-            vals = {}
-            vals["neutralcontrol"] = "NeutralControl"
-            vals["temperaturecontrol"] = "TemperatureControl"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacOutdoorAirUnit.unit_control_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacOutdoorAirUnit.unit_control_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Unit Control Type"] = value
+        self["Unit Control Type"] = value
 
     @property
     def high_air_control_temperature_schedule_name(self):
@@ -15120,19 +6740,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.high_air_control_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.high_air_control_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.high_air_control_temperature_schedule_name`')
-        self._data["High Air Control Temperature Schedule Name"] = value
+        self["High Air Control Temperature Schedule Name"] = value
 
     @property
     def low_air_control_temperature_schedule_name(self):
@@ -15159,19 +6767,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.low_air_control_temperature_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.low_air_control_temperature_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.low_air_control_temperature_schedule_name`')
-        self._data["Low Air Control Temperature Schedule Name"] = value
+        self["Low Air Control Temperature Schedule Name"] = value
 
     @property
     def outdoor_air_node_name(self):
@@ -15194,19 +6790,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.outdoor_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.outdoor_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.outdoor_air_node_name`')
-        self._data["Outdoor Air Node Name"] = value
+        self["Outdoor Air Node Name"] = value
 
     @property
     def airoutlet_node_name(self):
@@ -15229,19 +6813,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.airoutlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.airoutlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.airoutlet_node_name`')
-        self._data["AirOutlet Node Name"] = value
+        self["AirOutlet Node Name"] = value
 
     @property
     def airinlet_node_name(self):
@@ -15265,19 +6837,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.airinlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.airinlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.airinlet_node_name`')
-        self._data["AirInlet Node Name"] = value
+        self["AirInlet Node Name"] = value
 
     @property
     def supply_fanoutlet_node_name(self):
@@ -15300,19 +6860,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.supply_fanoutlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.supply_fanoutlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.supply_fanoutlet_node_name`')
-        self._data["Supply FanOutlet Node Name"] = value
+        self["Supply FanOutlet Node Name"] = value
 
     @property
     def outdoor_air_unit_list_name(self):
@@ -15336,19 +6884,7 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.outdoor_air_unit_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.outdoor_air_unit_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.outdoor_air_unit_list_name`')
-        self._data["Outdoor Air Unit List Name"] = value
+        self["Outdoor Air Unit List Name"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -15372,268 +6908,24 @@ class ZoneHvacOutdoorAirUnit(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnit.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnit.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnit.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacOutdoorAirUnit:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacOutdoorAirUnit:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacOutdoorAirUnit: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacOutdoorAirUnit: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacOutdoorAirUnitEquipmentList(object):
+class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:OutdoorAirUnit:EquipmentList`
         Equipment list for components in a ZoneHVAC:OutdoorAirUnit. Components are simulated
         sequentially in the order given in the equipment list.
     """
-    internal_name = "ZoneHVAC:OutdoorAirUnit:EquipmentList"
-    field_count = 17
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'ZoneHVAC:OutdoorAirUnit:EquipmentList', 'pyname': u'ZoneHvacOutdoorAirUnitEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 2 object type', {'name': u'Component 2 Object Type', 'pyname': u'component_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 2 name', {'name': u'Component 2 Name', 'pyname': u'component_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 3 object type', {'name': u'Component 3 Object Type', 'pyname': u'component_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 3 name', {'name': u'Component 3 Name', 'pyname': u'component_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 4 object type', {'name': u'Component 4 Object Type', 'pyname': u'component_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 4 name', {'name': u'Component 4 Name', 'pyname': u'component_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 5 object type', {'name': u'Component 5 Object Type', 'pyname': u'component_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 5 name', {'name': u'Component 5 Name', 'pyname': u'component_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 6 object type', {'name': u'Component 6 Object Type', 'pyname': u'component_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 6 name', {'name': u'Component 6 Name', 'pyname': u'component_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 7 object type', {'name': u'Component 7 Object Type', 'pyname': u'component_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 7 name', {'name': u'Component 7 Name', 'pyname': u'component_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 8 object type', {'name': u'Component 8 Object Type', 'pyname': u'component_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 8 name', {'name': u'Component 8 Name', 'pyname': u'component_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:OutdoorAirUnit:EquipmentList`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Component 1 Object Type"] = None
-        self._data["Component 1 Name"] = None
-        self._data["Component 2 Object Type"] = None
-        self._data["Component 2 Name"] = None
-        self._data["Component 3 Object Type"] = None
-        self._data["Component 3 Name"] = None
-        self._data["Component 4 Object Type"] = None
-        self._data["Component 4 Name"] = None
-        self._data["Component 5 Object Type"] = None
-        self._data["Component 5 Name"] = None
-        self._data["Component 6 Object Type"] = None
-        self._data["Component 6 Name"] = None
-        self._data["Component 7 Object Type"] = None
-        self._data["Component 7 Name"] = None
-        self._data["Component 8 Object Type"] = None
-        self._data["Component 8 Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_1_object_type = None
-        else:
-            self.component_1_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_1_name = None
-        else:
-            self.component_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_2_object_type = None
-        else:
-            self.component_2_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_2_name = None
-        else:
-            self.component_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_3_object_type = None
-        else:
-            self.component_3_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_3_name = None
-        else:
-            self.component_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_4_object_type = None
-        else:
-            self.component_4_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_4_name = None
-        else:
-            self.component_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_5_object_type = None
-        else:
-            self.component_5_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_5_name = None
-        else:
-            self.component_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_6_object_type = None
-        else:
-            self.component_6_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_6_name = None
-        else:
-            self.component_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_7_object_type = None
-        else:
-            self.component_7_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_7_name = None
-        else:
-            self.component_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_8_object_type = None
-        else:
-            self.component_8_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_8_name = None
-        else:
-            self.component_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -15656,19 +6948,7 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def component_1_object_type(self):
@@ -15685,75 +6965,13 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
 
         Args:
             value (str): value for IDD Field `Component 1 Object Type`
-                Accepted values are:
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Steam
-                      - Coil:Heating:Water
-                      - Coil:Cooling:Water
-                      - Coil:Cooling:Water:DetailedGeometry
-                      - CoilSystem:Cooling:Water:HeatexchangerAssisted
-                      - CoilSystem:Cooling:DX
-                      - CoilSystem:Heating:DX
-                      - HeatExchanger:AirToAir:FlatPlate
-                      - HeatExchanger:AirToAir:SensibleAndLatent
-                      - Dehumidifier:Desiccant:NoFans
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_1_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_1_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_1_object_type`')
-            vals = {}
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:cooling:water"] = "Coil:Cooling:Water"
-            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
-            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatexchangerAssisted"
-            vals["coilsystem:cooling:dx"] = "CoilSystem:Cooling:DX"
-            vals["coilsystem:heating:dx"] = "CoilSystem:Heating:DX"
-            vals["heatexchanger:airtoair:flatplate"] = "HeatExchanger:AirToAir:FlatPlate"
-            vals["heatexchanger:airtoair:sensibleandlatent"] = "HeatExchanger:AirToAir:SensibleAndLatent"
-            vals["dehumidifier:desiccant:nofans"] = "Dehumidifier:Desiccant:NoFans"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacOutdoorAirUnitEquipmentList.component_1_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacOutdoorAirUnitEquipmentList.component_1_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Component 1 Object Type"] = value
+        self["Component 1 Object Type"] = value
 
     @property
     def component_1_name(self):
@@ -15776,19 +6994,7 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_1_name`')
-        self._data["Component 1 Name"] = value
+        self["Component 1 Name"] = value
 
     @property
     def component_2_object_type(self):
@@ -15805,75 +7011,13 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
 
         Args:
             value (str): value for IDD Field `Component 2 Object Type`
-                Accepted values are:
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Steam
-                      - Coil:Heating:Water
-                      - Coil:Cooling:Water
-                      - Coil:Cooling:Water:DetailedGeometry
-                      - CoilSystem:Cooling:Water:HeatexchangerAssisted
-                      - CoilSystem:Cooling:DX
-                      - CoilSystem:Heating:DX
-                      - HeatExchanger:AirToAir:FlatPlate
-                      - HeatExchanger:AirToAir:SensibleAndLatent
-                      - Dehumidifier:Desiccant:NoFans
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_2_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_2_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_2_object_type`')
-            vals = {}
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:cooling:water"] = "Coil:Cooling:Water"
-            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
-            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatexchangerAssisted"
-            vals["coilsystem:cooling:dx"] = "CoilSystem:Cooling:DX"
-            vals["coilsystem:heating:dx"] = "CoilSystem:Heating:DX"
-            vals["heatexchanger:airtoair:flatplate"] = "HeatExchanger:AirToAir:FlatPlate"
-            vals["heatexchanger:airtoair:sensibleandlatent"] = "HeatExchanger:AirToAir:SensibleAndLatent"
-            vals["dehumidifier:desiccant:nofans"] = "Dehumidifier:Desiccant:NoFans"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacOutdoorAirUnitEquipmentList.component_2_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacOutdoorAirUnitEquipmentList.component_2_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Component 2 Object Type"] = value
+        self["Component 2 Object Type"] = value
 
     @property
     def component_2_name(self):
@@ -15896,19 +7040,7 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_2_name`')
-        self._data["Component 2 Name"] = value
+        self["Component 2 Name"] = value
 
     @property
     def component_3_object_type(self):
@@ -15925,75 +7057,13 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
 
         Args:
             value (str): value for IDD Field `Component 3 Object Type`
-                Accepted values are:
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Steam
-                      - Coil:Heating:Water
-                      - Coil:Cooling:Water
-                      - Coil:Cooling:Water:DetailedGeometry
-                      - CoilSystem:Cooling:Water:HeatexchangerAssisted
-                      - CoilSystem:Cooling:DX
-                      - CoilSystem:Heating:DX
-                      - HeatExchanger:AirToAir:FlatPlate
-                      - HeatExchanger:AirToAir:SensibleAndLatent
-                      - Dehumidifier:Desiccant:NoFans
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_3_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_3_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_3_object_type`')
-            vals = {}
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:cooling:water"] = "Coil:Cooling:Water"
-            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
-            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatexchangerAssisted"
-            vals["coilsystem:cooling:dx"] = "CoilSystem:Cooling:DX"
-            vals["coilsystem:heating:dx"] = "CoilSystem:Heating:DX"
-            vals["heatexchanger:airtoair:flatplate"] = "HeatExchanger:AirToAir:FlatPlate"
-            vals["heatexchanger:airtoair:sensibleandlatent"] = "HeatExchanger:AirToAir:SensibleAndLatent"
-            vals["dehumidifier:desiccant:nofans"] = "Dehumidifier:Desiccant:NoFans"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacOutdoorAirUnitEquipmentList.component_3_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacOutdoorAirUnitEquipmentList.component_3_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Component 3 Object Type"] = value
+        self["Component 3 Object Type"] = value
 
     @property
     def component_3_name(self):
@@ -16016,19 +7086,7 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_3_name`')
-        self._data["Component 3 Name"] = value
+        self["Component 3 Name"] = value
 
     @property
     def component_4_object_type(self):
@@ -16045,75 +7103,13 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
 
         Args:
             value (str): value for IDD Field `Component 4 Object Type`
-                Accepted values are:
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Steam
-                      - Coil:Heating:Water
-                      - Coil:Cooling:Water
-                      - Coil:Cooling:Water:DetailedGeometry
-                      - CoilSystem:Cooling:Water:HeatexchangerAssisted
-                      - CoilSystem:Cooling:DX
-                      - CoilSystem:Heating:DX
-                      - HeatExchanger:AirToAir:FlatPlate
-                      - HeatExchanger:AirToAir:SensibleAndLatent
-                      - Dehumidifier:Desiccant:NoFans
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_4_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_4_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_4_object_type`')
-            vals = {}
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:cooling:water"] = "Coil:Cooling:Water"
-            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
-            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatexchangerAssisted"
-            vals["coilsystem:cooling:dx"] = "CoilSystem:Cooling:DX"
-            vals["coilsystem:heating:dx"] = "CoilSystem:Heating:DX"
-            vals["heatexchanger:airtoair:flatplate"] = "HeatExchanger:AirToAir:FlatPlate"
-            vals["heatexchanger:airtoair:sensibleandlatent"] = "HeatExchanger:AirToAir:SensibleAndLatent"
-            vals["dehumidifier:desiccant:nofans"] = "Dehumidifier:Desiccant:NoFans"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacOutdoorAirUnitEquipmentList.component_4_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacOutdoorAirUnitEquipmentList.component_4_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Component 4 Object Type"] = value
+        self["Component 4 Object Type"] = value
 
     @property
     def component_4_name(self):
@@ -16136,19 +7132,7 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_4_name`')
-        self._data["Component 4 Name"] = value
+        self["Component 4 Name"] = value
 
     @property
     def component_5_object_type(self):
@@ -16165,75 +7149,13 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
 
         Args:
             value (str): value for IDD Field `Component 5 Object Type`
-                Accepted values are:
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Steam
-                      - Coil:Heating:Water
-                      - Coil:Cooling:Water
-                      - Coil:Cooling:Water:DetailedGeometry
-                      - CoilSystem:Cooling:Water:HeatexchangerAssisted
-                      - CoilSystem:Cooling:DX
-                      - CoilSystem:Heating:DX
-                      - HeatExchanger:AirToAir:FlatPlate
-                      - HeatExchanger:AirToAir:SensibleAndLatent
-                      - Dehumidifier:Desiccant:NoFans
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_5_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_5_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_5_object_type`')
-            vals = {}
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:cooling:water"] = "Coil:Cooling:Water"
-            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
-            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatexchangerAssisted"
-            vals["coilsystem:cooling:dx"] = "CoilSystem:Cooling:DX"
-            vals["coilsystem:heating:dx"] = "CoilSystem:Heating:DX"
-            vals["heatexchanger:airtoair:flatplate"] = "HeatExchanger:AirToAir:FlatPlate"
-            vals["heatexchanger:airtoair:sensibleandlatent"] = "HeatExchanger:AirToAir:SensibleAndLatent"
-            vals["dehumidifier:desiccant:nofans"] = "Dehumidifier:Desiccant:NoFans"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacOutdoorAirUnitEquipmentList.component_5_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacOutdoorAirUnitEquipmentList.component_5_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Component 5 Object Type"] = value
+        self["Component 5 Object Type"] = value
 
     @property
     def component_5_name(self):
@@ -16256,19 +7178,7 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_5_name`')
-        self._data["Component 5 Name"] = value
+        self["Component 5 Name"] = value
 
     @property
     def component_6_object_type(self):
@@ -16285,75 +7195,13 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
 
         Args:
             value (str): value for IDD Field `Component 6 Object Type`
-                Accepted values are:
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Steam
-                      - Coil:Heating:Water
-                      - Coil:Cooling:Water
-                      - Coil:Cooling:Water:DetailedGeometry
-                      - CoilSystem:Cooling:Water:HeatexchangerAssisted
-                      - CoilSystem:Cooling:DX
-                      - CoilSystem:Heating:DX
-                      - HeatExchanger:AirToAir:FlatPlate
-                      - HeatExchanger:AirToAir:SensibleAndLatent
-                      - Dehumidifier:Desiccant:NoFans
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_6_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_6_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_6_object_type`')
-            vals = {}
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:cooling:water"] = "Coil:Cooling:Water"
-            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
-            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatexchangerAssisted"
-            vals["coilsystem:cooling:dx"] = "CoilSystem:Cooling:DX"
-            vals["coilsystem:heating:dx"] = "CoilSystem:Heating:DX"
-            vals["heatexchanger:airtoair:flatplate"] = "HeatExchanger:AirToAir:FlatPlate"
-            vals["heatexchanger:airtoair:sensibleandlatent"] = "HeatExchanger:AirToAir:SensibleAndLatent"
-            vals["dehumidifier:desiccant:nofans"] = "Dehumidifier:Desiccant:NoFans"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacOutdoorAirUnitEquipmentList.component_6_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacOutdoorAirUnitEquipmentList.component_6_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Component 6 Object Type"] = value
+        self["Component 6 Object Type"] = value
 
     @property
     def component_6_name(self):
@@ -16376,19 +7224,7 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_6_name`')
-        self._data["Component 6 Name"] = value
+        self["Component 6 Name"] = value
 
     @property
     def component_7_object_type(self):
@@ -16405,75 +7241,13 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
 
         Args:
             value (str): value for IDD Field `Component 7 Object Type`
-                Accepted values are:
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Steam
-                      - Coil:Heating:Water
-                      - Coil:Cooling:Water
-                      - Coil:Cooling:Water:DetailedGeometry
-                      - CoilSystem:Cooling:Water:HeatexchangerAssisted
-                      - CoilSystem:Cooling:DX
-                      - CoilSystem:Heating:DX
-                      - HeatExchanger:AirToAir:FlatPlate
-                      - HeatExchanger:AirToAir:SensibleAndLatent
-                      - Dehumidifier:Desiccant:NoFans
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_7_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_7_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_7_object_type`')
-            vals = {}
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:cooling:water"] = "Coil:Cooling:Water"
-            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
-            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatexchangerAssisted"
-            vals["coilsystem:cooling:dx"] = "CoilSystem:Cooling:DX"
-            vals["coilsystem:heating:dx"] = "CoilSystem:Heating:DX"
-            vals["heatexchanger:airtoair:flatplate"] = "HeatExchanger:AirToAir:FlatPlate"
-            vals["heatexchanger:airtoair:sensibleandlatent"] = "HeatExchanger:AirToAir:SensibleAndLatent"
-            vals["dehumidifier:desiccant:nofans"] = "Dehumidifier:Desiccant:NoFans"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacOutdoorAirUnitEquipmentList.component_7_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacOutdoorAirUnitEquipmentList.component_7_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Component 7 Object Type"] = value
+        self["Component 7 Object Type"] = value
 
     @property
     def component_7_name(self):
@@ -16496,19 +7270,7 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_7_name`')
-        self._data["Component 7 Name"] = value
+        self["Component 7 Name"] = value
 
     @property
     def component_8_object_type(self):
@@ -16525,75 +7287,13 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
 
         Args:
             value (str): value for IDD Field `Component 8 Object Type`
-                Accepted values are:
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Steam
-                      - Coil:Heating:Water
-                      - Coil:Cooling:Water
-                      - Coil:Cooling:Water:DetailedGeometry
-                      - CoilSystem:Cooling:Water:HeatexchangerAssisted
-                      - CoilSystem:Cooling:DX
-                      - CoilSystem:Heating:DX
-                      - HeatExchanger:AirToAir:FlatPlate
-                      - HeatExchanger:AirToAir:SensibleAndLatent
-                      - Dehumidifier:Desiccant:NoFans
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_8_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_8_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_8_object_type`')
-            vals = {}
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:cooling:water"] = "Coil:Cooling:Water"
-            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
-            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatexchangerAssisted"
-            vals["coilsystem:cooling:dx"] = "CoilSystem:Cooling:DX"
-            vals["coilsystem:heating:dx"] = "CoilSystem:Heating:DX"
-            vals["heatexchanger:airtoair:flatplate"] = "HeatExchanger:AirToAir:FlatPlate"
-            vals["heatexchanger:airtoair:sensibleandlatent"] = "HeatExchanger:AirToAir:SensibleAndLatent"
-            vals["dehumidifier:desiccant:nofans"] = "Dehumidifier:Desiccant:NoFans"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacOutdoorAirUnitEquipmentList.component_8_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacOutdoorAirUnitEquipmentList.component_8_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Component 8 Object Type"] = value
+        self["Component 8 Object Type"] = value
 
     @property
     def component_8_name(self):
@@ -16616,341 +7316,25 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacOutdoorAirUnitEquipmentList.component_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacOutdoorAirUnitEquipmentList.component_8_name`')
-        self._data["Component 8 Name"] = value
+        self["Component 8 Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacOutdoorAirUnitEquipmentList:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacOutdoorAirUnitEquipmentList:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacOutdoorAirUnitEquipmentList: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacOutdoorAirUnitEquipmentList: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
+class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:TerminalUnit:VariableRefrigerantFlow`
         Zone terminal unit with variable refrigerant flow (VRF) DX cooling and heating coils
         (air-to-air heat pump). The VRF terminal units are served by an
         AirConditioner:VariableRefrigerantFlow system.
     """
-    internal_name = "ZoneHVAC:TerminalUnit:VariableRefrigerantFlow"
-    field_count = 26
-    required_fields = ["Zone Terminal Unit Name", "Terminal Unit Air Inlet Node Name", "Terminal Unit Air Outlet Node Name", "Supply Air Fan Operating Mode Schedule Name", "Supply Air Fan Object Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 19
-    extensible_keys = []
+    schema = {'min-fields': 19, 'name': u'ZoneHVAC:TerminalUnit:VariableRefrigerantFlow', 'pyname': u'ZoneHvacTerminalUnitVariableRefrigerantFlow', 'format': None, 'fields': OrderedDict([(u'zone terminal unit name', {'name': u'Zone Terminal Unit Name', 'pyname': u'zone_terminal_unit_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'terminal unit availability schedule', {'name': u'Terminal Unit Availability Schedule', 'pyname': u'terminal_unit_availability_schedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'terminal unit air inlet node name', {'name': u'Terminal Unit Air Inlet Node Name', 'pyname': u'terminal_unit_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'terminal unit air outlet node name', {'name': u'Terminal Unit Air Outlet Node Name', 'pyname': u'terminal_unit_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling is needed', {'name': u'Supply Air Flow Rate When No Cooling is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no heating is needed', {'name': u'Supply Air Flow Rate When No Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during cooling operation', {'name': u'Outdoor Air Flow Rate During Cooling Operation', 'pyname': u'outdoor_air_flow_rate_during_cooling_operation', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during heating operation', {'name': u'Outdoor Air Flow Rate During Heating Operation', 'pyname': u'outdoor_air_flow_rate_during_heating_operation', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate when no cooling or heating is needed', {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan placement', {'name': u'Supply Air Fan Placement', 'pyname': u'supply_air_fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'default': u'Fan:ConstantVolume', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan object name', {'name': u'Supply Air Fan Object Name', 'pyname': u'supply_air_fan_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside air mixer object type', {'name': u'Outside Air Mixer Object Type', 'pyname': u'outside_air_mixer_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outside air mixer object name', {'name': u'Outside Air Mixer Object Name', 'pyname': u'outside_air_mixer_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil object name', {'name': u'Cooling Coil Object Name', 'pyname': u'cooling_coil_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object name', {'name': u'Heating Coil Object Name', 'pyname': u'heating_coil_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone terminal unit on parasitic electric energy use', {'name': u'Zone Terminal Unit On Parasitic Electric Energy Use', 'pyname': u'zone_terminal_unit_on_parasitic_electric_energy_use', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'zone terminal unit off parasitic electric energy use', {'name': u'Zone Terminal Unit Off Parasitic Electric Energy Use', 'pyname': u'zone_terminal_unit_off_parasitic_electric_energy_use', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated heating capacity sizing ratio', {'name': u'Rated Heating Capacity Sizing Ratio', 'pyname': u'rated_heating_capacity_sizing_ratio', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:TerminalUnit:VariableRefrigerantFlow`
         """
         self._data = OrderedDict()
-        self._data["Zone Terminal Unit Name"] = None
-        self._data["Terminal Unit Availability Schedule"] = None
-        self._data["Terminal Unit Air Inlet Node Name"] = None
-        self._data["Terminal Unit Air Outlet Node Name"] = None
-        self._data["Supply Air Flow Rate During Cooling Operation"] = None
-        self._data["Supply Air Flow Rate When No Cooling is Needed"] = None
-        self._data["Supply Air Flow Rate During Heating Operation"] = None
-        self._data["Supply Air Flow Rate When No Heating is Needed"] = None
-        self._data["Outdoor Air Flow Rate During Cooling Operation"] = None
-        self._data["Outdoor Air Flow Rate During Heating Operation"] = None
-        self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = None
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = None
-        self._data["Supply Air Fan Placement"] = None
-        self._data["Supply Air Fan Object Type"] = None
-        self._data["Supply Air Fan Object Name"] = None
-        self._data["Outside Air Mixer Object Type"] = None
-        self._data["Outside Air Mixer Object Name"] = None
-        self._data["Cooling Coil Object Type"] = None
-        self._data["Cooling Coil Object Name"] = None
-        self._data["Heating Coil Object Type"] = None
-        self._data["Heating Coil Object Name"] = None
-        self._data["Zone Terminal Unit On Parasitic Electric Energy Use"] = None
-        self._data["Zone Terminal Unit Off Parasitic Electric Energy Use"] = None
-        self._data["Rated Heating Capacity Sizing Ratio"] = None
-        self._data["Availability Manager List Name"] = None
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.zone_terminal_unit_name = None
-        else:
-            self.zone_terminal_unit_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.terminal_unit_availability_schedule = None
-        else:
-            self.terminal_unit_availability_schedule = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.terminal_unit_air_inlet_node_name = None
-        else:
-            self.terminal_unit_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.terminal_unit_air_outlet_node_name = None
-        else:
-            self.terminal_unit_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_during_cooling_operation = None
-        else:
-            self.supply_air_flow_rate_during_cooling_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_when_no_cooling_is_needed = None
-        else:
-            self.supply_air_flow_rate_when_no_cooling_is_needed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_during_heating_operation = None
-        else:
-            self.supply_air_flow_rate_during_heating_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_flow_rate_when_no_heating_is_needed = None
-        else:
-            self.supply_air_flow_rate_when_no_heating_is_needed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_during_cooling_operation = None
-        else:
-            self.outdoor_air_flow_rate_during_cooling_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_during_heating_operation = None
-        else:
-            self.outdoor_air_flow_rate_during_heating_operation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = None
-        else:
-            self.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_operating_mode_schedule_name = None
-        else:
-            self.supply_air_fan_operating_mode_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_placement = None
-        else:
-            self.supply_air_fan_placement = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_object_type = None
-        else:
-            self.supply_air_fan_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_fan_object_name = None
-        else:
-            self.supply_air_fan_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outside_air_mixer_object_type = None
-        else:
-            self.outside_air_mixer_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outside_air_mixer_object_name = None
-        else:
-            self.outside_air_mixer_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_object_type = None
-        else:
-            self.cooling_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.cooling_coil_object_name = None
-        else:
-            self.cooling_coil_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_object_type = None
-        else:
-            self.heating_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heating_coil_object_name = None
-        else:
-            self.heating_coil_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_terminal_unit_on_parasitic_electric_energy_use = None
-        else:
-            self.zone_terminal_unit_on_parasitic_electric_energy_use = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_terminal_unit_off_parasitic_electric_energy_use = None
-        else:
-            self.zone_terminal_unit_off_parasitic_electric_energy_use = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_heating_capacity_sizing_ratio = None
-        else:
-            self.rated_heating_capacity_sizing_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_specification_zonehvac_sizing_object_name = None
-        else:
-            self.design_specification_zonehvac_sizing_object_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def zone_terminal_unit_name(self):
@@ -16973,19 +7357,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.zone_terminal_unit_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.zone_terminal_unit_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.zone_terminal_unit_name`')
-        self._data["Zone Terminal Unit Name"] = value
+        self["Zone Terminal Unit Name"] = value
 
     @property
     def terminal_unit_availability_schedule(self):
@@ -17010,19 +7382,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.terminal_unit_availability_schedule`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.terminal_unit_availability_schedule`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.terminal_unit_availability_schedule`')
-        self._data["Terminal Unit Availability Schedule"] = value
+        self["Terminal Unit Availability Schedule"] = value
 
     @property
     def terminal_unit_air_inlet_node_name(self):
@@ -17046,19 +7406,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.terminal_unit_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.terminal_unit_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.terminal_unit_air_inlet_node_name`')
-        self._data["Terminal Unit Air Inlet Node Name"] = value
+        self["Terminal Unit Air Inlet Node Name"] = value
 
     @property
     def terminal_unit_air_outlet_node_name(self):
@@ -17082,19 +7430,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.terminal_unit_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.terminal_unit_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.terminal_unit_air_outlet_node_name`')
-        self._data["Terminal Unit Air Outlet Node Name"] = value
+        self["Terminal Unit Air Outlet Node Name"] = value
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
@@ -17112,35 +7448,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_during_cooling_operation`'.format(value))
-                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_during_cooling_operation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_during_cooling_operation`')
-        self._data["Supply Air Flow Rate During Cooling Operation"] = value
+        self["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
     def supply_air_flow_rate_when_no_cooling_is_needed(self):
@@ -17158,35 +7472,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling is Needed`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate When No Cooling is Needed"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_when_no_cooling_is_needed`'.format(value))
-                    self._data["Supply Air Flow Rate When No Cooling is Needed"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_when_no_cooling_is_needed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_when_no_cooling_is_needed`')
-        self._data["Supply Air Flow Rate When No Cooling is Needed"] = value
+        self["Supply Air Flow Rate When No Cooling is Needed"] = value
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
@@ -17204,35 +7496,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_during_heating_operation`'.format(value))
-                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_during_heating_operation`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_during_heating_operation`')
-        self._data["Supply Air Flow Rate During Heating Operation"] = value
+        self["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
     def supply_air_flow_rate_when_no_heating_is_needed(self):
@@ -17250,35 +7520,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Heating is Needed`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Supply Air Flow Rate When No Heating is Needed"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_when_no_heating_is_needed`'.format(value))
-                    self._data["Supply Air Flow Rate When No Heating is Needed"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_when_no_heating_is_needed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_flow_rate_when_no_heating_is_needed`')
-        self._data["Supply Air Flow Rate When No Heating is Needed"] = value
+        self["Supply Air Flow Rate When No Heating is Needed"] = value
 
     @property
     def outdoor_air_flow_rate_during_cooling_operation(self):
@@ -17296,35 +7544,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outdoor_air_flow_rate_during_cooling_operation`'.format(value))
-                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outdoor_air_flow_rate_during_cooling_operation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outdoor_air_flow_rate_during_cooling_operation`')
-        self._data["Outdoor Air Flow Rate During Cooling Operation"] = value
+        self["Outdoor Air Flow Rate During Cooling Operation"] = value
 
     @property
     def outdoor_air_flow_rate_during_heating_operation(self):
@@ -17342,35 +7568,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outdoor_air_flow_rate_during_heating_operation`'.format(value))
-                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outdoor_air_flow_rate_during_heating_operation`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outdoor_air_flow_rate_during_heating_operation`')
-        self._data["Outdoor Air Flow Rate During Heating Operation"] = value
+        self["Outdoor Air Flow Rate During Heating Operation"] = value
 
     @property
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
@@ -17388,35 +7592,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-        self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
@@ -17439,19 +7621,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_operating_mode_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_operating_mode_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_operating_mode_schedule_name`')
-        self._data["Supply Air Fan Operating Mode Schedule Name"] = value
+        self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def supply_air_fan_placement(self):
@@ -17469,9 +7639,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Placement`
-                Accepted values are:
-                      - BlowThrough
-                      - DrawThrough
                 Default value: BlowThrough
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17479,46 +7646,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_placement`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_placement`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_placement`')
-            vals = {}
-            vals["blowthrough"] = "BlowThrough"
-            vals["drawthrough"] = "DrawThrough"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_placement`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_placement`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Fan Placement"] = value
+        self["Supply Air Fan Placement"] = value
 
     @property
     def supply_air_fan_object_type(self):
@@ -17535,9 +7663,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
-                Accepted values are:
-                      - Fan:OnOff
-                      - Fan:ConstantVolume
                 Default value: Fan:ConstantVolume
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17545,46 +7670,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_object_type`')
-            vals = {}
-            vals["fan:onoff"] = "Fan:OnOff"
-            vals["fan:constantvolume"] = "Fan:ConstantVolume"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Supply Air Fan Object Type"] = value
+        self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_object_name(self):
@@ -17607,19 +7693,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.supply_air_fan_object_name`')
-        self._data["Supply Air Fan Object Name"] = value
+        self["Supply Air Fan Object Name"] = value
 
     @property
     def outside_air_mixer_object_type(self):
@@ -17637,53 +7711,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (str): value for IDD Field `Outside Air Mixer Object Type`
-                Accepted values are:
-                      - OutdoorAir:Mixer
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outside_air_mixer_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outside_air_mixer_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outside_air_mixer_object_type`')
-            vals = {}
-            vals["outdoorair:mixer"] = "OutdoorAir:Mixer"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outside_air_mixer_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outside_air_mixer_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Outside Air Mixer Object Type"] = value
+        self["Outside Air Mixer Object Type"] = value
 
     @property
     def outside_air_mixer_object_name(self):
@@ -17707,19 +7741,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outside_air_mixer_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outside_air_mixer_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.outside_air_mixer_object_name`')
-        self._data["Outside Air Mixer Object Name"] = value
+        self["Outside Air Mixer Object Name"] = value
 
     @property
     def cooling_coil_object_type(self):
@@ -17738,53 +7760,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
-                Accepted values are:
-                      - Coil:Cooling:DX:VariableRefrigerantFlow
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.cooling_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.cooling_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.cooling_coil_object_type`')
-            vals = {}
-            vals["coil:cooling:dx:variablerefrigerantflow"] = "Coil:Cooling:DX:VariableRefrigerantFlow"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacTerminalUnitVariableRefrigerantFlow.cooling_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacTerminalUnitVariableRefrigerantFlow.cooling_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Cooling Coil Object Type"] = value
+        self["Cooling Coil Object Type"] = value
 
     @property
     def cooling_coil_object_name(self):
@@ -17809,19 +7791,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.cooling_coil_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.cooling_coil_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.cooling_coil_object_name`')
-        self._data["Cooling Coil Object Name"] = value
+        self["Cooling Coil Object Name"] = value
 
     @property
     def heating_coil_object_type(self):
@@ -17840,53 +7810,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
-                Accepted values are:
-                      - Coil:Heating:DX:VariableRefrigerantFlow
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.heating_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.heating_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.heating_coil_object_type`')
-            vals = {}
-            vals["coil:heating:dx:variablerefrigerantflow"] = "Coil:Heating:DX:VariableRefrigerantFlow"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ZoneHvacTerminalUnitVariableRefrigerantFlow.heating_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ZoneHvacTerminalUnitVariableRefrigerantFlow.heating_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Heating Coil Object Type"] = value
+        self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_object_name(self):
@@ -17911,19 +7841,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.heating_coil_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.heating_coil_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.heating_coil_object_name`')
-        self._data["Heating Coil Object Name"] = value
+        self["Heating Coil Object Name"] = value
 
     @property
     def zone_terminal_unit_on_parasitic_electric_energy_use(self):
@@ -17935,30 +7853,19 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         return self._data["Zone Terminal Unit On Parasitic Electric Energy Use"]
 
     @zone_terminal_unit_on_parasitic_electric_energy_use.setter
-    def zone_terminal_unit_on_parasitic_electric_energy_use(self, value=0.0):
+    def zone_terminal_unit_on_parasitic_electric_energy_use(self, value=None):
         """  Corresponds to IDD Field `Zone Terminal Unit On Parasitic Electric Energy Use`
 
         Args:
             value (float): value for IDD Field `Zone Terminal Unit On Parasitic Electric Energy Use`
                 Units: W
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.zone_terminal_unit_on_parasitic_electric_energy_use`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.zone_terminal_unit_on_parasitic_electric_energy_use`')
-        self._data["Zone Terminal Unit On Parasitic Electric Energy Use"] = value
+        self["Zone Terminal Unit On Parasitic Electric Energy Use"] = value
 
     @property
     def zone_terminal_unit_off_parasitic_electric_energy_use(self):
@@ -17970,30 +7877,19 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         return self._data["Zone Terminal Unit Off Parasitic Electric Energy Use"]
 
     @zone_terminal_unit_off_parasitic_electric_energy_use.setter
-    def zone_terminal_unit_off_parasitic_electric_energy_use(self, value=0.0):
+    def zone_terminal_unit_off_parasitic_electric_energy_use(self, value=None):
         """  Corresponds to IDD Field `Zone Terminal Unit Off Parasitic Electric Energy Use`
 
         Args:
             value (float): value for IDD Field `Zone Terminal Unit Off Parasitic Electric Energy Use`
                 Units: W
-                Default value: 0.0
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.zone_terminal_unit_off_parasitic_electric_energy_use`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.zone_terminal_unit_off_parasitic_electric_energy_use`')
-        self._data["Zone Terminal Unit Off Parasitic Electric Energy Use"] = value
+        self["Zone Terminal Unit Off Parasitic Electric Energy Use"] = value
 
     @property
     def rated_heating_capacity_sizing_ratio(self):
@@ -18023,16 +7919,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.rated_heating_capacity_sizing_ratio`'.format(value))
-            if value < 1.0:
-                raise ValueError('value need to be greater or equal 1.0 '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.rated_heating_capacity_sizing_ratio`')
-        self._data["Rated Heating Capacity Sizing Ratio"] = value
+        self["Rated Heating Capacity Sizing Ratio"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -18056,19 +7943,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
@@ -18092,98 +7967,4 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.design_specification_zonehvac_sizing_object_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.design_specification_zonehvac_sizing_object_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ZoneHvacTerminalUnitVariableRefrigerantFlow.design_specification_zonehvac_sizing_object_name`')
-        self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ZoneHvacTerminalUnitVariableRefrigerantFlow:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ZoneHvacTerminalUnitVariableRefrigerantFlow:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ZoneHvacTerminalUnitVariableRefrigerantFlow: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ZoneHvacTerminalUnitVariableRefrigerantFlow: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Design Specification ZoneHVAC Sizing Object Name"] = value

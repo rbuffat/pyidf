@@ -1,119 +1,27 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class AirLoopHvac(object):
+
+
+class AirLoopHvac(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC`
         Defines a central forced air system.
     """
-    internal_name = "AirLoopHVAC"
-    field_count = 10
-    required_fields = ["Name", "Branch List Name", "Supply Side Inlet Node Name", "Demand Side Outlet Node Name", "Demand Side Inlet Node Names", "Supply Side Outlet Node Names"]
-    extensible_fields = 0
-    format = None
-    min_fields = 10
-    extensible_keys = []
+    schema = {'min-fields': 10, 'name': u'AirLoopHVAC', 'pyname': u'AirLoopHvac', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'controller list name', {'name': u'Controller List Name', 'pyname': u'controller_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design supply air flow rate', {'name': u'Design Supply Air Flow Rate', 'pyname': u'design_supply_air_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'branch list name', {'name': u'Branch List Name', 'pyname': u'branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'connector list name', {'name': u'Connector List Name', 'pyname': u'connector_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply side inlet node name', {'name': u'Supply Side Inlet Node Name', 'pyname': u'supply_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side outlet node name', {'name': u'Demand Side Outlet Node Name', 'pyname': u'demand_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side inlet node names', {'name': u'Demand Side Inlet Node Names', 'pyname': u'demand_side_inlet_node_names', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply side outlet node names', {'name': u'Supply Side Outlet Node Names', 'pyname': u'supply_side_outlet_node_names', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Controller List Name"] = None
-        self._data["Availability Manager List Name"] = None
-        self._data["Design Supply Air Flow Rate"] = None
-        self._data["Branch List Name"] = None
-        self._data["Connector List Name"] = None
-        self._data["Supply Side Inlet Node Name"] = None
-        self._data["Demand Side Outlet Node Name"] = None
-        self._data["Demand Side Inlet Node Names"] = None
-        self._data["Supply Side Outlet Node Names"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_list_name = None
-        else:
-            self.controller_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.design_supply_air_flow_rate = None
-        else:
-            self.design_supply_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.branch_list_name = None
-        else:
-            self.branch_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.connector_list_name = None
-        else:
-            self.connector_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_side_inlet_node_name = None
-        else:
-            self.supply_side_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.demand_side_outlet_node_name = None
-        else:
-            self.demand_side_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.demand_side_inlet_node_names = None
-        else:
-            self.demand_side_inlet_node_names = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_side_outlet_node_names = None
-        else:
-            self.supply_side_outlet_node_names = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -136,19 +44,7 @@ class AirLoopHvac(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvac.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvac.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvac.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def controller_list_name(self):
@@ -172,19 +68,7 @@ class AirLoopHvac(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvac.controller_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvac.controller_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvac.controller_list_name`')
-        self._data["Controller List Name"] = value
+        self["Controller List Name"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -208,19 +92,7 @@ class AirLoopHvac(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvac.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvac.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvac.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
     @property
     def design_supply_air_flow_rate(self):
@@ -232,38 +104,19 @@ class AirLoopHvac(object):
         return self._data["Design Supply Air Flow Rate"]
 
     @design_supply_air_flow_rate.setter
-    def design_supply_air_flow_rate(self, value=0.0):
+    def design_supply_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Supply Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Supply Air Flow Rate`
                 Units: m3/s
-                Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Design Supply Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `AirLoopHvac.design_supply_air_flow_rate`'.format(value))
-                    self._data["Design Supply Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `AirLoopHvac.design_supply_air_flow_rate`'.format(value))
-        self._data["Design Supply Air Flow Rate"] = value
+        self["Design Supply Air Flow Rate"] = value
 
     @property
     def branch_list_name(self):
@@ -287,19 +140,7 @@ class AirLoopHvac(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvac.branch_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvac.branch_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvac.branch_list_name`')
-        self._data["Branch List Name"] = value
+        self["Branch List Name"] = value
 
     @property
     def connector_list_name(self):
@@ -323,19 +164,7 @@ class AirLoopHvac(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvac.connector_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvac.connector_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvac.connector_list_name`')
-        self._data["Connector List Name"] = value
+        self["Connector List Name"] = value
 
     @property
     def supply_side_inlet_node_name(self):
@@ -359,19 +188,7 @@ class AirLoopHvac(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvac.supply_side_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvac.supply_side_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvac.supply_side_inlet_node_name`')
-        self._data["Supply Side Inlet Node Name"] = value
+        self["Supply Side Inlet Node Name"] = value
 
     @property
     def demand_side_outlet_node_name(self):
@@ -395,19 +212,7 @@ class AirLoopHvac(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvac.demand_side_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvac.demand_side_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvac.demand_side_outlet_node_name`')
-        self._data["Demand Side Outlet Node Name"] = value
+        self["Demand Side Outlet Node Name"] = value
 
     @property
     def demand_side_inlet_node_names(self):
@@ -431,19 +236,7 @@ class AirLoopHvac(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvac.demand_side_inlet_node_names`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvac.demand_side_inlet_node_names`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvac.demand_side_inlet_node_names`')
-        self._data["Demand Side Inlet Node Names"] = value
+        self["Demand Side Inlet Node Names"] = value
 
     @property
     def supply_side_outlet_node_names(self):
@@ -467,283 +260,23 @@ class AirLoopHvac(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvac.supply_side_outlet_node_names`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvac.supply_side_outlet_node_names`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvac.supply_side_outlet_node_names`')
-        self._data["Supply Side Outlet Node Names"] = value
+        self["Supply Side Outlet Node Names"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field AirLoopHvac:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field AirLoopHvac:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for AirLoopHvac: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for AirLoopHvac: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class AirLoopHvacOutdoorAirSystemEquipmentList(object):
+class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:OutdoorAirSystem:EquipmentList`
         List equipment in simulation order
     """
-    internal_name = "AirLoopHVAC:OutdoorAirSystem:EquipmentList"
-    field_count = 19
-    required_fields = ["Name", "Component 1 Object Type", "Component 1 Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:OutdoorAirSystem:EquipmentList', 'pyname': u'AirLoopHvacOutdoorAirSystemEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 2 object type', {'name': u'Component 2 Object Type', 'pyname': u'component_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 2 name', {'name': u'Component 2 Name', 'pyname': u'component_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 3 object type', {'name': u'Component 3 Object Type', 'pyname': u'component_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 3 name', {'name': u'Component 3 Name', 'pyname': u'component_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 4 object type', {'name': u'Component 4 Object Type', 'pyname': u'component_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 4 name', {'name': u'Component 4 Name', 'pyname': u'component_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 5 object type', {'name': u'Component 5 Object Type', 'pyname': u'component_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 5 name', {'name': u'Component 5 Name', 'pyname': u'component_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 6 object type', {'name': u'Component 6 Object Type', 'pyname': u'component_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 6 name', {'name': u'Component 6 Name', 'pyname': u'component_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 7 object type', {'name': u'Component 7 Object Type', 'pyname': u'component_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 7 name', {'name': u'Component 7 Name', 'pyname': u'component_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 8 object type', {'name': u'Component 8 Object Type', 'pyname': u'component_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 8 name', {'name': u'Component 8 Name', 'pyname': u'component_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 9 object type', {'name': u'Component 9 Object Type', 'pyname': u'component_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 9 name', {'name': u'Component 9 Name', 'pyname': u'component_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:OutdoorAirSystem:EquipmentList`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Component 1 Object Type"] = None
-        self._data["Component 1 Name"] = None
-        self._data["Component 2 Object Type"] = None
-        self._data["Component 2 Name"] = None
-        self._data["Component 3 Object Type"] = None
-        self._data["Component 3 Name"] = None
-        self._data["Component 4 Object Type"] = None
-        self._data["Component 4 Name"] = None
-        self._data["Component 5 Object Type"] = None
-        self._data["Component 5 Name"] = None
-        self._data["Component 6 Object Type"] = None
-        self._data["Component 6 Name"] = None
-        self._data["Component 7 Object Type"] = None
-        self._data["Component 7 Name"] = None
-        self._data["Component 8 Object Type"] = None
-        self._data["Component 8 Name"] = None
-        self._data["Component 9 Object Type"] = None
-        self._data["Component 9 Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_1_object_type = None
-        else:
-            self.component_1_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_1_name = None
-        else:
-            self.component_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_2_object_type = None
-        else:
-            self.component_2_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_2_name = None
-        else:
-            self.component_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_3_object_type = None
-        else:
-            self.component_3_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_3_name = None
-        else:
-            self.component_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_4_object_type = None
-        else:
-            self.component_4_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_4_name = None
-        else:
-            self.component_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_5_object_type = None
-        else:
-            self.component_5_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_5_name = None
-        else:
-            self.component_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_6_object_type = None
-        else:
-            self.component_6_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_6_name = None
-        else:
-            self.component_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_7_object_type = None
-        else:
-            self.component_7_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_7_name = None
-        else:
-            self.component_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_8_object_type = None
-        else:
-            self.component_8_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_8_name = None
-        else:
-            self.component_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_9_object_type = None
-        else:
-            self.component_9_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.component_9_name = None
-        else:
-            self.component_9_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -766,19 +299,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def component_1_object_type(self):
@@ -801,19 +322,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_1_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_1_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_1_object_type`')
-        self._data["Component 1 Object Type"] = value
+        self["Component 1 Object Type"] = value
 
     @property
     def component_1_name(self):
@@ -836,19 +345,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_1_name`')
-        self._data["Component 1 Name"] = value
+        self["Component 1 Name"] = value
 
     @property
     def component_2_object_type(self):
@@ -871,19 +368,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_2_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_2_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_2_object_type`')
-        self._data["Component 2 Object Type"] = value
+        self["Component 2 Object Type"] = value
 
     @property
     def component_2_name(self):
@@ -906,19 +391,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_2_name`')
-        self._data["Component 2 Name"] = value
+        self["Component 2 Name"] = value
 
     @property
     def component_3_object_type(self):
@@ -941,19 +414,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_3_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_3_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_3_object_type`')
-        self._data["Component 3 Object Type"] = value
+        self["Component 3 Object Type"] = value
 
     @property
     def component_3_name(self):
@@ -976,19 +437,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_3_name`')
-        self._data["Component 3 Name"] = value
+        self["Component 3 Name"] = value
 
     @property
     def component_4_object_type(self):
@@ -1011,19 +460,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_4_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_4_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_4_object_type`')
-        self._data["Component 4 Object Type"] = value
+        self["Component 4 Object Type"] = value
 
     @property
     def component_4_name(self):
@@ -1046,19 +483,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_4_name`')
-        self._data["Component 4 Name"] = value
+        self["Component 4 Name"] = value
 
     @property
     def component_5_object_type(self):
@@ -1081,19 +506,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_5_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_5_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_5_object_type`')
-        self._data["Component 5 Object Type"] = value
+        self["Component 5 Object Type"] = value
 
     @property
     def component_5_name(self):
@@ -1116,19 +529,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_5_name`')
-        self._data["Component 5 Name"] = value
+        self["Component 5 Name"] = value
 
     @property
     def component_6_object_type(self):
@@ -1151,19 +552,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_6_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_6_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_6_object_type`')
-        self._data["Component 6 Object Type"] = value
+        self["Component 6 Object Type"] = value
 
     @property
     def component_6_name(self):
@@ -1186,19 +575,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_6_name`')
-        self._data["Component 6 Name"] = value
+        self["Component 6 Name"] = value
 
     @property
     def component_7_object_type(self):
@@ -1221,19 +598,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_7_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_7_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_7_object_type`')
-        self._data["Component 7 Object Type"] = value
+        self["Component 7 Object Type"] = value
 
     @property
     def component_7_name(self):
@@ -1256,19 +621,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_7_name`')
-        self._data["Component 7 Name"] = value
+        self["Component 7 Name"] = value
 
     @property
     def component_8_object_type(self):
@@ -1291,19 +644,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_8_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_8_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_8_object_type`')
-        self._data["Component 8 Object Type"] = value
+        self["Component 8 Object Type"] = value
 
     @property
     def component_8_name(self):
@@ -1326,19 +667,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_8_name`')
-        self._data["Component 8 Name"] = value
+        self["Component 8 Name"] = value
 
     @property
     def component_9_object_type(self):
@@ -1361,19 +690,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_9_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_9_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_9_object_type`')
-        self._data["Component 9 Object Type"] = value
+        self["Component 9 Object Type"] = value
 
     @property
     def component_9_name(self):
@@ -1396,166 +713,26 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_9_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_9_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystemEquipmentList.component_9_name`')
-        self._data["Component 9 Name"] = value
+        self["Component 9 Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field AirLoopHvacOutdoorAirSystemEquipmentList:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field AirLoopHvacOutdoorAirSystemEquipmentList:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for AirLoopHvacOutdoorAirSystemEquipmentList: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for AirLoopHvacOutdoorAirSystemEquipmentList: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class AirLoopHvacOutdoorAirSystem(object):
+class AirLoopHvacOutdoorAirSystem(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:OutdoorAirSystem`
         Outdoor air subsystem for an AirLoopHVAC. Includes an outdoor air mixing box and
         optional outdoor air conditioning equipment such as heat recovery, preheat, and precool
         coils. From the perspective of the primary air loop the outdoor air system is treated
         as a single component.
     """
-    internal_name = "AirLoopHVAC:OutdoorAirSystem"
-    field_count = 4
-    required_fields = ["Name", "Controller List Name", "Outdoor Air Equipment List Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 3
-    extensible_keys = []
+    schema = {'min-fields': 3, 'name': u'AirLoopHVAC:OutdoorAirSystem', 'pyname': u'AirLoopHvacOutdoorAirSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'controller list name', {'name': u'Controller List Name', 'pyname': u'controller_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outdoor air equipment list name', {'name': u'Outdoor Air Equipment List Name', 'pyname': u'outdoor_air_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:OutdoorAirSystem`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Controller List Name"] = None
-        self._data["Outdoor Air Equipment List Name"] = None
-        self._data["Availability Manager List Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_list_name = None
-        else:
-            self.controller_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_equipment_list_name = None
-        else:
-            self.outdoor_air_equipment_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_manager_list_name = None
-        else:
-            self.availability_manager_list_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1578,19 +755,7 @@ class AirLoopHvacOutdoorAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystem.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystem.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystem.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def controller_list_name(self):
@@ -1614,19 +779,7 @@ class AirLoopHvacOutdoorAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystem.controller_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystem.controller_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystem.controller_list_name`')
-        self._data["Controller List Name"] = value
+        self["Controller List Name"] = value
 
     @property
     def outdoor_air_equipment_list_name(self):
@@ -1650,19 +803,7 @@ class AirLoopHvacOutdoorAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystem.outdoor_air_equipment_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystem.outdoor_air_equipment_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystem.outdoor_air_equipment_list_name`')
-        self._data["Outdoor Air Equipment List Name"] = value
+        self["Outdoor Air Equipment List Name"] = value
 
     @property
     def availability_manager_list_name(self):
@@ -1686,172 +827,24 @@ class AirLoopHvacOutdoorAirSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacOutdoorAirSystem.availability_manager_list_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacOutdoorAirSystem.availability_manager_list_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacOutdoorAirSystem.availability_manager_list_name`')
-        self._data["Availability Manager List Name"] = value
+        self["Availability Manager List Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field AirLoopHvacOutdoorAirSystem:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field AirLoopHvacOutdoorAirSystem:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for AirLoopHvacOutdoorAirSystem: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for AirLoopHvacOutdoorAirSystem: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutdoorAirMixer(object):
+class OutdoorAirMixer(DataObject):
     """ Corresponds to IDD object `OutdoorAir:Mixer`
         Outdoor air mixer. Node names cannot be duplicated within a single OutdoorAir:Mixer
         object or across all outdoor air mixers.
     """
-    internal_name = "OutdoorAir:Mixer"
-    field_count = 5
-    required_fields = ["Name", "Mixed Air Node Name", "Outdoor Air Stream Node Name", "Relief Air Stream Node Name", "Return Air Stream Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'OutdoorAir:Mixer', 'pyname': u'OutdoorAirMixer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'mixed air node name', {'name': u'Mixed Air Node Name', 'pyname': u'mixed_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air stream node name', {'name': u'Outdoor Air Stream Node Name', 'pyname': u'outdoor_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'relief air stream node name', {'name': u'Relief Air Stream Node Name', 'pyname': u'relief_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'return air stream node name', {'name': u'Return Air Stream Node Name', 'pyname': u'return_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutdoorAir:Mixer`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Mixed Air Node Name"] = None
-        self._data["Outdoor Air Stream Node Name"] = None
-        self._data["Relief Air Stream Node Name"] = None
-        self._data["Return Air Stream Node Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.mixed_air_node_name = None
-        else:
-            self.mixed_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outdoor_air_stream_node_name = None
-        else:
-            self.outdoor_air_stream_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relief_air_stream_node_name = None
-        else:
-            self.relief_air_stream_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.return_air_stream_node_name = None
-        else:
-            self.return_air_stream_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1874,19 +867,7 @@ class OutdoorAirMixer(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutdoorAirMixer.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutdoorAirMixer.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutdoorAirMixer.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def mixed_air_node_name(self):
@@ -1910,19 +891,7 @@ class OutdoorAirMixer(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutdoorAirMixer.mixed_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutdoorAirMixer.mixed_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutdoorAirMixer.mixed_air_node_name`')
-        self._data["Mixed Air Node Name"] = value
+        self["Mixed Air Node Name"] = value
 
     @property
     def outdoor_air_stream_node_name(self):
@@ -1946,19 +915,7 @@ class OutdoorAirMixer(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutdoorAirMixer.outdoor_air_stream_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutdoorAirMixer.outdoor_air_stream_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutdoorAirMixer.outdoor_air_stream_node_name`')
-        self._data["Outdoor Air Stream Node Name"] = value
+        self["Outdoor Air Stream Node Name"] = value
 
     @property
     def relief_air_stream_node_name(self):
@@ -1982,19 +939,7 @@ class OutdoorAirMixer(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutdoorAirMixer.relief_air_stream_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutdoorAirMixer.relief_air_stream_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutdoorAirMixer.relief_air_stream_node_name`')
-        self._data["Relief Air Stream Node Name"] = value
+        self["Relief Air Stream Node Name"] = value
 
     @property
     def return_air_stream_node_name(self):
@@ -2018,156 +963,24 @@ class OutdoorAirMixer(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutdoorAirMixer.return_air_stream_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutdoorAirMixer.return_air_stream_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutdoorAirMixer.return_air_stream_node_name`')
-        self._data["Return Air Stream Node Name"] = value
+        self["Return Air Stream Node Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutdoorAirMixer:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutdoorAirMixer:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutdoorAirMixer: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutdoorAirMixer: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class AirLoopHvacZoneSplitter(object):
+class AirLoopHvacZoneSplitter(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ZoneSplitter`
         Split one air stream into N outlet streams (currently 500 per air loop, but extensible).  Node names
         cannot be duplicated within a single zone splitter (AirLoopHVAC:ZoneSplitter) list.
     """
-    internal_name = "AirLoopHVAC:ZoneSplitter"
-    field_count = 2
-    required_fields = ["Name", "Inlet Node Name"]
-    extensible_fields = 1
-    format = None
-    min_fields = 0
-    extensible_keys = ["Outlet  Node Name"]
+    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:ZoneSplitter', 'pyname': u'AirLoopHvacZoneSplitter', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'outlet  node name', {'name': u'Outlet  Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:ZoneSplitter`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Inlet Node Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inlet_node_name = None
-        else:
-            self.inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2190,19 +1003,7 @@ class AirLoopHvacZoneSplitter(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacZoneSplitter.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacZoneSplitter.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacZoneSplitter.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def inlet_node_name(self):
@@ -2225,19 +1026,7 @@ class AirLoopHvacZoneSplitter(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacZoneSplitter.inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacZoneSplitter.inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacZoneSplitter.inlet_node_name`')
-        self._data["Inlet Node Name"] = value
+        self["Inlet Node Name"] = value
 
     def add_extensible(self,
                        outlet_node_name=None,
@@ -2251,7 +1040,8 @@ class AirLoopHvacZoneSplitter(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_outlet_node_name(outlet_node_name))
+        outlet_node_name = self.check_value("Outlet  Node Name", outlet_node_name)
+        vals.append(outlet_node_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -2260,175 +1050,22 @@ class AirLoopHvacZoneSplitter(object):
         """
         return self._data["extensibles"]
 
-    def _check_outlet_node_name(self, value):
-        """ Validates falue of field `Outlet  Node Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacZoneSplitter.outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacZoneSplitter.outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacZoneSplitter.outlet_node_name`')
-        return value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field AirLoopHvacZoneSplitter:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field AirLoopHvacZoneSplitter:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for AirLoopHvacZoneSplitter: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for AirLoopHvacZoneSplitter: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class AirLoopHvacSupplyPlenum(object):
+class AirLoopHvacSupplyPlenum(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:SupplyPlenum`
         Connects 1 zone inlet air stream, through zone supply plenum, to one or more outlets.
         Node names cannot be duplicated within a single supply plenum list.
     """
-    internal_name = "AirLoopHVAC:SupplyPlenum"
-    field_count = 4
-    required_fields = ["Name", "Zone Name", "Zone Node Name", "Inlet Node Name"]
-    extensible_fields = 1
-    format = None
-    min_fields = 5
-    extensible_keys = ["Outlet Node Name"]
+    schema = {'min-fields': 5, 'name': u'AirLoopHVAC:SupplyPlenum', 'pyname': u'AirLoopHvacSupplyPlenum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:SupplyPlenum`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Zone Node Name"] = None
-        self._data["Inlet Node Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_node_name = None
-        else:
-            self.zone_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inlet_node_name = None
-        else:
-            self.inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2451,19 +1088,7 @@ class AirLoopHvacSupplyPlenum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacSupplyPlenum.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacSupplyPlenum.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacSupplyPlenum.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_name(self):
@@ -2486,19 +1111,7 @@ class AirLoopHvacSupplyPlenum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacSupplyPlenum.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacSupplyPlenum.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacSupplyPlenum.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def zone_node_name(self):
@@ -2521,19 +1134,7 @@ class AirLoopHvacSupplyPlenum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacSupplyPlenum.zone_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacSupplyPlenum.zone_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacSupplyPlenum.zone_node_name`')
-        self._data["Zone Node Name"] = value
+        self["Zone Node Name"] = value
 
     @property
     def inlet_node_name(self):
@@ -2556,19 +1157,7 @@ class AirLoopHvacSupplyPlenum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacSupplyPlenum.inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacSupplyPlenum.inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacSupplyPlenum.inlet_node_name`')
-        self._data["Inlet Node Name"] = value
+        self["Inlet Node Name"] = value
 
     def add_extensible(self,
                        outlet_node_name=None,
@@ -2582,7 +1171,8 @@ class AirLoopHvacSupplyPlenum(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_outlet_node_name(outlet_node_name))
+        outlet_node_name = self.check_value("Outlet Node Name", outlet_node_name)
+        vals.append(outlet_node_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -2591,159 +1181,22 @@ class AirLoopHvacSupplyPlenum(object):
         """
         return self._data["extensibles"]
 
-    def _check_outlet_node_name(self, value):
-        """ Validates falue of field `Outlet Node Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacSupplyPlenum.outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacSupplyPlenum.outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacSupplyPlenum.outlet_node_name`')
-        return value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field AirLoopHvacSupplyPlenum:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field AirLoopHvacSupplyPlenum:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for AirLoopHvacSupplyPlenum: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for AirLoopHvacSupplyPlenum: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class AirLoopHvacSupplyPath(object):
+class AirLoopHvacSupplyPath(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:SupplyPath`
         A supply path can only contain AirLoopHVAC:ZoneSplitter and AirLoopHVAC:SupplyPlenum objects
         which may be in series or parallel.
     """
-    internal_name = "AirLoopHVAC:SupplyPath"
-    field_count = 2
-    required_fields = ["Name", "Supply Air Path Inlet Node Name"]
-    extensible_fields = 2
-    format = None
-    min_fields = 0
-    extensible_keys = ["Component 1 Object Type", "Component 1 Name"]
+    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:SupplyPath', 'pyname': u'AirLoopHvacSupplyPath', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air path inlet node name', {'name': u'Supply Air Path Inlet Node Name', 'pyname': u'supply_air_path_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:SupplyPath`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Supply Air Path Inlet Node Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.supply_air_path_inlet_node_name = None
-        else:
-            self.supply_air_path_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2766,19 +1219,7 @@ class AirLoopHvacSupplyPath(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacSupplyPath.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacSupplyPath.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacSupplyPath.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def supply_air_path_inlet_node_name(self):
@@ -2801,19 +1242,7 @@ class AirLoopHvacSupplyPath(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacSupplyPath.supply_air_path_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacSupplyPath.supply_air_path_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacSupplyPath.supply_air_path_inlet_node_name`')
-        self._data["Supply Air Path Inlet Node Name"] = value
+        self["Supply Air Path Inlet Node Name"] = value
 
     def add_extensible(self,
                        component_1_object_type=None,
@@ -2824,9 +1253,6 @@ class AirLoopHvacSupplyPath(object):
         Args:
 
             component_1_object_type (str): value for IDD Field `Component 1 Object Type`
-                Accepted values are:
-                      - AirLoopHVAC:ZoneSplitter
-                      - AirLoopHVAC:SupplyPlenum
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2835,8 +1261,10 @@ class AirLoopHvacSupplyPath(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_component_1_object_type(component_1_object_type))
-        vals.append(self._check_component_1_name(component_1_name))
+        component_1_object_type = self.check_value("Component 1 Object Type", component_1_object_type)
+        vals.append(component_1_object_type)
+        component_1_name = self.check_value("Component 1 Name", component_1_name)
+        vals.append(component_1_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -2845,203 +1273,22 @@ class AirLoopHvacSupplyPath(object):
         """
         return self._data["extensibles"]
 
-    def _check_component_1_object_type(self, value):
-        """ Validates falue of field `Component 1 Object Type`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacSupplyPath.component_1_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacSupplyPath.component_1_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacSupplyPath.component_1_object_type`')
-            vals = {}
-            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
-            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `AirLoopHvacSupplyPath.component_1_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `AirLoopHvacSupplyPath.component_1_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        return value
 
-    def _check_component_1_name(self, value):
-        """ Validates falue of field `Component 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacSupplyPath.component_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacSupplyPath.component_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacSupplyPath.component_1_name`')
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field AirLoopHvacSupplyPath:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field AirLoopHvacSupplyPath:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for AirLoopHvacSupplyPath: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for AirLoopHvacSupplyPath: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class AirLoopHvacZoneMixer(object):
+class AirLoopHvacZoneMixer(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ZoneMixer`
         Mix N inlet air streams into one (currently 500 per air loop, but extensible).  Node names cannot
         be duplicated within a single zone mixer (AirLoopHVAC:ZoneMixer) list.
     """
-    internal_name = "AirLoopHVAC:ZoneMixer"
-    field_count = 2
-    required_fields = ["Name", "Outlet Node Name"]
-    extensible_fields = 1
-    format = None
-    min_fields = 3
-    extensible_keys = ["Inlet 1 Node Name"]
+    schema = {'min-fields': 3, 'name': u'AirLoopHVAC:ZoneMixer', 'pyname': u'AirLoopHvacZoneMixer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'inlet 1 node name', {'name': u'Inlet 1 Node Name', 'pyname': u'inlet_1_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:ZoneMixer`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Outlet Node Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outlet_node_name = None
-        else:
-            self.outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3064,19 +1311,7 @@ class AirLoopHvacZoneMixer(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacZoneMixer.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacZoneMixer.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacZoneMixer.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def outlet_node_name(self):
@@ -3099,19 +1334,7 @@ class AirLoopHvacZoneMixer(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacZoneMixer.outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacZoneMixer.outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacZoneMixer.outlet_node_name`')
-        self._data["Outlet Node Name"] = value
+        self["Outlet Node Name"] = value
 
     def add_extensible(self,
                        inlet_1_node_name=None,
@@ -3125,7 +1348,8 @@ class AirLoopHvacZoneMixer(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_inlet_1_node_name(inlet_1_node_name))
+        inlet_1_node_name = self.check_value("Inlet 1 Node Name", inlet_1_node_name)
+        vals.append(inlet_1_node_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -3134,184 +1358,23 @@ class AirLoopHvacZoneMixer(object):
         """
         return self._data["extensibles"]
 
-    def _check_inlet_1_node_name(self, value):
-        """ Validates falue of field `Inlet 1 Node Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacZoneMixer.inlet_1_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacZoneMixer.inlet_1_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacZoneMixer.inlet_1_node_name`')
-        return value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field AirLoopHvacZoneMixer:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field AirLoopHvacZoneMixer:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for AirLoopHvacZoneMixer: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for AirLoopHvacZoneMixer: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class AirLoopHvacReturnPlenum(object):
+class AirLoopHvacReturnPlenum(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ReturnPlenum`
         Connects N zone inlet air streams, through zone return plenum, to outlet
         (currently 500 per air loop)
         Node names cannot be duplicated within a single plenum list.
     """
-    internal_name = "AirLoopHVAC:ReturnPlenum"
-    field_count = 5
-    required_fields = ["Name", "Zone Name", "Zone Node Name", "Outlet Node Name"]
-    extensible_fields = 1
-    format = None
-    min_fields = 6
-    extensible_keys = ["Inlet Node Name"]
+    schema = {'min-fields': 6, 'name': u'AirLoopHVAC:ReturnPlenum', 'pyname': u'AirLoopHvacReturnPlenum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'induced air outlet node or nodelist name', {'name': u'Induced Air Outlet Node or NodeList Name', 'pyname': u'induced_air_outlet_node_or_nodelist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:ReturnPlenum`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Zone Node Name"] = None
-        self._data["Outlet Node Name"] = None
-        self._data["Induced Air Outlet Node or NodeList Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_node_name = None
-        else:
-            self.zone_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outlet_node_name = None
-        else:
-            self.outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.induced_air_outlet_node_or_nodelist_name = None
-        else:
-            self.induced_air_outlet_node_or_nodelist_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3334,19 +1397,7 @@ class AirLoopHvacReturnPlenum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacReturnPlenum.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacReturnPlenum.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacReturnPlenum.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def zone_name(self):
@@ -3369,19 +1420,7 @@ class AirLoopHvacReturnPlenum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacReturnPlenum.zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacReturnPlenum.zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacReturnPlenum.zone_name`')
-        self._data["Zone Name"] = value
+        self["Zone Name"] = value
 
     @property
     def zone_node_name(self):
@@ -3404,19 +1443,7 @@ class AirLoopHvacReturnPlenum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacReturnPlenum.zone_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacReturnPlenum.zone_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacReturnPlenum.zone_node_name`')
-        self._data["Zone Node Name"] = value
+        self["Zone Node Name"] = value
 
     @property
     def outlet_node_name(self):
@@ -3439,19 +1466,7 @@ class AirLoopHvacReturnPlenum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacReturnPlenum.outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacReturnPlenum.outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacReturnPlenum.outlet_node_name`')
-        self._data["Outlet Node Name"] = value
+        self["Outlet Node Name"] = value
 
     @property
     def induced_air_outlet_node_or_nodelist_name(self):
@@ -3474,19 +1489,7 @@ class AirLoopHvacReturnPlenum(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacReturnPlenum.induced_air_outlet_node_or_nodelist_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacReturnPlenum.induced_air_outlet_node_or_nodelist_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacReturnPlenum.induced_air_outlet_node_or_nodelist_name`')
-        self._data["Induced Air Outlet Node or NodeList Name"] = value
+        self["Induced Air Outlet Node or NodeList Name"] = value
 
     def add_extensible(self,
                        inlet_node_name=None,
@@ -3500,7 +1503,8 @@ class AirLoopHvacReturnPlenum(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_inlet_node_name(inlet_node_name))
+        inlet_node_name = self.check_value("Inlet Node Name", inlet_node_name)
+        vals.append(inlet_node_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -3509,159 +1513,22 @@ class AirLoopHvacReturnPlenum(object):
         """
         return self._data["extensibles"]
 
-    def _check_inlet_node_name(self, value):
-        """ Validates falue of field `Inlet Node Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacReturnPlenum.inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacReturnPlenum.inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacReturnPlenum.inlet_node_name`')
-        return value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field AirLoopHvacReturnPlenum:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field AirLoopHvacReturnPlenum:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for AirLoopHvacReturnPlenum: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for AirLoopHvacReturnPlenum: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class AirLoopHvacReturnPath(object):
+class AirLoopHvacReturnPath(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ReturnPath`
         A return air path can only contain one AirLoopHVAC:ZoneMixer
         and one or more AirLoopHVAC:ReturnPlenum objects.
     """
-    internal_name = "AirLoopHVAC:ReturnPath"
-    field_count = 2
-    required_fields = ["Name", "Return Air Path Outlet Node Name"]
-    extensible_fields = 2
-    format = None
-    min_fields = 0
-    extensible_keys = ["Component 1 Object Type", "Component 1 Name"]
+    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:ReturnPath', 'pyname': u'AirLoopHvacReturnPath', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'return air path outlet node name', {'name': u'Return Air Path Outlet Node Name', 'pyname': u'return_air_path_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:ReturnPath`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Return Air Path Outlet Node Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.return_air_path_outlet_node_name = None
-        else:
-            self.return_air_path_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3684,19 +1551,7 @@ class AirLoopHvacReturnPath(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacReturnPath.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacReturnPath.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacReturnPath.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def return_air_path_outlet_node_name(self):
@@ -3719,19 +1574,7 @@ class AirLoopHvacReturnPath(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacReturnPath.return_air_path_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacReturnPath.return_air_path_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacReturnPath.return_air_path_outlet_node_name`')
-        self._data["Return Air Path Outlet Node Name"] = value
+        self["Return Air Path Outlet Node Name"] = value
 
     def add_extensible(self,
                        component_1_object_type=None,
@@ -3742,9 +1585,6 @@ class AirLoopHvacReturnPath(object):
         Args:
 
             component_1_object_type (str): value for IDD Field `Component 1 Object Type`
-                Accepted values are:
-                      - AirLoopHVAC:ZoneMixer
-                      - AirLoopHVAC:ReturnPlenum
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3753,8 +1593,10 @@ class AirLoopHvacReturnPath(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_component_1_object_type(component_1_object_type))
-        vals.append(self._check_component_1_name(component_1_name))
+        component_1_object_type = self.check_value("Component 1 Object Type", component_1_object_type)
+        vals.append(component_1_object_type)
+        component_1_name = self.check_value("Component 1 Name", component_1_name)
+        vals.append(component_1_name)
         self._data["extensibles"].append(vals)
 
     @property
@@ -3762,146 +1604,3 @@ class AirLoopHvacReturnPath(object):
         """ Get list of all extensibles
         """
         return self._data["extensibles"]
-
-    def _check_component_1_object_type(self, value):
-        """ Validates falue of field `Component 1 Object Type`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacReturnPath.component_1_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacReturnPath.component_1_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacReturnPath.component_1_object_type`')
-            vals = {}
-            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
-            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `AirLoopHvacReturnPath.component_1_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `AirLoopHvacReturnPath.component_1_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        return value
-
-    def _check_component_1_name(self, value):
-        """ Validates falue of field `Component 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacReturnPath.component_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacReturnPath.component_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacReturnPath.component_1_name`')
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field AirLoopHvacReturnPath:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field AirLoopHvacReturnPath:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for AirLoopHvacReturnPath: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for AirLoopHvacReturnPath: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])

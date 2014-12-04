@@ -1,11 +1,14 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class ControllerWaterCoil(object):
+
+
+class ControllerWaterCoil(DataObject):
     """ Corresponds to IDD object `Controller:WaterCoil`
         Controller for a water coil which is located directly in an air loop branch or
         outdoor air equipment list. Controls the coil water flow to meet the specified
@@ -13,103 +16,16 @@ class ControllerWaterCoil(object):
         Coil:Cooling:Water:DetailedGeometry, and
         CoilSystem:Cooling:Water:HeatexchangerAssisted.
     """
-    internal_name = "Controller:WaterCoil"
-    field_count = 9
-    required_fields = ["Name", "Control Variable", "Actuator Variable", "Sensor Node Name", "Actuator Node Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 9
-    extensible_keys = []
+    schema = {'min-fields': 9, 'name': u'Controller:WaterCoil', 'pyname': u'ControllerWaterCoil', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'action', {'name': u'Action', 'pyname': u'action', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'actuator variable', {'name': u'Actuator Variable', 'pyname': u'actuator_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'actuator node name', {'name': u'Actuator Node Name', 'pyname': u'actuator_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'controller convergence tolerance', {'name': u'Controller Convergence Tolerance', 'pyname': u'controller_convergence_tolerance', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum actuated flow', {'name': u'Maximum Actuated Flow', 'pyname': u'maximum_actuated_flow', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum actuated flow', {'name': u'Minimum Actuated Flow', 'pyname': u'minimum_actuated_flow', 'default': 1e-07, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Controller:WaterCoil`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Control Variable"] = None
-        self._data["Action"] = None
-        self._data["Actuator Variable"] = None
-        self._data["Sensor Node Name"] = None
-        self._data["Actuator Node Name"] = None
-        self._data["Controller Convergence Tolerance"] = None
-        self._data["Maximum Actuated Flow"] = None
-        self._data["Minimum Actuated Flow"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_variable = None
-        else:
-            self.control_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.action = None
-        else:
-            self.action = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.actuator_variable = None
-        else:
-            self.actuator_variable = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.sensor_node_name = None
-        else:
-            self.sensor_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.actuator_node_name = None
-        else:
-            self.actuator_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_convergence_tolerance = None
-        else:
-            self.controller_convergence_tolerance = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_actuated_flow = None
-        else:
-            self.maximum_actuated_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_actuated_flow = None
-        else:
-            self.minimum_actuated_flow = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -132,19 +48,7 @@ class ControllerWaterCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerWaterCoil.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerWaterCoil.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerWaterCoil.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def control_variable(self):
@@ -166,57 +70,13 @@ class ControllerWaterCoil(object):
 
         Args:
             value (str): value for IDD Field `Control Variable`
-                Accepted values are:
-                      - Temperature
-                      - HumidityRatio
-                      - TemperatureAndHumidityRatio
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerWaterCoil.control_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerWaterCoil.control_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerWaterCoil.control_variable`')
-            vals = {}
-            vals["temperature"] = "Temperature"
-            vals["humidityratio"] = "HumidityRatio"
-            vals["temperatureandhumidityratio"] = "TemperatureAndHumidityRatio"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ControllerWaterCoil.control_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ControllerWaterCoil.control_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Variable"] = value
+        self["Control Variable"] = value
 
     @property
     def action(self):
@@ -236,55 +96,13 @@ class ControllerWaterCoil(object):
 
         Args:
             value (str): value for IDD Field `Action`
-                Accepted values are:
-                      - Normal
-                      - Reverse
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerWaterCoil.action`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerWaterCoil.action`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerWaterCoil.action`')
-            vals = {}
-            vals["normal"] = "Normal"
-            vals["reverse"] = "Reverse"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ControllerWaterCoil.action`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ControllerWaterCoil.action`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Action"] = value
+        self["Action"] = value
 
     @property
     def actuator_variable(self):
@@ -301,53 +119,13 @@ class ControllerWaterCoil(object):
 
         Args:
             value (str): value for IDD Field `Actuator Variable`
-                Accepted values are:
-                      - Flow
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerWaterCoil.actuator_variable`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerWaterCoil.actuator_variable`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerWaterCoil.actuator_variable`')
-            vals = {}
-            vals["flow"] = "Flow"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ControllerWaterCoil.actuator_variable`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ControllerWaterCoil.actuator_variable`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Actuator Variable"] = value
+        self["Actuator Variable"] = value
 
     @property
     def sensor_node_name(self):
@@ -370,19 +148,7 @@ class ControllerWaterCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerWaterCoil.sensor_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerWaterCoil.sensor_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerWaterCoil.sensor_node_name`')
-        self._data["Sensor Node Name"] = value
+        self["Sensor Node Name"] = value
 
     @property
     def actuator_node_name(self):
@@ -405,19 +171,7 @@ class ControllerWaterCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerWaterCoil.actuator_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerWaterCoil.actuator_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerWaterCoil.actuator_node_name`')
-        self._data["Actuator Node Name"] = value
+        self["Actuator Node Name"] = value
 
     @property
     def controller_convergence_tolerance(self):
@@ -442,25 +196,7 @@ class ControllerWaterCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Controller Convergence Tolerance"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ControllerWaterCoil.controller_convergence_tolerance`'.format(value))
-                    self._data["Controller Convergence Tolerance"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ControllerWaterCoil.controller_convergence_tolerance`'.format(value))
-        self._data["Controller Convergence Tolerance"] = value
+        self["Controller Convergence Tolerance"] = value
 
     @property
     def maximum_actuated_flow(self):
@@ -484,25 +220,7 @@ class ControllerWaterCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Actuated Flow"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ControllerWaterCoil.maximum_actuated_flow`'.format(value))
-                    self._data["Maximum Actuated Flow"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ControllerWaterCoil.maximum_actuated_flow`'.format(value))
-        self._data["Maximum Actuated Flow"] = value
+        self["Maximum Actuated Flow"] = value
 
     @property
     def minimum_actuated_flow(self):
@@ -527,334 +245,24 @@ class ControllerWaterCoil(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ControllerWaterCoil.minimum_actuated_flow`'.format(value))
-        self._data["Minimum Actuated Flow"] = value
+        self["Minimum Actuated Flow"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ControllerWaterCoil:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ControllerWaterCoil:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ControllerWaterCoil: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ControllerWaterCoil: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ControllerOutdoorAir(object):
+class ControllerOutdoorAir(DataObject):
     """ Corresponds to IDD object `Controller:OutdoorAir`
         Controller to set the outdoor air flow rate for an air loop. Control options include
         fixed, proportional, scheduled, economizer, and demand-controlled ventilation.
     """
-    internal_name = "Controller:OutdoorAir"
-    field_count = 26
-    required_fields = ["Name", "Relief Air Outlet Node Name", "Return Air Node Name", "Mixed Air Node Name", "Actuator Node Name", "Minimum Outdoor Air Flow Rate", "Maximum Outdoor Air Flow Rate"]
-    extensible_fields = 0
-    format = None
-    min_fields = 16
-    extensible_keys = []
+    schema = {'min-fields': 16, 'name': u'Controller:OutdoorAir', 'pyname': u'ControllerOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'relief air outlet node name', {'name': u'Relief Air Outlet Node Name', 'pyname': u'relief_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'return air node name', {'name': u'Return Air Node Name', 'pyname': u'return_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'mixed air node name', {'name': u'Mixed Air Node Name', 'pyname': u'mixed_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'actuator node name', {'name': u'Actuator Node Name', 'pyname': u'actuator_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum outdoor air flow rate', {'name': u'Minimum Outdoor Air Flow Rate', 'pyname': u'minimum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum outdoor air flow rate', {'name': u'Maximum Outdoor Air Flow Rate', 'pyname': u'maximum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'economizer control type', {'name': u'Economizer Control Type', 'pyname': u'economizer_control_type', 'default': u'NoEconomizer', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'economizer control action type', {'name': u'Economizer Control Action Type', 'pyname': u'economizer_control_action_type', 'default': u'ModulateFlow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'economizer maximum limit dry-bulb temperature', {'name': u'Economizer Maximum Limit Dry-Bulb Temperature', 'pyname': u'economizer_maximum_limit_drybulb_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'economizer maximum limit enthalpy', {'name': u'Economizer Maximum Limit Enthalpy', 'pyname': u'economizer_maximum_limit_enthalpy', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'economizer maximum limit dewpoint temperature', {'name': u'Economizer Maximum Limit Dewpoint Temperature', 'pyname': u'economizer_maximum_limit_dewpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'electronic enthalpy limit curve name', {'name': u'Electronic Enthalpy Limit Curve Name', 'pyname': u'electronic_enthalpy_limit_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'economizer minimum limit dry-bulb temperature', {'name': u'Economizer Minimum Limit Dry-Bulb Temperature', 'pyname': u'economizer_minimum_limit_drybulb_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'lockout type', {'name': u'Lockout Type', 'pyname': u'lockout_type', 'default': u'NoLockout', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit type', {'name': u'Minimum Limit Type', 'pyname': u'minimum_limit_type', 'default': u'ProportionalMinimum', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum outdoor air schedule name', {'name': u'Minimum Outdoor Air Schedule Name', 'pyname': u'minimum_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum fraction of outdoor air schedule name', {'name': u'Minimum Fraction of Outdoor Air Schedule Name', 'pyname': u'minimum_fraction_of_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum fraction of outdoor air schedule name', {'name': u'Maximum Fraction of Outdoor Air Schedule Name', 'pyname': u'maximum_fraction_of_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mechanical ventilation controller name', {'name': u'Mechanical Ventilation Controller Name', 'pyname': u'mechanical_ventilation_controller_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'time of day economizer control schedule name', {'name': u'Time of Day Economizer Control Schedule Name', 'pyname': u'time_of_day_economizer_control_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high humidity control', {'name': u'High Humidity Control', 'pyname': u'high_humidity_control', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'humidistat control zone name', {'name': u'Humidistat Control Zone Name', 'pyname': u'humidistat_control_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high humidity outdoor air flow ratio', {'name': u'High Humidity Outdoor Air Flow Ratio', 'pyname': u'high_humidity_outdoor_air_flow_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'control high indoor humidity based on outdoor humidity ratio', {'name': u'Control High Indoor Humidity Based on Outdoor Humidity Ratio', 'pyname': u'control_high_indoor_humidity_based_on_outdoor_humidity_ratio', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat recovery bypass control type', {'name': u'Heat Recovery Bypass Control Type', 'pyname': u'heat_recovery_bypass_control_type', 'default': u'BypassWhenWithinEconomizerLimits', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Choice'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Controller:OutdoorAir`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Relief Air Outlet Node Name"] = None
-        self._data["Return Air Node Name"] = None
-        self._data["Mixed Air Node Name"] = None
-        self._data["Actuator Node Name"] = None
-        self._data["Minimum Outdoor Air Flow Rate"] = None
-        self._data["Maximum Outdoor Air Flow Rate"] = None
-        self._data["Economizer Control Type"] = None
-        self._data["Economizer Control Action Type"] = None
-        self._data["Economizer Maximum Limit Dry-Bulb Temperature"] = None
-        self._data["Economizer Maximum Limit Enthalpy"] = None
-        self._data["Economizer Maximum Limit Dewpoint Temperature"] = None
-        self._data["Electronic Enthalpy Limit Curve Name"] = None
-        self._data["Economizer Minimum Limit Dry-Bulb Temperature"] = None
-        self._data["Lockout Type"] = None
-        self._data["Minimum Limit Type"] = None
-        self._data["Minimum Outdoor Air Schedule Name"] = None
-        self._data["Minimum Fraction of Outdoor Air Schedule Name"] = None
-        self._data["Maximum Fraction of Outdoor Air Schedule Name"] = None
-        self._data["Mechanical Ventilation Controller Name"] = None
-        self._data["Time of Day Economizer Control Schedule Name"] = None
-        self._data["High Humidity Control"] = None
-        self._data["Humidistat Control Zone Name"] = None
-        self._data["High Humidity Outdoor Air Flow Ratio"] = None
-        self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = None
-        self._data["Heat Recovery Bypass Control Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.relief_air_outlet_node_name = None
-        else:
-            self.relief_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.return_air_node_name = None
-        else:
-            self.return_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.mixed_air_node_name = None
-        else:
-            self.mixed_air_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.actuator_node_name = None
-        else:
-            self.actuator_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outdoor_air_flow_rate = None
-        else:
-            self.minimum_outdoor_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_outdoor_air_flow_rate = None
-        else:
-            self.maximum_outdoor_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.economizer_control_type = None
-        else:
-            self.economizer_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.economizer_control_action_type = None
-        else:
-            self.economizer_control_action_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.economizer_maximum_limit_drybulb_temperature = None
-        else:
-            self.economizer_maximum_limit_drybulb_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.economizer_maximum_limit_enthalpy = None
-        else:
-            self.economizer_maximum_limit_enthalpy = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.economizer_maximum_limit_dewpoint_temperature = None
-        else:
-            self.economizer_maximum_limit_dewpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.electronic_enthalpy_limit_curve_name = None
-        else:
-            self.electronic_enthalpy_limit_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.economizer_minimum_limit_drybulb_temperature = None
-        else:
-            self.economizer_minimum_limit_drybulb_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.lockout_type = None
-        else:
-            self.lockout_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_limit_type = None
-        else:
-            self.minimum_limit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_outdoor_air_schedule_name = None
-        else:
-            self.minimum_outdoor_air_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_fraction_of_outdoor_air_schedule_name = None
-        else:
-            self.minimum_fraction_of_outdoor_air_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_fraction_of_outdoor_air_schedule_name = None
-        else:
-            self.maximum_fraction_of_outdoor_air_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.mechanical_ventilation_controller_name = None
-        else:
-            self.mechanical_ventilation_controller_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.time_of_day_economizer_control_schedule_name = None
-        else:
-            self.time_of_day_economizer_control_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.high_humidity_control = None
-        else:
-            self.high_humidity_control = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.humidistat_control_zone_name = None
-        else:
-            self.humidistat_control_zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.high_humidity_outdoor_air_flow_ratio = None
-        else:
-            self.high_humidity_outdoor_air_flow_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_high_indoor_humidity_based_on_outdoor_humidity_ratio = None
-        else:
-            self.control_high_indoor_humidity_based_on_outdoor_humidity_ratio = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.heat_recovery_bypass_control_type = None
-        else:
-            self.heat_recovery_bypass_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -877,19 +285,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def relief_air_outlet_node_name(self):
@@ -912,19 +308,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.relief_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.relief_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.relief_air_outlet_node_name`')
-        self._data["Relief Air Outlet Node Name"] = value
+        self["Relief Air Outlet Node Name"] = value
 
     @property
     def return_air_node_name(self):
@@ -947,19 +331,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.return_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.return_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.return_air_node_name`')
-        self._data["Return Air Node Name"] = value
+        self["Return Air Node Name"] = value
 
     @property
     def mixed_air_node_name(self):
@@ -982,19 +354,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.mixed_air_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.mixed_air_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.mixed_air_node_name`')
-        self._data["Mixed Air Node Name"] = value
+        self["Mixed Air Node Name"] = value
 
     @property
     def actuator_node_name(self):
@@ -1018,19 +378,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.actuator_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.actuator_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.actuator_node_name`')
-        self._data["Actuator Node Name"] = value
+        self["Actuator Node Name"] = value
 
     @property
     def minimum_outdoor_air_flow_rate(self):
@@ -1054,25 +402,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ControllerOutdoorAir.minimum_outdoor_air_flow_rate`'.format(value))
-                    self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ControllerOutdoorAir.minimum_outdoor_air_flow_rate`'.format(value))
-        self._data["Minimum Outdoor Air Flow Rate"] = value
+        self["Minimum Outdoor Air Flow Rate"] = value
 
     @property
     def maximum_outdoor_air_flow_rate(self):
@@ -1096,25 +426,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `ControllerOutdoorAir.maximum_outdoor_air_flow_rate`'.format(value))
-                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `ControllerOutdoorAir.maximum_outdoor_air_flow_rate`'.format(value))
-        self._data["Maximum Outdoor Air Flow Rate"] = value
+        self["Maximum Outdoor Air Flow Rate"] = value
 
     @property
     def economizer_control_type(self):
@@ -1131,15 +443,6 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (str): value for IDD Field `Economizer Control Type`
-                Accepted values are:
-                      - FixedDryBulb
-                      - FixedEnthalpy
-                      - DifferentialDryBulb
-                      - DifferentialEnthalpy
-                      - FixedDewPointAndDryBulb
-                      - ElectronicEnthalpy
-                      - DifferentialDryBulbAndEnthalpy
-                      - NoEconomizer
                 Default value: NoEconomizer
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1147,52 +450,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.economizer_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.economizer_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.economizer_control_type`')
-            vals = {}
-            vals["fixeddrybulb"] = "FixedDryBulb"
-            vals["fixedenthalpy"] = "FixedEnthalpy"
-            vals["differentialdrybulb"] = "DifferentialDryBulb"
-            vals["differentialenthalpy"] = "DifferentialEnthalpy"
-            vals["fixeddewpointanddrybulb"] = "FixedDewPointAndDryBulb"
-            vals["electronicenthalpy"] = "ElectronicEnthalpy"
-            vals["differentialdrybulbandenthalpy"] = "DifferentialDryBulbAndEnthalpy"
-            vals["noeconomizer"] = "NoEconomizer"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ControllerOutdoorAir.economizer_control_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ControllerOutdoorAir.economizer_control_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Economizer Control Type"] = value
+        self["Economizer Control Type"] = value
 
     @property
     def economizer_control_action_type(self):
@@ -1209,9 +467,6 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (str): value for IDD Field `Economizer Control Action Type`
-                Accepted values are:
-                      - ModulateFlow
-                      - MinimumFlowWithBypass
                 Default value: ModulateFlow
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1219,46 +474,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.economizer_control_action_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.economizer_control_action_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.economizer_control_action_type`')
-            vals = {}
-            vals["modulateflow"] = "ModulateFlow"
-            vals["minimumflowwithbypass"] = "MinimumFlowWithBypass"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ControllerOutdoorAir.economizer_control_action_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ControllerOutdoorAir.economizer_control_action_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Economizer Control Action Type"] = value
+        self["Economizer Control Action Type"] = value
 
     @property
     def economizer_maximum_limit_drybulb_temperature(self):
@@ -1285,13 +501,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ControllerOutdoorAir.economizer_maximum_limit_drybulb_temperature`'.format(value))
-        self._data["Economizer Maximum Limit Dry-Bulb Temperature"] = value
+        self["Economizer Maximum Limit Dry-Bulb Temperature"] = value
 
     @property
     def economizer_maximum_limit_enthalpy(self):
@@ -1318,13 +528,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ControllerOutdoorAir.economizer_maximum_limit_enthalpy`'.format(value))
-        self._data["Economizer Maximum Limit Enthalpy"] = value
+        self["Economizer Maximum Limit Enthalpy"] = value
 
     @property
     def economizer_maximum_limit_dewpoint_temperature(self):
@@ -1351,13 +555,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ControllerOutdoorAir.economizer_maximum_limit_dewpoint_temperature`'.format(value))
-        self._data["Economizer Maximum Limit Dewpoint Temperature"] = value
+        self["Economizer Maximum Limit Dewpoint Temperature"] = value
 
     @property
     def electronic_enthalpy_limit_curve_name(self):
@@ -1385,19 +583,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.electronic_enthalpy_limit_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.electronic_enthalpy_limit_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.electronic_enthalpy_limit_curve_name`')
-        self._data["Electronic Enthalpy Limit Curve Name"] = value
+        self["Electronic Enthalpy Limit Curve Name"] = value
 
     @property
     def economizer_minimum_limit_drybulb_temperature(self):
@@ -1424,13 +610,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ControllerOutdoorAir.economizer_minimum_limit_drybulb_temperature`'.format(value))
-        self._data["Economizer Minimum Limit Dry-Bulb Temperature"] = value
+        self["Economizer Minimum Limit Dry-Bulb Temperature"] = value
 
     @property
     def lockout_type(self):
@@ -1447,10 +627,6 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (str): value for IDD Field `Lockout Type`
-                Accepted values are:
-                      - NoLockout
-                      - LockoutWithHeating
-                      - LockoutWithCompressor
                 Default value: NoLockout
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1458,47 +634,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.lockout_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.lockout_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.lockout_type`')
-            vals = {}
-            vals["nolockout"] = "NoLockout"
-            vals["lockoutwithheating"] = "LockoutWithHeating"
-            vals["lockoutwithcompressor"] = "LockoutWithCompressor"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ControllerOutdoorAir.lockout_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ControllerOutdoorAir.lockout_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Lockout Type"] = value
+        self["Lockout Type"] = value
 
     @property
     def minimum_limit_type(self):
@@ -1515,9 +651,6 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (str): value for IDD Field `Minimum Limit Type`
-                Accepted values are:
-                      - FixedMinimum
-                      - ProportionalMinimum
                 Default value: ProportionalMinimum
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1525,46 +658,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.minimum_limit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.minimum_limit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.minimum_limit_type`')
-            vals = {}
-            vals["fixedminimum"] = "FixedMinimum"
-            vals["proportionalminimum"] = "ProportionalMinimum"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ControllerOutdoorAir.minimum_limit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ControllerOutdoorAir.minimum_limit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Minimum Limit Type"] = value
+        self["Minimum Limit Type"] = value
 
     @property
     def minimum_outdoor_air_schedule_name(self):
@@ -1588,19 +682,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.minimum_outdoor_air_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.minimum_outdoor_air_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.minimum_outdoor_air_schedule_name`')
-        self._data["Minimum Outdoor Air Schedule Name"] = value
+        self["Minimum Outdoor Air Schedule Name"] = value
 
     @property
     def minimum_fraction_of_outdoor_air_schedule_name(self):
@@ -1624,19 +706,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.minimum_fraction_of_outdoor_air_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.minimum_fraction_of_outdoor_air_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.minimum_fraction_of_outdoor_air_schedule_name`')
-        self._data["Minimum Fraction of Outdoor Air Schedule Name"] = value
+        self["Minimum Fraction of Outdoor Air Schedule Name"] = value
 
     @property
     def maximum_fraction_of_outdoor_air_schedule_name(self):
@@ -1660,19 +730,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.maximum_fraction_of_outdoor_air_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.maximum_fraction_of_outdoor_air_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.maximum_fraction_of_outdoor_air_schedule_name`')
-        self._data["Maximum Fraction of Outdoor Air Schedule Name"] = value
+        self["Maximum Fraction of Outdoor Air Schedule Name"] = value
 
     @property
     def mechanical_ventilation_controller_name(self):
@@ -1698,19 +756,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.mechanical_ventilation_controller_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.mechanical_ventilation_controller_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.mechanical_ventilation_controller_name`')
-        self._data["Mechanical Ventilation Controller Name"] = value
+        self["Mechanical Ventilation Controller Name"] = value
 
     @property
     def time_of_day_economizer_control_schedule_name(self):
@@ -1738,19 +784,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.time_of_day_economizer_control_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.time_of_day_economizer_control_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.time_of_day_economizer_control_schedule_name`')
-        self._data["Time of Day Economizer Control Schedule Name"] = value
+        self["Time of Day Economizer Control Schedule Name"] = value
 
     @property
     def high_humidity_control(self):
@@ -1771,9 +805,6 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (str): value for IDD Field `High Humidity Control`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1781,46 +812,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.high_humidity_control`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.high_humidity_control`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.high_humidity_control`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ControllerOutdoorAir.high_humidity_control`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ControllerOutdoorAir.high_humidity_control`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["High Humidity Control"] = value
+        self["High Humidity Control"] = value
 
     @property
     def humidistat_control_zone_name(self):
@@ -1845,19 +837,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.humidistat_control_zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.humidistat_control_zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.humidistat_control_zone_name`')
-        self._data["Humidistat Control Zone Name"] = value
+        self["Humidistat Control Zone Name"] = value
 
     @property
     def high_humidity_outdoor_air_flow_ratio(self):
@@ -1879,23 +859,13 @@ class ControllerOutdoorAir(object):
         Args:
             value (float): value for IDD Field `High Humidity Outdoor Air Flow Ratio`
                 Default value: 1.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ControllerOutdoorAir.high_humidity_outdoor_air_flow_ratio`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ControllerOutdoorAir.high_humidity_outdoor_air_flow_ratio`')
-        self._data["High Humidity Outdoor Air Flow Ratio"] = value
+        self["High Humidity Outdoor Air Flow Ratio"] = value
 
     @property
     def control_high_indoor_humidity_based_on_outdoor_humidity_ratio(self):
@@ -1917,9 +887,6 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (str): value for IDD Field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: Yes
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1927,46 +894,7 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
+        self["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
 
     @property
     def heat_recovery_bypass_control_type(self):
@@ -1996,103 +924,10 @@ class ControllerOutdoorAir(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerOutdoorAir.heat_recovery_bypass_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerOutdoorAir.heat_recovery_bypass_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerOutdoorAir.heat_recovery_bypass_control_type`')
-        self._data["Heat Recovery Bypass Control Type"] = value
+        self["Heat Recovery Bypass Control Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ControllerOutdoorAir:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ControllerOutdoorAir:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ControllerOutdoorAir: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ControllerOutdoorAir: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class ControllerMechanicalVentilation(object):
+class ControllerMechanicalVentilation(DataObject):
     """ Corresponds to IDD object `Controller:MechanicalVentilation`
         This object is used in conjuction with Controller:OutdoorAir to specify outdoor
         ventilation air based on outdoor air specified in the DesignSpecification:OutdoorAir object
@@ -2102,79 +937,16 @@ class ControllerMechanicalVentilation(object):
         Duplicate groups of Zone name, Design Specification Outdoor Air Object Name,
         and Design Specification Zone Air Distribution Object Name to increase allowable number of entries
     """
-    internal_name = "Controller:MechanicalVentilation"
-    field_count = 5
-    required_fields = ["Name"]
-    extensible_fields = 3
-    format = None
-    min_fields = 8
-    extensible_keys = ["Zone 1 Name", "Design Specification Outdoor Air Object Name 1", "Design Specification Zone Air Distribution Object Name 1"]
+    schema = {'min-fields': 8, 'name': u'Controller:MechanicalVentilation', 'pyname': u'ControllerMechanicalVentilation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand controlled ventilation', {'name': u'Demand Controlled Ventilation', 'pyname': u'demand_controlled_ventilation', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'system outdoor air method', {'name': u'System Outdoor Air Method', 'pyname': u'system_outdoor_air_method', 'default': u'VentilationRateProcedure', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone maximum outdoor air fraction', {'name': u'Zone Maximum Outdoor Air Fraction', 'pyname': u'zone_maximum_outdoor_air_fraction', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict([(u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification outdoor air object name 1', {'name': u'Design Specification Outdoor Air Object Name 1', 'pyname': u'design_specification_outdoor_air_object_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zone air distribution object name 1', {'name': u'Design Specification Zone Air Distribution Object Name 1', 'pyname': u'design_specification_zone_air_distribution_object_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Controller:MechanicalVentilation`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Demand Controlled Ventilation"] = None
-        self._data["System Outdoor Air Method"] = None
-        self._data["Zone Maximum Outdoor Air Fraction"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.demand_controlled_ventilation = None
-        else:
-            self.demand_controlled_ventilation = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.system_outdoor_air_method = None
-        else:
-            self.system_outdoor_air_method = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_maximum_outdoor_air_fraction = None
-        else:
-            self.zone_maximum_outdoor_air_fraction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2197,19 +969,7 @@ class ControllerMechanicalVentilation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerMechanicalVentilation.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerMechanicalVentilation.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerMechanicalVentilation.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -2234,19 +994,7 @@ class ControllerMechanicalVentilation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerMechanicalVentilation.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerMechanicalVentilation.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerMechanicalVentilation.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def demand_controlled_ventilation(self):
@@ -2263,9 +1011,6 @@ class ControllerMechanicalVentilation(object):
 
         Args:
             value (str): value for IDD Field `Demand Controlled Ventilation`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2273,46 +1018,7 @@ class ControllerMechanicalVentilation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerMechanicalVentilation.demand_controlled_ventilation`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerMechanicalVentilation.demand_controlled_ventilation`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerMechanicalVentilation.demand_controlled_ventilation`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ControllerMechanicalVentilation.demand_controlled_ventilation`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ControllerMechanicalVentilation.demand_controlled_ventilation`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Demand Controlled Ventilation"] = value
+        self["Demand Controlled Ventilation"] = value
 
     @property
     def system_outdoor_air_method(self):
@@ -2329,12 +1035,6 @@ class ControllerMechanicalVentilation(object):
 
         Args:
             value (str): value for IDD Field `System Outdoor Air Method`
-                Accepted values are:
-                      - ZoneSum
-                      - VentilationRateProcedure
-                      - IndoorAirQualityProcedure
-                      - ProportionalControl
-                      - IndoorAirQualityProcedureGenericContaminant
                 Default value: VentilationRateProcedure
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2342,49 +1042,7 @@ class ControllerMechanicalVentilation(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerMechanicalVentilation.system_outdoor_air_method`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerMechanicalVentilation.system_outdoor_air_method`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerMechanicalVentilation.system_outdoor_air_method`')
-            vals = {}
-            vals["zonesum"] = "ZoneSum"
-            vals["ventilationrateprocedure"] = "VentilationRateProcedure"
-            vals["indoorairqualityprocedure"] = "IndoorAirQualityProcedure"
-            vals["proportionalcontrol"] = "ProportionalControl"
-            vals["indoorairqualityproceduregenericcontaminant"] = "IndoorAirQualityProcedureGenericContaminant"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `ControllerMechanicalVentilation.system_outdoor_air_method`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `ControllerMechanicalVentilation.system_outdoor_air_method`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["System Outdoor Air Method"] = value
+        self["System Outdoor Air Method"] = value
 
     @property
     def zone_maximum_outdoor_air_fraction(self):
@@ -2403,23 +1061,13 @@ class ControllerMechanicalVentilation(object):
             value (float): value for IDD Field `Zone Maximum Outdoor Air Fraction`
                 Units: dimensionless
                 Default value: 1.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `ControllerMechanicalVentilation.zone_maximum_outdoor_air_fraction`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `ControllerMechanicalVentilation.zone_maximum_outdoor_air_fraction`')
-        self._data["Zone Maximum Outdoor Air Fraction"] = value
+        self["Zone Maximum Outdoor Air Fraction"] = value
 
     def add_extensible(self,
                        zone_1_name=None,
@@ -2443,9 +1091,12 @@ class ControllerMechanicalVentilation(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_zone_1_name(zone_1_name))
-        vals.append(self._check_design_specification_outdoor_air_object_name_1(design_specification_outdoor_air_object_name_1))
-        vals.append(self._check_design_specification_zone_air_distribution_object_name_1(design_specification_zone_air_distribution_object_name_1))
+        zone_1_name = self.check_value("Zone 1 Name", zone_1_name)
+        vals.append(zone_1_name)
+        design_specification_outdoor_air_object_name_1 = self.check_value("Design Specification Outdoor Air Object Name 1", design_specification_outdoor_air_object_name_1)
+        vals.append(design_specification_outdoor_air_object_name_1)
+        design_specification_zone_air_distribution_object_name_1 = self.check_value("Design Specification Zone Air Distribution Object Name 1", design_specification_zone_air_distribution_object_name_1)
+        vals.append(design_specification_zone_air_distribution_object_name_1)
         self._data["extensibles"].append(vals)
 
     @property
@@ -2454,304 +1105,21 @@ class ControllerMechanicalVentilation(object):
         """
         return self._data["extensibles"]
 
-    def _check_zone_1_name(self, value):
-        """ Validates falue of field `Zone 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerMechanicalVentilation.zone_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerMechanicalVentilation.zone_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerMechanicalVentilation.zone_1_name`')
-        return value
 
-    def _check_design_specification_outdoor_air_object_name_1(self, value):
-        """ Validates falue of field `Design Specification Outdoor Air Object Name 1`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerMechanicalVentilation.design_specification_outdoor_air_object_name_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerMechanicalVentilation.design_specification_outdoor_air_object_name_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerMechanicalVentilation.design_specification_outdoor_air_object_name_1`')
-        return value
-
-    def _check_design_specification_zone_air_distribution_object_name_1(self, value):
-        """ Validates falue of field `Design Specification Zone Air Distribution Object Name 1`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `ControllerMechanicalVentilation.design_specification_zone_air_distribution_object_name_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `ControllerMechanicalVentilation.design_specification_zone_air_distribution_object_name_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `ControllerMechanicalVentilation.design_specification_zone_air_distribution_object_name_1`')
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field ControllerMechanicalVentilation:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field ControllerMechanicalVentilation:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for ControllerMechanicalVentilation: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for ControllerMechanicalVentilation: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class AirLoopHvacControllerList(object):
+class AirLoopHvacControllerList(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ControllerList`
         List controllers in order of control sequence
     """
-    internal_name = "AirLoopHVAC:ControllerList"
-    field_count = 17
-    required_fields = ["Name", "Controller 1 Object Type", "Controller 1 Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:ControllerList', 'pyname': u'AirLoopHvacControllerList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'controller 1 object type', {'name': u'Controller 1 Object Type', 'pyname': u'controller_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'controller 1 name', {'name': u'Controller 1 Name', 'pyname': u'controller_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 2 object type', {'name': u'Controller 2 Object Type', 'pyname': u'controller_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'controller 2 name', {'name': u'Controller 2 Name', 'pyname': u'controller_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 3 object type', {'name': u'Controller 3 Object Type', 'pyname': u'controller_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'controller 3 name', {'name': u'Controller 3 Name', 'pyname': u'controller_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 4 object type', {'name': u'Controller 4 Object Type', 'pyname': u'controller_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'controller 4 name', {'name': u'Controller 4 Name', 'pyname': u'controller_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 5 object type', {'name': u'Controller 5 Object Type', 'pyname': u'controller_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'controller 5 name', {'name': u'Controller 5 Name', 'pyname': u'controller_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 6 object type', {'name': u'Controller 6 Object Type', 'pyname': u'controller_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'controller 6 name', {'name': u'Controller 6 Name', 'pyname': u'controller_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 7 object type', {'name': u'Controller 7 Object Type', 'pyname': u'controller_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'controller 7 name', {'name': u'Controller 7 Name', 'pyname': u'controller_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 8 object type', {'name': u'Controller 8 Object Type', 'pyname': u'controller_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'controller 8 name', {'name': u'Controller 8 Name', 'pyname': u'controller_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:ControllerList`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Controller 1 Object Type"] = None
-        self._data["Controller 1 Name"] = None
-        self._data["Controller 2 Object Type"] = None
-        self._data["Controller 2 Name"] = None
-        self._data["Controller 3 Object Type"] = None
-        self._data["Controller 3 Name"] = None
-        self._data["Controller 4 Object Type"] = None
-        self._data["Controller 4 Name"] = None
-        self._data["Controller 5 Object Type"] = None
-        self._data["Controller 5 Name"] = None
-        self._data["Controller 6 Object Type"] = None
-        self._data["Controller 6 Name"] = None
-        self._data["Controller 7 Object Type"] = None
-        self._data["Controller 7 Name"] = None
-        self._data["Controller 8 Object Type"] = None
-        self._data["Controller 8 Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_1_object_type = None
-        else:
-            self.controller_1_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_1_name = None
-        else:
-            self.controller_1_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_2_object_type = None
-        else:
-            self.controller_2_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_2_name = None
-        else:
-            self.controller_2_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_3_object_type = None
-        else:
-            self.controller_3_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_3_name = None
-        else:
-            self.controller_3_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_4_object_type = None
-        else:
-            self.controller_4_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_4_name = None
-        else:
-            self.controller_4_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_5_object_type = None
-        else:
-            self.controller_5_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_5_name = None
-        else:
-            self.controller_5_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_6_object_type = None
-        else:
-            self.controller_6_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_6_name = None
-        else:
-            self.controller_6_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_7_object_type = None
-        else:
-            self.controller_7_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_7_name = None
-        else:
-            self.controller_7_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_8_object_type = None
-        else:
-            self.controller_8_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.controller_8_name = None
-        else:
-            self.controller_8_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2774,19 +1142,7 @@ class AirLoopHvacControllerList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def controller_1_object_type(self):
@@ -2803,55 +1159,13 @@ class AirLoopHvacControllerList(object):
 
         Args:
             value (str): value for IDD Field `Controller 1 Object Type`
-                Accepted values are:
-                      - Controller:WaterCoil
-                      - Controller:OutdoorAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_1_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_1_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_1_object_type`')
-            vals = {}
-            vals["controller:watercoil"] = "Controller:WaterCoil"
-            vals["controller:outdoorair"] = "Controller:OutdoorAir"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `AirLoopHvacControllerList.controller_1_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `AirLoopHvacControllerList.controller_1_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Controller 1 Object Type"] = value
+        self["Controller 1 Object Type"] = value
 
     @property
     def controller_1_name(self):
@@ -2874,19 +1188,7 @@ class AirLoopHvacControllerList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_1_name`')
-        self._data["Controller 1 Name"] = value
+        self["Controller 1 Name"] = value
 
     @property
     def controller_2_object_type(self):
@@ -2903,55 +1205,13 @@ class AirLoopHvacControllerList(object):
 
         Args:
             value (str): value for IDD Field `Controller 2 Object Type`
-                Accepted values are:
-                      - Controller:WaterCoil
-                      - Controller:OutdoorAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_2_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_2_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_2_object_type`')
-            vals = {}
-            vals["controller:watercoil"] = "Controller:WaterCoil"
-            vals["controller:outdoorair"] = "Controller:OutdoorAir"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `AirLoopHvacControllerList.controller_2_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `AirLoopHvacControllerList.controller_2_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Controller 2 Object Type"] = value
+        self["Controller 2 Object Type"] = value
 
     @property
     def controller_2_name(self):
@@ -2974,19 +1234,7 @@ class AirLoopHvacControllerList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_2_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_2_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_2_name`')
-        self._data["Controller 2 Name"] = value
+        self["Controller 2 Name"] = value
 
     @property
     def controller_3_object_type(self):
@@ -3003,55 +1251,13 @@ class AirLoopHvacControllerList(object):
 
         Args:
             value (str): value for IDD Field `Controller 3 Object Type`
-                Accepted values are:
-                      - Controller:WaterCoil
-                      - Controller:OutdoorAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_3_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_3_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_3_object_type`')
-            vals = {}
-            vals["controller:watercoil"] = "Controller:WaterCoil"
-            vals["controller:outdoorair"] = "Controller:OutdoorAir"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `AirLoopHvacControllerList.controller_3_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `AirLoopHvacControllerList.controller_3_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Controller 3 Object Type"] = value
+        self["Controller 3 Object Type"] = value
 
     @property
     def controller_3_name(self):
@@ -3074,19 +1280,7 @@ class AirLoopHvacControllerList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_3_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_3_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_3_name`')
-        self._data["Controller 3 Name"] = value
+        self["Controller 3 Name"] = value
 
     @property
     def controller_4_object_type(self):
@@ -3103,55 +1297,13 @@ class AirLoopHvacControllerList(object):
 
         Args:
             value (str): value for IDD Field `Controller 4 Object Type`
-                Accepted values are:
-                      - Controller:WaterCoil
-                      - Controller:OutdoorAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_4_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_4_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_4_object_type`')
-            vals = {}
-            vals["controller:watercoil"] = "Controller:WaterCoil"
-            vals["controller:outdoorair"] = "Controller:OutdoorAir"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `AirLoopHvacControllerList.controller_4_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `AirLoopHvacControllerList.controller_4_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Controller 4 Object Type"] = value
+        self["Controller 4 Object Type"] = value
 
     @property
     def controller_4_name(self):
@@ -3174,19 +1326,7 @@ class AirLoopHvacControllerList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_4_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_4_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_4_name`')
-        self._data["Controller 4 Name"] = value
+        self["Controller 4 Name"] = value
 
     @property
     def controller_5_object_type(self):
@@ -3203,55 +1343,13 @@ class AirLoopHvacControllerList(object):
 
         Args:
             value (str): value for IDD Field `Controller 5 Object Type`
-                Accepted values are:
-                      - Controller:WaterCoil
-                      - Controller:OutdoorAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_5_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_5_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_5_object_type`')
-            vals = {}
-            vals["controller:watercoil"] = "Controller:WaterCoil"
-            vals["controller:outdoorair"] = "Controller:OutdoorAir"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `AirLoopHvacControllerList.controller_5_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `AirLoopHvacControllerList.controller_5_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Controller 5 Object Type"] = value
+        self["Controller 5 Object Type"] = value
 
     @property
     def controller_5_name(self):
@@ -3274,19 +1372,7 @@ class AirLoopHvacControllerList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_5_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_5_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_5_name`')
-        self._data["Controller 5 Name"] = value
+        self["Controller 5 Name"] = value
 
     @property
     def controller_6_object_type(self):
@@ -3303,55 +1389,13 @@ class AirLoopHvacControllerList(object):
 
         Args:
             value (str): value for IDD Field `Controller 6 Object Type`
-                Accepted values are:
-                      - Controller:WaterCoil
-                      - Controller:OutdoorAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_6_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_6_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_6_object_type`')
-            vals = {}
-            vals["controller:watercoil"] = "Controller:WaterCoil"
-            vals["controller:outdoorair"] = "Controller:OutdoorAir"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `AirLoopHvacControllerList.controller_6_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `AirLoopHvacControllerList.controller_6_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Controller 6 Object Type"] = value
+        self["Controller 6 Object Type"] = value
 
     @property
     def controller_6_name(self):
@@ -3374,19 +1418,7 @@ class AirLoopHvacControllerList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_6_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_6_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_6_name`')
-        self._data["Controller 6 Name"] = value
+        self["Controller 6 Name"] = value
 
     @property
     def controller_7_object_type(self):
@@ -3403,55 +1435,13 @@ class AirLoopHvacControllerList(object):
 
         Args:
             value (str): value for IDD Field `Controller 7 Object Type`
-                Accepted values are:
-                      - Controller:WaterCoil
-                      - Controller:OutdoorAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_7_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_7_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_7_object_type`')
-            vals = {}
-            vals["controller:watercoil"] = "Controller:WaterCoil"
-            vals["controller:outdoorair"] = "Controller:OutdoorAir"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `AirLoopHvacControllerList.controller_7_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `AirLoopHvacControllerList.controller_7_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Controller 7 Object Type"] = value
+        self["Controller 7 Object Type"] = value
 
     @property
     def controller_7_name(self):
@@ -3474,19 +1464,7 @@ class AirLoopHvacControllerList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_7_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_7_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_7_name`')
-        self._data["Controller 7 Name"] = value
+        self["Controller 7 Name"] = value
 
     @property
     def controller_8_object_type(self):
@@ -3503,55 +1481,13 @@ class AirLoopHvacControllerList(object):
 
         Args:
             value (str): value for IDD Field `Controller 8 Object Type`
-                Accepted values are:
-                      - Controller:WaterCoil
-                      - Controller:OutdoorAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_8_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_8_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_8_object_type`')
-            vals = {}
-            vals["controller:watercoil"] = "Controller:WaterCoil"
-            vals["controller:outdoorair"] = "Controller:OutdoorAir"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `AirLoopHvacControllerList.controller_8_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `AirLoopHvacControllerList.controller_8_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Controller 8 Object Type"] = value
+        self["Controller 8 Object Type"] = value
 
     @property
     def controller_8_name(self):
@@ -3574,98 +1510,4 @@ class AirLoopHvacControllerList(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `AirLoopHvacControllerList.controller_8_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `AirLoopHvacControllerList.controller_8_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `AirLoopHvacControllerList.controller_8_name`')
-        self._data["Controller 8 Name"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field AirLoopHvacControllerList:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field AirLoopHvacControllerList:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for AirLoopHvacControllerList: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for AirLoopHvacControllerList: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Controller 8 Name"] = value

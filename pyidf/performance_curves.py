@@ -1,11 +1,14 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class CurveLinear(object):
+
+
+class CurveLinear(DataObject):
     """ Corresponds to IDD object `Curve:Linear`
         Linear curve with one independent variable.
         Input for the linear curve consists of a curve name, the two coefficients, and the
@@ -13,103 +16,16 @@ class CurveLinear(object):
         curve minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*x
     """
-    internal_name = "Curve:Linear"
-    field_count = 9
-    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Minimum Value of x", "Maximum Value of x"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:Linear', 'pyname': u'CurveLinear', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Linear`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 Constant"] = None
-        self._data["Coefficient2 x"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for X"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_constant = None
-        else:
-            self.coefficient1_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_x = None
-        else:
-            self.coefficient2_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -132,19 +48,7 @@ class CurveLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveLinear.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveLinear.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveLinear.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_constant(self):
@@ -167,13 +71,7 @@ class CurveLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveLinear.coefficient1_constant`'.format(value))
-        self._data["Coefficient1 Constant"] = value
+        self["Coefficient1 Constant"] = value
 
     @property
     def coefficient2_x(self):
@@ -196,13 +94,7 @@ class CurveLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveLinear.coefficient2_x`'.format(value))
-        self._data["Coefficient2 x"] = value
+        self["Coefficient2 x"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -226,13 +118,7 @@ class CurveLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveLinear.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -256,13 +142,7 @@ class CurveLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveLinear.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_curve_output(self):
@@ -287,13 +167,7 @@ class CurveLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveLinear.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -318,13 +192,7 @@ class CurveLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveLinear.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -341,14 +209,6 @@ class CurveLinear(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - Pressure
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -356,51 +216,7 @@ class CurveLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveLinear.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveLinear.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveLinear.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["pressure"] = "Pressure"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveLinear.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveLinear.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X"] = value
+        self["Input Unit Type for X"] = value
 
     @property
     def output_unit_type(self):
@@ -417,10 +233,6 @@ class CurveLinear(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -428,131 +240,10 @@ class CurveLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveLinear.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveLinear.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveLinear.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveLinear.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveLinear.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveLinear:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveLinear:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveLinear: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveLinear: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveQuadLinear(object):
+class CurveQuadLinear(DataObject):
     """ Corresponds to IDD object `Curve:QuadLinear`
         Linear curve with four independent variables.
         Input for the linear curve consists of a curve name, the two coefficients, and the
@@ -560,191 +251,16 @@ class CurveQuadLinear(object):
         minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*w + C3*x + C4*y + C5*z
     """
-    internal_name = "Curve:QuadLinear"
-    field_count = 20
-    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 w", "Coefficient3 x", "Coefficient4 y", "Coefficient5 z", "Minimum Value of w", "Maximum Value of w", "Minimum Value of x", "Maximum Value of x", "Minimum Value of y", "Maximum Value of y", "Minimum Value of z", "Maximum Value of z"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:QuadLinear', 'pyname': u'CurveQuadLinear', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 w', {'name': u'Coefficient2 w', 'pyname': u'coefficient2_w', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x', {'name': u'Coefficient3 x', 'pyname': u'coefficient3_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 z', {'name': u'Coefficient5 z', 'pyname': u'coefficient5_z', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of w', {'name': u'Minimum Value of w', 'pyname': u'minimum_value_of_w', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of w', {'name': u'Maximum Value of w', 'pyname': u'maximum_value_of_w', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of z', {'name': u'Minimum Value of z', 'pyname': u'minimum_value_of_z', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of z', {'name': u'Maximum Value of z', 'pyname': u'maximum_value_of_z', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for w', {'name': u'Input Unit Type for w', 'pyname': u'input_unit_type_for_w', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for z', {'name': u'Input Unit Type for z', 'pyname': u'input_unit_type_for_z', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:QuadLinear`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 Constant"] = None
-        self._data["Coefficient2 w"] = None
-        self._data["Coefficient3 x"] = None
-        self._data["Coefficient4 y"] = None
-        self._data["Coefficient5 z"] = None
-        self._data["Minimum Value of w"] = None
-        self._data["Maximum Value of w"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Value of y"] = None
-        self._data["Maximum Value of y"] = None
-        self._data["Minimum Value of z"] = None
-        self._data["Maximum Value of z"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for w"] = None
-        self._data["Input Unit Type for x"] = None
-        self._data["Input Unit Type for y"] = None
-        self._data["Input Unit Type for z"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_constant = None
-        else:
-            self.coefficient1_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_w = None
-        else:
-            self.coefficient2_w = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_x = None
-        else:
-            self.coefficient3_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient4_y = None
-        else:
-            self.coefficient4_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient5_z = None
-        else:
-            self.coefficient5_z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_w = None
-        else:
-            self.minimum_value_of_w = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_w = None
-        else:
-            self.maximum_value_of_w = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_y = None
-        else:
-            self.minimum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_y = None
-        else:
-            self.maximum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_z = None
-        else:
-            self.minimum_value_of_z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_z = None
-        else:
-            self.maximum_value_of_z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_w = None
-        else:
-            self.input_unit_type_for_w = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_y = None
-        else:
-            self.input_unit_type_for_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_z = None
-        else:
-            self.input_unit_type_for_z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -767,19 +283,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadLinear.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadLinear.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadLinear.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_constant(self):
@@ -802,13 +306,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.coefficient1_constant`'.format(value))
-        self._data["Coefficient1 Constant"] = value
+        self["Coefficient1 Constant"] = value
 
     @property
     def coefficient2_w(self):
@@ -831,13 +329,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.coefficient2_w`'.format(value))
-        self._data["Coefficient2 w"] = value
+        self["Coefficient2 w"] = value
 
     @property
     def coefficient3_x(self):
@@ -860,13 +352,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.coefficient3_x`'.format(value))
-        self._data["Coefficient3 x"] = value
+        self["Coefficient3 x"] = value
 
     @property
     def coefficient4_y(self):
@@ -889,13 +375,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.coefficient4_y`'.format(value))
-        self._data["Coefficient4 y"] = value
+        self["Coefficient4 y"] = value
 
     @property
     def coefficient5_z(self):
@@ -918,13 +398,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.coefficient5_z`'.format(value))
-        self._data["Coefficient5 z"] = value
+        self["Coefficient5 z"] = value
 
     @property
     def minimum_value_of_w(self):
@@ -948,13 +422,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.minimum_value_of_w`'.format(value))
-        self._data["Minimum Value of w"] = value
+        self["Minimum Value of w"] = value
 
     @property
     def maximum_value_of_w(self):
@@ -978,13 +446,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.maximum_value_of_w`'.format(value))
-        self._data["Maximum Value of w"] = value
+        self["Maximum Value of w"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -1008,13 +470,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -1038,13 +494,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_value_of_y(self):
@@ -1068,13 +518,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.minimum_value_of_y`'.format(value))
-        self._data["Minimum Value of y"] = value
+        self["Minimum Value of y"] = value
 
     @property
     def maximum_value_of_y(self):
@@ -1098,13 +542,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.maximum_value_of_y`'.format(value))
-        self._data["Maximum Value of y"] = value
+        self["Maximum Value of y"] = value
 
     @property
     def minimum_value_of_z(self):
@@ -1128,13 +566,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.minimum_value_of_z`'.format(value))
-        self._data["Minimum Value of z"] = value
+        self["Minimum Value of z"] = value
 
     @property
     def maximum_value_of_z(self):
@@ -1158,13 +590,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.maximum_value_of_z`'.format(value))
-        self._data["Maximum Value of z"] = value
+        self["Maximum Value of z"] = value
 
     @property
     def minimum_curve_output(self):
@@ -1189,13 +615,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -1220,13 +640,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadLinear.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_w(self):
@@ -1243,14 +657,6 @@ class CurveQuadLinear(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for w`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
-                      - VolumetricFlowPerPower
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1258,51 +664,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadLinear.input_unit_type_for_w`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadLinear.input_unit_type_for_w`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadLinear.input_unit_type_for_w`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            vals["volumetricflowperpower"] = "VolumetricFlowPerPower"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveQuadLinear.input_unit_type_for_w`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveQuadLinear.input_unit_type_for_w`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for w"] = value
+        self["Input Unit Type for w"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -1319,14 +681,6 @@ class CurveQuadLinear(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
-                      - VolumetricFlowPerPower
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1334,51 +688,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadLinear.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadLinear.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadLinear.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            vals["volumetricflowperpower"] = "VolumetricFlowPerPower"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveQuadLinear.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveQuadLinear.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for x"] = value
+        self["Input Unit Type for x"] = value
 
     @property
     def input_unit_type_for_y(self):
@@ -1395,14 +705,6 @@ class CurveQuadLinear(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for y`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
-                      - VolumetricFlowPerPower
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1410,51 +712,7 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadLinear.input_unit_type_for_y`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadLinear.input_unit_type_for_y`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadLinear.input_unit_type_for_y`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            vals["volumetricflowperpower"] = "VolumetricFlowPerPower"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveQuadLinear.input_unit_type_for_y`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveQuadLinear.input_unit_type_for_y`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for y"] = value
+        self["Input Unit Type for y"] = value
 
     @property
     def input_unit_type_for_z(self):
@@ -1471,14 +729,6 @@ class CurveQuadLinear(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for z`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
-                      - VolumetricFlowPerPower
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1486,135 +736,10 @@ class CurveQuadLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadLinear.input_unit_type_for_z`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadLinear.input_unit_type_for_z`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadLinear.input_unit_type_for_z`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            vals["volumetricflowperpower"] = "VolumetricFlowPerPower"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveQuadLinear.input_unit_type_for_z`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveQuadLinear.input_unit_type_for_z`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for z"] = value
+        self["Input Unit Type for z"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveQuadLinear:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveQuadLinear:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveQuadLinear: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveQuadLinear: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveQuadratic(object):
+class CurveQuadratic(DataObject):
     """ Corresponds to IDD object `Curve:Quadratic`
         Quadratic curve with one independent variable.
         Input for a quadratic curve consists of the curve name, the three coefficients, and
@@ -1622,111 +747,16 @@ class CurveQuadratic(object):
         minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*x + C3*x**2
     """
-    internal_name = "Curve:Quadratic"
-    field_count = 10
-    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Minimum Value of x", "Maximum Value of x"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:Quadratic', 'pyname': u'CurveQuadratic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Quadratic`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 Constant"] = None
-        self._data["Coefficient2 x"] = None
-        self._data["Coefficient3 x**2"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for X"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_constant = None
-        else:
-            self.coefficient1_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_x = None
-        else:
-            self.coefficient2_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_x2 = None
-        else:
-            self.coefficient3_x2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1749,19 +779,7 @@ class CurveQuadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadratic.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadratic.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadratic.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_constant(self):
@@ -1784,13 +802,7 @@ class CurveQuadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadratic.coefficient1_constant`'.format(value))
-        self._data["Coefficient1 Constant"] = value
+        self["Coefficient1 Constant"] = value
 
     @property
     def coefficient2_x(self):
@@ -1813,13 +825,7 @@ class CurveQuadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadratic.coefficient2_x`'.format(value))
-        self._data["Coefficient2 x"] = value
+        self["Coefficient2 x"] = value
 
     @property
     def coefficient3_x2(self):
@@ -1842,13 +848,7 @@ class CurveQuadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadratic.coefficient3_x2`'.format(value))
-        self._data["Coefficient3 x**2"] = value
+        self["Coefficient3 x**2"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -1872,13 +872,7 @@ class CurveQuadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadratic.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -1902,13 +896,7 @@ class CurveQuadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadratic.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_curve_output(self):
@@ -1933,13 +921,7 @@ class CurveQuadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadratic.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -1964,13 +946,7 @@ class CurveQuadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadratic.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -1987,13 +963,6 @@ class CurveQuadratic(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2001,50 +970,7 @@ class CurveQuadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadratic.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadratic.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadratic.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveQuadratic.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveQuadratic.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X"] = value
+        self["Input Unit Type for X"] = value
 
     @property
     def output_unit_type(self):
@@ -2061,10 +987,6 @@ class CurveQuadratic(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2072,131 +994,10 @@ class CurveQuadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadratic.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadratic.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadratic.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveQuadratic.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveQuadratic.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveQuadratic:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveQuadratic:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveQuadratic: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveQuadratic: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveCubic(object):
+class CurveCubic(DataObject):
     """ Corresponds to IDD object `Curve:Cubic`
         Cubic curve with one independent variable.
         Input for a cubic curve consists of the curve name, the 4 coefficients, and the
@@ -2204,119 +1005,16 @@ class CurveCubic(object):
         minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*x + C3*x**2 + C4*x**3
     """
-    internal_name = "Curve:Cubic"
-    field_count = 11
-    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Coefficient4 x**3", "Minimum Value of x", "Maximum Value of x"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:Cubic', 'pyname': u'CurveCubic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 x**3', {'name': u'Coefficient4 x**3', 'pyname': u'coefficient4_x3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Cubic`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 Constant"] = None
-        self._data["Coefficient2 x"] = None
-        self._data["Coefficient3 x**2"] = None
-        self._data["Coefficient4 x**3"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for X"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_constant = None
-        else:
-            self.coefficient1_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_x = None
-        else:
-            self.coefficient2_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_x2 = None
-        else:
-            self.coefficient3_x2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient4_x3 = None
-        else:
-            self.coefficient4_x3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2339,19 +1037,7 @@ class CurveCubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveCubic.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveCubic.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveCubic.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_constant(self):
@@ -2374,13 +1060,7 @@ class CurveCubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveCubic.coefficient1_constant`'.format(value))
-        self._data["Coefficient1 Constant"] = value
+        self["Coefficient1 Constant"] = value
 
     @property
     def coefficient2_x(self):
@@ -2403,13 +1083,7 @@ class CurveCubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveCubic.coefficient2_x`'.format(value))
-        self._data["Coefficient2 x"] = value
+        self["Coefficient2 x"] = value
 
     @property
     def coefficient3_x2(self):
@@ -2432,13 +1106,7 @@ class CurveCubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveCubic.coefficient3_x2`'.format(value))
-        self._data["Coefficient3 x**2"] = value
+        self["Coefficient3 x**2"] = value
 
     @property
     def coefficient4_x3(self):
@@ -2461,13 +1129,7 @@ class CurveCubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveCubic.coefficient4_x3`'.format(value))
-        self._data["Coefficient4 x**3"] = value
+        self["Coefficient4 x**3"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -2491,13 +1153,7 @@ class CurveCubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveCubic.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -2521,13 +1177,7 @@ class CurveCubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveCubic.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_curve_output(self):
@@ -2552,13 +1202,7 @@ class CurveCubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveCubic.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -2583,13 +1227,7 @@ class CurveCubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveCubic.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -2606,13 +1244,6 @@ class CurveCubic(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2620,50 +1251,7 @@ class CurveCubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveCubic.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveCubic.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveCubic.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveCubic.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveCubic.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X"] = value
+        self["Input Unit Type for X"] = value
 
     @property
     def output_unit_type(self):
@@ -2680,10 +1268,6 @@ class CurveCubic(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2691,131 +1275,10 @@ class CurveCubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveCubic.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveCubic.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveCubic.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveCubic.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveCubic.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveCubic:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveCubic:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveCubic: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveCubic: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveQuartic(object):
+class CurveQuartic(DataObject):
     """ Corresponds to IDD object `Curve:Quartic`
         Quartic (fourth order polynomial) curve with one independent variable.
         Input for a Quartic curve consists of the curve name, the
@@ -2824,127 +1287,16 @@ class CurveQuartic(object):
         output of the performance curve.
         curve = C1 + C2*x + C3*x**2 + C4*x**3 + C5*x**4
     """
-    internal_name = "Curve:Quartic"
-    field_count = 12
-    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Coefficient4 x**3", "Coefficient5 x**4", "Minimum Value of x", "Maximum Value of x"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:Quartic', 'pyname': u'CurveQuartic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 x**3', {'name': u'Coefficient4 x**3', 'pyname': u'coefficient4_x3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 x**4', {'name': u'Coefficient5 x**4', 'pyname': u'coefficient5_x4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Quartic`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 Constant"] = None
-        self._data["Coefficient2 x"] = None
-        self._data["Coefficient3 x**2"] = None
-        self._data["Coefficient4 x**3"] = None
-        self._data["Coefficient5 x**4"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for X"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_constant = None
-        else:
-            self.coefficient1_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_x = None
-        else:
-            self.coefficient2_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_x2 = None
-        else:
-            self.coefficient3_x2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient4_x3 = None
-        else:
-            self.coefficient4_x3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient5_x4 = None
-        else:
-            self.coefficient5_x4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2967,19 +1319,7 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuartic.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuartic.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuartic.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_constant(self):
@@ -3002,13 +1342,7 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuartic.coefficient1_constant`'.format(value))
-        self._data["Coefficient1 Constant"] = value
+        self["Coefficient1 Constant"] = value
 
     @property
     def coefficient2_x(self):
@@ -3031,13 +1365,7 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuartic.coefficient2_x`'.format(value))
-        self._data["Coefficient2 x"] = value
+        self["Coefficient2 x"] = value
 
     @property
     def coefficient3_x2(self):
@@ -3060,13 +1388,7 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuartic.coefficient3_x2`'.format(value))
-        self._data["Coefficient3 x**2"] = value
+        self["Coefficient3 x**2"] = value
 
     @property
     def coefficient4_x3(self):
@@ -3089,13 +1411,7 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuartic.coefficient4_x3`'.format(value))
-        self._data["Coefficient4 x**3"] = value
+        self["Coefficient4 x**3"] = value
 
     @property
     def coefficient5_x4(self):
@@ -3118,13 +1434,7 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuartic.coefficient5_x4`'.format(value))
-        self._data["Coefficient5 x**4"] = value
+        self["Coefficient5 x**4"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -3148,13 +1458,7 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuartic.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -3178,13 +1482,7 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuartic.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_curve_output(self):
@@ -3209,13 +1507,7 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuartic.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -3240,13 +1532,7 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuartic.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -3263,13 +1549,6 @@ class CurveQuartic(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3277,50 +1556,7 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuartic.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuartic.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuartic.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveQuartic.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveQuartic.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X"] = value
+        self["Input Unit Type for X"] = value
 
     @property
     def output_unit_type(self):
@@ -3337,10 +1573,6 @@ class CurveQuartic(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3348,131 +1580,10 @@ class CurveQuartic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuartic.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuartic.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuartic.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveQuartic.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveQuartic.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveQuartic:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveQuartic:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveQuartic: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveQuartic: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveExponent(object):
+class CurveExponent(DataObject):
     """ Corresponds to IDD object `Curve:Exponent`
         Exponent curve with one independent variable.
         Input for a exponent curve consists of the curve name, the 3 coefficients, and the
@@ -3481,111 +1592,16 @@ class CurveExponent(object):
         curve = C1 + C2*x**C3
         The independent variable x is raised to the C3 power, multiplied by C2, and C1 is added to the result.
     """
-    internal_name = "Curve:Exponent"
-    field_count = 10
-    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 Constant", "Coefficient3 Constant", "Minimum Value of x", "Maximum Value of x"]
-    extensible_fields = 0
-    format = None
-    min_fields = 6
-    extensible_keys = []
+    schema = {'min-fields': 6, 'name': u'Curve:Exponent', 'pyname': u'CurveExponent', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 constant', {'name': u'Coefficient2 Constant', 'pyname': u'coefficient2_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 constant', {'name': u'Coefficient3 Constant', 'pyname': u'coefficient3_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Exponent`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 Constant"] = None
-        self._data["Coefficient2 Constant"] = None
-        self._data["Coefficient3 Constant"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for X"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_constant = None
-        else:
-            self.coefficient1_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_constant = None
-        else:
-            self.coefficient2_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_constant = None
-        else:
-            self.coefficient3_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -3608,19 +1624,7 @@ class CurveExponent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveExponent.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveExponent.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveExponent.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_constant(self):
@@ -3643,13 +1647,7 @@ class CurveExponent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponent.coefficient1_constant`'.format(value))
-        self._data["Coefficient1 Constant"] = value
+        self["Coefficient1 Constant"] = value
 
     @property
     def coefficient2_constant(self):
@@ -3672,13 +1670,7 @@ class CurveExponent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponent.coefficient2_constant`'.format(value))
-        self._data["Coefficient2 Constant"] = value
+        self["Coefficient2 Constant"] = value
 
     @property
     def coefficient3_constant(self):
@@ -3701,13 +1693,7 @@ class CurveExponent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponent.coefficient3_constant`'.format(value))
-        self._data["Coefficient3 Constant"] = value
+        self["Coefficient3 Constant"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -3732,13 +1718,7 @@ class CurveExponent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponent.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -3763,13 +1743,7 @@ class CurveExponent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponent.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_curve_output(self):
@@ -3794,13 +1768,7 @@ class CurveExponent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponent.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -3825,13 +1793,7 @@ class CurveExponent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponent.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -3848,13 +1810,6 @@ class CurveExponent(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3862,50 +1817,7 @@ class CurveExponent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveExponent.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveExponent.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveExponent.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveExponent.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveExponent.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X"] = value
+        self["Input Unit Type for X"] = value
 
     @property
     def output_unit_type(self):
@@ -3922,10 +1834,6 @@ class CurveExponent(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3933,131 +1841,10 @@ class CurveExponent(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveExponent.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveExponent.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveExponent.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveExponent.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveExponent.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveExponent:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveExponent:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveExponent: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveExponent: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveBicubic(object):
+class CurveBicubic(DataObject):
     """ Corresponds to IDD object `Curve:Bicubic`
         Cubic curve with two independent variables. Input consists of the
         curve name, the ten coefficients, and the minimum and maximum values for each of
@@ -4066,191 +1853,16 @@ class CurveBicubic(object):
         curve = C1 + C2*x + C3*x**2 + C4*y + C5*y**2 + C6*x*y + C7*x**3 + C8*y**3 + C9*x**2*y
         + C10*x*y**2
     """
-    internal_name = "Curve:Bicubic"
-    field_count = 20
-    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Coefficient4 y", "Coefficient5 y**2", "Coefficient6 x*y", "Coefficient7 x**3", "Coefficient8 y**3", "Coefficient9 x**2*y", "Coefficient10 x*y**2", "Minimum Value of x", "Maximum Value of x", "Minimum Value of y", "Maximum Value of y"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:Bicubic', 'pyname': u'CurveBicubic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 y**2', {'name': u'Coefficient5 y**2', 'pyname': u'coefficient5_y2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 x*y', {'name': u'Coefficient6 x*y', 'pyname': u'coefficient6_xy', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient7 x**3', {'name': u'Coefficient7 x**3', 'pyname': u'coefficient7_x3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient8 y**3', {'name': u'Coefficient8 y**3', 'pyname': u'coefficient8_y3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient9 x**2*y', {'name': u'Coefficient9 x**2*y', 'pyname': u'coefficient9_x2y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient10 x*y**2', {'name': u'Coefficient10 x*y**2', 'pyname': u'coefficient10_xy2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Bicubic`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 Constant"] = None
-        self._data["Coefficient2 x"] = None
-        self._data["Coefficient3 x**2"] = None
-        self._data["Coefficient4 y"] = None
-        self._data["Coefficient5 y**2"] = None
-        self._data["Coefficient6 x*y"] = None
-        self._data["Coefficient7 x**3"] = None
-        self._data["Coefficient8 y**3"] = None
-        self._data["Coefficient9 x**2*y"] = None
-        self._data["Coefficient10 x*y**2"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Value of y"] = None
-        self._data["Maximum Value of y"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for X"] = None
-        self._data["Input Unit Type for Y"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_constant = None
-        else:
-            self.coefficient1_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_x = None
-        else:
-            self.coefficient2_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_x2 = None
-        else:
-            self.coefficient3_x2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient4_y = None
-        else:
-            self.coefficient4_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient5_y2 = None
-        else:
-            self.coefficient5_y2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient6_xy = None
-        else:
-            self.coefficient6_xy = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient7_x3 = None
-        else:
-            self.coefficient7_x3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient8_y3 = None
-        else:
-            self.coefficient8_y3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient9_x2y = None
-        else:
-            self.coefficient9_x2y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient10_xy2 = None
-        else:
-            self.coefficient10_xy2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_y = None
-        else:
-            self.minimum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_y = None
-        else:
-            self.maximum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_y = None
-        else:
-            self.input_unit_type_for_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -4273,19 +1885,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveBicubic.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveBicubic.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveBicubic.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_constant(self):
@@ -4308,13 +1908,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.coefficient1_constant`'.format(value))
-        self._data["Coefficient1 Constant"] = value
+        self["Coefficient1 Constant"] = value
 
     @property
     def coefficient2_x(self):
@@ -4337,13 +1931,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.coefficient2_x`'.format(value))
-        self._data["Coefficient2 x"] = value
+        self["Coefficient2 x"] = value
 
     @property
     def coefficient3_x2(self):
@@ -4366,13 +1954,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.coefficient3_x2`'.format(value))
-        self._data["Coefficient3 x**2"] = value
+        self["Coefficient3 x**2"] = value
 
     @property
     def coefficient4_y(self):
@@ -4395,13 +1977,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.coefficient4_y`'.format(value))
-        self._data["Coefficient4 y"] = value
+        self["Coefficient4 y"] = value
 
     @property
     def coefficient5_y2(self):
@@ -4424,13 +2000,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.coefficient5_y2`'.format(value))
-        self._data["Coefficient5 y**2"] = value
+        self["Coefficient5 y**2"] = value
 
     @property
     def coefficient6_xy(self):
@@ -4453,13 +2023,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.coefficient6_xy`'.format(value))
-        self._data["Coefficient6 x*y"] = value
+        self["Coefficient6 x*y"] = value
 
     @property
     def coefficient7_x3(self):
@@ -4482,13 +2046,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.coefficient7_x3`'.format(value))
-        self._data["Coefficient7 x**3"] = value
+        self["Coefficient7 x**3"] = value
 
     @property
     def coefficient8_y3(self):
@@ -4511,13 +2069,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.coefficient8_y3`'.format(value))
-        self._data["Coefficient8 y**3"] = value
+        self["Coefficient8 y**3"] = value
 
     @property
     def coefficient9_x2y(self):
@@ -4540,13 +2092,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.coefficient9_x2y`'.format(value))
-        self._data["Coefficient9 x**2*y"] = value
+        self["Coefficient9 x**2*y"] = value
 
     @property
     def coefficient10_xy2(self):
@@ -4569,13 +2115,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.coefficient10_xy2`'.format(value))
-        self._data["Coefficient10 x*y**2"] = value
+        self["Coefficient10 x*y**2"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -4599,13 +2139,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -4629,13 +2163,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_value_of_y(self):
@@ -4659,13 +2187,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.minimum_value_of_y`'.format(value))
-        self._data["Minimum Value of y"] = value
+        self["Minimum Value of y"] = value
 
     @property
     def maximum_value_of_y(self):
@@ -4689,13 +2211,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.maximum_value_of_y`'.format(value))
-        self._data["Maximum Value of y"] = value
+        self["Maximum Value of y"] = value
 
     @property
     def minimum_curve_output(self):
@@ -4720,13 +2236,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -4751,13 +2261,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBicubic.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -4774,13 +2278,6 @@ class CurveBicubic(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4788,50 +2285,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveBicubic.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveBicubic.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveBicubic.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveBicubic.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveBicubic.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X"] = value
+        self["Input Unit Type for X"] = value
 
     @property
     def input_unit_type_for_y(self):
@@ -4848,13 +2302,6 @@ class CurveBicubic(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4862,50 +2309,7 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveBicubic.input_unit_type_for_y`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveBicubic.input_unit_type_for_y`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveBicubic.input_unit_type_for_y`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveBicubic.input_unit_type_for_y`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveBicubic.input_unit_type_for_y`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for Y"] = value
+        self["Input Unit Type for Y"] = value
 
     @property
     def output_unit_type(self):
@@ -4922,10 +2326,6 @@ class CurveBicubic(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4933,131 +2333,10 @@ class CurveBicubic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveBicubic.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveBicubic.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveBicubic.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveBicubic.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveBicubic.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveBicubic:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveBicubic:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveBicubic: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveBicubic: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveBiquadratic(object):
+class CurveBiquadratic(DataObject):
     """ Corresponds to IDD object `Curve:Biquadratic`
         Quadratic curve with two independent variables. Input consists of the curve name, the
         six coefficients, and min and max values for each of the independent variables.
@@ -5065,159 +2344,16 @@ class CurveBiquadratic(object):
         output of the performance curve.
         curve = C1 + C2*x + C3*x**2 + C4*y + C5*y**2 + C6*x*y
     """
-    internal_name = "Curve:Biquadratic"
-    field_count = 16
-    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Coefficient4 y", "Coefficient5 y**2", "Coefficient6 x*y", "Minimum Value of x", "Maximum Value of x", "Minimum Value of y", "Maximum Value of y"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:Biquadratic', 'pyname': u'CurveBiquadratic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 y**2', {'name': u'Coefficient5 y**2', 'pyname': u'coefficient5_y2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 x*y', {'name': u'Coefficient6 x*y', 'pyname': u'coefficient6_xy', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Biquadratic`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 Constant"] = None
-        self._data["Coefficient2 x"] = None
-        self._data["Coefficient3 x**2"] = None
-        self._data["Coefficient4 y"] = None
-        self._data["Coefficient5 y**2"] = None
-        self._data["Coefficient6 x*y"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Value of y"] = None
-        self._data["Maximum Value of y"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for X"] = None
-        self._data["Input Unit Type for Y"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_constant = None
-        else:
-            self.coefficient1_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_x = None
-        else:
-            self.coefficient2_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_x2 = None
-        else:
-            self.coefficient3_x2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient4_y = None
-        else:
-            self.coefficient4_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient5_y2 = None
-        else:
-            self.coefficient5_y2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient6_xy = None
-        else:
-            self.coefficient6_xy = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_y = None
-        else:
-            self.minimum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_y = None
-        else:
-            self.maximum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_y = None
-        else:
-            self.input_unit_type_for_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -5240,19 +2376,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveBiquadratic.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveBiquadratic.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveBiquadratic.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_constant(self):
@@ -5275,13 +2399,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.coefficient1_constant`'.format(value))
-        self._data["Coefficient1 Constant"] = value
+        self["Coefficient1 Constant"] = value
 
     @property
     def coefficient2_x(self):
@@ -5304,13 +2422,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.coefficient2_x`'.format(value))
-        self._data["Coefficient2 x"] = value
+        self["Coefficient2 x"] = value
 
     @property
     def coefficient3_x2(self):
@@ -5333,13 +2445,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.coefficient3_x2`'.format(value))
-        self._data["Coefficient3 x**2"] = value
+        self["Coefficient3 x**2"] = value
 
     @property
     def coefficient4_y(self):
@@ -5362,13 +2468,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.coefficient4_y`'.format(value))
-        self._data["Coefficient4 y"] = value
+        self["Coefficient4 y"] = value
 
     @property
     def coefficient5_y2(self):
@@ -5391,13 +2491,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.coefficient5_y2`'.format(value))
-        self._data["Coefficient5 y**2"] = value
+        self["Coefficient5 y**2"] = value
 
     @property
     def coefficient6_xy(self):
@@ -5420,13 +2514,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.coefficient6_xy`'.format(value))
-        self._data["Coefficient6 x*y"] = value
+        self["Coefficient6 x*y"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -5450,13 +2538,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -5480,13 +2562,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_value_of_y(self):
@@ -5510,13 +2586,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.minimum_value_of_y`'.format(value))
-        self._data["Minimum Value of y"] = value
+        self["Minimum Value of y"] = value
 
     @property
     def maximum_value_of_y(self):
@@ -5540,13 +2610,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.maximum_value_of_y`'.format(value))
-        self._data["Maximum Value of y"] = value
+        self["Maximum Value of y"] = value
 
     @property
     def minimum_curve_output(self):
@@ -5571,13 +2635,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -5602,13 +2660,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveBiquadratic.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -5625,13 +2677,6 @@ class CurveBiquadratic(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5639,50 +2684,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveBiquadratic.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveBiquadratic.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveBiquadratic.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveBiquadratic.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveBiquadratic.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X"] = value
+        self["Input Unit Type for X"] = value
 
     @property
     def input_unit_type_for_y(self):
@@ -5699,13 +2701,6 @@ class CurveBiquadratic(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5713,50 +2708,7 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveBiquadratic.input_unit_type_for_y`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveBiquadratic.input_unit_type_for_y`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveBiquadratic.input_unit_type_for_y`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveBiquadratic.input_unit_type_for_y`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveBiquadratic.input_unit_type_for_y`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for Y"] = value
+        self["Input Unit Type for Y"] = value
 
     @property
     def output_unit_type(self):
@@ -5773,10 +2725,6 @@ class CurveBiquadratic(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5784,131 +2732,10 @@ class CurveBiquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveBiquadratic.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveBiquadratic.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveBiquadratic.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveBiquadratic.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveBiquadratic.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveBiquadratic:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveBiquadratic:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveBiquadratic: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveBiquadratic: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveQuadraticLinear(object):
+class CurveQuadraticLinear(DataObject):
     """ Corresponds to IDD object `Curve:QuadraticLinear`
         Quadratic-linear curve with two independent variables. Input consists of the curve
         name, the six coefficients, and min and max values for each of the independent
@@ -5916,159 +2743,16 @@ class CurveQuadraticLinear(object):
         output of the performance curve.
         curve = (C1 + C2*x + C3*x**2) + (C4 + C5*x + C6*x**2)*y
     """
-    internal_name = "Curve:QuadraticLinear"
-    field_count = 16
-    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Coefficient4 y", "Coefficient5 x*y", "Coefficient6 x**2*y", "Minimum Value of x", "Maximum Value of x", "Minimum Value of y", "Maximum Value of y"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:QuadraticLinear', 'pyname': u'CurveQuadraticLinear', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 x*y', {'name': u'Coefficient5 x*y', 'pyname': u'coefficient5_xy', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 x**2*y', {'name': u'Coefficient6 x**2*y', 'pyname': u'coefficient6_x2y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:QuadraticLinear`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 Constant"] = None
-        self._data["Coefficient2 x"] = None
-        self._data["Coefficient3 x**2"] = None
-        self._data["Coefficient4 y"] = None
-        self._data["Coefficient5 x*y"] = None
-        self._data["Coefficient6 x**2*y"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Value of y"] = None
-        self._data["Maximum Value of y"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for X"] = None
-        self._data["Input Unit Type for Y"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_constant = None
-        else:
-            self.coefficient1_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_x = None
-        else:
-            self.coefficient2_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_x2 = None
-        else:
-            self.coefficient3_x2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient4_y = None
-        else:
-            self.coefficient4_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient5_xy = None
-        else:
-            self.coefficient5_xy = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient6_x2y = None
-        else:
-            self.coefficient6_x2y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_y = None
-        else:
-            self.minimum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_y = None
-        else:
-            self.maximum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_y = None
-        else:
-            self.input_unit_type_for_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -6091,19 +2775,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadraticLinear.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadraticLinear.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadraticLinear.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_constant(self):
@@ -6126,13 +2798,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.coefficient1_constant`'.format(value))
-        self._data["Coefficient1 Constant"] = value
+        self["Coefficient1 Constant"] = value
 
     @property
     def coefficient2_x(self):
@@ -6155,13 +2821,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.coefficient2_x`'.format(value))
-        self._data["Coefficient2 x"] = value
+        self["Coefficient2 x"] = value
 
     @property
     def coefficient3_x2(self):
@@ -6184,13 +2844,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.coefficient3_x2`'.format(value))
-        self._data["Coefficient3 x**2"] = value
+        self["Coefficient3 x**2"] = value
 
     @property
     def coefficient4_y(self):
@@ -6213,13 +2867,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.coefficient4_y`'.format(value))
-        self._data["Coefficient4 y"] = value
+        self["Coefficient4 y"] = value
 
     @property
     def coefficient5_xy(self):
@@ -6242,13 +2890,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.coefficient5_xy`'.format(value))
-        self._data["Coefficient5 x*y"] = value
+        self["Coefficient5 x*y"] = value
 
     @property
     def coefficient6_x2y(self):
@@ -6271,13 +2913,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.coefficient6_x2y`'.format(value))
-        self._data["Coefficient6 x**2*y"] = value
+        self["Coefficient6 x**2*y"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -6301,13 +2937,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -6331,13 +2961,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_value_of_y(self):
@@ -6361,13 +2985,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.minimum_value_of_y`'.format(value))
-        self._data["Minimum Value of y"] = value
+        self["Minimum Value of y"] = value
 
     @property
     def maximum_value_of_y(self):
@@ -6391,13 +3009,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.maximum_value_of_y`'.format(value))
-        self._data["Maximum Value of y"] = value
+        self["Maximum Value of y"] = value
 
     @property
     def minimum_curve_output(self):
@@ -6422,13 +3034,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -6453,13 +3059,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveQuadraticLinear.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -6476,13 +3076,6 @@ class CurveQuadraticLinear(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6490,50 +3083,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadraticLinear.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadraticLinear.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadraticLinear.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveQuadraticLinear.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveQuadraticLinear.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X"] = value
+        self["Input Unit Type for X"] = value
 
     @property
     def input_unit_type_for_y(self):
@@ -6550,13 +3100,6 @@ class CurveQuadraticLinear(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6564,50 +3107,7 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadraticLinear.input_unit_type_for_y`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadraticLinear.input_unit_type_for_y`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadraticLinear.input_unit_type_for_y`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveQuadraticLinear.input_unit_type_for_y`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveQuadraticLinear.input_unit_type_for_y`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for Y"] = value
+        self["Input Unit Type for Y"] = value
 
     @property
     def output_unit_type(self):
@@ -6624,10 +3124,6 @@ class CurveQuadraticLinear(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6635,131 +3131,10 @@ class CurveQuadraticLinear(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveQuadraticLinear.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveQuadraticLinear.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveQuadraticLinear.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveQuadraticLinear.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveQuadraticLinear.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveQuadraticLinear:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveQuadraticLinear:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveQuadraticLinear: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveQuadraticLinear: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveTriquadratic(object):
+class CurveTriquadratic(DataObject):
     """ Corresponds to IDD object `Curve:Triquadratic`
         Quadratic curve with three independent variables. Input consists of the curve name,
         the twenty seven coefficients, and min and max values for each of the independent
@@ -6773,351 +3148,16 @@ class CurveTriquadratic(object):
         + a20*x**2*y**2*z + a21*x**2*y*z**2 + a22*x*y**2*z**2
         + a23*x**2*y*z + a24*x*y**2*z + a25*x*y*z**2 +a26*x*y*z
     """
-    internal_name = "Curve:Triquadratic"
-    field_count = 40
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:Triquadratic', 'pyname': u'CurveTriquadratic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x**2', {'name': u'Coefficient2 x**2', 'pyname': u'coefficient2_x2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x', {'name': u'Coefficient3 x', 'pyname': u'coefficient3_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y**2', {'name': u'Coefficient4 y**2', 'pyname': u'coefficient4_y2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 y', {'name': u'Coefficient5 y', 'pyname': u'coefficient5_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 z**2', {'name': u'Coefficient6 z**2', 'pyname': u'coefficient6_z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient7 z', {'name': u'Coefficient7 z', 'pyname': u'coefficient7_z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient8 x**2*y**2', {'name': u'Coefficient8 x**2*y**2', 'pyname': u'coefficient8_x2y2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient9 x*y', {'name': u'Coefficient9 x*y', 'pyname': u'coefficient9_xy', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient10 x*y**2', {'name': u'Coefficient10 x*y**2', 'pyname': u'coefficient10_xy2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient11 x**2*y', {'name': u'Coefficient11 x**2*y', 'pyname': u'coefficient11_x2y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient12 x**2*z**2', {'name': u'Coefficient12 x**2*z**2', 'pyname': u'coefficient12_x2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient13 x*z', {'name': u'Coefficient13 x*z', 'pyname': u'coefficient13_xz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient14 x*z**2', {'name': u'Coefficient14 x*z**2', 'pyname': u'coefficient14_xz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient15 x**2*z', {'name': u'Coefficient15 x**2*z', 'pyname': u'coefficient15_x2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient16 y**2*z**2', {'name': u'Coefficient16 y**2*z**2', 'pyname': u'coefficient16_y2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient17 y*z', {'name': u'Coefficient17 y*z', 'pyname': u'coefficient17_yz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient18 y*z**2', {'name': u'Coefficient18 y*z**2', 'pyname': u'coefficient18_yz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient19 y**2*z', {'name': u'Coefficient19 y**2*z', 'pyname': u'coefficient19_y2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient20 x**2*y**2*z**2', {'name': u'Coefficient20 x**2*y**2*z**2', 'pyname': u'coefficient20_x2y2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient21 x**2*y**2*z', {'name': u'Coefficient21 x**2*y**2*z', 'pyname': u'coefficient21_x2y2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient22 x**2*y*z**2', {'name': u'Coefficient22 x**2*y*z**2', 'pyname': u'coefficient22_x2yz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient23 x*y**2*z**2', {'name': u'Coefficient23 x*y**2*z**2', 'pyname': u'coefficient23_xy2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient24 x**2*y*z', {'name': u'Coefficient24 x**2*y*z', 'pyname': u'coefficient24_x2yz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient25 x*y**2*z', {'name': u'Coefficient25 x*y**2*z', 'pyname': u'coefficient25_xy2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient26 x*y*z**2', {'name': u'Coefficient26 x*y*z**2', 'pyname': u'coefficient26_xyz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient27 x*y*z', {'name': u'Coefficient27 x*y*z', 'pyname': u'coefficient27_xyz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of z', {'name': u'Minimum Value of z', 'pyname': u'minimum_value_of_z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of z', {'name': u'Maximum Value of z', 'pyname': u'maximum_value_of_z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for z', {'name': u'Input Unit Type for Z', 'pyname': u'input_unit_type_for_z', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Triquadratic`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 Constant"] = None
-        self._data["Coefficient2 x**2"] = None
-        self._data["Coefficient3 x"] = None
-        self._data["Coefficient4 y**2"] = None
-        self._data["Coefficient5 y"] = None
-        self._data["Coefficient6 z**2"] = None
-        self._data["Coefficient7 z"] = None
-        self._data["Coefficient8 x**2*y**2"] = None
-        self._data["Coefficient9 x*y"] = None
-        self._data["Coefficient10 x*y**2"] = None
-        self._data["Coefficient11 x**2*y"] = None
-        self._data["Coefficient12 x**2*z**2"] = None
-        self._data["Coefficient13 x*z"] = None
-        self._data["Coefficient14 x*z**2"] = None
-        self._data["Coefficient15 x**2*z"] = None
-        self._data["Coefficient16 y**2*z**2"] = None
-        self._data["Coefficient17 y*z"] = None
-        self._data["Coefficient18 y*z**2"] = None
-        self._data["Coefficient19 y**2*z"] = None
-        self._data["Coefficient20 x**2*y**2*z**2"] = None
-        self._data["Coefficient21 x**2*y**2*z"] = None
-        self._data["Coefficient22 x**2*y*z**2"] = None
-        self._data["Coefficient23 x*y**2*z**2"] = None
-        self._data["Coefficient24 x**2*y*z"] = None
-        self._data["Coefficient25 x*y**2*z"] = None
-        self._data["Coefficient26 x*y*z**2"] = None
-        self._data["Coefficient27 x*y*z"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Value of y"] = None
-        self._data["Maximum Value of y"] = None
-        self._data["Minimum Value of z"] = None
-        self._data["Maximum Value of z"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for X"] = None
-        self._data["Input Unit Type for Y"] = None
-        self._data["Input Unit Type for Z"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_constant = None
-        else:
-            self.coefficient1_constant = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_x2 = None
-        else:
-            self.coefficient2_x2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_x = None
-        else:
-            self.coefficient3_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient4_y2 = None
-        else:
-            self.coefficient4_y2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient5_y = None
-        else:
-            self.coefficient5_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient6_z2 = None
-        else:
-            self.coefficient6_z2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient7_z = None
-        else:
-            self.coefficient7_z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient8_x2y2 = None
-        else:
-            self.coefficient8_x2y2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient9_xy = None
-        else:
-            self.coefficient9_xy = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient10_xy2 = None
-        else:
-            self.coefficient10_xy2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient11_x2y = None
-        else:
-            self.coefficient11_x2y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient12_x2z2 = None
-        else:
-            self.coefficient12_x2z2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient13_xz = None
-        else:
-            self.coefficient13_xz = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient14_xz2 = None
-        else:
-            self.coefficient14_xz2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient15_x2z = None
-        else:
-            self.coefficient15_x2z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient16_y2z2 = None
-        else:
-            self.coefficient16_y2z2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient17_yz = None
-        else:
-            self.coefficient17_yz = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient18_yz2 = None
-        else:
-            self.coefficient18_yz2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient19_y2z = None
-        else:
-            self.coefficient19_y2z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient20_x2y2z2 = None
-        else:
-            self.coefficient20_x2y2z2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient21_x2y2z = None
-        else:
-            self.coefficient21_x2y2z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient22_x2yz2 = None
-        else:
-            self.coefficient22_x2yz2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient23_xy2z2 = None
-        else:
-            self.coefficient23_xy2z2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient24_x2yz = None
-        else:
-            self.coefficient24_x2yz = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient25_xy2z = None
-        else:
-            self.coefficient25_xy2z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient26_xyz2 = None
-        else:
-            self.coefficient26_xyz2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient27_xyz = None
-        else:
-            self.coefficient27_xyz = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_y = None
-        else:
-            self.minimum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_y = None
-        else:
-            self.maximum_value_of_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_z = None
-        else:
-            self.minimum_value_of_z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_z = None
-        else:
-            self.maximum_value_of_z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_y = None
-        else:
-            self.input_unit_type_for_y = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_z = None
-        else:
-            self.input_unit_type_for_z = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -7140,19 +3180,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveTriquadratic.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveTriquadratic.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveTriquadratic.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_constant(self):
@@ -7175,13 +3203,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient1_constant`'.format(value))
-        self._data["Coefficient1 Constant"] = value
+        self["Coefficient1 Constant"] = value
 
     @property
     def coefficient2_x2(self):
@@ -7204,13 +3226,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient2_x2`'.format(value))
-        self._data["Coefficient2 x**2"] = value
+        self["Coefficient2 x**2"] = value
 
     @property
     def coefficient3_x(self):
@@ -7233,13 +3249,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient3_x`'.format(value))
-        self._data["Coefficient3 x"] = value
+        self["Coefficient3 x"] = value
 
     @property
     def coefficient4_y2(self):
@@ -7262,13 +3272,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient4_y2`'.format(value))
-        self._data["Coefficient4 y**2"] = value
+        self["Coefficient4 y**2"] = value
 
     @property
     def coefficient5_y(self):
@@ -7291,13 +3295,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient5_y`'.format(value))
-        self._data["Coefficient5 y"] = value
+        self["Coefficient5 y"] = value
 
     @property
     def coefficient6_z2(self):
@@ -7320,13 +3318,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient6_z2`'.format(value))
-        self._data["Coefficient6 z**2"] = value
+        self["Coefficient6 z**2"] = value
 
     @property
     def coefficient7_z(self):
@@ -7349,13 +3341,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient7_z`'.format(value))
-        self._data["Coefficient7 z"] = value
+        self["Coefficient7 z"] = value
 
     @property
     def coefficient8_x2y2(self):
@@ -7378,13 +3364,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient8_x2y2`'.format(value))
-        self._data["Coefficient8 x**2*y**2"] = value
+        self["Coefficient8 x**2*y**2"] = value
 
     @property
     def coefficient9_xy(self):
@@ -7407,13 +3387,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient9_xy`'.format(value))
-        self._data["Coefficient9 x*y"] = value
+        self["Coefficient9 x*y"] = value
 
     @property
     def coefficient10_xy2(self):
@@ -7436,13 +3410,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient10_xy2`'.format(value))
-        self._data["Coefficient10 x*y**2"] = value
+        self["Coefficient10 x*y**2"] = value
 
     @property
     def coefficient11_x2y(self):
@@ -7465,13 +3433,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient11_x2y`'.format(value))
-        self._data["Coefficient11 x**2*y"] = value
+        self["Coefficient11 x**2*y"] = value
 
     @property
     def coefficient12_x2z2(self):
@@ -7494,13 +3456,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient12_x2z2`'.format(value))
-        self._data["Coefficient12 x**2*z**2"] = value
+        self["Coefficient12 x**2*z**2"] = value
 
     @property
     def coefficient13_xz(self):
@@ -7523,13 +3479,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient13_xz`'.format(value))
-        self._data["Coefficient13 x*z"] = value
+        self["Coefficient13 x*z"] = value
 
     @property
     def coefficient14_xz2(self):
@@ -7552,13 +3502,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient14_xz2`'.format(value))
-        self._data["Coefficient14 x*z**2"] = value
+        self["Coefficient14 x*z**2"] = value
 
     @property
     def coefficient15_x2z(self):
@@ -7581,13 +3525,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient15_x2z`'.format(value))
-        self._data["Coefficient15 x**2*z"] = value
+        self["Coefficient15 x**2*z"] = value
 
     @property
     def coefficient16_y2z2(self):
@@ -7610,13 +3548,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient16_y2z2`'.format(value))
-        self._data["Coefficient16 y**2*z**2"] = value
+        self["Coefficient16 y**2*z**2"] = value
 
     @property
     def coefficient17_yz(self):
@@ -7639,13 +3571,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient17_yz`'.format(value))
-        self._data["Coefficient17 y*z"] = value
+        self["Coefficient17 y*z"] = value
 
     @property
     def coefficient18_yz2(self):
@@ -7668,13 +3594,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient18_yz2`'.format(value))
-        self._data["Coefficient18 y*z**2"] = value
+        self["Coefficient18 y*z**2"] = value
 
     @property
     def coefficient19_y2z(self):
@@ -7697,13 +3617,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient19_y2z`'.format(value))
-        self._data["Coefficient19 y**2*z"] = value
+        self["Coefficient19 y**2*z"] = value
 
     @property
     def coefficient20_x2y2z2(self):
@@ -7726,13 +3640,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient20_x2y2z2`'.format(value))
-        self._data["Coefficient20 x**2*y**2*z**2"] = value
+        self["Coefficient20 x**2*y**2*z**2"] = value
 
     @property
     def coefficient21_x2y2z(self):
@@ -7755,13 +3663,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient21_x2y2z`'.format(value))
-        self._data["Coefficient21 x**2*y**2*z"] = value
+        self["Coefficient21 x**2*y**2*z"] = value
 
     @property
     def coefficient22_x2yz2(self):
@@ -7784,13 +3686,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient22_x2yz2`'.format(value))
-        self._data["Coefficient22 x**2*y*z**2"] = value
+        self["Coefficient22 x**2*y*z**2"] = value
 
     @property
     def coefficient23_xy2z2(self):
@@ -7813,13 +3709,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient23_xy2z2`'.format(value))
-        self._data["Coefficient23 x*y**2*z**2"] = value
+        self["Coefficient23 x*y**2*z**2"] = value
 
     @property
     def coefficient24_x2yz(self):
@@ -7842,13 +3732,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient24_x2yz`'.format(value))
-        self._data["Coefficient24 x**2*y*z"] = value
+        self["Coefficient24 x**2*y*z"] = value
 
     @property
     def coefficient25_xy2z(self):
@@ -7871,13 +3755,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient25_xy2z`'.format(value))
-        self._data["Coefficient25 x*y**2*z"] = value
+        self["Coefficient25 x*y**2*z"] = value
 
     @property
     def coefficient26_xyz2(self):
@@ -7900,13 +3778,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient26_xyz2`'.format(value))
-        self._data["Coefficient26 x*y*z**2"] = value
+        self["Coefficient26 x*y*z**2"] = value
 
     @property
     def coefficient27_xyz(self):
@@ -7929,13 +3801,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.coefficient27_xyz`'.format(value))
-        self._data["Coefficient27 x*y*z"] = value
+        self["Coefficient27 x*y*z"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -7959,13 +3825,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -7989,13 +3849,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_value_of_y(self):
@@ -8019,13 +3873,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.minimum_value_of_y`'.format(value))
-        self._data["Minimum Value of y"] = value
+        self["Minimum Value of y"] = value
 
     @property
     def maximum_value_of_y(self):
@@ -8049,13 +3897,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.maximum_value_of_y`'.format(value))
-        self._data["Maximum Value of y"] = value
+        self["Maximum Value of y"] = value
 
     @property
     def minimum_value_of_z(self):
@@ -8079,13 +3921,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.minimum_value_of_z`'.format(value))
-        self._data["Minimum Value of z"] = value
+        self["Minimum Value of z"] = value
 
     @property
     def maximum_value_of_z(self):
@@ -8109,13 +3945,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.maximum_value_of_z`'.format(value))
-        self._data["Maximum Value of z"] = value
+        self["Maximum Value of z"] = value
 
     @property
     def minimum_curve_output(self):
@@ -8140,13 +3970,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -8171,13 +3995,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveTriquadratic.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -8194,13 +4012,6 @@ class CurveTriquadratic(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8208,50 +4019,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveTriquadratic.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveTriquadratic.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveTriquadratic.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveTriquadratic.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveTriquadratic.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for X"] = value
+        self["Input Unit Type for X"] = value
 
     @property
     def input_unit_type_for_y(self):
@@ -8268,13 +4036,6 @@ class CurveTriquadratic(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8282,50 +4043,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveTriquadratic.input_unit_type_for_y`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveTriquadratic.input_unit_type_for_y`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveTriquadratic.input_unit_type_for_y`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveTriquadratic.input_unit_type_for_y`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveTriquadratic.input_unit_type_for_y`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for Y"] = value
+        self["Input Unit Type for Y"] = value
 
     @property
     def input_unit_type_for_z(self):
@@ -8342,13 +4060,6 @@ class CurveTriquadratic(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Z`
-                Accepted values are:
-                      - Dimensionless
-                      - Temperature
-                      - VolumetricFlow
-                      - MassFlow
-                      - Power
-                      - Distance
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8356,50 +4067,7 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveTriquadratic.input_unit_type_for_z`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveTriquadratic.input_unit_type_for_z`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveTriquadratic.input_unit_type_for_z`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["massflow"] = "MassFlow"
-            vals["power"] = "Power"
-            vals["distance"] = "Distance"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveTriquadratic.input_unit_type_for_z`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveTriquadratic.input_unit_type_for_z`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for Z"] = value
+        self["Input Unit Type for Z"] = value
 
     @property
     def output_unit_type(self):
@@ -8416,10 +4084,6 @@ class CurveTriquadratic(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
-                      - Capacity
-                      - Power
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8427,209 +4091,25 @@ class CurveTriquadratic(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveTriquadratic.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveTriquadratic.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveTriquadratic.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            vals["capacity"] = "Capacity"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveTriquadratic.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveTriquadratic.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveTriquadratic:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveTriquadratic:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveTriquadratic: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveTriquadratic: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveFunctionalPressureDrop(object):
+class CurveFunctionalPressureDrop(DataObject):
     """ Corresponds to IDD object `Curve:Functional:PressureDrop`
         Sets up curve information for minor loss and/or friction
         calculations in plant pressure simulations
         Expression: DeltaP = {K + f*(L/D)} * (rho * V^2) / 2
     """
-    internal_name = "Curve:Functional:PressureDrop"
-    field_count = 6
-    required_fields = ["Name", "Diameter"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'Curve:Functional:PressureDrop', 'pyname': u'CurveFunctionalPressureDrop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'diameter', {'name': u'Diameter', 'pyname': u'diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'minor loss coefficient', {'name': u'Minor Loss Coefficient', 'pyname': u'minor_loss_coefficient', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'length', {'name': u'Length', 'pyname': u'length', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'roughness', {'name': u'Roughness', 'pyname': u'roughness', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fixed friction factor', {'name': u'Fixed Friction Factor', 'pyname': u'fixed_friction_factor', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Functional:PressureDrop`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Diameter"] = None
-        self._data["Minor Loss Coefficient"] = None
-        self._data["Length"] = None
-        self._data["Roughness"] = None
-        self._data["Fixed Friction Factor"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.diameter = None
-        else:
-            self.diameter = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minor_loss_coefficient = None
-        else:
-            self.minor_loss_coefficient = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.length = None
-        else:
-            self.length = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.roughness = None
-        else:
-            self.roughness = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fixed_friction_factor = None
-        else:
-            self.fixed_friction_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -8652,19 +4132,7 @@ class CurveFunctionalPressureDrop(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveFunctionalPressureDrop.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveFunctionalPressureDrop.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveFunctionalPressureDrop.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def diameter(self):
@@ -8683,23 +4151,13 @@ class CurveFunctionalPressureDrop(object):
         Args:
             value (float): value for IDD Field `Diameter`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFunctionalPressureDrop.diameter`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `CurveFunctionalPressureDrop.diameter`')
-        self._data["Diameter"] = value
+        self["Diameter"] = value
 
     @property
     def minor_loss_coefficient(self):
@@ -8718,23 +4176,13 @@ class CurveFunctionalPressureDrop(object):
         Args:
             value (float): value for IDD Field `Minor Loss Coefficient`
                 Units: dimensionless
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFunctionalPressureDrop.minor_loss_coefficient`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `CurveFunctionalPressureDrop.minor_loss_coefficient`')
-        self._data["Minor Loss Coefficient"] = value
+        self["Minor Loss Coefficient"] = value
 
     @property
     def length(self):
@@ -8753,23 +4201,13 @@ class CurveFunctionalPressureDrop(object):
         Args:
             value (float): value for IDD Field `Length`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFunctionalPressureDrop.length`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `CurveFunctionalPressureDrop.length`')
-        self._data["Length"] = value
+        self["Length"] = value
 
     @property
     def roughness(self):
@@ -8788,23 +4226,13 @@ class CurveFunctionalPressureDrop(object):
         Args:
             value (float): value for IDD Field `Roughness`
                 Units: m
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFunctionalPressureDrop.roughness`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `CurveFunctionalPressureDrop.roughness`')
-        self._data["Roughness"] = value
+        self["Roughness"] = value
 
     @property
     def fixed_friction_factor(self):
@@ -8823,107 +4251,16 @@ class CurveFunctionalPressureDrop(object):
 
         Args:
             value (float): value for IDD Field `Fixed Friction Factor`
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFunctionalPressureDrop.fixed_friction_factor`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `CurveFunctionalPressureDrop.fixed_friction_factor`')
-        self._data["Fixed Friction Factor"] = value
+        self["Fixed Friction Factor"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveFunctionalPressureDrop:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveFunctionalPressureDrop:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveFunctionalPressureDrop: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveFunctionalPressureDrop: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveFanPressureRise(object):
+class CurveFanPressureRise(DataObject):
     """ Corresponds to IDD object `Curve:FanPressureRise`
         Special curve type with two independent variables.
         Input for the fan total pressure rise curve consists of the curve name, the four
@@ -8934,119 +4271,16 @@ class CurveFanPressureRise(object):
         Po assumed to be zero
         See InputOut Reference for curve details
     """
-    internal_name = "Curve:FanPressureRise"
-    field_count = 11
-    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Coefficient4 C4", "Minimum Value of Qfan", "Maximum Value of Qfan", "Minimum Value of Psm", "Maximum Value of Psm"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:FanPressureRise', 'pyname': u'CurveFanPressureRise', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 c4', {'name': u'Coefficient4 C4', 'pyname': u'coefficient4_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of qfan', {'name': u'Minimum Value of Qfan', 'pyname': u'minimum_value_of_qfan', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum value of qfan', {'name': u'Maximum Value of Qfan', 'pyname': u'maximum_value_of_qfan', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum value of psm', {'name': u'Minimum Value of Psm', 'pyname': u'minimum_value_of_psm', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'maximum value of psm', {'name': u'Maximum Value of Psm', 'pyname': u'maximum_value_of_psm', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:FanPressureRise`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 C1"] = None
-        self._data["Coefficient2 C2"] = None
-        self._data["Coefficient3 C3"] = None
-        self._data["Coefficient4 C4"] = None
-        self._data["Minimum Value of Qfan"] = None
-        self._data["Maximum Value of Qfan"] = None
-        self._data["Minimum Value of Psm"] = None
-        self._data["Maximum Value of Psm"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_c1 = None
-        else:
-            self.coefficient1_c1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_c2 = None
-        else:
-            self.coefficient2_c2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_c3 = None
-        else:
-            self.coefficient3_c3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient4_c4 = None
-        else:
-            self.coefficient4_c4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_qfan = None
-        else:
-            self.minimum_value_of_qfan = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_qfan = None
-        else:
-            self.maximum_value_of_qfan = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_psm = None
-        else:
-            self.minimum_value_of_psm = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_psm = None
-        else:
-            self.maximum_value_of_psm = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -9069,19 +4303,7 @@ class CurveFanPressureRise(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveFanPressureRise.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveFanPressureRise.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveFanPressureRise.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_c1(self):
@@ -9104,13 +4326,7 @@ class CurveFanPressureRise(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFanPressureRise.coefficient1_c1`'.format(value))
-        self._data["Coefficient1 C1"] = value
+        self["Coefficient1 C1"] = value
 
     @property
     def coefficient2_c2(self):
@@ -9133,13 +4349,7 @@ class CurveFanPressureRise(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFanPressureRise.coefficient2_c2`'.format(value))
-        self._data["Coefficient2 C2"] = value
+        self["Coefficient2 C2"] = value
 
     @property
     def coefficient3_c3(self):
@@ -9162,13 +4372,7 @@ class CurveFanPressureRise(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFanPressureRise.coefficient3_c3`'.format(value))
-        self._data["Coefficient3 C3"] = value
+        self["Coefficient3 C3"] = value
 
     @property
     def coefficient4_c4(self):
@@ -9191,13 +4395,7 @@ class CurveFanPressureRise(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFanPressureRise.coefficient4_c4`'.format(value))
-        self._data["Coefficient4 C4"] = value
+        self["Coefficient4 C4"] = value
 
     @property
     def minimum_value_of_qfan(self):
@@ -9221,13 +4419,7 @@ class CurveFanPressureRise(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFanPressureRise.minimum_value_of_qfan`'.format(value))
-        self._data["Minimum Value of Qfan"] = value
+        self["Minimum Value of Qfan"] = value
 
     @property
     def maximum_value_of_qfan(self):
@@ -9251,13 +4443,7 @@ class CurveFanPressureRise(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFanPressureRise.maximum_value_of_qfan`'.format(value))
-        self._data["Maximum Value of Qfan"] = value
+        self["Maximum Value of Qfan"] = value
 
     @property
     def minimum_value_of_psm(self):
@@ -9282,13 +4468,7 @@ class CurveFanPressureRise(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFanPressureRise.minimum_value_of_psm`'.format(value))
-        self._data["Minimum Value of Psm"] = value
+        self["Minimum Value of Psm"] = value
 
     @property
     def maximum_value_of_psm(self):
@@ -9313,13 +4493,7 @@ class CurveFanPressureRise(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFanPressureRise.maximum_value_of_psm`'.format(value))
-        self._data["Maximum Value of Psm"] = value
+        self["Maximum Value of Psm"] = value
 
     @property
     def minimum_curve_output(self):
@@ -9345,13 +4519,7 @@ class CurveFanPressureRise(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFanPressureRise.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -9377,97 +4545,10 @@ class CurveFanPressureRise(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveFanPressureRise.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveFanPressureRise:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveFanPressureRise:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveFanPressureRise: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveFanPressureRise: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveExponentialSkewNormal(object):
+class CurveExponentialSkewNormal(DataObject):
     """ Corresponds to IDD object `Curve:ExponentialSkewNormal`
         Exponential-modified skew normal curve with one independent variable.
         Input consists of the curve name, the four coefficients, and the maximum
@@ -9475,119 +4556,16 @@ class CurveExponentialSkewNormal(object):
         and maximum may be used to limit the output of the performance curve.
         curve = see Input Output Reference
     """
-    internal_name = "Curve:ExponentialSkewNormal"
-    field_count = 11
-    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Coefficient4 C4", "Minimum Value of x", "Maximum Value of x"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:ExponentialSkewNormal', 'pyname': u'CurveExponentialSkewNormal', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 c4', {'name': u'Coefficient4 C4', 'pyname': u'coefficient4_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:ExponentialSkewNormal`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 C1"] = None
-        self._data["Coefficient2 C2"] = None
-        self._data["Coefficient3 C3"] = None
-        self._data["Coefficient4 C4"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for x"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_c1 = None
-        else:
-            self.coefficient1_c1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_c2 = None
-        else:
-            self.coefficient2_c2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_c3 = None
-        else:
-            self.coefficient3_c3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient4_c4 = None
-        else:
-            self.coefficient4_c4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -9611,19 +4589,7 @@ class CurveExponentialSkewNormal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveExponentialSkewNormal.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveExponentialSkewNormal.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveExponentialSkewNormal.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_c1(self):
@@ -9646,13 +4612,7 @@ class CurveExponentialSkewNormal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialSkewNormal.coefficient1_c1`'.format(value))
-        self._data["Coefficient1 C1"] = value
+        self["Coefficient1 C1"] = value
 
     @property
     def coefficient2_c2(self):
@@ -9675,13 +4635,7 @@ class CurveExponentialSkewNormal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialSkewNormal.coefficient2_c2`'.format(value))
-        self._data["Coefficient2 C2"] = value
+        self["Coefficient2 C2"] = value
 
     @property
     def coefficient3_c3(self):
@@ -9704,13 +4658,7 @@ class CurveExponentialSkewNormal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialSkewNormal.coefficient3_c3`'.format(value))
-        self._data["Coefficient3 C3"] = value
+        self["Coefficient3 C3"] = value
 
     @property
     def coefficient4_c4(self):
@@ -9733,13 +4681,7 @@ class CurveExponentialSkewNormal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialSkewNormal.coefficient4_c4`'.format(value))
-        self._data["Coefficient4 C4"] = value
+        self["Coefficient4 C4"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -9763,13 +4705,7 @@ class CurveExponentialSkewNormal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialSkewNormal.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -9793,13 +4729,7 @@ class CurveExponentialSkewNormal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialSkewNormal.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_curve_output(self):
@@ -9824,13 +4754,7 @@ class CurveExponentialSkewNormal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialSkewNormal.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -9855,13 +4779,7 @@ class CurveExponentialSkewNormal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialSkewNormal.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -9878,8 +4796,6 @@ class CurveExponentialSkewNormal(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9887,45 +4803,7 @@ class CurveExponentialSkewNormal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveExponentialSkewNormal.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveExponentialSkewNormal.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveExponentialSkewNormal.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveExponentialSkewNormal.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveExponentialSkewNormal.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for x"] = value
+        self["Input Unit Type for x"] = value
 
     @property
     def output_unit_type(self):
@@ -9942,8 +4820,6 @@ class CurveExponentialSkewNormal(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9951,129 +4827,10 @@ class CurveExponentialSkewNormal(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveExponentialSkewNormal.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveExponentialSkewNormal.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveExponentialSkewNormal.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveExponentialSkewNormal.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveExponentialSkewNormal.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveExponentialSkewNormal:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveExponentialSkewNormal:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveExponentialSkewNormal: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveExponentialSkewNormal: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveSigmoid(object):
+class CurveSigmoid(DataObject):
     """ Corresponds to IDD object `Curve:Sigmoid`
         Sigmoid curve with one independent variable.
         Input consists of the curve name, the five coefficients, and the maximum and minimum
@@ -10081,127 +4838,16 @@ class CurveSigmoid(object):
         may be used to limit the output of the performance curve.
         curve = C1+C2/[1+exp((C3-x)/C4)]**C5
     """
-    internal_name = "Curve:Sigmoid"
-    field_count = 12
-    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Coefficient4 C4", "Coefficient5 C5", "Minimum Value of x", "Maximum Value of x"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:Sigmoid', 'pyname': u'CurveSigmoid', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 c4', {'name': u'Coefficient4 C4', 'pyname': u'coefficient4_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 c5', {'name': u'Coefficient5 C5', 'pyname': u'coefficient5_c5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Sigmoid`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 C1"] = None
-        self._data["Coefficient2 C2"] = None
-        self._data["Coefficient3 C3"] = None
-        self._data["Coefficient4 C4"] = None
-        self._data["Coefficient5 C5"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for x"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_c1 = None
-        else:
-            self.coefficient1_c1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_c2 = None
-        else:
-            self.coefficient2_c2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_c3 = None
-        else:
-            self.coefficient3_c3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient4_c4 = None
-        else:
-            self.coefficient4_c4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient5_c5 = None
-        else:
-            self.coefficient5_c5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -10225,19 +4871,7 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveSigmoid.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveSigmoid.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveSigmoid.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_c1(self):
@@ -10260,13 +4894,7 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveSigmoid.coefficient1_c1`'.format(value))
-        self._data["Coefficient1 C1"] = value
+        self["Coefficient1 C1"] = value
 
     @property
     def coefficient2_c2(self):
@@ -10289,13 +4917,7 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveSigmoid.coefficient2_c2`'.format(value))
-        self._data["Coefficient2 C2"] = value
+        self["Coefficient2 C2"] = value
 
     @property
     def coefficient3_c3(self):
@@ -10318,13 +4940,7 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveSigmoid.coefficient3_c3`'.format(value))
-        self._data["Coefficient3 C3"] = value
+        self["Coefficient3 C3"] = value
 
     @property
     def coefficient4_c4(self):
@@ -10347,13 +4963,7 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveSigmoid.coefficient4_c4`'.format(value))
-        self._data["Coefficient4 C4"] = value
+        self["Coefficient4 C4"] = value
 
     @property
     def coefficient5_c5(self):
@@ -10376,13 +4986,7 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveSigmoid.coefficient5_c5`'.format(value))
-        self._data["Coefficient5 C5"] = value
+        self["Coefficient5 C5"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -10406,13 +5010,7 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveSigmoid.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -10436,13 +5034,7 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveSigmoid.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_curve_output(self):
@@ -10467,13 +5059,7 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveSigmoid.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -10498,13 +5084,7 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveSigmoid.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -10521,8 +5101,6 @@ class CurveSigmoid(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10530,45 +5108,7 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveSigmoid.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveSigmoid.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveSigmoid.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveSigmoid.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveSigmoid.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for x"] = value
+        self["Input Unit Type for x"] = value
 
     @property
     def output_unit_type(self):
@@ -10585,8 +5125,6 @@ class CurveSigmoid(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10594,129 +5132,10 @@ class CurveSigmoid(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveSigmoid.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveSigmoid.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveSigmoid.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveSigmoid.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveSigmoid.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveSigmoid:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveSigmoid:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveSigmoid: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveSigmoid: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveRectangularHyperbola1(object):
+class CurveRectangularHyperbola1(DataObject):
     """ Corresponds to IDD object `Curve:RectangularHyperbola1`
         Rectangular hyperbola type 1 curve with one independent variable.
         Input consists of the curve name, the three coefficients, and the maximum and
@@ -10724,111 +5143,16 @@ class CurveRectangularHyperbola1(object):
         maximum may be used to limit the output of the performance curve.
         curve = ((C1*x)/(C2+x))+C3
     """
-    internal_name = "Curve:RectangularHyperbola1"
-    field_count = 10
-    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Minimum Value of x", "Maximum Value of x"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:RectangularHyperbola1', 'pyname': u'CurveRectangularHyperbola1', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:RectangularHyperbola1`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 C1"] = None
-        self._data["Coefficient2 C2"] = None
-        self._data["Coefficient3 C3"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for x"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_c1 = None
-        else:
-            self.coefficient1_c1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_c2 = None
-        else:
-            self.coefficient2_c2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_c3 = None
-        else:
-            self.coefficient3_c3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -10851,19 +5175,7 @@ class CurveRectangularHyperbola1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveRectangularHyperbola1.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveRectangularHyperbola1.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveRectangularHyperbola1.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_c1(self):
@@ -10886,13 +5198,7 @@ class CurveRectangularHyperbola1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola1.coefficient1_c1`'.format(value))
-        self._data["Coefficient1 C1"] = value
+        self["Coefficient1 C1"] = value
 
     @property
     def coefficient2_c2(self):
@@ -10915,13 +5221,7 @@ class CurveRectangularHyperbola1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola1.coefficient2_c2`'.format(value))
-        self._data["Coefficient2 C2"] = value
+        self["Coefficient2 C2"] = value
 
     @property
     def coefficient3_c3(self):
@@ -10944,13 +5244,7 @@ class CurveRectangularHyperbola1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola1.coefficient3_c3`'.format(value))
-        self._data["Coefficient3 C3"] = value
+        self["Coefficient3 C3"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -10974,13 +5268,7 @@ class CurveRectangularHyperbola1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola1.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -11004,13 +5292,7 @@ class CurveRectangularHyperbola1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola1.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_curve_output(self):
@@ -11035,13 +5317,7 @@ class CurveRectangularHyperbola1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola1.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -11066,13 +5342,7 @@ class CurveRectangularHyperbola1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola1.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -11089,8 +5359,6 @@ class CurveRectangularHyperbola1(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11098,45 +5366,7 @@ class CurveRectangularHyperbola1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveRectangularHyperbola1.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveRectangularHyperbola1.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveRectangularHyperbola1.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveRectangularHyperbola1.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveRectangularHyperbola1.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for x"] = value
+        self["Input Unit Type for x"] = value
 
     @property
     def output_unit_type(self):
@@ -11153,8 +5383,6 @@ class CurveRectangularHyperbola1(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11162,129 +5390,10 @@ class CurveRectangularHyperbola1(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveRectangularHyperbola1.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveRectangularHyperbola1.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveRectangularHyperbola1.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveRectangularHyperbola1.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveRectangularHyperbola1.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveRectangularHyperbola1:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveRectangularHyperbola1:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveRectangularHyperbola1: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveRectangularHyperbola1: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveRectangularHyperbola2(object):
+class CurveRectangularHyperbola2(DataObject):
     """ Corresponds to IDD object `Curve:RectangularHyperbola2`
         Rectangular hyperbola type 2 curve with one independent variable.
         Input consists of the curve name, the three coefficients, and the maximum and
@@ -11292,111 +5401,16 @@ class CurveRectangularHyperbola2(object):
         maximum may be used to limit the output of the performance curve.
         curve = ((C1*x)/(C2+x))+(C3*x)
     """
-    internal_name = "Curve:RectangularHyperbola2"
-    field_count = 10
-    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Minimum Value of x", "Maximum Value of x"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:RectangularHyperbola2', 'pyname': u'CurveRectangularHyperbola2', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:RectangularHyperbola2`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 C1"] = None
-        self._data["Coefficient2 C2"] = None
-        self._data["Coefficient3 C3"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for x"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_c1 = None
-        else:
-            self.coefficient1_c1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_c2 = None
-        else:
-            self.coefficient2_c2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_c3 = None
-        else:
-            self.coefficient3_c3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -11419,19 +5433,7 @@ class CurveRectangularHyperbola2(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveRectangularHyperbola2.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveRectangularHyperbola2.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveRectangularHyperbola2.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_c1(self):
@@ -11454,13 +5456,7 @@ class CurveRectangularHyperbola2(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola2.coefficient1_c1`'.format(value))
-        self._data["Coefficient1 C1"] = value
+        self["Coefficient1 C1"] = value
 
     @property
     def coefficient2_c2(self):
@@ -11483,13 +5479,7 @@ class CurveRectangularHyperbola2(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola2.coefficient2_c2`'.format(value))
-        self._data["Coefficient2 C2"] = value
+        self["Coefficient2 C2"] = value
 
     @property
     def coefficient3_c3(self):
@@ -11512,13 +5502,7 @@ class CurveRectangularHyperbola2(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola2.coefficient3_c3`'.format(value))
-        self._data["Coefficient3 C3"] = value
+        self["Coefficient3 C3"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -11542,13 +5526,7 @@ class CurveRectangularHyperbola2(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola2.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -11572,13 +5550,7 @@ class CurveRectangularHyperbola2(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola2.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_curve_output(self):
@@ -11603,13 +5575,7 @@ class CurveRectangularHyperbola2(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola2.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -11634,13 +5600,7 @@ class CurveRectangularHyperbola2(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveRectangularHyperbola2.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -11657,8 +5617,6 @@ class CurveRectangularHyperbola2(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11666,45 +5624,7 @@ class CurveRectangularHyperbola2(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveRectangularHyperbola2.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveRectangularHyperbola2.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveRectangularHyperbola2.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveRectangularHyperbola2.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveRectangularHyperbola2.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for x"] = value
+        self["Input Unit Type for x"] = value
 
     @property
     def output_unit_type(self):
@@ -11721,8 +5641,6 @@ class CurveRectangularHyperbola2(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11730,129 +5648,10 @@ class CurveRectangularHyperbola2(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveRectangularHyperbola2.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveRectangularHyperbola2.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveRectangularHyperbola2.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveRectangularHyperbola2.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveRectangularHyperbola2.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveRectangularHyperbola2:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveRectangularHyperbola2:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveRectangularHyperbola2: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveRectangularHyperbola2: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveExponentialDecay(object):
+class CurveExponentialDecay(DataObject):
     """ Corresponds to IDD object `Curve:ExponentialDecay`
         Exponential decay curve with one independent variable.
         Input consists of the curve name, the three coefficients, and the maximum and minimum
@@ -11860,111 +5659,16 @@ class CurveExponentialDecay(object):
         maximum may be used to limit the output of the performance curve.
         curve = C1+C2*exp(C3*x)
     """
-    internal_name = "Curve:ExponentialDecay"
-    field_count = 10
-    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Minimum Value of x", "Maximum Value of x"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:ExponentialDecay', 'pyname': u'CurveExponentialDecay', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:ExponentialDecay`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 C1"] = None
-        self._data["Coefficient2 C2"] = None
-        self._data["Coefficient3 C3"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for x"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_c1 = None
-        else:
-            self.coefficient1_c1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_c2 = None
-        else:
-            self.coefficient2_c2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_c3 = None
-        else:
-            self.coefficient3_c3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -11987,19 +5691,7 @@ class CurveExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveExponentialDecay.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveExponentialDecay.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveExponentialDecay.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_c1(self):
@@ -12022,13 +5714,7 @@ class CurveExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialDecay.coefficient1_c1`'.format(value))
-        self._data["Coefficient1 C1"] = value
+        self["Coefficient1 C1"] = value
 
     @property
     def coefficient2_c2(self):
@@ -12051,13 +5737,7 @@ class CurveExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialDecay.coefficient2_c2`'.format(value))
-        self._data["Coefficient2 C2"] = value
+        self["Coefficient2 C2"] = value
 
     @property
     def coefficient3_c3(self):
@@ -12080,13 +5760,7 @@ class CurveExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialDecay.coefficient3_c3`'.format(value))
-        self._data["Coefficient3 C3"] = value
+        self["Coefficient3 C3"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -12110,13 +5784,7 @@ class CurveExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialDecay.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -12140,13 +5808,7 @@ class CurveExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialDecay.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_curve_output(self):
@@ -12171,13 +5833,7 @@ class CurveExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialDecay.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -12202,13 +5858,7 @@ class CurveExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveExponentialDecay.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -12225,8 +5875,6 @@ class CurveExponentialDecay(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12234,45 +5882,7 @@ class CurveExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveExponentialDecay.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveExponentialDecay.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveExponentialDecay.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveExponentialDecay.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveExponentialDecay.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for x"] = value
+        self["Input Unit Type for x"] = value
 
     @property
     def output_unit_type(self):
@@ -12289,8 +5899,6 @@ class CurveExponentialDecay(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12298,129 +5906,10 @@ class CurveExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveExponentialDecay.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveExponentialDecay.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveExponentialDecay.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveExponentialDecay.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveExponentialDecay.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
+        self["Output Unit Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveExponentialDecay:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveExponentialDecay:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveExponentialDecay: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveExponentialDecay: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class CurveDoubleExponentialDecay(object):
+class CurveDoubleExponentialDecay(DataObject):
     """ Corresponds to IDD object `Curve:DoubleExponentialDecay`
         Double exponential decay curve with one independent variable.
         Input consists of the curve name, the five coefficients, and the maximum and minimum
@@ -12428,127 +5917,16 @@ class CurveDoubleExponentialDecay(object):
         maximum may be used to limit the output of the performance curve.
         curve = C1+C2*exp(C3*x)+C4*exp(C5*x)
     """
-    internal_name = "Curve:DoubleExponentialDecay"
-    field_count = 12
-    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Coefficient3 C4", "Coefficient3 C5", "Minimum Value of x", "Maximum Value of x"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Curve:DoubleExponentialDecay', 'pyname': u'CurveDoubleExponentialDecay', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c4', {'name': u'Coefficient3 C4', 'pyname': u'coefficient3_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c5', {'name': u'Coefficient3 C5', 'pyname': u'coefficient3_c5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:DoubleExponentialDecay`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Coefficient1 C1"] = None
-        self._data["Coefficient2 C2"] = None
-        self._data["Coefficient3 C3"] = None
-        self._data["Coefficient3 C4"] = None
-        self._data["Coefficient3 C5"] = None
-        self._data["Minimum Value of x"] = None
-        self._data["Maximum Value of x"] = None
-        self._data["Minimum Curve Output"] = None
-        self._data["Maximum Curve Output"] = None
-        self._data["Input Unit Type for x"] = None
-        self._data["Output Unit Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient1_c1 = None
-        else:
-            self.coefficient1_c1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient2_c2 = None
-        else:
-            self.coefficient2_c2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_c3 = None
-        else:
-            self.coefficient3_c3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_c4 = None
-        else:
-            self.coefficient3_c4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient3_c5 = None
-        else:
-            self.coefficient3_c5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_value_of_x = None
-        else:
-            self.minimum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_value_of_x = None
-        else:
-            self.maximum_value_of_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_curve_output = None
-        else:
-            self.minimum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_curve_output = None
-        else:
-            self.maximum_curve_output = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.input_unit_type_for_x = None
-        else:
-            self.input_unit_type_for_x = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.output_unit_type = None
-        else:
-            self.output_unit_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -12571,19 +5949,7 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveDoubleExponentialDecay.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveDoubleExponentialDecay.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveDoubleExponentialDecay.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def coefficient1_c1(self):
@@ -12606,13 +5972,7 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveDoubleExponentialDecay.coefficient1_c1`'.format(value))
-        self._data["Coefficient1 C1"] = value
+        self["Coefficient1 C1"] = value
 
     @property
     def coefficient2_c2(self):
@@ -12635,13 +5995,7 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveDoubleExponentialDecay.coefficient2_c2`'.format(value))
-        self._data["Coefficient2 C2"] = value
+        self["Coefficient2 C2"] = value
 
     @property
     def coefficient3_c3(self):
@@ -12664,13 +6018,7 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveDoubleExponentialDecay.coefficient3_c3`'.format(value))
-        self._data["Coefficient3 C3"] = value
+        self["Coefficient3 C3"] = value
 
     @property
     def coefficient3_c4(self):
@@ -12693,13 +6041,7 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveDoubleExponentialDecay.coefficient3_c4`'.format(value))
-        self._data["Coefficient3 C4"] = value
+        self["Coefficient3 C4"] = value
 
     @property
     def coefficient3_c5(self):
@@ -12722,13 +6064,7 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveDoubleExponentialDecay.coefficient3_c5`'.format(value))
-        self._data["Coefficient3 C5"] = value
+        self["Coefficient3 C5"] = value
 
     @property
     def minimum_value_of_x(self):
@@ -12752,13 +6088,7 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveDoubleExponentialDecay.minimum_value_of_x`'.format(value))
-        self._data["Minimum Value of x"] = value
+        self["Minimum Value of x"] = value
 
     @property
     def maximum_value_of_x(self):
@@ -12782,13 +6112,7 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveDoubleExponentialDecay.maximum_value_of_x`'.format(value))
-        self._data["Maximum Value of x"] = value
+        self["Maximum Value of x"] = value
 
     @property
     def minimum_curve_output(self):
@@ -12813,13 +6137,7 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveDoubleExponentialDecay.minimum_curve_output`'.format(value))
-        self._data["Minimum Curve Output"] = value
+        self["Minimum Curve Output"] = value
 
     @property
     def maximum_curve_output(self):
@@ -12844,13 +6162,7 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `CurveDoubleExponentialDecay.maximum_curve_output`'.format(value))
-        self._data["Maximum Curve Output"] = value
+        self["Maximum Curve Output"] = value
 
     @property
     def input_unit_type_for_x(self):
@@ -12867,8 +6179,6 @@ class CurveDoubleExponentialDecay(object):
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12876,45 +6186,7 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveDoubleExponentialDecay.input_unit_type_for_x`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveDoubleExponentialDecay.input_unit_type_for_x`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveDoubleExponentialDecay.input_unit_type_for_x`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveDoubleExponentialDecay.input_unit_type_for_x`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveDoubleExponentialDecay.input_unit_type_for_x`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Input Unit Type for x"] = value
+        self["Input Unit Type for x"] = value
 
     @property
     def output_unit_type(self):
@@ -12931,8 +6203,6 @@ class CurveDoubleExponentialDecay(object):
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
-                Accepted values are:
-                      - Dimensionless
                 Default value: Dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12940,124 +6210,4 @@ class CurveDoubleExponentialDecay(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `CurveDoubleExponentialDecay.output_unit_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `CurveDoubleExponentialDecay.output_unit_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `CurveDoubleExponentialDecay.output_unit_type`')
-            vals = {}
-            vals["dimensionless"] = "Dimensionless"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `CurveDoubleExponentialDecay.output_unit_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `CurveDoubleExponentialDecay.output_unit_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Output Unit Type"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field CurveDoubleExponentialDecay:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field CurveDoubleExponentialDecay:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for CurveDoubleExponentialDecay: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for CurveDoubleExponentialDecay: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Output Unit Type"] = value

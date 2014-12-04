@@ -1,111 +1,27 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class HumidifierSteamElectric(object):
+
+
+class HumidifierSteamElectric(DataObject):
     """ Corresponds to IDD object `Humidifier:Steam:Electric`
         Electrically heated steam humidifier with fan.
     """
-    internal_name = "Humidifier:Steam:Electric"
-    field_count = 9
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Humidifier:Steam:Electric', 'pyname': u'HumidifierSteamElectric', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated capacity', {'name': u'Rated Capacity', 'pyname': u'rated_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'rated power', {'name': u'Rated Power', 'pyname': u'rated_power', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated fan power', {'name': u'Rated Fan Power', 'pyname': u'rated_fan_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'standby power', {'name': u'Standby Power', 'pyname': u'standby_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water storage tank name', {'name': u'Water Storage Tank Name', 'pyname': u'water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Humidifier:Steam:Electric`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Rated Capacity"] = None
-        self._data["Rated Power"] = None
-        self._data["Rated Fan Power"] = None
-        self._data["Standby Power"] = None
-        self._data["Air Inlet Node Name"] = None
-        self._data["Air Outlet Node Name"] = None
-        self._data["Water Storage Tank Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_capacity = None
-        else:
-            self.rated_capacity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_power = None
-        else:
-            self.rated_power = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_fan_power = None
-        else:
-            self.rated_fan_power = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.standby_power = None
-        else:
-            self.standby_power = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_inlet_node_name = None
-        else:
-            self.air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.air_outlet_node_name = None
-        else:
-            self.air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_storage_tank_name = None
-        else:
-            self.water_storage_tank_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -128,19 +44,7 @@ class HumidifierSteamElectric(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HumidifierSteamElectric.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HumidifierSteamElectric.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HumidifierSteamElectric.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -165,19 +69,7 @@ class HumidifierSteamElectric(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HumidifierSteamElectric.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HumidifierSteamElectric.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HumidifierSteamElectric.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def rated_capacity(self):
@@ -197,23 +89,13 @@ class HumidifierSteamElectric(object):
             value (float): value for IDD Field `Rated Capacity`
                 Units: m3/s
                 IP-Units: gal/min
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HumidifierSteamElectric.rated_capacity`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HumidifierSteamElectric.rated_capacity`')
-        self._data["Rated Capacity"] = value
+        self["Rated Capacity"] = value
 
     @property
     def rated_power(self):
@@ -235,35 +117,13 @@ class HumidifierSteamElectric(object):
             value (float or "Autosize"): value for IDD Field `Rated Power`
                 Units: W
                 IP-Units: W
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value_lower = str(value).lower()
-                if value_lower == "autosize":
-                    self._data["Rated Power"] = "Autosize"
-                    return
-                if not self.strict and "auto" in value_lower:
-                    logger.warn('Accept value {} as "Autosize" '
-                                 'for field `HumidifierSteamElectric.rated_power`'.format(value))
-                    self._data["Rated Power"] = "Autosize"
-                    return
-            except ValueError:
-                pass
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float or "Autosize"'
-                                 ' for field `HumidifierSteamElectric.rated_power`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HumidifierSteamElectric.rated_power`')
-        self._data["Rated Power"] = value
+        self["Rated Power"] = value
 
     @property
     def rated_fan_power(self):
@@ -282,23 +142,13 @@ class HumidifierSteamElectric(object):
             value (float): value for IDD Field `Rated Fan Power`
                 Units: W
                 IP-Units: W
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HumidifierSteamElectric.rated_fan_power`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HumidifierSteamElectric.rated_fan_power`')
-        self._data["Rated Fan Power"] = value
+        self["Rated Fan Power"] = value
 
     @property
     def standby_power(self):
@@ -317,23 +167,13 @@ class HumidifierSteamElectric(object):
             value (float): value for IDD Field `Standby Power`
                 Units: W
                 IP-Units: W
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `HumidifierSteamElectric.standby_power`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `HumidifierSteamElectric.standby_power`')
-        self._data["Standby Power"] = value
+        self["Standby Power"] = value
 
     @property
     def air_inlet_node_name(self):
@@ -356,19 +196,7 @@ class HumidifierSteamElectric(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HumidifierSteamElectric.air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HumidifierSteamElectric.air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HumidifierSteamElectric.air_inlet_node_name`')
-        self._data["Air Inlet Node Name"] = value
+        self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
@@ -391,19 +219,7 @@ class HumidifierSteamElectric(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HumidifierSteamElectric.air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HumidifierSteamElectric.air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HumidifierSteamElectric.air_outlet_node_name`')
-        self._data["Air Outlet Node Name"] = value
+        self["Air Outlet Node Name"] = value
 
     @property
     def water_storage_tank_name(self):
@@ -426,103 +242,10 @@ class HumidifierSteamElectric(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `HumidifierSteamElectric.water_storage_tank_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `HumidifierSteamElectric.water_storage_tank_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `HumidifierSteamElectric.water_storage_tank_name`')
-        self._data["Water Storage Tank Name"] = value
+        self["Water Storage Tank Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field HumidifierSteamElectric:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field HumidifierSteamElectric:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for HumidifierSteamElectric: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for HumidifierSteamElectric: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DehumidifierDesiccantNoFans(object):
+class DehumidifierDesiccantNoFans(DataObject):
     """ Corresponds to IDD object `Dehumidifier:Desiccant:NoFans`
         This object models a solid desiccant dehumidifier. The process
         air stream is the air which is dehumidified. The regeneration air
@@ -535,231 +258,16 @@ class DehumidifierDesiccantNoFans(object):
         desiccant dehumidifier is typically used in an AirLoopHVAC:OutdoorAirSystem,
         but can also be specified in any AirLoopHVAC.
     """
-    internal_name = "Dehumidifier:Desiccant:NoFans"
-    field_count = 25
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Dehumidifier:Desiccant:NoFans', 'pyname': u'DehumidifierDesiccantNoFans', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'process air inlet node name', {'name': u'Process Air Inlet Node Name', 'pyname': u'process_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'process air outlet node name', {'name': u'Process Air Outlet Node Name', 'pyname': u'process_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration air inlet node name', {'name': u'Regeneration Air Inlet Node Name', 'pyname': u'regeneration_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration fan inlet node name', {'name': u'Regeneration Fan Inlet Node Name', 'pyname': u'regeneration_fan_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'leaving maximum humidity ratio setpoint', {'name': u'Leaving Maximum Humidity Ratio Setpoint', 'pyname': u'leaving_maximum_humidity_ratio_setpoint', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'nominal process air flow rate', {'name': u'Nominal Process Air Flow Rate', 'pyname': u'nominal_process_air_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal process air velocity', {'name': u'Nominal Process Air Velocity', 'pyname': u'nominal_process_air_velocity', 'minimum>': 0.0, 'maximum': 6.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'rotor power', {'name': u'Rotor Power', 'pyname': u'rotor_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'regeneration coil object type', {'name': u'Regeneration Coil Object Type', 'pyname': u'regeneration_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration coil name', {'name': u'Regeneration Coil Name', 'pyname': u'regeneration_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration fan object type', {'name': u'Regeneration Fan Object Type', 'pyname': u'regeneration_fan_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration fan name', {'name': u'Regeneration Fan Name', 'pyname': u'regeneration_fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'performance model type', {'name': u'Performance Model Type', 'pyname': u'performance_model_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'leaving dry-bulb function of entering dry-bulb and humidity ratio curve name', {'name': u'Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving dry-bulb function of air velocity curve name', {'name': u'Leaving Dry-Bulb Function of Air Velocity Curve Name', 'pyname': u'leaving_drybulb_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving humidity ratio function of entering dry-bulb and humidity ratio curve name', {'name': u'Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving humidity ratio function of air velocity curve name', {'name': u'Leaving Humidity Ratio Function of Air Velocity Curve Name', 'pyname': u'leaving_humidity_ratio_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration energy function of entering dry-bulb and humidity ratio curve name', {'name': u'Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration energy function of air velocity curve name', {'name': u'Regeneration Energy Function of Air Velocity Curve Name', 'pyname': u'regeneration_energy_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration velocity function of entering dry-bulb and humidity ratio curve name', {'name': u'Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration velocity function of air velocity curve name', {'name': u'Regeneration Velocity Function of Air Velocity Curve Name', 'pyname': u'regeneration_velocity_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nominal regeneration temperature', {'name': u'Nominal Regeneration Temperature', 'pyname': u'nominal_regeneration_temperature', 'maximum': 250.0, 'required-field': False, 'autosizable': False, 'minimum': 40.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Dehumidifier:Desiccant:NoFans`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Process Air Inlet Node Name"] = None
-        self._data["Process Air Outlet Node Name"] = None
-        self._data["Regeneration Air Inlet Node Name"] = None
-        self._data["Regeneration Fan Inlet Node Name"] = None
-        self._data["Control Type"] = None
-        self._data["Leaving Maximum Humidity Ratio Setpoint"] = None
-        self._data["Nominal Process Air Flow Rate"] = None
-        self._data["Nominal Process Air Velocity"] = None
-        self._data["Rotor Power"] = None
-        self._data["Regeneration Coil Object Type"] = None
-        self._data["Regeneration Coil Name"] = None
-        self._data["Regeneration Fan Object Type"] = None
-        self._data["Regeneration Fan Name"] = None
-        self._data["Performance Model Type"] = None
-        self._data["Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = None
-        self._data["Leaving Dry-Bulb Function of Air Velocity Curve Name"] = None
-        self._data["Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = None
-        self._data["Leaving Humidity Ratio Function of Air Velocity Curve Name"] = None
-        self._data["Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = None
-        self._data["Regeneration Energy Function of Air Velocity Curve Name"] = None
-        self._data["Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = None
-        self._data["Regeneration Velocity Function of Air Velocity Curve Name"] = None
-        self._data["Nominal Regeneration Temperature"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.process_air_inlet_node_name = None
-        else:
-            self.process_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.process_air_outlet_node_name = None
-        else:
-            self.process_air_outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_air_inlet_node_name = None
-        else:
-            self.regeneration_air_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_fan_inlet_node_name = None
-        else:
-            self.regeneration_fan_inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.control_type = None
-        else:
-            self.control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.leaving_maximum_humidity_ratio_setpoint = None
-        else:
-            self.leaving_maximum_humidity_ratio_setpoint = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_process_air_flow_rate = None
-        else:
-            self.nominal_process_air_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_process_air_velocity = None
-        else:
-            self.nominal_process_air_velocity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rotor_power = None
-        else:
-            self.rotor_power = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_coil_object_type = None
-        else:
-            self.regeneration_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_coil_name = None
-        else:
-            self.regeneration_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_fan_object_type = None
-        else:
-            self.regeneration_fan_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_fan_name = None
-        else:
-            self.regeneration_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.performance_model_type = None
-        else:
-            self.performance_model_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name = None
-        else:
-            self.leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.leaving_drybulb_function_of_air_velocity_curve_name = None
-        else:
-            self.leaving_drybulb_function_of_air_velocity_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name = None
-        else:
-            self.leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.leaving_humidity_ratio_function_of_air_velocity_curve_name = None
-        else:
-            self.leaving_humidity_ratio_function_of_air_velocity_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name = None
-        else:
-            self.regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_energy_function_of_air_velocity_curve_name = None
-        else:
-            self.regeneration_energy_function_of_air_velocity_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name = None
-        else:
-            self.regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_velocity_function_of_air_velocity_curve_name = None
-        else:
-            self.regeneration_velocity_function_of_air_velocity_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nominal_regeneration_temperature = None
-        else:
-            self.nominal_regeneration_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -782,19 +290,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -819,19 +315,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def process_air_inlet_node_name(self):
@@ -855,19 +339,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.process_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.process_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.process_air_inlet_node_name`')
-        self._data["Process Air Inlet Node Name"] = value
+        self["Process Air Inlet Node Name"] = value
 
     @property
     def process_air_outlet_node_name(self):
@@ -891,19 +363,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.process_air_outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.process_air_outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.process_air_outlet_node_name`')
-        self._data["Process Air Outlet Node Name"] = value
+        self["Process Air Outlet Node Name"] = value
 
     @property
     def regeneration_air_inlet_node_name(self):
@@ -928,19 +388,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.regeneration_air_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_air_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_air_inlet_node_name`')
-        self._data["Regeneration Air Inlet Node Name"] = value
+        self["Regeneration Air Inlet Node Name"] = value
 
     @property
     def regeneration_fan_inlet_node_name(self):
@@ -965,19 +413,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.regeneration_fan_inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_fan_inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_fan_inlet_node_name`')
-        self._data["Regeneration Fan Inlet Node Name"] = value
+        self["Regeneration Fan Inlet Node Name"] = value
 
     @property
     def control_type(self):
@@ -1002,55 +438,13 @@ class DehumidifierDesiccantNoFans(object):
 
         Args:
             value (str): value for IDD Field `Control Type`
-                Accepted values are:
-                      - LeavingMaximumHumidityRatioSetpoint
-                      - SystemNodeMaximumHumidityRatioSetpoint
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.control_type`')
-            vals = {}
-            vals["leavingmaximumhumidityratiosetpoint"] = "LeavingMaximumHumidityRatioSetpoint"
-            vals["systemnodemaximumhumidityratiosetpoint"] = "SystemNodeMaximumHumidityRatioSetpoint"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DehumidifierDesiccantNoFans.control_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DehumidifierDesiccantNoFans.control_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Control Type"] = value
+        self["Control Type"] = value
 
     @property
     def leaving_maximum_humidity_ratio_setpoint(self):
@@ -1076,13 +470,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DehumidifierDesiccantNoFans.leaving_maximum_humidity_ratio_setpoint`'.format(value))
-        self._data["Leaving Maximum Humidity Ratio Setpoint"] = value
+        self["Leaving Maximum Humidity Ratio Setpoint"] = value
 
     @property
     def nominal_process_air_flow_rate(self):
@@ -1101,23 +489,13 @@ class DehumidifierDesiccantNoFans(object):
         Args:
             value (float): value for IDD Field `Nominal Process Air Flow Rate`
                 Units: m3/s
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DehumidifierDesiccantNoFans.nominal_process_air_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `DehumidifierDesiccantNoFans.nominal_process_air_flow_rate`')
-        self._data["Nominal Process Air Flow Rate"] = value
+        self["Nominal Process Air Flow Rate"] = value
 
     @property
     def nominal_process_air_velocity(self):
@@ -1137,7 +515,6 @@ class DehumidifierDesiccantNoFans(object):
         Args:
             value (float): value for IDD Field `Nominal Process Air Velocity`
                 Units: m/s
-                value > 0.0
                 value <= 6.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1145,19 +522,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DehumidifierDesiccantNoFans.nominal_process_air_velocity`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `DehumidifierDesiccantNoFans.nominal_process_air_velocity`')
-            if value > 6.0:
-                raise ValueError('value need to be smaller 6.0 '
-                                 'for field `DehumidifierDesiccantNoFans.nominal_process_air_velocity`')
-        self._data["Nominal Process Air Velocity"] = value
+        self["Nominal Process Air Velocity"] = value
 
     @property
     def rotor_power(self):
@@ -1177,23 +542,13 @@ class DehumidifierDesiccantNoFans(object):
             value (float): value for IDD Field `Rotor Power`
                 Units: W
                 IP-Units: W
-                value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DehumidifierDesiccantNoFans.rotor_power`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `DehumidifierDesiccantNoFans.rotor_power`')
-        self._data["Rotor Power"] = value
+        self["Rotor Power"] = value
 
     @property
     def regeneration_coil_object_type(self):
@@ -1212,59 +567,13 @@ class DehumidifierDesiccantNoFans(object):
 
         Args:
             value (str): value for IDD Field `Regeneration Coil Object Type`
-                Accepted values are:
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Water
-                      - Coil:Heating:Steam
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.regeneration_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_coil_object_type`')
-            vals = {}
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DehumidifierDesiccantNoFans.regeneration_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DehumidifierDesiccantNoFans.regeneration_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Regeneration Coil Object Type"] = value
+        self["Regeneration Coil Object Type"] = value
 
     @property
     def regeneration_coil_name(self):
@@ -1288,19 +597,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.regeneration_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_coil_name`')
-        self._data["Regeneration Coil Name"] = value
+        self["Regeneration Coil Name"] = value
 
     @property
     def regeneration_fan_object_type(self):
@@ -1319,55 +616,13 @@ class DehumidifierDesiccantNoFans(object):
 
         Args:
             value (str): value for IDD Field `Regeneration Fan Object Type`
-                Accepted values are:
-                      - Fan:VariableVolume
-                      - Fan:ConstantVolume
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.regeneration_fan_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_fan_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_fan_object_type`')
-            vals = {}
-            vals["fan:variablevolume"] = "Fan:VariableVolume"
-            vals["fan:constantvolume"] = "Fan:ConstantVolume"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DehumidifierDesiccantNoFans.regeneration_fan_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DehumidifierDesiccantNoFans.regeneration_fan_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Regeneration Fan Object Type"] = value
+        self["Regeneration Fan Object Type"] = value
 
     @property
     def regeneration_fan_name(self):
@@ -1391,19 +646,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.regeneration_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_fan_name`')
-        self._data["Regeneration Fan Name"] = value
+        self["Regeneration Fan Name"] = value
 
     @property
     def performance_model_type(self):
@@ -1434,55 +677,13 @@ class DehumidifierDesiccantNoFans(object):
 
         Args:
             value (str): value for IDD Field `Performance Model Type`
-                Accepted values are:
-                      - Default
-                      - UserCurves
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.performance_model_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.performance_model_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.performance_model_type`')
-            vals = {}
-            vals["default"] = "Default"
-            vals["usercurves"] = "UserCurves"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DehumidifierDesiccantNoFans.performance_model_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DehumidifierDesiccantNoFans.performance_model_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Performance Model Type"] = value
+        self["Performance Model Type"] = value
 
     @property
     def leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name(self):
@@ -1511,19 +712,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name`')
-        self._data["Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
+        self["Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
 
     @property
     def leaving_drybulb_function_of_air_velocity_curve_name(self):
@@ -1551,19 +740,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.leaving_drybulb_function_of_air_velocity_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.leaving_drybulb_function_of_air_velocity_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.leaving_drybulb_function_of_air_velocity_curve_name`')
-        self._data["Leaving Dry-Bulb Function of Air Velocity Curve Name"] = value
+        self["Leaving Dry-Bulb Function of Air Velocity Curve Name"] = value
 
     @property
     def leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name(self):
@@ -1592,19 +769,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name`')
-        self._data["Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
+        self["Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
 
     @property
     def leaving_humidity_ratio_function_of_air_velocity_curve_name(self):
@@ -1632,19 +797,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.leaving_humidity_ratio_function_of_air_velocity_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.leaving_humidity_ratio_function_of_air_velocity_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.leaving_humidity_ratio_function_of_air_velocity_curve_name`')
-        self._data["Leaving Humidity Ratio Function of Air Velocity Curve Name"] = value
+        self["Leaving Humidity Ratio Function of Air Velocity Curve Name"] = value
 
     @property
     def regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name(self):
@@ -1673,19 +826,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name`')
-        self._data["Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
+        self["Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
 
     @property
     def regeneration_energy_function_of_air_velocity_curve_name(self):
@@ -1713,19 +854,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.regeneration_energy_function_of_air_velocity_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_energy_function_of_air_velocity_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_energy_function_of_air_velocity_curve_name`')
-        self._data["Regeneration Energy Function of Air Velocity Curve Name"] = value
+        self["Regeneration Energy Function of Air Velocity Curve Name"] = value
 
     @property
     def regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name(self):
@@ -1754,19 +883,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name`')
-        self._data["Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
+        self["Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
 
     @property
     def regeneration_velocity_function_of_air_velocity_curve_name(self):
@@ -1794,19 +911,7 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantNoFans.regeneration_velocity_function_of_air_velocity_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_velocity_function_of_air_velocity_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantNoFans.regeneration_velocity_function_of_air_velocity_curve_name`')
-        self._data["Regeneration Velocity Function of Air Velocity Curve Name"] = value
+        self["Regeneration Velocity Function of Air Velocity Curve Name"] = value
 
     @property
     def nominal_regeneration_temperature(self):
@@ -1835,103 +940,10 @@ class DehumidifierDesiccantNoFans(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DehumidifierDesiccantNoFans.nominal_regeneration_temperature`'.format(value))
-            if value < 40.0:
-                raise ValueError('value need to be greater or equal 40.0 '
-                                 'for field `DehumidifierDesiccantNoFans.nominal_regeneration_temperature`')
-            if value > 250.0:
-                raise ValueError('value need to be smaller 250.0 '
-                                 'for field `DehumidifierDesiccantNoFans.nominal_regeneration_temperature`')
-        self._data["Nominal Regeneration Temperature"] = value
+        self["Nominal Regeneration Temperature"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DehumidifierDesiccantNoFans:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DehumidifierDesiccantNoFans:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DehumidifierDesiccantNoFans: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DehumidifierDesiccantNoFans: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class DehumidifierDesiccantSystem(object):
+class DehumidifierDesiccantSystem(DataObject):
     """ Corresponds to IDD object `Dehumidifier:Desiccant:System`
         This compound object models a desiccant heat exchanger, an optional
         heater, and associated fans. The process air stream is the air which
@@ -1941,175 +953,16 @@ class DehumidifierDesiccantSystem(object):
         regeneration air streams. The desiccant dehumidifier is typically used
         in an AirLoopHVAC:OutdoorAirSystem, but can also be specified in any AirLoopHVAC.
     """
-    internal_name = "Dehumidifier:Desiccant:System"
-    field_count = 18
-    required_fields = ["Name", "Desiccant Heat Exchanger Object Type", "Desiccant Heat Exchanger Name", "Sensor Node Name", "Regeneration Air Fan Object Type", "Regeneration Air Fan Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 8
-    extensible_keys = []
+    schema = {'min-fields': 8, 'name': u'Dehumidifier:Desiccant:System', 'pyname': u'DehumidifierDesiccantSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'desiccant heat exchanger object type', {'name': u'Desiccant Heat Exchanger Object Type', 'pyname': u'desiccant_heat_exchanger_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'desiccant heat exchanger name', {'name': u'Desiccant Heat Exchanger Name', 'pyname': u'desiccant_heat_exchanger_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration air fan object type', {'name': u'Regeneration Air Fan Object Type', 'pyname': u'regeneration_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air fan name', {'name': u'Regeneration Air Fan Name', 'pyname': u'regeneration_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration air fan placement', {'name': u'Regeneration Air Fan Placement', 'pyname': u'regeneration_air_fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air heater object type', {'name': u'Regeneration Air Heater Object Type', 'pyname': u'regeneration_air_heater_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air heater name', {'name': u'Regeneration Air Heater Name', 'pyname': u'regeneration_air_heater_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration inlet air setpoint temperature', {'name': u'Regeneration Inlet Air Setpoint Temperature', 'pyname': u'regeneration_inlet_air_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'companion cooling coil object type', {'name': u'Companion Cooling Coil Object Type', 'pyname': u'companion_cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'companion cooling coil name', {'name': u'Companion Cooling Coil Name', 'pyname': u'companion_cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'companion cooling coil upstream of dehumidifier process inlet', {'name': u'Companion Cooling Coil Upstream of Dehumidifier Process Inlet', 'pyname': u'companion_cooling_coil_upstream_of_dehumidifier_process_inlet', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'companion coil regeneration air heating', {'name': u'Companion Coil Regeneration Air Heating', 'pyname': u'companion_coil_regeneration_air_heating', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'exhaust fan maximum flow rate', {'name': u'Exhaust Fan Maximum Flow Rate', 'pyname': u'exhaust_fan_maximum_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'exhaust fan maximum power', {'name': u'Exhaust Fan Maximum Power', 'pyname': u'exhaust_fan_maximum_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'exhaust fan power curve name', {'name': u'Exhaust Fan Power Curve Name', 'pyname': u'exhaust_fan_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Dehumidifier:Desiccant:System`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Availability Schedule Name"] = None
-        self._data["Desiccant Heat Exchanger Object Type"] = None
-        self._data["Desiccant Heat Exchanger Name"] = None
-        self._data["Sensor Node Name"] = None
-        self._data["Regeneration Air Fan Object Type"] = None
-        self._data["Regeneration Air Fan Name"] = None
-        self._data["Regeneration Air Fan Placement"] = None
-        self._data["Regeneration Air Heater Object Type"] = None
-        self._data["Regeneration Air Heater Name"] = None
-        self._data["Regeneration Inlet Air Setpoint Temperature"] = None
-        self._data["Companion Cooling Coil Object Type"] = None
-        self._data["Companion Cooling Coil Name"] = None
-        self._data["Companion Cooling Coil Upstream of Dehumidifier Process Inlet"] = None
-        self._data["Companion Coil Regeneration Air Heating"] = None
-        self._data["Exhaust Fan Maximum Flow Rate"] = None
-        self._data["Exhaust Fan Maximum Power"] = None
-        self._data["Exhaust Fan Power Curve Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.availability_schedule_name = None
-        else:
-            self.availability_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.desiccant_heat_exchanger_object_type = None
-        else:
-            self.desiccant_heat_exchanger_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.desiccant_heat_exchanger_name = None
-        else:
-            self.desiccant_heat_exchanger_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.sensor_node_name = None
-        else:
-            self.sensor_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_air_fan_object_type = None
-        else:
-            self.regeneration_air_fan_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_air_fan_name = None
-        else:
-            self.regeneration_air_fan_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_air_fan_placement = None
-        else:
-            self.regeneration_air_fan_placement = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_air_heater_object_type = None
-        else:
-            self.regeneration_air_heater_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_air_heater_name = None
-        else:
-            self.regeneration_air_heater_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.regeneration_inlet_air_setpoint_temperature = None
-        else:
-            self.regeneration_inlet_air_setpoint_temperature = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.companion_cooling_coil_object_type = None
-        else:
-            self.companion_cooling_coil_object_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.companion_cooling_coil_name = None
-        else:
-            self.companion_cooling_coil_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.companion_cooling_coil_upstream_of_dehumidifier_process_inlet = None
-        else:
-            self.companion_cooling_coil_upstream_of_dehumidifier_process_inlet = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.companion_coil_regeneration_air_heating = None
-        else:
-            self.companion_coil_regeneration_air_heating = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_fan_maximum_flow_rate = None
-        else:
-            self.exhaust_fan_maximum_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_fan_maximum_power = None
-        else:
-            self.exhaust_fan_maximum_power = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.exhaust_fan_power_curve_name = None
-        else:
-            self.exhaust_fan_power_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -2132,19 +985,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def availability_schedule_name(self):
@@ -2169,19 +1010,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.availability_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.availability_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.availability_schedule_name`')
-        self._data["Availability Schedule Name"] = value
+        self["Availability Schedule Name"] = value
 
     @property
     def desiccant_heat_exchanger_object_type(self):
@@ -2198,53 +1027,13 @@ class DehumidifierDesiccantSystem(object):
 
         Args:
             value (str): value for IDD Field `Desiccant Heat Exchanger Object Type`
-                Accepted values are:
-                      - HeatExchanger:Desiccant:BalancedFlow
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.desiccant_heat_exchanger_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.desiccant_heat_exchanger_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.desiccant_heat_exchanger_object_type`')
-            vals = {}
-            vals["heatexchanger:desiccant:balancedflow"] = "HeatExchanger:Desiccant:BalancedFlow"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DehumidifierDesiccantSystem.desiccant_heat_exchanger_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DehumidifierDesiccantSystem.desiccant_heat_exchanger_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Desiccant Heat Exchanger Object Type"] = value
+        self["Desiccant Heat Exchanger Object Type"] = value
 
     @property
     def desiccant_heat_exchanger_name(self):
@@ -2267,19 +1056,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.desiccant_heat_exchanger_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.desiccant_heat_exchanger_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.desiccant_heat_exchanger_name`')
-        self._data["Desiccant Heat Exchanger Name"] = value
+        self["Desiccant Heat Exchanger Name"] = value
 
     @property
     def sensor_node_name(self):
@@ -2302,19 +1079,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.sensor_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.sensor_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.sensor_node_name`')
-        self._data["Sensor Node Name"] = value
+        self["Sensor Node Name"] = value
 
     @property
     def regeneration_air_fan_object_type(self):
@@ -2331,55 +1096,13 @@ class DehumidifierDesiccantSystem(object):
 
         Args:
             value (str): value for IDD Field `Regeneration Air Fan Object Type`
-                Accepted values are:
-                      - Fan:OnOff
-                      - Fan:ConstantVolume
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.regeneration_air_fan_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.regeneration_air_fan_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.regeneration_air_fan_object_type`')
-            vals = {}
-            vals["fan:onoff"] = "Fan:OnOff"
-            vals["fan:constantvolume"] = "Fan:ConstantVolume"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DehumidifierDesiccantSystem.regeneration_air_fan_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DehumidifierDesiccantSystem.regeneration_air_fan_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Regeneration Air Fan Object Type"] = value
+        self["Regeneration Air Fan Object Type"] = value
 
     @property
     def regeneration_air_fan_name(self):
@@ -2402,19 +1125,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.regeneration_air_fan_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.regeneration_air_fan_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.regeneration_air_fan_name`')
-        self._data["Regeneration Air Fan Name"] = value
+        self["Regeneration Air Fan Name"] = value
 
     @property
     def regeneration_air_fan_placement(self):
@@ -2431,9 +1142,6 @@ class DehumidifierDesiccantSystem(object):
 
         Args:
             value (str): value for IDD Field `Regeneration Air Fan Placement`
-                Accepted values are:
-                      - BlowThrough
-                      - DrawThrough
                 Default value: DrawThrough
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2441,46 +1149,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.regeneration_air_fan_placement`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.regeneration_air_fan_placement`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.regeneration_air_fan_placement`')
-            vals = {}
-            vals["blowthrough"] = "BlowThrough"
-            vals["drawthrough"] = "DrawThrough"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DehumidifierDesiccantSystem.regeneration_air_fan_placement`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DehumidifierDesiccantSystem.regeneration_air_fan_placement`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Regeneration Air Fan Placement"] = value
+        self["Regeneration Air Fan Placement"] = value
 
     @property
     def regeneration_air_heater_object_type(self):
@@ -2498,59 +1167,13 @@ class DehumidifierDesiccantSystem(object):
 
         Args:
             value (str): value for IDD Field `Regeneration Air Heater Object Type`
-                Accepted values are:
-                      - Coil:Heating:Electric
-                      - Coil:Heating:Gas
-                      - Coil:Heating:Water
-                      - Coil:Heating:Steam
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.regeneration_air_heater_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.regeneration_air_heater_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.regeneration_air_heater_object_type`')
-            vals = {}
-            vals["coil:heating:electric"] = "Coil:Heating:Electric"
-            vals["coil:heating:gas"] = "Coil:Heating:Gas"
-            vals["coil:heating:water"] = "Coil:Heating:Water"
-            vals["coil:heating:steam"] = "Coil:Heating:Steam"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DehumidifierDesiccantSystem.regeneration_air_heater_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DehumidifierDesiccantSystem.regeneration_air_heater_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Regeneration Air Heater Object Type"] = value
+        self["Regeneration Air Heater Object Type"] = value
 
     @property
     def regeneration_air_heater_name(self):
@@ -2573,19 +1196,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.regeneration_air_heater_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.regeneration_air_heater_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.regeneration_air_heater_name`')
-        self._data["Regeneration Air Heater Name"] = value
+        self["Regeneration Air Heater Name"] = value
 
     @property
     def regeneration_inlet_air_setpoint_temperature(self):
@@ -2609,13 +1220,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DehumidifierDesiccantSystem.regeneration_inlet_air_setpoint_temperature`'.format(value))
-        self._data["Regeneration Inlet Air Setpoint Temperature"] = value
+        self["Regeneration Inlet Air Setpoint Temperature"] = value
 
     @property
     def companion_cooling_coil_object_type(self):
@@ -2632,55 +1237,13 @@ class DehumidifierDesiccantSystem(object):
 
         Args:
             value (str): value for IDD Field `Companion Cooling Coil Object Type`
-                Accepted values are:
-                      - Coil:Cooling:DX:SingleSpeed
-                      - Coil:Cooling:DX:TwoStageWithHumidityControlMode
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.companion_cooling_coil_object_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.companion_cooling_coil_object_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.companion_cooling_coil_object_type`')
-            vals = {}
-            vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
-            vals["coil:cooling:dx:twostagewithhumiditycontrolmode"] = "Coil:Cooling:DX:TwoStageWithHumidityControlMode"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DehumidifierDesiccantSystem.companion_cooling_coil_object_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DehumidifierDesiccantSystem.companion_cooling_coil_object_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Companion Cooling Coil Object Type"] = value
+        self["Companion Cooling Coil Object Type"] = value
 
     @property
     def companion_cooling_coil_name(self):
@@ -2703,19 +1266,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.companion_cooling_coil_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.companion_cooling_coil_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.companion_cooling_coil_name`')
-        self._data["Companion Cooling Coil Name"] = value
+        self["Companion Cooling Coil Name"] = value
 
     @property
     def companion_cooling_coil_upstream_of_dehumidifier_process_inlet(self):
@@ -2734,9 +1285,6 @@ class DehumidifierDesiccantSystem(object):
 
         Args:
             value (str): value for IDD Field `Companion Cooling Coil Upstream of Dehumidifier Process Inlet`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2744,46 +1292,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.companion_cooling_coil_upstream_of_dehumidifier_process_inlet`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.companion_cooling_coil_upstream_of_dehumidifier_process_inlet`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.companion_cooling_coil_upstream_of_dehumidifier_process_inlet`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DehumidifierDesiccantSystem.companion_cooling_coil_upstream_of_dehumidifier_process_inlet`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DehumidifierDesiccantSystem.companion_cooling_coil_upstream_of_dehumidifier_process_inlet`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Companion Cooling Coil Upstream of Dehumidifier Process Inlet"] = value
+        self["Companion Cooling Coil Upstream of Dehumidifier Process Inlet"] = value
 
     @property
     def companion_coil_regeneration_air_heating(self):
@@ -2800,9 +1309,6 @@ class DehumidifierDesiccantSystem(object):
 
         Args:
             value (str): value for IDD Field `Companion Coil Regeneration Air Heating`
-                Accepted values are:
-                      - Yes
-                      - No
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2810,46 +1316,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.companion_coil_regeneration_air_heating`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.companion_coil_regeneration_air_heating`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.companion_coil_regeneration_air_heating`')
-            vals = {}
-            vals["yes"] = "Yes"
-            vals["no"] = "No"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `DehumidifierDesiccantSystem.companion_coil_regeneration_air_heating`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `DehumidifierDesiccantSystem.companion_coil_regeneration_air_heating`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Companion Coil Regeneration Air Heating"] = value
+        self["Companion Coil Regeneration Air Heating"] = value
 
     @property
     def exhaust_fan_maximum_flow_rate(self):
@@ -2873,13 +1340,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DehumidifierDesiccantSystem.exhaust_fan_maximum_flow_rate`'.format(value))
-        self._data["Exhaust Fan Maximum Flow Rate"] = value
+        self["Exhaust Fan Maximum Flow Rate"] = value
 
     @property
     def exhaust_fan_maximum_power(self):
@@ -2903,13 +1364,7 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `DehumidifierDesiccantSystem.exhaust_fan_maximum_power`'.format(value))
-        self._data["Exhaust Fan Maximum Power"] = value
+        self["Exhaust Fan Maximum Power"] = value
 
     @property
     def exhaust_fan_power_curve_name(self):
@@ -2934,98 +1389,4 @@ class DehumidifierDesiccantSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `DehumidifierDesiccantSystem.exhaust_fan_power_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `DehumidifierDesiccantSystem.exhaust_fan_power_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `DehumidifierDesiccantSystem.exhaust_fan_power_curve_name`')
-        self._data["Exhaust Fan Power Curve Name"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field DehumidifierDesiccantSystem:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field DehumidifierDesiccantSystem:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for DehumidifierDesiccantSystem: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for DehumidifierDesiccantSystem: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Exhaust Fan Power Curve Name"] = value

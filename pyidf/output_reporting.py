@@ -1,11 +1,14 @@
 from collections import OrderedDict
 import logging
 import re
+from helper import DataObject
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
-class OutputVariableDictionary(object):
+
+
+class OutputVariableDictionary(DataObject):
     """ Corresponds to IDD object `Output:VariableDictionary`
         Produces a list summarizing the output variables and meters that are available for
         reporting for the model being simulated (rdd output file). The list varies depending
@@ -13,47 +16,16 @@ class OutputVariableDictionary(object):
         lights will only appear if a Lights object is present. The IDF option generates
         complete Output:Variable objects to simplify adding the desired output to the idf file.
     """
-    internal_name = "Output:VariableDictionary"
-    field_count = 2
-    required_fields = ["Key Field"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:VariableDictionary', 'pyname': u'OutputVariableDictionary', 'format': None, 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'default': u'regular', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'sort option', {'name': u'Sort Option', 'pyname': u'sort_option', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:VariableDictionary`
         """
         self._data = OrderedDict()
-        self._data["Key Field"] = None
-        self._data["Sort Option"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.key_field = None
-        else:
-            self.key_field = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.sort_option = None
-        else:
-            self.sort_option = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def key_field(self):
@@ -70,9 +42,6 @@ class OutputVariableDictionary(object):
 
         Args:
             value (str): value for IDD Field `Key Field`
-                Accepted values are:
-                      - IDF
-                      - regular
                 Default value: regular
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -80,46 +49,7 @@ class OutputVariableDictionary(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputVariableDictionary.key_field`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputVariableDictionary.key_field`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputVariableDictionary.key_field`')
-            vals = {}
-            vals["idf"] = "IDF"
-            vals["regular"] = "regular"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputVariableDictionary.key_field`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputVariableDictionary.key_field`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Key Field"] = value
+        self["Key Field"] = value
 
     @property
     def sort_option(self):
@@ -136,183 +66,29 @@ class OutputVariableDictionary(object):
 
         Args:
             value (str): value for IDD Field `Sort Option`
-                Accepted values are:
-                      - Name
-                      - Unsorted
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputVariableDictionary.sort_option`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputVariableDictionary.sort_option`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputVariableDictionary.sort_option`')
-            vals = {}
-            vals["name"] = "Name"
-            vals["unsorted"] = "Unsorted"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputVariableDictionary.sort_option`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputVariableDictionary.sort_option`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Sort Option"] = value
+        self["Sort Option"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputVariableDictionary:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputVariableDictionary:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputVariableDictionary: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputVariableDictionary: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputSurfacesList(object):
+class OutputSurfacesList(DataObject):
     """ Corresponds to IDD object `Output:Surfaces:List`
         Produces a report summarizing the details of surfaces in the eio output file.
     """
-    internal_name = "Output:Surfaces:List"
-    field_count = 2
-    required_fields = ["Report Type"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:Surfaces:List', 'pyname': u'OutputSurfacesList', 'format': None, 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications', {'name': u'Report Specifications', 'pyname': u'report_specifications', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Surfaces:List`
         """
         self._data = OrderedDict()
-        self._data["Report Type"] = None
-        self._data["Report Specifications"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.report_type = None
-        else:
-            self.report_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.report_specifications = None
-        else:
-            self.report_specifications = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def report_type(self):
@@ -329,65 +105,13 @@ class OutputSurfacesList(object):
 
         Args:
             value (str): value for IDD Field `Report Type`
-                Accepted values are:
-                      - Details
-                      - Vertices
-                      - DetailsWithVertices
-                      - ViewFactorInfo
-                      - Lines
-                      - CostInfo
-                      - DecayCurvesfromZoneComponentLoads
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputSurfacesList.report_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputSurfacesList.report_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputSurfacesList.report_type`')
-            vals = {}
-            vals["details"] = "Details"
-            vals["vertices"] = "Vertices"
-            vals["detailswithvertices"] = "DetailsWithVertices"
-            vals["viewfactorinfo"] = "ViewFactorInfo"
-            vals["lines"] = "Lines"
-            vals["costinfo"] = "CostInfo"
-            vals["decaycurvesfromzonecomponentloads"] = "DecayCurvesfromZoneComponentLoads"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputSurfacesList.report_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputSurfacesList.report_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Report Type"] = value
+        self["Report Type"] = value
 
     @property
     def report_specifications(self):
@@ -406,191 +130,31 @@ class OutputSurfacesList(object):
 
         Args:
             value (str): value for IDD Field `Report Specifications`
-                Accepted values are:
-                      - IDF
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputSurfacesList.report_specifications`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputSurfacesList.report_specifications`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputSurfacesList.report_specifications`')
-            vals = {}
-            vals["idf"] = "IDF"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputSurfacesList.report_specifications`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputSurfacesList.report_specifications`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Report Specifications"] = value
+        self["Report Specifications"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputSurfacesList:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputSurfacesList:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputSurfacesList: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputSurfacesList: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputSurfacesDrawing(object):
+class OutputSurfacesDrawing(DataObject):
     """ Corresponds to IDD object `Output:Surfaces:Drawing`
         Produces reports/files that are capable of rendering graphically or
         being imported into other programs. Rendering does not alter the
         actual inputs/surfaces.
     """
-    internal_name = "Output:Surfaces:Drawing"
-    field_count = 3
-    required_fields = ["Report Type"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:Surfaces:Drawing', 'pyname': u'OutputSurfacesDrawing', 'format': None, 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 1', {'name': u'Report Specifications 1', 'pyname': u'report_specifications_1', 'default': u'Triangulate3DFace', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 2', {'name': u'Report Specifications 2', 'pyname': u'report_specifications_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Surfaces:Drawing`
         """
         self._data = OrderedDict()
-        self._data["Report Type"] = None
-        self._data["Report Specifications 1"] = None
-        self._data["Report Specifications 2"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.report_type = None
-        else:
-            self.report_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.report_specifications_1 = None
-        else:
-            self.report_specifications_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.report_specifications_2 = None
-        else:
-            self.report_specifications_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def report_type(self):
@@ -607,57 +171,13 @@ class OutputSurfacesDrawing(object):
 
         Args:
             value (str): value for IDD Field `Report Type`
-                Accepted values are:
-                      - DXF
-                      - DXF:WireFrame
-                      - VRML
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputSurfacesDrawing.report_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputSurfacesDrawing.report_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputSurfacesDrawing.report_type`')
-            vals = {}
-            vals["dxf"] = "DXF"
-            vals["dxf:wireframe"] = "DXF:WireFrame"
-            vals["vrml"] = "VRML"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputSurfacesDrawing.report_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputSurfacesDrawing.report_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Report Type"] = value
+        self["Report Type"] = value
 
     @property
     def report_specifications_1(self):
@@ -676,10 +196,6 @@ class OutputSurfacesDrawing(object):
 
         Args:
             value (str): value for IDD Field `Report Specifications 1`
-                Accepted values are:
-                      - Triangulate3DFace
-                      - ThickPolyline
-                      - RegularPolyline
                 Default value: Triangulate3DFace
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -687,47 +203,7 @@ class OutputSurfacesDrawing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputSurfacesDrawing.report_specifications_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputSurfacesDrawing.report_specifications_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputSurfacesDrawing.report_specifications_1`')
-            vals = {}
-            vals["triangulate3dface"] = "Triangulate3DFace"
-            vals["thickpolyline"] = "ThickPolyline"
-            vals["regularpolyline"] = "RegularPolyline"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputSurfacesDrawing.report_specifications_1`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputSurfacesDrawing.report_specifications_1`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Report Specifications 1"] = value
+        self["Report Specifications 1"] = value
 
     @property
     def report_specifications_2(self):
@@ -751,141 +227,25 @@ class OutputSurfacesDrawing(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputSurfacesDrawing.report_specifications_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputSurfacesDrawing.report_specifications_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputSurfacesDrawing.report_specifications_2`')
-        self._data["Report Specifications 2"] = value
+        self["Report Specifications 2"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputSurfacesDrawing:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputSurfacesDrawing:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputSurfacesDrawing: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputSurfacesDrawing: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputSchedules(object):
+class OutputSchedules(DataObject):
     """ Corresponds to IDD object `Output:Schedules`
         Produces a condensed reporting that illustrates the full range of schedule values in
         the eio output file. In the style of input: DaySchedule,  WeekSchedule, and
         Annual Schedule.
     """
-    internal_name = "Output:Schedules"
-    field_count = 1
-    required_fields = ["Key Field"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:Schedules', 'pyname': u'OutputSchedules', 'format': None, 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Schedules`
         """
         self._data = OrderedDict()
-        self._data["Key Field"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.key_field = None
-        else:
-            self.key_field = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def key_field(self):
@@ -902,185 +262,31 @@ class OutputSchedules(object):
 
         Args:
             value (str): value for IDD Field `Key Field`
-                Accepted values are:
-                      - Hourly
-                      - Timestep
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputSchedules.key_field`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputSchedules.key_field`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputSchedules.key_field`')
-            vals = {}
-            vals["hourly"] = "Hourly"
-            vals["timestep"] = "Timestep"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputSchedules.key_field`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputSchedules.key_field`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Key Field"] = value
+        self["Key Field"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputSchedules:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputSchedules:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputSchedules: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputSchedules: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputConstructions(object):
+class OutputConstructions(DataObject):
     """ Corresponds to IDD object `Output:Constructions`
         Adds a report to the eio output file which shows details for each construction,
         including overall properties, a list of material layers, and calculated results
         related to conduction transfer functions.
     """
-    internal_name = "Output:Constructions"
-    field_count = 2
-    required_fields = []
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:Constructions', 'pyname': u'OutputConstructions', 'format': None, 'fields': OrderedDict([(u'details type 1', {'name': u'Details Type 1', 'pyname': u'details_type_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'details type 2', {'name': u'Details Type 2', 'pyname': u'details_type_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Constructions`
         """
         self._data = OrderedDict()
-        self._data["Details Type 1"] = None
-        self._data["Details Type 2"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.details_type_1 = None
-        else:
-            self.details_type_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.details_type_2 = None
-        else:
-            self.details_type_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def details_type_1(self):
@@ -1097,55 +303,13 @@ class OutputConstructions(object):
 
         Args:
             value (str): value for IDD Field `Details Type 1`
-                Accepted values are:
-                      - Constructions
-                      - Materials
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputConstructions.details_type_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputConstructions.details_type_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputConstructions.details_type_1`')
-            vals = {}
-            vals["constructions"] = "Constructions"
-            vals["materials"] = "Materials"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputConstructions.details_type_1`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputConstructions.details_type_1`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Details Type 1"] = value
+        self["Details Type 1"] = value
 
     @property
     def details_type_2(self):
@@ -1162,191 +326,29 @@ class OutputConstructions(object):
 
         Args:
             value (str): value for IDD Field `Details Type 2`
-                Accepted values are:
-                      - Constructions
-                      - Materials
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputConstructions.details_type_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputConstructions.details_type_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputConstructions.details_type_2`')
-            vals = {}
-            vals["constructions"] = "Constructions"
-            vals["materials"] = "Materials"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputConstructions.details_type_2`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputConstructions.details_type_2`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Details Type 2"] = value
+        self["Details Type 2"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputConstructions:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputConstructions:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputConstructions: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputConstructions: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputEnergyManagementSystem(object):
+class OutputEnergyManagementSystem(DataObject):
     """ Corresponds to IDD object `Output:EnergyManagementSystem`
         This object is used to control the output produced by the Energy Management System
     """
-    internal_name = "Output:EnergyManagementSystem"
-    field_count = 3
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:EnergyManagementSystem', 'pyname': u'OutputEnergyManagementSystem', 'format': None, 'fields': OrderedDict([(u'actuator availability dictionary reporting', {'name': u'Actuator Availability Dictionary Reporting', 'pyname': u'actuator_availability_dictionary_reporting', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'internal variable availability dictionary reporting', {'name': u'Internal Variable Availability Dictionary Reporting', 'pyname': u'internal_variable_availability_dictionary_reporting', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ems runtime language debug output level', {'name': u'EMS Runtime Language Debug Output Level', 'pyname': u'ems_runtime_language_debug_output_level', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:EnergyManagementSystem`
         """
         self._data = OrderedDict()
-        self._data["Actuator Availability Dictionary Reporting"] = None
-        self._data["Internal Variable Availability Dictionary Reporting"] = None
-        self._data["EMS Runtime Language Debug Output Level"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.actuator_availability_dictionary_reporting = None
-        else:
-            self.actuator_availability_dictionary_reporting = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.internal_variable_availability_dictionary_reporting = None
-        else:
-            self.internal_variable_availability_dictionary_reporting = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ems_runtime_language_debug_output_level = None
-        else:
-            self.ems_runtime_language_debug_output_level = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def actuator_availability_dictionary_reporting(self):
@@ -1363,10 +365,6 @@ class OutputEnergyManagementSystem(object):
 
         Args:
             value (str): value for IDD Field `Actuator Availability Dictionary Reporting`
-                Accepted values are:
-                      - None
-                      - NotByUniqueKeyNames
-                      - Verbose
                 Default value: None
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1374,47 +372,7 @@ class OutputEnergyManagementSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputEnergyManagementSystem.actuator_availability_dictionary_reporting`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputEnergyManagementSystem.actuator_availability_dictionary_reporting`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputEnergyManagementSystem.actuator_availability_dictionary_reporting`')
-            vals = {}
-            vals["none"] = "None"
-            vals["notbyuniquekeynames"] = "NotByUniqueKeyNames"
-            vals["verbose"] = "Verbose"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputEnergyManagementSystem.actuator_availability_dictionary_reporting`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputEnergyManagementSystem.actuator_availability_dictionary_reporting`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Actuator Availability Dictionary Reporting"] = value
+        self["Actuator Availability Dictionary Reporting"] = value
 
     @property
     def internal_variable_availability_dictionary_reporting(self):
@@ -1431,10 +389,6 @@ class OutputEnergyManagementSystem(object):
 
         Args:
             value (str): value for IDD Field `Internal Variable Availability Dictionary Reporting`
-                Accepted values are:
-                      - None
-                      - NotByUniqueKeyNames
-                      - Verbose
                 Default value: None
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1442,47 +396,7 @@ class OutputEnergyManagementSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputEnergyManagementSystem.internal_variable_availability_dictionary_reporting`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputEnergyManagementSystem.internal_variable_availability_dictionary_reporting`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputEnergyManagementSystem.internal_variable_availability_dictionary_reporting`')
-            vals = {}
-            vals["none"] = "None"
-            vals["notbyuniquekeynames"] = "NotByUniqueKeyNames"
-            vals["verbose"] = "Verbose"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputEnergyManagementSystem.internal_variable_availability_dictionary_reporting`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputEnergyManagementSystem.internal_variable_availability_dictionary_reporting`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Internal Variable Availability Dictionary Reporting"] = value
+        self["Internal Variable Availability Dictionary Reporting"] = value
 
     @property
     def ems_runtime_language_debug_output_level(self):
@@ -1499,10 +413,6 @@ class OutputEnergyManagementSystem(object):
 
         Args:
             value (str): value for IDD Field `EMS Runtime Language Debug Output Level`
-                Accepted values are:
-                      - None
-                      - ErrorsOnly
-                      - Verbose
                 Default value: None
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1510,131 +420,10 @@ class OutputEnergyManagementSystem(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputEnergyManagementSystem.ems_runtime_language_debug_output_level`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputEnergyManagementSystem.ems_runtime_language_debug_output_level`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputEnergyManagementSystem.ems_runtime_language_debug_output_level`')
-            vals = {}
-            vals["none"] = "None"
-            vals["errorsonly"] = "ErrorsOnly"
-            vals["verbose"] = "Verbose"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputEnergyManagementSystem.ems_runtime_language_debug_output_level`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputEnergyManagementSystem.ems_runtime_language_debug_output_level`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["EMS Runtime Language Debug Output Level"] = value
+        self["EMS Runtime Language Debug Output Level"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputEnergyManagementSystem:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputEnergyManagementSystem:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputEnergyManagementSystem: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputEnergyManagementSystem: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputControlSurfaceColorScheme(object):
+class OutputControlSurfaceColorScheme(DataObject):
     """ Corresponds to IDD object `OutputControl:SurfaceColorScheme`
         This object is used to set colors for reporting on various building elements particularly for the
         DXF reports.  We know the user can enter 0 to 255 and the color map is available in DXF output.
@@ -1642,279 +431,16 @@ class OutputControlSurfaceColorScheme(object):
         extend by editing the IDD but you do so on your own.  Colors not changed in any scheme will
         remain as the default scheme uses.
     """
-    internal_name = "OutputControl:SurfaceColorScheme"
-    field_count = 31
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'OutputControl:SurfaceColorScheme', 'pyname': u'OutputControlSurfaceColorScheme', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'drawing element 1 type', {'name': u'Drawing Element 1 Type', 'pyname': u'drawing_element_1_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 1', {'name': u'Color for Drawing Element 1', 'pyname': u'color_for_drawing_element_1', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 2 type', {'name': u'Drawing Element 2 Type', 'pyname': u'drawing_element_2_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 2', {'name': u'Color for Drawing Element 2', 'pyname': u'color_for_drawing_element_2', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 3 type', {'name': u'Drawing Element 3 Type', 'pyname': u'drawing_element_3_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 3', {'name': u'Color for Drawing Element 3', 'pyname': u'color_for_drawing_element_3', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 4 type', {'name': u'Drawing Element 4 Type', 'pyname': u'drawing_element_4_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 4', {'name': u'Color for Drawing Element 4', 'pyname': u'color_for_drawing_element_4', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 5 type', {'name': u'Drawing Element 5 Type', 'pyname': u'drawing_element_5_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 5', {'name': u'Color for Drawing Element 5', 'pyname': u'color_for_drawing_element_5', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 6 type', {'name': u'Drawing Element 6 Type', 'pyname': u'drawing_element_6_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 6', {'name': u'Color for Drawing Element 6', 'pyname': u'color_for_drawing_element_6', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 7 type', {'name': u'Drawing Element 7 Type', 'pyname': u'drawing_element_7_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 7', {'name': u'Color for Drawing Element 7', 'pyname': u'color_for_drawing_element_7', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 8 type', {'name': u'Drawing Element 8 Type', 'pyname': u'drawing_element_8_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 8', {'name': u'Color for Drawing Element 8', 'pyname': u'color_for_drawing_element_8', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 9 type', {'name': u'Drawing Element 9 Type', 'pyname': u'drawing_element_9_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 9', {'name': u'Color for Drawing Element 9', 'pyname': u'color_for_drawing_element_9', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 10 type', {'name': u'Drawing Element 10 Type', 'pyname': u'drawing_element_10_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 10', {'name': u'Color for Drawing Element 10', 'pyname': u'color_for_drawing_element_10', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 11 type', {'name': u'Drawing Element 11 Type', 'pyname': u'drawing_element_11_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 11', {'name': u'Color for Drawing Element 11', 'pyname': u'color_for_drawing_element_11', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 12 type', {'name': u'Drawing Element 12 Type', 'pyname': u'drawing_element_12_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 12', {'name': u'Color for Drawing Element 12', 'pyname': u'color_for_drawing_element_12', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 13 type', {'name': u'Drawing Element 13 Type', 'pyname': u'drawing_element_13_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 13', {'name': u'Color for Drawing Element 13', 'pyname': u'color_for_drawing_element_13', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 14 type', {'name': u'Drawing Element 14 Type', 'pyname': u'drawing_element_14_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 14', {'name': u'Color for Drawing Element 14', 'pyname': u'color_for_drawing_element_14', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 15 type', {'name': u'Drawing Element 15 Type', 'pyname': u'drawing_element_15_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 15', {'name': u'Color for Drawing Element 15', 'pyname': u'color_for_drawing_element_15', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:SurfaceColorScheme`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Drawing Element 1 Type"] = None
-        self._data["Color for Drawing Element 1"] = None
-        self._data["Drawing Element 2 Type"] = None
-        self._data["Color for Drawing Element 2"] = None
-        self._data["Drawing Element 3 Type"] = None
-        self._data["Color for Drawing Element 3"] = None
-        self._data["Drawing Element 4 Type"] = None
-        self._data["Color for Drawing Element 4"] = None
-        self._data["Drawing Element 5 Type"] = None
-        self._data["Color for Drawing Element 5"] = None
-        self._data["Drawing Element 6 Type"] = None
-        self._data["Color for Drawing Element 6"] = None
-        self._data["Drawing Element 7 Type"] = None
-        self._data["Color for Drawing Element 7"] = None
-        self._data["Drawing Element 8 Type"] = None
-        self._data["Color for Drawing Element 8"] = None
-        self._data["Drawing Element 9 Type"] = None
-        self._data["Color for Drawing Element 9"] = None
-        self._data["Drawing Element 10 Type"] = None
-        self._data["Color for Drawing Element 10"] = None
-        self._data["Drawing Element 11 Type"] = None
-        self._data["Color for Drawing Element 11"] = None
-        self._data["Drawing Element 12 Type"] = None
-        self._data["Color for Drawing Element 12"] = None
-        self._data["Drawing Element 13 Type"] = None
-        self._data["Color for Drawing Element 13"] = None
-        self._data["Drawing Element 14 Type"] = None
-        self._data["Color for Drawing Element 14"] = None
-        self._data["Drawing Element 15 Type"] = None
-        self._data["Color for Drawing Element 15"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_1_type = None
-        else:
-            self.drawing_element_1_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_1 = None
-        else:
-            self.color_for_drawing_element_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_2_type = None
-        else:
-            self.drawing_element_2_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_2 = None
-        else:
-            self.color_for_drawing_element_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_3_type = None
-        else:
-            self.drawing_element_3_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_3 = None
-        else:
-            self.color_for_drawing_element_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_4_type = None
-        else:
-            self.drawing_element_4_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_4 = None
-        else:
-            self.color_for_drawing_element_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_5_type = None
-        else:
-            self.drawing_element_5_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_5 = None
-        else:
-            self.color_for_drawing_element_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_6_type = None
-        else:
-            self.drawing_element_6_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_6 = None
-        else:
-            self.color_for_drawing_element_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_7_type = None
-        else:
-            self.drawing_element_7_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_7 = None
-        else:
-            self.color_for_drawing_element_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_8_type = None
-        else:
-            self.drawing_element_8_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_8 = None
-        else:
-            self.color_for_drawing_element_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_9_type = None
-        else:
-            self.drawing_element_9_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_9 = None
-        else:
-            self.color_for_drawing_element_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_10_type = None
-        else:
-            self.drawing_element_10_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_10 = None
-        else:
-            self.color_for_drawing_element_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_11_type = None
-        else:
-            self.drawing_element_11_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_11 = None
-        else:
-            self.color_for_drawing_element_11 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_12_type = None
-        else:
-            self.drawing_element_12_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_12 = None
-        else:
-            self.color_for_drawing_element_12 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_13_type = None
-        else:
-            self.drawing_element_13_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_13 = None
-        else:
-            self.color_for_drawing_element_13 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_14_type = None
-        else:
-            self.drawing_element_14_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_14 = None
-        else:
-            self.color_for_drawing_element_14 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.drawing_element_15_type = None
-        else:
-            self.drawing_element_15_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.color_for_drawing_element_15 = None
-        else:
-            self.color_for_drawing_element_15 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -1938,19 +464,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def drawing_element_1_type(self):
@@ -1967,81 +481,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 1 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_1_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_1_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_1_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_1_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_1_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 1 Type"] = value
+        self["Drawing Element 1 Type"] = value
 
     @property
     def color_for_drawing_element_1(self):
@@ -2059,7 +505,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 1`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2067,26 +512,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_1`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_1`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_1`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_1`')
-        self._data["Color for Drawing Element 1"] = value
+        self["Color for Drawing Element 1"] = value
 
     @property
     def drawing_element_2_type(self):
@@ -2103,81 +529,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 2 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_2_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_2_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_2_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_2_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_2_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 2 Type"] = value
+        self["Drawing Element 2 Type"] = value
 
     @property
     def color_for_drawing_element_2(self):
@@ -2195,7 +553,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 2`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2203,26 +560,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_2`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_2`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_2`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_2`')
-        self._data["Color for Drawing Element 2"] = value
+        self["Color for Drawing Element 2"] = value
 
     @property
     def drawing_element_3_type(self):
@@ -2239,81 +577,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 3 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_3_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_3_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_3_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_3_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_3_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 3 Type"] = value
+        self["Drawing Element 3 Type"] = value
 
     @property
     def color_for_drawing_element_3(self):
@@ -2331,7 +601,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 3`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2339,26 +608,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_3`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_3`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_3`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_3`')
-        self._data["Color for Drawing Element 3"] = value
+        self["Color for Drawing Element 3"] = value
 
     @property
     def drawing_element_4_type(self):
@@ -2375,81 +625,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 4 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_4_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_4_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_4_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_4_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_4_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 4 Type"] = value
+        self["Drawing Element 4 Type"] = value
 
     @property
     def color_for_drawing_element_4(self):
@@ -2467,7 +649,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 4`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2475,26 +656,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_4`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_4`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_4`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_4`')
-        self._data["Color for Drawing Element 4"] = value
+        self["Color for Drawing Element 4"] = value
 
     @property
     def drawing_element_5_type(self):
@@ -2511,81 +673,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 5 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_5_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_5_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_5_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_5_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_5_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 5 Type"] = value
+        self["Drawing Element 5 Type"] = value
 
     @property
     def color_for_drawing_element_5(self):
@@ -2603,7 +697,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 5`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2611,26 +704,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_5`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_5`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_5`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_5`')
-        self._data["Color for Drawing Element 5"] = value
+        self["Color for Drawing Element 5"] = value
 
     @property
     def drawing_element_6_type(self):
@@ -2647,81 +721,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 6 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_6_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_6_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_6_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_6_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_6_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 6 Type"] = value
+        self["Drawing Element 6 Type"] = value
 
     @property
     def color_for_drawing_element_6(self):
@@ -2739,7 +745,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 6`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2747,26 +752,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_6`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_6`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_6`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_6`')
-        self._data["Color for Drawing Element 6"] = value
+        self["Color for Drawing Element 6"] = value
 
     @property
     def drawing_element_7_type(self):
@@ -2783,81 +769,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 7 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_7_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_7_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_7_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_7_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_7_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 7 Type"] = value
+        self["Drawing Element 7 Type"] = value
 
     @property
     def color_for_drawing_element_7(self):
@@ -2875,7 +793,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 7`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2883,26 +800,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_7`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_7`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_7`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_7`')
-        self._data["Color for Drawing Element 7"] = value
+        self["Color for Drawing Element 7"] = value
 
     @property
     def drawing_element_8_type(self):
@@ -2919,81 +817,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 8 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_8_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_8_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_8_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_8_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_8_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 8 Type"] = value
+        self["Drawing Element 8 Type"] = value
 
     @property
     def color_for_drawing_element_8(self):
@@ -3011,7 +841,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 8`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3019,26 +848,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_8`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_8`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_8`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_8`')
-        self._data["Color for Drawing Element 8"] = value
+        self["Color for Drawing Element 8"] = value
 
     @property
     def drawing_element_9_type(self):
@@ -3055,81 +865,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 9 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_9_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_9_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_9_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_9_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_9_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 9 Type"] = value
+        self["Drawing Element 9 Type"] = value
 
     @property
     def color_for_drawing_element_9(self):
@@ -3147,7 +889,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 9`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3155,26 +896,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_9`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_9`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_9`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_9`')
-        self._data["Color for Drawing Element 9"] = value
+        self["Color for Drawing Element 9"] = value
 
     @property
     def drawing_element_10_type(self):
@@ -3191,81 +913,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 10 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_10_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_10_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_10_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_10_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_10_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 10 Type"] = value
+        self["Drawing Element 10 Type"] = value
 
     @property
     def color_for_drawing_element_10(self):
@@ -3283,7 +937,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 10`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3291,26 +944,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_10`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_10`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_10`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_10`')
-        self._data["Color for Drawing Element 10"] = value
+        self["Color for Drawing Element 10"] = value
 
     @property
     def drawing_element_11_type(self):
@@ -3327,81 +961,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 11 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_11_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_11_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_11_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_11_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_11_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 11 Type"] = value
+        self["Drawing Element 11 Type"] = value
 
     @property
     def color_for_drawing_element_11(self):
@@ -3419,7 +985,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 11`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3427,26 +992,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_11`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_11`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_11`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_11`')
-        self._data["Color for Drawing Element 11"] = value
+        self["Color for Drawing Element 11"] = value
 
     @property
     def drawing_element_12_type(self):
@@ -3463,81 +1009,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 12 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_12_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_12_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_12_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_12_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_12_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 12 Type"] = value
+        self["Drawing Element 12 Type"] = value
 
     @property
     def color_for_drawing_element_12(self):
@@ -3555,7 +1033,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 12`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3563,26 +1040,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_12`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_12`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_12`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_12`')
-        self._data["Color for Drawing Element 12"] = value
+        self["Color for Drawing Element 12"] = value
 
     @property
     def drawing_element_13_type(self):
@@ -3599,81 +1057,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 13 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_13_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_13_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_13_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_13_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_13_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 13 Type"] = value
+        self["Drawing Element 13 Type"] = value
 
     @property
     def color_for_drawing_element_13(self):
@@ -3691,7 +1081,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 13`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3699,26 +1088,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_13`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_13`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_13`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_13`')
-        self._data["Color for Drawing Element 13"] = value
+        self["Color for Drawing Element 13"] = value
 
     @property
     def drawing_element_14_type(self):
@@ -3735,81 +1105,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 14 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_14_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_14_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_14_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_14_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_14_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 14 Type"] = value
+        self["Drawing Element 14 Type"] = value
 
     @property
     def color_for_drawing_element_14(self):
@@ -3827,7 +1129,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 14`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3835,26 +1136,7 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_14`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_14`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_14`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_14`')
-        self._data["Color for Drawing Element 14"] = value
+        self["Color for Drawing Element 14"] = value
 
     @property
     def drawing_element_15_type(self):
@@ -3871,81 +1153,13 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (str): value for IDD Field `Drawing Element 15 Type`
-                Accepted values are:
-                      - Text
-                      - Walls
-                      - Windows
-                      - GlassDoors
-                      - Doors
-                      - Roofs
-                      - Floors
-                      - DetachedBuildingShades
-                      - DetachedFixedShades
-                      - AttachedBuildingShades
-                      - Photovoltaics
-                      - TubularDaylightDomes
-                      - TubularDaylightDiffusers
-                      - DaylightReferencePoint1
-                      - DaylightReferencePoint2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlSurfaceColorScheme.drawing_element_15_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_15_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlSurfaceColorScheme.drawing_element_15_type`')
-            vals = {}
-            vals["text"] = "Text"
-            vals["walls"] = "Walls"
-            vals["windows"] = "Windows"
-            vals["glassdoors"] = "GlassDoors"
-            vals["doors"] = "Doors"
-            vals["roofs"] = "Roofs"
-            vals["floors"] = "Floors"
-            vals["detachedbuildingshades"] = "DetachedBuildingShades"
-            vals["detachedfixedshades"] = "DetachedFixedShades"
-            vals["attachedbuildingshades"] = "AttachedBuildingShades"
-            vals["photovoltaics"] = "Photovoltaics"
-            vals["tubulardaylightdomes"] = "TubularDaylightDomes"
-            vals["tubulardaylightdiffusers"] = "TubularDaylightDiffusers"
-            vals["daylightreferencepoint1"] = "DaylightReferencePoint1"
-            vals["daylightreferencepoint2"] = "DaylightReferencePoint2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlSurfaceColorScheme.drawing_element_15_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlSurfaceColorScheme.drawing_element_15_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Drawing Element 15 Type"] = value
+        self["Drawing Element 15 Type"] = value
 
     @property
     def color_for_drawing_element_15(self):
@@ -3963,7 +1177,6 @@ class OutputControlSurfaceColorScheme(object):
 
         Args:
             value (int): value for IDD Field `Color for Drawing Element 15`
-                value >= 0
                 value <= 255
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3971,110 +1184,10 @@ class OutputControlSurfaceColorScheme(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_15`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_15`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_15`')
-            if value > 255:
-                raise ValueError('value need to be smaller 255 '
-                                 'for field `OutputControlSurfaceColorScheme.color_for_drawing_element_15`')
-        self._data["Color for Drawing Element 15"] = value
+        self["Color for Drawing Element 15"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputControlSurfaceColorScheme:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputControlSurfaceColorScheme:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputControlSurfaceColorScheme: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputControlSurfaceColorScheme: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputTableSummaryReports(object):
+class OutputTableSummaryReports(DataObject):
     """ Corresponds to IDD object `Output:Table:SummaryReports`
         This object allows the user to call report types that are predefined and will appear with the
         other tabular reports.  These predefined reports are sensitive to the OutputControl:Table:Style object
@@ -4083,201 +1196,34 @@ class OutputTableSummaryReports(object):
         There should be as many fields (A) in this object as there are keys in the following (minus
         AllSummary+AllMonthly+AllSummaryAndMonthly)
     """
-    internal_name = "Output:Table:SummaryReports"
-    field_count = 0
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:Table:SummaryReports', 'pyname': u'OutputTableSummaryReports', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Table:SummaryReports`
         """
         self._data = OrderedDict()
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
 
-    def read(self, vals, strict=False):
-        """ Read values
 
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        self.strict = old_strict
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputTableSummaryReports:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputTableSummaryReports:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputTableSummaryReports: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputTableSummaryReports: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputTableTimeBins(object):
+class OutputTableTimeBins(DataObject):
     """ Corresponds to IDD object `Output:Table:TimeBins`
         Produces a bin report in the table output file which shows the amount of time in hours
         that occurs in different bins for a single specific output variable or meter.
         Two different types of binning are reported: by month and by hour of the day.
     """
-    internal_name = "Output:Table:TimeBins"
-    field_count = 7
-    required_fields = ["Variable Name"]
-    extensible_fields = 0
-    format = None
-    min_fields = 5
-    extensible_keys = []
+    schema = {'min-fields': 5, 'name': u'Output:Table:TimeBins', 'pyname': u'OutputTableTimeBins', 'format': None, 'fields': OrderedDict([(u'key value', {'name': u'Key Value', 'pyname': u'key_value', 'default': u'*', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'interval start', {'name': u'Interval Start', 'pyname': u'interval_start', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'interval size', {'name': u'Interval Size', 'pyname': u'interval_size', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'interval count', {'name': u'Interval Count', 'pyname': u'interval_count', 'maximum': 20, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'variable type', {'name': u'Variable Type', 'pyname': u'variable_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Table:TimeBins`
         """
         self._data = OrderedDict()
-        self._data["Key Value"] = None
-        self._data["Variable Name"] = None
-        self._data["Interval Start"] = None
-        self._data["Interval Size"] = None
-        self._data["Interval Count"] = None
-        self._data["Schedule Name"] = None
-        self._data["Variable Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.key_value = None
-        else:
-            self.key_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.variable_name = None
-        else:
-            self.variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.interval_start = None
-        else:
-            self.interval_start = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.interval_size = None
-        else:
-            self.interval_size = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.interval_count = None
-        else:
-            self.interval_count = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.variable_type = None
-        else:
-            self.variable_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def key_value(self):
@@ -4302,19 +1248,7 @@ class OutputTableTimeBins(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputTableTimeBins.key_value`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputTableTimeBins.key_value`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputTableTimeBins.key_value`')
-        self._data["Key Value"] = value
+        self["Key Value"] = value
 
     @property
     def variable_name(self):
@@ -4337,19 +1271,7 @@ class OutputTableTimeBins(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputTableTimeBins.variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputTableTimeBins.variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputTableTimeBins.variable_name`')
-        self._data["Variable Name"] = value
+        self["Variable Name"] = value
 
     @property
     def interval_start(self):
@@ -4374,13 +1296,7 @@ class OutputTableTimeBins(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `OutputTableTimeBins.interval_start`'.format(value))
-        self._data["Interval Start"] = value
+        self["Interval Start"] = value
 
     @property
     def interval_size(self):
@@ -4405,13 +1321,7 @@ class OutputTableTimeBins(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `OutputTableTimeBins.interval_size`'.format(value))
-        self._data["Interval Size"] = value
+        self["Interval Size"] = value
 
     @property
     def interval_count(self):
@@ -4438,26 +1348,7 @@ class OutputTableTimeBins(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputTableTimeBins.interval_count`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputTableTimeBins.interval_count`'.format(value))
-            if value < 1:
-                raise ValueError('value need to be greater or equal 1 '
-                                 'for field `OutputTableTimeBins.interval_count`')
-            if value > 20:
-                raise ValueError('value need to be smaller 20 '
-                                 'for field `OutputTableTimeBins.interval_count`')
-        self._data["Interval Count"] = value
+        self["Interval Count"] = value
 
     @property
     def schedule_name(self):
@@ -4482,19 +1373,7 @@ class OutputTableTimeBins(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputTableTimeBins.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputTableTimeBins.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputTableTimeBins.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
     @property
     def variable_type(self):
@@ -4512,143 +1391,16 @@ class OutputTableTimeBins(object):
 
         Args:
             value (str): value for IDD Field `Variable Type`
-                Accepted values are:
-                      - Energy
-                      - Temperature
-                      - VolumetricFlow
-                      - Power
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputTableTimeBins.variable_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputTableTimeBins.variable_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputTableTimeBins.variable_type`')
-            vals = {}
-            vals["energy"] = "Energy"
-            vals["temperature"] = "Temperature"
-            vals["volumetricflow"] = "VolumetricFlow"
-            vals["power"] = "Power"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputTableTimeBins.variable_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputTableTimeBins.variable_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Variable Type"] = value
+        self["Variable Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputTableTimeBins:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputTableTimeBins:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputTableTimeBins: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputTableTimeBins: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputTableMonthly(object):
+class OutputTableMonthly(DataObject):
     """ Corresponds to IDD object `Output:Table:Monthly`
         Provides a generic method of setting up tables of monthly results. The report
         has multiple columns that are each defined using a repeated group of fields for any
@@ -4657,55 +1409,16 @@ class OutputTableMonthly(object):
         variable. For example, a table defined with zone variables will be produced once for
         every zone.
     """
-    internal_name = "Output:Table:Monthly"
-    field_count = 2
-    required_fields = ["Name"]
-    extensible_fields = 2
-    format = None
-    min_fields = 0
-    extensible_keys = ["Variable or Meter 1 Name", "Aggregation Type for Variable or Meter 1"]
+    schema = {'min-fields': 0, 'name': u'Output:Table:Monthly', 'pyname': u'OutputTableMonthly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'digits after decimal', {'name': u'Digits After Decimal', 'pyname': u'digits_after_decimal', 'default': 2, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'variable or meter 1 name', {'name': u'Variable or Meter 1 Name', 'pyname': u'variable_or_meter_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'aggregation type for variable or meter 1', {'name': u'Aggregation Type for Variable or Meter 1', 'pyname': u'aggregation_type_for_variable_or_meter_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Table:Monthly`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Digits After Decimal"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.digits_after_decimal = None
-        else:
-            self.digits_after_decimal = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -4728,19 +1441,7 @@ class OutputTableMonthly(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputTableMonthly.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputTableMonthly.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputTableMonthly.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def digits_after_decimal(self):
@@ -4758,7 +1459,6 @@ class OutputTableMonthly(object):
         Args:
             value (int): value for IDD Field `Digits After Decimal`
                 Default value: 2
-                value >= 0
                 value <= 10
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4766,26 +1466,7 @@ class OutputTableMonthly(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                if not self.strict:
-                    try:
-                        conv_value = int(float(value))
-                        logger.warn('Cast float {} to int {}, precision may be lost '
-                                     'for field `OutputTableMonthly.digits_after_decimal`'.format(value, conv_value))
-                        value = conv_value
-                    except ValueError:
-                        raise ValueError('value {} need to be of type int '
-                                         'for field `OutputTableMonthly.digits_after_decimal`'.format(value))
-            if value < 0:
-                raise ValueError('value need to be greater or equal 0 '
-                                 'for field `OutputTableMonthly.digits_after_decimal`')
-            if value > 10:
-                raise ValueError('value need to be smaller 10 '
-                                 'for field `OutputTableMonthly.digits_after_decimal`')
-        self._data["Digits After Decimal"] = value
+        self["Digits After Decimal"] = value
 
     def add_extensible(self,
                        variable_or_meter_1_name=None,
@@ -4800,26 +1481,14 @@ class OutputTableMonthly(object):
                 specification and is assumed to be a missing value
 
             aggregation_type_for_variable_or_meter_1 (str): value for IDD Field `Aggregation Type for Variable or Meter 1`
-                Accepted values are:
-                      - SumOrAverage
-                      - Maximum
-                      - Minimum
-                      - ValueWhenMaximumOrMinimum
-                      - HoursNonZero
-                      - HoursZero
-                      - HoursPositive
-                      - HoursNonPositive
-                      - HoursNegative
-                      - HoursNonNegative
-                      - SumOrAverageDuringHoursShown
-                      - MaximumDuringHoursShown
-                      - MinimumDuringHoursShown
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_variable_or_meter_1_name(variable_or_meter_1_name))
-        vals.append(self._check_aggregation_type_for_variable_or_meter_1(aggregation_type_for_variable_or_meter_1))
+        variable_or_meter_1_name = self.check_value("Variable or Meter 1 Name", variable_or_meter_1_name)
+        vals.append(variable_or_meter_1_name)
+        aggregation_type_for_variable_or_meter_1 = self.check_value("Aggregation Type for Variable or Meter 1", aggregation_type_for_variable_or_meter_1)
+        vals.append(aggregation_type_for_variable_or_meter_1)
         self._data["extensibles"].append(vals)
 
     @property
@@ -4828,161 +1497,8 @@ class OutputTableMonthly(object):
         """
         return self._data["extensibles"]
 
-    def _check_variable_or_meter_1_name(self, value):
-        """ Validates falue of field `Variable or Meter 1 Name`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputTableMonthly.variable_or_meter_1_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputTableMonthly.variable_or_meter_1_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputTableMonthly.variable_or_meter_1_name`')
-        return value
 
-    def _check_aggregation_type_for_variable_or_meter_1(self, value):
-        """ Validates falue of field `Aggregation Type for Variable or Meter 1`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputTableMonthly.aggregation_type_for_variable_or_meter_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputTableMonthly.aggregation_type_for_variable_or_meter_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputTableMonthly.aggregation_type_for_variable_or_meter_1`')
-            vals = {}
-            vals["sumoraverage"] = "SumOrAverage"
-            vals["maximum"] = "Maximum"
-            vals["minimum"] = "Minimum"
-            vals["valuewhenmaximumorminimum"] = "ValueWhenMaximumOrMinimum"
-            vals["hoursnonzero"] = "HoursNonZero"
-            vals["hourszero"] = "HoursZero"
-            vals["hourspositive"] = "HoursPositive"
-            vals["hoursnonpositive"] = "HoursNonPositive"
-            vals["hoursnegative"] = "HoursNegative"
-            vals["hoursnonnegative"] = "HoursNonNegative"
-            vals["sumoraverageduringhoursshown"] = "SumOrAverageDuringHoursShown"
-            vals["maximumduringhoursshown"] = "MaximumDuringHoursShown"
-            vals["minimumduringhoursshown"] = "MinimumDuringHoursShown"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputTableMonthly.aggregation_type_for_variable_or_meter_1`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputTableMonthly.aggregation_type_for_variable_or_meter_1`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputTableMonthly:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputTableMonthly:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputTableMonthly: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputTableMonthly: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputControlTableStyle(object):
+class OutputControlTableStyle(DataObject):
     """ Corresponds to IDD object `OutputControl:Table:Style`
         default style for the OutputControl:Table:Style is comma -- this works well for
         importing into spreadsheet programs such as Excel(tm) but not so well for word
@@ -4990,47 +1506,16 @@ class OutputControlTableStyle(object):
         the "columns".  HTML produces tables in HTML. XML produces an XML file.
         note - if no OutputControl:Table:Style is included, the defaults are comma and None.
     """
-    internal_name = "OutputControl:Table:Style"
-    field_count = 2
-    required_fields = ["Column Separator"]
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'OutputControl:Table:Style', 'pyname': u'OutputControlTableStyle', 'format': None, 'fields': OrderedDict([(u'column separator', {'name': u'Column Separator', 'pyname': u'column_separator', 'default': u'Comma', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'unit conversion', {'name': u'Unit Conversion', 'pyname': u'unit_conversion', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:Table:Style`
         """
         self._data = OrderedDict()
-        self._data["Column Separator"] = None
-        self._data["Unit Conversion"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.column_separator = None
-        else:
-            self.column_separator = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.unit_conversion = None
-        else:
-            self.unit_conversion = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def column_separator(self):
@@ -5047,17 +1532,6 @@ class OutputControlTableStyle(object):
 
         Args:
             value (str): value for IDD Field `Column Separator`
-                Accepted values are:
-                      - Comma
-                      - Tab
-                      - Fixed
-                      - HTML
-                      - XML
-                      - CommaAndHTML
-                      - CommaAndXML
-                      - TabAndHTML
-                      - XMLandHTML
-                      - All
                 Default value: Comma
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5065,54 +1539,7 @@ class OutputControlTableStyle(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlTableStyle.column_separator`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlTableStyle.column_separator`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlTableStyle.column_separator`')
-            vals = {}
-            vals["comma"] = "Comma"
-            vals["tab"] = "Tab"
-            vals["fixed"] = "Fixed"
-            vals["html"] = "HTML"
-            vals["xml"] = "XML"
-            vals["commaandhtml"] = "CommaAndHTML"
-            vals["commaandxml"] = "CommaAndXML"
-            vals["tabandhtml"] = "TabAndHTML"
-            vals["xmlandhtml"] = "XMLandHTML"
-            vals["all"] = "All"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlTableStyle.column_separator`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlTableStyle.column_separator`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Column Separator"] = value
+        self["Column Separator"] = value
 
     @property
     def unit_conversion(self):
@@ -5129,12 +1556,6 @@ class OutputControlTableStyle(object):
 
         Args:
             value (str): value for IDD Field `Unit Conversion`
-                Accepted values are:
-                      - None
-                      - JtoKWH
-                      - JtoMJ
-                      - JtoGJ
-                      - InchPound
                 Default value: None
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5142,178 +1563,24 @@ class OutputControlTableStyle(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputControlTableStyle.unit_conversion`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputControlTableStyle.unit_conversion`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputControlTableStyle.unit_conversion`')
-            vals = {}
-            vals["none"] = "None"
-            vals["jtokwh"] = "JtoKWH"
-            vals["jtomj"] = "JtoMJ"
-            vals["jtogj"] = "JtoGJ"
-            vals["inchpound"] = "InchPound"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputControlTableStyle.unit_conversion`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputControlTableStyle.unit_conversion`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Unit Conversion"] = value
+        self["Unit Conversion"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputControlTableStyle:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputControlTableStyle:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputControlTableStyle: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputControlTableStyle: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputControlReportingTolerances(object):
+class OutputControlReportingTolerances(DataObject):
     """ Corresponds to IDD object `OutputControl:ReportingTolerances`
         Calculations of the time that setpoints are not met use a tolerance of 0.2C.
         This object allows changing the tolerance used to determine when setpoints are being met.
     """
-    internal_name = "OutputControl:ReportingTolerances"
-    field_count = 2
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'OutputControl:ReportingTolerances', 'pyname': u'OutputControlReportingTolerances', 'format': None, 'fields': OrderedDict([(u'tolerance for time heating setpoint not met', {'name': u'Tolerance for Time Heating Setpoint Not Met', 'pyname': u'tolerance_for_time_heating_setpoint_not_met', 'default': 0.2, 'maximum': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'tolerance for time cooling setpoint not met', {'name': u'Tolerance for Time Cooling Setpoint Not Met', 'pyname': u'tolerance_for_time_cooling_setpoint_not_met', 'default': 0.2, 'maximum': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:ReportingTolerances`
         """
         self._data = OrderedDict()
-        self._data["Tolerance for Time Heating Setpoint Not Met"] = None
-        self._data["Tolerance for Time Cooling Setpoint Not Met"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.tolerance_for_time_heating_setpoint_not_met = None
-        else:
-            self.tolerance_for_time_heating_setpoint_not_met = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.tolerance_for_time_cooling_setpoint_not_met = None
-        else:
-            self.tolerance_for_time_cooling_setpoint_not_met = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def tolerance_for_time_heating_setpoint_not_met(self):
@@ -5338,7 +1605,6 @@ class OutputControlReportingTolerances(object):
             value (float): value for IDD Field `Tolerance for Time Heating Setpoint Not Met`
                 Units: deltaC
                 Default value: 0.2
-                value >= 0.0
                 value <= 10.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5346,19 +1612,7 @@ class OutputControlReportingTolerances(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `OutputControlReportingTolerances.tolerance_for_time_heating_setpoint_not_met`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `OutputControlReportingTolerances.tolerance_for_time_heating_setpoint_not_met`')
-            if value > 10.0:
-                raise ValueError('value need to be smaller 10.0 '
-                                 'for field `OutputControlReportingTolerances.tolerance_for_time_heating_setpoint_not_met`')
-        self._data["Tolerance for Time Heating Setpoint Not Met"] = value
+        self["Tolerance for Time Heating Setpoint Not Met"] = value
 
     @property
     def tolerance_for_time_cooling_setpoint_not_met(self):
@@ -5383,7 +1637,6 @@ class OutputControlReportingTolerances(object):
             value (float): value for IDD Field `Tolerance for Time Cooling Setpoint Not Met`
                 Units: deltaC
                 Default value: 0.2
-                value >= 0.0
                 value <= 10.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5391,166 +1644,26 @@ class OutputControlReportingTolerances(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `OutputControlReportingTolerances.tolerance_for_time_cooling_setpoint_not_met`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `OutputControlReportingTolerances.tolerance_for_time_cooling_setpoint_not_met`')
-            if value > 10.0:
-                raise ValueError('value need to be smaller 10.0 '
-                                 'for field `OutputControlReportingTolerances.tolerance_for_time_cooling_setpoint_not_met`')
-        self._data["Tolerance for Time Cooling Setpoint Not Met"] = value
+        self["Tolerance for Time Cooling Setpoint Not Met"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputControlReportingTolerances:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputControlReportingTolerances:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputControlReportingTolerances: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputControlReportingTolerances: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputVariable(object):
+class OutputVariable(DataObject):
     """ Corresponds to IDD object `Output:Variable`
         each Output:Variable command picks variables to be put onto the standard output file (.eso)
         some variables may not be reported for every simulation.
         a list of variables that can be reported are available after a run on
         the report dictionary file (.rdd) if the Output:VariableDictionary has been requested.
     """
-    internal_name = "Output:Variable"
-    field_count = 4
-    required_fields = ["Variable Name"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:Variable', 'pyname': u'OutputVariable', 'format': None, 'fields': OrderedDict([(u'key value', {'name': u'Key Value', 'pyname': u'key_value', 'default': u'*', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Variable`
         """
         self._data = OrderedDict()
-        self._data["Key Value"] = None
-        self._data["Variable Name"] = None
-        self._data["Reporting Frequency"] = None
-        self._data["Schedule Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.key_value = None
-        else:
-            self.key_value = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.variable_name = None
-        else:
-            self.variable_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reporting_frequency = None
-        else:
-            self.reporting_frequency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.schedule_name = None
-        else:
-            self.schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def key_value(self):
@@ -5575,19 +1688,7 @@ class OutputVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputVariable.key_value`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputVariable.key_value`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputVariable.key_value`')
-        self._data["Key Value"] = value
+        self["Key Value"] = value
 
     @property
     def variable_name(self):
@@ -5610,19 +1711,7 @@ class OutputVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputVariable.variable_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputVariable.variable_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputVariable.variable_name`')
-        self._data["Variable Name"] = value
+        self["Variable Name"] = value
 
     @property
     def reporting_frequency(self):
@@ -5643,15 +1732,6 @@ class OutputVariable(object):
 
         Args:
             value (str): value for IDD Field `Reporting Frequency`
-                Accepted values are:
-                      - Detailed
-                      - Timestep
-                      - Hourly
-                      - Daily
-                      - Monthly
-                      - RunPeriod
-                      - Environment
-                      - Annual
                 Default value: Hourly
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5659,52 +1739,7 @@ class OutputVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputVariable.reporting_frequency`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputVariable.reporting_frequency`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputVariable.reporting_frequency`')
-            vals = {}
-            vals["detailed"] = "Detailed"
-            vals["timestep"] = "Timestep"
-            vals["hourly"] = "Hourly"
-            vals["daily"] = "Daily"
-            vals["monthly"] = "Monthly"
-            vals["runperiod"] = "RunPeriod"
-            vals["environment"] = "Environment"
-            vals["annual"] = "Annual"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputVariable.reporting_frequency`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputVariable.reporting_frequency`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Reporting Frequency"] = value
+        self["Reporting Frequency"] = value
 
     @property
     def schedule_name(self):
@@ -5727,150 +1762,26 @@ class OutputVariable(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputVariable.schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputVariable.schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputVariable.schedule_name`')
-        self._data["Schedule Name"] = value
+        self["Schedule Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputVariable:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputVariable:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputVariable: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputVariable: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputMeter(object):
+class OutputMeter(DataObject):
     """ Corresponds to IDD object `Output:Meter`
         Each Output:Meter command picks meters to be put onto the standard output file (.eso) and
         meter file (.mtr). Not all meters are reported in every simulation. A list of
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    internal_name = "Output:Meter"
-    field_count = 2
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:Meter', 'pyname': u'OutputMeter', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Reporting Frequency"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reporting_frequency = None
-        else:
-            self.reporting_frequency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -5896,19 +1807,7 @@ class OutputMeter(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputMeter.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputMeter.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputMeter.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def reporting_frequency(self):
@@ -5928,14 +1827,6 @@ class OutputMeter(object):
 
         Args:
             value (str): value for IDD Field `Reporting Frequency`
-                Accepted values are:
-                      - Timestep
-                      - Hourly
-                      - Daily
-                      - Monthly
-                      - RunPeriod
-                      - Environment
-                      - Annual
                 Default value: Hourly
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5943,182 +1834,26 @@ class OutputMeter(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputMeter.reporting_frequency`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputMeter.reporting_frequency`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputMeter.reporting_frequency`')
-            vals = {}
-            vals["timestep"] = "Timestep"
-            vals["hourly"] = "Hourly"
-            vals["daily"] = "Daily"
-            vals["monthly"] = "Monthly"
-            vals["runperiod"] = "RunPeriod"
-            vals["environment"] = "Environment"
-            vals["annual"] = "Annual"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputMeter.reporting_frequency`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputMeter.reporting_frequency`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Reporting Frequency"] = value
+        self["Reporting Frequency"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputMeter:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputMeter:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputMeter: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputMeter: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputMeterMeterFileOnly(object):
+class OutputMeterMeterFileOnly(DataObject):
     """ Corresponds to IDD object `Output:Meter:MeterFileOnly`
         Each Output:Meter:MeterFileOnly command picks meters to be put only onto meter file (.mtr).
         Not all meters are reported in every simulation. A list of meters that can be reported
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    internal_name = "Output:Meter:MeterFileOnly"
-    field_count = 2
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:Meter:MeterFileOnly', 'pyname': u'OutputMeterMeterFileOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter:MeterFileOnly`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Reporting Frequency"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reporting_frequency = None
-        else:
-            self.reporting_frequency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -6144,19 +1879,7 @@ class OutputMeterMeterFileOnly(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputMeterMeterFileOnly.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputMeterMeterFileOnly.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputMeterMeterFileOnly.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def reporting_frequency(self):
@@ -6176,14 +1899,6 @@ class OutputMeterMeterFileOnly(object):
 
         Args:
             value (str): value for IDD Field `Reporting Frequency`
-                Accepted values are:
-                      - Timestep
-                      - Hourly
-                      - Daily
-                      - Monthly
-                      - RunPeriod
-                      - Environment
-                      - Annual
                 Default value: Hourly
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6191,135 +1906,10 @@ class OutputMeterMeterFileOnly(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputMeterMeterFileOnly.reporting_frequency`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputMeterMeterFileOnly.reporting_frequency`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputMeterMeterFileOnly.reporting_frequency`')
-            vals = {}
-            vals["timestep"] = "Timestep"
-            vals["hourly"] = "Hourly"
-            vals["daily"] = "Daily"
-            vals["monthly"] = "Monthly"
-            vals["runperiod"] = "RunPeriod"
-            vals["environment"] = "Environment"
-            vals["annual"] = "Annual"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputMeterMeterFileOnly.reporting_frequency`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputMeterMeterFileOnly.reporting_frequency`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Reporting Frequency"] = value
+        self["Reporting Frequency"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputMeterMeterFileOnly:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputMeterMeterFileOnly:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputMeterMeterFileOnly: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputMeterMeterFileOnly: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputMeterCumulative(object):
+class OutputMeterCumulative(DataObject):
     """ Corresponds to IDD object `Output:Meter:Cumulative`
         Each Output:Meter:Cumulative command picks meters to be reported cumulatively onto the
         standard output file (.eso) and meter file (.mtr). Not all meters are reported in every
@@ -6327,47 +1917,16 @@ class OutputMeterCumulative(object):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    internal_name = "Output:Meter:Cumulative"
-    field_count = 2
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative', 'pyname': u'OutputMeterCumulative', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter:Cumulative`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Reporting Frequency"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reporting_frequency = None
-        else:
-            self.reporting_frequency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -6393,19 +1952,7 @@ class OutputMeterCumulative(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputMeterCumulative.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputMeterCumulative.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputMeterCumulative.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def reporting_frequency(self):
@@ -6425,14 +1972,6 @@ class OutputMeterCumulative(object):
 
         Args:
             value (str): value for IDD Field `Reporting Frequency`
-                Accepted values are:
-                      - Timestep
-                      - Hourly
-                      - Daily
-                      - Monthly
-                      - RunPeriod
-                      - Environment
-                      - Annual
                 Default value: Hourly
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6440,135 +1979,10 @@ class OutputMeterCumulative(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputMeterCumulative.reporting_frequency`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputMeterCumulative.reporting_frequency`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputMeterCumulative.reporting_frequency`')
-            vals = {}
-            vals["timestep"] = "Timestep"
-            vals["hourly"] = "Hourly"
-            vals["daily"] = "Daily"
-            vals["monthly"] = "Monthly"
-            vals["runperiod"] = "RunPeriod"
-            vals["environment"] = "Environment"
-            vals["annual"] = "Annual"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputMeterCumulative.reporting_frequency`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputMeterCumulative.reporting_frequency`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Reporting Frequency"] = value
+        self["Reporting Frequency"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputMeterCumulative:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputMeterCumulative:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputMeterCumulative: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputMeterCumulative: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputMeterCumulativeMeterFileOnly(object):
+class OutputMeterCumulativeMeterFileOnly(DataObject):
     """ Corresponds to IDD object `Output:Meter:Cumulative:MeterFileOnly`
         Each Output:Meter:Cumulative:MeterFileOnly command picks meters to be reported cumulatively
         onto the standard output file (.eso) and meter file (.mtr). Not all meters are reported in
@@ -6576,47 +1990,16 @@ class OutputMeterCumulativeMeterFileOnly(object):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    internal_name = "Output:Meter:Cumulative:MeterFileOnly"
-    field_count = 2
-    required_fields = ["Name"]
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative:MeterFileOnly', 'pyname': u'OutputMeterCumulativeMeterFileOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter:Cumulative:MeterFileOnly`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Reporting Frequency"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.reporting_frequency = None
-        else:
-            self.reporting_frequency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -6642,19 +2025,7 @@ class OutputMeterCumulativeMeterFileOnly(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputMeterCumulativeMeterFileOnly.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputMeterCumulativeMeterFileOnly.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputMeterCumulativeMeterFileOnly.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def reporting_frequency(self):
@@ -6674,14 +2045,6 @@ class OutputMeterCumulativeMeterFileOnly(object):
 
         Args:
             value (str): value for IDD Field `Reporting Frequency`
-                Accepted values are:
-                      - Timestep
-                      - Hourly
-                      - Daily
-                      - Monthly
-                      - RunPeriod
-                      - Environment
-                      - Annual
                 Default value: Hourly
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6689,189 +2052,25 @@ class OutputMeterCumulativeMeterFileOnly(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputMeterCumulativeMeterFileOnly.reporting_frequency`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputMeterCumulativeMeterFileOnly.reporting_frequency`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputMeterCumulativeMeterFileOnly.reporting_frequency`')
-            vals = {}
-            vals["timestep"] = "Timestep"
-            vals["hourly"] = "Hourly"
-            vals["daily"] = "Daily"
-            vals["monthly"] = "Monthly"
-            vals["runperiod"] = "RunPeriod"
-            vals["environment"] = "Environment"
-            vals["annual"] = "Annual"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputMeterCumulativeMeterFileOnly.reporting_frequency`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputMeterCumulativeMeterFileOnly.reporting_frequency`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Reporting Frequency"] = value
+        self["Reporting Frequency"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputMeterCumulativeMeterFileOnly:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputMeterCumulativeMeterFileOnly:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputMeterCumulativeMeterFileOnly: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputMeterCumulativeMeterFileOnly: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class MeterCustom(object):
+class MeterCustom(DataObject):
     """ Corresponds to IDD object `Meter:Custom`
         Used to allow users to combine specific variables and/or meters into
         "custom" meter configurations. To access these meters by name, one must
         first run a simulation to generate the RDD/MDD files and names.
     """
-    internal_name = "Meter:Custom"
-    field_count = 2
-    required_fields = ["Name"]
-    extensible_fields = 2
-    format = None
-    min_fields = 0
-    extensible_keys = ["Key Name 1", "Output Variable or Meter Name 1"]
+    schema = {'min-fields': 0, 'name': u'Meter:Custom', 'pyname': u'MeterCustom', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'key name 1', {'name': u'Key Name 1', 'pyname': u'key_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output variable or meter name 1', {'name': u'Output Variable or Meter Name 1', 'pyname': u'output_variable_or_meter_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Meter:Custom`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Fuel Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fuel_type = None
-        else:
-            self.fuel_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -6894,19 +2093,7 @@ class MeterCustom(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `MeterCustom.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `MeterCustom.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `MeterCustom.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def fuel_type(self):
@@ -6923,75 +2110,13 @@ class MeterCustom(object):
 
         Args:
             value (str): value for IDD Field `Fuel Type`
-                Accepted values are:
-                      - Electricity
-                      - NaturalGas
-                      - PropaneGas
-                      - FuelOil#1
-                      - FuelOil#2
-                      - Coal
-                      - Diesel
-                      - Gasoline
-                      - Water
-                      - Generic
-                      - OtherFuel1
-                      - OtherFuel2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `MeterCustom.fuel_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `MeterCustom.fuel_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `MeterCustom.fuel_type`')
-            vals = {}
-            vals["electricity"] = "Electricity"
-            vals["naturalgas"] = "NaturalGas"
-            vals["propanegas"] = "PropaneGas"
-            vals["fueloil#1"] = "FuelOil#1"
-            vals["fueloil#2"] = "FuelOil#2"
-            vals["coal"] = "Coal"
-            vals["diesel"] = "Diesel"
-            vals["gasoline"] = "Gasoline"
-            vals["water"] = "Water"
-            vals["generic"] = "Generic"
-            vals["otherfuel1"] = "OtherFuel1"
-            vals["otherfuel2"] = "OtherFuel2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `MeterCustom.fuel_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `MeterCustom.fuel_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Fuel Type"] = value
+        self["Fuel Type"] = value
 
     def add_extensible(self,
                        key_name_1=None,
@@ -7010,8 +2135,10 @@ class MeterCustom(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_key_name_1(key_name_1))
-        vals.append(self._check_output_variable_or_meter_name_1(output_variable_or_meter_name_1))
+        key_name_1 = self.check_value("Key Name 1", key_name_1)
+        vals.append(key_name_1)
+        output_variable_or_meter_name_1 = self.check_value("Output Variable or Meter Name 1", output_variable_or_meter_name_1)
+        vals.append(output_variable_or_meter_name_1)
         self._data["extensibles"].append(vals)
 
     @property
@@ -7020,185 +2147,23 @@ class MeterCustom(object):
         """
         return self._data["extensibles"]
 
-    def _check_key_name_1(self, value):
-        """ Validates falue of field `Key Name 1`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `MeterCustom.key_name_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `MeterCustom.key_name_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `MeterCustom.key_name_1`')
-        return value
 
-    def _check_output_variable_or_meter_name_1(self, value):
-        """ Validates falue of field `Output Variable or Meter Name 1`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `MeterCustom.output_variable_or_meter_name_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `MeterCustom.output_variable_or_meter_name_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `MeterCustom.output_variable_or_meter_name_1`')
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field MeterCustom:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field MeterCustom:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for MeterCustom: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for MeterCustom: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class MeterCustomDecrement(object):
+class MeterCustomDecrement(DataObject):
     """ Corresponds to IDD object `Meter:CustomDecrement`
         Used to allow users to combine specific variables and/or meters into
         "custom" meter configurations. To access these meters by name, one must
         first run a simulation to generate the RDD/MDD files and names.
     """
-    internal_name = "Meter:CustomDecrement"
-    field_count = 3
-    required_fields = ["Name", "Source Meter Name"]
-    extensible_fields = 2
-    format = None
-    min_fields = 0
-    extensible_keys = ["Key Name 1", "Output Variable or Meter Name 1"]
+    schema = {'min-fields': 0, 'name': u'Meter:CustomDecrement', 'pyname': u'MeterCustomDecrement', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source meter name', {'name': u'Source Meter Name', 'pyname': u'source_meter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'key name 1', {'name': u'Key Name 1', 'pyname': u'key_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output variable or meter name 1', {'name': u'Output Variable or Meter Name 1', 'pyname': u'output_variable_or_meter_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Meter:CustomDecrement`
         """
         self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Fuel Type"] = None
-        self._data["Source Meter Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fuel_type = None
-        else:
-            self.fuel_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.source_meter_name = None
-        else:
-            self.source_meter_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        while i < len(vals):
-            ext_vals = [None] * self.extensible_fields
-            for j, val in enumerate(vals[i:i + self.extensible_fields]):
-                if len(val) == 0:
-                    val = None
-                ext_vals[j] = val
-            self.add_extensible(*ext_vals)
-            i += self.extensible_fields
-        self.strict = old_strict
 
     @property
     def name(self):
@@ -7221,19 +2186,7 @@ class MeterCustomDecrement(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `MeterCustomDecrement.name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `MeterCustomDecrement.name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `MeterCustomDecrement.name`')
-        self._data["Name"] = value
+        self["Name"] = value
 
     @property
     def fuel_type(self):
@@ -7250,75 +2203,13 @@ class MeterCustomDecrement(object):
 
         Args:
             value (str): value for IDD Field `Fuel Type`
-                Accepted values are:
-                      - Electricity
-                      - NaturalGas
-                      - PropaneGas
-                      - FuelOil#1
-                      - FuelOil#2
-                      - Coal
-                      - Diesel
-                      - Gasoline
-                      - Water
-                      - Generic
-                      - OtherFuel1
-                      - OtherFuel2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `MeterCustomDecrement.fuel_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `MeterCustomDecrement.fuel_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `MeterCustomDecrement.fuel_type`')
-            vals = {}
-            vals["electricity"] = "Electricity"
-            vals["naturalgas"] = "NaturalGas"
-            vals["propanegas"] = "PropaneGas"
-            vals["fueloil#1"] = "FuelOil#1"
-            vals["fueloil#2"] = "FuelOil#2"
-            vals["coal"] = "Coal"
-            vals["diesel"] = "Diesel"
-            vals["gasoline"] = "Gasoline"
-            vals["water"] = "Water"
-            vals["generic"] = "Generic"
-            vals["otherfuel1"] = "OtherFuel1"
-            vals["otherfuel2"] = "OtherFuel2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `MeterCustomDecrement.fuel_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `MeterCustomDecrement.fuel_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Fuel Type"] = value
+        self["Fuel Type"] = value
 
     @property
     def source_meter_name(self):
@@ -7341,19 +2232,7 @@ class MeterCustomDecrement(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `MeterCustomDecrement.source_meter_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `MeterCustomDecrement.source_meter_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `MeterCustomDecrement.source_meter_name`')
-        self._data["Source Meter Name"] = value
+        self["Source Meter Name"] = value
 
     def add_extensible(self,
                        key_name_1=None,
@@ -7372,8 +2251,10 @@ class MeterCustomDecrement(object):
                 specification and is assumed to be a missing value
         """
         vals = []
-        vals.append(self._check_key_name_1(key_name_1))
-        vals.append(self._check_output_variable_or_meter_name_1(output_variable_or_meter_name_1))
+        key_name_1 = self.check_value("Key Name 1", key_name_1)
+        vals.append(key_name_1)
+        output_variable_or_meter_name_1 = self.check_value("Output Variable or Meter Name 1", output_variable_or_meter_name_1)
+        vals.append(output_variable_or_meter_name_1)
         self._data["extensibles"].append(vals)
 
     @property
@@ -7382,159 +2263,21 @@ class MeterCustomDecrement(object):
         """
         return self._data["extensibles"]
 
-    def _check_key_name_1(self, value):
-        """ Validates falue of field `Key Name 1`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `MeterCustomDecrement.key_name_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `MeterCustomDecrement.key_name_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `MeterCustomDecrement.key_name_1`')
-        return value
 
-    def _check_output_variable_or_meter_name_1(self, value):
-        """ Validates falue of field `Output Variable or Meter Name 1`
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `MeterCustomDecrement.output_variable_or_meter_name_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `MeterCustomDecrement.output_variable_or_meter_name_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `MeterCustomDecrement.output_variable_or_meter_name_1`')
-        return value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field MeterCustomDecrement:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field MeterCustomDecrement:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for MeterCustomDecrement: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for MeterCustomDecrement: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputSqlite(object):
+class OutputSqlite(DataObject):
     """ Corresponds to IDD object `Output:SQLite`
         Output from EnergyPlus can be written to an SQLite format file.
     """
-    internal_name = "Output:SQLite"
-    field_count = 1
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:SQLite', 'pyname': u'OutputSqlite', 'format': None, 'fields': OrderedDict([(u'option type', {'name': u'Option Type', 'pyname': u'option_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:SQLite`
         """
         self._data = OrderedDict()
-        self._data["Option Type"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.option_type = None
-        else:
-            self.option_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def option_type(self):
@@ -7551,176 +2294,30 @@ class OutputSqlite(object):
 
         Args:
             value (str): value for IDD Field `Option Type`
-                Accepted values are:
-                      - Simple
-                      - SimpleAndTabular
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputSqlite.option_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputSqlite.option_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputSqlite.option_type`')
-            vals = {}
-            vals["simple"] = "Simple"
-            vals["simpleandtabular"] = "SimpleAndTabular"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputSqlite.option_type`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputSqlite.option_type`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Option Type"] = value
+        self["Option Type"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputSqlite:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputSqlite:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputSqlite: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputSqlite: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputEnvironmentalImpactFactors(object):
+class OutputEnvironmentalImpactFactors(DataObject):
     """ Corresponds to IDD object `Output:EnvironmentalImpactFactors`
         This is used to Automatically report the facility meters and turn on the Environmental Impact Report calculations
         for all of the Environmental Factors.
     """
-    internal_name = "Output:EnvironmentalImpactFactors"
-    field_count = 1
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:EnvironmentalImpactFactors', 'pyname': u'OutputEnvironmentalImpactFactors', 'format': None, 'fields': OrderedDict([(u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:EnvironmentalImpactFactors`
         """
         self._data = OrderedDict()
-        self._data["Reporting Frequency"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.reporting_frequency = None
-        else:
-            self.reporting_frequency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def reporting_frequency(self):
@@ -7737,222 +2334,30 @@ class OutputEnvironmentalImpactFactors(object):
 
         Args:
             value (str): value for IDD Field `Reporting Frequency`
-                Accepted values are:
-                      - Timestep
-                      - Hourly
-                      - Daily
-                      - Monthly
-                      - RunPeriod
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputEnvironmentalImpactFactors.reporting_frequency`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputEnvironmentalImpactFactors.reporting_frequency`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputEnvironmentalImpactFactors.reporting_frequency`')
-            vals = {}
-            vals["timestep"] = "Timestep"
-            vals["hourly"] = "Hourly"
-            vals["daily"] = "Daily"
-            vals["monthly"] = "Monthly"
-            vals["runperiod"] = "RunPeriod"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputEnvironmentalImpactFactors.reporting_frequency`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputEnvironmentalImpactFactors.reporting_frequency`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Reporting Frequency"] = value
+        self["Reporting Frequency"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputEnvironmentalImpactFactors:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputEnvironmentalImpactFactors:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputEnvironmentalImpactFactors: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputEnvironmentalImpactFactors: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class EnvironmentalImpactFactors(object):
+class EnvironmentalImpactFactors(DataObject):
     """ Corresponds to IDD object `EnvironmentalImpactFactors`
         Used to help convert district and ideal energy use to a fuel type and provide total carbon equivalent with coefficients
         Also used in Source=>Site conversions.
     """
-    internal_name = "EnvironmentalImpactFactors"
-    field_count = 6
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'EnvironmentalImpactFactors', 'pyname': u'EnvironmentalImpactFactors', 'format': None, 'fields': OrderedDict([(u'district heating efficiency', {'name': u'District Heating Efficiency', 'pyname': u'district_heating_efficiency', 'default': 0.3, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'district cooling cop', {'name': u'District Cooling COP', 'pyname': u'district_cooling_cop', 'default': 3.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/W'}), (u'steam conversion efficiency', {'name': u'Steam Conversion Efficiency', 'pyname': u'steam_conversion_efficiency', 'default': 0.25, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'total carbon equivalent emission factor from n2o', {'name': u'Total Carbon Equivalent Emission Factor From N2O', 'pyname': u'total_carbon_equivalent_emission_factor_from_n2o', 'default': 80.7272, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/kg'}), (u'total carbon equivalent emission factor from ch4', {'name': u'Total Carbon Equivalent Emission Factor From CH4', 'pyname': u'total_carbon_equivalent_emission_factor_from_ch4', 'default': 6.2727, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/kg'}), (u'total carbon equivalent emission factor from co2', {'name': u'Total Carbon Equivalent Emission Factor From CO2', 'pyname': u'total_carbon_equivalent_emission_factor_from_co2', 'default': 0.2727, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnvironmentalImpactFactors`
         """
         self._data = OrderedDict()
-        self._data["District Heating Efficiency"] = None
-        self._data["District Cooling COP"] = None
-        self._data["Steam Conversion Efficiency"] = None
-        self._data["Total Carbon Equivalent Emission Factor From N2O"] = None
-        self._data["Total Carbon Equivalent Emission Factor From CH4"] = None
-        self._data["Total Carbon Equivalent Emission Factor From CO2"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.district_heating_efficiency = None
-        else:
-            self.district_heating_efficiency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.district_cooling_cop = None
-        else:
-            self.district_cooling_cop = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.steam_conversion_efficiency = None
-        else:
-            self.steam_conversion_efficiency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.total_carbon_equivalent_emission_factor_from_n2o = None
-        else:
-            self.total_carbon_equivalent_emission_factor_from_n2o = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.total_carbon_equivalent_emission_factor_from_ch4 = None
-        else:
-            self.total_carbon_equivalent_emission_factor_from_ch4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.total_carbon_equivalent_emission_factor_from_co2 = None
-        else:
-            self.total_carbon_equivalent_emission_factor_from_co2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def district_heating_efficiency(self):
@@ -7971,23 +2376,13 @@ class EnvironmentalImpactFactors(object):
         Args:
             value (float): value for IDD Field `District Heating Efficiency`
                 Default value: 0.3
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `EnvironmentalImpactFactors.district_heating_efficiency`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `EnvironmentalImpactFactors.district_heating_efficiency`')
-        self._data["District Heating Efficiency"] = value
+        self["District Heating Efficiency"] = value
 
     @property
     def district_cooling_cop(self):
@@ -8007,23 +2402,13 @@ class EnvironmentalImpactFactors(object):
             value (float): value for IDD Field `District Cooling COP`
                 Units: W/W
                 Default value: 3.0
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `EnvironmentalImpactFactors.district_cooling_cop`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `EnvironmentalImpactFactors.district_cooling_cop`')
-        self._data["District Cooling COP"] = value
+        self["District Cooling COP"] = value
 
     @property
     def steam_conversion_efficiency(self):
@@ -8042,23 +2427,13 @@ class EnvironmentalImpactFactors(object):
         Args:
             value (float): value for IDD Field `Steam Conversion Efficiency`
                 Default value: 0.25
-                value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `EnvironmentalImpactFactors.steam_conversion_efficiency`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `EnvironmentalImpactFactors.steam_conversion_efficiency`')
-        self._data["Steam Conversion Efficiency"] = value
+        self["Steam Conversion Efficiency"] = value
 
     @property
     def total_carbon_equivalent_emission_factor_from_n2o(self):
@@ -8083,13 +2458,7 @@ class EnvironmentalImpactFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `EnvironmentalImpactFactors.total_carbon_equivalent_emission_factor_from_n2o`'.format(value))
-        self._data["Total Carbon Equivalent Emission Factor From N2O"] = value
+        self["Total Carbon Equivalent Emission Factor From N2O"] = value
 
     @property
     def total_carbon_equivalent_emission_factor_from_ch4(self):
@@ -8114,13 +2483,7 @@ class EnvironmentalImpactFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `EnvironmentalImpactFactors.total_carbon_equivalent_emission_factor_from_ch4`'.format(value))
-        self._data["Total Carbon Equivalent Emission Factor From CH4"] = value
+        self["Total Carbon Equivalent Emission Factor From CH4"] = value
 
     @property
     def total_carbon_equivalent_emission_factor_from_co2(self):
@@ -8145,423 +2508,25 @@ class EnvironmentalImpactFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `EnvironmentalImpactFactors.total_carbon_equivalent_emission_factor_from_co2`'.format(value))
-        self._data["Total Carbon Equivalent Emission Factor From CO2"] = value
+        self["Total Carbon Equivalent Emission Factor From CO2"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field EnvironmentalImpactFactors:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field EnvironmentalImpactFactors:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for EnvironmentalImpactFactors: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for EnvironmentalImpactFactors: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class FuelFactors(object):
+class FuelFactors(DataObject):
     """ Corresponds to IDD object `FuelFactors`
         Provides Fuel Factors for Emissions as well as Source=>Site conversions.
         OtherFuel1, OtherFuel2 provide options for users who want to create and use
         fuels that may not be mainstream (biomass, wood, pellets).
     """
-    internal_name = "FuelFactors"
-    field_count = 37
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'FuelFactors', 'pyname': u'FuelFactors', 'format': None, 'fields': OrderedDict([(u'existing fuel resource name', {'name': u'Existing Fuel Resource Name', 'pyname': u'existing_fuel_resource_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'units of measure', {'name': u'Units of Measure', 'pyname': u'units_of_measure', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'energy per unit factor', {'name': u'Energy per Unit Factor', 'pyname': u'energy_per_unit_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'source energy factor', {'name': u'Source Energy Factor', 'pyname': u'source_energy_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/J'}), (u'source energy schedule name', {'name': u'Source Energy Schedule Name', 'pyname': u'source_energy_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'co2 emission factor', {'name': u'CO2 Emission Factor', 'pyname': u'co2_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'co2 emission factor schedule name', {'name': u'CO2 Emission Factor Schedule Name', 'pyname': u'co2_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'co emission factor', {'name': u'CO Emission Factor', 'pyname': u'co_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'co emission factor schedule name', {'name': u'CO Emission Factor Schedule Name', 'pyname': u'co_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ch4 emission factor', {'name': u'CH4 Emission Factor', 'pyname': u'ch4_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'ch4 emission factor schedule name', {'name': u'CH4 Emission Factor Schedule Name', 'pyname': u'ch4_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nox emission factor', {'name': u'NOx Emission Factor', 'pyname': u'nox_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nox emission factor schedule name', {'name': u'NOx Emission Factor Schedule Name', 'pyname': u'nox_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'n2o emission factor', {'name': u'N2O Emission Factor', 'pyname': u'n2o_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'n2o emission factor schedule name', {'name': u'N2O Emission Factor Schedule Name', 'pyname': u'n2o_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'so2 emission factor', {'name': u'SO2 Emission Factor', 'pyname': u'so2_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'so2 emission factor schedule name', {'name': u'SO2 Emission Factor Schedule Name', 'pyname': u'so2_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm emission factor', {'name': u'PM Emission Factor', 'pyname': u'pm_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm emission factor schedule name', {'name': u'PM Emission Factor Schedule Name', 'pyname': u'pm_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm10 emission factor', {'name': u'PM10 Emission Factor', 'pyname': u'pm10_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm10 emission factor schedule name', {'name': u'PM10 Emission Factor Schedule Name', 'pyname': u'pm10_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm2.5 emission factor', {'name': u'PM2.5 Emission Factor', 'pyname': u'pm2_5_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm2.5 emission factor schedule name', {'name': u'PM2.5 Emission Factor Schedule Name', 'pyname': u'pm2_5_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nh3 emission factor', {'name': u'NH3 Emission Factor', 'pyname': u'nh3_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nh3 emission factor schedule name', {'name': u'NH3 Emission Factor Schedule Name', 'pyname': u'nh3_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nmvoc emission factor', {'name': u'NMVOC Emission Factor', 'pyname': u'nmvoc_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nmvoc emission factor schedule name', {'name': u'NMVOC Emission Factor Schedule Name', 'pyname': u'nmvoc_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hg emission factor', {'name': u'Hg Emission Factor', 'pyname': u'hg_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'hg emission factor schedule name', {'name': u'Hg Emission Factor Schedule Name', 'pyname': u'hg_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pb emission factor', {'name': u'Pb Emission Factor', 'pyname': u'pb_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pb emission factor schedule name', {'name': u'Pb Emission Factor Schedule Name', 'pyname': u'pb_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water emission factor', {'name': u'Water Emission Factor', 'pyname': u'water_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'L/MJ'}), (u'water emission factor schedule name', {'name': u'Water Emission Factor Schedule Name', 'pyname': u'water_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nuclear high level emission factor', {'name': u'Nuclear High Level Emission Factor', 'pyname': u'nuclear_high_level_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nuclear high level emission factor schedule name', {'name': u'Nuclear High Level Emission Factor Schedule Name', 'pyname': u'nuclear_high_level_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nuclear low level emission factor', {'name': u'Nuclear Low Level Emission Factor', 'pyname': u'nuclear_low_level_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/MJ'}), (u'nuclear low level emission factor schedule name', {'name': u'Nuclear Low Level Emission Factor Schedule Name', 'pyname': u'nuclear_low_level_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FuelFactors`
         """
         self._data = OrderedDict()
-        self._data["Existing Fuel Resource Name"] = None
-        self._data["Units of Measure"] = None
-        self._data["Energy per Unit Factor"] = None
-        self._data["Source Energy Factor"] = None
-        self._data["Source Energy Schedule Name"] = None
-        self._data["CO2 Emission Factor"] = None
-        self._data["CO2 Emission Factor Schedule Name"] = None
-        self._data["CO Emission Factor"] = None
-        self._data["CO Emission Factor Schedule Name"] = None
-        self._data["CH4 Emission Factor"] = None
-        self._data["CH4 Emission Factor Schedule Name"] = None
-        self._data["NOx Emission Factor"] = None
-        self._data["NOx Emission Factor Schedule Name"] = None
-        self._data["N2O Emission Factor"] = None
-        self._data["N2O Emission Factor Schedule Name"] = None
-        self._data["SO2 Emission Factor"] = None
-        self._data["SO2 Emission Factor Schedule Name"] = None
-        self._data["PM Emission Factor"] = None
-        self._data["PM Emission Factor Schedule Name"] = None
-        self._data["PM10 Emission Factor"] = None
-        self._data["PM10 Emission Factor Schedule Name"] = None
-        self._data["PM2.5 Emission Factor"] = None
-        self._data["PM2.5 Emission Factor Schedule Name"] = None
-        self._data["NH3 Emission Factor"] = None
-        self._data["NH3 Emission Factor Schedule Name"] = None
-        self._data["NMVOC Emission Factor"] = None
-        self._data["NMVOC Emission Factor Schedule Name"] = None
-        self._data["Hg Emission Factor"] = None
-        self._data["Hg Emission Factor Schedule Name"] = None
-        self._data["Pb Emission Factor"] = None
-        self._data["Pb Emission Factor Schedule Name"] = None
-        self._data["Water Emission Factor"] = None
-        self._data["Water Emission Factor Schedule Name"] = None
-        self._data["Nuclear High Level Emission Factor"] = None
-        self._data["Nuclear High Level Emission Factor Schedule Name"] = None
-        self._data["Nuclear Low Level Emission Factor"] = None
-        self._data["Nuclear Low Level Emission Factor Schedule Name"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.existing_fuel_resource_name = None
-        else:
-            self.existing_fuel_resource_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.units_of_measure = None
-        else:
-            self.units_of_measure = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.energy_per_unit_factor = None
-        else:
-            self.energy_per_unit_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.source_energy_factor = None
-        else:
-            self.source_energy_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.source_energy_schedule_name = None
-        else:
-            self.source_energy_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.co2_emission_factor = None
-        else:
-            self.co2_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.co2_emission_factor_schedule_name = None
-        else:
-            self.co2_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.co_emission_factor = None
-        else:
-            self.co_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.co_emission_factor_schedule_name = None
-        else:
-            self.co_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ch4_emission_factor = None
-        else:
-            self.ch4_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.ch4_emission_factor_schedule_name = None
-        else:
-            self.ch4_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nox_emission_factor = None
-        else:
-            self.nox_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nox_emission_factor_schedule_name = None
-        else:
-            self.nox_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.n2o_emission_factor = None
-        else:
-            self.n2o_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.n2o_emission_factor_schedule_name = None
-        else:
-            self.n2o_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.so2_emission_factor = None
-        else:
-            self.so2_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.so2_emission_factor_schedule_name = None
-        else:
-            self.so2_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pm_emission_factor = None
-        else:
-            self.pm_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pm_emission_factor_schedule_name = None
-        else:
-            self.pm_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pm10_emission_factor = None
-        else:
-            self.pm10_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pm10_emission_factor_schedule_name = None
-        else:
-            self.pm10_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pm2_5_emission_factor = None
-        else:
-            self.pm2_5_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pm2_5_emission_factor_schedule_name = None
-        else:
-            self.pm2_5_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nh3_emission_factor = None
-        else:
-            self.nh3_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nh3_emission_factor_schedule_name = None
-        else:
-            self.nh3_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nmvoc_emission_factor = None
-        else:
-            self.nmvoc_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nmvoc_emission_factor_schedule_name = None
-        else:
-            self.nmvoc_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hg_emission_factor = None
-        else:
-            self.hg_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.hg_emission_factor_schedule_name = None
-        else:
-            self.hg_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pb_emission_factor = None
-        else:
-            self.pb_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pb_emission_factor_schedule_name = None
-        else:
-            self.pb_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_emission_factor = None
-        else:
-            self.water_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.water_emission_factor_schedule_name = None
-        else:
-            self.water_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nuclear_high_level_emission_factor = None
-        else:
-            self.nuclear_high_level_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nuclear_high_level_emission_factor_schedule_name = None
-        else:
-            self.nuclear_high_level_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nuclear_low_level_emission_factor = None
-        else:
-            self.nuclear_low_level_emission_factor = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.nuclear_low_level_emission_factor_schedule_name = None
-        else:
-            self.nuclear_low_level_emission_factor_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def existing_fuel_resource_name(self):
@@ -8578,71 +2543,13 @@ class FuelFactors(object):
 
         Args:
             value (str): value for IDD Field `Existing Fuel Resource Name`
-                Accepted values are:
-                      - Electricity
-                      - NaturalGas
-                      - FuelOil#1
-                      - FuelOil#2
-                      - Coal
-                      - Gasoline
-                      - Propane
-                      - Diesel
-                      - OtherFuel1
-                      - OtherFuel2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.existing_fuel_resource_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.existing_fuel_resource_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.existing_fuel_resource_name`')
-            vals = {}
-            vals["electricity"] = "Electricity"
-            vals["naturalgas"] = "NaturalGas"
-            vals["fueloil#1"] = "FuelOil#1"
-            vals["fueloil#2"] = "FuelOil#2"
-            vals["coal"] = "Coal"
-            vals["gasoline"] = "Gasoline"
-            vals["propane"] = "Propane"
-            vals["diesel"] = "Diesel"
-            vals["otherfuel1"] = "OtherFuel1"
-            vals["otherfuel2"] = "OtherFuel2"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `FuelFactors.existing_fuel_resource_name`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `FuelFactors.existing_fuel_resource_name`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Existing Fuel Resource Name"] = value
+        self["Existing Fuel Resource Name"] = value
 
     @property
     def units_of_measure(self):
@@ -8665,19 +2572,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.units_of_measure`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.units_of_measure`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.units_of_measure`')
-        self._data["Units of Measure"] = value
+        self["Units of Measure"] = value
 
     @property
     def energy_per_unit_factor(self):
@@ -8700,13 +2595,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.energy_per_unit_factor`'.format(value))
-        self._data["Energy per Unit Factor"] = value
+        self["Energy per Unit Factor"] = value
 
     @property
     def source_energy_factor(self):
@@ -8730,13 +2619,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.source_energy_factor`'.format(value))
-        self._data["Source Energy Factor"] = value
+        self["Source Energy Factor"] = value
 
     @property
     def source_energy_schedule_name(self):
@@ -8759,19 +2642,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.source_energy_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.source_energy_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.source_energy_schedule_name`')
-        self._data["Source Energy Schedule Name"] = value
+        self["Source Energy Schedule Name"] = value
 
     @property
     def co2_emission_factor(self):
@@ -8795,13 +2666,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.co2_emission_factor`'.format(value))
-        self._data["CO2 Emission Factor"] = value
+        self["CO2 Emission Factor"] = value
 
     @property
     def co2_emission_factor_schedule_name(self):
@@ -8824,19 +2689,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.co2_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.co2_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.co2_emission_factor_schedule_name`')
-        self._data["CO2 Emission Factor Schedule Name"] = value
+        self["CO2 Emission Factor Schedule Name"] = value
 
     @property
     def co_emission_factor(self):
@@ -8860,13 +2713,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.co_emission_factor`'.format(value))
-        self._data["CO Emission Factor"] = value
+        self["CO Emission Factor"] = value
 
     @property
     def co_emission_factor_schedule_name(self):
@@ -8889,19 +2736,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.co_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.co_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.co_emission_factor_schedule_name`')
-        self._data["CO Emission Factor Schedule Name"] = value
+        self["CO Emission Factor Schedule Name"] = value
 
     @property
     def ch4_emission_factor(self):
@@ -8925,13 +2760,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.ch4_emission_factor`'.format(value))
-        self._data["CH4 Emission Factor"] = value
+        self["CH4 Emission Factor"] = value
 
     @property
     def ch4_emission_factor_schedule_name(self):
@@ -8954,19 +2783,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.ch4_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.ch4_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.ch4_emission_factor_schedule_name`')
-        self._data["CH4 Emission Factor Schedule Name"] = value
+        self["CH4 Emission Factor Schedule Name"] = value
 
     @property
     def nox_emission_factor(self):
@@ -8990,13 +2807,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.nox_emission_factor`'.format(value))
-        self._data["NOx Emission Factor"] = value
+        self["NOx Emission Factor"] = value
 
     @property
     def nox_emission_factor_schedule_name(self):
@@ -9019,19 +2830,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.nox_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.nox_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.nox_emission_factor_schedule_name`')
-        self._data["NOx Emission Factor Schedule Name"] = value
+        self["NOx Emission Factor Schedule Name"] = value
 
     @property
     def n2o_emission_factor(self):
@@ -9055,13 +2854,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.n2o_emission_factor`'.format(value))
-        self._data["N2O Emission Factor"] = value
+        self["N2O Emission Factor"] = value
 
     @property
     def n2o_emission_factor_schedule_name(self):
@@ -9084,19 +2877,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.n2o_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.n2o_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.n2o_emission_factor_schedule_name`')
-        self._data["N2O Emission Factor Schedule Name"] = value
+        self["N2O Emission Factor Schedule Name"] = value
 
     @property
     def so2_emission_factor(self):
@@ -9120,13 +2901,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.so2_emission_factor`'.format(value))
-        self._data["SO2 Emission Factor"] = value
+        self["SO2 Emission Factor"] = value
 
     @property
     def so2_emission_factor_schedule_name(self):
@@ -9149,19 +2924,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.so2_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.so2_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.so2_emission_factor_schedule_name`')
-        self._data["SO2 Emission Factor Schedule Name"] = value
+        self["SO2 Emission Factor Schedule Name"] = value
 
     @property
     def pm_emission_factor(self):
@@ -9185,13 +2948,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.pm_emission_factor`'.format(value))
-        self._data["PM Emission Factor"] = value
+        self["PM Emission Factor"] = value
 
     @property
     def pm_emission_factor_schedule_name(self):
@@ -9214,19 +2971,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.pm_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.pm_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.pm_emission_factor_schedule_name`')
-        self._data["PM Emission Factor Schedule Name"] = value
+        self["PM Emission Factor Schedule Name"] = value
 
     @property
     def pm10_emission_factor(self):
@@ -9250,13 +2995,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.pm10_emission_factor`'.format(value))
-        self._data["PM10 Emission Factor"] = value
+        self["PM10 Emission Factor"] = value
 
     @property
     def pm10_emission_factor_schedule_name(self):
@@ -9279,19 +3018,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.pm10_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.pm10_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.pm10_emission_factor_schedule_name`')
-        self._data["PM10 Emission Factor Schedule Name"] = value
+        self["PM10 Emission Factor Schedule Name"] = value
 
     @property
     def pm2_5_emission_factor(self):
@@ -9315,13 +3042,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.pm2_5_emission_factor`'.format(value))
-        self._data["PM2.5 Emission Factor"] = value
+        self["PM2.5 Emission Factor"] = value
 
     @property
     def pm2_5_emission_factor_schedule_name(self):
@@ -9344,19 +3065,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.pm2_5_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.pm2_5_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.pm2_5_emission_factor_schedule_name`')
-        self._data["PM2.5 Emission Factor Schedule Name"] = value
+        self["PM2.5 Emission Factor Schedule Name"] = value
 
     @property
     def nh3_emission_factor(self):
@@ -9380,13 +3089,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.nh3_emission_factor`'.format(value))
-        self._data["NH3 Emission Factor"] = value
+        self["NH3 Emission Factor"] = value
 
     @property
     def nh3_emission_factor_schedule_name(self):
@@ -9409,19 +3112,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.nh3_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.nh3_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.nh3_emission_factor_schedule_name`')
-        self._data["NH3 Emission Factor Schedule Name"] = value
+        self["NH3 Emission Factor Schedule Name"] = value
 
     @property
     def nmvoc_emission_factor(self):
@@ -9445,13 +3136,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.nmvoc_emission_factor`'.format(value))
-        self._data["NMVOC Emission Factor"] = value
+        self["NMVOC Emission Factor"] = value
 
     @property
     def nmvoc_emission_factor_schedule_name(self):
@@ -9474,19 +3159,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.nmvoc_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.nmvoc_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.nmvoc_emission_factor_schedule_name`')
-        self._data["NMVOC Emission Factor Schedule Name"] = value
+        self["NMVOC Emission Factor Schedule Name"] = value
 
     @property
     def hg_emission_factor(self):
@@ -9510,13 +3183,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.hg_emission_factor`'.format(value))
-        self._data["Hg Emission Factor"] = value
+        self["Hg Emission Factor"] = value
 
     @property
     def hg_emission_factor_schedule_name(self):
@@ -9539,19 +3206,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.hg_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.hg_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.hg_emission_factor_schedule_name`')
-        self._data["Hg Emission Factor Schedule Name"] = value
+        self["Hg Emission Factor Schedule Name"] = value
 
     @property
     def pb_emission_factor(self):
@@ -9575,13 +3230,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.pb_emission_factor`'.format(value))
-        self._data["Pb Emission Factor"] = value
+        self["Pb Emission Factor"] = value
 
     @property
     def pb_emission_factor_schedule_name(self):
@@ -9604,19 +3253,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.pb_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.pb_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.pb_emission_factor_schedule_name`')
-        self._data["Pb Emission Factor Schedule Name"] = value
+        self["Pb Emission Factor Schedule Name"] = value
 
     @property
     def water_emission_factor(self):
@@ -9640,13 +3277,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.water_emission_factor`'.format(value))
-        self._data["Water Emission Factor"] = value
+        self["Water Emission Factor"] = value
 
     @property
     def water_emission_factor_schedule_name(self):
@@ -9669,19 +3300,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.water_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.water_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.water_emission_factor_schedule_name`')
-        self._data["Water Emission Factor Schedule Name"] = value
+        self["Water Emission Factor Schedule Name"] = value
 
     @property
     def nuclear_high_level_emission_factor(self):
@@ -9705,13 +3324,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.nuclear_high_level_emission_factor`'.format(value))
-        self._data["Nuclear High Level Emission Factor"] = value
+        self["Nuclear High Level Emission Factor"] = value
 
     @property
     def nuclear_high_level_emission_factor_schedule_name(self):
@@ -9734,19 +3347,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.nuclear_high_level_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.nuclear_high_level_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.nuclear_high_level_emission_factor_schedule_name`')
-        self._data["Nuclear High Level Emission Factor Schedule Name"] = value
+        self["Nuclear High Level Emission Factor Schedule Name"] = value
 
     @property
     def nuclear_low_level_emission_factor(self):
@@ -9770,13 +3371,7 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `FuelFactors.nuclear_low_level_emission_factor`'.format(value))
-        self._data["Nuclear Low Level Emission Factor"] = value
+        self["Nuclear Low Level Emission Factor"] = value
 
     @property
     def nuclear_low_level_emission_factor_schedule_name(self):
@@ -9799,147 +3394,23 @@ class FuelFactors(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `FuelFactors.nuclear_low_level_emission_factor_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `FuelFactors.nuclear_low_level_emission_factor_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `FuelFactors.nuclear_low_level_emission_factor_schedule_name`')
-        self._data["Nuclear Low Level Emission Factor Schedule Name"] = value
+        self["Nuclear Low Level Emission Factor Schedule Name"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field FuelFactors:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field FuelFactors:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for FuelFactors: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for FuelFactors: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputDiagnostics(object):
+class OutputDiagnostics(DataObject):
     """ Corresponds to IDD object `Output:Diagnostics`
         Special keys to produce certain warning messages or effect certain simulation characteristics.
     """
-    internal_name = "Output:Diagnostics"
-    field_count = 2
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:Diagnostics', 'pyname': u'OutputDiagnostics', 'format': None, 'fields': OrderedDict([(u'key 1', {'name': u'Key 1', 'pyname': u'key_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'key 2', {'name': u'Key 2', 'pyname': u'key_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Diagnostics`
         """
         self._data = OrderedDict()
-        self._data["Key 1"] = None
-        self._data["Key 2"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.key_1 = None
-        else:
-            self.key_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.key_2 = None
-        else:
-            self.key_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def key_1(self):
@@ -9956,71 +3427,13 @@ class OutputDiagnostics(object):
 
         Args:
             value (str): value for IDD Field `Key 1`
-                Accepted values are:
-                      - DisplayAllWarnings
-                      - DisplayExtraWarnings
-                      - DisplayUnusedSchedules
-                      - DisplayUnusedObjects
-                      - DisplayAdvancedReportVariables
-                      - DisplayZoneAirHeatBalanceOffBalance
-                      - DoNotMirrorDetachedShading
-                      - DisplayWeatherMissingDataWarnings
-                      - ReportDuringWarmup
-                      - ReportDetailedWarmupConvergence
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputDiagnostics.key_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputDiagnostics.key_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputDiagnostics.key_1`')
-            vals = {}
-            vals["displayallwarnings"] = "DisplayAllWarnings"
-            vals["displayextrawarnings"] = "DisplayExtraWarnings"
-            vals["displayunusedschedules"] = "DisplayUnusedSchedules"
-            vals["displayunusedobjects"] = "DisplayUnusedObjects"
-            vals["displayadvancedreportvariables"] = "DisplayAdvancedReportVariables"
-            vals["displayzoneairheatbalanceoffbalance"] = "DisplayZoneAirHeatBalanceOffBalance"
-            vals["donotmirrordetachedshading"] = "DoNotMirrorDetachedShading"
-            vals["displayweathermissingdatawarnings"] = "DisplayWeatherMissingDataWarnings"
-            vals["reportduringwarmup"] = "ReportDuringWarmup"
-            vals["reportdetailedwarmupconvergence"] = "ReportDetailedWarmupConvergence"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputDiagnostics.key_1`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputDiagnostics.key_1`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Key 1"] = value
+        self["Key 1"] = value
 
     @property
     def key_2(self):
@@ -10037,199 +3450,29 @@ class OutputDiagnostics(object):
 
         Args:
             value (str): value for IDD Field `Key 2`
-                Accepted values are:
-                      - DisplayAllWarnings
-                      - DisplayExtraWarnings
-                      - DisplayUnusedSchedules
-                      - DisplayUnusedObjects
-                      - DisplayAdvancedReportVariables
-                      - DisplayZoneAirHeatBalanceOffBalance
-                      - DoNotMirrorDetachedShading
-                      - DisplayWeatherMissingDataWarnings
-                      - ReportDuringWarmup
-                      - ReportDetailedWarmupConvergence
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputDiagnostics.key_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputDiagnostics.key_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputDiagnostics.key_2`')
-            vals = {}
-            vals["displayallwarnings"] = "DisplayAllWarnings"
-            vals["displayextrawarnings"] = "DisplayExtraWarnings"
-            vals["displayunusedschedules"] = "DisplayUnusedSchedules"
-            vals["displayunusedobjects"] = "DisplayUnusedObjects"
-            vals["displayadvancedreportvariables"] = "DisplayAdvancedReportVariables"
-            vals["displayzoneairheatbalanceoffbalance"] = "DisplayZoneAirHeatBalanceOffBalance"
-            vals["donotmirrordetachedshading"] = "DoNotMirrorDetachedShading"
-            vals["displayweathermissingdatawarnings"] = "DisplayWeatherMissingDataWarnings"
-            vals["reportduringwarmup"] = "ReportDuringWarmup"
-            vals["reportdetailedwarmupconvergence"] = "ReportDetailedWarmupConvergence"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputDiagnostics.key_2`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputDiagnostics.key_2`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Key 2"] = value
+        self["Key 2"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputDiagnostics:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputDiagnostics:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputDiagnostics: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputDiagnostics: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputDebuggingData(object):
+class OutputDebuggingData(DataObject):
     """ Corresponds to IDD object `Output:DebuggingData`
         switch eplusout.dbg file on or off
     """
-    internal_name = "Output:DebuggingData"
-    field_count = 2
-    required_fields = []
-    extensible_fields = 0
-    format = "singleline"
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:DebuggingData', 'pyname': u'OutputDebuggingData', 'format': None, 'fields': OrderedDict([(u'report debugging data', {'name': u'Report Debugging Data', 'pyname': u'report_debugging_data', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'report during warmup', {'name': u'Report During Warmup', 'pyname': u'report_during_warmup', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:DebuggingData`
         """
         self._data = OrderedDict()
-        self._data["Report Debugging Data"] = None
-        self._data["Report During Warmup"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.report_debugging_data = None
-        else:
-            self.report_debugging_data = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.report_during_warmup = None
-        else:
-            self.report_during_warmup = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def report_debugging_data(self):
@@ -10253,13 +3496,7 @@ class OutputDebuggingData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `OutputDebuggingData.report_debugging_data`'.format(value))
-        self._data["Report Debugging Data"] = value
+        self["Report Debugging Data"] = value
 
     @property
     def report_during_warmup(self):
@@ -10283,222 +3520,24 @@ class OutputDebuggingData(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float'
-                                 ' for field `OutputDebuggingData.report_during_warmup`'.format(value))
-        self._data["Report During Warmup"] = value
+        self["Report During Warmup"] = value
 
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
 
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputDebuggingData:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputDebuggingData:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputDebuggingData: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputDebuggingData: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class OutputPreprocessorMessage(object):
+class OutputPreprocessorMessage(DataObject):
     """ Corresponds to IDD object `Output:PreprocessorMessage`
         This object does not come from a user input.  This is generated by a pre-processor
         so that various conditions can be gracefully passed on by the InputProcessor.
     """
-    internal_name = "Output:PreprocessorMessage"
-    field_count = 12
-    required_fields = []
-    extensible_fields = 0
-    format = None
-    min_fields = 0
-    extensible_keys = []
+    schema = {'min-fields': 0, 'name': u'Output:PreprocessorMessage', 'pyname': u'OutputPreprocessorMessage', 'format': None, 'fields': OrderedDict([(u'preprocessor name', {'name': u'Preprocessor Name', 'pyname': u'preprocessor_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'error severity', {'name': u'Error Severity', 'pyname': u'error_severity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 1', {'name': u'Message Line 1', 'pyname': u'message_line_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 2', {'name': u'Message Line 2', 'pyname': u'message_line_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 3', {'name': u'Message Line 3', 'pyname': u'message_line_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 4', {'name': u'Message Line 4', 'pyname': u'message_line_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 5', {'name': u'Message Line 5', 'pyname': u'message_line_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 6', {'name': u'Message Line 6', 'pyname': u'message_line_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 7', {'name': u'Message Line 7', 'pyname': u'message_line_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 8', {'name': u'Message Line 8', 'pyname': u'message_line_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 9', {'name': u'Message Line 9', 'pyname': u'message_line_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 10', {'name': u'Message Line 10', 'pyname': u'message_line_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:PreprocessorMessage`
         """
         self._data = OrderedDict()
-        self._data["Preprocessor Name"] = None
-        self._data["Error Severity"] = None
-        self._data["Message Line 1"] = None
-        self._data["Message Line 2"] = None
-        self._data["Message Line 3"] = None
-        self._data["Message Line 4"] = None
-        self._data["Message Line 5"] = None
-        self._data["Message Line 6"] = None
-        self._data["Message Line 7"] = None
-        self._data["Message Line 8"] = None
-        self._data["Message Line 9"] = None
-        self._data["Message Line 10"] = None
+        for key in self.schema['fields']:
+            self._data[key] = None
         self._data["extensibles"] = []
         self.strict = True
-
-    def read(self, vals, strict=False):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        old_strict = self.strict
-        self.strict = strict
-        i = 0
-        if len(vals[i]) == 0:
-            self.preprocessor_name = None
-        else:
-            self.preprocessor_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.error_severity = None
-        else:
-            self.error_severity = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.message_line_1 = None
-        else:
-            self.message_line_1 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.message_line_2 = None
-        else:
-            self.message_line_2 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.message_line_3 = None
-        else:
-            self.message_line_3 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.message_line_4 = None
-        else:
-            self.message_line_4 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.message_line_5 = None
-        else:
-            self.message_line_5 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.message_line_6 = None
-        else:
-            self.message_line_6 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.message_line_7 = None
-        else:
-            self.message_line_7 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.message_line_8 = None
-        else:
-            self.message_line_8 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.message_line_9 = None
-        else:
-            self.message_line_9 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.message_line_10 = None
-        else:
-            self.message_line_10 = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        self.strict = old_strict
 
     @property
     def preprocessor_name(self):
@@ -10521,19 +3560,7 @@ class OutputPreprocessorMessage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.preprocessor_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.preprocessor_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.preprocessor_name`')
-        self._data["Preprocessor Name"] = value
+        self["Preprocessor Name"] = value
 
     @property
     def error_severity(self):
@@ -10551,59 +3578,13 @@ class OutputPreprocessorMessage(object):
 
         Args:
             value (str): value for IDD Field `Error Severity`
-                Accepted values are:
-                      - Information
-                      - Warning
-                      - Severe
-                      - Fatal
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.error_severity`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.error_severity`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.error_severity`')
-            vals = {}
-            vals["information"] = "Information"
-            vals["warning"] = "Warning"
-            vals["severe"] = "Severe"
-            vals["fatal"] = "Fatal"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if not self.strict:
-                    for key in vals:
-                        if key in value_lower or value_lower in key:
-                            value_lower = key
-                            found = True
-                            break
-                    if not found:
-                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
-                        for key in vals:
-                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
-                            if key_stripped == value_stripped:
-                                value_lower = key
-                                found = True
-                                break
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `OutputPreprocessorMessage.error_severity`'.format(value))
-                else:
-                    logger.warn('change value {} to accepted value {} for '
-                                 'field `OutputPreprocessorMessage.error_severity`'.format(value, vals[value_lower]))
-            value = vals[value_lower]
-        self._data["Error Severity"] = value
+        self["Error Severity"] = value
 
     @property
     def message_line_1(self):
@@ -10626,19 +3607,7 @@ class OutputPreprocessorMessage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.message_line_1`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.message_line_1`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.message_line_1`')
-        self._data["Message Line 1"] = value
+        self["Message Line 1"] = value
 
     @property
     def message_line_2(self):
@@ -10661,19 +3630,7 @@ class OutputPreprocessorMessage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.message_line_2`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.message_line_2`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.message_line_2`')
-        self._data["Message Line 2"] = value
+        self["Message Line 2"] = value
 
     @property
     def message_line_3(self):
@@ -10696,19 +3653,7 @@ class OutputPreprocessorMessage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.message_line_3`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.message_line_3`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.message_line_3`')
-        self._data["Message Line 3"] = value
+        self["Message Line 3"] = value
 
     @property
     def message_line_4(self):
@@ -10731,19 +3676,7 @@ class OutputPreprocessorMessage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.message_line_4`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.message_line_4`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.message_line_4`')
-        self._data["Message Line 4"] = value
+        self["Message Line 4"] = value
 
     @property
     def message_line_5(self):
@@ -10766,19 +3699,7 @@ class OutputPreprocessorMessage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.message_line_5`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.message_line_5`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.message_line_5`')
-        self._data["Message Line 5"] = value
+        self["Message Line 5"] = value
 
     @property
     def message_line_6(self):
@@ -10801,19 +3722,7 @@ class OutputPreprocessorMessage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.message_line_6`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.message_line_6`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.message_line_6`')
-        self._data["Message Line 6"] = value
+        self["Message Line 6"] = value
 
     @property
     def message_line_7(self):
@@ -10836,19 +3745,7 @@ class OutputPreprocessorMessage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.message_line_7`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.message_line_7`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.message_line_7`')
-        self._data["Message Line 7"] = value
+        self["Message Line 7"] = value
 
     @property
     def message_line_8(self):
@@ -10871,19 +3768,7 @@ class OutputPreprocessorMessage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.message_line_8`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.message_line_8`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.message_line_8`')
-        self._data["Message Line 8"] = value
+        self["Message Line 8"] = value
 
     @property
     def message_line_9(self):
@@ -10906,19 +3791,7 @@ class OutputPreprocessorMessage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.message_line_9`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.message_line_9`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.message_line_9`')
-        self._data["Message Line 9"] = value
+        self["Message Line 9"] = value
 
     @property
     def message_line_10(self):
@@ -10941,98 +3814,4 @@ class OutputPreprocessorMessage(object):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str'
-                                 ' for field `OutputPreprocessorMessage.message_line_10`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `OutputPreprocessorMessage.message_line_10`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `OutputPreprocessorMessage.message_line_10`')
-        self._data["Message Line 10"] = value
-
-    def check(self, strict=True):
-        """ Checks if all required fields are not None
-
-        Args:
-            strict (bool):
-                True: raises an Execption in case of error
-                False: logs a warning in case of error
-
-        Raises:
-            ValueError
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                if strict:
-                    raise ValueError("Required field OutputPreprocessorMessage:{} is None".format(key))
-                    break
-                else:
-                    logger.warn("Required field OutputPreprocessorMessage:{} is None".format(key))
-
-        out_fields = len(self.export())
-        has_minfields = out_fields >= self.min_fields
-        if not has_minfields and strict:
-            raise ValueError("Not enough fields set for OutputPreprocessorMessage: {} / {}".format(out_fields,
-                                                                                            self.min_fields))
-        elif not has_minfields and not strict:
-            logger.warn("Not enough fields set for OutputPreprocessorMessage: {} / {}".format(out_fields,
-                                                                                       self.min_fields))
-        good = good and has_minfields
-
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-
-        # Calculate max elements to export
-        has_extensibles = False
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                if value is not None:
-                    has_extensibles = True
-                    break
-            if has_extensibles:
-                break
-
-        if has_extensibles:
-            maxel = len(self._data) - 1
-        else:
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
-                maxel = i + 1
-                if self._data[key] is not None:
-                    break
-
-        maxel = max(maxel, self.min_fields)
-
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.extensible_keys[i], self._to_str(value)))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
+        self["Message Line 10"] = value
