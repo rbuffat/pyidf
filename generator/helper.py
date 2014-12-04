@@ -109,7 +109,7 @@ class DataObject:
             else:
                 field_dict['required-field'] = False
 
-            if 'key' in field.attributes["type"]:
+            if 'key' in field.attributes:
                 field_dict['accepted-values'] = field.attributes['key']
 
             if 'units' in field.attributes:
@@ -158,7 +158,7 @@ class DataObject:
             else:
                 field_dict['required-field'] = False
 
-            if 'key' in field.attributes["type"]:
+            if 'key' in field.attributes:
                 field_dict['accepted-values'] = field.attributes['key']
 
             if 'units' in field.attributes:

@@ -26,7 +26,7 @@ def worker(q, worker):
 
 def create_file(fname, objs):
     source_files = [
-        "from collections import OrderedDict\nimport logging\nimport re\nfrom helper import DataObject\n\nlogger = logging.getLogger(__name__)\nlogger.addHandler(logging.NullHandler())\n\n"]
+        "import six\nfrom collections import OrderedDict\nimport logging\nimport re\nfrom helper import DataObject\n\nlogger = logging.getLogger(__name__)\nlogger.addHandler(logging.NullHandler())\n\n"]
     for obj in objs:
         class_source = generate_class(obj)
 #         class_source = autopep8.fix_code(
