@@ -3,11 +3,10 @@ Created on Oct 30, 2014
 
 @author: rene
 '''
-import string
-import re
+from collections import OrderedDict
 import logging
-
-
+import re
+import string
 def normalize_field_name(internal_name):
 
     name = internal_name.strip()
@@ -65,6 +64,139 @@ class DataObject:
                     self.extensible_fields = self.fields[i:i + count]
                     self.fields = self.fields[0:i]
 
+# { 
+#               'name' : "TemperingValve",
+#               'field_count' : 6,
+#               'format' : None,
+#               'min-fields' : 0,
+#               'fields:' : OrderedDict([
+#                                        ('field_name', { 'required' : True,
+#                                                         'type' : 'int',
+#                                                         'accepted_values' : set(1,2,3,4) }),
+#                                        ])}
+
+    def create_schema(self):
+        schema = {}
+        schema['name'] = self.internal_name
+        schema['pyname'] = self.class_name
+        if format in self.attributes:
+            schema['format'] = self.attributes['format'].lower()
+        else:
+            schema['format'] = None
+
+        if "min-fields" in self.attributes:
+            schema['min-fields'] = int(self.attributes['min-fields'])
+        else:
+            schema['min-fields'] = 0
+        if 'required-object' in self.attributes:
+            schema['required-object'] = True
+        else:
+            schema['required-object'] = False
+        if 'unique-object' in self.attributes:
+            schema['unique-object'] = True
+        else:
+            schema['unique-object'] = False
+
+        schema['fields'] = OrderedDict()
+        for field in self.fields:
+            field_dict = {}
+            field_dict['type'] = field.attributes["type"]
+            field_dict['name'] = field.internal_name
+            field_dict['pyname'] = field.field_name
+
+            if 'required-field' in field.attributes:
+                field_dict['required-field'] = True
+            else:
+                field_dict['required-field'] = False
+
+            if 'key' in field.attributes["type"]:
+                field_dict['accepted-values'] = field.attributes['key']
+
+            if 'units' in field.attributes:
+                field_dict['unit'] = field.attributes['units']
+
+            if 'minimum' in field.attributes:
+                field_dict['minimum'] = field.attributes['minimum']
+
+            if 'minimum>' in field.attributes:
+                field_dict['minimum>'] = field.attributes['minimum>']
+
+            if 'maximum' in field.attributes:
+                field_dict['maximum'] = field.attributes['maximum']
+
+            if 'maximum<' in field.attributes:
+                field_dict['maximum<'] = field.attributes['maximum<']
+
+            if 'default' in field.attributes:
+                val = field.attributes['default']
+                if isinstance(val, str):
+                    if val[0] == '"' and val[-1] == '"':
+                        val = val[1:-1]
+                field_dict['default'] = val
+
+            if 'autocalculatable' in field.attributes:
+                field_dict['autocalculatable'] = True
+            else:
+                field_dict['autocalculatable'] = False
+
+            if 'autosizable' in field.attributes:
+                field_dict['autosizable'] = True
+            else:
+                field_dict['autosizable'] = False
+
+            schema['fields'][field.internal_name.lower()] = field_dict
+
+        schema['extensible-fields'] = OrderedDict()
+        for field in self.extensible_fields:
+            field_dict = {}
+            field_dict['type'] = field.attributes["type"]
+            field_dict['name'] = field.internal_name
+            field_dict['pyname'] = field.field_name
+
+            if 'required-field' in field.attributes:
+                field_dict['required-field'] = True
+            else:
+                field_dict['required-field'] = False
+
+            if 'key' in field.attributes["type"]:
+                field_dict['accepted-values'] = field.attributes['key']
+
+            if 'units' in field.attributes:
+                field_dict['unit'] = field.attributes['units']
+
+            if 'minimum' in field.attributes:
+                field_dict['minimum'] = field.attributes['minimum']
+
+            if 'minimum>' in field.attributes:
+                field_dict['minimum>'] = field.attributes['minimum>']
+
+            if 'maximum' in field.attributes:
+                field_dict['maximum'] = field.attributes['maximum']
+
+            if 'maximum<' in field.attributes:
+                field_dict['maximum<'] = field.attributes['maximum<']
+
+            if 'default' in field.attributes:
+                val = field.attributes['default']
+                if isinstance(val, str):
+                    if val[0] == '"' and val[-1] == '"':
+                        val = val[1:-1]
+                field_dict['default'] = val
+
+            if 'autocalculatable' in field.attributes:
+                field_dict['autocalculatable'] = True
+            else:
+                field_dict['autocalculatable'] = False
+
+            if 'autosizable' in field.attributes:
+                field_dict['autosizable'] = True
+            else:
+                field_dict['autosizable'] = False
+
+            schema['extensible-fields'][field.internal_name.lower()] = field_dict
+
+        self.schema = schema
+
 
 class DataField(object):
 
@@ -83,11 +215,11 @@ class DataField(object):
 
     def value2py(self, value, ftype):
         if ftype == 'alpha':
-            return str(value)
+            return value
         if ftype == 'integer':
-            return str(int(value))
+            return int(value)
         if ftype == 'real':
-            return str(float(value))
+            return float(value)
         return value
 
     def pytype(self, ftype):
@@ -126,20 +258,29 @@ class DataField(object):
 #                                                                    self.internal_name))
                 self.attributes["type"] = "real"
 
+        if self.attributes["type"] == "choice":
+            if self.ftype == "A":
+                self.attributes["type"] = "alpha"
+            elif self.ftype == "N":
+                self.attributes["type"] = "int"
+
+        self.attributes["pytype"] = self.pytype(self.attributes["type"])
+
+        if not self.attributes["type"] == "alpha":
         # Convert some values to python representation
-        for attribute_name in list(self.attributes):
-            if attribute_name in ["default",
-                                  "minimum",
-                                  "minimum>",
-                                  "maximum",
-                                  "maximum<",
-                                  "missing"]:
-                value = self.attributes[attribute_name]
-                try:
-                    self.attributes[attribute_name] = self.value2py(value,
-                                                                    self.attributes["type"])
-                except Exception:
-                    self.attributes[attribute_name] = '"{}"'.format(value)
+            for attribute_name in list(self.attributes):
+                if attribute_name in ["default",
+                                      "minimum",
+                                      "minimum>",
+                                      "maximum",
+                                      "maximum<",
+                                      "missing"]:
+                    value = self.attributes[attribute_name]
+                    try:
+                        self.attributes[attribute_name] = self.value2py(value,
+                                                                        self.attributes["type"])
+                    except Exception:
+                        self.attributes[attribute_name] = '"{}"'.format(value)
 #                     logging.warn("cast to py value failed for {} {} {}: {}->{}".format(attribute_name,
 #                                                                                        value,
 #                                                                                        self.attributes["type"],

@@ -198,6 +198,7 @@ class IDDParser():
 
                     fields[field.internal_name].append(field)
                     field.conv_vals()
+                obj.create_schema()
                 good_objs[obj.internal_name] = obj
             else:
                 bad_objs.append(obj)

@@ -26,7 +26,7 @@ def worker(q, worker):
 
 def create_file(fname, objs):
     source_files = [
-        "from collections import OrderedDict\nimport logging\nimport re\n\nlogger = logging.getLogger(__name__)\nlogger.addHandler(logging.NullHandler())\n\n"]
+        "from collections import OrderedDict\nimport logging\nimport re\nfrom helper import DataObject\n\nlogger = logging.getLogger(__name__)\nlogger.addHandler(logging.NullHandler())\n\n"]
     for obj in objs:
         class_source = generate_class(obj)
 #         class_source = autopep8.fix_code(
@@ -71,12 +71,12 @@ if __name__ == '__main__':
         p.join()
 
     source_file = generate_idf(objs)
-    source_file = autopep8.fix_code(
-        source_file, options=autopep8.parse_args(['--aggressive',
-                                                  '--aggressive',
-                                                  '--aggressive',
-                                                  '']))
-    source_file = format_code(source_file)
+#     source_file = autopep8.fix_code(
+#         source_file, options=autopep8.parse_args(['--aggressive',
+#                                                   '--aggressive',
+#                                                   '--aggressive',
+#                                                   '']))
+#     source_file = format_code(source_file)
 
     with open("../pyidf/idf.py", 'w') as f:
         f.write(source_file)

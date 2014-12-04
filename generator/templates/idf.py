@@ -19,6 +19,7 @@ from {{ file_name }} import *
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
+
 class IDF(object):
     """ Represens an EnergyPlus IDF input file
     """
@@ -91,12 +92,12 @@ class IDF(object):
             for key in self._data:
                 if len(self._data[key]) > 0:
                     for dobj in self._data[key]:
-                        if dobj.format == "singleline":
-                            vals = [dobj.internal_name]
+                        if dobj.schema['format'] == "singleline":
+                            vals = [dobj.schema['name']]
                             vals += [v[1] for v in dobj.export()]
                             f.write("\n  {};\n".format(",".join(vals)))
-                        elif dobj.format == "vertices":
-                            f.write("\n  {},\n".format(dobj.internal_name))
+                        elif dobj.schema['format'] == "vertices":
+                            f.write("\n  {},\n".format(dobj.schema['name']))
                             vals = dobj.export()
                             cval = len(vals)
                             i = 0
@@ -121,8 +122,8 @@ class IDF(object):
                                                                                    sep=sep,
                                                                                    blanks=blanks,
                                                                                    comment=comment))
-                        elif dobj.format == "compactschedule":
-                            f.write("\n  {},\n".format(dobj.internal_name))
+                        elif dobj.schema['format'] == "compactschedule":
+                            f.write("\n  {},\n".format(dobj.schema['name']))
                             vals = dobj.export()
                             cval = len(vals)
                             i = 0
@@ -152,9 +153,9 @@ class IDF(object):
                                                                                    sep=sep,
                                                                                    blanks=blanks,
                                                                                    comment=comment))
-                        elif dobj.format == "fluidproperty":
+                        elif dobj.schema['format'] == "fluidproperty":
 
-                            f.write("\n  {},\n".format(dobj.internal_name))
+                            f.write("\n  {},\n".format(dobj.schema['name']))
                             vals = dobj.export()
                             cval = len(vals)
                             i = 0
@@ -187,8 +188,8 @@ class IDF(object):
                                                                                    sep=sep,
                                                                                    blanks=blanks,
                                                                                    comment=comment))
-                        elif dobj.format == "spectral":
-                            f.write("\n  {},\n".format(dobj.internal_name))
+                        elif dobj.schema['format'] == "spectral":
+                            f.write("\n  {},\n".format(dobj.schema['name']))
                             vals = dobj.export()
                             cval = len(vals)
                             i = 0
@@ -217,7 +218,7 @@ class IDF(object):
                                                                                    comment=comment))
 
                         else:
-                            f.write("\n  {},\n".format(dobj.internal_name))
+                            f.write("\n  {},\n".format(dobj.schema['name']))
                             vals = dobj.export()
                             cval = len(vals)
                             for i, val in enumerate(vals):
