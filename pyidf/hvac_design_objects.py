@@ -4,7 +4,7 @@ import logging
 import re
 from helper import DataObject
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
 
 
