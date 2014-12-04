@@ -9,11 +9,133 @@ logger.addHandler(logging.NullHandler())
 
 
 class HeatExchangerAirToAirFlatPlate(DataObject):
+
     """ Corresponds to IDD object `HeatExchanger:AirToAir:FlatPlate`
         Flat plate air-to-air heat exchanger, typically used for exhaust or relief air heat
         recovery.
     """
-    schema = {'min-fields': 15, 'name': u'HeatExchanger:AirToAir:FlatPlate', 'pyname': u'HeatExchangerAirToAirFlatPlate', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'flow arrangement type', {'name': u'Flow Arrangement Type', 'pyname': u'flow_arrangement_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'economizer lockout', {'name': u'Economizer Lockout', 'pyname': u'economizer_lockout', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ratio of supply to secondary ha values', {'name': u'Ratio of Supply to Secondary hA Values', 'pyname': u'ratio_of_supply_to_secondary_ha_values', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'nominal supply air flow rate', {'name': u'Nominal Supply Air Flow Rate', 'pyname': u'nominal_supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal supply air inlet temperature', {'name': u'Nominal Supply Air Inlet Temperature', 'pyname': u'nominal_supply_air_inlet_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal supply air outlet temperature', {'name': u'Nominal Supply Air Outlet Temperature', 'pyname': u'nominal_supply_air_outlet_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal secondary air flow rate', {'name': u'Nominal Secondary Air Flow Rate', 'pyname': u'nominal_secondary_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal secondary air inlet temperature', {'name': u'Nominal Secondary Air Inlet Temperature', 'pyname': u'nominal_secondary_air_inlet_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal electric power', {'name': u'Nominal Electric Power', 'pyname': u'nominal_electric_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air outlet node name', {'name': u'Supply Air Outlet Node Name', 'pyname': u'supply_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air outlet node name', {'name': u'Secondary Air Outlet Node Name', 'pyname': u'secondary_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 15,
+              'name': u'HeatExchanger:AirToAir:FlatPlate',
+              'pyname': u'HeatExchangerAirToAirFlatPlate',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'flow arrangement type',
+                                      {'name': u'Flow Arrangement Type',
+                                       'pyname': u'flow_arrangement_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'economizer lockout',
+                                      {'name': u'Economizer Lockout',
+                                       'pyname': u'economizer_lockout',
+                                       'default': u'Yes',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'ratio of supply to secondary ha values',
+                                      {'name': u'Ratio of Supply to Secondary hA Values',
+                                       'pyname': u'ratio_of_supply_to_secondary_ha_values',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'nominal supply air flow rate',
+                                      {'name': u'Nominal Supply Air Flow Rate',
+                                       'pyname': u'nominal_supply_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'nominal supply air inlet temperature',
+                                      {'name': u'Nominal Supply Air Inlet Temperature',
+                                       'pyname': u'nominal_supply_air_inlet_temperature',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'nominal supply air outlet temperature',
+                                      {'name': u'Nominal Supply Air Outlet Temperature',
+                                       'pyname': u'nominal_supply_air_outlet_temperature',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'nominal secondary air flow rate',
+                                      {'name': u'Nominal Secondary Air Flow Rate',
+                                       'pyname': u'nominal_secondary_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'nominal secondary air inlet temperature',
+                                      {'name': u'Nominal Secondary Air Inlet Temperature',
+                                       'pyname': u'nominal_secondary_air_inlet_temperature',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'nominal electric power',
+                                      {'name': u'Nominal Electric Power',
+                                       'pyname': u'nominal_electric_power',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'supply air inlet node name',
+                                      {'name': u'Supply Air Inlet Node Name',
+                                       'pyname': u'supply_air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'supply air outlet node name',
+                                      {'name': u'Supply Air Outlet Node Name',
+                                       'pyname': u'supply_air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'secondary air inlet node name',
+                                      {'name': u'Secondary Air Inlet Node Name',
+                                       'pyname': u'secondary_air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'secondary air outlet node name',
+                                      {'name': u'Secondary Air Outlet Node Name',
+                                       'pyname': u'secondary_air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:AirToAir:FlatPlate`
@@ -384,12 +506,230 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
 
 
 class HeatExchangerAirToAirSensibleAndLatent(DataObject):
+
     """ Corresponds to IDD object `HeatExchanger:AirToAir:SensibleAndLatent`
         This object models an air-to-air heat exchanger using effectiveness relationships.
         The heat exchanger can transfer sensible energy, latent energy, or both between the
         supply (primary) and exhaust (secondary) air streams.
     """
-    schema = {'min-fields': 19, 'name': u'HeatExchanger:AirToAir:SensibleAndLatent', 'pyname': u'HeatExchangerAirToAirSensibleAndLatent', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nominal supply air flow rate', {'name': u'Nominal Supply Air Flow Rate', 'pyname': u'nominal_supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'sensible effectiveness at 100% heating air flow', {'name': u'Sensible Effectiveness at 100% Heating Air Flow', 'pyname': u'sensible_effectiveness_at_100_heating_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'latent effectiveness at 100% heating air flow', {'name': u'Latent Effectiveness at 100% Heating Air Flow', 'pyname': u'latent_effectiveness_at_100_heating_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sensible effectiveness at 75% heating air flow', {'name': u'Sensible Effectiveness at 75% Heating Air Flow', 'pyname': u'sensible_effectiveness_at_75_heating_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'latent effectiveness at 75% heating air flow', {'name': u'Latent Effectiveness at 75% Heating Air Flow', 'pyname': u'latent_effectiveness_at_75_heating_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sensible effectiveness at 100% cooling air flow', {'name': u'Sensible Effectiveness at 100% Cooling Air Flow', 'pyname': u'sensible_effectiveness_at_100_cooling_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'latent effectiveness at 100% cooling air flow', {'name': u'Latent Effectiveness at 100% Cooling Air Flow', 'pyname': u'latent_effectiveness_at_100_cooling_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sensible effectiveness at 75% cooling air flow', {'name': u'Sensible Effectiveness at 75% Cooling Air Flow', 'pyname': u'sensible_effectiveness_at_75_cooling_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'latent effectiveness at 75% cooling air flow', {'name': u'Latent Effectiveness at 75% Cooling Air Flow', 'pyname': u'latent_effectiveness_at_75_cooling_air_flow', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air outlet node name', {'name': u'Supply Air Outlet Node Name', 'pyname': u'supply_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'exhaust air inlet node name', {'name': u'Exhaust Air Inlet Node Name', 'pyname': u'exhaust_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'exhaust air outlet node name', {'name': u'Exhaust Air Outlet Node Name', 'pyname': u'exhaust_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'nominal electric power', {'name': u'Nominal Electric Power', 'pyname': u'nominal_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'supply air outlet temperature control', {'name': u'Supply Air Outlet Temperature Control', 'pyname': u'supply_air_outlet_temperature_control', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat exchanger type', {'name': u'Heat Exchanger Type', 'pyname': u'heat_exchanger_type', 'default': u'Plate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'frost control type', {'name': u'Frost Control Type', 'pyname': u'frost_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'threshold temperature', {'name': u'Threshold Temperature', 'pyname': u'threshold_temperature', 'default': 1.7, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'initial defrost time fraction', {'name': u'Initial Defrost Time Fraction', 'pyname': u'initial_defrost_time_fraction', 'default': 0.083, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'rate of defrost time fraction increase', {'name': u'Rate of Defrost Time Fraction Increase', 'pyname': u'rate_of_defrost_time_fraction_increase', 'default': 0.012, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/K'}), (u'economizer lockout', {'name': u'Economizer Lockout', 'pyname': u'economizer_lockout', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 19,
+              'name': u'HeatExchanger:AirToAir:SensibleAndLatent',
+              'pyname': u'HeatExchangerAirToAirSensibleAndLatent',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'nominal supply air flow rate',
+                                      {'name': u'Nominal Supply Air Flow Rate',
+                                       'pyname': u'nominal_supply_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'sensible effectiveness at 100% heating air flow',
+                                      {'name': u'Sensible Effectiveness at 100% Heating Air Flow',
+                                       'pyname': u'sensible_effectiveness_at_100_heating_air_flow',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'latent effectiveness at 100% heating air flow',
+                                      {'name': u'Latent Effectiveness at 100% Heating Air Flow',
+                                       'pyname': u'latent_effectiveness_at_100_heating_air_flow',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'sensible effectiveness at 75% heating air flow',
+                                      {'name': u'Sensible Effectiveness at 75% Heating Air Flow',
+                                       'pyname': u'sensible_effectiveness_at_75_heating_air_flow',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'latent effectiveness at 75% heating air flow',
+                                      {'name': u'Latent Effectiveness at 75% Heating Air Flow',
+                                       'pyname': u'latent_effectiveness_at_75_heating_air_flow',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'sensible effectiveness at 100% cooling air flow',
+                                      {'name': u'Sensible Effectiveness at 100% Cooling Air Flow',
+                                       'pyname': u'sensible_effectiveness_at_100_cooling_air_flow',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'latent effectiveness at 100% cooling air flow',
+                                      {'name': u'Latent Effectiveness at 100% Cooling Air Flow',
+                                       'pyname': u'latent_effectiveness_at_100_cooling_air_flow',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'sensible effectiveness at 75% cooling air flow',
+                                      {'name': u'Sensible Effectiveness at 75% Cooling Air Flow',
+                                       'pyname': u'sensible_effectiveness_at_75_cooling_air_flow',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'latent effectiveness at 75% cooling air flow',
+                                      {'name': u'Latent Effectiveness at 75% Cooling Air Flow',
+                                       'pyname': u'latent_effectiveness_at_75_cooling_air_flow',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'supply air inlet node name',
+                                      {'name': u'Supply Air Inlet Node Name',
+                                       'pyname': u'supply_air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'supply air outlet node name',
+                                      {'name': u'Supply Air Outlet Node Name',
+                                       'pyname': u'supply_air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'exhaust air inlet node name',
+                                      {'name': u'Exhaust Air Inlet Node Name',
+                                       'pyname': u'exhaust_air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'exhaust air outlet node name',
+                                      {'name': u'Exhaust Air Outlet Node Name',
+                                       'pyname': u'exhaust_air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'nominal electric power',
+                                      {'name': u'Nominal Electric Power',
+                                       'pyname': u'nominal_electric_power',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'supply air outlet temperature control',
+                                      {'name': u'Supply Air Outlet Temperature Control',
+                                       'pyname': u'supply_air_outlet_temperature_control',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heat exchanger type',
+                                      {'name': u'Heat Exchanger Type',
+                                       'pyname': u'heat_exchanger_type',
+                                       'default': u'Plate',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'frost control type',
+                                      {'name': u'Frost Control Type',
+                                       'pyname': u'frost_control_type',
+                                       'default': u'None',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'threshold temperature',
+                                      {'name': u'Threshold Temperature',
+                                       'pyname': u'threshold_temperature',
+                                       'default': 1.7,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'initial defrost time fraction',
+                                      {'name': u'Initial Defrost Time Fraction',
+                                       'pyname': u'initial_defrost_time_fraction',
+                                       'default': 0.083,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'rate of defrost time fraction increase',
+                                      {'name': u'Rate of Defrost Time Fraction Increase',
+                                       'pyname': u'rate_of_defrost_time_fraction_increase',
+                                       'default': 0.012,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'1/K'}),
+                                     (u'economizer lockout',
+                                      {'name': u'Economizer Lockout',
+                                       'pyname': u'economizer_lockout',
+                                       'default': u'Yes',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:AirToAir:SensibleAndLatent`
@@ -972,6 +1312,7 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
 
 
 class HeatExchangerDesiccantBalancedFlow(DataObject):
+
     """ Corresponds to IDD object `HeatExchanger:Desiccant:BalancedFlow`
         This object models a balanced desiccant heat exchanger.
         The heat exchanger transfers both sensible and latent energy between the
@@ -979,7 +1320,78 @@ class HeatExchangerDesiccantBalancedFlow(DataObject):
         are assumed to be the same on both the process and regeneration sides of the
         heat exchanger.
     """
-    schema = {'min-fields': 8, 'name': u'HeatExchanger:Desiccant:BalancedFlow', 'pyname': u'HeatExchangerDesiccantBalancedFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration air inlet node name', {'name': u'Regeneration Air Inlet Node Name', 'pyname': u'regeneration_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration air outlet node name', {'name': u'Regeneration Air Outlet Node Name', 'pyname': u'regeneration_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'process air inlet node name', {'name': u'Process Air Inlet Node Name', 'pyname': u'process_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'process air outlet node name', {'name': u'Process Air Outlet Node Name', 'pyname': u'process_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat exchanger performance object type', {'name': u'Heat Exchanger Performance Object Type', 'pyname': u'heat_exchanger_performance_object_type', 'default': u'HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat exchanger performance name', {'name': u'Heat Exchanger Performance Name', 'pyname': u'heat_exchanger_performance_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'economizer lockout', {'name': u'Economizer Lockout', 'pyname': u'economizer_lockout', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 8,
+              'name': u'HeatExchanger:Desiccant:BalancedFlow',
+              'pyname': u'HeatExchangerDesiccantBalancedFlow',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'regeneration air inlet node name',
+                                      {'name': u'Regeneration Air Inlet Node Name',
+                                       'pyname': u'regeneration_air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'regeneration air outlet node name',
+                                      {'name': u'Regeneration Air Outlet Node Name',
+                                       'pyname': u'regeneration_air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'process air inlet node name',
+                                      {'name': u'Process Air Inlet Node Name',
+                                       'pyname': u'process_air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'process air outlet node name',
+                                      {'name': u'Process Air Outlet Node Name',
+                                       'pyname': u'process_air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'heat exchanger performance object type',
+                                      {'name': u'Heat Exchanger Performance Object Type',
+                                       'pyname': u'heat_exchanger_performance_object_type',
+                                       'default': u'HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heat exchanger performance name',
+                                      {'name': u'Heat Exchanger Performance Name',
+                                       'pyname': u'heat_exchanger_performance_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'economizer lockout',
+                                      {'name': u'Economizer Lockout',
+                                       'pyname': u'economizer_lockout',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:Desiccant:BalancedFlow`
@@ -1140,7 +1552,9 @@ class HeatExchangerDesiccantBalancedFlow(DataObject):
         return self._data["Heat Exchanger Performance Object Type"]
 
     @heat_exchanger_performance_object_type.setter
-    def heat_exchanger_performance_object_type(self, value="HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1"):
+    def heat_exchanger_performance_object_type(
+            self,
+            value="HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1"):
         """  Corresponds to IDD Field `Heat Exchanger Performance Object Type`
 
         Args:
@@ -1205,6 +1619,7 @@ class HeatExchangerDesiccantBalancedFlow(DataObject):
 
 
 class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
+
     """ Corresponds to IDD object `HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1`
         RTO = B1 + B2*RWI + B3*RTI + B4*(RWI/RTI) + B5*PWI + B6*PTI + B7*(PWI/PTI)
         + B8*RFV
@@ -1219,7 +1634,457 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         PTI = Dry-bulb temperature of the process inlet air (C)
         RFV = Regeneration Face Velocity (m/s)
     """
-    schema = {'min-fields': 52, 'name': u'HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1', 'pyname': u'HeatExchangerDesiccantBalancedFlowPerformanceDataType1', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'nominal air flow rate', {'name': u'Nominal Air Flow Rate', 'pyname': u'nominal_air_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal air face velocity', {'name': u'Nominal Air Face Velocity', 'pyname': u'nominal_air_face_velocity', 'minimum>': 0.0, 'maximum': 6.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'nominal electric power', {'name': u'Nominal Electric Power', 'pyname': u'nominal_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'temperature equation coefficient 1', {'name': u'Temperature Equation Coefficient 1', 'pyname': u'temperature_equation_coefficient_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 2', {'name': u'Temperature Equation Coefficient 2', 'pyname': u'temperature_equation_coefficient_2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 3', {'name': u'Temperature Equation Coefficient 3', 'pyname': u'temperature_equation_coefficient_3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 4', {'name': u'Temperature Equation Coefficient 4', 'pyname': u'temperature_equation_coefficient_4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 5', {'name': u'Temperature Equation Coefficient 5', 'pyname': u'temperature_equation_coefficient_5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 6', {'name': u'Temperature Equation Coefficient 6', 'pyname': u'temperature_equation_coefficient_6', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 7', {'name': u'Temperature Equation Coefficient 7', 'pyname': u'temperature_equation_coefficient_7', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature equation coefficient 8', {'name': u'Temperature Equation Coefficient 8', 'pyname': u'temperature_equation_coefficient_8', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum regeneration inlet air humidity ratio for temperature equation', {'name': u'Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation', 'pyname': u'minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum regeneration inlet air humidity ratio for temperature equation', {'name': u'Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation', 'pyname': u'maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum regeneration inlet air temperature for temperature equation', {'name': u'Minimum Regeneration Inlet Air Temperature for Temperature Equation', 'pyname': u'minimum_regeneration_inlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum regeneration inlet air temperature for temperature equation', {'name': u'Maximum Regeneration Inlet Air Temperature for Temperature Equation', 'pyname': u'maximum_regeneration_inlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum process inlet air humidity ratio for temperature equation', {'name': u'Minimum Process Inlet Air Humidity Ratio for Temperature Equation', 'pyname': u'minimum_process_inlet_air_humidity_ratio_for_temperature_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum process inlet air humidity ratio for temperature equation', {'name': u'Maximum Process Inlet Air Humidity Ratio for Temperature Equation', 'pyname': u'maximum_process_inlet_air_humidity_ratio_for_temperature_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum process inlet air temperature for temperature equation', {'name': u'Minimum Process Inlet Air Temperature for Temperature Equation', 'pyname': u'minimum_process_inlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum process inlet air temperature for temperature equation', {'name': u'Maximum Process Inlet Air Temperature for Temperature Equation', 'pyname': u'maximum_process_inlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum regeneration air velocity for temperature equation', {'name': u'Minimum Regeneration Air Velocity for Temperature Equation', 'pyname': u'minimum_regeneration_air_velocity_for_temperature_equation', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'maximum regeneration air velocity for temperature equation', {'name': u'Maximum Regeneration Air Velocity for Temperature Equation', 'pyname': u'maximum_regeneration_air_velocity_for_temperature_equation', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'minimum regeneration outlet air temperature for temperature equation', {'name': u'Minimum Regeneration Outlet Air Temperature for Temperature Equation', 'pyname': u'minimum_regeneration_outlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum regeneration outlet air temperature for temperature equation', {'name': u'Maximum Regeneration Outlet Air Temperature for Temperature Equation', 'pyname': u'maximum_regeneration_outlet_air_temperature_for_temperature_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum regeneration inlet air relative humidity for temperature equation', {'name': u'Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation', 'pyname': u'minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'maximum regeneration inlet air relative humidity for temperature equation', {'name': u'Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation', 'pyname': u'maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'minimum process inlet air relative humidity for temperature equation', {'name': u'Minimum Process Inlet Air Relative Humidity for Temperature Equation', 'pyname': u'minimum_process_inlet_air_relative_humidity_for_temperature_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'maximum process inlet air relative humidity for temperature equation', {'name': u'Maximum Process Inlet Air Relative Humidity for Temperature Equation', 'pyname': u'maximum_process_inlet_air_relative_humidity_for_temperature_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'humidity ratio equation coefficient 1', {'name': u'Humidity Ratio Equation Coefficient 1', 'pyname': u'humidity_ratio_equation_coefficient_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 2', {'name': u'Humidity Ratio Equation Coefficient 2', 'pyname': u'humidity_ratio_equation_coefficient_2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 3', {'name': u'Humidity Ratio Equation Coefficient 3', 'pyname': u'humidity_ratio_equation_coefficient_3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 4', {'name': u'Humidity Ratio Equation Coefficient 4', 'pyname': u'humidity_ratio_equation_coefficient_4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 5', {'name': u'Humidity Ratio Equation Coefficient 5', 'pyname': u'humidity_ratio_equation_coefficient_5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 6', {'name': u'Humidity Ratio Equation Coefficient 6', 'pyname': u'humidity_ratio_equation_coefficient_6', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 7', {'name': u'Humidity Ratio Equation Coefficient 7', 'pyname': u'humidity_ratio_equation_coefficient_7', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity ratio equation coefficient 8', {'name': u'Humidity Ratio Equation Coefficient 8', 'pyname': u'humidity_ratio_equation_coefficient_8', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum regeneration inlet air humidity ratio for humidity ratio equation', {'name': u'Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum regeneration inlet air humidity ratio for humidity ratio equation', {'name': u'Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum regeneration inlet air temperature for humidity ratio equation', {'name': u'Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation', 'pyname': u'minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum regeneration inlet air temperature for humidity ratio equation', {'name': u'Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation', 'pyname': u'maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum process inlet air humidity ratio for humidity ratio equation', {'name': u'Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum process inlet air humidity ratio for humidity ratio equation', {'name': u'Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum process inlet air temperature for humidity ratio equation', {'name': u'Minimum Process Inlet Air Temperature for Humidity Ratio Equation', 'pyname': u'minimum_process_inlet_air_temperature_for_humidity_ratio_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum process inlet air temperature for humidity ratio equation', {'name': u'Maximum Process Inlet Air Temperature for Humidity Ratio Equation', 'pyname': u'maximum_process_inlet_air_temperature_for_humidity_ratio_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum regeneration air velocity for humidity ratio equation', {'name': u'Minimum Regeneration Air Velocity for Humidity Ratio Equation', 'pyname': u'minimum_regeneration_air_velocity_for_humidity_ratio_equation', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'maximum regeneration air velocity for humidity ratio equation', {'name': u'Maximum Regeneration Air Velocity for Humidity Ratio Equation', 'pyname': u'maximum_regeneration_air_velocity_for_humidity_ratio_equation', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'minimum regeneration outlet air humidity ratio for humidity ratio equation', {'name': u'Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum regeneration outlet air humidity ratio for humidity ratio equation', {'name': u'Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation', 'pyname': u'maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum regeneration inlet air relative humidity for humidity ratio equation', {'name': u'Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation', 'pyname': u'minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'maximum regeneration inlet air relative humidity for humidity ratio equation', {'name': u'Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation', 'pyname': u'maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'minimum process inlet air relative humidity for humidity ratio equation', {'name': u'Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation', 'pyname': u'minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'maximum process inlet air relative humidity for humidity ratio equation', {'name': u'Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation', 'pyname': u'maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 52,
+              'name': u'HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1',
+              'pyname': u'HeatExchangerDesiccantBalancedFlowPerformanceDataType1',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'nominal air flow rate',
+                                      {'name': u'Nominal Air Flow Rate',
+                                       'pyname': u'nominal_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'nominal air face velocity',
+                                      {'name': u'Nominal Air Face Velocity',
+                                       'pyname': u'nominal_air_face_velocity',
+                                       'minimum>': 0.0,
+                                       'maximum': 6.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm/s'}),
+                                     (u'nominal electric power',
+                                      {'name': u'Nominal Electric Power',
+                                       'pyname': u'nominal_electric_power',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'temperature equation coefficient 1',
+                                      {'name': u'Temperature Equation Coefficient 1',
+                                       'pyname': u'temperature_equation_coefficient_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature equation coefficient 2',
+                                      {'name': u'Temperature Equation Coefficient 2',
+                                       'pyname': u'temperature_equation_coefficient_2',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature equation coefficient 3',
+                                      {'name': u'Temperature Equation Coefficient 3',
+                                       'pyname': u'temperature_equation_coefficient_3',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature equation coefficient 4',
+                                      {'name': u'Temperature Equation Coefficient 4',
+                                       'pyname': u'temperature_equation_coefficient_4',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature equation coefficient 5',
+                                      {'name': u'Temperature Equation Coefficient 5',
+                                       'pyname': u'temperature_equation_coefficient_5',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature equation coefficient 6',
+                                      {'name': u'Temperature Equation Coefficient 6',
+                                       'pyname': u'temperature_equation_coefficient_6',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature equation coefficient 7',
+                                      {'name': u'Temperature Equation Coefficient 7',
+                                       'pyname': u'temperature_equation_coefficient_7',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature equation coefficient 8',
+                                      {'name': u'Temperature Equation Coefficient 8',
+                                       'pyname': u'temperature_equation_coefficient_8',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'minimum regeneration inlet air humidity ratio for temperature equation',
+                                      {'name': u'Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation',
+                                       'pyname': u'minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'maximum regeneration inlet air humidity ratio for temperature equation',
+                                      {'name': u'Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation',
+                                       'pyname': u'maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'minimum regeneration inlet air temperature for temperature equation',
+                                      {'name': u'Minimum Regeneration Inlet Air Temperature for Temperature Equation',
+                                       'pyname': u'minimum_regeneration_inlet_air_temperature_for_temperature_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum regeneration inlet air temperature for temperature equation',
+                                      {'name': u'Maximum Regeneration Inlet Air Temperature for Temperature Equation',
+                                       'pyname': u'maximum_regeneration_inlet_air_temperature_for_temperature_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum process inlet air humidity ratio for temperature equation',
+                                      {'name': u'Minimum Process Inlet Air Humidity Ratio for Temperature Equation',
+                                       'pyname': u'minimum_process_inlet_air_humidity_ratio_for_temperature_equation',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'maximum process inlet air humidity ratio for temperature equation',
+                                      {'name': u'Maximum Process Inlet Air Humidity Ratio for Temperature Equation',
+                                       'pyname': u'maximum_process_inlet_air_humidity_ratio_for_temperature_equation',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'minimum process inlet air temperature for temperature equation',
+                                      {'name': u'Minimum Process Inlet Air Temperature for Temperature Equation',
+                                       'pyname': u'minimum_process_inlet_air_temperature_for_temperature_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum process inlet air temperature for temperature equation',
+                                      {'name': u'Maximum Process Inlet Air Temperature for Temperature Equation',
+                                       'pyname': u'maximum_process_inlet_air_temperature_for_temperature_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum regeneration air velocity for temperature equation',
+                                      {'name': u'Minimum Regeneration Air Velocity for Temperature Equation',
+                                       'pyname': u'minimum_regeneration_air_velocity_for_temperature_equation',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm/s'}),
+                                     (u'maximum regeneration air velocity for temperature equation',
+                                      {'name': u'Maximum Regeneration Air Velocity for Temperature Equation',
+                                       'pyname': u'maximum_regeneration_air_velocity_for_temperature_equation',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm/s'}),
+                                     (u'minimum regeneration outlet air temperature for temperature equation',
+                                      {'name': u'Minimum Regeneration Outlet Air Temperature for Temperature Equation',
+                                       'pyname': u'minimum_regeneration_outlet_air_temperature_for_temperature_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum regeneration outlet air temperature for temperature equation',
+                                      {'name': u'Maximum Regeneration Outlet Air Temperature for Temperature Equation',
+                                       'pyname': u'maximum_regeneration_outlet_air_temperature_for_temperature_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum regeneration inlet air relative humidity for temperature equation',
+                                      {'name': u'Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation',
+                                       'pyname': u'minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'percent'}),
+                                     (u'maximum regeneration inlet air relative humidity for temperature equation',
+                                      {'name': u'Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation',
+                                       'pyname': u'maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'percent'}),
+                                     (u'minimum process inlet air relative humidity for temperature equation',
+                                      {'name': u'Minimum Process Inlet Air Relative Humidity for Temperature Equation',
+                                       'pyname': u'minimum_process_inlet_air_relative_humidity_for_temperature_equation',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'percent'}),
+                                     (u'maximum process inlet air relative humidity for temperature equation',
+                                      {'name': u'Maximum Process Inlet Air Relative Humidity for Temperature Equation',
+                                       'pyname': u'maximum_process_inlet_air_relative_humidity_for_temperature_equation',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'percent'}),
+                                     (u'humidity ratio equation coefficient 1',
+                                      {'name': u'Humidity Ratio Equation Coefficient 1',
+                                       'pyname': u'humidity_ratio_equation_coefficient_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'humidity ratio equation coefficient 2',
+                                      {'name': u'Humidity Ratio Equation Coefficient 2',
+                                       'pyname': u'humidity_ratio_equation_coefficient_2',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'humidity ratio equation coefficient 3',
+                                      {'name': u'Humidity Ratio Equation Coefficient 3',
+                                       'pyname': u'humidity_ratio_equation_coefficient_3',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'humidity ratio equation coefficient 4',
+                                      {'name': u'Humidity Ratio Equation Coefficient 4',
+                                       'pyname': u'humidity_ratio_equation_coefficient_4',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'humidity ratio equation coefficient 5',
+                                      {'name': u'Humidity Ratio Equation Coefficient 5',
+                                       'pyname': u'humidity_ratio_equation_coefficient_5',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'humidity ratio equation coefficient 6',
+                                      {'name': u'Humidity Ratio Equation Coefficient 6',
+                                       'pyname': u'humidity_ratio_equation_coefficient_6',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'humidity ratio equation coefficient 7',
+                                      {'name': u'Humidity Ratio Equation Coefficient 7',
+                                       'pyname': u'humidity_ratio_equation_coefficient_7',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'humidity ratio equation coefficient 8',
+                                      {'name': u'Humidity Ratio Equation Coefficient 8',
+                                       'pyname': u'humidity_ratio_equation_coefficient_8',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'minimum regeneration inlet air humidity ratio for humidity ratio equation',
+                                      {'name': u'Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation',
+                                       'pyname': u'minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'maximum regeneration inlet air humidity ratio for humidity ratio equation',
+                                      {'name': u'Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation',
+                                       'pyname': u'maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'minimum regeneration inlet air temperature for humidity ratio equation',
+                                      {'name': u'Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation',
+                                       'pyname': u'minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum regeneration inlet air temperature for humidity ratio equation',
+                                      {'name': u'Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation',
+                                       'pyname': u'maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum process inlet air humidity ratio for humidity ratio equation',
+                                      {'name': u'Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation',
+                                       'pyname': u'minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'maximum process inlet air humidity ratio for humidity ratio equation',
+                                      {'name': u'Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation',
+                                       'pyname': u'maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'minimum process inlet air temperature for humidity ratio equation',
+                                      {'name': u'Minimum Process Inlet Air Temperature for Humidity Ratio Equation',
+                                       'pyname': u'minimum_process_inlet_air_temperature_for_humidity_ratio_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum process inlet air temperature for humidity ratio equation',
+                                      {'name': u'Maximum Process Inlet Air Temperature for Humidity Ratio Equation',
+                                       'pyname': u'maximum_process_inlet_air_temperature_for_humidity_ratio_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum regeneration air velocity for humidity ratio equation',
+                                      {'name': u'Minimum Regeneration Air Velocity for Humidity Ratio Equation',
+                                       'pyname': u'minimum_regeneration_air_velocity_for_humidity_ratio_equation',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm/s'}),
+                                     (u'maximum regeneration air velocity for humidity ratio equation',
+                                      {'name': u'Maximum Regeneration Air Velocity for Humidity Ratio Equation',
+                                       'pyname': u'maximum_regeneration_air_velocity_for_humidity_ratio_equation',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm/s'}),
+                                     (u'minimum regeneration outlet air humidity ratio for humidity ratio equation',
+                                      {'name': u'Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation',
+                                       'pyname': u'minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'maximum regeneration outlet air humidity ratio for humidity ratio equation',
+                                      {'name': u'Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation',
+                                       'pyname': u'maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'minimum regeneration inlet air relative humidity for humidity ratio equation',
+                                      {'name': u'Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation',
+                                       'pyname': u'minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'percent'}),
+                                     (u'maximum regeneration inlet air relative humidity for humidity ratio equation',
+                                      {'name': u'Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation',
+                                       'pyname': u'maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'percent'}),
+                                     (u'minimum process inlet air relative humidity for humidity ratio equation',
+                                      {'name': u'Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation',
+                                       'pyname': u'minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'percent'}),
+                                     (u'maximum process inlet air relative humidity for humidity ratio equation',
+                                      {'name': u'Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation',
+                                       'pyname': u'maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'percent'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1`
@@ -1515,16 +2380,20 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         self["Temperature Equation Coefficient 8"] = value
 
     @property
-    def minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation(self):
+    def minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation(
+            self):
         """Get minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation
 
         Returns:
             float: the value of `minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation` or None if not set
         """
-        return self._data["Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation"]
+        return self._data[
+            "Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation"]
 
     @minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation.setter
-    def minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation(self, value=None):
+    def minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation`
 
         Args:
@@ -1537,19 +2406,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation"] = value
+        self[
+            "Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation"] = value
 
     @property
-    def maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation(self):
+    def maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation(
+            self):
         """Get maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation
 
         Returns:
             float: the value of `maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation` or None if not set
         """
-        return self._data["Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation"]
+        return self._data[
+            "Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation"]
 
     @maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation.setter
-    def maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation(self, value=None):
+    def maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation`
 
         Args:
@@ -1562,19 +2436,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation"] = value
+        self[
+            "Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation"] = value
 
     @property
-    def minimum_regeneration_inlet_air_temperature_for_temperature_equation(self):
+    def minimum_regeneration_inlet_air_temperature_for_temperature_equation(
+            self):
         """Get minimum_regeneration_inlet_air_temperature_for_temperature_equation
 
         Returns:
             float: the value of `minimum_regeneration_inlet_air_temperature_for_temperature_equation` or None if not set
         """
-        return self._data["Minimum Regeneration Inlet Air Temperature for Temperature Equation"]
+        return self._data[
+            "Minimum Regeneration Inlet Air Temperature for Temperature Equation"]
 
     @minimum_regeneration_inlet_air_temperature_for_temperature_equation.setter
-    def minimum_regeneration_inlet_air_temperature_for_temperature_equation(self, value=None):
+    def minimum_regeneration_inlet_air_temperature_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Regeneration Inlet Air Temperature for Temperature Equation`
 
         Args:
@@ -1586,19 +2465,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Regeneration Inlet Air Temperature for Temperature Equation"] = value
+        self[
+            "Minimum Regeneration Inlet Air Temperature for Temperature Equation"] = value
 
     @property
-    def maximum_regeneration_inlet_air_temperature_for_temperature_equation(self):
+    def maximum_regeneration_inlet_air_temperature_for_temperature_equation(
+            self):
         """Get maximum_regeneration_inlet_air_temperature_for_temperature_equation
 
         Returns:
             float: the value of `maximum_regeneration_inlet_air_temperature_for_temperature_equation` or None if not set
         """
-        return self._data["Maximum Regeneration Inlet Air Temperature for Temperature Equation"]
+        return self._data[
+            "Maximum Regeneration Inlet Air Temperature for Temperature Equation"]
 
     @maximum_regeneration_inlet_air_temperature_for_temperature_equation.setter
-    def maximum_regeneration_inlet_air_temperature_for_temperature_equation(self, value=None):
+    def maximum_regeneration_inlet_air_temperature_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Regeneration Inlet Air Temperature for Temperature Equation`
 
         Args:
@@ -1610,19 +2494,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Regeneration Inlet Air Temperature for Temperature Equation"] = value
+        self[
+            "Maximum Regeneration Inlet Air Temperature for Temperature Equation"] = value
 
     @property
-    def minimum_process_inlet_air_humidity_ratio_for_temperature_equation(self):
+    def minimum_process_inlet_air_humidity_ratio_for_temperature_equation(
+            self):
         """Get minimum_process_inlet_air_humidity_ratio_for_temperature_equation
 
         Returns:
             float: the value of `minimum_process_inlet_air_humidity_ratio_for_temperature_equation` or None if not set
         """
-        return self._data["Minimum Process Inlet Air Humidity Ratio for Temperature Equation"]
+        return self._data[
+            "Minimum Process Inlet Air Humidity Ratio for Temperature Equation"]
 
     @minimum_process_inlet_air_humidity_ratio_for_temperature_equation.setter
-    def minimum_process_inlet_air_humidity_ratio_for_temperature_equation(self, value=None):
+    def minimum_process_inlet_air_humidity_ratio_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Process Inlet Air Humidity Ratio for Temperature Equation`
 
         Args:
@@ -1635,19 +2524,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Process Inlet Air Humidity Ratio for Temperature Equation"] = value
+        self[
+            "Minimum Process Inlet Air Humidity Ratio for Temperature Equation"] = value
 
     @property
-    def maximum_process_inlet_air_humidity_ratio_for_temperature_equation(self):
+    def maximum_process_inlet_air_humidity_ratio_for_temperature_equation(
+            self):
         """Get maximum_process_inlet_air_humidity_ratio_for_temperature_equation
 
         Returns:
             float: the value of `maximum_process_inlet_air_humidity_ratio_for_temperature_equation` or None if not set
         """
-        return self._data["Maximum Process Inlet Air Humidity Ratio for Temperature Equation"]
+        return self._data[
+            "Maximum Process Inlet Air Humidity Ratio for Temperature Equation"]
 
     @maximum_process_inlet_air_humidity_ratio_for_temperature_equation.setter
-    def maximum_process_inlet_air_humidity_ratio_for_temperature_equation(self, value=None):
+    def maximum_process_inlet_air_humidity_ratio_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Process Inlet Air Humidity Ratio for Temperature Equation`
 
         Args:
@@ -1660,7 +2554,8 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Process Inlet Air Humidity Ratio for Temperature Equation"] = value
+        self[
+            "Maximum Process Inlet Air Humidity Ratio for Temperature Equation"] = value
 
     @property
     def minimum_process_inlet_air_temperature_for_temperature_equation(self):
@@ -1669,10 +2564,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Returns:
             float: the value of `minimum_process_inlet_air_temperature_for_temperature_equation` or None if not set
         """
-        return self._data["Minimum Process Inlet Air Temperature for Temperature Equation"]
+        return self._data[
+            "Minimum Process Inlet Air Temperature for Temperature Equation"]
 
     @minimum_process_inlet_air_temperature_for_temperature_equation.setter
-    def minimum_process_inlet_air_temperature_for_temperature_equation(self, value=None):
+    def minimum_process_inlet_air_temperature_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Process Inlet Air Temperature for Temperature Equation`
 
         Args:
@@ -1684,7 +2582,8 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Process Inlet Air Temperature for Temperature Equation"] = value
+        self[
+            "Minimum Process Inlet Air Temperature for Temperature Equation"] = value
 
     @property
     def maximum_process_inlet_air_temperature_for_temperature_equation(self):
@@ -1693,10 +2592,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Returns:
             float: the value of `maximum_process_inlet_air_temperature_for_temperature_equation` or None if not set
         """
-        return self._data["Maximum Process Inlet Air Temperature for Temperature Equation"]
+        return self._data[
+            "Maximum Process Inlet Air Temperature for Temperature Equation"]
 
     @maximum_process_inlet_air_temperature_for_temperature_equation.setter
-    def maximum_process_inlet_air_temperature_for_temperature_equation(self, value=None):
+    def maximum_process_inlet_air_temperature_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Process Inlet Air Temperature for Temperature Equation`
 
         Args:
@@ -1708,7 +2610,8 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Process Inlet Air Temperature for Temperature Equation"] = value
+        self[
+            "Maximum Process Inlet Air Temperature for Temperature Equation"] = value
 
     @property
     def minimum_regeneration_air_velocity_for_temperature_equation(self):
@@ -1717,10 +2620,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Returns:
             float: the value of `minimum_regeneration_air_velocity_for_temperature_equation` or None if not set
         """
-        return self._data["Minimum Regeneration Air Velocity for Temperature Equation"]
+        return self._data[
+            "Minimum Regeneration Air Velocity for Temperature Equation"]
 
     @minimum_regeneration_air_velocity_for_temperature_equation.setter
-    def minimum_regeneration_air_velocity_for_temperature_equation(self, value=None):
+    def minimum_regeneration_air_velocity_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Regeneration Air Velocity for Temperature Equation`
 
         Args:
@@ -1732,7 +2638,8 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Regeneration Air Velocity for Temperature Equation"] = value
+        self[
+            "Minimum Regeneration Air Velocity for Temperature Equation"] = value
 
     @property
     def maximum_regeneration_air_velocity_for_temperature_equation(self):
@@ -1741,10 +2648,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Returns:
             float: the value of `maximum_regeneration_air_velocity_for_temperature_equation` or None if not set
         """
-        return self._data["Maximum Regeneration Air Velocity for Temperature Equation"]
+        return self._data[
+            "Maximum Regeneration Air Velocity for Temperature Equation"]
 
     @maximum_regeneration_air_velocity_for_temperature_equation.setter
-    def maximum_regeneration_air_velocity_for_temperature_equation(self, value=None):
+    def maximum_regeneration_air_velocity_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Regeneration Air Velocity for Temperature Equation`
 
         Args:
@@ -1756,19 +2666,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Regeneration Air Velocity for Temperature Equation"] = value
+        self[
+            "Maximum Regeneration Air Velocity for Temperature Equation"] = value
 
     @property
-    def minimum_regeneration_outlet_air_temperature_for_temperature_equation(self):
+    def minimum_regeneration_outlet_air_temperature_for_temperature_equation(
+            self):
         """Get minimum_regeneration_outlet_air_temperature_for_temperature_equation
 
         Returns:
             float: the value of `minimum_regeneration_outlet_air_temperature_for_temperature_equation` or None if not set
         """
-        return self._data["Minimum Regeneration Outlet Air Temperature for Temperature Equation"]
+        return self._data[
+            "Minimum Regeneration Outlet Air Temperature for Temperature Equation"]
 
     @minimum_regeneration_outlet_air_temperature_for_temperature_equation.setter
-    def minimum_regeneration_outlet_air_temperature_for_temperature_equation(self, value=None):
+    def minimum_regeneration_outlet_air_temperature_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Regeneration Outlet Air Temperature for Temperature Equation`
 
         Args:
@@ -1780,19 +2695,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Regeneration Outlet Air Temperature for Temperature Equation"] = value
+        self[
+            "Minimum Regeneration Outlet Air Temperature for Temperature Equation"] = value
 
     @property
-    def maximum_regeneration_outlet_air_temperature_for_temperature_equation(self):
+    def maximum_regeneration_outlet_air_temperature_for_temperature_equation(
+            self):
         """Get maximum_regeneration_outlet_air_temperature_for_temperature_equation
 
         Returns:
             float: the value of `maximum_regeneration_outlet_air_temperature_for_temperature_equation` or None if not set
         """
-        return self._data["Maximum Regeneration Outlet Air Temperature for Temperature Equation"]
+        return self._data[
+            "Maximum Regeneration Outlet Air Temperature for Temperature Equation"]
 
     @maximum_regeneration_outlet_air_temperature_for_temperature_equation.setter
-    def maximum_regeneration_outlet_air_temperature_for_temperature_equation(self, value=None):
+    def maximum_regeneration_outlet_air_temperature_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Regeneration Outlet Air Temperature for Temperature Equation`
 
         Args:
@@ -1804,19 +2724,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Regeneration Outlet Air Temperature for Temperature Equation"] = value
+        self[
+            "Maximum Regeneration Outlet Air Temperature for Temperature Equation"] = value
 
     @property
-    def minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation(self):
+    def minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation(
+            self):
         """Get minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation
 
         Returns:
             float: the value of `minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation` or None if not set
         """
-        return self._data["Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation"]
+        return self._data[
+            "Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation"]
 
     @minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation.setter
-    def minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation(self, value=None):
+    def minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation`
 
         Args:
@@ -1829,19 +2754,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation"] = value
+        self[
+            "Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation"] = value
 
     @property
-    def maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation(self):
+    def maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation(
+            self):
         """Get maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation
 
         Returns:
             float: the value of `maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation` or None if not set
         """
-        return self._data["Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation"]
+        return self._data[
+            "Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation"]
 
     @maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation.setter
-    def maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation(self, value=None):
+    def maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation`
 
         Args:
@@ -1854,19 +2784,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation"] = value
+        self[
+            "Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation"] = value
 
     @property
-    def minimum_process_inlet_air_relative_humidity_for_temperature_equation(self):
+    def minimum_process_inlet_air_relative_humidity_for_temperature_equation(
+            self):
         """Get minimum_process_inlet_air_relative_humidity_for_temperature_equation
 
         Returns:
             float: the value of `minimum_process_inlet_air_relative_humidity_for_temperature_equation` or None if not set
         """
-        return self._data["Minimum Process Inlet Air Relative Humidity for Temperature Equation"]
+        return self._data[
+            "Minimum Process Inlet Air Relative Humidity for Temperature Equation"]
 
     @minimum_process_inlet_air_relative_humidity_for_temperature_equation.setter
-    def minimum_process_inlet_air_relative_humidity_for_temperature_equation(self, value=None):
+    def minimum_process_inlet_air_relative_humidity_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Process Inlet Air Relative Humidity for Temperature Equation`
 
         Args:
@@ -1879,19 +2814,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Process Inlet Air Relative Humidity for Temperature Equation"] = value
+        self[
+            "Minimum Process Inlet Air Relative Humidity for Temperature Equation"] = value
 
     @property
-    def maximum_process_inlet_air_relative_humidity_for_temperature_equation(self):
+    def maximum_process_inlet_air_relative_humidity_for_temperature_equation(
+            self):
         """Get maximum_process_inlet_air_relative_humidity_for_temperature_equation
 
         Returns:
             float: the value of `maximum_process_inlet_air_relative_humidity_for_temperature_equation` or None if not set
         """
-        return self._data["Maximum Process Inlet Air Relative Humidity for Temperature Equation"]
+        return self._data[
+            "Maximum Process Inlet Air Relative Humidity for Temperature Equation"]
 
     @maximum_process_inlet_air_relative_humidity_for_temperature_equation.setter
-    def maximum_process_inlet_air_relative_humidity_for_temperature_equation(self, value=None):
+    def maximum_process_inlet_air_relative_humidity_for_temperature_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Process Inlet Air Relative Humidity for Temperature Equation`
 
         Args:
@@ -1904,7 +2844,8 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Process Inlet Air Relative Humidity for Temperature Equation"] = value
+        self[
+            "Maximum Process Inlet Air Relative Humidity for Temperature Equation"] = value
 
     @property
     def humidity_ratio_equation_coefficient_1(self):
@@ -2091,16 +3032,20 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         self["Humidity Ratio Equation Coefficient 8"] = value
 
     @property
-    def minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation(self):
+    def minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self):
         """Get minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation
 
         Returns:
             float: the value of `minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"]
+        return self._data[
+            "Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"]
 
     @minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation.setter
-    def minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation(self, value=None):
+    def minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation`
 
         Args:
@@ -2113,19 +3058,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self[
+            "Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
-    def maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation(self):
+    def maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self):
         """Get maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation
 
         Returns:
             float: the value of `maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"]
+        return self._data[
+            "Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"]
 
     @maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation.setter
-    def maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation(self, value=None):
+    def maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation`
 
         Args:
@@ -2138,19 +3088,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self[
+            "Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
-    def minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation(self):
+    def minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation(
+            self):
         """Get minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation
 
         Returns:
             float: the value of `minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation"]
+        return self._data[
+            "Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation"]
 
     @minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation.setter
-    def minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation(self, value=None):
+    def minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation`
 
         Args:
@@ -2162,19 +3117,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = value
+        self[
+            "Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = value
 
     @property
-    def maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation(self):
+    def maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation(
+            self):
         """Get maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation
 
         Returns:
             float: the value of `maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation"]
+        return self._data[
+            "Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation"]
 
     @maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation.setter
-    def maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation(self, value=None):
+    def maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation`
 
         Args:
@@ -2186,19 +3146,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = value
+        self[
+            "Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation"] = value
 
     @property
-    def minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation(self):
+    def minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self):
         """Get minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation
 
         Returns:
             float: the value of `minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"]
+        return self._data[
+            "Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"]
 
     @minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation.setter
-    def minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation(self, value=None):
+    def minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation`
 
         Args:
@@ -2211,19 +3176,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self[
+            "Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
-    def maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation(self):
+    def maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self):
         """Get maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation
 
         Returns:
             float: the value of `maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"]
+        return self._data[
+            "Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"]
 
     @maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation.setter
-    def maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation(self, value=None):
+    def maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation`
 
         Args:
@@ -2236,19 +3206,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self[
+            "Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
-    def minimum_process_inlet_air_temperature_for_humidity_ratio_equation(self):
+    def minimum_process_inlet_air_temperature_for_humidity_ratio_equation(
+            self):
         """Get minimum_process_inlet_air_temperature_for_humidity_ratio_equation
 
         Returns:
             float: the value of `minimum_process_inlet_air_temperature_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Minimum Process Inlet Air Temperature for Humidity Ratio Equation"]
+        return self._data[
+            "Minimum Process Inlet Air Temperature for Humidity Ratio Equation"]
 
     @minimum_process_inlet_air_temperature_for_humidity_ratio_equation.setter
-    def minimum_process_inlet_air_temperature_for_humidity_ratio_equation(self, value=None):
+    def minimum_process_inlet_air_temperature_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Process Inlet Air Temperature for Humidity Ratio Equation`
 
         Args:
@@ -2260,19 +3235,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Process Inlet Air Temperature for Humidity Ratio Equation"] = value
+        self[
+            "Minimum Process Inlet Air Temperature for Humidity Ratio Equation"] = value
 
     @property
-    def maximum_process_inlet_air_temperature_for_humidity_ratio_equation(self):
+    def maximum_process_inlet_air_temperature_for_humidity_ratio_equation(
+            self):
         """Get maximum_process_inlet_air_temperature_for_humidity_ratio_equation
 
         Returns:
             float: the value of `maximum_process_inlet_air_temperature_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Maximum Process Inlet Air Temperature for Humidity Ratio Equation"]
+        return self._data[
+            "Maximum Process Inlet Air Temperature for Humidity Ratio Equation"]
 
     @maximum_process_inlet_air_temperature_for_humidity_ratio_equation.setter
-    def maximum_process_inlet_air_temperature_for_humidity_ratio_equation(self, value=None):
+    def maximum_process_inlet_air_temperature_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Process Inlet Air Temperature for Humidity Ratio Equation`
 
         Args:
@@ -2284,7 +3264,8 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Process Inlet Air Temperature for Humidity Ratio Equation"] = value
+        self[
+            "Maximum Process Inlet Air Temperature for Humidity Ratio Equation"] = value
 
     @property
     def minimum_regeneration_air_velocity_for_humidity_ratio_equation(self):
@@ -2293,10 +3274,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Returns:
             float: the value of `minimum_regeneration_air_velocity_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Minimum Regeneration Air Velocity for Humidity Ratio Equation"]
+        return self._data[
+            "Minimum Regeneration Air Velocity for Humidity Ratio Equation"]
 
     @minimum_regeneration_air_velocity_for_humidity_ratio_equation.setter
-    def minimum_regeneration_air_velocity_for_humidity_ratio_equation(self, value=None):
+    def minimum_regeneration_air_velocity_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Regeneration Air Velocity for Humidity Ratio Equation`
 
         Args:
@@ -2308,7 +3292,8 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Regeneration Air Velocity for Humidity Ratio Equation"] = value
+        self[
+            "Minimum Regeneration Air Velocity for Humidity Ratio Equation"] = value
 
     @property
     def maximum_regeneration_air_velocity_for_humidity_ratio_equation(self):
@@ -2317,10 +3302,13 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Returns:
             float: the value of `maximum_regeneration_air_velocity_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Maximum Regeneration Air Velocity for Humidity Ratio Equation"]
+        return self._data[
+            "Maximum Regeneration Air Velocity for Humidity Ratio Equation"]
 
     @maximum_regeneration_air_velocity_for_humidity_ratio_equation.setter
-    def maximum_regeneration_air_velocity_for_humidity_ratio_equation(self, value=None):
+    def maximum_regeneration_air_velocity_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Regeneration Air Velocity for Humidity Ratio Equation`
 
         Args:
@@ -2332,19 +3320,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Regeneration Air Velocity for Humidity Ratio Equation"] = value
+        self[
+            "Maximum Regeneration Air Velocity for Humidity Ratio Equation"] = value
 
     @property
-    def minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation(self):
+    def minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self):
         """Get minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation
 
         Returns:
             float: the value of `minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"]
+        return self._data[
+            "Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"]
 
     @minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation.setter
-    def minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation(self, value=None):
+    def minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation`
 
         Args:
@@ -2357,19 +3350,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self[
+            "Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
-    def maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation(self):
+    def maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self):
         """Get maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation
 
         Returns:
             float: the value of `maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"]
+        return self._data[
+            "Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"]
 
     @maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation.setter
-    def maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation(self, value=None):
+    def maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation`
 
         Args:
@@ -2382,19 +3380,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"] = value
+        self[
+            "Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation"] = value
 
     @property
-    def minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation(self):
+    def minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation(
+            self):
         """Get minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation
 
         Returns:
             float: the value of `minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"]
+        return self._data[
+            "Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"]
 
     @minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation.setter
-    def minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation(self, value=None):
+    def minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation`
 
         Args:
@@ -2407,19 +3410,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
+        self[
+            "Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
 
     @property
-    def maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation(self):
+    def maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation(
+            self):
         """Get maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation
 
         Returns:
             float: the value of `maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"]
+        return self._data[
+            "Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"]
 
     @maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation.setter
-    def maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation(self, value=None):
+    def maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation`
 
         Args:
@@ -2432,19 +3440,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
+        self[
+            "Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
 
     @property
-    def minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation(self):
+    def minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation(
+            self):
         """Get minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation
 
         Returns:
             float: the value of `minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation"]
+        return self._data[
+            "Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation"]
 
     @minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation.setter
-    def minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation(self, value=None):
+    def minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation`
 
         Args:
@@ -2457,19 +3470,24 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
+        self[
+            "Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
 
     @property
-    def maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation(self):
+    def maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation(
+            self):
         """Get maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation
 
         Returns:
             float: the value of `maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation` or None if not set
         """
-        return self._data["Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"]
+        return self._data[
+            "Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"]
 
     @maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation.setter
-    def maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation(self, value=None):
+    def maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation`
 
         Args:
@@ -2482,4 +3500,5 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
+        self[
+            "Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = value

@@ -9,6 +9,7 @@ logger.addHandler(logging.NullHandler())
 
 
 class OutputVariableDictionary(DataObject):
+
     """ Corresponds to IDD object `Output:VariableDictionary`
         Produces a list summarizing the output variables and meters that are available for
         reporting for the model being simulated (rdd output file). The list varies depending
@@ -16,7 +17,28 @@ class OutputVariableDictionary(DataObject):
         lights will only appear if a Lights object is present. The IDF option generates
         complete Output:Variable objects to simplify adding the desired output to the idf file.
     """
-    schema = {'min-fields': 0, 'name': u'Output:VariableDictionary', 'pyname': u'OutputVariableDictionary', 'format': None, 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'default': u'regular', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'sort option', {'name': u'Sort Option', 'pyname': u'sort_option', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:VariableDictionary',
+              'pyname': u'OutputVariableDictionary',
+              'format': None,
+              'fields': OrderedDict([(u'key field',
+                                      {'name': u'Key Field',
+                                       'pyname': u'key_field',
+                                       'default': u'regular',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'sort option',
+                                      {'name': u'Sort Option',
+                                       'pyname': u'sort_option',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:VariableDictionary`
@@ -76,10 +98,31 @@ class OutputVariableDictionary(DataObject):
 
 
 class OutputSurfacesList(DataObject):
+
     """ Corresponds to IDD object `Output:Surfaces:List`
         Produces a report summarizing the details of surfaces in the eio output file.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Surfaces:List', 'pyname': u'OutputSurfacesList', 'format': None, 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications', {'name': u'Report Specifications', 'pyname': u'report_specifications', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:Surfaces:List',
+              'pyname': u'OutputSurfacesList',
+              'format': None,
+              'fields': OrderedDict([(u'report type',
+                                      {'name': u'Report Type',
+                                       'pyname': u'report_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'report specifications',
+                                      {'name': u'Report Specifications',
+                                       'pyname': u'report_specifications',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Surfaces:List`
@@ -140,12 +183,41 @@ class OutputSurfacesList(DataObject):
 
 
 class OutputSurfacesDrawing(DataObject):
+
     """ Corresponds to IDD object `Output:Surfaces:Drawing`
         Produces reports/files that are capable of rendering graphically or
         being imported into other programs. Rendering does not alter the
         actual inputs/surfaces.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Surfaces:Drawing', 'pyname': u'OutputSurfacesDrawing', 'format': None, 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 1', {'name': u'Report Specifications 1', 'pyname': u'report_specifications_1', 'default': u'Triangulate3DFace', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 2', {'name': u'Report Specifications 2', 'pyname': u'report_specifications_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:Surfaces:Drawing',
+              'pyname': u'OutputSurfacesDrawing',
+              'format': None,
+              'fields': OrderedDict([(u'report type',
+                                      {'name': u'Report Type',
+                                       'pyname': u'report_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'report specifications 1',
+                                      {'name': u'Report Specifications 1',
+                                       'pyname': u'report_specifications_1',
+                                       'default': u'Triangulate3DFace',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'report specifications 2',
+                                      {'name': u'Report Specifications 2',
+                                       'pyname': u'report_specifications_2',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Surfaces:Drawing`
@@ -231,12 +303,26 @@ class OutputSurfacesDrawing(DataObject):
 
 
 class OutputSchedules(DataObject):
+
     """ Corresponds to IDD object `Output:Schedules`
         Produces a condensed reporting that illustrates the full range of schedule values in
         the eio output file. In the style of input: DaySchedule,  WeekSchedule, and
         Annual Schedule.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Schedules', 'pyname': u'OutputSchedules', 'format': None, 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:Schedules',
+              'pyname': u'OutputSchedules',
+              'format': None,
+              'fields': OrderedDict([(u'key field',
+                                      {'name': u'Key Field',
+                                       'pyname': u'key_field',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Schedules`
@@ -272,12 +358,33 @@ class OutputSchedules(DataObject):
 
 
 class OutputConstructions(DataObject):
+
     """ Corresponds to IDD object `Output:Constructions`
         Adds a report to the eio output file which shows details for each construction,
         including overall properties, a list of material layers, and calculated results
         related to conduction transfer functions.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Constructions', 'pyname': u'OutputConstructions', 'format': None, 'fields': OrderedDict([(u'details type 1', {'name': u'Details Type 1', 'pyname': u'details_type_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'details type 2', {'name': u'Details Type 2', 'pyname': u'details_type_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:Constructions',
+              'pyname': u'OutputConstructions',
+              'format': None,
+              'fields': OrderedDict([(u'details type 1',
+                                      {'name': u'Details Type 1',
+                                       'pyname': u'details_type_1',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'details type 2',
+                                      {'name': u'Details Type 2',
+                                       'pyname': u'details_type_2',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Constructions`
@@ -336,10 +443,41 @@ class OutputConstructions(DataObject):
 
 
 class OutputEnergyManagementSystem(DataObject):
+
     """ Corresponds to IDD object `Output:EnergyManagementSystem`
         This object is used to control the output produced by the Energy Management System
     """
-    schema = {'min-fields': 0, 'name': u'Output:EnergyManagementSystem', 'pyname': u'OutputEnergyManagementSystem', 'format': None, 'fields': OrderedDict([(u'actuator availability dictionary reporting', {'name': u'Actuator Availability Dictionary Reporting', 'pyname': u'actuator_availability_dictionary_reporting', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'internal variable availability dictionary reporting', {'name': u'Internal Variable Availability Dictionary Reporting', 'pyname': u'internal_variable_availability_dictionary_reporting', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ems runtime language debug output level', {'name': u'EMS Runtime Language Debug Output Level', 'pyname': u'ems_runtime_language_debug_output_level', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:EnergyManagementSystem',
+              'pyname': u'OutputEnergyManagementSystem',
+              'format': None,
+              'fields': OrderedDict([(u'actuator availability dictionary reporting',
+                                      {'name': u'Actuator Availability Dictionary Reporting',
+                                       'pyname': u'actuator_availability_dictionary_reporting',
+                                       'default': u'None',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'internal variable availability dictionary reporting',
+                                      {'name': u'Internal Variable Availability Dictionary Reporting',
+                                       'pyname': u'internal_variable_availability_dictionary_reporting',
+                                       'default': u'None',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'ems runtime language debug output level',
+                                      {'name': u'EMS Runtime Language Debug Output Level',
+                                       'pyname': u'ems_runtime_language_debug_output_level',
+                                       'default': u'None',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:EnergyManagementSystem`
@@ -381,10 +519,13 @@ class OutputEnergyManagementSystem(DataObject):
         Returns:
             str: the value of `internal_variable_availability_dictionary_reporting` or None if not set
         """
-        return self._data["Internal Variable Availability Dictionary Reporting"]
+        return self._data[
+            "Internal Variable Availability Dictionary Reporting"]
 
     @internal_variable_availability_dictionary_reporting.setter
-    def internal_variable_availability_dictionary_reporting(self, value="None"):
+    def internal_variable_availability_dictionary_reporting(
+            self,
+            value="None"):
         """  Corresponds to IDD Field `Internal Variable Availability Dictionary Reporting`
 
         Args:
@@ -424,6 +565,7 @@ class OutputEnergyManagementSystem(DataObject):
 
 
 class OutputControlSurfaceColorScheme(DataObject):
+
     """ Corresponds to IDD object `OutputControl:SurfaceColorScheme`
         This object is used to set colors for reporting on various building elements particularly for the
         DXF reports.  We know the user can enter 0 to 255 and the color map is available in DXF output.
@@ -431,7 +573,260 @@ class OutputControlSurfaceColorScheme(DataObject):
         extend by editing the IDD but you do so on your own.  Colors not changed in any scheme will
         remain as the default scheme uses.
     """
-    schema = {'min-fields': 0, 'name': u'OutputControl:SurfaceColorScheme', 'pyname': u'OutputControlSurfaceColorScheme', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'drawing element 1 type', {'name': u'Drawing Element 1 Type', 'pyname': u'drawing_element_1_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 1', {'name': u'Color for Drawing Element 1', 'pyname': u'color_for_drawing_element_1', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 2 type', {'name': u'Drawing Element 2 Type', 'pyname': u'drawing_element_2_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 2', {'name': u'Color for Drawing Element 2', 'pyname': u'color_for_drawing_element_2', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 3 type', {'name': u'Drawing Element 3 Type', 'pyname': u'drawing_element_3_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 3', {'name': u'Color for Drawing Element 3', 'pyname': u'color_for_drawing_element_3', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 4 type', {'name': u'Drawing Element 4 Type', 'pyname': u'drawing_element_4_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 4', {'name': u'Color for Drawing Element 4', 'pyname': u'color_for_drawing_element_4', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 5 type', {'name': u'Drawing Element 5 Type', 'pyname': u'drawing_element_5_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 5', {'name': u'Color for Drawing Element 5', 'pyname': u'color_for_drawing_element_5', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 6 type', {'name': u'Drawing Element 6 Type', 'pyname': u'drawing_element_6_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 6', {'name': u'Color for Drawing Element 6', 'pyname': u'color_for_drawing_element_6', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 7 type', {'name': u'Drawing Element 7 Type', 'pyname': u'drawing_element_7_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 7', {'name': u'Color for Drawing Element 7', 'pyname': u'color_for_drawing_element_7', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 8 type', {'name': u'Drawing Element 8 Type', 'pyname': u'drawing_element_8_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 8', {'name': u'Color for Drawing Element 8', 'pyname': u'color_for_drawing_element_8', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 9 type', {'name': u'Drawing Element 9 Type', 'pyname': u'drawing_element_9_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 9', {'name': u'Color for Drawing Element 9', 'pyname': u'color_for_drawing_element_9', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 10 type', {'name': u'Drawing Element 10 Type', 'pyname': u'drawing_element_10_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 10', {'name': u'Color for Drawing Element 10', 'pyname': u'color_for_drawing_element_10', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 11 type', {'name': u'Drawing Element 11 Type', 'pyname': u'drawing_element_11_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 11', {'name': u'Color for Drawing Element 11', 'pyname': u'color_for_drawing_element_11', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 12 type', {'name': u'Drawing Element 12 Type', 'pyname': u'drawing_element_12_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 12', {'name': u'Color for Drawing Element 12', 'pyname': u'color_for_drawing_element_12', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 13 type', {'name': u'Drawing Element 13 Type', 'pyname': u'drawing_element_13_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 13', {'name': u'Color for Drawing Element 13', 'pyname': u'color_for_drawing_element_13', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 14 type', {'name': u'Drawing Element 14 Type', 'pyname': u'drawing_element_14_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 14', {'name': u'Color for Drawing Element 14', 'pyname': u'color_for_drawing_element_14', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 15 type', {'name': u'Drawing Element 15 Type', 'pyname': u'drawing_element_15_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 15', {'name': u'Color for Drawing Element 15', 'pyname': u'color_for_drawing_element_15', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'OutputControl:SurfaceColorScheme',
+              'pyname': u'OutputControlSurfaceColorScheme',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'drawing element 1 type',
+                                      {'name': u'Drawing Element 1 Type',
+                                       'pyname': u'drawing_element_1_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 1',
+                                      {'name': u'Color for Drawing Element 1',
+                                       'pyname': u'color_for_drawing_element_1',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 2 type',
+                                      {'name': u'Drawing Element 2 Type',
+                                       'pyname': u'drawing_element_2_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 2',
+                                      {'name': u'Color for Drawing Element 2',
+                                       'pyname': u'color_for_drawing_element_2',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 3 type',
+                                      {'name': u'Drawing Element 3 Type',
+                                       'pyname': u'drawing_element_3_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 3',
+                                      {'name': u'Color for Drawing Element 3',
+                                       'pyname': u'color_for_drawing_element_3',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 4 type',
+                                      {'name': u'Drawing Element 4 Type',
+                                       'pyname': u'drawing_element_4_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 4',
+                                      {'name': u'Color for Drawing Element 4',
+                                       'pyname': u'color_for_drawing_element_4',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 5 type',
+                                      {'name': u'Drawing Element 5 Type',
+                                       'pyname': u'drawing_element_5_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 5',
+                                      {'name': u'Color for Drawing Element 5',
+                                       'pyname': u'color_for_drawing_element_5',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 6 type',
+                                      {'name': u'Drawing Element 6 Type',
+                                       'pyname': u'drawing_element_6_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 6',
+                                      {'name': u'Color for Drawing Element 6',
+                                       'pyname': u'color_for_drawing_element_6',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 7 type',
+                                      {'name': u'Drawing Element 7 Type',
+                                       'pyname': u'drawing_element_7_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 7',
+                                      {'name': u'Color for Drawing Element 7',
+                                       'pyname': u'color_for_drawing_element_7',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 8 type',
+                                      {'name': u'Drawing Element 8 Type',
+                                       'pyname': u'drawing_element_8_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 8',
+                                      {'name': u'Color for Drawing Element 8',
+                                       'pyname': u'color_for_drawing_element_8',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 9 type',
+                                      {'name': u'Drawing Element 9 Type',
+                                       'pyname': u'drawing_element_9_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 9',
+                                      {'name': u'Color for Drawing Element 9',
+                                       'pyname': u'color_for_drawing_element_9',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 10 type',
+                                      {'name': u'Drawing Element 10 Type',
+                                       'pyname': u'drawing_element_10_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 10',
+                                      {'name': u'Color for Drawing Element 10',
+                                       'pyname': u'color_for_drawing_element_10',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 11 type',
+                                      {'name': u'Drawing Element 11 Type',
+                                       'pyname': u'drawing_element_11_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 11',
+                                      {'name': u'Color for Drawing Element 11',
+                                       'pyname': u'color_for_drawing_element_11',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 12 type',
+                                      {'name': u'Drawing Element 12 Type',
+                                       'pyname': u'drawing_element_12_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 12',
+                                      {'name': u'Color for Drawing Element 12',
+                                       'pyname': u'color_for_drawing_element_12',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 13 type',
+                                      {'name': u'Drawing Element 13 Type',
+                                       'pyname': u'drawing_element_13_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 13',
+                                      {'name': u'Color for Drawing Element 13',
+                                       'pyname': u'color_for_drawing_element_13',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 14 type',
+                                      {'name': u'Drawing Element 14 Type',
+                                       'pyname': u'drawing_element_14_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 14',
+                                      {'name': u'Color for Drawing Element 14',
+                                       'pyname': u'color_for_drawing_element_14',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'drawing element 15 type',
+                                      {'name': u'Drawing Element 15 Type',
+                                       'pyname': u'drawing_element_15_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'color for drawing element 15',
+                                      {'name': u'Color for Drawing Element 15',
+                                       'pyname': u'color_for_drawing_element_15',
+                                       'maximum': 255,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:SurfaceColorScheme`
@@ -1188,6 +1583,7 @@ class OutputControlSurfaceColorScheme(DataObject):
 
 
 class OutputTableSummaryReports(DataObject):
+
     """ Corresponds to IDD object `Output:Table:SummaryReports`
         This object allows the user to call report types that are predefined and will appear with the
         other tabular reports.  These predefined reports are sensitive to the OutputControl:Table:Style object
@@ -1196,7 +1592,15 @@ class OutputTableSummaryReports(DataObject):
         There should be as many fields (A) in this object as there are keys in the following (minus
         AllSummary+AllMonthly+AllSummaryAndMonthly)
     """
-    schema = {'min-fields': 0, 'name': u'Output:Table:SummaryReports', 'pyname': u'OutputTableSummaryReports', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {
+        'min-fields': 0,
+        'name': u'Output:Table:SummaryReports',
+        'pyname': u'OutputTableSummaryReports',
+        'format': None,
+        'fields': OrderedDict(),
+        'extensible-fields': OrderedDict(),
+        'unique-object': True,
+        'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Table:SummaryReports`
@@ -1209,12 +1613,71 @@ class OutputTableSummaryReports(DataObject):
 
 
 class OutputTableTimeBins(DataObject):
+
     """ Corresponds to IDD object `Output:Table:TimeBins`
         Produces a bin report in the table output file which shows the amount of time in hours
         that occurs in different bins for a single specific output variable or meter.
         Two different types of binning are reported: by month and by hour of the day.
     """
-    schema = {'min-fields': 5, 'name': u'Output:Table:TimeBins', 'pyname': u'OutputTableTimeBins', 'format': None, 'fields': OrderedDict([(u'key value', {'name': u'Key Value', 'pyname': u'key_value', 'default': u'*', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'interval start', {'name': u'Interval Start', 'pyname': u'interval_start', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'interval size', {'name': u'Interval Size', 'pyname': u'interval_size', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'interval count', {'name': u'Interval Count', 'pyname': u'interval_count', 'maximum': 20, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'variable type', {'name': u'Variable Type', 'pyname': u'variable_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5,
+              'name': u'Output:Table:TimeBins',
+              'pyname': u'OutputTableTimeBins',
+              'format': None,
+              'fields': OrderedDict([(u'key value',
+                                      {'name': u'Key Value',
+                                       'pyname': u'key_value',
+                                       'default': u'*',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'variable name',
+                                      {'name': u'Variable Name',
+                                       'pyname': u'variable_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'external-list'}),
+                                     (u'interval start',
+                                      {'name': u'Interval Start',
+                                       'pyname': u'interval_start',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'interval size',
+                                      {'name': u'Interval Size',
+                                       'pyname': u'interval_size',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'interval count',
+                                      {'name': u'Interval Count',
+                                       'pyname': u'interval_count',
+                                       'maximum': 20,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'variable type',
+                                      {'name': u'Variable Type',
+                                       'pyname': u'variable_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Table:TimeBins`
@@ -1401,6 +1864,7 @@ class OutputTableTimeBins(DataObject):
 
 
 class OutputTableMonthly(DataObject):
+
     """ Corresponds to IDD object `Output:Table:Monthly`
         Provides a generic method of setting up tables of monthly results. The report
         has multiple columns that are each defined using a repeated group of fields for any
@@ -1409,7 +1873,43 @@ class OutputTableMonthly(DataObject):
         variable. For example, a table defined with zone variables will be produced once for
         every zone.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Table:Monthly', 'pyname': u'OutputTableMonthly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'digits after decimal', {'name': u'Digits After Decimal', 'pyname': u'digits_after_decimal', 'default': 2, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'variable or meter 1 name', {'name': u'Variable or Meter 1 Name', 'pyname': u'variable_or_meter_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'aggregation type for variable or meter 1', {'name': u'Aggregation Type for Variable or Meter 1', 'pyname': u'aggregation_type_for_variable_or_meter_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:Table:Monthly',
+              'pyname': u'OutputTableMonthly',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'digits after decimal',
+                                      {'name': u'Digits After Decimal',
+                                       'pyname': u'digits_after_decimal',
+                                       'default': 2,
+                                       'maximum': 10,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'})]),
+              'extensible-fields': OrderedDict([(u'variable or meter 1 name',
+                                                 {'name': u'Variable or Meter 1 Name',
+                                                  'pyname': u'variable_or_meter_1_name',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'external-list'}),
+                                                (u'aggregation type for variable or meter 1',
+                                                 {'name': u'Aggregation Type for Variable or Meter 1',
+                                                  'pyname': u'aggregation_type_for_variable_or_meter_1',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': 'alpha'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Table:Monthly`
@@ -1485,9 +1985,13 @@ class OutputTableMonthly(DataObject):
                 specification and is assumed to be a missing value
         """
         vals = []
-        variable_or_meter_1_name = self.check_value("Variable or Meter 1 Name", variable_or_meter_1_name)
+        variable_or_meter_1_name = self.check_value(
+            "Variable or Meter 1 Name",
+            variable_or_meter_1_name)
         vals.append(variable_or_meter_1_name)
-        aggregation_type_for_variable_or_meter_1 = self.check_value("Aggregation Type for Variable or Meter 1", aggregation_type_for_variable_or_meter_1)
+        aggregation_type_for_variable_or_meter_1 = self.check_value(
+            "Aggregation Type for Variable or Meter 1",
+            aggregation_type_for_variable_or_meter_1)
         vals.append(aggregation_type_for_variable_or_meter_1)
         self._data["extensibles"].append(vals)
 
@@ -1499,6 +2003,7 @@ class OutputTableMonthly(DataObject):
 
 
 class OutputControlTableStyle(DataObject):
+
     """ Corresponds to IDD object `OutputControl:Table:Style`
         default style for the OutputControl:Table:Style is comma -- this works well for
         importing into spreadsheet programs such as Excel(tm) but not so well for word
@@ -1506,7 +2011,29 @@ class OutputControlTableStyle(DataObject):
         the "columns".  HTML produces tables in HTML. XML produces an XML file.
         note - if no OutputControl:Table:Style is included, the defaults are comma and None.
     """
-    schema = {'min-fields': 0, 'name': u'OutputControl:Table:Style', 'pyname': u'OutputControlTableStyle', 'format': None, 'fields': OrderedDict([(u'column separator', {'name': u'Column Separator', 'pyname': u'column_separator', 'default': u'Comma', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'unit conversion', {'name': u'Unit Conversion', 'pyname': u'unit_conversion', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'OutputControl:Table:Style',
+              'pyname': u'OutputControlTableStyle',
+              'format': None,
+              'fields': OrderedDict([(u'column separator',
+                                      {'name': u'Column Separator',
+                                       'pyname': u'column_separator',
+                                       'default': u'Comma',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'unit conversion',
+                                      {'name': u'Unit Conversion',
+                                       'pyname': u'unit_conversion',
+                                       'default': u'None',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:Table:Style`
@@ -1567,11 +2094,40 @@ class OutputControlTableStyle(DataObject):
 
 
 class OutputControlReportingTolerances(DataObject):
+
     """ Corresponds to IDD object `OutputControl:ReportingTolerances`
         Calculations of the time that setpoints are not met use a tolerance of 0.2C.
         This object allows changing the tolerance used to determine when setpoints are being met.
     """
-    schema = {'min-fields': 0, 'name': u'OutputControl:ReportingTolerances', 'pyname': u'OutputControlReportingTolerances', 'format': None, 'fields': OrderedDict([(u'tolerance for time heating setpoint not met', {'name': u'Tolerance for Time Heating Setpoint Not Met', 'pyname': u'tolerance_for_time_heating_setpoint_not_met', 'default': 0.2, 'maximum': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'tolerance for time cooling setpoint not met', {'name': u'Tolerance for Time Cooling Setpoint Not Met', 'pyname': u'tolerance_for_time_cooling_setpoint_not_met', 'default': 0.2, 'maximum': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'OutputControl:ReportingTolerances',
+              'pyname': u'OutputControlReportingTolerances',
+              'format': None,
+              'fields': OrderedDict([(u'tolerance for time heating setpoint not met',
+                                      {'name': u'Tolerance for Time Heating Setpoint Not Met',
+                                       'pyname': u'tolerance_for_time_heating_setpoint_not_met',
+                                       'default': 0.2,
+                                       'maximum': 10.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'deltaC'}),
+                                     (u'tolerance for time cooling setpoint not met',
+                                      {'name': u'Tolerance for Time Cooling Setpoint Not Met',
+                                       'pyname': u'tolerance_for_time_cooling_setpoint_not_met',
+                                       'default': 0.2,
+                                       'maximum': 10.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'deltaC'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:ReportingTolerances`
@@ -1648,13 +2204,50 @@ class OutputControlReportingTolerances(DataObject):
 
 
 class OutputVariable(DataObject):
+
     """ Corresponds to IDD object `Output:Variable`
         each Output:Variable command picks variables to be put onto the standard output file (.eso)
         some variables may not be reported for every simulation.
         a list of variables that can be reported are available after a run on
         the report dictionary file (.rdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Variable', 'pyname': u'OutputVariable', 'format': None, 'fields': OrderedDict([(u'key value', {'name': u'Key Value', 'pyname': u'key_value', 'default': u'*', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:Variable',
+              'pyname': u'OutputVariable',
+              'format': None,
+              'fields': OrderedDict([(u'key value',
+                                      {'name': u'Key Value',
+                                       'pyname': u'key_value',
+                                       'default': u'*',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'variable name',
+                                      {'name': u'Variable Name',
+                                       'pyname': u'variable_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'external-list'}),
+                                     (u'reporting frequency',
+                                      {'name': u'Reporting Frequency',
+                                       'pyname': u'reporting_frequency',
+                                       'default': u'Hourly',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Variable`
@@ -1766,13 +2359,35 @@ class OutputVariable(DataObject):
 
 
 class OutputMeter(DataObject):
+
     """ Corresponds to IDD object `Output:Meter`
         Each Output:Meter command picks meters to be put onto the standard output file (.eso) and
         meter file (.mtr). Not all meters are reported in every simulation. A list of
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter', 'pyname': u'OutputMeter', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:Meter',
+              'pyname': u'OutputMeter',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'external-list'}),
+                                     (u'reporting frequency',
+                                      {'name': u'Reporting Frequency',
+                                       'pyname': u'reporting_frequency',
+                                       'default': u'Hourly',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter`
@@ -1838,13 +2453,35 @@ class OutputMeter(DataObject):
 
 
 class OutputMeterMeterFileOnly(DataObject):
+
     """ Corresponds to IDD object `Output:Meter:MeterFileOnly`
         Each Output:Meter:MeterFileOnly command picks meters to be put only onto meter file (.mtr).
         Not all meters are reported in every simulation. A list of meters that can be reported
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter:MeterFileOnly', 'pyname': u'OutputMeterMeterFileOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:Meter:MeterFileOnly',
+              'pyname': u'OutputMeterMeterFileOnly',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'external-list'}),
+                                     (u'reporting frequency',
+                                      {'name': u'Reporting Frequency',
+                                       'pyname': u'reporting_frequency',
+                                       'default': u'Hourly',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter:MeterFileOnly`
@@ -1910,6 +2547,7 @@ class OutputMeterMeterFileOnly(DataObject):
 
 
 class OutputMeterCumulative(DataObject):
+
     """ Corresponds to IDD object `Output:Meter:Cumulative`
         Each Output:Meter:Cumulative command picks meters to be reported cumulatively onto the
         standard output file (.eso) and meter file (.mtr). Not all meters are reported in every
@@ -1917,7 +2555,28 @@ class OutputMeterCumulative(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative', 'pyname': u'OutputMeterCumulative', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:Meter:Cumulative',
+              'pyname': u'OutputMeterCumulative',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'external-list'}),
+                                     (u'reporting frequency',
+                                      {'name': u'Reporting Frequency',
+                                       'pyname': u'reporting_frequency',
+                                       'default': u'Hourly',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter:Cumulative`
@@ -1983,6 +2642,7 @@ class OutputMeterCumulative(DataObject):
 
 
 class OutputMeterCumulativeMeterFileOnly(DataObject):
+
     """ Corresponds to IDD object `Output:Meter:Cumulative:MeterFileOnly`
         Each Output:Meter:Cumulative:MeterFileOnly command picks meters to be reported cumulatively
         onto the standard output file (.eso) and meter file (.mtr). Not all meters are reported in
@@ -1990,7 +2650,28 @@ class OutputMeterCumulativeMeterFileOnly(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative:MeterFileOnly', 'pyname': u'OutputMeterCumulativeMeterFileOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:Meter:Cumulative:MeterFileOnly',
+              'pyname': u'OutputMeterCumulativeMeterFileOnly',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'external-list'}),
+                                     (u'reporting frequency',
+                                      {'name': u'Reporting Frequency',
+                                       'pyname': u'reporting_frequency',
+                                       'default': u'Hourly',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter:Cumulative:MeterFileOnly`
@@ -2056,12 +2737,46 @@ class OutputMeterCumulativeMeterFileOnly(DataObject):
 
 
 class MeterCustom(DataObject):
+
     """ Corresponds to IDD object `Meter:Custom`
         Used to allow users to combine specific variables and/or meters into
         "custom" meter configurations. To access these meters by name, one must
         first run a simulation to generate the RDD/MDD files and names.
     """
-    schema = {'min-fields': 0, 'name': u'Meter:Custom', 'pyname': u'MeterCustom', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'key name 1', {'name': u'Key Name 1', 'pyname': u'key_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output variable or meter name 1', {'name': u'Output Variable or Meter Name 1', 'pyname': u'output_variable_or_meter_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Meter:Custom',
+              'pyname': u'MeterCustom',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel type',
+                                      {'name': u'Fuel Type',
+                                       'pyname': u'fuel_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict([(u'key name 1',
+                                                 {'name': u'Key Name 1',
+                                                  'pyname': u'key_name_1',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': 'alpha'}),
+                                                (u'output variable or meter name 1',
+                                                 {'name': u'Output Variable or Meter Name 1',
+                                                  'pyname': u'output_variable_or_meter_name_1',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': 'alpha'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Meter:Custom`
@@ -2137,7 +2852,9 @@ class MeterCustom(DataObject):
         vals = []
         key_name_1 = self.check_value("Key Name 1", key_name_1)
         vals.append(key_name_1)
-        output_variable_or_meter_name_1 = self.check_value("Output Variable or Meter Name 1", output_variable_or_meter_name_1)
+        output_variable_or_meter_name_1 = self.check_value(
+            "Output Variable or Meter Name 1",
+            output_variable_or_meter_name_1)
         vals.append(output_variable_or_meter_name_1)
         self._data["extensibles"].append(vals)
 
@@ -2149,12 +2866,53 @@ class MeterCustom(DataObject):
 
 
 class MeterCustomDecrement(DataObject):
+
     """ Corresponds to IDD object `Meter:CustomDecrement`
         Used to allow users to combine specific variables and/or meters into
         "custom" meter configurations. To access these meters by name, one must
         first run a simulation to generate the RDD/MDD files and names.
     """
-    schema = {'min-fields': 0, 'name': u'Meter:CustomDecrement', 'pyname': u'MeterCustomDecrement', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source meter name', {'name': u'Source Meter Name', 'pyname': u'source_meter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'key name 1', {'name': u'Key Name 1', 'pyname': u'key_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output variable or meter name 1', {'name': u'Output Variable or Meter Name 1', 'pyname': u'output_variable_or_meter_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Meter:CustomDecrement',
+              'pyname': u'MeterCustomDecrement',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel type',
+                                      {'name': u'Fuel Type',
+                                       'pyname': u'fuel_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'source meter name',
+                                      {'name': u'Source Meter Name',
+                                       'pyname': u'source_meter_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict([(u'key name 1',
+                                                 {'name': u'Key Name 1',
+                                                  'pyname': u'key_name_1',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': 'alpha'}),
+                                                (u'output variable or meter name 1',
+                                                 {'name': u'Output Variable or Meter Name 1',
+                                                  'pyname': u'output_variable_or_meter_name_1',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': 'alpha'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Meter:CustomDecrement`
@@ -2253,7 +3011,9 @@ class MeterCustomDecrement(DataObject):
         vals = []
         key_name_1 = self.check_value("Key Name 1", key_name_1)
         vals.append(key_name_1)
-        output_variable_or_meter_name_1 = self.check_value("Output Variable or Meter Name 1", output_variable_or_meter_name_1)
+        output_variable_or_meter_name_1 = self.check_value(
+            "Output Variable or Meter Name 1",
+            output_variable_or_meter_name_1)
         vals.append(output_variable_or_meter_name_1)
         self._data["extensibles"].append(vals)
 
@@ -2265,10 +3025,24 @@ class MeterCustomDecrement(DataObject):
 
 
 class OutputSqlite(DataObject):
+
     """ Corresponds to IDD object `Output:SQLite`
         Output from EnergyPlus can be written to an SQLite format file.
     """
-    schema = {'min-fields': 0, 'name': u'Output:SQLite', 'pyname': u'OutputSqlite', 'format': None, 'fields': OrderedDict([(u'option type', {'name': u'Option Type', 'pyname': u'option_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:SQLite',
+              'pyname': u'OutputSqlite',
+              'format': None,
+              'fields': OrderedDict([(u'option type',
+                                      {'name': u'Option Type',
+                                       'pyname': u'option_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:SQLite`
@@ -2304,11 +3078,25 @@ class OutputSqlite(DataObject):
 
 
 class OutputEnvironmentalImpactFactors(DataObject):
+
     """ Corresponds to IDD object `Output:EnvironmentalImpactFactors`
         This is used to Automatically report the facility meters and turn on the Environmental Impact Report calculations
         for all of the Environmental Factors.
     """
-    schema = {'min-fields': 0, 'name': u'Output:EnvironmentalImpactFactors', 'pyname': u'OutputEnvironmentalImpactFactors', 'format': None, 'fields': OrderedDict([(u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:EnvironmentalImpactFactors',
+              'pyname': u'OutputEnvironmentalImpactFactors',
+              'format': None,
+              'fields': OrderedDict([(u'reporting frequency',
+                                      {'name': u'Reporting Frequency',
+                                       'pyname': u'reporting_frequency',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:EnvironmentalImpactFactors`
@@ -2344,11 +3132,73 @@ class OutputEnvironmentalImpactFactors(DataObject):
 
 
 class EnvironmentalImpactFactors(DataObject):
+
     """ Corresponds to IDD object `EnvironmentalImpactFactors`
         Used to help convert district and ideal energy use to a fuel type and provide total carbon equivalent with coefficients
         Also used in Source=>Site conversions.
     """
-    schema = {'min-fields': 0, 'name': u'EnvironmentalImpactFactors', 'pyname': u'EnvironmentalImpactFactors', 'format': None, 'fields': OrderedDict([(u'district heating efficiency', {'name': u'District Heating Efficiency', 'pyname': u'district_heating_efficiency', 'default': 0.3, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'district cooling cop', {'name': u'District Cooling COP', 'pyname': u'district_cooling_cop', 'default': 3.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/W'}), (u'steam conversion efficiency', {'name': u'Steam Conversion Efficiency', 'pyname': u'steam_conversion_efficiency', 'default': 0.25, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'total carbon equivalent emission factor from n2o', {'name': u'Total Carbon Equivalent Emission Factor From N2O', 'pyname': u'total_carbon_equivalent_emission_factor_from_n2o', 'default': 80.7272, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/kg'}), (u'total carbon equivalent emission factor from ch4', {'name': u'Total Carbon Equivalent Emission Factor From CH4', 'pyname': u'total_carbon_equivalent_emission_factor_from_ch4', 'default': 6.2727, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/kg'}), (u'total carbon equivalent emission factor from co2', {'name': u'Total Carbon Equivalent Emission Factor From CO2', 'pyname': u'total_carbon_equivalent_emission_factor_from_co2', 'default': 0.2727, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'EnvironmentalImpactFactors',
+              'pyname': u'EnvironmentalImpactFactors',
+              'format': None,
+              'fields': OrderedDict([(u'district heating efficiency',
+                                      {'name': u'District Heating Efficiency',
+                                       'pyname': u'district_heating_efficiency',
+                                       'default': 0.3,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'district cooling cop',
+                                      {'name': u'District Cooling COP',
+                                       'pyname': u'district_cooling_cop',
+                                       'default': 3.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/W'}),
+                                     (u'steam conversion efficiency',
+                                      {'name': u'Steam Conversion Efficiency',
+                                       'pyname': u'steam_conversion_efficiency',
+                                       'default': 0.25,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'total carbon equivalent emission factor from n2o',
+                                      {'name': u'Total Carbon Equivalent Emission Factor From N2O',
+                                       'pyname': u'total_carbon_equivalent_emission_factor_from_n2o',
+                                       'default': 80.7272,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'kg/kg'}),
+                                     (u'total carbon equivalent emission factor from ch4',
+                                      {'name': u'Total Carbon Equivalent Emission Factor From CH4',
+                                       'pyname': u'total_carbon_equivalent_emission_factor_from_ch4',
+                                       'default': 6.2727,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'kg/kg'}),
+                                     (u'total carbon equivalent emission factor from co2',
+                                      {'name': u'Total Carbon Equivalent Emission Factor From CO2',
+                                       'pyname': u'total_carbon_equivalent_emission_factor_from_co2',
+                                       'default': 0.2727,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'kg/kg'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnvironmentalImpactFactors`
@@ -2512,12 +3362,295 @@ class EnvironmentalImpactFactors(DataObject):
 
 
 class FuelFactors(DataObject):
+
     """ Corresponds to IDD object `FuelFactors`
         Provides Fuel Factors for Emissions as well as Source=>Site conversions.
         OtherFuel1, OtherFuel2 provide options for users who want to create and use
         fuels that may not be mainstream (biomass, wood, pellets).
     """
-    schema = {'min-fields': 0, 'name': u'FuelFactors', 'pyname': u'FuelFactors', 'format': None, 'fields': OrderedDict([(u'existing fuel resource name', {'name': u'Existing Fuel Resource Name', 'pyname': u'existing_fuel_resource_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'units of measure', {'name': u'Units of Measure', 'pyname': u'units_of_measure', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'energy per unit factor', {'name': u'Energy per Unit Factor', 'pyname': u'energy_per_unit_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'source energy factor', {'name': u'Source Energy Factor', 'pyname': u'source_energy_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/J'}), (u'source energy schedule name', {'name': u'Source Energy Schedule Name', 'pyname': u'source_energy_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'co2 emission factor', {'name': u'CO2 Emission Factor', 'pyname': u'co2_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'co2 emission factor schedule name', {'name': u'CO2 Emission Factor Schedule Name', 'pyname': u'co2_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'co emission factor', {'name': u'CO Emission Factor', 'pyname': u'co_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'co emission factor schedule name', {'name': u'CO Emission Factor Schedule Name', 'pyname': u'co_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ch4 emission factor', {'name': u'CH4 Emission Factor', 'pyname': u'ch4_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'ch4 emission factor schedule name', {'name': u'CH4 Emission Factor Schedule Name', 'pyname': u'ch4_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nox emission factor', {'name': u'NOx Emission Factor', 'pyname': u'nox_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nox emission factor schedule name', {'name': u'NOx Emission Factor Schedule Name', 'pyname': u'nox_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'n2o emission factor', {'name': u'N2O Emission Factor', 'pyname': u'n2o_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'n2o emission factor schedule name', {'name': u'N2O Emission Factor Schedule Name', 'pyname': u'n2o_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'so2 emission factor', {'name': u'SO2 Emission Factor', 'pyname': u'so2_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'so2 emission factor schedule name', {'name': u'SO2 Emission Factor Schedule Name', 'pyname': u'so2_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm emission factor', {'name': u'PM Emission Factor', 'pyname': u'pm_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm emission factor schedule name', {'name': u'PM Emission Factor Schedule Name', 'pyname': u'pm_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm10 emission factor', {'name': u'PM10 Emission Factor', 'pyname': u'pm10_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm10 emission factor schedule name', {'name': u'PM10 Emission Factor Schedule Name', 'pyname': u'pm10_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm2.5 emission factor', {'name': u'PM2.5 Emission Factor', 'pyname': u'pm2_5_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm2.5 emission factor schedule name', {'name': u'PM2.5 Emission Factor Schedule Name', 'pyname': u'pm2_5_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nh3 emission factor', {'name': u'NH3 Emission Factor', 'pyname': u'nh3_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nh3 emission factor schedule name', {'name': u'NH3 Emission Factor Schedule Name', 'pyname': u'nh3_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nmvoc emission factor', {'name': u'NMVOC Emission Factor', 'pyname': u'nmvoc_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nmvoc emission factor schedule name', {'name': u'NMVOC Emission Factor Schedule Name', 'pyname': u'nmvoc_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hg emission factor', {'name': u'Hg Emission Factor', 'pyname': u'hg_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'hg emission factor schedule name', {'name': u'Hg Emission Factor Schedule Name', 'pyname': u'hg_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pb emission factor', {'name': u'Pb Emission Factor', 'pyname': u'pb_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pb emission factor schedule name', {'name': u'Pb Emission Factor Schedule Name', 'pyname': u'pb_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water emission factor', {'name': u'Water Emission Factor', 'pyname': u'water_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'L/MJ'}), (u'water emission factor schedule name', {'name': u'Water Emission Factor Schedule Name', 'pyname': u'water_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nuclear high level emission factor', {'name': u'Nuclear High Level Emission Factor', 'pyname': u'nuclear_high_level_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nuclear high level emission factor schedule name', {'name': u'Nuclear High Level Emission Factor Schedule Name', 'pyname': u'nuclear_high_level_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nuclear low level emission factor', {'name': u'Nuclear Low Level Emission Factor', 'pyname': u'nuclear_low_level_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/MJ'}), (u'nuclear low level emission factor schedule name', {'name': u'Nuclear Low Level Emission Factor Schedule Name', 'pyname': u'nuclear_low_level_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'FuelFactors',
+              'pyname': u'FuelFactors',
+              'format': None,
+              'fields': OrderedDict([(u'existing fuel resource name',
+                                      {'name': u'Existing Fuel Resource Name',
+                                       'pyname': u'existing_fuel_resource_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'units of measure',
+                                      {'name': u'Units of Measure',
+                                       'pyname': u'units_of_measure',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'energy per unit factor',
+                                      {'name': u'Energy per Unit Factor',
+                                       'pyname': u'energy_per_unit_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'source energy factor',
+                                      {'name': u'Source Energy Factor',
+                                       'pyname': u'source_energy_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'J/J'}),
+                                     (u'source energy schedule name',
+                                      {'name': u'Source Energy Schedule Name',
+                                       'pyname': u'source_energy_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'co2 emission factor',
+                                      {'name': u'CO2 Emission Factor',
+                                       'pyname': u'co2_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'co2 emission factor schedule name',
+                                      {'name': u'CO2 Emission Factor Schedule Name',
+                                       'pyname': u'co2_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'co emission factor',
+                                      {'name': u'CO Emission Factor',
+                                       'pyname': u'co_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'co emission factor schedule name',
+                                      {'name': u'CO Emission Factor Schedule Name',
+                                       'pyname': u'co_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'ch4 emission factor',
+                                      {'name': u'CH4 Emission Factor',
+                                       'pyname': u'ch4_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'ch4 emission factor schedule name',
+                                      {'name': u'CH4 Emission Factor Schedule Name',
+                                       'pyname': u'ch4_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'nox emission factor',
+                                      {'name': u'NOx Emission Factor',
+                                       'pyname': u'nox_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'nox emission factor schedule name',
+                                      {'name': u'NOx Emission Factor Schedule Name',
+                                       'pyname': u'nox_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'n2o emission factor',
+                                      {'name': u'N2O Emission Factor',
+                                       'pyname': u'n2o_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'n2o emission factor schedule name',
+                                      {'name': u'N2O Emission Factor Schedule Name',
+                                       'pyname': u'n2o_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'so2 emission factor',
+                                      {'name': u'SO2 Emission Factor',
+                                       'pyname': u'so2_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'so2 emission factor schedule name',
+                                      {'name': u'SO2 Emission Factor Schedule Name',
+                                       'pyname': u'so2_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'pm emission factor',
+                                      {'name': u'PM Emission Factor',
+                                       'pyname': u'pm_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'pm emission factor schedule name',
+                                      {'name': u'PM Emission Factor Schedule Name',
+                                       'pyname': u'pm_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'pm10 emission factor',
+                                      {'name': u'PM10 Emission Factor',
+                                       'pyname': u'pm10_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'pm10 emission factor schedule name',
+                                      {'name': u'PM10 Emission Factor Schedule Name',
+                                       'pyname': u'pm10_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'pm2.5 emission factor',
+                                      {'name': u'PM2.5 Emission Factor',
+                                       'pyname': u'pm2_5_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'pm2.5 emission factor schedule name',
+                                      {'name': u'PM2.5 Emission Factor Schedule Name',
+                                       'pyname': u'pm2_5_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'nh3 emission factor',
+                                      {'name': u'NH3 Emission Factor',
+                                       'pyname': u'nh3_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'nh3 emission factor schedule name',
+                                      {'name': u'NH3 Emission Factor Schedule Name',
+                                       'pyname': u'nh3_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'nmvoc emission factor',
+                                      {'name': u'NMVOC Emission Factor',
+                                       'pyname': u'nmvoc_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'nmvoc emission factor schedule name',
+                                      {'name': u'NMVOC Emission Factor Schedule Name',
+                                       'pyname': u'nmvoc_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'hg emission factor',
+                                      {'name': u'Hg Emission Factor',
+                                       'pyname': u'hg_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'hg emission factor schedule name',
+                                      {'name': u'Hg Emission Factor Schedule Name',
+                                       'pyname': u'hg_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'pb emission factor',
+                                      {'name': u'Pb Emission Factor',
+                                       'pyname': u'pb_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'pb emission factor schedule name',
+                                      {'name': u'Pb Emission Factor Schedule Name',
+                                       'pyname': u'pb_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'water emission factor',
+                                      {'name': u'Water Emission Factor',
+                                       'pyname': u'water_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'L/MJ'}),
+                                     (u'water emission factor schedule name',
+                                      {'name': u'Water Emission Factor Schedule Name',
+                                       'pyname': u'water_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'nuclear high level emission factor',
+                                      {'name': u'Nuclear High Level Emission Factor',
+                                       'pyname': u'nuclear_high_level_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'g/MJ'}),
+                                     (u'nuclear high level emission factor schedule name',
+                                      {'name': u'Nuclear High Level Emission Factor Schedule Name',
+                                       'pyname': u'nuclear_high_level_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'nuclear low level emission factor',
+                                      {'name': u'Nuclear Low Level Emission Factor',
+                                       'pyname': u'nuclear_low_level_emission_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/MJ'}),
+                                     (u'nuclear low level emission factor schedule name',
+                                      {'name': u'Nuclear Low Level Emission Factor Schedule Name',
+                                       'pyname': u'nuclear_low_level_emission_factor_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FuelFactors`
@@ -3398,10 +4531,31 @@ class FuelFactors(DataObject):
 
 
 class OutputDiagnostics(DataObject):
+
     """ Corresponds to IDD object `Output:Diagnostics`
         Special keys to produce certain warning messages or effect certain simulation characteristics.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Diagnostics', 'pyname': u'OutputDiagnostics', 'format': None, 'fields': OrderedDict([(u'key 1', {'name': u'Key 1', 'pyname': u'key_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'key 2', {'name': u'Key 2', 'pyname': u'key_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:Diagnostics',
+              'pyname': u'OutputDiagnostics',
+              'format': None,
+              'fields': OrderedDict([(u'key 1',
+                                      {'name': u'Key 1',
+                                       'pyname': u'key_1',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'key 2',
+                                      {'name': u'Key 2',
+                                       'pyname': u'key_2',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Diagnostics`
@@ -3460,10 +4614,31 @@ class OutputDiagnostics(DataObject):
 
 
 class OutputDebuggingData(DataObject):
+
     """ Corresponds to IDD object `Output:DebuggingData`
         switch eplusout.dbg file on or off
     """
-    schema = {'min-fields': 0, 'name': u'Output:DebuggingData', 'pyname': u'OutputDebuggingData', 'format': None, 'fields': OrderedDict([(u'report debugging data', {'name': u'Report Debugging Data', 'pyname': u'report_debugging_data', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'report during warmup', {'name': u'Report During Warmup', 'pyname': u'report_during_warmup', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:DebuggingData',
+              'pyname': u'OutputDebuggingData',
+              'format': None,
+              'fields': OrderedDict([(u'report debugging data',
+                                      {'name': u'Report Debugging Data',
+                                       'pyname': u'report_debugging_data',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'report during warmup',
+                                      {'name': u'Report During Warmup',
+                                       'pyname': u'report_during_warmup',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:DebuggingData`
@@ -3524,11 +4699,102 @@ class OutputDebuggingData(DataObject):
 
 
 class OutputPreprocessorMessage(DataObject):
+
     """ Corresponds to IDD object `Output:PreprocessorMessage`
         This object does not come from a user input.  This is generated by a pre-processor
         so that various conditions can be gracefully passed on by the InputProcessor.
     """
-    schema = {'min-fields': 0, 'name': u'Output:PreprocessorMessage', 'pyname': u'OutputPreprocessorMessage', 'format': None, 'fields': OrderedDict([(u'preprocessor name', {'name': u'Preprocessor Name', 'pyname': u'preprocessor_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'error severity', {'name': u'Error Severity', 'pyname': u'error_severity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 1', {'name': u'Message Line 1', 'pyname': u'message_line_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 2', {'name': u'Message Line 2', 'pyname': u'message_line_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 3', {'name': u'Message Line 3', 'pyname': u'message_line_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 4', {'name': u'Message Line 4', 'pyname': u'message_line_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 5', {'name': u'Message Line 5', 'pyname': u'message_line_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 6', {'name': u'Message Line 6', 'pyname': u'message_line_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 7', {'name': u'Message Line 7', 'pyname': u'message_line_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 8', {'name': u'Message Line 8', 'pyname': u'message_line_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 9', {'name': u'Message Line 9', 'pyname': u'message_line_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 10', {'name': u'Message Line 10', 'pyname': u'message_line_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:PreprocessorMessage',
+              'pyname': u'OutputPreprocessorMessage',
+              'format': None,
+              'fields': OrderedDict([(u'preprocessor name',
+                                      {'name': u'Preprocessor Name',
+                                       'pyname': u'preprocessor_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'error severity',
+                                      {'name': u'Error Severity',
+                                       'pyname': u'error_severity',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'message line 1',
+                                      {'name': u'Message Line 1',
+                                       'pyname': u'message_line_1',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'message line 2',
+                                      {'name': u'Message Line 2',
+                                       'pyname': u'message_line_2',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'message line 3',
+                                      {'name': u'Message Line 3',
+                                       'pyname': u'message_line_3',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'message line 4',
+                                      {'name': u'Message Line 4',
+                                       'pyname': u'message_line_4',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'message line 5',
+                                      {'name': u'Message Line 5',
+                                       'pyname': u'message_line_5',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'message line 6',
+                                      {'name': u'Message Line 6',
+                                       'pyname': u'message_line_6',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'message line 7',
+                                      {'name': u'Message Line 7',
+                                       'pyname': u'message_line_7',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'message line 8',
+                                      {'name': u'Message Line 8',
+                                       'pyname': u'message_line_8',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'message line 9',
+                                      {'name': u'Message Line 9',
+                                       'pyname': u'message_line_9',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'message line 10',
+                                      {'name': u'Message Line 10',
+                                       'pyname': u'message_line_10',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:PreprocessorMessage`

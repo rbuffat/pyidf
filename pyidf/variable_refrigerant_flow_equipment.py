@@ -9,12 +9,671 @@ logger.addHandler(logging.NullHandler())
 
 
 class AirConditionerVariableRefrigerantFlow(DataObject):
+
     """ Corresponds to IDD object `AirConditioner:VariableRefrigerantFlow`
         Variable refrigerant flow (VRF) air-to-air heat pump condensing unit (includes one
         or more electric compressors and outdoor fan). Serves one or more VRF zone terminal
         units. See ZoneHVAC:TerminalUnit:VariableRefrigerantFlow and ZoneTerminalUnitList.
     """
-    schema = {'min-fields': 37, 'name': u'AirConditioner:VariableRefrigerantFlow', 'pyname': u'AirConditionerVariableRefrigerantFlow', 'format': None, 'fields': OrderedDict([(u'heat pump name', {'name': u'Heat Pump Name', 'pyname': u'heat_pump_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gross rated total cooling capacity', {'name': u'Gross Rated Total Cooling Capacity', 'pyname': u'gross_rated_total_cooling_capacity', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'gross rated cooling cop', {'name': u'Gross Rated Cooling COP', 'pyname': u'gross_rated_cooling_cop', 'default': 3.3, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'minimum outdoor temperature in cooling mode', {'name': u'Minimum Outdoor Temperature in Cooling Mode', 'pyname': u'minimum_outdoor_temperature_in_cooling_mode', 'default': -6.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature in cooling mode', {'name': u'Maximum Outdoor Temperature in Cooling Mode', 'pyname': u'maximum_outdoor_temperature_in_cooling_mode', 'default': 43.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'cooling capacity ratio modifier function of low temperature curve name', {'name': u'Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name', 'pyname': u'cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling capacity ratio boundary curve name', {'name': u'Cooling Capacity Ratio Boundary Curve Name', 'pyname': u'cooling_capacity_ratio_boundary_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling capacity ratio modifier function of high temperature curve name', {'name': u'Cooling Capacity Ratio Modifier Function of High Temperature Curve Name', 'pyname': u'cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling energy input ratio modifier function of low temperature curve name', {'name': u'Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name', 'pyname': u'cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling energy input ratio boundary curve name', {'name': u'Cooling Energy Input Ratio Boundary Curve Name', 'pyname': u'cooling_energy_input_ratio_boundary_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling energy input ratio modifier function of high temperature curve name', {'name': u'Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name', 'pyname': u'cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling energy input ratio modifier function of low part-load ratio curve name', {'name': u'Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name', 'pyname': u'cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling energy input ratio modifier function of high part-load ratio curve name', {'name': u'Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name', 'pyname': u'cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling combination ratio correction factor curve name', {'name': u'Cooling Combination Ratio Correction Factor Curve Name', 'pyname': u'cooling_combination_ratio_correction_factor_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling part-load fraction correlation curve name', {'name': u'Cooling Part-Load Fraction Correlation Curve Name', 'pyname': u'cooling_partload_fraction_correlation_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gross rated heating capacity', {'name': u'Gross Rated Heating Capacity', 'pyname': u'gross_rated_heating_capacity', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated heating capacity sizing ratio', {'name': u'Rated Heating Capacity Sizing Ratio', 'pyname': u'rated_heating_capacity_sizing_ratio', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'gross rated heating cop', {'name': u'Gross Rated Heating COP', 'pyname': u'gross_rated_heating_cop', 'default': 3.4, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'minimum outdoor temperature in heating mode', {'name': u'Minimum Outdoor Temperature in Heating Mode', 'pyname': u'minimum_outdoor_temperature_in_heating_mode', 'default': -20.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature in heating mode', {'name': u'Maximum Outdoor Temperature in Heating Mode', 'pyname': u'maximum_outdoor_temperature_in_heating_mode', 'default': 16.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heating capacity ratio modifier function of low temperature curve name', {'name': u'Heating Capacity Ratio Modifier Function of Low Temperature Curve Name', 'pyname': u'heating_capacity_ratio_modifier_function_of_low_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating capacity ratio boundary curve name', {'name': u'Heating Capacity Ratio Boundary Curve Name', 'pyname': u'heating_capacity_ratio_boundary_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating capacity ratio modifier function of high temperature curve name', {'name': u'Heating Capacity Ratio Modifier Function of High Temperature Curve Name', 'pyname': u'heating_capacity_ratio_modifier_function_of_high_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating energy input ratio modifier function of low temperature curve name', {'name': u'Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name', 'pyname': u'heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating energy input ratio boundary curve name', {'name': u'Heating Energy Input Ratio Boundary Curve Name', 'pyname': u'heating_energy_input_ratio_boundary_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating energy input ratio modifier function of high temperature curve name', {'name': u'Heating Energy Input Ratio Modifier Function of High Temperature Curve Name', 'pyname': u'heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating performance curve outdoor temperature type', {'name': u'Heating Performance Curve Outdoor Temperature Type', 'pyname': u'heating_performance_curve_outdoor_temperature_type', 'default': u'WetBulbTemperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating energy input ratio modifier function of low part-load ratio curve name', {'name': u'Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name', 'pyname': u'heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating energy input ratio modifier function of high part-load ratio curve name', {'name': u'Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name', 'pyname': u'heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating combination ratio correction factor curve name', {'name': u'Heating Combination Ratio Correction Factor Curve Name', 'pyname': u'heating_combination_ratio_correction_factor_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating part-load fraction correlation curve name', {'name': u'Heating Part-Load Fraction Correlation Curve Name', 'pyname': u'heating_partload_fraction_correlation_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum heat pump part-load ratio', {'name': u'Minimum Heat Pump Part-Load Ratio', 'pyname': u'minimum_heat_pump_partload_ratio', 'default': 0.15, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'zone name for master thermostat location', {'name': u'Zone Name for Master Thermostat Location', 'pyname': u'zone_name_for_master_thermostat_location', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'master thermostat priority control type', {'name': u'Master Thermostat Priority Control Type', 'pyname': u'master_thermostat_priority_control_type', 'default': u'MasterThermostatPriority', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thermostat priority schedule name', {'name': u'Thermostat Priority Schedule Name', 'pyname': u'thermostat_priority_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone terminal unit list name', {'name': u'Zone Terminal Unit List Name', 'pyname': u'zone_terminal_unit_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat pump waste heat recovery', {'name': u'Heat Pump Waste Heat Recovery', 'pyname': u'heat_pump_waste_heat_recovery', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equivalent piping length used for piping correction factor in cooling mode', {'name': u'Equivalent Piping Length used for Piping Correction Factor in Cooling Mode', 'pyname': u'equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertical height used for piping correction factor', {'name': u'Vertical Height used for Piping Correction Factor', 'pyname': u'vertical_height_used_for_piping_correction_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'piping correction factor for length in cooling mode curve name', {'name': u'Piping Correction Factor for Length in Cooling Mode Curve Name', 'pyname': u'piping_correction_factor_for_length_in_cooling_mode_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'piping correction factor for height in cooling mode coefficient', {'name': u'Piping Correction Factor for Height in Cooling Mode Coefficient', 'pyname': u'piping_correction_factor_for_height_in_cooling_mode_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'1/m'}), (u'equivalent piping length used for piping correction factor in heating mode', {'name': u'Equivalent Piping Length used for Piping Correction Factor in Heating Mode', 'pyname': u'equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'piping correction factor for length in heating mode curve name', {'name': u'Piping Correction Factor for Length in Heating Mode Curve Name', 'pyname': u'piping_correction_factor_for_length_in_heating_mode_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'piping correction factor for height in heating mode coefficient', {'name': u'Piping Correction Factor for Height in Heating Mode Coefficient', 'pyname': u'piping_correction_factor_for_height_in_heating_mode_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'1/m'}), (u'crankcase heater power per compressor', {'name': u'Crankcase Heater Power per Compressor', 'pyname': u'crankcase_heater_power_per_compressor', 'default': 33.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'number of compressors', {'name': u'Number of Compressors', 'pyname': u'number_of_compressors', 'default': 2, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'dimensionless'}), (u'ratio of compressor size to total compressor capacity', {'name': u'Ratio of Compressor Size to Total Compressor Capacity', 'pyname': u'ratio_of_compressor_size_to_total_compressor_capacity', 'default': 0.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'maximum outdoor dry-bulb temperature for crankcase heater', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater', 'pyname': u'maximum_outdoor_drybulb_temperature_for_crankcase_heater', 'default': 5.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'defrost strategy', {'name': u'Defrost Strategy', 'pyname': u'defrost_strategy', 'default': u'Resistive', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'defrost control', {'name': u'Defrost Control', 'pyname': u'defrost_control', 'default': u'Timed', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'defrost energy input ratio modifier function of temperature curve name', {'name': u'Defrost Energy Input Ratio Modifier Function of Temperature Curve Name', 'pyname': u'defrost_energy_input_ratio_modifier_function_of_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost time period fraction', {'name': u'Defrost Time Period Fraction', 'pyname': u'defrost_time_period_fraction', 'default': 0.058333, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'resistive defrost heater capacity', {'name': u'Resistive Defrost Heater Capacity', 'pyname': u'resistive_defrost_heater_capacity', 'default': 0.0, 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'maximum outdoor dry-bulb temperature for defrost operation', {'name': u'Maximum Outdoor Dry-bulb Temperature for Defrost Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_defrost_operation', 'default': 5.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'condenser type', {'name': u'Condenser Type', 'pyname': u'condenser_type', 'default': u'AirCooled', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'condenser inlet node name', {'name': u'Condenser Inlet Node Name', 'pyname': u'condenser_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser outlet node name', {'name': u'Condenser Outlet Node Name', 'pyname': u'condenser_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water condenser volume flow rate', {'name': u'Water Condenser Volume Flow Rate', 'pyname': u'water_condenser_volume_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'evaporative condenser effectiveness', {'name': u'Evaporative Condenser Effectiveness', 'pyname': u'evaporative_condenser_effectiveness', 'default': 0.9, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'evaporative condenser air flow rate', {'name': u'Evaporative Condenser Air Flow Rate', 'pyname': u'evaporative_condenser_air_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'evaporative condenser pump rated power consumption', {'name': u'Evaporative Condenser Pump Rated Power Consumption', 'pyname': u'evaporative_condenser_pump_rated_power_consumption', 'default': 0.0, 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'supply water storage tank name', {'name': u'Supply Water Storage Tank Name', 'pyname': u'supply_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'basin heater capacity', {'name': u'Basin Heater Capacity', 'pyname': u'basin_heater_capacity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'basin heater setpoint temperature', {'name': u'Basin Heater Setpoint Temperature', 'pyname': u'basin_heater_setpoint_temperature', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'basin heater operating schedule name', {'name': u'Basin Heater Operating Schedule Name', 'pyname': u'basin_heater_operating_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'default': u'Electricity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum outdoor temperature in heat recovery mode', {'name': u'Minimum Outdoor Temperature in Heat Recovery Mode', 'pyname': u'minimum_outdoor_temperature_in_heat_recovery_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature in heat recovery mode', {'name': u'Maximum Outdoor Temperature in Heat Recovery Mode', 'pyname': u'maximum_outdoor_temperature_in_heat_recovery_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heat recovery cooling capacity modifier curve name', {'name': u'Heat Recovery Cooling Capacity Modifier Curve Name', 'pyname': u'heat_recovery_cooling_capacity_modifier_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'initial heat recovery cooling capacity fraction', {'name': u'Initial Heat Recovery Cooling Capacity Fraction', 'pyname': u'initial_heat_recovery_cooling_capacity_fraction', 'default': 0.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'heat recovery cooling capacity time constant', {'name': u'Heat Recovery Cooling Capacity Time Constant', 'pyname': u'heat_recovery_cooling_capacity_time_constant', 'default': 0.15, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'heat recovery cooling energy modifier curve name', {'name': u'Heat Recovery Cooling Energy Modifier Curve Name', 'pyname': u'heat_recovery_cooling_energy_modifier_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'initial heat recovery cooling energy fraction', {'name': u'Initial Heat Recovery Cooling Energy Fraction', 'pyname': u'initial_heat_recovery_cooling_energy_fraction', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'heat recovery cooling energy time constant', {'name': u'Heat Recovery Cooling Energy Time Constant', 'pyname': u'heat_recovery_cooling_energy_time_constant', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'heat recovery heating capacity modifier curve name', {'name': u'Heat Recovery Heating Capacity Modifier Curve Name', 'pyname': u'heat_recovery_heating_capacity_modifier_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'initial heat recovery heating capacity fraction', {'name': u'Initial Heat Recovery Heating Capacity Fraction', 'pyname': u'initial_heat_recovery_heating_capacity_fraction', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'heat recovery heating capacity time constant', {'name': u'Heat Recovery Heating Capacity Time Constant', 'pyname': u'heat_recovery_heating_capacity_time_constant', 'default': 0.15, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'heat recovery heating energy modifier curve name', {'name': u'Heat Recovery Heating Energy Modifier Curve Name', 'pyname': u'heat_recovery_heating_energy_modifier_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'initial heat recovery heating energy fraction', {'name': u'Initial Heat Recovery Heating Energy Fraction', 'pyname': u'initial_heat_recovery_heating_energy_fraction', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'heat recovery heating energy time constant', {'name': u'Heat Recovery Heating Energy Time Constant', 'pyname': u'heat_recovery_heating_energy_time_constant', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 37,
+              'name': u'AirConditioner:VariableRefrigerantFlow',
+              'pyname': u'AirConditionerVariableRefrigerantFlow',
+              'format': None,
+              'fields': OrderedDict([(u'heat pump name',
+                                      {'name': u'Heat Pump Name',
+                                       'pyname': u'heat_pump_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'gross rated total cooling capacity',
+                                      {'name': u'Gross Rated Total Cooling Capacity',
+                                       'pyname': u'gross_rated_total_cooling_capacity',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'gross rated cooling cop',
+                                      {'name': u'Gross Rated Cooling COP',
+                                       'pyname': u'gross_rated_cooling_cop',
+                                       'default': 3.3,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'minimum outdoor temperature in cooling mode',
+                                      {'name': u'Minimum Outdoor Temperature in Cooling Mode',
+                                       'pyname': u'minimum_outdoor_temperature_in_cooling_mode',
+                                       'default': -6.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum outdoor temperature in cooling mode',
+                                      {'name': u'Maximum Outdoor Temperature in Cooling Mode',
+                                       'pyname': u'maximum_outdoor_temperature_in_cooling_mode',
+                                       'default': 43.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'cooling capacity ratio modifier function of low temperature curve name',
+                                      {'name': u'Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name',
+                                       'pyname': u'cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling capacity ratio boundary curve name',
+                                      {'name': u'Cooling Capacity Ratio Boundary Curve Name',
+                                       'pyname': u'cooling_capacity_ratio_boundary_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling capacity ratio modifier function of high temperature curve name',
+                                      {'name': u'Cooling Capacity Ratio Modifier Function of High Temperature Curve Name',
+                                       'pyname': u'cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling energy input ratio modifier function of low temperature curve name',
+                                      {'name': u'Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name',
+                                       'pyname': u'cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling energy input ratio boundary curve name',
+                                      {'name': u'Cooling Energy Input Ratio Boundary Curve Name',
+                                       'pyname': u'cooling_energy_input_ratio_boundary_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling energy input ratio modifier function of high temperature curve name',
+                                      {'name': u'Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name',
+                                       'pyname': u'cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling energy input ratio modifier function of low part-load ratio curve name',
+                                      {'name': u'Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name',
+                                       'pyname': u'cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling energy input ratio modifier function of high part-load ratio curve name',
+                                      {'name': u'Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name',
+                                       'pyname': u'cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling combination ratio correction factor curve name',
+                                      {'name': u'Cooling Combination Ratio Correction Factor Curve Name',
+                                       'pyname': u'cooling_combination_ratio_correction_factor_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling part-load fraction correlation curve name',
+                                      {'name': u'Cooling Part-Load Fraction Correlation Curve Name',
+                                       'pyname': u'cooling_partload_fraction_correlation_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'gross rated heating capacity',
+                                      {'name': u'Gross Rated Heating Capacity',
+                                       'pyname': u'gross_rated_heating_capacity',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'rated heating capacity sizing ratio',
+                                      {'name': u'Rated Heating Capacity Sizing Ratio',
+                                       'pyname': u'rated_heating_capacity_sizing_ratio',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'gross rated heating cop',
+                                      {'name': u'Gross Rated Heating COP',
+                                       'pyname': u'gross_rated_heating_cop',
+                                       'default': 3.4,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'minimum outdoor temperature in heating mode',
+                                      {'name': u'Minimum Outdoor Temperature in Heating Mode',
+                                       'pyname': u'minimum_outdoor_temperature_in_heating_mode',
+                                       'default': -20.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum outdoor temperature in heating mode',
+                                      {'name': u'Maximum Outdoor Temperature in Heating Mode',
+                                       'pyname': u'maximum_outdoor_temperature_in_heating_mode',
+                                       'default': 16.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'heating capacity ratio modifier function of low temperature curve name',
+                                      {'name': u'Heating Capacity Ratio Modifier Function of Low Temperature Curve Name',
+                                       'pyname': u'heating_capacity_ratio_modifier_function_of_low_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating capacity ratio boundary curve name',
+                                      {'name': u'Heating Capacity Ratio Boundary Curve Name',
+                                       'pyname': u'heating_capacity_ratio_boundary_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating capacity ratio modifier function of high temperature curve name',
+                                      {'name': u'Heating Capacity Ratio Modifier Function of High Temperature Curve Name',
+                                       'pyname': u'heating_capacity_ratio_modifier_function_of_high_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating energy input ratio modifier function of low temperature curve name',
+                                      {'name': u'Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name',
+                                       'pyname': u'heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating energy input ratio boundary curve name',
+                                      {'name': u'Heating Energy Input Ratio Boundary Curve Name',
+                                       'pyname': u'heating_energy_input_ratio_boundary_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating energy input ratio modifier function of high temperature curve name',
+                                      {'name': u'Heating Energy Input Ratio Modifier Function of High Temperature Curve Name',
+                                       'pyname': u'heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating performance curve outdoor temperature type',
+                                      {'name': u'Heating Performance Curve Outdoor Temperature Type',
+                                       'pyname': u'heating_performance_curve_outdoor_temperature_type',
+                                       'default': u'WetBulbTemperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating energy input ratio modifier function of low part-load ratio curve name',
+                                      {'name': u'Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name',
+                                       'pyname': u'heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating energy input ratio modifier function of high part-load ratio curve name',
+                                      {'name': u'Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name',
+                                       'pyname': u'heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating combination ratio correction factor curve name',
+                                      {'name': u'Heating Combination Ratio Correction Factor Curve Name',
+                                       'pyname': u'heating_combination_ratio_correction_factor_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating part-load fraction correlation curve name',
+                                      {'name': u'Heating Part-Load Fraction Correlation Curve Name',
+                                       'pyname': u'heating_partload_fraction_correlation_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum heat pump part-load ratio',
+                                      {'name': u'Minimum Heat Pump Part-Load Ratio',
+                                       'pyname': u'minimum_heat_pump_partload_ratio',
+                                       'default': 0.15,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'zone name for master thermostat location',
+                                      {'name': u'Zone Name for Master Thermostat Location',
+                                       'pyname': u'zone_name_for_master_thermostat_location',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'master thermostat priority control type',
+                                      {'name': u'Master Thermostat Priority Control Type',
+                                       'pyname': u'master_thermostat_priority_control_type',
+                                       'default': u'MasterThermostatPriority',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'thermostat priority schedule name',
+                                      {'name': u'Thermostat Priority Schedule Name',
+                                       'pyname': u'thermostat_priority_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone terminal unit list name',
+                                      {'name': u'Zone Terminal Unit List Name',
+                                       'pyname': u'zone_terminal_unit_list_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heat pump waste heat recovery',
+                                      {'name': u'Heat Pump Waste Heat Recovery',
+                                       'pyname': u'heat_pump_waste_heat_recovery',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'equivalent piping length used for piping correction factor in cooling mode',
+                                      {'name': u'Equivalent Piping Length used for Piping Correction Factor in Cooling Mode',
+                                       'pyname': u'equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'vertical height used for piping correction factor',
+                                      {'name': u'Vertical Height used for Piping Correction Factor',
+                                       'pyname': u'vertical_height_used_for_piping_correction_factor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'piping correction factor for length in cooling mode curve name',
+                                      {'name': u'Piping Correction Factor for Length in Cooling Mode Curve Name',
+                                       'pyname': u'piping_correction_factor_for_length_in_cooling_mode_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'piping correction factor for height in cooling mode coefficient',
+                                      {'name': u'Piping Correction Factor for Height in Cooling Mode Coefficient',
+                                       'pyname': u'piping_correction_factor_for_height_in_cooling_mode_coefficient',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'1/m'}),
+                                     (u'equivalent piping length used for piping correction factor in heating mode',
+                                      {'name': u'Equivalent Piping Length used for Piping Correction Factor in Heating Mode',
+                                       'pyname': u'equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'piping correction factor for length in heating mode curve name',
+                                      {'name': u'Piping Correction Factor for Length in Heating Mode Curve Name',
+                                       'pyname': u'piping_correction_factor_for_length_in_heating_mode_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'piping correction factor for height in heating mode coefficient',
+                                      {'name': u'Piping Correction Factor for Height in Heating Mode Coefficient',
+                                       'pyname': u'piping_correction_factor_for_height_in_heating_mode_coefficient',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'1/m'}),
+                                     (u'crankcase heater power per compressor',
+                                      {'name': u'Crankcase Heater Power per Compressor',
+                                       'pyname': u'crankcase_heater_power_per_compressor',
+                                       'default': 33.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'number of compressors',
+                                      {'name': u'Number of Compressors',
+                                       'pyname': u'number_of_compressors',
+                                       'default': 2,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'integer',
+                                       'unit': u'dimensionless'}),
+                                     (u'ratio of compressor size to total compressor capacity',
+                                      {'name': u'Ratio of Compressor Size to Total Compressor Capacity',
+                                       'pyname': u'ratio_of_compressor_size_to_total_compressor_capacity',
+                                       'default': 0.5,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'maximum outdoor dry-bulb temperature for crankcase heater',
+                                      {'name': u'Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater',
+                                       'pyname': u'maximum_outdoor_drybulb_temperature_for_crankcase_heater',
+                                       'default': 5.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'defrost strategy',
+                                      {'name': u'Defrost Strategy',
+                                       'pyname': u'defrost_strategy',
+                                       'default': u'Resistive',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'defrost control',
+                                      {'name': u'Defrost Control',
+                                       'pyname': u'defrost_control',
+                                       'default': u'Timed',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'defrost energy input ratio modifier function of temperature curve name',
+                                      {'name': u'Defrost Energy Input Ratio Modifier Function of Temperature Curve Name',
+                                       'pyname': u'defrost_energy_input_ratio_modifier_function_of_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'defrost time period fraction',
+                                      {'name': u'Defrost Time Period Fraction',
+                                       'pyname': u'defrost_time_period_fraction',
+                                       'default': 0.058333,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'resistive defrost heater capacity',
+                                      {'name': u'Resistive Defrost Heater Capacity',
+                                       'pyname': u'resistive_defrost_heater_capacity',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'maximum outdoor dry-bulb temperature for defrost operation',
+                                      {'name': u'Maximum Outdoor Dry-bulb Temperature for Defrost Operation',
+                                       'pyname': u'maximum_outdoor_drybulb_temperature_for_defrost_operation',
+                                       'default': 5.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'condenser type',
+                                      {'name': u'Condenser Type',
+                                       'pyname': u'condenser_type',
+                                       'default': u'AirCooled',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'condenser inlet node name',
+                                      {'name': u'Condenser Inlet Node Name',
+                                       'pyname': u'condenser_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser outlet node name',
+                                      {'name': u'Condenser Outlet Node Name',
+                                       'pyname': u'condenser_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'water condenser volume flow rate',
+                                      {'name': u'Water Condenser Volume Flow Rate',
+                                       'pyname': u'water_condenser_volume_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'evaporative condenser effectiveness',
+                                      {'name': u'Evaporative Condenser Effectiveness',
+                                       'pyname': u'evaporative_condenser_effectiveness',
+                                       'default': 0.9,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'evaporative condenser air flow rate',
+                                      {'name': u'Evaporative Condenser Air Flow Rate',
+                                       'pyname': u'evaporative_condenser_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'evaporative condenser pump rated power consumption',
+                                      {'name': u'Evaporative Condenser Pump Rated Power Consumption',
+                                       'pyname': u'evaporative_condenser_pump_rated_power_consumption',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'supply water storage tank name',
+                                      {'name': u'Supply Water Storage Tank Name',
+                                       'pyname': u'supply_water_storage_tank_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'basin heater capacity',
+                                      {'name': u'Basin Heater Capacity',
+                                       'pyname': u'basin_heater_capacity',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/K'}),
+                                     (u'basin heater setpoint temperature',
+                                      {'name': u'Basin Heater Setpoint Temperature',
+                                       'pyname': u'basin_heater_setpoint_temperature',
+                                       'default': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 2.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'basin heater operating schedule name',
+                                      {'name': u'Basin Heater Operating Schedule Name',
+                                       'pyname': u'basin_heater_operating_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'fuel type',
+                                      {'name': u'Fuel Type',
+                                       'pyname': u'fuel_type',
+                                       'default': u'Electricity',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'minimum outdoor temperature in heat recovery mode',
+                                      {'name': u'Minimum Outdoor Temperature in Heat Recovery Mode',
+                                       'pyname': u'minimum_outdoor_temperature_in_heat_recovery_mode',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum outdoor temperature in heat recovery mode',
+                                      {'name': u'Maximum Outdoor Temperature in Heat Recovery Mode',
+                                       'pyname': u'maximum_outdoor_temperature_in_heat_recovery_mode',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'heat recovery cooling capacity modifier curve name',
+                                      {'name': u'Heat Recovery Cooling Capacity Modifier Curve Name',
+                                       'pyname': u'heat_recovery_cooling_capacity_modifier_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'initial heat recovery cooling capacity fraction',
+                                      {'name': u'Initial Heat Recovery Cooling Capacity Fraction',
+                                       'pyname': u'initial_heat_recovery_cooling_capacity_fraction',
+                                       'default': 0.5,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'heat recovery cooling capacity time constant',
+                                      {'name': u'Heat Recovery Cooling Capacity Time Constant',
+                                       'pyname': u'heat_recovery_cooling_capacity_time_constant',
+                                       'default': 0.15,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'hr'}),
+                                     (u'heat recovery cooling energy modifier curve name',
+                                      {'name': u'Heat Recovery Cooling Energy Modifier Curve Name',
+                                       'pyname': u'heat_recovery_cooling_energy_modifier_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'initial heat recovery cooling energy fraction',
+                                      {'name': u'Initial Heat Recovery Cooling Energy Fraction',
+                                       'pyname': u'initial_heat_recovery_cooling_energy_fraction',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'heat recovery cooling energy time constant',
+                                      {'name': u'Heat Recovery Cooling Energy Time Constant',
+                                       'pyname': u'heat_recovery_cooling_energy_time_constant',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'hr'}),
+                                     (u'heat recovery heating capacity modifier curve name',
+                                      {'name': u'Heat Recovery Heating Capacity Modifier Curve Name',
+                                       'pyname': u'heat_recovery_heating_capacity_modifier_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'initial heat recovery heating capacity fraction',
+                                      {'name': u'Initial Heat Recovery Heating Capacity Fraction',
+                                       'pyname': u'initial_heat_recovery_heating_capacity_fraction',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'heat recovery heating capacity time constant',
+                                      {'name': u'Heat Recovery Heating Capacity Time Constant',
+                                       'pyname': u'heat_recovery_heating_capacity_time_constant',
+                                       'default': 0.15,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'hr'}),
+                                     (u'heat recovery heating energy modifier curve name',
+                                      {'name': u'Heat Recovery Heating Energy Modifier Curve Name',
+                                       'pyname': u'heat_recovery_heating_energy_modifier_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'initial heat recovery heating energy fraction',
+                                      {'name': u'Initial Heat Recovery Heating Energy Fraction',
+                                       'pyname': u'initial_heat_recovery_heating_energy_fraction',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'heat recovery heating energy time constant',
+                                      {'name': u'Heat Recovery Heating Energy Time Constant',
+                                       'pyname': u'heat_recovery_heating_energy_time_constant',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'hr'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirConditioner:VariableRefrigerantFlow`
@@ -186,16 +845,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         self["Maximum Outdoor Temperature in Cooling Mode"] = value
 
     @property
-    def cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name(self):
+    def cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name(
+            self):
         """Get cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name
 
         Returns:
             str: the value of `cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name` or None if not set
         """
-        return self._data["Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name"]
+        return self._data[
+            "Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name"]
 
     @cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name.setter
-    def cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name(self, value=None):
+    def cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter a curve name that represents full load cooling capacity ratio as a
@@ -211,7 +874,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name"] = value
+        self[
+            "Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name"] = value
 
     @property
     def cooling_capacity_ratio_boundary_curve_name(self):
@@ -243,16 +907,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         self["Cooling Capacity Ratio Boundary Curve Name"] = value
 
     @property
-    def cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name(self):
+    def cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name(
+            self):
         """Get cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name
 
         Returns:
             str: the value of `cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name` or None if not set
         """
-        return self._data["Cooling Capacity Ratio Modifier Function of High Temperature Curve Name"]
+        return self._data[
+            "Cooling Capacity Ratio Modifier Function of High Temperature Curve Name"]
 
     @cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name.setter
-    def cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name(self, value=None):
+    def cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Cooling Capacity Ratio Modifier Function of High Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         This curve object is used to describe the high outdoor temperature
@@ -269,19 +937,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Cooling Capacity Ratio Modifier Function of High Temperature Curve Name"] = value
+        self[
+            "Cooling Capacity Ratio Modifier Function of High Temperature Curve Name"] = value
 
     @property
-    def cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name(self):
+    def cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name(
+            self):
         """Get cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name
 
         Returns:
             str: the value of `cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name` or None if not set
         """
-        return self._data["Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name"]
+        return self._data[
+            "Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name"]
 
     @cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name.setter
-    def cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name(self, value=None):
+    def cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter a curve name that represents cooling energy ratio as a function of
@@ -295,7 +968,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name"] = value
+        self[
+            "Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name"] = value
 
     @property
     def cooling_energy_input_ratio_boundary_curve_name(self):
@@ -327,16 +1001,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         self["Cooling Energy Input Ratio Boundary Curve Name"] = value
 
     @property
-    def cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name(self):
+    def cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name(
+            self):
         """Get cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name
 
         Returns:
             str: the value of `cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name` or None if not set
         """
-        return self._data["Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name"]
+        return self._data[
+            "Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name"]
 
     @cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name.setter
-    def cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name(self, value=None):
+    def cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         This curve object is used to describe the high outdoor temperature
@@ -352,19 +1030,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name"] = value
+        self[
+            "Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name"] = value
 
     @property
-    def cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(self):
+    def cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(
+            self):
         """Get cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name
 
         Returns:
             str: the value of `cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name` or None if not set
         """
-        return self._data["Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"]
+        return self._data[
+            "Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"]
 
     @cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name.setter
-    def cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(self, value=None):
+    def cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name`
         Table:OneIndependentVariable object can also be used
         Enter a curve name that represents cooling energy ratio as a function of
@@ -380,19 +1063,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"] = value
+        self[
+            "Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"] = value
 
     @property
-    def cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(self):
+    def cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(
+            self):
         """Get cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name
 
         Returns:
             str: the value of `cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name` or None if not set
         """
-        return self._data["Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"]
+        return self._data[
+            "Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"]
 
     @cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name.setter
-    def cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(self, value=None):
+    def cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name`
         Table:OneIndependentVariable object can also be used
         Enter a curve name that represents cooling energy ratio as a function of
@@ -409,7 +1097,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"] = value
+        self[
+            "Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"] = value
 
     @property
     def cooling_combination_ratio_correction_factor_curve_name(self):
@@ -418,10 +1107,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Returns:
             str: the value of `cooling_combination_ratio_correction_factor_curve_name` or None if not set
         """
-        return self._data["Cooling Combination Ratio Correction Factor Curve Name"]
+        return self._data[
+            "Cooling Combination Ratio Correction Factor Curve Name"]
 
     @cooling_combination_ratio_correction_factor_curve_name.setter
-    def cooling_combination_ratio_correction_factor_curve_name(self, value=None):
+    def cooling_combination_ratio_correction_factor_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Cooling Combination Ratio Correction Factor Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve defines how rated capacity changes when the total indoor terminal unit cooling
@@ -601,16 +1293,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         self["Maximum Outdoor Temperature in Heating Mode"] = value
 
     @property
-    def heating_capacity_ratio_modifier_function_of_low_temperature_curve_name(self):
+    def heating_capacity_ratio_modifier_function_of_low_temperature_curve_name(
+            self):
         """Get heating_capacity_ratio_modifier_function_of_low_temperature_curve_name
 
         Returns:
             str: the value of `heating_capacity_ratio_modifier_function_of_low_temperature_curve_name` or None if not set
         """
-        return self._data["Heating Capacity Ratio Modifier Function of Low Temperature Curve Name"]
+        return self._data[
+            "Heating Capacity Ratio Modifier Function of Low Temperature Curve Name"]
 
     @heating_capacity_ratio_modifier_function_of_low_temperature_curve_name.setter
-    def heating_capacity_ratio_modifier_function_of_low_temperature_curve_name(self, value=None):
+    def heating_capacity_ratio_modifier_function_of_low_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Capacity Ratio Modifier Function of Low Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter a curve name that represents full load heating capacity ratio as a
@@ -629,7 +1325,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Capacity Ratio Modifier Function of Low Temperature Curve Name"] = value
+        self[
+            "Heating Capacity Ratio Modifier Function of Low Temperature Curve Name"] = value
 
     @property
     def heating_capacity_ratio_boundary_curve_name(self):
@@ -662,16 +1359,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         self["Heating Capacity Ratio Boundary Curve Name"] = value
 
     @property
-    def heating_capacity_ratio_modifier_function_of_high_temperature_curve_name(self):
+    def heating_capacity_ratio_modifier_function_of_high_temperature_curve_name(
+            self):
         """Get heating_capacity_ratio_modifier_function_of_high_temperature_curve_name
 
         Returns:
             str: the value of `heating_capacity_ratio_modifier_function_of_high_temperature_curve_name` or None if not set
         """
-        return self._data["Heating Capacity Ratio Modifier Function of High Temperature Curve Name"]
+        return self._data[
+            "Heating Capacity Ratio Modifier Function of High Temperature Curve Name"]
 
     @heating_capacity_ratio_modifier_function_of_high_temperature_curve_name.setter
-    def heating_capacity_ratio_modifier_function_of_high_temperature_curve_name(self, value=None):
+    def heating_capacity_ratio_modifier_function_of_high_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Capacity Ratio Modifier Function of High Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         This curve object is used to describe the high outdoor temperature
@@ -688,19 +1389,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Capacity Ratio Modifier Function of High Temperature Curve Name"] = value
+        self[
+            "Heating Capacity Ratio Modifier Function of High Temperature Curve Name"] = value
 
     @property
-    def heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name(self):
+    def heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name(
+            self):
         """Get heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name
 
         Returns:
             str: the value of `heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name` or None if not set
         """
-        return self._data["Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name"]
+        return self._data[
+            "Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name"]
 
     @heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name.setter
-    def heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name(self, value=None):
+    def heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter a curve name that represents heating energy ratio as a function of
@@ -717,7 +1423,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name"] = value
+        self[
+            "Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name"] = value
 
     @property
     def heating_energy_input_ratio_boundary_curve_name(self):
@@ -750,16 +1457,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         self["Heating Energy Input Ratio Boundary Curve Name"] = value
 
     @property
-    def heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name(self):
+    def heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name(
+            self):
         """Get heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name
 
         Returns:
             str: the value of `heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name` or None if not set
         """
-        return self._data["Heating Energy Input Ratio Modifier Function of High Temperature Curve Name"]
+        return self._data[
+            "Heating Energy Input Ratio Modifier Function of High Temperature Curve Name"]
 
     @heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name.setter
-    def heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name(self, value=None):
+    def heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Energy Input Ratio Modifier Function of High Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         This curve object is used to allow separate performance curves for heating energy.
@@ -773,7 +1484,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Energy Input Ratio Modifier Function of High Temperature Curve Name"] = value
+        self[
+            "Heating Energy Input Ratio Modifier Function of High Temperature Curve Name"] = value
 
     @property
     def heating_performance_curve_outdoor_temperature_type(self):
@@ -785,7 +1497,9 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         return self._data["Heating Performance Curve Outdoor Temperature Type"]
 
     @heating_performance_curve_outdoor_temperature_type.setter
-    def heating_performance_curve_outdoor_temperature_type(self, value="WetBulbTemperature"):
+    def heating_performance_curve_outdoor_temperature_type(
+            self,
+            value="WetBulbTemperature"):
         """  Corresponds to IDD Field `Heating Performance Curve Outdoor Temperature Type`
         Determines temperature type for heating capacity curves and heating energy curves.
         This input determines whether the outdoor air dry-bulb or wet-bulb temperature
@@ -803,16 +1517,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         self["Heating Performance Curve Outdoor Temperature Type"] = value
 
     @property
-    def heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(self):
+    def heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(
+            self):
         """Get heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name
 
         Returns:
             str: the value of `heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name` or None if not set
         """
-        return self._data["Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"]
+        return self._data[
+            "Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"]
 
     @heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name.setter
-    def heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(self, value=None):
+    def heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve represents the heating energy input ratio for part-load ratios less than 1.
@@ -825,19 +1543,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"] = value
+        self[
+            "Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"] = value
 
     @property
-    def heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(self):
+    def heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(
+            self):
         """Get heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name
 
         Returns:
             str: the value of `heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name` or None if not set
         """
-        return self._data["Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"]
+        return self._data[
+            "Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"]
 
     @heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name.setter
-    def heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(self, value=None):
+    def heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve represents the heating energy input ratio for part-load ratios greater than 1.
@@ -850,7 +1573,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"] = value
+        self[
+            "Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"] = value
 
     @property
     def heating_combination_ratio_correction_factor_curve_name(self):
@@ -859,10 +1583,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Returns:
             str: the value of `heating_combination_ratio_correction_factor_curve_name` or None if not set
         """
-        return self._data["Heating Combination Ratio Correction Factor Curve Name"]
+        return self._data[
+            "Heating Combination Ratio Correction Factor Curve Name"]
 
     @heating_combination_ratio_correction_factor_curve_name.setter
-    def heating_combination_ratio_correction_factor_curve_name(self, value=None):
+    def heating_combination_ratio_correction_factor_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Combination Ratio Correction Factor Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve defines how rated capacity changes when the total indoor terminal unit heating
@@ -968,7 +1695,9 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         return self._data["Master Thermostat Priority Control Type"]
 
     @master_thermostat_priority_control_type.setter
-    def master_thermostat_priority_control_type(self, value="MasterThermostatPriority"):
+    def master_thermostat_priority_control_type(
+            self,
+            value="MasterThermostatPriority"):
         """  Corresponds to IDD Field `Master Thermostat Priority Control Type`
         Choose a thermostat control logic scheme. If these control types fail to control zone
         temperature within a reasonable limit, consider using multiple VRF systems
@@ -1060,16 +1789,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         self["Heat Pump Waste Heat Recovery"] = value
 
     @property
-    def equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode(self):
+    def equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode(
+            self):
         """Get equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode
 
         Returns:
             float: the value of `equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode` or None if not set
         """
-        return self._data["Equivalent Piping Length used for Piping Correction Factor in Cooling Mode"]
+        return self._data[
+            "Equivalent Piping Length used for Piping Correction Factor in Cooling Mode"]
 
     @equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode.setter
-    def equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode(self, value=None):
+    def equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Equivalent Piping Length used for Piping Correction Factor in Cooling Mode`
         Enter the equivalent length of the farthest terminal unit from the condenser
 
@@ -1082,7 +1815,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Equivalent Piping Length used for Piping Correction Factor in Cooling Mode"] = value
+        self[
+            "Equivalent Piping Length used for Piping Correction Factor in Cooling Mode"] = value
 
     @property
     def vertical_height_used_for_piping_correction_factor(self):
@@ -1116,10 +1850,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Returns:
             str: the value of `piping_correction_factor_for_length_in_cooling_mode_curve_name` or None if not set
         """
-        return self._data["Piping Correction Factor for Length in Cooling Mode Curve Name"]
+        return self._data[
+            "Piping Correction Factor for Length in Cooling Mode Curve Name"]
 
     @piping_correction_factor_for_length_in_cooling_mode_curve_name.setter
-    def piping_correction_factor_for_length_in_cooling_mode_curve_name(self, value=None):
+    def piping_correction_factor_for_length_in_cooling_mode_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Piping Correction Factor for Length in Cooling Mode Curve Name`
         Table:OneIndependentVariable object can also be used
         Table:TwoIndependentVariables object can also be used
@@ -1136,7 +1873,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Piping Correction Factor for Length in Cooling Mode Curve Name"] = value
+        self[
+            "Piping Correction Factor for Length in Cooling Mode Curve Name"] = value
 
     @property
     def piping_correction_factor_for_height_in_cooling_mode_coefficient(self):
@@ -1145,10 +1883,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Returns:
             float: the value of `piping_correction_factor_for_height_in_cooling_mode_coefficient` or None if not set
         """
-        return self._data["Piping Correction Factor for Height in Cooling Mode Coefficient"]
+        return self._data[
+            "Piping Correction Factor for Height in Cooling Mode Coefficient"]
 
     @piping_correction_factor_for_height_in_cooling_mode_coefficient.setter
-    def piping_correction_factor_for_height_in_cooling_mode_coefficient(self, value=None):
+    def piping_correction_factor_for_height_in_cooling_mode_coefficient(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Piping Correction Factor for Height in Cooling Mode Coefficient`
         PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
         PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
@@ -1164,19 +1905,24 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Piping Correction Factor for Height in Cooling Mode Coefficient"] = value
+        self[
+            "Piping Correction Factor for Height in Cooling Mode Coefficient"] = value
 
     @property
-    def equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode(self):
+    def equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode(
+            self):
         """Get equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode
 
         Returns:
             float: the value of `equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode` or None if not set
         """
-        return self._data["Equivalent Piping Length used for Piping Correction Factor in Heating Mode"]
+        return self._data[
+            "Equivalent Piping Length used for Piping Correction Factor in Heating Mode"]
 
     @equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode.setter
-    def equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode(self, value=None):
+    def equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Equivalent Piping Length used for Piping Correction Factor in Heating Mode`
         Enter the equivalent length of the farthest terminal unit from the condenser
 
@@ -1189,7 +1935,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Equivalent Piping Length used for Piping Correction Factor in Heating Mode"] = value
+        self[
+            "Equivalent Piping Length used for Piping Correction Factor in Heating Mode"] = value
 
     @property
     def piping_correction_factor_for_length_in_heating_mode_curve_name(self):
@@ -1198,10 +1945,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Returns:
             str: the value of `piping_correction_factor_for_length_in_heating_mode_curve_name` or None if not set
         """
-        return self._data["Piping Correction Factor for Length in Heating Mode Curve Name"]
+        return self._data[
+            "Piping Correction Factor for Length in Heating Mode Curve Name"]
 
     @piping_correction_factor_for_length_in_heating_mode_curve_name.setter
-    def piping_correction_factor_for_length_in_heating_mode_curve_name(self, value=None):
+    def piping_correction_factor_for_length_in_heating_mode_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Piping Correction Factor for Length in Heating Mode Curve Name`
         Table:OneIndependentVariable object can also be used
         Table:TwoIndependentVariables object can also be used
@@ -1218,7 +1968,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Piping Correction Factor for Length in Heating Mode Curve Name"] = value
+        self[
+            "Piping Correction Factor for Length in Heating Mode Curve Name"] = value
 
     @property
     def piping_correction_factor_for_height_in_heating_mode_coefficient(self):
@@ -1227,10 +1978,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Returns:
             float: the value of `piping_correction_factor_for_height_in_heating_mode_coefficient` or None if not set
         """
-        return self._data["Piping Correction Factor for Height in Heating Mode Coefficient"]
+        return self._data[
+            "Piping Correction Factor for Height in Heating Mode Coefficient"]
 
     @piping_correction_factor_for_height_in_heating_mode_coefficient.setter
-    def piping_correction_factor_for_height_in_heating_mode_coefficient(self, value=None):
+    def piping_correction_factor_for_height_in_heating_mode_coefficient(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Piping Correction Factor for Height in Heating Mode Coefficient`
         PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
         PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
@@ -1246,7 +2000,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Piping Correction Factor for Height in Heating Mode Coefficient"] = value
+        self[
+            "Piping Correction Factor for Height in Heating Mode Coefficient"] = value
 
     @property
     def crankcase_heater_power_per_compressor(self):
@@ -1309,7 +2064,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Returns:
             float: the value of `ratio_of_compressor_size_to_total_compressor_capacity` or None if not set
         """
-        return self._data["Ratio of Compressor Size to Total Compressor Capacity"]
+        return self._data[
+            "Ratio of Compressor Size to Total Compressor Capacity"]
 
     @ratio_of_compressor_size_to_total_compressor_capacity.setter
     def ratio_of_compressor_size_to_total_compressor_capacity(self, value=0.5):
@@ -1337,10 +2093,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Returns:
             float: the value of `maximum_outdoor_drybulb_temperature_for_crankcase_heater` or None if not set
         """
-        return self._data["Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater"]
+        return self._data[
+            "Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater"]
 
     @maximum_outdoor_drybulb_temperature_for_crankcase_heater.setter
-    def maximum_outdoor_drybulb_temperature_for_crankcase_heater(self, value=5.0):
+    def maximum_outdoor_drybulb_temperature_for_crankcase_heater(
+            self,
+            value=5.0):
         """  Corresponds to IDD Field `Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater`
         Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
 
@@ -1354,7 +2113,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater"] = value
+        self[
+            "Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater"] = value
 
     @property
     def defrost_strategy(self):
@@ -1410,16 +2170,20 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         self["Defrost Control"] = value
 
     @property
-    def defrost_energy_input_ratio_modifier_function_of_temperature_curve_name(self):
+    def defrost_energy_input_ratio_modifier_function_of_temperature_curve_name(
+            self):
         """Get defrost_energy_input_ratio_modifier_function_of_temperature_curve_name
 
         Returns:
             str: the value of `defrost_energy_input_ratio_modifier_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Defrost Energy Input Ratio Modifier Function of Temperature Curve Name"]
+        return self._data[
+            "Defrost Energy Input Ratio Modifier Function of Temperature Curve Name"]
 
     @defrost_energy_input_ratio_modifier_function_of_temperature_curve_name.setter
-    def defrost_energy_input_ratio_modifier_function_of_temperature_curve_name(self, value=None):
+    def defrost_energy_input_ratio_modifier_function_of_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Defrost Energy Input Ratio Modifier Function of Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         A valid performance curve must be used if reversecycle defrost strategy is selected.
@@ -1432,7 +2196,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Defrost Energy Input Ratio Modifier Function of Temperature Curve Name"] = value
+        self[
+            "Defrost Energy Input Ratio Modifier Function of Temperature Curve Name"] = value
 
     @property
     def defrost_time_period_fraction(self):
@@ -1495,10 +2260,13 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Returns:
             float: the value of `maximum_outdoor_drybulb_temperature_for_defrost_operation` or None if not set
         """
-        return self._data["Maximum Outdoor Dry-bulb Temperature for Defrost Operation"]
+        return self._data[
+            "Maximum Outdoor Dry-bulb Temperature for Defrost Operation"]
 
     @maximum_outdoor_drybulb_temperature_for_defrost_operation.setter
-    def maximum_outdoor_drybulb_temperature_for_defrost_operation(self, value=5.0):
+    def maximum_outdoor_drybulb_temperature_for_defrost_operation(
+            self,
+            value=5.0):
         """  Corresponds to IDD Field `Maximum Outdoor Dry-bulb Temperature for Defrost Operation`
         Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
 
@@ -1512,7 +2280,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Outdoor Dry-bulb Temperature for Defrost Operation"] = value
+        self[
+            "Maximum Outdoor Dry-bulb Temperature for Defrost Operation"] = value
 
     @property
     def condenser_type(self):
@@ -2216,12 +2985,32 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
 
 
 class ZoneTerminalUnitList(DataObject):
+
     """ Corresponds to IDD object `ZoneTerminalUnitList`
         List of variable refrigerant flow (VRF) terminal units served by a given VRF condensing
         unit. See ZoneHVAC:TerminalUnit:VariableRefrigerantFlow and
         AirConditioner:VariableRefrigerantFlow.
     """
-    schema = {'min-fields': 2, 'name': u'ZoneTerminalUnitList', 'pyname': u'ZoneTerminalUnitList', 'format': None, 'fields': OrderedDict([(u'zone terminal unit list name', {'name': u'Zone Terminal Unit List Name', 'pyname': u'zone_terminal_unit_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'zone terminal unit name 1', {'name': u'Zone Terminal Unit Name 1', 'pyname': u'zone_terminal_unit_name_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'ZoneTerminalUnitList',
+              'pyname': u'ZoneTerminalUnitList',
+              'format': None,
+              'fields': OrderedDict([(u'zone terminal unit list name',
+                                      {'name': u'Zone Terminal Unit List Name',
+                                       'pyname': u'zone_terminal_unit_list_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict([(u'zone terminal unit name 1',
+                                                 {'name': u'Zone Terminal Unit Name 1',
+                                                  'pyname': u'zone_terminal_unit_name_1',
+                                                  'required-field': True,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'object-list'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneTerminalUnitList`
@@ -2267,7 +3056,9 @@ class ZoneTerminalUnitList(DataObject):
                 specification and is assumed to be a missing value
         """
         vals = []
-        zone_terminal_unit_name_1 = self.check_value("Zone Terminal Unit Name 1", zone_terminal_unit_name_1)
+        zone_terminal_unit_name_1 = self.check_value(
+            "Zone Terminal Unit Name 1",
+            zone_terminal_unit_name_1)
         vals.append(zone_terminal_unit_name_1)
         self._data["extensibles"].append(vals)
 

@@ -9,6 +9,7 @@ logger.addHandler(logging.NullHandler())
 
 
 class SurfacePropertyHeatTransferAlgorithm(DataObject):
+
     """ Corresponds to IDD object `SurfaceProperty:HeatTransferAlgorithm`
         Determines which Heat Balance Algorithm will be used for a specific surface
         Allows selectively overriding the global setting in HeatBalanceAlgorithm
@@ -17,7 +18,28 @@ class SurfacePropertyHeatTransferAlgorithm(DataObject):
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
     """
-    schema = {'min-fields': 2, 'name': u'SurfaceProperty:HeatTransferAlgorithm', 'pyname': u'SurfacePropertyHeatTransferAlgorithm', 'format': None, 'fields': OrderedDict([(u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'algorithm', {'name': u'Algorithm', 'pyname': u'algorithm', 'default': u'ConductionTransferFunction', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'SurfaceProperty:HeatTransferAlgorithm',
+              'pyname': u'SurfacePropertyHeatTransferAlgorithm',
+              'format': None,
+              'fields': OrderedDict([(u'surface name',
+                                      {'name': u'Surface Name',
+                                       'pyname': u'surface_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'algorithm',
+                                      {'name': u'Algorithm',
+                                       'pyname': u'algorithm',
+                                       'default': u'ConductionTransferFunction',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:HeatTransferAlgorithm`
@@ -77,6 +99,7 @@ class SurfacePropertyHeatTransferAlgorithm(DataObject):
 
 
 class SurfacePropertyHeatTransferAlgorithmMultipleSurface(DataObject):
+
     """ Corresponds to IDD object `SurfaceProperty:HeatTransferAlgorithm:MultipleSurface`
         Determines which Heat Balance Algorithm will be used for a group of surface types
         Allows selectively overriding the global setting in HeatBalanceAlgorithm
@@ -85,7 +108,35 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(DataObject):
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
     """
-    schema = {'min-fields': 3, 'name': u'SurfaceProperty:HeatTransferAlgorithm:MultipleSurface', 'pyname': u'SurfacePropertyHeatTransferAlgorithmMultipleSurface', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'surface type', {'name': u'Surface Type', 'pyname': u'surface_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'algorithm', {'name': u'Algorithm', 'pyname': u'algorithm', 'default': u'ConductionTransferFunction', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'SurfaceProperty:HeatTransferAlgorithm:MultipleSurface',
+              'pyname': u'SurfacePropertyHeatTransferAlgorithmMultipleSurface',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'surface type',
+                                      {'name': u'Surface Type',
+                                       'pyname': u'surface_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'algorithm',
+                                      {'name': u'Algorithm',
+                                       'pyname': u'algorithm',
+                                       'default': u'ConductionTransferFunction',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:HeatTransferAlgorithm:MultipleSurface`
@@ -168,6 +219,7 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(DataObject):
 
 
 class SurfacePropertyHeatTransferAlgorithmSurfaceList(DataObject):
+
     """ Corresponds to IDD object `SurfaceProperty:HeatTransferAlgorithm:SurfaceList`
         Determines which Heat Balance Algorithm will be used for a list of surfaces
         Allows selectively overriding the global setting in HeatBalanceAlgorithm
@@ -176,7 +228,34 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(DataObject):
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
     """
-    schema = {'min-fields': 3, 'name': u'SurfaceProperty:HeatTransferAlgorithm:SurfaceList', 'pyname': u'SurfacePropertyHeatTransferAlgorithmSurfaceList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'algorithm', {'name': u'Algorithm', 'pyname': u'algorithm', 'default': u'ConductionTransferFunction', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'surface name 1', {'name': u'Surface Name 1', 'pyname': u'surface_name_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'SurfaceProperty:HeatTransferAlgorithm:SurfaceList',
+              'pyname': u'SurfacePropertyHeatTransferAlgorithmSurfaceList',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'algorithm',
+                                      {'name': u'Algorithm',
+                                       'pyname': u'algorithm',
+                                       'default': u'ConductionTransferFunction',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict([(u'surface name 1',
+                                                 {'name': u'Surface Name 1',
+                                                  'pyname': u'surface_name_1',
+                                                  'required-field': True,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'object-list'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:HeatTransferAlgorithm:SurfaceList`
@@ -258,6 +337,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(DataObject):
 
 
 class SurfacePropertyHeatTransferAlgorithmConstruction(DataObject):
+
     """ Corresponds to IDD object `SurfaceProperty:HeatTransferAlgorithm:Construction`
         Determines which Heat Balance Algorithm will be used for surfaces that have a specific type of construction
         Allows selectively overriding the global setting in HeatBalanceAlgorithm
@@ -266,7 +346,35 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(DataObject):
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
     """
-    schema = {'min-fields': 3, 'name': u'SurfaceProperty:HeatTransferAlgorithm:Construction', 'pyname': u'SurfacePropertyHeatTransferAlgorithmConstruction', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'algorithm', {'name': u'Algorithm', 'pyname': u'algorithm', 'default': u'ConductionTransferFunction', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'SurfaceProperty:HeatTransferAlgorithm:Construction',
+              'pyname': u'SurfacePropertyHeatTransferAlgorithmConstruction',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'algorithm',
+                                      {'name': u'Algorithm',
+                                       'pyname': u'algorithm',
+                                       'default': u'ConductionTransferFunction',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'construction name',
+                                      {'name': u'Construction Name',
+                                       'pyname': u'construction_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:HeatTransferAlgorithm:Construction`
@@ -349,10 +457,45 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(DataObject):
 
 
 class SurfaceControlMovableInsulation(DataObject):
+
     """ Corresponds to IDD object `SurfaceControl:MovableInsulation`
         Exterior or Interior Insulation on opaque surfaces
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceControl:MovableInsulation', 'pyname': u'SurfaceControlMovableInsulation', 'format': None, 'fields': OrderedDict([(u'insulation type', {'name': u'Insulation Type', 'pyname': u'insulation_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceControl:MovableInsulation',
+              'pyname': u'SurfaceControlMovableInsulation',
+              'format': None,
+              'fields': OrderedDict([(u'insulation type',
+                                      {'name': u'Insulation Type',
+                                       'pyname': u'insulation_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'surface name',
+                                      {'name': u'Surface Name',
+                                       'pyname': u'surface_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'material name',
+                                      {'name': u'Material Name',
+                                       'pyname': u'material_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceControl:MovableInsulation`
@@ -457,10 +600,130 @@ class SurfaceControlMovableInsulation(DataObject):
 
 
 class SurfacePropertyOtherSideCoefficients(DataObject):
+
     """ Corresponds to IDD object `SurfaceProperty:OtherSideCoefficients`
         This object sets the other side conditions for a surface in a variety of ways.
     """
-    schema = {'min-fields': 8, 'name': u'SurfaceProperty:OtherSideCoefficients', 'pyname': u'SurfacePropertyOtherSideCoefficients', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'combined convective/radiative film coefficient', {'name': u'Combined Convective/Radiative Film Coefficient', 'pyname': u'combined_convective_or_radiative_film_coefficient', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'constant temperature', {'name': u'Constant Temperature', 'pyname': u'constant_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'constant temperature coefficient', {'name': u'Constant Temperature Coefficient', 'pyname': u'constant_temperature_coefficient', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'external dry-bulb temperature coefficient', {'name': u'External Dry-Bulb Temperature Coefficient', 'pyname': u'external_drybulb_temperature_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'ground temperature coefficient', {'name': u'Ground Temperature Coefficient', 'pyname': u'ground_temperature_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wind speed coefficient', {'name': u'Wind Speed Coefficient', 'pyname': u'wind_speed_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'zone air temperature coefficient', {'name': u'Zone Air Temperature Coefficient', 'pyname': u'zone_air_temperature_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'constant temperature schedule name', {'name': u'Constant Temperature Schedule Name', 'pyname': u'constant_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sinusoidal variation of constant temperature coefficient', {'name': u'Sinusoidal Variation of Constant Temperature Coefficient', 'pyname': u'sinusoidal_variation_of_constant_temperature_coefficient', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'period of sinusoidal variation', {'name': u'Period of Sinusoidal Variation', 'pyname': u'period_of_sinusoidal_variation', 'default': 24.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'previous other side temperature coefficient', {'name': u'Previous Other Side Temperature Coefficient', 'pyname': u'previous_other_side_temperature_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum other side temperature limit', {'name': u'Minimum Other Side Temperature Limit', 'pyname': u'minimum_other_side_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum other side temperature limit', {'name': u'Maximum Other Side Temperature Limit', 'pyname': u'maximum_other_side_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 8,
+              'name': u'SurfaceProperty:OtherSideCoefficients',
+              'pyname': u'SurfacePropertyOtherSideCoefficients',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'combined convective/radiative film coefficient',
+                                      {'name': u'Combined Convective/Radiative Film Coefficient',
+                                       'pyname': u'combined_convective_or_radiative_film_coefficient',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/m2-K'}),
+                                     (u'constant temperature',
+                                      {'name': u'Constant Temperature',
+                                       'pyname': u'constant_temperature',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'constant temperature coefficient',
+                                      {'name': u'Constant Temperature Coefficient',
+                                       'pyname': u'constant_temperature_coefficient',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'external dry-bulb temperature coefficient',
+                                      {'name': u'External Dry-Bulb Temperature Coefficient',
+                                       'pyname': u'external_drybulb_temperature_coefficient',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'ground temperature coefficient',
+                                      {'name': u'Ground Temperature Coefficient',
+                                       'pyname': u'ground_temperature_coefficient',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'wind speed coefficient',
+                                      {'name': u'Wind Speed Coefficient',
+                                       'pyname': u'wind_speed_coefficient',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'zone air temperature coefficient',
+                                      {'name': u'Zone Air Temperature Coefficient',
+                                       'pyname': u'zone_air_temperature_coefficient',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'constant temperature schedule name',
+                                      {'name': u'Constant Temperature Schedule Name',
+                                       'pyname': u'constant_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'sinusoidal variation of constant temperature coefficient',
+                                      {'name': u'Sinusoidal Variation of Constant Temperature Coefficient',
+                                       'pyname': u'sinusoidal_variation_of_constant_temperature_coefficient',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'period of sinusoidal variation',
+                                      {'name': u'Period of Sinusoidal Variation',
+                                       'pyname': u'period_of_sinusoidal_variation',
+                                       'default': 24.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'hr'}),
+                                     (u'previous other side temperature coefficient',
+                                      {'name': u'Previous Other Side Temperature Coefficient',
+                                       'pyname': u'previous_other_side_temperature_coefficient',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'minimum other side temperature limit',
+                                      {'name': u'Minimum Other Side Temperature Limit',
+                                       'pyname': u'minimum_other_side_temperature_limit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum other side temperature limit',
+                                      {'name': u'Maximum Other Side Temperature Limit',
+                                       'pyname': u'maximum_other_side_temperature_limit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:OtherSideCoefficients`
@@ -699,10 +962,13 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
         Returns:
             str: the value of `sinusoidal_variation_of_constant_temperature_coefficient` or None if not set
         """
-        return self._data["Sinusoidal Variation of Constant Temperature Coefficient"]
+        return self._data[
+            "Sinusoidal Variation of Constant Temperature Coefficient"]
 
     @sinusoidal_variation_of_constant_temperature_coefficient.setter
-    def sinusoidal_variation_of_constant_temperature_coefficient(self, value="No"):
+    def sinusoidal_variation_of_constant_temperature_coefficient(
+            self,
+            value="No"):
         """  Corresponds to IDD Field `Sinusoidal Variation of Constant Temperature Coefficient`
         Optionally used to vary Constant Temperature Coefficient with unitary sine wave
 
@@ -715,7 +981,8 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Sinusoidal Variation of Constant Temperature Coefficient"] = value
+        self[
+            "Sinusoidal Variation of Constant Temperature Coefficient"] = value
 
     @property
     def period_of_sinusoidal_variation(self):
@@ -822,10 +1089,32 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
 
 
 class SurfacePropertyOtherSideConditionsModel(DataObject):
+
     """ Corresponds to IDD object `SurfaceProperty:OtherSideConditionsModel`
         This object sets up modifying the other side conditions for a surface from other model results.
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceProperty:OtherSideConditionsModel', 'pyname': u'SurfacePropertyOtherSideConditionsModel', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'type of modeling', {'name': u'Type of Modeling', 'pyname': u'type_of_modeling', 'default': u'GapConvectionRadiation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceProperty:OtherSideConditionsModel',
+              'pyname': u'SurfacePropertyOtherSideConditionsModel',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'type of modeling',
+                                      {'name': u'Type of Modeling',
+                                       'pyname': u'type_of_modeling',
+                                       'default': u'GapConvectionRadiation',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:OtherSideConditionsModel`
@@ -892,12 +1181,701 @@ class SurfacePropertyOtherSideConditionsModel(DataObject):
 
 
 class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
+
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections`
         Options to change the individual convection model equations for dynamic selection when using AdaptiveConvectiongAlgorithm
         This object is only needed to make changes to the default model selections for any or all of the surface categories.
         This object is for the inside face, the side of the surface facing a thermal zone.
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections', 'pyname': u'SurfaceConvectionAlgorithmInsideAdaptiveModelSelections', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'simple bouyancy vertical wall equation source', {'name': u'Simple Bouyancy Vertical Wall Equation Source', 'pyname': u'simple_bouyancy_vertical_wall_equation_source', 'default': u'FohannoPolidoriVerticalWall', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'simple bouyancy vertical wall user curve name', {'name': u'Simple Bouyancy Vertical Wall User Curve Name', 'pyname': u'simple_bouyancy_vertical_wall_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'simple bouyancy stable horizontal equation source', {'name': u'Simple Bouyancy Stable Horizontal Equation Source', 'pyname': u'simple_bouyancy_stable_horizontal_equation_source', 'default': u'AlamdariHammondStableHorizontal', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'simple bouyancy stable horizontal equation user curve name', {'name': u'Simple Bouyancy Stable Horizontal Equation User Curve Name', 'pyname': u'simple_bouyancy_stable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'simple bouyancy unstable horizontal equation source', {'name': u'Simple Bouyancy Unstable Horizontal Equation Source', 'pyname': u'simple_bouyancy_unstable_horizontal_equation_source', 'default': u'AlamdariHammondUnstableHorizontal', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'simple bouyancy unstable horizontal equation user curve name', {'name': u'Simple Bouyancy Unstable Horizontal Equation User Curve Name', 'pyname': u'simple_bouyancy_unstable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'simple bouyancy stable tilted equation source', {'name': u'Simple Bouyancy Stable Tilted Equation Source', 'pyname': u'simple_bouyancy_stable_tilted_equation_source', 'default': u'WaltonStableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'simple bouyancy stable tilted equation user curve name', {'name': u'Simple Bouyancy Stable Tilted Equation User Curve Name', 'pyname': u'simple_bouyancy_stable_tilted_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'simple bouyancy unstable tilted equation source', {'name': u'Simple Bouyancy Unstable Tilted Equation Source', 'pyname': u'simple_bouyancy_unstable_tilted_equation_source', 'default': u'WaltonUnstableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'simple bouyancy unstable tilted equation user curve name', {'name': u'Simple Bouyancy Unstable Tilted Equation User Curve Name', 'pyname': u'simple_bouyancy_unstable_tilted_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'simple bouyancy windows equation source', {'name': u'Simple Bouyancy Windows Equation Source', 'pyname': u'simple_bouyancy_windows_equation_source', 'default': u'ISO15099Windows', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'simple bouyancy windows equation user curve name', {'name': u'Simple Bouyancy Windows Equation User Curve Name', 'pyname': u'simple_bouyancy_windows_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'floor heat ceiling cool vertical wall equation source', {'name': u'Floor Heat Ceiling Cool Vertical Wall Equation Source', 'pyname': u'floor_heat_ceiling_cool_vertical_wall_equation_source', 'default': u'KhalifaEq3WallAwayFromHeat', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'floor heat ceiling cool vertical wall equation user curve name', {'name': u'Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name', 'pyname': u'floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'floor heat ceiling cool stable horizontal equation source', {'name': u'Floor Heat Ceiling Cool Stable Horizontal Equation Source', 'pyname': u'floor_heat_ceiling_cool_stable_horizontal_equation_source', 'default': u'AlamdariHammondStableHorizontal', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'floor heat ceiling cool stable horizontal equation user curve name', {'name': u'Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name', 'pyname': u'floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'floor heat ceiling cool unstable horizontal equation source', {'name': u'Floor Heat Ceiling Cool Unstable Horizontal Equation Source', 'pyname': u'floor_heat_ceiling_cool_unstable_horizontal_equation_source', 'default': u'KhalifaEq4CeilingAwayFromHeat', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'floor heat ceiling cool unstable horizontal equation user curve name', {'name': u'Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name', 'pyname': u'floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'floor heat ceiling cool heated floor equation source', {'name': u'Floor Heat Ceiling Cool Heated Floor Equation Source', 'pyname': u'floor_heat_ceiling_cool_heated_floor_equation_source', 'default': u'AwbiHattonHeatedFloor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'floor heat ceiling cool heated floor equation user curve name', {'name': u'Floor Heat Ceiling Cool Heated Floor Equation User Curve Name', 'pyname': u'floor_heat_ceiling_cool_heated_floor_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'floor heat ceiling cool chilled ceiling equation source', {'name': u'Floor Heat Ceiling Cool Chilled Ceiling Equation Source', 'pyname': u'floor_heat_ceiling_cool_chilled_ceiling_equation_source', 'default': u'KaradagChilledCeiling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'floor heat ceiling cool chilled ceiling equation user curve name', {'name': u'Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name', 'pyname': u'floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'floor heat ceiling cool stable tilted equation source', {'name': u'Floor Heat Ceiling Cool Stable Tilted Equation Source', 'pyname': u'floor_heat_ceiling_cool_stable_tilted_equation_source', 'default': u'WaltonStableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'floor heat ceiling cool stable tilted equation user curve name', {'name': u'Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name', 'pyname': u'floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'floor heat ceiling cool unstable tilted equation source', {'name': u'Floor Heat Ceiling Cool Unstable Tilted Equation Source', 'pyname': u'floor_heat_ceiling_cool_unstable_tilted_equation_source', 'default': u'WaltonUnstableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'floor heat ceiling cool unstable tilted equation user curve name', {'name': u'Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name', 'pyname': u'floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'floor heat ceiling cool window equation source', {'name': u'Floor Heat Ceiling Cool Window Equation Source', 'pyname': u'floor_heat_ceiling_cool_window_equation_source', 'default': u'ISO15099Windows', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'floor heat ceiling cool window equation user curve name', {'name': u'Floor Heat Ceiling Cool Window Equation User Curve Name', 'pyname': u'floor_heat_ceiling_cool_window_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wall panel heating vertical wall equation source', {'name': u'Wall Panel Heating Vertical Wall Equation Source', 'pyname': u'wall_panel_heating_vertical_wall_equation_source', 'default': u'KhalifaEq6NonHeatedWalls', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wall panel heating vertical wall equation user curve name', {'name': u'Wall Panel Heating Vertical Wall Equation User Curve Name', 'pyname': u'wall_panel_heating_vertical_wall_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wall panel heating heated wall equation source', {'name': u'Wall Panel Heating Heated Wall Equation Source', 'pyname': u'wall_panel_heating_heated_wall_equation_source', 'default': u'AwbiHattonHeatedWall', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wall panel heating heated wall equation user curve name', {'name': u'Wall Panel Heating Heated Wall Equation User Curve Name', 'pyname': u'wall_panel_heating_heated_wall_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wall panel heating stable horizontal equation source', {'name': u'Wall Panel Heating Stable Horizontal Equation Source', 'pyname': u'wall_panel_heating_stable_horizontal_equation_source', 'default': u'AlamdariHammondStableHorizontal', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wall panel heating stable horizontal equation user curve name', {'name': u'Wall Panel Heating Stable Horizontal Equation User Curve Name', 'pyname': u'wall_panel_heating_stable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wall panel heating unstable horizontal equation source', {'name': u'Wall Panel Heating Unstable Horizontal Equation Source', 'pyname': u'wall_panel_heating_unstable_horizontal_equation_source', 'default': u'KhalifaEq7Ceiling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wall panel heating unstable horizontal equation user curve name', {'name': u'Wall Panel Heating Unstable Horizontal Equation User Curve Name', 'pyname': u'wall_panel_heating_unstable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wall panel heating stable tilted equation source', {'name': u'Wall Panel Heating Stable Tilted Equation Source', 'pyname': u'wall_panel_heating_stable_tilted_equation_source', 'default': u'WaltonStableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wall panel heating stable tilted equation user curve name', {'name': u'Wall Panel Heating Stable Tilted Equation User Curve Name', 'pyname': u'wall_panel_heating_stable_tilted_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wall panel heating unstable tilted equation source', {'name': u'Wall Panel Heating Unstable Tilted Equation Source', 'pyname': u'wall_panel_heating_unstable_tilted_equation_source', 'default': u'WaltonUnstableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wall panel heating unstable tilted equation user curve name', {'name': u'Wall Panel Heating Unstable Tilted Equation User Curve Name', 'pyname': u'wall_panel_heating_unstable_tilted_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wall panel heating window equation source', {'name': u'Wall Panel Heating Window Equation Source', 'pyname': u'wall_panel_heating_window_equation_source', 'default': u'ISO15099Windows', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wall panel heating window equation user curve name', {'name': u'Wall Panel Heating Window Equation User Curve Name', 'pyname': u'wall_panel_heating_window_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convective zone heater vertical wall equation source', {'name': u'Convective Zone Heater Vertical Wall Equation Source', 'pyname': u'convective_zone_heater_vertical_wall_equation_source', 'default': u'FohannoPolidoriVerticalWall', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convective zone heater vertical wall equation user curve name', {'name': u'Convective Zone Heater Vertical Wall Equation User Curve Name', 'pyname': u'convective_zone_heater_vertical_wall_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convective zone heater vertical walls near heater equation source', {'name': u'Convective Zone Heater Vertical Walls Near Heater Equation Source', 'pyname': u'convective_zone_heater_vertical_walls_near_heater_equation_source', 'default': u'KhalifaEq5WallNearHeat', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convective zone heater vertical walls near heater equation user curve name', {'name': u'Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name', 'pyname': u'convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convective zone heater stable horizontal equation source', {'name': u'Convective Zone Heater Stable Horizontal Equation Source', 'pyname': u'convective_zone_heater_stable_horizontal_equation_source', 'default': u'AlamdariHammondStableHorizontal', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convective zone heater stable horizontal equation user curve name', {'name': u'Convective Zone Heater Stable Horizontal Equation User Curve Name', 'pyname': u'convective_zone_heater_stable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convective zone heater unstable horizontal equation source', {'name': u'Convective Zone Heater Unstable Horizontal Equation Source', 'pyname': u'convective_zone_heater_unstable_horizontal_equation_source', 'default': u'KhalifaEq7Ceiling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convective zone heater unstable horizontal equation user curve name', {'name': u'Convective Zone Heater Unstable Horizontal Equation User Curve Name', 'pyname': u'convective_zone_heater_unstable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convective zone heater stable tilted equation source', {'name': u'Convective Zone Heater Stable Tilted Equation Source', 'pyname': u'convective_zone_heater_stable_tilted_equation_source', 'default': u'WaltonStableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convective zone heater stable tilted equation user curve name', {'name': u'Convective Zone Heater Stable Tilted Equation User Curve Name', 'pyname': u'convective_zone_heater_stable_tilted_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convective zone heater unstable tilted equation source', {'name': u'Convective Zone Heater Unstable Tilted Equation Source', 'pyname': u'convective_zone_heater_unstable_tilted_equation_source', 'default': u'WaltonUnstableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convective zone heater unstable tilted equation user curve name', {'name': u'Convective Zone Heater Unstable Tilted Equation User Curve Name', 'pyname': u'convective_zone_heater_unstable_tilted_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convective zone heater windows equation source', {'name': u'Convective Zone Heater Windows Equation Source', 'pyname': u'convective_zone_heater_windows_equation_source', 'default': u'ISO15099Windows', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convective zone heater windows equation user curve name', {'name': u'Convective Zone Heater Windows Equation User Curve Name', 'pyname': u'convective_zone_heater_windows_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'central air diffuser wall equation source', {'name': u'Central Air Diffuser Wall Equation Source', 'pyname': u'central_air_diffuser_wall_equation_source', 'default': u'GoldsteinNovoselacCeilingDiffuserWalls', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'central air diffuser wall equation user curve name', {'name': u'Central Air Diffuser Wall Equation User Curve Name', 'pyname': u'central_air_diffuser_wall_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'central air diffuser ceiling equation source', {'name': u'Central Air Diffuser Ceiling Equation Source', 'pyname': u'central_air_diffuser_ceiling_equation_source', 'default': u'FisherPedersenCeilingDiffuserCeiling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'central air diffuser ceiling equation user curve name', {'name': u'Central Air Diffuser Ceiling Equation User Curve Name', 'pyname': u'central_air_diffuser_ceiling_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'central air diffuser floor equation source', {'name': u'Central Air Diffuser Floor Equation Source', 'pyname': u'central_air_diffuser_floor_equation_source', 'default': u'GoldsteinNovoselacCeilingDiffuserFloor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'central air diffuser floor equation user curve name', {'name': u'Central Air Diffuser Floor Equation User Curve Name', 'pyname': u'central_air_diffuser_floor_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'central air diffuser window equation source', {'name': u'Central Air Diffuser Window Equation Source', 'pyname': u'central_air_diffuser_window_equation_source', 'default': u'GoldsteinNovoselacCeilingDiffuserWindow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'central air diffuser window equation user curve name', {'name': u'Central Air Diffuser Window Equation User Curve Name', 'pyname': u'central_air_diffuser_window_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mechanical zone fan circulation vertical wall equation source', {'name': u'Mechanical Zone Fan Circulation Vertical Wall Equation Source', 'pyname': u'mechanical_zone_fan_circulation_vertical_wall_equation_source', 'default': u'KhalifaEq3WallAwayFromHeat', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mechanical zone fan circulation vertical wall equation user curve name', {'name': u'Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name', 'pyname': u'mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mechanical zone fan circulation stable horizontal equation source', {'name': u'Mechanical Zone Fan Circulation Stable Horizontal Equation Source', 'pyname': u'mechanical_zone_fan_circulation_stable_horizontal_equation_source', 'default': u'AlamdariHammondStableHorizontal', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mechanical zone fan circulation stable horizontal equation user curve name', {'name': u'Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name', 'pyname': u'mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mechanical zone fan circulation unstable horizontal equation source', {'name': u'Mechanical Zone Fan Circulation Unstable Horizontal Equation Source', 'pyname': u'mechanical_zone_fan_circulation_unstable_horizontal_equation_source', 'default': u'KhalifaEq4CeilingAwayFromHeat', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mechanical zone fan circulation unstable horizontal equation user curve name', {'name': u'Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name', 'pyname': u'mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mechanical zone fan circulation stable tilted equation source', {'name': u'Mechanical Zone Fan Circulation Stable Tilted Equation Source', 'pyname': u'mechanical_zone_fan_circulation_stable_tilted_equation_source', 'default': u'WaltonStableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mechanical zone fan circulation stable tilted equation user curve name', {'name': u'Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name', 'pyname': u'mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mechanical zone fan circulation unstable tilted equation source', {'name': u'Mechanical Zone Fan Circulation Unstable Tilted Equation Source', 'pyname': u'mechanical_zone_fan_circulation_unstable_tilted_equation_source', 'default': u'WaltonUnstableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mechanical zone fan circulation unstable tilted equation user curve name', {'name': u'Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name', 'pyname': u'mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mechanical zone fan circulation window equation source', {'name': u'Mechanical Zone Fan Circulation Window Equation Source', 'pyname': u'mechanical_zone_fan_circulation_window_equation_source', 'default': u'ISO15099Windows', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mechanical zone fan circulation window equation user curve name', {'name': u'Mechanical Zone Fan Circulation Window Equation User Curve Name', 'pyname': u'mechanical_zone_fan_circulation_window_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mixed regime bouyancy assisting flow on walls equation source', {'name': u'Mixed Regime Bouyancy Assisting Flow on Walls Equation Source', 'pyname': u'mixed_regime_bouyancy_assisting_flow_on_walls_equation_source', 'default': u'BeausoleilMorrisonMixedAssistedWall', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mixed regime bouyancy assisting flow on walls equation user curve name', {'name': u'Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name', 'pyname': u'mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mixed regime bouyancy oppossing flow on walls equation source', {'name': u'Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source', 'pyname': u'mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source', 'default': u'BeausoleilMorrisonMixedOpposingWall', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mixed regime bouyancy oppossing flow on walls equation user curve name', {'name': u'Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name', 'pyname': u'mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mixed regime stable floor equation source', {'name': u'Mixed Regime Stable Floor Equation Source', 'pyname': u'mixed_regime_stable_floor_equation_source', 'default': u'BeausoleilMorrisonMixedStableFloor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mixed regime stable floor equation user curve name', {'name': u'Mixed Regime Stable Floor Equation User Curve Name', 'pyname': u'mixed_regime_stable_floor_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mixed regime unstable floor equation source', {'name': u'Mixed Regime Unstable Floor Equation Source', 'pyname': u'mixed_regime_unstable_floor_equation_source', 'default': u'BeausoleilMorrisonMixedUnstableFloor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mixed regime unstable floor equation user curve name', {'name': u'Mixed Regime Unstable Floor Equation User Curve Name', 'pyname': u'mixed_regime_unstable_floor_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mixed regime stable ceiling equation source', {'name': u'Mixed Regime Stable Ceiling Equation Source', 'pyname': u'mixed_regime_stable_ceiling_equation_source', 'default': u'BeausoleilMorrisonMixedStableCeiling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mixed regime stable ceiling equation user curve name', {'name': u'Mixed Regime Stable Ceiling Equation User Curve Name', 'pyname': u'mixed_regime_stable_ceiling_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mixed regime unstable ceiling equation source', {'name': u'Mixed Regime Unstable Ceiling Equation Source', 'pyname': u'mixed_regime_unstable_ceiling_equation_source', 'default': u'BeausoleilMorrisonMixedUnstableCeiling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mixed regime unstable ceiling equation user curve name', {'name': u'Mixed Regime Unstable Ceiling Equation User Curve Name', 'pyname': u'mixed_regime_unstable_ceiling_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mixed regime window equation source', {'name': u'Mixed Regime Window Equation Source', 'pyname': u'mixed_regime_window_equation_source', 'default': u'GoldsteinNovoselacCeilingDiffuserWindow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mixed regime window equation user curve name', {'name': u'Mixed Regime Window Equation User Curve Name', 'pyname': u'mixed_regime_window_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections',
+              'pyname': u'SurfaceConvectionAlgorithmInsideAdaptiveModelSelections',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'simple bouyancy vertical wall equation source',
+                                      {'name': u'Simple Bouyancy Vertical Wall Equation Source',
+                                       'pyname': u'simple_bouyancy_vertical_wall_equation_source',
+                                       'default': u'FohannoPolidoriVerticalWall',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'simple bouyancy vertical wall user curve name',
+                                      {'name': u'Simple Bouyancy Vertical Wall User Curve Name',
+                                       'pyname': u'simple_bouyancy_vertical_wall_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'simple bouyancy stable horizontal equation source',
+                                      {'name': u'Simple Bouyancy Stable Horizontal Equation Source',
+                                       'pyname': u'simple_bouyancy_stable_horizontal_equation_source',
+                                       'default': u'AlamdariHammondStableHorizontal',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'simple bouyancy stable horizontal equation user curve name',
+                                      {'name': u'Simple Bouyancy Stable Horizontal Equation User Curve Name',
+                                       'pyname': u'simple_bouyancy_stable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'simple bouyancy unstable horizontal equation source',
+                                      {'name': u'Simple Bouyancy Unstable Horizontal Equation Source',
+                                       'pyname': u'simple_bouyancy_unstable_horizontal_equation_source',
+                                       'default': u'AlamdariHammondUnstableHorizontal',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'simple bouyancy unstable horizontal equation user curve name',
+                                      {'name': u'Simple Bouyancy Unstable Horizontal Equation User Curve Name',
+                                       'pyname': u'simple_bouyancy_unstable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'simple bouyancy stable tilted equation source',
+                                      {'name': u'Simple Bouyancy Stable Tilted Equation Source',
+                                       'pyname': u'simple_bouyancy_stable_tilted_equation_source',
+                                       'default': u'WaltonStableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'simple bouyancy stable tilted equation user curve name',
+                                      {'name': u'Simple Bouyancy Stable Tilted Equation User Curve Name',
+                                       'pyname': u'simple_bouyancy_stable_tilted_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'simple bouyancy unstable tilted equation source',
+                                      {'name': u'Simple Bouyancy Unstable Tilted Equation Source',
+                                       'pyname': u'simple_bouyancy_unstable_tilted_equation_source',
+                                       'default': u'WaltonUnstableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'simple bouyancy unstable tilted equation user curve name',
+                                      {'name': u'Simple Bouyancy Unstable Tilted Equation User Curve Name',
+                                       'pyname': u'simple_bouyancy_unstable_tilted_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'simple bouyancy windows equation source',
+                                      {'name': u'Simple Bouyancy Windows Equation Source',
+                                       'pyname': u'simple_bouyancy_windows_equation_source',
+                                       'default': u'ISO15099Windows',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'simple bouyancy windows equation user curve name',
+                                      {'name': u'Simple Bouyancy Windows Equation User Curve Name',
+                                       'pyname': u'simple_bouyancy_windows_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'floor heat ceiling cool vertical wall equation source',
+                                      {'name': u'Floor Heat Ceiling Cool Vertical Wall Equation Source',
+                                       'pyname': u'floor_heat_ceiling_cool_vertical_wall_equation_source',
+                                       'default': u'KhalifaEq3WallAwayFromHeat',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'floor heat ceiling cool vertical wall equation user curve name',
+                                      {'name': u'Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name',
+                                       'pyname': u'floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'floor heat ceiling cool stable horizontal equation source',
+                                      {'name': u'Floor Heat Ceiling Cool Stable Horizontal Equation Source',
+                                       'pyname': u'floor_heat_ceiling_cool_stable_horizontal_equation_source',
+                                       'default': u'AlamdariHammondStableHorizontal',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'floor heat ceiling cool stable horizontal equation user curve name',
+                                      {'name': u'Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name',
+                                       'pyname': u'floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'floor heat ceiling cool unstable horizontal equation source',
+                                      {'name': u'Floor Heat Ceiling Cool Unstable Horizontal Equation Source',
+                                       'pyname': u'floor_heat_ceiling_cool_unstable_horizontal_equation_source',
+                                       'default': u'KhalifaEq4CeilingAwayFromHeat',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'floor heat ceiling cool unstable horizontal equation user curve name',
+                                      {'name': u'Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name',
+                                       'pyname': u'floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'floor heat ceiling cool heated floor equation source',
+                                      {'name': u'Floor Heat Ceiling Cool Heated Floor Equation Source',
+                                       'pyname': u'floor_heat_ceiling_cool_heated_floor_equation_source',
+                                       'default': u'AwbiHattonHeatedFloor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'floor heat ceiling cool heated floor equation user curve name',
+                                      {'name': u'Floor Heat Ceiling Cool Heated Floor Equation User Curve Name',
+                                       'pyname': u'floor_heat_ceiling_cool_heated_floor_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'floor heat ceiling cool chilled ceiling equation source',
+                                      {'name': u'Floor Heat Ceiling Cool Chilled Ceiling Equation Source',
+                                       'pyname': u'floor_heat_ceiling_cool_chilled_ceiling_equation_source',
+                                       'default': u'KaradagChilledCeiling',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'floor heat ceiling cool chilled ceiling equation user curve name',
+                                      {'name': u'Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name',
+                                       'pyname': u'floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'floor heat ceiling cool stable tilted equation source',
+                                      {'name': u'Floor Heat Ceiling Cool Stable Tilted Equation Source',
+                                       'pyname': u'floor_heat_ceiling_cool_stable_tilted_equation_source',
+                                       'default': u'WaltonStableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'floor heat ceiling cool stable tilted equation user curve name',
+                                      {'name': u'Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name',
+                                       'pyname': u'floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'floor heat ceiling cool unstable tilted equation source',
+                                      {'name': u'Floor Heat Ceiling Cool Unstable Tilted Equation Source',
+                                       'pyname': u'floor_heat_ceiling_cool_unstable_tilted_equation_source',
+                                       'default': u'WaltonUnstableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'floor heat ceiling cool unstable tilted equation user curve name',
+                                      {'name': u'Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name',
+                                       'pyname': u'floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'floor heat ceiling cool window equation source',
+                                      {'name': u'Floor Heat Ceiling Cool Window Equation Source',
+                                       'pyname': u'floor_heat_ceiling_cool_window_equation_source',
+                                       'default': u'ISO15099Windows',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'floor heat ceiling cool window equation user curve name',
+                                      {'name': u'Floor Heat Ceiling Cool Window Equation User Curve Name',
+                                       'pyname': u'floor_heat_ceiling_cool_window_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'wall panel heating vertical wall equation source',
+                                      {'name': u'Wall Panel Heating Vertical Wall Equation Source',
+                                       'pyname': u'wall_panel_heating_vertical_wall_equation_source',
+                                       'default': u'KhalifaEq6NonHeatedWalls',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wall panel heating vertical wall equation user curve name',
+                                      {'name': u'Wall Panel Heating Vertical Wall Equation User Curve Name',
+                                       'pyname': u'wall_panel_heating_vertical_wall_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'wall panel heating heated wall equation source',
+                                      {'name': u'Wall Panel Heating Heated Wall Equation Source',
+                                       'pyname': u'wall_panel_heating_heated_wall_equation_source',
+                                       'default': u'AwbiHattonHeatedWall',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wall panel heating heated wall equation user curve name',
+                                      {'name': u'Wall Panel Heating Heated Wall Equation User Curve Name',
+                                       'pyname': u'wall_panel_heating_heated_wall_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'wall panel heating stable horizontal equation source',
+                                      {'name': u'Wall Panel Heating Stable Horizontal Equation Source',
+                                       'pyname': u'wall_panel_heating_stable_horizontal_equation_source',
+                                       'default': u'AlamdariHammondStableHorizontal',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wall panel heating stable horizontal equation user curve name',
+                                      {'name': u'Wall Panel Heating Stable Horizontal Equation User Curve Name',
+                                       'pyname': u'wall_panel_heating_stable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'wall panel heating unstable horizontal equation source',
+                                      {'name': u'Wall Panel Heating Unstable Horizontal Equation Source',
+                                       'pyname': u'wall_panel_heating_unstable_horizontal_equation_source',
+                                       'default': u'KhalifaEq7Ceiling',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wall panel heating unstable horizontal equation user curve name',
+                                      {'name': u'Wall Panel Heating Unstable Horizontal Equation User Curve Name',
+                                       'pyname': u'wall_panel_heating_unstable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'wall panel heating stable tilted equation source',
+                                      {'name': u'Wall Panel Heating Stable Tilted Equation Source',
+                                       'pyname': u'wall_panel_heating_stable_tilted_equation_source',
+                                       'default': u'WaltonStableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wall panel heating stable tilted equation user curve name',
+                                      {'name': u'Wall Panel Heating Stable Tilted Equation User Curve Name',
+                                       'pyname': u'wall_panel_heating_stable_tilted_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'wall panel heating unstable tilted equation source',
+                                      {'name': u'Wall Panel Heating Unstable Tilted Equation Source',
+                                       'pyname': u'wall_panel_heating_unstable_tilted_equation_source',
+                                       'default': u'WaltonUnstableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wall panel heating unstable tilted equation user curve name',
+                                      {'name': u'Wall Panel Heating Unstable Tilted Equation User Curve Name',
+                                       'pyname': u'wall_panel_heating_unstable_tilted_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'wall panel heating window equation source',
+                                      {'name': u'Wall Panel Heating Window Equation Source',
+                                       'pyname': u'wall_panel_heating_window_equation_source',
+                                       'default': u'ISO15099Windows',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wall panel heating window equation user curve name',
+                                      {'name': u'Wall Panel Heating Window Equation User Curve Name',
+                                       'pyname': u'wall_panel_heating_window_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convective zone heater vertical wall equation source',
+                                      {'name': u'Convective Zone Heater Vertical Wall Equation Source',
+                                       'pyname': u'convective_zone_heater_vertical_wall_equation_source',
+                                       'default': u'FohannoPolidoriVerticalWall',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convective zone heater vertical wall equation user curve name',
+                                      {'name': u'Convective Zone Heater Vertical Wall Equation User Curve Name',
+                                       'pyname': u'convective_zone_heater_vertical_wall_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convective zone heater vertical walls near heater equation source',
+                                      {'name': u'Convective Zone Heater Vertical Walls Near Heater Equation Source',
+                                       'pyname': u'convective_zone_heater_vertical_walls_near_heater_equation_source',
+                                       'default': u'KhalifaEq5WallNearHeat',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convective zone heater vertical walls near heater equation user curve name',
+                                      {'name': u'Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name',
+                                       'pyname': u'convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convective zone heater stable horizontal equation source',
+                                      {'name': u'Convective Zone Heater Stable Horizontal Equation Source',
+                                       'pyname': u'convective_zone_heater_stable_horizontal_equation_source',
+                                       'default': u'AlamdariHammondStableHorizontal',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convective zone heater stable horizontal equation user curve name',
+                                      {'name': u'Convective Zone Heater Stable Horizontal Equation User Curve Name',
+                                       'pyname': u'convective_zone_heater_stable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convective zone heater unstable horizontal equation source',
+                                      {'name': u'Convective Zone Heater Unstable Horizontal Equation Source',
+                                       'pyname': u'convective_zone_heater_unstable_horizontal_equation_source',
+                                       'default': u'KhalifaEq7Ceiling',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convective zone heater unstable horizontal equation user curve name',
+                                      {'name': u'Convective Zone Heater Unstable Horizontal Equation User Curve Name',
+                                       'pyname': u'convective_zone_heater_unstable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convective zone heater stable tilted equation source',
+                                      {'name': u'Convective Zone Heater Stable Tilted Equation Source',
+                                       'pyname': u'convective_zone_heater_stable_tilted_equation_source',
+                                       'default': u'WaltonStableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convective zone heater stable tilted equation user curve name',
+                                      {'name': u'Convective Zone Heater Stable Tilted Equation User Curve Name',
+                                       'pyname': u'convective_zone_heater_stable_tilted_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convective zone heater unstable tilted equation source',
+                                      {'name': u'Convective Zone Heater Unstable Tilted Equation Source',
+                                       'pyname': u'convective_zone_heater_unstable_tilted_equation_source',
+                                       'default': u'WaltonUnstableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convective zone heater unstable tilted equation user curve name',
+                                      {'name': u'Convective Zone Heater Unstable Tilted Equation User Curve Name',
+                                       'pyname': u'convective_zone_heater_unstable_tilted_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convective zone heater windows equation source',
+                                      {'name': u'Convective Zone Heater Windows Equation Source',
+                                       'pyname': u'convective_zone_heater_windows_equation_source',
+                                       'default': u'ISO15099Windows',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convective zone heater windows equation user curve name',
+                                      {'name': u'Convective Zone Heater Windows Equation User Curve Name',
+                                       'pyname': u'convective_zone_heater_windows_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'central air diffuser wall equation source',
+                                      {'name': u'Central Air Diffuser Wall Equation Source',
+                                       'pyname': u'central_air_diffuser_wall_equation_source',
+                                       'default': u'GoldsteinNovoselacCeilingDiffuserWalls',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'central air diffuser wall equation user curve name',
+                                      {'name': u'Central Air Diffuser Wall Equation User Curve Name',
+                                       'pyname': u'central_air_diffuser_wall_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'central air diffuser ceiling equation source',
+                                      {'name': u'Central Air Diffuser Ceiling Equation Source',
+                                       'pyname': u'central_air_diffuser_ceiling_equation_source',
+                                       'default': u'FisherPedersenCeilingDiffuserCeiling',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'central air diffuser ceiling equation user curve name',
+                                      {'name': u'Central Air Diffuser Ceiling Equation User Curve Name',
+                                       'pyname': u'central_air_diffuser_ceiling_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'central air diffuser floor equation source',
+                                      {'name': u'Central Air Diffuser Floor Equation Source',
+                                       'pyname': u'central_air_diffuser_floor_equation_source',
+                                       'default': u'GoldsteinNovoselacCeilingDiffuserFloor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'central air diffuser floor equation user curve name',
+                                      {'name': u'Central Air Diffuser Floor Equation User Curve Name',
+                                       'pyname': u'central_air_diffuser_floor_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'central air diffuser window equation source',
+                                      {'name': u'Central Air Diffuser Window Equation Source',
+                                       'pyname': u'central_air_diffuser_window_equation_source',
+                                       'default': u'GoldsteinNovoselacCeilingDiffuserWindow',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'central air diffuser window equation user curve name',
+                                      {'name': u'Central Air Diffuser Window Equation User Curve Name',
+                                       'pyname': u'central_air_diffuser_window_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mechanical zone fan circulation vertical wall equation source',
+                                      {'name': u'Mechanical Zone Fan Circulation Vertical Wall Equation Source',
+                                       'pyname': u'mechanical_zone_fan_circulation_vertical_wall_equation_source',
+                                       'default': u'KhalifaEq3WallAwayFromHeat',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mechanical zone fan circulation vertical wall equation user curve name',
+                                      {'name': u'Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name',
+                                       'pyname': u'mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mechanical zone fan circulation stable horizontal equation source',
+                                      {'name': u'Mechanical Zone Fan Circulation Stable Horizontal Equation Source',
+                                       'pyname': u'mechanical_zone_fan_circulation_stable_horizontal_equation_source',
+                                       'default': u'AlamdariHammondStableHorizontal',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mechanical zone fan circulation stable horizontal equation user curve name',
+                                      {'name': u'Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name',
+                                       'pyname': u'mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mechanical zone fan circulation unstable horizontal equation source',
+                                      {'name': u'Mechanical Zone Fan Circulation Unstable Horizontal Equation Source',
+                                       'pyname': u'mechanical_zone_fan_circulation_unstable_horizontal_equation_source',
+                                       'default': u'KhalifaEq4CeilingAwayFromHeat',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mechanical zone fan circulation unstable horizontal equation user curve name',
+                                      {'name': u'Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name',
+                                       'pyname': u'mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mechanical zone fan circulation stable tilted equation source',
+                                      {'name': u'Mechanical Zone Fan Circulation Stable Tilted Equation Source',
+                                       'pyname': u'mechanical_zone_fan_circulation_stable_tilted_equation_source',
+                                       'default': u'WaltonStableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mechanical zone fan circulation stable tilted equation user curve name',
+                                      {'name': u'Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name',
+                                       'pyname': u'mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mechanical zone fan circulation unstable tilted equation source',
+                                      {'name': u'Mechanical Zone Fan Circulation Unstable Tilted Equation Source',
+                                       'pyname': u'mechanical_zone_fan_circulation_unstable_tilted_equation_source',
+                                       'default': u'WaltonUnstableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mechanical zone fan circulation unstable tilted equation user curve name',
+                                      {'name': u'Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name',
+                                       'pyname': u'mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mechanical zone fan circulation window equation source',
+                                      {'name': u'Mechanical Zone Fan Circulation Window Equation Source',
+                                       'pyname': u'mechanical_zone_fan_circulation_window_equation_source',
+                                       'default': u'ISO15099Windows',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mechanical zone fan circulation window equation user curve name',
+                                      {'name': u'Mechanical Zone Fan Circulation Window Equation User Curve Name',
+                                       'pyname': u'mechanical_zone_fan_circulation_window_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mixed regime bouyancy assisting flow on walls equation source',
+                                      {'name': u'Mixed Regime Bouyancy Assisting Flow on Walls Equation Source',
+                                       'pyname': u'mixed_regime_bouyancy_assisting_flow_on_walls_equation_source',
+                                       'default': u'BeausoleilMorrisonMixedAssistedWall',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mixed regime bouyancy assisting flow on walls equation user curve name',
+                                      {'name': u'Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name',
+                                       'pyname': u'mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mixed regime bouyancy oppossing flow on walls equation source',
+                                      {'name': u'Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source',
+                                       'pyname': u'mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source',
+                                       'default': u'BeausoleilMorrisonMixedOpposingWall',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mixed regime bouyancy oppossing flow on walls equation user curve name',
+                                      {'name': u'Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name',
+                                       'pyname': u'mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mixed regime stable floor equation source',
+                                      {'name': u'Mixed Regime Stable Floor Equation Source',
+                                       'pyname': u'mixed_regime_stable_floor_equation_source',
+                                       'default': u'BeausoleilMorrisonMixedStableFloor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mixed regime stable floor equation user curve name',
+                                      {'name': u'Mixed Regime Stable Floor Equation User Curve Name',
+                                       'pyname': u'mixed_regime_stable_floor_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mixed regime unstable floor equation source',
+                                      {'name': u'Mixed Regime Unstable Floor Equation Source',
+                                       'pyname': u'mixed_regime_unstable_floor_equation_source',
+                                       'default': u'BeausoleilMorrisonMixedUnstableFloor',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mixed regime unstable floor equation user curve name',
+                                      {'name': u'Mixed Regime Unstable Floor Equation User Curve Name',
+                                       'pyname': u'mixed_regime_unstable_floor_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mixed regime stable ceiling equation source',
+                                      {'name': u'Mixed Regime Stable Ceiling Equation Source',
+                                       'pyname': u'mixed_regime_stable_ceiling_equation_source',
+                                       'default': u'BeausoleilMorrisonMixedStableCeiling',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mixed regime stable ceiling equation user curve name',
+                                      {'name': u'Mixed Regime Stable Ceiling Equation User Curve Name',
+                                       'pyname': u'mixed_regime_stable_ceiling_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mixed regime unstable ceiling equation source',
+                                      {'name': u'Mixed Regime Unstable Ceiling Equation Source',
+                                       'pyname': u'mixed_regime_unstable_ceiling_equation_source',
+                                       'default': u'BeausoleilMorrisonMixedUnstableCeiling',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mixed regime unstable ceiling equation user curve name',
+                                      {'name': u'Mixed Regime Unstable Ceiling Equation User Curve Name',
+                                       'pyname': u'mixed_regime_unstable_ceiling_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'mixed regime window equation source',
+                                      {'name': u'Mixed Regime Window Equation Source',
+                                       'pyname': u'mixed_regime_window_equation_source',
+                                       'default': u'GoldsteinNovoselacCeilingDiffuserWindow',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'mixed regime window equation user curve name',
+                                      {'name': u'Mixed Regime Window Equation User Curve Name',
+                                       'pyname': u'mixed_regime_window_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections`
@@ -941,7 +1919,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Simple Bouyancy Vertical Wall Equation Source"]
 
     @simple_bouyancy_vertical_wall_equation_source.setter
-    def simple_bouyancy_vertical_wall_equation_source(self, value="FohannoPolidoriVerticalWall"):
+    def simple_bouyancy_vertical_wall_equation_source(
+            self,
+            value="FohannoPolidoriVerticalWall"):
         """  Corresponds to IDD Field `Simple Bouyancy Vertical Wall Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for vertical walls
@@ -991,7 +1971,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Simple Bouyancy Stable Horizontal Equation Source"]
 
     @simple_bouyancy_stable_horizontal_equation_source.setter
-    def simple_bouyancy_stable_horizontal_equation_source(self, value="AlamdariHammondStableHorizontal"):
+    def simple_bouyancy_stable_horizontal_equation_source(
+            self,
+            value="AlamdariHammondStableHorizontal"):
         """  Corresponds to IDD Field `Simple Bouyancy Stable Horizontal Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
@@ -1014,10 +1996,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `simple_bouyancy_stable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Simple Bouyancy Stable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Simple Bouyancy Stable Horizontal Equation User Curve Name"]
 
     @simple_bouyancy_stable_horizontal_equation_user_curve_name.setter
-    def simple_bouyancy_stable_horizontal_equation_user_curve_name(self, value=None):
+    def simple_bouyancy_stable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Simple Bouyancy Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1029,7 +2014,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Simple Bouyancy Stable Horizontal Equation User Curve Name"] = value
+        self[
+            "Simple Bouyancy Stable Horizontal Equation User Curve Name"] = value
 
     @property
     def simple_bouyancy_unstable_horizontal_equation_source(self):
@@ -1038,10 +2024,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `simple_bouyancy_unstable_horizontal_equation_source` or None if not set
         """
-        return self._data["Simple Bouyancy Unstable Horizontal Equation Source"]
+        return self._data[
+            "Simple Bouyancy Unstable Horizontal Equation Source"]
 
     @simple_bouyancy_unstable_horizontal_equation_source.setter
-    def simple_bouyancy_unstable_horizontal_equation_source(self, value="AlamdariHammondUnstableHorizontal"):
+    def simple_bouyancy_unstable_horizontal_equation_source(
+            self,
+            value="AlamdariHammondUnstableHorizontal"):
         """  Corresponds to IDD Field `Simple Bouyancy Unstable Horizontal Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for passive horizontal surfaces with heat flow for unstable thermal stratification
@@ -1064,10 +2053,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `simple_bouyancy_unstable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Simple Bouyancy Unstable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Simple Bouyancy Unstable Horizontal Equation User Curve Name"]
 
     @simple_bouyancy_unstable_horizontal_equation_user_curve_name.setter
-    def simple_bouyancy_unstable_horizontal_equation_user_curve_name(self, value=None):
+    def simple_bouyancy_unstable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Simple Bouyancy Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1079,7 +2071,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Simple Bouyancy Unstable Horizontal Equation User Curve Name"] = value
+        self[
+            "Simple Bouyancy Unstable Horizontal Equation User Curve Name"] = value
 
     @property
     def simple_bouyancy_stable_tilted_equation_source(self):
@@ -1091,7 +2084,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Simple Bouyancy Stable Tilted Equation Source"]
 
     @simple_bouyancy_stable_tilted_equation_source.setter
-    def simple_bouyancy_stable_tilted_equation_source(self, value="WaltonStableHorizontalOrTilt"):
+    def simple_bouyancy_stable_tilted_equation_source(
+            self,
+            value="WaltonStableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Simple Bouyancy Stable Tilted Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for tilted surfaces with heat flow for stable thermal stratification
@@ -1114,10 +2109,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `simple_bouyancy_stable_tilted_equation_user_curve_name` or None if not set
         """
-        return self._data["Simple Bouyancy Stable Tilted Equation User Curve Name"]
+        return self._data[
+            "Simple Bouyancy Stable Tilted Equation User Curve Name"]
 
     @simple_bouyancy_stable_tilted_equation_user_curve_name.setter
-    def simple_bouyancy_stable_tilted_equation_user_curve_name(self, value=None):
+    def simple_bouyancy_stable_tilted_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Simple Bouyancy Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1141,7 +2139,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Simple Bouyancy Unstable Tilted Equation Source"]
 
     @simple_bouyancy_unstable_tilted_equation_source.setter
-    def simple_bouyancy_unstable_tilted_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
+    def simple_bouyancy_unstable_tilted_equation_source(
+            self,
+            value="WaltonUnstableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Simple Bouyancy Unstable Tilted Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for tilted surfaces with heat flow for unstable thermal stratification
@@ -1164,10 +2164,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `simple_bouyancy_unstable_tilted_equation_user_curve_name` or None if not set
         """
-        return self._data["Simple Bouyancy Unstable Tilted Equation User Curve Name"]
+        return self._data[
+            "Simple Bouyancy Unstable Tilted Equation User Curve Name"]
 
     @simple_bouyancy_unstable_tilted_equation_user_curve_name.setter
-    def simple_bouyancy_unstable_tilted_equation_user_curve_name(self, value=None):
+    def simple_bouyancy_unstable_tilted_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Simple Bouyancy Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1179,7 +2182,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Simple Bouyancy Unstable Tilted Equation User Curve Name"] = value
+        self[
+            "Simple Bouyancy Unstable Tilted Equation User Curve Name"] = value
 
     @property
     def simple_bouyancy_windows_equation_source(self):
@@ -1238,10 +2242,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_vertical_wall_equation_source` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Vertical Wall Equation Source"]
+        return self._data[
+            "Floor Heat Ceiling Cool Vertical Wall Equation Source"]
 
     @floor_heat_ceiling_cool_vertical_wall_equation_source.setter
-    def floor_heat_ceiling_cool_vertical_wall_equation_source(self, value="KhalifaEq3WallAwayFromHeat"):
+    def floor_heat_ceiling_cool_vertical_wall_equation_source(
+            self,
+            value="KhalifaEq3WallAwayFromHeat"):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for vertical walls
@@ -1264,10 +2271,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name"]
+        return self._data[
+            "Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name"]
 
     @floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name.setter
-    def floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name(self, value=None):
+    def floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1279,7 +2289,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name"] = value
+        self[
+            "Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name"] = value
 
     @property
     def floor_heat_ceiling_cool_stable_horizontal_equation_source(self):
@@ -1288,10 +2299,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_stable_horizontal_equation_source` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Stable Horizontal Equation Source"]
+        return self._data[
+            "Floor Heat Ceiling Cool Stable Horizontal Equation Source"]
 
     @floor_heat_ceiling_cool_stable_horizontal_equation_source.setter
-    def floor_heat_ceiling_cool_stable_horizontal_equation_source(self, value="AlamdariHammondStableHorizontal"):
+    def floor_heat_ceiling_cool_stable_horizontal_equation_source(
+            self,
+            value="AlamdariHammondStableHorizontal"):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for passive horizontal surfaces with heat flow for stable thermal stratification
@@ -1305,19 +2319,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Floor Heat Ceiling Cool Stable Horizontal Equation Source"] = value
+        self[
+            "Floor Heat Ceiling Cool Stable Horizontal Equation Source"] = value
 
     @property
-    def floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name(self):
+    def floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name(
+            self):
         """Get floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name"]
 
     @floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name.setter
-    def floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name(self, value=None):
+    def floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1329,7 +2348,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name"] = value
+        self[
+            "Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name"] = value
 
     @property
     def floor_heat_ceiling_cool_unstable_horizontal_equation_source(self):
@@ -1338,10 +2358,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_unstable_horizontal_equation_source` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Unstable Horizontal Equation Source"]
+        return self._data[
+            "Floor Heat Ceiling Cool Unstable Horizontal Equation Source"]
 
     @floor_heat_ceiling_cool_unstable_horizontal_equation_source.setter
-    def floor_heat_ceiling_cool_unstable_horizontal_equation_source(self, value="KhalifaEq4CeilingAwayFromHeat"):
+    def floor_heat_ceiling_cool_unstable_horizontal_equation_source(
+            self,
+            value="KhalifaEq4CeilingAwayFromHeat"):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for passive horizontal surfaces with heat flow for unstable thermal stratification
@@ -1355,19 +2378,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Floor Heat Ceiling Cool Unstable Horizontal Equation Source"] = value
+        self[
+            "Floor Heat Ceiling Cool Unstable Horizontal Equation Source"] = value
 
     @property
-    def floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name(self):
+    def floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name(
+            self):
         """Get floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name
 
         Returns:
             str: the value of `floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name"]
 
     @floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name.setter
-    def floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name(self, value=None):
+    def floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1379,7 +2407,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name"] = value
+        self[
+            "Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name"] = value
 
     @property
     def floor_heat_ceiling_cool_heated_floor_equation_source(self):
@@ -1388,10 +2417,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_heated_floor_equation_source` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Heated Floor Equation Source"]
+        return self._data[
+            "Floor Heat Ceiling Cool Heated Floor Equation Source"]
 
     @floor_heat_ceiling_cool_heated_floor_equation_source.setter
-    def floor_heat_ceiling_cool_heated_floor_equation_source(self, value="AwbiHattonHeatedFloor"):
+    def floor_heat_ceiling_cool_heated_floor_equation_source(
+            self,
+            value="AwbiHattonHeatedFloor"):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Heated Floor Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for a floor with active heating elements
@@ -1414,10 +2446,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_heated_floor_equation_user_curve_name` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Heated Floor Equation User Curve Name"]
+        return self._data[
+            "Floor Heat Ceiling Cool Heated Floor Equation User Curve Name"]
 
     @floor_heat_ceiling_cool_heated_floor_equation_user_curve_name.setter
-    def floor_heat_ceiling_cool_heated_floor_equation_user_curve_name(self, value=None):
+    def floor_heat_ceiling_cool_heated_floor_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Heated Floor Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1429,7 +2464,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Floor Heat Ceiling Cool Heated Floor Equation User Curve Name"] = value
+        self[
+            "Floor Heat Ceiling Cool Heated Floor Equation User Curve Name"] = value
 
     @property
     def floor_heat_ceiling_cool_chilled_ceiling_equation_source(self):
@@ -1438,10 +2474,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_chilled_ceiling_equation_source` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Chilled Ceiling Equation Source"]
+        return self._data[
+            "Floor Heat Ceiling Cool Chilled Ceiling Equation Source"]
 
     @floor_heat_ceiling_cool_chilled_ceiling_equation_source.setter
-    def floor_heat_ceiling_cool_chilled_ceiling_equation_source(self, value="KaradagChilledCeiling"):
+    def floor_heat_ceiling_cool_chilled_ceiling_equation_source(
+            self,
+            value="KaradagChilledCeiling"):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for a ceiling with active cooling elements
@@ -1464,10 +2503,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name"]
+        return self._data[
+            "Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name"]
 
     @floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name.setter
-    def floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name(self, value=None):
+    def floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1479,7 +2521,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name"] = value
+        self[
+            "Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name"] = value
 
     @property
     def floor_heat_ceiling_cool_stable_tilted_equation_source(self):
@@ -1488,10 +2531,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_stable_tilted_equation_source` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Stable Tilted Equation Source"]
+        return self._data[
+            "Floor Heat Ceiling Cool Stable Tilted Equation Source"]
 
     @floor_heat_ceiling_cool_stable_tilted_equation_source.setter
-    def floor_heat_ceiling_cool_stable_tilted_equation_source(self, value="WaltonStableHorizontalOrTilt"):
+    def floor_heat_ceiling_cool_stable_tilted_equation_source(
+            self,
+            value="WaltonStableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for tilted surfaces with heat flow for stable thermal stratification
@@ -1514,10 +2560,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name"]
+        return self._data[
+            "Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name"]
 
     @floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name.setter
-    def floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name(self, value=None):
+    def floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1529,7 +2578,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name"] = value
+        self[
+            "Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name"] = value
 
     @property
     def floor_heat_ceiling_cool_unstable_tilted_equation_source(self):
@@ -1538,10 +2588,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_unstable_tilted_equation_source` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Unstable Tilted Equation Source"]
+        return self._data[
+            "Floor Heat Ceiling Cool Unstable Tilted Equation Source"]
 
     @floor_heat_ceiling_cool_unstable_tilted_equation_source.setter
-    def floor_heat_ceiling_cool_unstable_tilted_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
+    def floor_heat_ceiling_cool_unstable_tilted_equation_source(
+            self,
+            value="WaltonUnstableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for tilted surfaces with heat flow for unstable thermal stratification
@@ -1564,10 +2617,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name"]
+        return self._data[
+            "Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name"]
 
     @floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name.setter
-    def floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name(self, value=None):
+    def floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1579,7 +2635,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name"] = value
+        self[
+            "Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name"] = value
 
     @property
     def floor_heat_ceiling_cool_window_equation_source(self):
@@ -1591,7 +2648,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Floor Heat Ceiling Cool Window Equation Source"]
 
     @floor_heat_ceiling_cool_window_equation_source.setter
-    def floor_heat_ceiling_cool_window_equation_source(self, value="ISO15099Windows"):
+    def floor_heat_ceiling_cool_window_equation_source(
+            self,
+            value="ISO15099Windows"):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Window Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for all window surfaces
@@ -1614,10 +2673,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `floor_heat_ceiling_cool_window_equation_user_curve_name` or None if not set
         """
-        return self._data["Floor Heat Ceiling Cool Window Equation User Curve Name"]
+        return self._data[
+            "Floor Heat Ceiling Cool Window Equation User Curve Name"]
 
     @floor_heat_ceiling_cool_window_equation_user_curve_name.setter
-    def floor_heat_ceiling_cool_window_equation_user_curve_name(self, value=None):
+    def floor_heat_ceiling_cool_window_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1641,7 +2703,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Wall Panel Heating Vertical Wall Equation Source"]
 
     @wall_panel_heating_vertical_wall_equation_source.setter
-    def wall_panel_heating_vertical_wall_equation_source(self, value="KhalifaEq6NonHeatedWalls"):
+    def wall_panel_heating_vertical_wall_equation_source(
+            self,
+            value="KhalifaEq6NonHeatedWalls"):
         """  Corresponds to IDD Field `Wall Panel Heating Vertical Wall Equation Source`
         Applies to zone with in-wall panel heating
         This is for vertical walls that are not actively heated
@@ -1664,10 +2728,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wall_panel_heating_vertical_wall_equation_user_curve_name` or None if not set
         """
-        return self._data["Wall Panel Heating Vertical Wall Equation User Curve Name"]
+        return self._data[
+            "Wall Panel Heating Vertical Wall Equation User Curve Name"]
 
     @wall_panel_heating_vertical_wall_equation_user_curve_name.setter
-    def wall_panel_heating_vertical_wall_equation_user_curve_name(self, value=None):
+    def wall_panel_heating_vertical_wall_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1679,7 +2746,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Wall Panel Heating Vertical Wall Equation User Curve Name"] = value
+        self[
+            "Wall Panel Heating Vertical Wall Equation User Curve Name"] = value
 
     @property
     def wall_panel_heating_heated_wall_equation_source(self):
@@ -1691,7 +2759,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Wall Panel Heating Heated Wall Equation Source"]
 
     @wall_panel_heating_heated_wall_equation_source.setter
-    def wall_panel_heating_heated_wall_equation_source(self, value="AwbiHattonHeatedWall"):
+    def wall_panel_heating_heated_wall_equation_source(
+            self,
+            value="AwbiHattonHeatedWall"):
         """  Corresponds to IDD Field `Wall Panel Heating Heated Wall Equation Source`
         Applies to zone with in-wall panel heating
         This is for vertical walls that are being actively heated
@@ -1714,10 +2784,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wall_panel_heating_heated_wall_equation_user_curve_name` or None if not set
         """
-        return self._data["Wall Panel Heating Heated Wall Equation User Curve Name"]
+        return self._data[
+            "Wall Panel Heating Heated Wall Equation User Curve Name"]
 
     @wall_panel_heating_heated_wall_equation_user_curve_name.setter
-    def wall_panel_heating_heated_wall_equation_user_curve_name(self, value=None):
+    def wall_panel_heating_heated_wall_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Heated Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1738,10 +2811,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wall_panel_heating_stable_horizontal_equation_source` or None if not set
         """
-        return self._data["Wall Panel Heating Stable Horizontal Equation Source"]
+        return self._data[
+            "Wall Panel Heating Stable Horizontal Equation Source"]
 
     @wall_panel_heating_stable_horizontal_equation_source.setter
-    def wall_panel_heating_stable_horizontal_equation_source(self, value="AlamdariHammondStableHorizontal"):
+    def wall_panel_heating_stable_horizontal_equation_source(
+            self,
+            value="AlamdariHammondStableHorizontal"):
         """  Corresponds to IDD Field `Wall Panel Heating Stable Horizontal Equation Source`
         Applies to zone with in-wall panel heating
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
@@ -1764,10 +2840,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wall_panel_heating_stable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Wall Panel Heating Stable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Wall Panel Heating Stable Horizontal Equation User Curve Name"]
 
     @wall_panel_heating_stable_horizontal_equation_user_curve_name.setter
-    def wall_panel_heating_stable_horizontal_equation_user_curve_name(self, value=None):
+    def wall_panel_heating_stable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1779,7 +2858,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Wall Panel Heating Stable Horizontal Equation User Curve Name"] = value
+        self[
+            "Wall Panel Heating Stable Horizontal Equation User Curve Name"] = value
 
     @property
     def wall_panel_heating_unstable_horizontal_equation_source(self):
@@ -1788,10 +2868,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wall_panel_heating_unstable_horizontal_equation_source` or None if not set
         """
-        return self._data["Wall Panel Heating Unstable Horizontal Equation Source"]
+        return self._data[
+            "Wall Panel Heating Unstable Horizontal Equation Source"]
 
     @wall_panel_heating_unstable_horizontal_equation_source.setter
-    def wall_panel_heating_unstable_horizontal_equation_source(self, value="KhalifaEq7Ceiling"):
+    def wall_panel_heating_unstable_horizontal_equation_source(
+            self,
+            value="KhalifaEq7Ceiling"):
         """  Corresponds to IDD Field `Wall Panel Heating Unstable Horizontal Equation Source`
         Applies to zone with in-wall panel heating
         This is for horizontal surfaces with heat flow directed for unstable thermal stratification
@@ -1814,10 +2897,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wall_panel_heating_unstable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Wall Panel Heating Unstable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Wall Panel Heating Unstable Horizontal Equation User Curve Name"]
 
     @wall_panel_heating_unstable_horizontal_equation_user_curve_name.setter
-    def wall_panel_heating_unstable_horizontal_equation_user_curve_name(self, value=None):
+    def wall_panel_heating_unstable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1829,7 +2915,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Wall Panel Heating Unstable Horizontal Equation User Curve Name"] = value
+        self[
+            "Wall Panel Heating Unstable Horizontal Equation User Curve Name"] = value
 
     @property
     def wall_panel_heating_stable_tilted_equation_source(self):
@@ -1841,7 +2928,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Wall Panel Heating Stable Tilted Equation Source"]
 
     @wall_panel_heating_stable_tilted_equation_source.setter
-    def wall_panel_heating_stable_tilted_equation_source(self, value="WaltonStableHorizontalOrTilt"):
+    def wall_panel_heating_stable_tilted_equation_source(
+            self,
+            value="WaltonStableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Wall Panel Heating Stable Tilted Equation Source`
         Applies to zone with in-wall panel heating
         This is for tilted surfaces with heat flow for stable thermal stratification
@@ -1864,10 +2953,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wall_panel_heating_stable_tilted_equation_user_curve_name` or None if not set
         """
-        return self._data["Wall Panel Heating Stable Tilted Equation User Curve Name"]
+        return self._data[
+            "Wall Panel Heating Stable Tilted Equation User Curve Name"]
 
     @wall_panel_heating_stable_tilted_equation_user_curve_name.setter
-    def wall_panel_heating_stable_tilted_equation_user_curve_name(self, value=None):
+    def wall_panel_heating_stable_tilted_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1879,7 +2971,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Wall Panel Heating Stable Tilted Equation User Curve Name"] = value
+        self[
+            "Wall Panel Heating Stable Tilted Equation User Curve Name"] = value
 
     @property
     def wall_panel_heating_unstable_tilted_equation_source(self):
@@ -1891,7 +2984,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Wall Panel Heating Unstable Tilted Equation Source"]
 
     @wall_panel_heating_unstable_tilted_equation_source.setter
-    def wall_panel_heating_unstable_tilted_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
+    def wall_panel_heating_unstable_tilted_equation_source(
+            self,
+            value="WaltonUnstableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Wall Panel Heating Unstable Tilted Equation Source`
         Applies to zone with in-wall panel heating
         This is for tilted surfaces with heat flow for unstable thermal stratification
@@ -1914,10 +3009,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wall_panel_heating_unstable_tilted_equation_user_curve_name` or None if not set
         """
-        return self._data["Wall Panel Heating Unstable Tilted Equation User Curve Name"]
+        return self._data[
+            "Wall Panel Heating Unstable Tilted Equation User Curve Name"]
 
     @wall_panel_heating_unstable_tilted_equation_user_curve_name.setter
-    def wall_panel_heating_unstable_tilted_equation_user_curve_name(self, value=None):
+    def wall_panel_heating_unstable_tilted_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -1929,7 +3027,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Wall Panel Heating Unstable Tilted Equation User Curve Name"] = value
+        self[
+            "Wall Panel Heating Unstable Tilted Equation User Curve Name"] = value
 
     @property
     def wall_panel_heating_window_equation_source(self):
@@ -1941,7 +3040,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Wall Panel Heating Window Equation Source"]
 
     @wall_panel_heating_window_equation_source.setter
-    def wall_panel_heating_window_equation_source(self, value="ISO15099Windows"):
+    def wall_panel_heating_window_equation_source(
+            self,
+            value="ISO15099Windows"):
         """  Corresponds to IDD Field `Wall Panel Heating Window Equation Source`
         Applies to zone with in-wall panel heating
         This is for all window surfaces
@@ -1988,10 +3089,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `convective_zone_heater_vertical_wall_equation_source` or None if not set
         """
-        return self._data["Convective Zone Heater Vertical Wall Equation Source"]
+        return self._data[
+            "Convective Zone Heater Vertical Wall Equation Source"]
 
     @convective_zone_heater_vertical_wall_equation_source.setter
-    def convective_zone_heater_vertical_wall_equation_source(self, value="FohannoPolidoriVerticalWall"):
+    def convective_zone_heater_vertical_wall_equation_source(
+            self,
+            value="FohannoPolidoriVerticalWall"):
         """  Corresponds to IDD Field `Convective Zone Heater Vertical Wall Equation Source`
         Applies to zone with convective heater
         This is for vertical walls not directly affected by heater
@@ -2014,10 +3118,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `convective_zone_heater_vertical_wall_equation_user_curve_name` or None if not set
         """
-        return self._data["Convective Zone Heater Vertical Wall Equation User Curve Name"]
+        return self._data[
+            "Convective Zone Heater Vertical Wall Equation User Curve Name"]
 
     @convective_zone_heater_vertical_wall_equation_user_curve_name.setter
-    def convective_zone_heater_vertical_wall_equation_user_curve_name(self, value=None):
+    def convective_zone_heater_vertical_wall_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2029,19 +3136,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Convective Zone Heater Vertical Wall Equation User Curve Name"] = value
+        self[
+            "Convective Zone Heater Vertical Wall Equation User Curve Name"] = value
 
     @property
-    def convective_zone_heater_vertical_walls_near_heater_equation_source(self):
+    def convective_zone_heater_vertical_walls_near_heater_equation_source(
+            self):
         """Get convective_zone_heater_vertical_walls_near_heater_equation_source
 
         Returns:
             str: the value of `convective_zone_heater_vertical_walls_near_heater_equation_source` or None if not set
         """
-        return self._data["Convective Zone Heater Vertical Walls Near Heater Equation Source"]
+        return self._data[
+            "Convective Zone Heater Vertical Walls Near Heater Equation Source"]
 
     @convective_zone_heater_vertical_walls_near_heater_equation_source.setter
-    def convective_zone_heater_vertical_walls_near_heater_equation_source(self, value="KhalifaEq5WallNearHeat"):
+    def convective_zone_heater_vertical_walls_near_heater_equation_source(
+            self,
+            value="KhalifaEq5WallNearHeat"):
         """  Corresponds to IDD Field `Convective Zone Heater Vertical Walls Near Heater Equation Source`
         Applies to zone with convective heater
         This is for vertical walls that are directly affected by heater
@@ -2056,19 +3168,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Convective Zone Heater Vertical Walls Near Heater Equation Source"] = value
+        self[
+            "Convective Zone Heater Vertical Walls Near Heater Equation Source"] = value
 
     @property
-    def convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name(self):
+    def convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name(
+            self):
         """Get convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name
 
         Returns:
             str: the value of `convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name` or None if not set
         """
-        return self._data["Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name"]
+        return self._data[
+            "Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name"]
 
     @convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name.setter
-    def convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name(self, value=None):
+    def convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2080,7 +3197,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name"] = value
+        self[
+            "Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name"] = value
 
     @property
     def convective_zone_heater_stable_horizontal_equation_source(self):
@@ -2089,10 +3207,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `convective_zone_heater_stable_horizontal_equation_source` or None if not set
         """
-        return self._data["Convective Zone Heater Stable Horizontal Equation Source"]
+        return self._data[
+            "Convective Zone Heater Stable Horizontal Equation Source"]
 
     @convective_zone_heater_stable_horizontal_equation_source.setter
-    def convective_zone_heater_stable_horizontal_equation_source(self, value="AlamdariHammondStableHorizontal"):
+    def convective_zone_heater_stable_horizontal_equation_source(
+            self,
+            value="AlamdariHammondStableHorizontal"):
         """  Corresponds to IDD Field `Convective Zone Heater Stable Horizontal Equation Source`
         Applies to zone with convective heater
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
@@ -2106,19 +3227,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Convective Zone Heater Stable Horizontal Equation Source"] = value
+        self[
+            "Convective Zone Heater Stable Horizontal Equation Source"] = value
 
     @property
-    def convective_zone_heater_stable_horizontal_equation_user_curve_name(self):
+    def convective_zone_heater_stable_horizontal_equation_user_curve_name(
+            self):
         """Get convective_zone_heater_stable_horizontal_equation_user_curve_name
 
         Returns:
             str: the value of `convective_zone_heater_stable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Convective Zone Heater Stable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Convective Zone Heater Stable Horizontal Equation User Curve Name"]
 
     @convective_zone_heater_stable_horizontal_equation_user_curve_name.setter
-    def convective_zone_heater_stable_horizontal_equation_user_curve_name(self, value=None):
+    def convective_zone_heater_stable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2130,7 +3256,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Convective Zone Heater Stable Horizontal Equation User Curve Name"] = value
+        self[
+            "Convective Zone Heater Stable Horizontal Equation User Curve Name"] = value
 
     @property
     def convective_zone_heater_unstable_horizontal_equation_source(self):
@@ -2139,10 +3266,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `convective_zone_heater_unstable_horizontal_equation_source` or None if not set
         """
-        return self._data["Convective Zone Heater Unstable Horizontal Equation Source"]
+        return self._data[
+            "Convective Zone Heater Unstable Horizontal Equation Source"]
 
     @convective_zone_heater_unstable_horizontal_equation_source.setter
-    def convective_zone_heater_unstable_horizontal_equation_source(self, value="KhalifaEq7Ceiling"):
+    def convective_zone_heater_unstable_horizontal_equation_source(
+            self,
+            value="KhalifaEq7Ceiling"):
         """  Corresponds to IDD Field `Convective Zone Heater Unstable Horizontal Equation Source`
         Applies to zone with convective heater
         This is for horizontal surfaces with heat flow directed for unstable thermal stratification
@@ -2156,19 +3286,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Convective Zone Heater Unstable Horizontal Equation Source"] = value
+        self[
+            "Convective Zone Heater Unstable Horizontal Equation Source"] = value
 
     @property
-    def convective_zone_heater_unstable_horizontal_equation_user_curve_name(self):
+    def convective_zone_heater_unstable_horizontal_equation_user_curve_name(
+            self):
         """Get convective_zone_heater_unstable_horizontal_equation_user_curve_name
 
         Returns:
             str: the value of `convective_zone_heater_unstable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Convective Zone Heater Unstable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Convective Zone Heater Unstable Horizontal Equation User Curve Name"]
 
     @convective_zone_heater_unstable_horizontal_equation_user_curve_name.setter
-    def convective_zone_heater_unstable_horizontal_equation_user_curve_name(self, value=None):
+    def convective_zone_heater_unstable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2180,7 +3315,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Convective Zone Heater Unstable Horizontal Equation User Curve Name"] = value
+        self[
+            "Convective Zone Heater Unstable Horizontal Equation User Curve Name"] = value
 
     @property
     def convective_zone_heater_stable_tilted_equation_source(self):
@@ -2189,10 +3325,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `convective_zone_heater_stable_tilted_equation_source` or None if not set
         """
-        return self._data["Convective Zone Heater Stable Tilted Equation Source"]
+        return self._data[
+            "Convective Zone Heater Stable Tilted Equation Source"]
 
     @convective_zone_heater_stable_tilted_equation_source.setter
-    def convective_zone_heater_stable_tilted_equation_source(self, value="WaltonStableHorizontalOrTilt"):
+    def convective_zone_heater_stable_tilted_equation_source(
+            self,
+            value="WaltonStableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Convective Zone Heater Stable Tilted Equation Source`
         Applies to zone with convective heater
         This is for tilted surfaces with heat flow for stable thermal stratification
@@ -2215,10 +3354,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `convective_zone_heater_stable_tilted_equation_user_curve_name` or None if not set
         """
-        return self._data["Convective Zone Heater Stable Tilted Equation User Curve Name"]
+        return self._data[
+            "Convective Zone Heater Stable Tilted Equation User Curve Name"]
 
     @convective_zone_heater_stable_tilted_equation_user_curve_name.setter
-    def convective_zone_heater_stable_tilted_equation_user_curve_name(self, value=None):
+    def convective_zone_heater_stable_tilted_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2230,7 +3372,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Convective Zone Heater Stable Tilted Equation User Curve Name"] = value
+        self[
+            "Convective Zone Heater Stable Tilted Equation User Curve Name"] = value
 
     @property
     def convective_zone_heater_unstable_tilted_equation_source(self):
@@ -2239,10 +3382,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `convective_zone_heater_unstable_tilted_equation_source` or None if not set
         """
-        return self._data["Convective Zone Heater Unstable Tilted Equation Source"]
+        return self._data[
+            "Convective Zone Heater Unstable Tilted Equation Source"]
 
     @convective_zone_heater_unstable_tilted_equation_source.setter
-    def convective_zone_heater_unstable_tilted_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
+    def convective_zone_heater_unstable_tilted_equation_source(
+            self,
+            value="WaltonUnstableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Convective Zone Heater Unstable Tilted Equation Source`
         Applies to zone with convective heater
         This is for tilted surfaces with heat flow for unstable thermal stratification
@@ -2265,10 +3411,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `convective_zone_heater_unstable_tilted_equation_user_curve_name` or None if not set
         """
-        return self._data["Convective Zone Heater Unstable Tilted Equation User Curve Name"]
+        return self._data[
+            "Convective Zone Heater Unstable Tilted Equation User Curve Name"]
 
     @convective_zone_heater_unstable_tilted_equation_user_curve_name.setter
-    def convective_zone_heater_unstable_tilted_equation_user_curve_name(self, value=None):
+    def convective_zone_heater_unstable_tilted_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2280,7 +3429,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Convective Zone Heater Unstable Tilted Equation User Curve Name"] = value
+        self[
+            "Convective Zone Heater Unstable Tilted Equation User Curve Name"] = value
 
     @property
     def convective_zone_heater_windows_equation_source(self):
@@ -2292,7 +3442,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Convective Zone Heater Windows Equation Source"]
 
     @convective_zone_heater_windows_equation_source.setter
-    def convective_zone_heater_windows_equation_source(self, value="ISO15099Windows"):
+    def convective_zone_heater_windows_equation_source(
+            self,
+            value="ISO15099Windows"):
         """  Corresponds to IDD Field `Convective Zone Heater Windows Equation Source`
         Applies to zone with convective heater
         This is for all window surfaces
@@ -2315,10 +3467,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `convective_zone_heater_windows_equation_user_curve_name` or None if not set
         """
-        return self._data["Convective Zone Heater Windows Equation User Curve Name"]
+        return self._data[
+            "Convective Zone Heater Windows Equation User Curve Name"]
 
     @convective_zone_heater_windows_equation_user_curve_name.setter
-    def convective_zone_heater_windows_equation_user_curve_name(self, value=None):
+    def convective_zone_heater_windows_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Windows Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2342,7 +3497,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Central Air Diffuser Wall Equation Source"]
 
     @central_air_diffuser_wall_equation_source.setter
-    def central_air_diffuser_wall_equation_source(self, value="GoldsteinNovoselacCeilingDiffuserWalls"):
+    def central_air_diffuser_wall_equation_source(
+            self,
+            value="GoldsteinNovoselacCeilingDiffuserWalls"):
         """  Corresponds to IDD Field `Central Air Diffuser Wall Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all wall surfaces
@@ -2392,7 +3549,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Central Air Diffuser Ceiling Equation Source"]
 
     @central_air_diffuser_ceiling_equation_source.setter
-    def central_air_diffuser_ceiling_equation_source(self, value="FisherPedersenCeilingDiffuserCeiling"):
+    def central_air_diffuser_ceiling_equation_source(
+            self,
+            value="FisherPedersenCeilingDiffuserCeiling"):
         """  Corresponds to IDD Field `Central Air Diffuser Ceiling Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all ceiling surfaces
@@ -2415,10 +3574,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `central_air_diffuser_ceiling_equation_user_curve_name` or None if not set
         """
-        return self._data["Central Air Diffuser Ceiling Equation User Curve Name"]
+        return self._data[
+            "Central Air Diffuser Ceiling Equation User Curve Name"]
 
     @central_air_diffuser_ceiling_equation_user_curve_name.setter
-    def central_air_diffuser_ceiling_equation_user_curve_name(self, value=None):
+    def central_air_diffuser_ceiling_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Central Air Diffuser Ceiling Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2442,7 +3604,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Central Air Diffuser Floor Equation Source"]
 
     @central_air_diffuser_floor_equation_source.setter
-    def central_air_diffuser_floor_equation_source(self, value="GoldsteinNovoselacCeilingDiffuserFloor"):
+    def central_air_diffuser_floor_equation_source(
+            self,
+            value="GoldsteinNovoselacCeilingDiffuserFloor"):
         """  Corresponds to IDD Field `Central Air Diffuser Floor Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all floor surfaces
@@ -2465,7 +3629,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `central_air_diffuser_floor_equation_user_curve_name` or None if not set
         """
-        return self._data["Central Air Diffuser Floor Equation User Curve Name"]
+        return self._data[
+            "Central Air Diffuser Floor Equation User Curve Name"]
 
     @central_air_diffuser_floor_equation_user_curve_name.setter
     def central_air_diffuser_floor_equation_user_curve_name(self, value=None):
@@ -2492,7 +3657,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Central Air Diffuser Window Equation Source"]
 
     @central_air_diffuser_window_equation_source.setter
-    def central_air_diffuser_window_equation_source(self, value="GoldsteinNovoselacCeilingDiffuserWindow"):
+    def central_air_diffuser_window_equation_source(
+            self,
+            value="GoldsteinNovoselacCeilingDiffuserWindow"):
         """  Corresponds to IDD Field `Central Air Diffuser Window Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all window surfaces
@@ -2515,7 +3682,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `central_air_diffuser_window_equation_user_curve_name` or None if not set
         """
-        return self._data["Central Air Diffuser Window Equation User Curve Name"]
+        return self._data[
+            "Central Air Diffuser Window Equation User Curve Name"]
 
     @central_air_diffuser_window_equation_user_curve_name.setter
     def central_air_diffuser_window_equation_user_curve_name(self, value=None):
@@ -2539,10 +3707,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `mechanical_zone_fan_circulation_vertical_wall_equation_source` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Vertical Wall Equation Source"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Vertical Wall Equation Source"]
 
     @mechanical_zone_fan_circulation_vertical_wall_equation_source.setter
-    def mechanical_zone_fan_circulation_vertical_wall_equation_source(self, value="KhalifaEq3WallAwayFromHeat"):
+    def mechanical_zone_fan_circulation_vertical_wall_equation_source(
+            self,
+            value="KhalifaEq3WallAwayFromHeat"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation Source`
         reference choice fields
 
@@ -2555,19 +3726,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mechanical Zone Fan Circulation Vertical Wall Equation Source"] = value
+        self[
+            "Mechanical Zone Fan Circulation Vertical Wall Equation Source"] = value
 
     @property
-    def mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name(self):
+    def mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name(
+            self):
         """Get mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name"]
 
     @mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name.setter
-    def mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name(self, value=None):
+    def mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2579,19 +3755,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name"] = value
+        self[
+            "Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name"] = value
 
     @property
-    def mechanical_zone_fan_circulation_stable_horizontal_equation_source(self):
+    def mechanical_zone_fan_circulation_stable_horizontal_equation_source(
+            self):
         """Get mechanical_zone_fan_circulation_stable_horizontal_equation_source
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_stable_horizontal_equation_source` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Stable Horizontal Equation Source"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Stable Horizontal Equation Source"]
 
     @mechanical_zone_fan_circulation_stable_horizontal_equation_source.setter
-    def mechanical_zone_fan_circulation_stable_horizontal_equation_source(self, value="AlamdariHammondStableHorizontal"):
+    def mechanical_zone_fan_circulation_stable_horizontal_equation_source(
+            self,
+            value="AlamdariHammondStableHorizontal"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation Source`
         reference choice fields
 
@@ -2604,19 +3785,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mechanical Zone Fan Circulation Stable Horizontal Equation Source"] = value
+        self[
+            "Mechanical Zone Fan Circulation Stable Horizontal Equation Source"] = value
 
     @property
-    def mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name(self):
+    def mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name(
+            self):
         """Get mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name"]
 
     @mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name.setter
-    def mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name(self, value=None):
+    def mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2628,19 +3814,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name"] = value
+        self[
+            "Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name"] = value
 
     @property
-    def mechanical_zone_fan_circulation_unstable_horizontal_equation_source(self):
+    def mechanical_zone_fan_circulation_unstable_horizontal_equation_source(
+            self):
         """Get mechanical_zone_fan_circulation_unstable_horizontal_equation_source
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_unstable_horizontal_equation_source` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Unstable Horizontal Equation Source"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Unstable Horizontal Equation Source"]
 
     @mechanical_zone_fan_circulation_unstable_horizontal_equation_source.setter
-    def mechanical_zone_fan_circulation_unstable_horizontal_equation_source(self, value="KhalifaEq4CeilingAwayFromHeat"):
+    def mechanical_zone_fan_circulation_unstable_horizontal_equation_source(
+            self,
+            value="KhalifaEq4CeilingAwayFromHeat"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation Source`
         reference choice fields
 
@@ -2653,19 +3844,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mechanical Zone Fan Circulation Unstable Horizontal Equation Source"] = value
+        self[
+            "Mechanical Zone Fan Circulation Unstable Horizontal Equation Source"] = value
 
     @property
-    def mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name(self):
+    def mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name(
+            self):
         """Get mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name"]
 
     @mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name.setter
-    def mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name(self, value=None):
+    def mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2677,7 +3873,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name"] = value
+        self[
+            "Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name"] = value
 
     @property
     def mechanical_zone_fan_circulation_stable_tilted_equation_source(self):
@@ -2686,10 +3883,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `mechanical_zone_fan_circulation_stable_tilted_equation_source` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Stable Tilted Equation Source"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Stable Tilted Equation Source"]
 
     @mechanical_zone_fan_circulation_stable_tilted_equation_source.setter
-    def mechanical_zone_fan_circulation_stable_tilted_equation_source(self, value="WaltonStableHorizontalOrTilt"):
+    def mechanical_zone_fan_circulation_stable_tilted_equation_source(
+            self,
+            value="WaltonStableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation Source`
         reference choice fields
 
@@ -2702,19 +3902,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mechanical Zone Fan Circulation Stable Tilted Equation Source"] = value
+        self[
+            "Mechanical Zone Fan Circulation Stable Tilted Equation Source"] = value
 
     @property
-    def mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name(self):
+    def mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name(
+            self):
         """Get mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name"]
 
     @mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name.setter
-    def mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name(self, value=None):
+    def mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2726,7 +3931,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name"] = value
+        self[
+            "Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name"] = value
 
     @property
     def mechanical_zone_fan_circulation_unstable_tilted_equation_source(self):
@@ -2735,10 +3941,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `mechanical_zone_fan_circulation_unstable_tilted_equation_source` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Unstable Tilted Equation Source"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Unstable Tilted Equation Source"]
 
     @mechanical_zone_fan_circulation_unstable_tilted_equation_source.setter
-    def mechanical_zone_fan_circulation_unstable_tilted_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
+    def mechanical_zone_fan_circulation_unstable_tilted_equation_source(
+            self,
+            value="WaltonUnstableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation Source`
         reference choice fields
 
@@ -2751,19 +3960,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mechanical Zone Fan Circulation Unstable Tilted Equation Source"] = value
+        self[
+            "Mechanical Zone Fan Circulation Unstable Tilted Equation Source"] = value
 
     @property
-    def mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name(self):
+    def mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name(
+            self):
         """Get mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name
 
         Returns:
             str: the value of `mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name"]
 
     @mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name.setter
-    def mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name(self, value=None):
+    def mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2775,7 +3989,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name"] = value
+        self[
+            "Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name"] = value
 
     @property
     def mechanical_zone_fan_circulation_window_equation_source(self):
@@ -2784,10 +3999,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `mechanical_zone_fan_circulation_window_equation_source` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Window Equation Source"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Window Equation Source"]
 
     @mechanical_zone_fan_circulation_window_equation_source.setter
-    def mechanical_zone_fan_circulation_window_equation_source(self, value="ISO15099Windows"):
+    def mechanical_zone_fan_circulation_window_equation_source(
+            self,
+            value="ISO15099Windows"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Window Equation Source`
         reference choice fields
 
@@ -2809,10 +4027,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `mechanical_zone_fan_circulation_window_equation_user_curve_name` or None if not set
         """
-        return self._data["Mechanical Zone Fan Circulation Window Equation User Curve Name"]
+        return self._data[
+            "Mechanical Zone Fan Circulation Window Equation User Curve Name"]
 
     @mechanical_zone_fan_circulation_window_equation_user_curve_name.setter
-    def mechanical_zone_fan_circulation_window_equation_user_curve_name(self, value=None):
+    def mechanical_zone_fan_circulation_window_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2824,7 +4045,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mechanical Zone Fan Circulation Window Equation User Curve Name"] = value
+        self[
+            "Mechanical Zone Fan Circulation Window Equation User Curve Name"] = value
 
     @property
     def mixed_regime_bouyancy_assisting_flow_on_walls_equation_source(self):
@@ -2833,10 +4055,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source` or None if not set
         """
-        return self._data["Mixed Regime Bouyancy Assisting Flow on Walls Equation Source"]
+        return self._data[
+            "Mixed Regime Bouyancy Assisting Flow on Walls Equation Source"]
 
     @mixed_regime_bouyancy_assisting_flow_on_walls_equation_source.setter
-    def mixed_regime_bouyancy_assisting_flow_on_walls_equation_source(self, value="BeausoleilMorrisonMixedAssistedWall"):
+    def mixed_regime_bouyancy_assisting_flow_on_walls_equation_source(
+            self,
+            value="BeausoleilMorrisonMixedAssistedWall"):
         """  Corresponds to IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation Source`
         reference choice fields
 
@@ -2849,19 +4074,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mixed Regime Bouyancy Assisting Flow on Walls Equation Source"] = value
+        self[
+            "Mixed Regime Bouyancy Assisting Flow on Walls Equation Source"] = value
 
     @property
-    def mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name(self):
+    def mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name(
+            self):
         """Get mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name
 
         Returns:
             str: the value of `mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name` or None if not set
         """
-        return self._data["Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name"]
+        return self._data[
+            "Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name"]
 
     @mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name.setter
-    def mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name(self, value=None):
+    def mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2873,7 +4103,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name"] = value
+        self[
+            "Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name"] = value
 
     @property
     def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source(self):
@@ -2882,10 +4113,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source` or None if not set
         """
-        return self._data["Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source"]
+        return self._data[
+            "Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source"]
 
     @mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source.setter
-    def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source(self, value="BeausoleilMorrisonMixedOpposingWall"):
+    def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source(
+            self,
+            value="BeausoleilMorrisonMixedOpposingWall"):
         """  Corresponds to IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source`
         reference choice fields
 
@@ -2898,19 +4132,24 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source"] = value
+        self[
+            "Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source"] = value
 
     @property
-    def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name(self):
+    def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name(
+            self):
         """Get mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name
 
         Returns:
             str: the value of `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name` or None if not set
         """
-        return self._data["Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name"]
+        return self._data[
+            "Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name"]
 
     @mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name.setter
-    def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name(self, value=None):
+    def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -2922,7 +4161,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name"] = value
+        self[
+            "Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name"] = value
 
     @property
     def mixed_regime_stable_floor_equation_source(self):
@@ -2934,7 +4174,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Mixed Regime Stable Floor Equation Source"]
 
     @mixed_regime_stable_floor_equation_source.setter
-    def mixed_regime_stable_floor_equation_source(self, value="BeausoleilMorrisonMixedStableFloor"):
+    def mixed_regime_stable_floor_equation_source(
+            self,
+            value="BeausoleilMorrisonMixedStableFloor"):
         """  Corresponds to IDD Field `Mixed Regime Stable Floor Equation Source`
         reference choice fields
 
@@ -2983,7 +4225,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Mixed Regime Unstable Floor Equation Source"]
 
     @mixed_regime_unstable_floor_equation_source.setter
-    def mixed_regime_unstable_floor_equation_source(self, value="BeausoleilMorrisonMixedUnstableFloor"):
+    def mixed_regime_unstable_floor_equation_source(
+            self,
+            value="BeausoleilMorrisonMixedUnstableFloor"):
         """  Corresponds to IDD Field `Mixed Regime Unstable Floor Equation Source`
         reference choice fields
 
@@ -3005,7 +4249,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `mixed_regime_unstable_floor_equation_user_curve_name` or None if not set
         """
-        return self._data["Mixed Regime Unstable Floor Equation User Curve Name"]
+        return self._data[
+            "Mixed Regime Unstable Floor Equation User Curve Name"]
 
     @mixed_regime_unstable_floor_equation_user_curve_name.setter
     def mixed_regime_unstable_floor_equation_user_curve_name(self, value=None):
@@ -3032,7 +4277,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Mixed Regime Stable Ceiling Equation Source"]
 
     @mixed_regime_stable_ceiling_equation_source.setter
-    def mixed_regime_stable_ceiling_equation_source(self, value="BeausoleilMorrisonMixedStableCeiling"):
+    def mixed_regime_stable_ceiling_equation_source(
+            self,
+            value="BeausoleilMorrisonMixedStableCeiling"):
         """  Corresponds to IDD Field `Mixed Regime Stable Ceiling Equation Source`
         reference choice fields
 
@@ -3054,7 +4301,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `mixed_regime_stable_ceiling_equation_user_curve_name` or None if not set
         """
-        return self._data["Mixed Regime Stable Ceiling Equation User Curve Name"]
+        return self._data[
+            "Mixed Regime Stable Ceiling Equation User Curve Name"]
 
     @mixed_regime_stable_ceiling_equation_user_curve_name.setter
     def mixed_regime_stable_ceiling_equation_user_curve_name(self, value=None):
@@ -3081,7 +4329,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Mixed Regime Unstable Ceiling Equation Source"]
 
     @mixed_regime_unstable_ceiling_equation_source.setter
-    def mixed_regime_unstable_ceiling_equation_source(self, value="BeausoleilMorrisonMixedUnstableCeiling"):
+    def mixed_regime_unstable_ceiling_equation_source(
+            self,
+            value="BeausoleilMorrisonMixedUnstableCeiling"):
         """  Corresponds to IDD Field `Mixed Regime Unstable Ceiling Equation Source`
         reference choice fields
 
@@ -3103,10 +4353,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `mixed_regime_unstable_ceiling_equation_user_curve_name` or None if not set
         """
-        return self._data["Mixed Regime Unstable Ceiling Equation User Curve Name"]
+        return self._data[
+            "Mixed Regime Unstable Ceiling Equation User Curve Name"]
 
     @mixed_regime_unstable_ceiling_equation_user_curve_name.setter
-    def mixed_regime_unstable_ceiling_equation_user_curve_name(self, value=None):
+    def mixed_regime_unstable_ceiling_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Mixed Regime Unstable Ceiling Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -3130,7 +4383,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         return self._data["Mixed Regime Window Equation Source"]
 
     @mixed_regime_window_equation_source.setter
-    def mixed_regime_window_equation_source(self, value="GoldsteinNovoselacCeilingDiffuserWindow"):
+    def mixed_regime_window_equation_source(
+            self,
+            value="GoldsteinNovoselacCeilingDiffuserWindow"):
         """  Corresponds to IDD Field `Mixed Regime Window Equation Source`
         reference choice fields
 
@@ -3171,12 +4426,116 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
 
 
 class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
+
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections`
         Options to change the individual convection model equations for dynamic selection when using AdaptiveConvectiongAlgorithm
         This object is only needed to make changes to the default model selections for any or all of the surface categories.
         This object is for the outside face, the side of the surface facing away from the thermal zone.
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections', 'pyname': u'SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'wind convection windward vertical wall equation source', {'name': u'Wind Convection Windward Vertical Wall Equation Source', 'pyname': u'wind_convection_windward_vertical_wall_equation_source', 'default': u'TARPWindward', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wind convection windward equation vertical wall user curve name', {'name': u'Wind Convection Windward Equation Vertical Wall User Curve Name', 'pyname': u'wind_convection_windward_equation_vertical_wall_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wind convection leeward vertical wall equation source', {'name': u'Wind Convection Leeward Vertical Wall Equation Source', 'pyname': u'wind_convection_leeward_vertical_wall_equation_source', 'default': u'TARPLeeward', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wind convection leeward vertical wall equation user curve name', {'name': u'Wind Convection Leeward Vertical Wall Equation User Curve Name', 'pyname': u'wind_convection_leeward_vertical_wall_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wind convection horizontal roof equation source', {'name': u'Wind Convection Horizontal Roof Equation Source', 'pyname': u'wind_convection_horizontal_roof_equation_source', 'default': u'ClearRoof', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wind convection horizontal roof user curve name', {'name': u'Wind Convection Horizontal Roof User Curve Name', 'pyname': u'wind_convection_horizontal_roof_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'natural convection vertical wall equation source', {'name': u'Natural Convection Vertical Wall Equation Source', 'pyname': u'natural_convection_vertical_wall_equation_source', 'default': u'ASHRAEVerticalWall', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'natural convection vertical wall equation user curve name', {'name': u'Natural Convection Vertical Wall Equation User Curve Name', 'pyname': u'natural_convection_vertical_wall_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'natural convection stable horizontal equation source', {'name': u'Natural Convection Stable Horizontal Equation Source', 'pyname': u'natural_convection_stable_horizontal_equation_source', 'default': u'WaltonStableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'natural convection stable horizontal equation user curve name', {'name': u'Natural Convection Stable Horizontal Equation User Curve Name', 'pyname': u'natural_convection_stable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'natural convection unstable horizontal equation source', {'name': u'Natural Convection Unstable Horizontal Equation Source', 'pyname': u'natural_convection_unstable_horizontal_equation_source', 'default': u'WaltonUnstableHorizontalOrTilt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'natural convection unstable horizontal equation user curve name', {'name': u'Natural Convection Unstable Horizontal Equation User Curve Name', 'pyname': u'natural_convection_unstable_horizontal_equation_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections',
+              'pyname': u'SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'wind convection windward vertical wall equation source',
+                                      {'name': u'Wind Convection Windward Vertical Wall Equation Source',
+                                       'pyname': u'wind_convection_windward_vertical_wall_equation_source',
+                                       'default': u'TARPWindward',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wind convection windward equation vertical wall user curve name',
+                                      {'name': u'Wind Convection Windward Equation Vertical Wall User Curve Name',
+                                       'pyname': u'wind_convection_windward_equation_vertical_wall_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'wind convection leeward vertical wall equation source',
+                                      {'name': u'Wind Convection Leeward Vertical Wall Equation Source',
+                                       'pyname': u'wind_convection_leeward_vertical_wall_equation_source',
+                                       'default': u'TARPLeeward',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wind convection leeward vertical wall equation user curve name',
+                                      {'name': u'Wind Convection Leeward Vertical Wall Equation User Curve Name',
+                                       'pyname': u'wind_convection_leeward_vertical_wall_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'wind convection horizontal roof equation source',
+                                      {'name': u'Wind Convection Horizontal Roof Equation Source',
+                                       'pyname': u'wind_convection_horizontal_roof_equation_source',
+                                       'default': u'ClearRoof',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wind convection horizontal roof user curve name',
+                                      {'name': u'Wind Convection Horizontal Roof User Curve Name',
+                                       'pyname': u'wind_convection_horizontal_roof_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'natural convection vertical wall equation source',
+                                      {'name': u'Natural Convection Vertical Wall Equation Source',
+                                       'pyname': u'natural_convection_vertical_wall_equation_source',
+                                       'default': u'ASHRAEVerticalWall',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'natural convection vertical wall equation user curve name',
+                                      {'name': u'Natural Convection Vertical Wall Equation User Curve Name',
+                                       'pyname': u'natural_convection_vertical_wall_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'natural convection stable horizontal equation source',
+                                      {'name': u'Natural Convection Stable Horizontal Equation Source',
+                                       'pyname': u'natural_convection_stable_horizontal_equation_source',
+                                       'default': u'WaltonStableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'natural convection stable horizontal equation user curve name',
+                                      {'name': u'Natural Convection Stable Horizontal Equation User Curve Name',
+                                       'pyname': u'natural_convection_stable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'natural convection unstable horizontal equation source',
+                                      {'name': u'Natural Convection Unstable Horizontal Equation Source',
+                                       'pyname': u'natural_convection_unstable_horizontal_equation_source',
+                                       'default': u'WaltonUnstableHorizontalOrTilt',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'natural convection unstable horizontal equation user curve name',
+                                      {'name': u'Natural Convection Unstable Horizontal Equation User Curve Name',
+                                       'pyname': u'natural_convection_unstable_horizontal_equation_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections`
@@ -3217,10 +4576,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wind_convection_windward_vertical_wall_equation_source` or None if not set
         """
-        return self._data["Wind Convection Windward Vertical Wall Equation Source"]
+        return self._data[
+            "Wind Convection Windward Vertical Wall Equation Source"]
 
     @wind_convection_windward_vertical_wall_equation_source.setter
-    def wind_convection_windward_vertical_wall_equation_source(self, value="TARPWindward"):
+    def wind_convection_windward_vertical_wall_equation_source(
+            self,
+            value="TARPWindward"):
         """  Corresponds to IDD Field `Wind Convection Windward Vertical Wall Equation Source`
 
         Args:
@@ -3241,10 +4603,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wind_convection_windward_equation_vertical_wall_user_curve_name` or None if not set
         """
-        return self._data["Wind Convection Windward Equation Vertical Wall User Curve Name"]
+        return self._data[
+            "Wind Convection Windward Equation Vertical Wall User Curve Name"]
 
     @wind_convection_windward_equation_vertical_wall_user_curve_name.setter
-    def wind_convection_windward_equation_vertical_wall_user_curve_name(self, value=None):
+    def wind_convection_windward_equation_vertical_wall_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Wind Convection Windward Equation Vertical Wall User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -3256,7 +4621,8 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Wind Convection Windward Equation Vertical Wall User Curve Name"] = value
+        self[
+            "Wind Convection Windward Equation Vertical Wall User Curve Name"] = value
 
     @property
     def wind_convection_leeward_vertical_wall_equation_source(self):
@@ -3265,10 +4631,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wind_convection_leeward_vertical_wall_equation_source` or None if not set
         """
-        return self._data["Wind Convection Leeward Vertical Wall Equation Source"]
+        return self._data[
+            "Wind Convection Leeward Vertical Wall Equation Source"]
 
     @wind_convection_leeward_vertical_wall_equation_source.setter
-    def wind_convection_leeward_vertical_wall_equation_source(self, value="TARPLeeward"):
+    def wind_convection_leeward_vertical_wall_equation_source(
+            self,
+            value="TARPLeeward"):
         """  Corresponds to IDD Field `Wind Convection Leeward Vertical Wall Equation Source`
 
         Args:
@@ -3289,10 +4658,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `wind_convection_leeward_vertical_wall_equation_user_curve_name` or None if not set
         """
-        return self._data["Wind Convection Leeward Vertical Wall Equation User Curve Name"]
+        return self._data[
+            "Wind Convection Leeward Vertical Wall Equation User Curve Name"]
 
     @wind_convection_leeward_vertical_wall_equation_user_curve_name.setter
-    def wind_convection_leeward_vertical_wall_equation_user_curve_name(self, value=None):
+    def wind_convection_leeward_vertical_wall_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Wind Convection Leeward Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -3304,7 +4676,8 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Wind Convection Leeward Vertical Wall Equation User Curve Name"] = value
+        self[
+            "Wind Convection Leeward Vertical Wall Equation User Curve Name"] = value
 
     @property
     def wind_convection_horizontal_roof_equation_source(self):
@@ -3316,7 +4689,9 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         return self._data["Wind Convection Horizontal Roof Equation Source"]
 
     @wind_convection_horizontal_roof_equation_source.setter
-    def wind_convection_horizontal_roof_equation_source(self, value="ClearRoof"):
+    def wind_convection_horizontal_roof_equation_source(
+            self,
+            value="ClearRoof"):
         """  Corresponds to IDD Field `Wind Convection Horizontal Roof Equation Source`
 
         Args:
@@ -3364,7 +4739,9 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         return self._data["Natural Convection Vertical Wall Equation Source"]
 
     @natural_convection_vertical_wall_equation_source.setter
-    def natural_convection_vertical_wall_equation_source(self, value="ASHRAEVerticalWall"):
+    def natural_convection_vertical_wall_equation_source(
+            self,
+            value="ASHRAEVerticalWall"):
         """  Corresponds to IDD Field `Natural Convection Vertical Wall Equation Source`
         This is for vertical walls
 
@@ -3386,10 +4763,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `natural_convection_vertical_wall_equation_user_curve_name` or None if not set
         """
-        return self._data["Natural Convection Vertical Wall Equation User Curve Name"]
+        return self._data[
+            "Natural Convection Vertical Wall Equation User Curve Name"]
 
     @natural_convection_vertical_wall_equation_user_curve_name.setter
-    def natural_convection_vertical_wall_equation_user_curve_name(self, value=None):
+    def natural_convection_vertical_wall_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Natural Convection Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -3401,7 +4781,8 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Natural Convection Vertical Wall Equation User Curve Name"] = value
+        self[
+            "Natural Convection Vertical Wall Equation User Curve Name"] = value
 
     @property
     def natural_convection_stable_horizontal_equation_source(self):
@@ -3410,10 +4791,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `natural_convection_stable_horizontal_equation_source` or None if not set
         """
-        return self._data["Natural Convection Stable Horizontal Equation Source"]
+        return self._data[
+            "Natural Convection Stable Horizontal Equation Source"]
 
     @natural_convection_stable_horizontal_equation_source.setter
-    def natural_convection_stable_horizontal_equation_source(self, value="WaltonStableHorizontalOrTilt"):
+    def natural_convection_stable_horizontal_equation_source(
+            self,
+            value="WaltonStableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Natural Convection Stable Horizontal Equation Source`
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
 
@@ -3435,10 +4819,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `natural_convection_stable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Natural Convection Stable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Natural Convection Stable Horizontal Equation User Curve Name"]
 
     @natural_convection_stable_horizontal_equation_user_curve_name.setter
-    def natural_convection_stable_horizontal_equation_user_curve_name(self, value=None):
+    def natural_convection_stable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Natural Convection Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -3450,7 +4837,8 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Natural Convection Stable Horizontal Equation User Curve Name"] = value
+        self[
+            "Natural Convection Stable Horizontal Equation User Curve Name"] = value
 
     @property
     def natural_convection_unstable_horizontal_equation_source(self):
@@ -3459,10 +4847,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `natural_convection_unstable_horizontal_equation_source` or None if not set
         """
-        return self._data["Natural Convection Unstable Horizontal Equation Source"]
+        return self._data[
+            "Natural Convection Unstable Horizontal Equation Source"]
 
     @natural_convection_unstable_horizontal_equation_source.setter
-    def natural_convection_unstable_horizontal_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
+    def natural_convection_unstable_horizontal_equation_source(
+            self,
+            value="WaltonUnstableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Natural Convection Unstable Horizontal Equation Source`
 
         Args:
@@ -3483,10 +4874,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Returns:
             str: the value of `natural_convection_unstable_horizontal_equation_user_curve_name` or None if not set
         """
-        return self._data["Natural Convection Unstable Horizontal Equation User Curve Name"]
+        return self._data[
+            "Natural Convection Unstable Horizontal Equation User Curve Name"]
 
     @natural_convection_unstable_horizontal_equation_user_curve_name.setter
-    def natural_convection_unstable_horizontal_equation_user_curve_name(self, value=None):
+    def natural_convection_unstable_horizontal_equation_user_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Natural Convection Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
 
@@ -3498,15 +4892,65 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Natural Convection Unstable Horizontal Equation User Curve Name"] = value
+        self[
+            "Natural Convection Unstable Horizontal Equation User Curve Name"] = value
 
 
 class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
+
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Inside:UserCurve`
         Used to describe a custom model equation for surface convection heat transfer coefficient
         If more than one curve is referenced they are all used and added together.
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceConvectionAlgorithm:Inside:UserCurve', 'pyname': u'SurfaceConvectionAlgorithmInsideUserCurve', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature for convection heat transfer', {'name': u'Reference Temperature for Convection Heat Transfer', 'pyname': u'reference_temperature_for_convection_heat_transfer', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hc function of temperature difference curve name', {'name': u'Hc Function of Temperature Difference Curve Name', 'pyname': u'hc_function_of_temperature_difference_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'hc function of temperature difference divided by height curve name', {'name': u'Hc Function of Temperature Difference Divided by Height Curve Name', 'pyname': u'hc_function_of_temperature_difference_divided_by_height_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hc function of air change rate curve name', {'name': u'Hc Function of Air Change Rate Curve Name', 'pyname': u'hc_function_of_air_change_rate_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hc function of air system volume flow rate divided by zone perimeter length curve name', {'name': u'Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name', 'pyname': u'hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceConvectionAlgorithm:Inside:UserCurve',
+              'pyname': u'SurfaceConvectionAlgorithmInsideUserCurve',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'reference temperature for convection heat transfer',
+                                      {'name': u'Reference Temperature for Convection Heat Transfer',
+                                       'pyname': u'reference_temperature_for_convection_heat_transfer',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'hc function of temperature difference curve name',
+                                      {'name': u'Hc Function of Temperature Difference Curve Name',
+                                       'pyname': u'hc_function_of_temperature_difference_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'hc function of temperature difference divided by height curve name',
+                                      {'name': u'Hc Function of Temperature Difference Divided by Height Curve Name',
+                                       'pyname': u'hc_function_of_temperature_difference_divided_by_height_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'hc function of air change rate curve name',
+                                      {'name': u'Hc Function of Air Change Rate Curve Name',
+                                       'pyname': u'hc_function_of_air_change_rate_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'hc function of air system volume flow rate divided by zone perimeter length curve name',
+                                      {'name': u'Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name',
+                                       'pyname': u'hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Inside:UserCurve`
@@ -3590,16 +5034,20 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
         self["Hc Function of Temperature Difference Curve Name"] = value
 
     @property
-    def hc_function_of_temperature_difference_divided_by_height_curve_name(self):
+    def hc_function_of_temperature_difference_divided_by_height_curve_name(
+            self):
         """Get hc_function_of_temperature_difference_divided_by_height_curve_name
 
         Returns:
             str: the value of `hc_function_of_temperature_difference_divided_by_height_curve_name` or None if not set
         """
-        return self._data["Hc Function of Temperature Difference Divided by Height Curve Name"]
+        return self._data[
+            "Hc Function of Temperature Difference Divided by Height Curve Name"]
 
     @hc_function_of_temperature_difference_divided_by_height_curve_name.setter
-    def hc_function_of_temperature_difference_divided_by_height_curve_name(self, value=None):
+    def hc_function_of_temperature_difference_divided_by_height_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Hc Function of Temperature Difference Divided by Height Curve Name`
         Curve's "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)
         when used for an inside face the vertical length scale is the zone's interior height
@@ -3613,7 +5061,8 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Hc Function of Temperature Difference Divided by Height Curve Name"] = value
+        self[
+            "Hc Function of Temperature Difference Divided by Height Curve Name"] = value
 
     @property
     def hc_function_of_air_change_rate_curve_name(self):
@@ -3641,16 +5090,20 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
         self["Hc Function of Air Change Rate Curve Name"] = value
 
     @property
-    def hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name(self):
+    def hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name(
+            self):
         """Get hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name
 
         Returns:
             str: the value of `hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name` or None if not set
         """
-        return self._data["Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"]
+        return self._data[
+            "Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"]
 
     @hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name.setter
-    def hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name(self, value=None):
+    def hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name`
         Curve's "x" is mechanical system air flow rate (m3/s) divided by zone's length along
         exterior walls (m).
@@ -3664,15 +5117,59 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"] = value
+        self[
+            "Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"] = value
 
 
 class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
+
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Outside:UserCurve`
         Used to describe a custom model equation for surface convection heat transfer coefficient
         If more than one curve is referenced they are all used and added together.
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceConvectionAlgorithm:Outside:UserCurve', 'pyname': u'SurfaceConvectionAlgorithmOutsideUserCurve', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wind speed type for curve', {'name': u'Wind Speed Type for Curve', 'pyname': u'wind_speed_type_for_curve', 'default': u'HeightAdjust', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hf function of wind speed curve name', {'name': u'Hf Function of Wind Speed Curve Name', 'pyname': u'hf_function_of_wind_speed_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hn function of temperature difference curve name', {'name': u'Hn Function of Temperature Difference Curve Name', 'pyname': u'hn_function_of_temperature_difference_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hn function of temperature difference divided by height curve name', {'name': u'Hn Function of Temperature Difference Divided by Height Curve Name', 'pyname': u'hn_function_of_temperature_difference_divided_by_height_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceConvectionAlgorithm:Outside:UserCurve',
+              'pyname': u'SurfaceConvectionAlgorithmOutsideUserCurve',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wind speed type for curve',
+                                      {'name': u'Wind Speed Type for Curve',
+                                       'pyname': u'wind_speed_type_for_curve',
+                                       'default': u'HeightAdjust',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'hf function of wind speed curve name',
+                                      {'name': u'Hf Function of Wind Speed Curve Name',
+                                       'pyname': u'hf_function_of_wind_speed_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'hn function of temperature difference curve name',
+                                      {'name': u'Hn Function of Temperature Difference Curve Name',
+                                       'pyname': u'hn_function_of_temperature_difference_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'hn function of temperature difference divided by height curve name',
+                                      {'name': u'Hn Function of Temperature Difference Divided by Height Curve Name',
+                                       'pyname': u'hn_function_of_temperature_difference_divided_by_height_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Outside:UserCurve`
@@ -3781,16 +5278,20 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
         self["Hn Function of Temperature Difference Curve Name"] = value
 
     @property
-    def hn_function_of_temperature_difference_divided_by_height_curve_name(self):
+    def hn_function_of_temperature_difference_divided_by_height_curve_name(
+            self):
         """Get hn_function_of_temperature_difference_divided_by_height_curve_name
 
         Returns:
             str: the value of `hn_function_of_temperature_difference_divided_by_height_curve_name` or None if not set
         """
-        return self._data["Hn Function of Temperature Difference Divided by Height Curve Name"]
+        return self._data[
+            "Hn Function of Temperature Difference Divided by Height Curve Name"]
 
     @hn_function_of_temperature_difference_divided_by_height_curve_name.setter
-    def hn_function_of_temperature_difference_divided_by_height_curve_name(self, value=None):
+    def hn_function_of_temperature_difference_divided_by_height_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Hn Function of Temperature Difference Divided by Height Curve Name`
         Curve's "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)
         when used for an outside face the vertical length scale is the exterior facade's overall height
@@ -3804,10 +5305,12 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Hn Function of Temperature Difference Divided by Height Curve Name"] = value
+        self[
+            "Hn Function of Temperature Difference Divided by Height Curve Name"] = value
 
 
 class SurfacePropertyConvectionCoefficients(DataObject):
+
     """ Corresponds to IDD object `SurfaceProperty:ConvectionCoefficients`
         Allow user settable interior and/or exterior convection coefficients.
         Note that some other factors may limit the lower bounds for these values, such as
@@ -3817,7 +5320,93 @@ class SurfacePropertyConvectionCoefficients(DataObject):
         Minimum and maximum limits are set in HeatBalanceAlgorithm object.
         Defaults in HeatBalanceAlgorithm object are [.1,1000].
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceProperty:ConvectionCoefficients', 'pyname': u'SurfacePropertyConvectionCoefficients', 'format': None, 'fields': OrderedDict([(u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convection coefficient 1 location', {'name': u'Convection Coefficient 1 Location', 'pyname': u'convection_coefficient_1_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convection coefficient 1 type', {'name': u'Convection Coefficient 1 Type', 'pyname': u'convection_coefficient_1_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convection coefficient 1', {'name': u'Convection Coefficient 1', 'pyname': u'convection_coefficient_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'convection coefficient 1 schedule name', {'name': u'Convection Coefficient 1 Schedule Name', 'pyname': u'convection_coefficient_1_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convection coefficient 1 user curve name', {'name': u'Convection Coefficient 1 User Curve Name', 'pyname': u'convection_coefficient_1_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convection coefficient 2 location', {'name': u'Convection Coefficient 2 Location', 'pyname': u'convection_coefficient_2_location', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convection coefficient 2 type', {'name': u'Convection Coefficient 2 Type', 'pyname': u'convection_coefficient_2_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convection coefficient 2', {'name': u'Convection Coefficient 2', 'pyname': u'convection_coefficient_2', 'default': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'convection coefficient 2 schedule name', {'name': u'Convection Coefficient 2 Schedule Name', 'pyname': u'convection_coefficient_2_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convection coefficient 2 user curve name', {'name': u'Convection Coefficient 2 User Curve Name', 'pyname': u'convection_coefficient_2_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceProperty:ConvectionCoefficients',
+              'pyname': u'SurfacePropertyConvectionCoefficients',
+              'format': None,
+              'fields': OrderedDict([(u'surface name',
+                                      {'name': u'Surface Name',
+                                       'pyname': u'surface_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convection coefficient 1 location',
+                                      {'name': u'Convection Coefficient 1 Location',
+                                       'pyname': u'convection_coefficient_1_location',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convection coefficient 1 type',
+                                      {'name': u'Convection Coefficient 1 Type',
+                                       'pyname': u'convection_coefficient_1_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convection coefficient 1',
+                                      {'name': u'Convection Coefficient 1',
+                                       'pyname': u'convection_coefficient_1',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/m2-K'}),
+                                     (u'convection coefficient 1 schedule name',
+                                      {'name': u'Convection Coefficient 1 Schedule Name',
+                                       'pyname': u'convection_coefficient_1_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convection coefficient 1 user curve name',
+                                      {'name': u'Convection Coefficient 1 User Curve Name',
+                                       'pyname': u'convection_coefficient_1_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convection coefficient 2 location',
+                                      {'name': u'Convection Coefficient 2 Location',
+                                       'pyname': u'convection_coefficient_2_location',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convection coefficient 2 type',
+                                      {'name': u'Convection Coefficient 2 Type',
+                                       'pyname': u'convection_coefficient_2_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convection coefficient 2',
+                                      {'name': u'Convection Coefficient 2',
+                                       'pyname': u'convection_coefficient_2',
+                                       'default': 0.1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/m2-K'}),
+                                     (u'convection coefficient 2 schedule name',
+                                      {'name': u'Convection Coefficient 2 Schedule Name',
+                                       'pyname': u'convection_coefficient_2_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convection coefficient 2 user curve name',
+                                      {'name': u'Convection Coefficient 2 User Curve Name',
+                                       'pyname': u'convection_coefficient_2_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:ConvectionCoefficients`
@@ -4096,6 +5685,7 @@ class SurfacePropertyConvectionCoefficients(DataObject):
 
 
 class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
+
     """ Corresponds to IDD object `SurfaceProperty:ConvectionCoefficients:MultipleSurface`
         Allow user settable interior and/or exterior convection coefficients.
         Note that some other factors may limit the lower bounds for these values, such as
@@ -4105,7 +5695,93 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
         Minimum and maximum limits are set in HeatBalanceAlgorithm object.
         Defaults in HeatBalanceAlgorithm object are [.1,1000].
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceProperty:ConvectionCoefficients:MultipleSurface', 'pyname': u'SurfacePropertyConvectionCoefficientsMultipleSurface', 'format': None, 'fields': OrderedDict([(u'surface type', {'name': u'Surface Type', 'pyname': u'surface_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convection coefficient 1 location', {'name': u'Convection Coefficient 1 Location', 'pyname': u'convection_coefficient_1_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convection coefficient 1 type', {'name': u'Convection Coefficient 1 Type', 'pyname': u'convection_coefficient_1_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convection coefficient 1', {'name': u'Convection Coefficient 1', 'pyname': u'convection_coefficient_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'convection coefficient 1 schedule name', {'name': u'Convection Coefficient 1 Schedule Name', 'pyname': u'convection_coefficient_1_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convection coefficient 1 user curve name', {'name': u'Convection Coefficient 1 User Curve Name', 'pyname': u'convection_coefficient_1_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convection coefficient 2 location', {'name': u'Convection Coefficient 2 Location', 'pyname': u'convection_coefficient_2_location', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convection coefficient 2 type', {'name': u'Convection Coefficient 2 Type', 'pyname': u'convection_coefficient_2_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'convection coefficient 2', {'name': u'Convection Coefficient 2', 'pyname': u'convection_coefficient_2', 'default': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'convection coefficient 2 schedule name', {'name': u'Convection Coefficient 2 Schedule Name', 'pyname': u'convection_coefficient_2_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convection coefficient 2 user curve name', {'name': u'Convection Coefficient 2 User Curve Name', 'pyname': u'convection_coefficient_2_user_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceProperty:ConvectionCoefficients:MultipleSurface',
+              'pyname': u'SurfacePropertyConvectionCoefficientsMultipleSurface',
+              'format': None,
+              'fields': OrderedDict([(u'surface type',
+                                      {'name': u'Surface Type',
+                                       'pyname': u'surface_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convection coefficient 1 location',
+                                      {'name': u'Convection Coefficient 1 Location',
+                                       'pyname': u'convection_coefficient_1_location',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convection coefficient 1 type',
+                                      {'name': u'Convection Coefficient 1 Type',
+                                       'pyname': u'convection_coefficient_1_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convection coefficient 1',
+                                      {'name': u'Convection Coefficient 1',
+                                       'pyname': u'convection_coefficient_1',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/m2-K'}),
+                                     (u'convection coefficient 1 schedule name',
+                                      {'name': u'Convection Coefficient 1 Schedule Name',
+                                       'pyname': u'convection_coefficient_1_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convection coefficient 1 user curve name',
+                                      {'name': u'Convection Coefficient 1 User Curve Name',
+                                       'pyname': u'convection_coefficient_1_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convection coefficient 2 location',
+                                      {'name': u'Convection Coefficient 2 Location',
+                                       'pyname': u'convection_coefficient_2_location',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convection coefficient 2 type',
+                                      {'name': u'Convection Coefficient 2 Type',
+                                       'pyname': u'convection_coefficient_2_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'convection coefficient 2',
+                                      {'name': u'Convection Coefficient 2',
+                                       'pyname': u'convection_coefficient_2',
+                                       'default': 0.1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/m2-K'}),
+                                     (u'convection coefficient 2 schedule name',
+                                      {'name': u'Convection Coefficient 2 Schedule Name',
+                                       'pyname': u'convection_coefficient_2_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'convection coefficient 2 user curve name',
+                                      {'name': u'Convection Coefficient 2 User Curve Name',
+                                       'pyname': u'convection_coefficient_2_user_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:ConvectionCoefficients:MultipleSurface`
@@ -4384,6 +6060,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
 
 
 class SurfacePropertiesVaporCoefficients(DataObject):
+
     """ Corresponds to IDD object `SurfaceProperties:VaporCoefficients`
         The interior and external vapor transfer coefficients.
         Normally these value are calculated using the heat convection coefficient values.
@@ -4392,7 +6069,56 @@ class SurfacePropertiesVaporCoefficients(DataObject):
         This will only work with the CombinedHeatAndMoistureFiniteElement algorithm for surfaces.
         Other algorithms will ignore these coefficients
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceProperties:VaporCoefficients', 'pyname': u'SurfacePropertiesVaporCoefficients', 'format': None, 'fields': OrderedDict([(u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'constant external vapor transfer coefficient', {'name': u'Constant External Vapor Transfer Coefficient', 'pyname': u'constant_external_vapor_transfer_coefficient', 'default': u'No', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'external vapor coefficient value', {'name': u'External Vapor Coefficient Value', 'pyname': u'external_vapor_coefficient_value', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/Pa-s-m2'}), (u'constant internal vapor transfer coefficient', {'name': u'Constant Internal vapor Transfer Coefficient', 'pyname': u'constant_internal_vapor_transfer_coefficient', 'default': u'No', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'internal vapor coefficient value', {'name': u'Internal Vapor Coefficient Value', 'pyname': u'internal_vapor_coefficient_value', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/Pa-s-m2'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceProperties:VaporCoefficients',
+              'pyname': u'SurfacePropertiesVaporCoefficients',
+              'format': None,
+              'fields': OrderedDict([(u'surface name',
+                                      {'name': u'Surface Name',
+                                       'pyname': u'surface_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'constant external vapor transfer coefficient',
+                                      {'name': u'Constant External Vapor Transfer Coefficient',
+                                       'pyname': u'constant_external_vapor_transfer_coefficient',
+                                       'default': u'No',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'external vapor coefficient value',
+                                      {'name': u'External Vapor Coefficient Value',
+                                       'pyname': u'external_vapor_coefficient_value',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'kg/Pa-s-m2'}),
+                                     (u'constant internal vapor transfer coefficient',
+                                      {'name': u'Constant Internal vapor Transfer Coefficient',
+                                       'pyname': u'constant_internal_vapor_transfer_coefficient',
+                                       'default': u'No',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'internal vapor coefficient value',
+                                      {'name': u'Internal Vapor Coefficient Value',
+                                       'pyname': u'internal_vapor_coefficient_value',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'kg/Pa-s-m2'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperties:VaporCoefficients`
@@ -4524,12 +6250,127 @@ class SurfacePropertiesVaporCoefficients(DataObject):
 
 
 class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
+
     """ Corresponds to IDD object `SurfaceProperty:ExteriorNaturalVentedCavity`
         Used to describe the decoupled layer, or baffle, and the characteristics of the cavity
         and openings for naturally ventilated exterior surfaces. This object is also used in
         conjunction with the OtherSideConditionsModel.
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceProperty:ExteriorNaturalVentedCavity', 'pyname': u'SurfacePropertyExteriorNaturalVentedCavity', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'boundary conditions model name', {'name': u'Boundary Conditions Model Name', 'pyname': u'boundary_conditions_model_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'area fraction of openings', {'name': u'Area Fraction of Openings', 'pyname': u'area_fraction_of_openings', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'thermal emissivity of exterior baffle material', {'name': u'Thermal Emissivity of Exterior Baffle Material', 'pyname': u'thermal_emissivity_of_exterior_baffle_material', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'solar absorbtivity of exterior baffle', {'name': u'Solar Absorbtivity of Exterior Baffle', 'pyname': u'solar_absorbtivity_of_exterior_baffle', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'height scale for buoyancy-driven ventilation', {'name': u'Height Scale for Buoyancy-Driven Ventilation', 'pyname': u'height_scale_for_buoyancydriven_ventilation', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'effective thickness of cavity behind exterior baffle', {'name': u'Effective Thickness of Cavity Behind Exterior Baffle', 'pyname': u'effective_thickness_of_cavity_behind_exterior_baffle', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'ratio of actual surface area to projected surface area', {'name': u'Ratio of Actual Surface Area to Projected Surface Area', 'pyname': u'ratio_of_actual_surface_area_to_projected_surface_area', 'default': 1.0, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 0.8, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'roughness of exterior surface', {'name': u'Roughness of Exterior Surface', 'pyname': u'roughness_of_exterior_surface', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'effectiveness for perforations with respect to wind', {'name': u'Effectiveness for Perforations with Respect to Wind', 'pyname': u'effectiveness_for_perforations_with_respect_to_wind', 'default': 0.25, 'minimum>': 0.0, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'discharge coefficient for openings with respect to buoyancy driven flow', {'name': u'Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow', 'pyname': u'discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow', 'default': 0.65, 'minimum>': 0.0, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceProperty:ExteriorNaturalVentedCavity',
+              'pyname': u'SurfacePropertyExteriorNaturalVentedCavity',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'boundary conditions model name',
+                                      {'name': u'Boundary Conditions Model Name',
+                                       'pyname': u'boundary_conditions_model_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'area fraction of openings',
+                                      {'name': u'Area Fraction of Openings',
+                                       'pyname': u'area_fraction_of_openings',
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'thermal emissivity of exterior baffle material',
+                                      {'name': u'Thermal Emissivity of Exterior Baffle Material',
+                                       'pyname': u'thermal_emissivity_of_exterior_baffle_material',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'solar absorbtivity of exterior baffle',
+                                      {'name': u'Solar Absorbtivity of Exterior Baffle',
+                                       'pyname': u'solar_absorbtivity_of_exterior_baffle',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'height scale for buoyancy-driven ventilation',
+                                      {'name': u'Height Scale for Buoyancy-Driven Ventilation',
+                                       'pyname': u'height_scale_for_buoyancydriven_ventilation',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'effective thickness of cavity behind exterior baffle',
+                                      {'name': u'Effective Thickness of Cavity Behind Exterior Baffle',
+                                       'pyname': u'effective_thickness_of_cavity_behind_exterior_baffle',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'ratio of actual surface area to projected surface area',
+                                      {'name': u'Ratio of Actual Surface Area to Projected Surface Area',
+                                       'pyname': u'ratio_of_actual_surface_area_to_projected_surface_area',
+                                       'default': 1.0,
+                                       'maximum': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.8,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'roughness of exterior surface',
+                                      {'name': u'Roughness of Exterior Surface',
+                                       'pyname': u'roughness_of_exterior_surface',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'effectiveness for perforations with respect to wind',
+                                      {'name': u'Effectiveness for Perforations with Respect to Wind',
+                                       'pyname': u'effectiveness_for_perforations_with_respect_to_wind',
+                                       'default': 0.25,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.5,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'discharge coefficient for openings with respect to buoyancy driven flow',
+                                      {'name': u'Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow',
+                                       'pyname': u'discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow',
+                                       'default': 0.65,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.5,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'})]),
+              'extensible-fields': OrderedDict([(u'surface 1 name',
+                                                 {'name': u'Surface 1 Name',
+                                                  'pyname': u'surface_1_name',
+                                                  'required-field': True,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'object-list'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:ExteriorNaturalVentedCavity`
@@ -4693,7 +6534,8 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
         Returns:
             float: the value of `effective_thickness_of_cavity_behind_exterior_baffle` or None if not set
         """
-        return self._data["Effective Thickness of Cavity Behind Exterior Baffle"]
+        return self._data[
+            "Effective Thickness of Cavity Behind Exterior Baffle"]
 
     @effective_thickness_of_cavity_behind_exterior_baffle.setter
     def effective_thickness_of_cavity_behind_exterior_baffle(self, value=None):
@@ -4718,10 +6560,13 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
         Returns:
             float: the value of `ratio_of_actual_surface_area_to_projected_surface_area` or None if not set
         """
-        return self._data["Ratio of Actual Surface Area to Projected Surface Area"]
+        return self._data[
+            "Ratio of Actual Surface Area to Projected Surface Area"]
 
     @ratio_of_actual_surface_area_to_projected_surface_area.setter
-    def ratio_of_actual_surface_area_to_projected_surface_area(self, value=1.0):
+    def ratio_of_actual_surface_area_to_projected_surface_area(
+            self,
+            value=1.0):
         """  Corresponds to IDD Field `Ratio of Actual Surface Area to Projected Surface Area`
         this parameter is used to help account for corrugations in the collector
 
@@ -4769,7 +6614,8 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
         Returns:
             float: the value of `effectiveness_for_perforations_with_respect_to_wind` or None if not set
         """
-        return self._data["Effectiveness for Perforations with Respect to Wind"]
+        return self._data[
+            "Effectiveness for Perforations with Respect to Wind"]
 
     @effectiveness_for_perforations_with_respect_to_wind.setter
     def effectiveness_for_perforations_with_respect_to_wind(self, value=0.25):
@@ -4789,16 +6635,20 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
         self["Effectiveness for Perforations with Respect to Wind"] = value
 
     @property
-    def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(self):
+    def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(
+            self):
         """Get discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow
 
         Returns:
             float: the value of `discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow` or None if not set
         """
-        return self._data["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"]
+        return self._data[
+            "Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"]
 
     @discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow.setter
-    def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(self, value=0.65):
+    def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(
+            self,
+            value=0.65):
         """  Corresponds to IDD Field `Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow`
 
         Args:
@@ -4812,7 +6662,8 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"] = value
+        self[
+            "Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"] = value
 
     def add_extensible(self,
                        surface_1_name=None,
@@ -4838,11 +6689,46 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
 
 
 class SurfacePropertySolarIncidentInside(DataObject):
+
     """ Corresponds to IDD object `SurfaceProperty:SolarIncidentInside`
         Used to provide incident solar radiation on the inside of the surface. Reference surface-construction pair
         and if that pair is used in a simulation, then program will use value provided in schedule instead of calculating it.
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceProperty:SolarIncidentInside', 'pyname': u'SurfacePropertySolarIncidentInside', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inside surface incident sun solar radiation schedule name', {'name': u'Inside Surface Incident Sun Solar Radiation Schedule Name', 'pyname': u'inside_surface_incident_sun_solar_radiation_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceProperty:SolarIncidentInside',
+              'pyname': u'SurfacePropertySolarIncidentInside',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'surface name',
+                                      {'name': u'Surface Name',
+                                       'pyname': u'surface_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'construction name',
+                                      {'name': u'Construction Name',
+                                       'pyname': u'construction_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'inside surface incident sun solar radiation schedule name',
+                                      {'name': u'Inside Surface Incident Sun Solar Radiation Schedule Name',
+                                       'pyname': u'inside_surface_incident_sun_solar_radiation_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:SolarIncidentInside`
@@ -4929,10 +6815,13 @@ class SurfacePropertySolarIncidentInside(DataObject):
         Returns:
             str: the value of `inside_surface_incident_sun_solar_radiation_schedule_name` or None if not set
         """
-        return self._data["Inside Surface Incident Sun Solar Radiation Schedule Name"]
+        return self._data[
+            "Inside Surface Incident Sun Solar Radiation Schedule Name"]
 
     @inside_surface_incident_sun_solar_radiation_schedule_name.setter
-    def inside_surface_incident_sun_solar_radiation_schedule_name(self, value=None):
+    def inside_surface_incident_sun_solar_radiation_schedule_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Inside Surface Incident Sun Solar Radiation Schedule Name`
 
         Args:
@@ -4943,15 +6832,79 @@ class SurfacePropertySolarIncidentInside(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Inside Surface Incident Sun Solar Radiation Schedule Name"] = value
+        self[
+            "Inside Surface Incident Sun Solar Radiation Schedule Name"] = value
 
 
 class ComplexFenestrationPropertySolarAbsorbedLayers(DataObject):
+
     """ Corresponds to IDD object `ComplexFenestrationProperty:SolarAbsorbedLayers`
         Used to provide solar radiation absorbed in fenestration layers. References surface-construction pair
         and if that pair is used in a simulation, then program will use value provided in schedules instead of calculating it.
     """
-    schema = {'min-fields': 0, 'name': u'ComplexFenestrationProperty:SolarAbsorbedLayers', 'pyname': u'ComplexFenestrationPropertySolarAbsorbedLayers', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fenestration surface', {'name': u'Fenestration Surface', 'pyname': u'fenestration_surface', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 1 solar radiation absorbed schedule name', {'name': u'Layer 1 Solar Radiation Absorbed Schedule Name', 'pyname': u'layer_1_solar_radiation_absorbed_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2 solar radiation absorbed schedule name', {'name': u'Layer 2 Solar Radiation Absorbed Schedule Name', 'pyname': u'layer_2_solar_radiation_absorbed_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3 solar radiation absorbed schedule name', {'name': u'Layer 3 Solar Radiation Absorbed Schedule Name', 'pyname': u'layer_3_solar_radiation_absorbed_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4 solar radiation absorbed schedule name', {'name': u'Layer 4 Solar Radiation Absorbed Schedule Name', 'pyname': u'layer_4_solar_radiation_absorbed_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5 solar radiation absorbed schedule name', {'name': u'Layer 5 Solar Radiation Absorbed Schedule Name', 'pyname': u'layer_5_solar_radiation_absorbed_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ComplexFenestrationProperty:SolarAbsorbedLayers',
+              'pyname': u'ComplexFenestrationPropertySolarAbsorbedLayers',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fenestration surface',
+                                      {'name': u'Fenestration Surface',
+                                       'pyname': u'fenestration_surface',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'construction name',
+                                      {'name': u'Construction Name',
+                                       'pyname': u'construction_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'layer 1 solar radiation absorbed schedule name',
+                                      {'name': u'Layer 1 Solar Radiation Absorbed Schedule Name',
+                                       'pyname': u'layer_1_solar_radiation_absorbed_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'layer 2 solar radiation absorbed schedule name',
+                                      {'name': u'Layer 2 Solar Radiation Absorbed Schedule Name',
+                                       'pyname': u'layer_2_solar_radiation_absorbed_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'layer 3 solar radiation absorbed schedule name',
+                                      {'name': u'Layer 3 Solar Radiation Absorbed Schedule Name',
+                                       'pyname': u'layer_3_solar_radiation_absorbed_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'layer 4 solar radiation absorbed schedule name',
+                                      {'name': u'Layer 4 Solar Radiation Absorbed Schedule Name',
+                                       'pyname': u'layer_4_solar_radiation_absorbed_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'layer 5 solar radiation absorbed schedule name',
+                                      {'name': u'Layer 5 Solar Radiation Absorbed Schedule Name',
+                                       'pyname': u'layer_5_solar_radiation_absorbed_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ComplexFenestrationProperty:SolarAbsorbedLayers`
@@ -5148,11 +7101,46 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(DataObject):
 
 
 class ZonePropertyUserViewFactorsBySurfaceName(DataObject):
+
     """ Corresponds to IDD object `ZoneProperty:UserViewFactors:bySurfaceName`
         View factors for Surface to Surface in a zone.
         (Number of Surfaces)**2 must be entered.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneProperty:UserViewFactors:bySurfaceName', 'pyname': u'ZonePropertyUserViewFactorsBySurfaceName', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'from surface 1', {'name': u'From Surface 1', 'pyname': u'from_surface_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'to surface 1', {'name': u'To Surface 1', 'pyname': u'to_surface_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'view factor 1', {'name': u'View Factor 1', 'pyname': u'view_factor_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ZoneProperty:UserViewFactors:bySurfaceName',
+              'pyname': u'ZonePropertyUserViewFactorsBySurfaceName',
+              'format': None,
+              'fields': OrderedDict([(u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict([(u'from surface 1',
+                                                 {'name': u'From Surface 1',
+                                                  'pyname': u'from_surface_1',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'object-list'}),
+                                                (u'to surface 1',
+                                                 {'name': u'To Surface 1',
+                                                  'pyname': u'to_surface_1',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'object-list'}),
+                                                (u'view factor 1',
+                                                 {'name': u'View Factor 1',
+                                                  'pyname': u'view_factor_1',
+                                                  'maximum': 1.0,
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'real'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneProperty:UserViewFactors:bySurfaceName`

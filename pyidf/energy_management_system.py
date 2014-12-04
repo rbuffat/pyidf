@@ -9,13 +9,41 @@ logger.addHandler(logging.NullHandler())
 
 
 class EnergyManagementSystemSensor(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:Sensor`
         Declares EMS variable as a sensor
         a list of output variables and meters that can be reported are available after a run on
         the report (.rdd) or meter dictionary file (.mdd) if the Output:VariableDictionary
         has been requested.
     """
-    schema = {'min-fields': 3, 'name': u'EnergyManagementSystem:Sensor', 'pyname': u'EnergyManagementSystemSensor', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'output:variable or output:meter index key name', {'name': u'Output:Variable or Output:Meter Index Key Name', 'pyname': u'outputvariable_or_outputmeter_index_key_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'output:variable or output:meter name', {'name': u'Output:Variable or Output:Meter Name', 'pyname': u'outputvariable_or_outputmeter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'EnergyManagementSystem:Sensor',
+              'pyname': u'EnergyManagementSystemSensor',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'output:variable or output:meter index key name',
+                                      {'name': u'Output:Variable or Output:Meter Index Key Name',
+                                       'pyname': u'outputvariable_or_outputmeter_index_key_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'output:variable or output:meter name',
+                                      {'name': u'Output:Variable or Output:Meter Name',
+                                       'pyname': u'outputvariable_or_outputmeter_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'external-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:Sensor`
@@ -99,10 +127,45 @@ class EnergyManagementSystemSensor(DataObject):
 
 
 class EnergyManagementSystemActuator(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:Actuator`
         Hardware portion of EMS used to set up actuators in the model
     """
-    schema = {'min-fields': 4, 'name': u'EnergyManagementSystem:Actuator', 'pyname': u'EnergyManagementSystemActuator', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'actuated component unique name', {'name': u'Actuated Component Unique Name', 'pyname': u'actuated_component_unique_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'actuated component type', {'name': u'Actuated Component Type', 'pyname': u'actuated_component_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'actuated component control type', {'name': u'Actuated Component Control Type', 'pyname': u'actuated_component_control_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'EnergyManagementSystem:Actuator',
+              'pyname': u'EnergyManagementSystemActuator',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'actuated component unique name',
+                                      {'name': u'Actuated Component Unique Name',
+                                       'pyname': u'actuated_component_unique_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'actuated component type',
+                                      {'name': u'Actuated Component Type',
+                                       'pyname': u'actuated_component_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'actuated component control type',
+                                      {'name': u'Actuated Component Control Type',
+                                       'pyname': u'actuated_component_control_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:Actuator`
@@ -209,12 +272,39 @@ class EnergyManagementSystemActuator(DataObject):
 
 
 class EnergyManagementSystemProgramCallingManager(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:ProgramCallingManager`
         Input EMS program. a program needs a name
         a description of when it should be called
         and then lines of program code for EMS Runtime language
     """
-    schema = {'min-fields': 3, 'name': u'EnergyManagementSystem:ProgramCallingManager', 'pyname': u'EnergyManagementSystemProgramCallingManager', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'energyplus model calling point', {'name': u'EnergyPlus Model Calling Point', 'pyname': u'energyplus_model_calling_point', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'program name 1', {'name': u'Program Name 1', 'pyname': u'program_name_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'EnergyManagementSystem:ProgramCallingManager',
+              'pyname': u'EnergyManagementSystemProgramCallingManager',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'energyplus model calling point',
+                                      {'name': u'EnergyPlus Model Calling Point',
+                                       'pyname': u'energyplus_model_calling_point',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict([(u'program name 1',
+                                                 {'name': u'Program Name 1',
+                                                  'pyname': u'program_name_1',
+                                                  'required-field': True,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'object-list'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:ProgramCallingManager`
@@ -296,11 +386,31 @@ class EnergyManagementSystemProgramCallingManager(DataObject):
 
 
 class EnergyManagementSystemProgram(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:Program`
         This input defines an Erl program
         Each field after the name is a line of EMS Runtime Language
     """
-    schema = {'min-fields': 2, 'name': u'EnergyManagementSystem:Program', 'pyname': u'EnergyManagementSystemProgram', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'program line 1', {'name': u'Program Line 1', 'pyname': u'program_line_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'EnergyManagementSystem:Program',
+              'pyname': u'EnergyManagementSystemProgram',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict([(u'program line 1',
+                                                 {'name': u'Program Line 1',
+                                                  'pyname': u'program_line_1',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'alpha'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:Program`
@@ -359,11 +469,31 @@ class EnergyManagementSystemProgram(DataObject):
 
 
 class EnergyManagementSystemSubroutine(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:Subroutine`
         This input defines an Erl program subroutine
         Each field after the name is a line of EMS Runtime Language
     """
-    schema = {'min-fields': 2, 'name': u'EnergyManagementSystem:Subroutine', 'pyname': u'EnergyManagementSystemSubroutine', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'program line', {'name': u'Program Line', 'pyname': u'program_line', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'EnergyManagementSystem:Subroutine',
+              'pyname': u'EnergyManagementSystemSubroutine',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict([(u'program line',
+                                                 {'name': u'Program Line',
+                                                  'pyname': u'program_line',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'alpha'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:Subroutine`
@@ -422,11 +552,25 @@ class EnergyManagementSystemSubroutine(DataObject):
 
 
 class EnergyManagementSystemGlobalVariable(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:GlobalVariable`
         Declares Erl variable as having global scope
         No spaces allowed in names used for Erl variables
     """
-    schema = {'min-fields': 1, 'name': u'EnergyManagementSystem:GlobalVariable', 'pyname': u'EnergyManagementSystemGlobalVariable', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict([(u'erl variable 1 name', {'name': u'Erl Variable 1 Name', 'pyname': u'erl_variable_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 1,
+              'name': u'EnergyManagementSystem:GlobalVariable',
+              'pyname': u'EnergyManagementSystemGlobalVariable',
+              'format': None,
+              'fields': OrderedDict(),
+              'extensible-fields': OrderedDict([(u'erl variable 1 name',
+                                                 {'name': u'Erl Variable 1 Name',
+                                                  'pyname': u'erl_variable_1_name',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'alpha'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:GlobalVariable`
@@ -449,7 +593,9 @@ class EnergyManagementSystemGlobalVariable(DataObject):
                 specification and is assumed to be a missing value
         """
         vals = []
-        erl_variable_1_name = self.check_value("Erl Variable 1 Name", erl_variable_1_name)
+        erl_variable_1_name = self.check_value(
+            "Erl Variable 1 Name",
+            erl_variable_1_name)
         vals.append(erl_variable_1_name)
         self._data["extensibles"].append(vals)
 
@@ -461,10 +607,59 @@ class EnergyManagementSystemGlobalVariable(DataObject):
 
 
 class EnergyManagementSystemOutputVariable(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:OutputVariable`
         This object sets up an EnergyPlus output variable from an Erl variable
     """
-    schema = {'min-fields': 4, 'name': u'EnergyManagementSystem:OutputVariable', 'pyname': u'EnergyManagementSystemOutputVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ems variable name', {'name': u'EMS Variable Name', 'pyname': u'ems_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'type of data in variable', {'name': u'Type of Data in Variable', 'pyname': u'type_of_data_in_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'update frequency', {'name': u'Update Frequency', 'pyname': u'update_frequency', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ems program or subroutine name', {'name': u'EMS Program or Subroutine Name', 'pyname': u'ems_program_or_subroutine_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'units', {'name': u'Units', 'pyname': u'units', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'EnergyManagementSystem:OutputVariable',
+              'pyname': u'EnergyManagementSystemOutputVariable',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'ems variable name',
+                                      {'name': u'EMS Variable Name',
+                                       'pyname': u'ems_variable_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'type of data in variable',
+                                      {'name': u'Type of Data in Variable',
+                                       'pyname': u'type_of_data_in_variable',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'update frequency',
+                                      {'name': u'Update Frequency',
+                                       'pyname': u'update_frequency',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'ems program or subroutine name',
+                                      {'name': u'EMS Program or Subroutine Name',
+                                       'pyname': u'ems_program_or_subroutine_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'units',
+                                      {'name': u'Units',
+                                       'pyname': u'units',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:OutputVariable`
@@ -619,10 +814,80 @@ class EnergyManagementSystemOutputVariable(DataObject):
 
 
 class EnergyManagementSystemMeteredOutputVariable(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:MeteredOutputVariable`
         This object sets up an EnergyPlus output variable from an Erl variable
     """
-    schema = {'min-fields': 7, 'name': u'EnergyManagementSystem:MeteredOutputVariable', 'pyname': u'EnergyManagementSystemMeteredOutputVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ems variable name', {'name': u'EMS Variable Name', 'pyname': u'ems_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'update frequency', {'name': u'Update Frequency', 'pyname': u'update_frequency', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ems program or subroutine name', {'name': u'EMS Program or Subroutine Name', 'pyname': u'ems_program_or_subroutine_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'resource type', {'name': u'Resource Type', 'pyname': u'resource_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'group type', {'name': u'Group Type', 'pyname': u'group_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'end-use category', {'name': u'End-Use Category', 'pyname': u'enduse_category', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'units', {'name': u'Units', 'pyname': u'units', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 7,
+              'name': u'EnergyManagementSystem:MeteredOutputVariable',
+              'pyname': u'EnergyManagementSystemMeteredOutputVariable',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'ems variable name',
+                                      {'name': u'EMS Variable Name',
+                                       'pyname': u'ems_variable_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'update frequency',
+                                      {'name': u'Update Frequency',
+                                       'pyname': u'update_frequency',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'ems program or subroutine name',
+                                      {'name': u'EMS Program or Subroutine Name',
+                                       'pyname': u'ems_program_or_subroutine_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'resource type',
+                                      {'name': u'Resource Type',
+                                       'pyname': u'resource_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'group type',
+                                      {'name': u'Group Type',
+                                       'pyname': u'group_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'end-use category',
+                                      {'name': u'End-Use Category',
+                                       'pyname': u'enduse_category',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'end-use subcategory',
+                                      {'name': u'End-Use Subcategory',
+                                       'pyname': u'enduse_subcategory',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'units',
+                                      {'name': u'Units',
+                                       'pyname': u'units',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:MeteredOutputVariable`
@@ -850,11 +1115,40 @@ class EnergyManagementSystemMeteredOutputVariable(DataObject):
 
 
 class EnergyManagementSystemTrendVariable(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:TrendVariable`
         This object sets up an EMS trend variable from an Erl variable
         A trend variable logs values across timesteps
     """
-    schema = {'min-fields': 3, 'name': u'EnergyManagementSystem:TrendVariable', 'pyname': u'EnergyManagementSystemTrendVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ems variable name', {'name': u'EMS Variable Name', 'pyname': u'ems_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'number of timesteps to be logged', {'name': u'Number of Timesteps to be Logged', 'pyname': u'number_of_timesteps_to_be_logged', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'EnergyManagementSystem:TrendVariable',
+              'pyname': u'EnergyManagementSystemTrendVariable',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'ems variable name',
+                                      {'name': u'EMS Variable Name',
+                                       'pyname': u'ems_variable_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'number of timesteps to be logged',
+                                      {'name': u'Number of Timesteps to be Logged',
+                                       'pyname': u'number_of_timesteps_to_be_logged',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:TrendVariable`
@@ -939,10 +1233,38 @@ class EnergyManagementSystemTrendVariable(DataObject):
 
 
 class EnergyManagementSystemInternalVariable(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:InternalVariable`
         Declares EMS variable as an internal data variable
     """
-    schema = {'min-fields': 3, 'name': u'EnergyManagementSystem:InternalVariable', 'pyname': u'EnergyManagementSystemInternalVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'internal data index key name', {'name': u'Internal Data Index Key Name', 'pyname': u'internal_data_index_key_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'internal data type', {'name': u'Internal Data Type', 'pyname': u'internal_data_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'EnergyManagementSystem:InternalVariable',
+              'pyname': u'EnergyManagementSystemInternalVariable',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'internal data index key name',
+                                      {'name': u'Internal Data Index Key Name',
+                                       'pyname': u'internal_data_index_key_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'internal data type',
+                                      {'name': u'Internal Data Type',
+                                       'pyname': u'internal_data_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:InternalVariable`
@@ -1026,10 +1348,31 @@ class EnergyManagementSystemInternalVariable(DataObject):
 
 
 class EnergyManagementSystemCurveOrTableIndexVariable(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:CurveOrTableIndexVariable`
         Declares EMS variable that identifies a curve or table
     """
-    schema = {'min-fields': 2, 'name': u'EnergyManagementSystem:CurveOrTableIndexVariable', 'pyname': u'EnergyManagementSystemCurveOrTableIndexVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'curve or table object name', {'name': u'Curve or Table Object Name', 'pyname': u'curve_or_table_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'EnergyManagementSystem:CurveOrTableIndexVariable',
+              'pyname': u'EnergyManagementSystemCurveOrTableIndexVariable',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'curve or table object name',
+                                      {'name': u'Curve or Table Object Name',
+                                       'pyname': u'curve_or_table_object_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:CurveOrTableIndexVariable`
@@ -1090,10 +1433,31 @@ class EnergyManagementSystemCurveOrTableIndexVariable(DataObject):
 
 
 class EnergyManagementSystemConstructionIndexVariable(DataObject):
+
     """ Corresponds to IDD object `EnergyManagementSystem:ConstructionIndexVariable`
         Declares EMS variable that identifies a construction
     """
-    schema = {'min-fields': 2, 'name': u'EnergyManagementSystem:ConstructionIndexVariable', 'pyname': u'EnergyManagementSystemConstructionIndexVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction object name', {'name': u'Construction Object Name', 'pyname': u'construction_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'EnergyManagementSystem:ConstructionIndexVariable',
+              'pyname': u'EnergyManagementSystemConstructionIndexVariable',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'construction object name',
+                                      {'name': u'Construction Object Name',
+                                       'pyname': u'construction_object_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:ConstructionIndexVariable`

@@ -9,10 +9,142 @@ logger.addHandler(logging.NullHandler())
 
 
 class AirflowNetworkSimulationControl(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:SimulationControl`
         This object defines the global parameters used in an Airflow Network simulation.
     """
-    schema = {'min-fields': 13, 'name': u'AirflowNetwork:SimulationControl', 'pyname': u'AirflowNetworkSimulationControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'airflownetwork control', {'name': u'AirflowNetwork Control', 'pyname': u'airflownetwork_control', 'default': u'NoMultizoneOrDistribution', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wind pressure coefficient type', {'name': u'Wind Pressure Coefficient Type', 'pyname': u'wind_pressure_coefficient_type', 'default': u'SurfaceAverageCalculation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'airflownetwork wind pressure coefficient array name', {'name': u'AirflowNetwork Wind Pressure Coefficient Array Name', 'pyname': u'airflownetwork_wind_pressure_coefficient_array_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'height selection for local wind pressure calculation', {'name': u'Height Selection for Local Wind Pressure Calculation', 'pyname': u'height_selection_for_local_wind_pressure_calculation', 'default': u'OpeningHeight', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'building type', {'name': u'Building Type', 'pyname': u'building_type', 'default': u'LowRise', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum number of iterations', {'name': u'Maximum Number of Iterations', 'pyname': u'maximum_number_of_iterations', 'default': 500, 'minimum>': 10, 'maximum': 30000, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'dimensionless'}), (u'initialization type', {'name': u'Initialization Type', 'pyname': u'initialization_type', 'default': u'ZeroNodePressures', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'relative airflow convergence tolerance', {'name': u'Relative Airflow Convergence Tolerance', 'pyname': u'relative_airflow_convergence_tolerance', 'default': 0.0001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'absolute airflow convergence tolerance', {'name': u'Absolute Airflow Convergence Tolerance', 'pyname': u'absolute_airflow_convergence_tolerance', 'default': 1e-06, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/s'}), (u'convergence acceleration limit', {'name': u'Convergence Acceleration Limit', 'pyname': u'convergence_acceleration_limit', 'default': -0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': -1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'azimuth angle of long axis of building', {'name': u'Azimuth Angle of Long Axis of Building', 'pyname': u'azimuth_angle_of_long_axis_of_building', 'default': 0.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'ratio of building width along short axis to width along long axis', {'name': u'Ratio of Building Width Along Short Axis to Width Along Long Axis', 'pyname': u'ratio_of_building_width_along_short_axis_to_width_along_long_axis', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'height dependence of external node temperature', {'name': u'Height Dependence of External Node Temperature', 'pyname': u'height_dependence_of_external_node_temperature', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 13,
+              'name': u'AirflowNetwork:SimulationControl',
+              'pyname': u'AirflowNetworkSimulationControl',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'airflownetwork control',
+                                      {'name': u'AirflowNetwork Control',
+                                       'pyname': u'airflownetwork_control',
+                                       'default': u'NoMultizoneOrDistribution',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'wind pressure coefficient type',
+                                      {'name': u'Wind Pressure Coefficient Type',
+                                       'pyname': u'wind_pressure_coefficient_type',
+                                       'default': u'SurfaceAverageCalculation',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'airflownetwork wind pressure coefficient array name',
+                                      {'name': u'AirflowNetwork Wind Pressure Coefficient Array Name',
+                                       'pyname': u'airflownetwork_wind_pressure_coefficient_array_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'height selection for local wind pressure calculation',
+                                      {'name': u'Height Selection for Local Wind Pressure Calculation',
+                                       'pyname': u'height_selection_for_local_wind_pressure_calculation',
+                                       'default': u'OpeningHeight',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'building type',
+                                      {'name': u'Building Type',
+                                       'pyname': u'building_type',
+                                       'default': u'LowRise',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'maximum number of iterations',
+                                      {'name': u'Maximum Number of Iterations',
+                                       'pyname': u'maximum_number_of_iterations',
+                                       'default': 500,
+                                       'minimum>': 10,
+                                       'maximum': 30000,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'integer',
+                                       'unit': u'dimensionless'}),
+                                     (u'initialization type',
+                                      {'name': u'Initialization Type',
+                                       'pyname': u'initialization_type',
+                                       'default': u'ZeroNodePressures',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'relative airflow convergence tolerance',
+                                      {'name': u'Relative Airflow Convergence Tolerance',
+                                       'pyname': u'relative_airflow_convergence_tolerance',
+                                       'default': 0.0001,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'absolute airflow convergence tolerance',
+                                      {'name': u'Absolute Airflow Convergence Tolerance',
+                                       'pyname': u'absolute_airflow_convergence_tolerance',
+                                       'default': 1e-06,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kg/s'}),
+                                     (u'convergence acceleration limit',
+                                      {'name': u'Convergence Acceleration Limit',
+                                       'pyname': u'convergence_acceleration_limit',
+                                       'default': -0.5,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -1.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'azimuth angle of long axis of building',
+                                      {'name': u'Azimuth Angle of Long Axis of Building',
+                                       'pyname': u'azimuth_angle_of_long_axis_of_building',
+                                       'default': 0.0,
+                                       'maximum': 180.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'ratio of building width along short axis to width along long axis',
+                                      {'name': u'Ratio of Building Width Along Short Axis to Width Along Long Axis',
+                                       'pyname': u'ratio_of_building_width_along_short_axis_to_width_along_long_axis',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'height dependence of external node temperature',
+                                      {'name': u'Height Dependence of External Node Temperature',
+                                       'pyname': u'height_dependence_of_external_node_temperature',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:SimulationControl`
@@ -94,7 +226,9 @@ class AirflowNetworkSimulationControl(DataObject):
         return self._data["Wind Pressure Coefficient Type"]
 
     @wind_pressure_coefficient_type.setter
-    def wind_pressure_coefficient_type(self, value="SurfaceAverageCalculation"):
+    def wind_pressure_coefficient_type(
+            self,
+            value="SurfaceAverageCalculation"):
         """  Corresponds to IDD Field `Wind Pressure Coefficient Type`
         Input: User must enter AirflowNetwork:MultiZone:WindPressureCoefficientArray,
         AirflowNetwork:MultiZone:ExternalNode, and
@@ -122,7 +256,8 @@ class AirflowNetworkSimulationControl(DataObject):
         Returns:
             str: the value of `airflownetwork_wind_pressure_coefficient_array_name` or None if not set
         """
-        return self._data["AirflowNetwork Wind Pressure Coefficient Array Name"]
+        return self._data[
+            "AirflowNetwork Wind Pressure Coefficient Array Name"]
 
     @airflownetwork_wind_pressure_coefficient_array_name.setter
     def airflownetwork_wind_pressure_coefficient_array_name(self, value=None):
@@ -146,10 +281,13 @@ class AirflowNetworkSimulationControl(DataObject):
         Returns:
             str: the value of `height_selection_for_local_wind_pressure_calculation` or None if not set
         """
-        return self._data["Height Selection for Local Wind Pressure Calculation"]
+        return self._data[
+            "Height Selection for Local Wind Pressure Calculation"]
 
     @height_selection_for_local_wind_pressure_calculation.setter
-    def height_selection_for_local_wind_pressure_calculation(self, value="OpeningHeight"):
+    def height_selection_for_local_wind_pressure_calculation(
+            self,
+            value="OpeningHeight"):
         """  Corresponds to IDD Field `Height Selection for Local Wind Pressure Calculation`
         If ExternalNode is selected, the height given in the
         AirflowNetwork:MultiZone:ExternalNode object will be used.
@@ -363,16 +501,20 @@ class AirflowNetworkSimulationControl(DataObject):
         self["Azimuth Angle of Long Axis of Building"] = value
 
     @property
-    def ratio_of_building_width_along_short_axis_to_width_along_long_axis(self):
+    def ratio_of_building_width_along_short_axis_to_width_along_long_axis(
+            self):
         """Get ratio_of_building_width_along_short_axis_to_width_along_long_axis
 
         Returns:
             float: the value of `ratio_of_building_width_along_short_axis_to_width_along_long_axis` or None if not set
         """
-        return self._data["Ratio of Building Width Along Short Axis to Width Along Long Axis"]
+        return self._data[
+            "Ratio of Building Width Along Short Axis to Width Along Long Axis"]
 
     @ratio_of_building_width_along_short_axis_to_width_along_long_axis.setter
-    def ratio_of_building_width_along_short_axis_to_width_along_long_axis(self, value=1.0):
+    def ratio_of_building_width_along_short_axis_to_width_along_long_axis(
+            self,
+            value=1.0):
         """  Corresponds to IDD Field `Ratio of Building Width Along Short Axis to Width Along Long Axis`
         Used only if Wind Pressure Coefficient Type = SurfaceAverageCalculation.
 
@@ -386,7 +528,8 @@ class AirflowNetworkSimulationControl(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Ratio of Building Width Along Short Axis to Width Along Long Axis"] = value
+        self[
+            "Ratio of Building Width Along Short Axis to Width Along Long Axis"] = value
 
     @property
     def height_dependence_of_external_node_temperature(self):
@@ -416,11 +559,118 @@ class AirflowNetworkSimulationControl(DataObject):
 
 
 class AirflowNetworkMultiZoneZone(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Zone`
         This object is used to simultaneously control a thermal zone's window and door openings,
         both exterior and interior.
     """
-    schema = {'min-fields': 8, 'name': u'AirflowNetwork:MultiZone:Zone', 'pyname': u'AirflowNetworkMultiZoneZone', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ventilation control mode', {'name': u'Ventilation Control Mode', 'pyname': u'ventilation_control_mode', 'default': u'NoVent', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ventilation control zone temperature setpoint schedule name', {'name': u'Ventilation Control Zone Temperature Setpoint Schedule Name', 'pyname': u'ventilation_control_zone_temperature_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum venting open factor', {'name': u'Minimum Venting Open Factor', 'pyname': u'minimum_venting_open_factor', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'indoor and outdoor temperature difference lower limit for maximum venting open factor', {'name': u'Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor', 'pyname': u'indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor', 'default': 0.0, 'maximum<': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'indoor and outdoor temperature difference upper limit for minimun venting open factor', {'name': u'Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor', 'pyname': u'indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor', 'default': 100.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'indoor and outdoor enthalpy difference lower limit for maximum venting open factor', {'name': u'Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor', 'pyname': u'indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor', 'default': 0.0, 'maximum<': 300000.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaJ/kg'}), (u'indoor and outdoor enthalpy difference upper limit for minimun venting open factor', {'name': u'Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor', 'pyname': u'indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor', 'default': 300000.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaJ/kg'}), (u'venting availability schedule name', {'name': u'Venting Availability Schedule Name', 'pyname': u'venting_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'single sided wind pressure coefficient algorithm', {'name': u'Single Sided Wind Pressure Coefficient Algorithm', 'pyname': u'single_sided_wind_pressure_coefficient_algorithm', 'default': u'Standard', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'facade width', {'name': u'Facade Width', 'pyname': u'facade_width', 'default': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 8,
+              'name': u'AirflowNetwork:MultiZone:Zone',
+              'pyname': u'AirflowNetworkMultiZoneZone',
+              'format': None,
+              'fields': OrderedDict([(u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'ventilation control mode',
+                                      {'name': u'Ventilation Control Mode',
+                                       'pyname': u'ventilation_control_mode',
+                                       'default': u'NoVent',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'ventilation control zone temperature setpoint schedule name',
+                                      {'name': u'Ventilation Control Zone Temperature Setpoint Schedule Name',
+                                       'pyname': u'ventilation_control_zone_temperature_setpoint_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum venting open factor',
+                                      {'name': u'Minimum Venting Open Factor',
+                                       'pyname': u'minimum_venting_open_factor',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'indoor and outdoor temperature difference lower limit for maximum venting open factor',
+                                      {'name': u'Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor',
+                                       'pyname': u'indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor',
+                                       'default': 0.0,
+                                       'maximum<': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'indoor and outdoor temperature difference upper limit for minimun venting open factor',
+                                      {'name': u'Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor',
+                                       'pyname': u'indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor',
+                                       'default': 100.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'indoor and outdoor enthalpy difference lower limit for maximum venting open factor',
+                                      {'name': u'Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor',
+                                       'pyname': u'indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor',
+                                       'default': 0.0,
+                                       'maximum<': 300000.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaJ/kg'}),
+                                     (u'indoor and outdoor enthalpy difference upper limit for minimun venting open factor',
+                                      {'name': u'Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor',
+                                       'pyname': u'indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor',
+                                       'default': 300000.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaJ/kg'}),
+                                     (u'venting availability schedule name',
+                                      {'name': u'Venting Availability Schedule Name',
+                                       'pyname': u'venting_availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'single sided wind pressure coefficient algorithm',
+                                      {'name': u'Single Sided Wind Pressure Coefficient Algorithm',
+                                       'pyname': u'single_sided_wind_pressure_coefficient_algorithm',
+                                       'default': u'Standard',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'facade width',
+                                      {'name': u'Facade Width',
+                                       'pyname': u'facade_width',
+                                       'default': 10.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Zone`
@@ -492,10 +742,13 @@ class AirflowNetworkMultiZoneZone(DataObject):
         Returns:
             str: the value of `ventilation_control_zone_temperature_setpoint_schedule_name` or None if not set
         """
-        return self._data["Ventilation Control Zone Temperature Setpoint Schedule Name"]
+        return self._data[
+            "Ventilation Control Zone Temperature Setpoint Schedule Name"]
 
     @ventilation_control_zone_temperature_setpoint_schedule_name.setter
-    def ventilation_control_zone_temperature_setpoint_schedule_name(self, value=None):
+    def ventilation_control_zone_temperature_setpoint_schedule_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Ventilation Control Zone Temperature Setpoint Schedule Name`
         Used only if Ventilation Control Mode = Temperature or Enthalpy.
 
@@ -507,7 +760,8 @@ class AirflowNetworkMultiZoneZone(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Ventilation Control Zone Temperature Setpoint Schedule Name"] = value
+        self[
+            "Ventilation Control Zone Temperature Setpoint Schedule Name"] = value
 
     @property
     def minimum_venting_open_factor(self):
@@ -536,16 +790,20 @@ class AirflowNetworkMultiZoneZone(DataObject):
         self["Minimum Venting Open Factor"] = value
 
     @property
-    def indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor(self):
+    def indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor(
+            self):
         """Get indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor
 
         Returns:
             float: the value of `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor` or None if not set
         """
-        return self._data["Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"]
+        return self._data[
+            "Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"]
 
     @indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor.setter
-    def indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor(self, value=None):
+    def indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor`
         Applicable only if Ventilation Control Mode = Temperature.
         This value must be less than the corresponding upper value (next field).
@@ -560,19 +818,24 @@ class AirflowNetworkMultiZoneZone(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"] = value
+        self[
+            "Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"] = value
 
     @property
-    def indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor(self):
+    def indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor(
+            self):
         """Get indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor
 
         Returns:
             float: the value of `indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor` or None if not set
         """
-        return self._data["Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"]
+        return self._data[
+            "Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"]
 
     @indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor.setter
-    def indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor(self, value=100.0):
+    def indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor(
+            self,
+            value=100.0):
         """  Corresponds to IDD Field `Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor`
         Applicable only if Ventilation Control Mode = Temperature.
         This value must be greater than the corresponding lower value (previous field).
@@ -587,19 +850,24 @@ class AirflowNetworkMultiZoneZone(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"] = value
+        self[
+            "Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"] = value
 
     @property
-    def indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor(self):
+    def indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor(
+            self):
         """Get indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor
 
         Returns:
             float: the value of `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor` or None if not set
         """
-        return self._data["Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"]
+        return self._data[
+            "Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"]
 
     @indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor.setter
-    def indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor(self, value=None):
+    def indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor`
         Applicable only if Ventilation Control Mode = Enthalpy.
         This value must be less than the corresponding upper value (next field).
@@ -614,19 +882,24 @@ class AirflowNetworkMultiZoneZone(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"] = value
+        self[
+            "Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"] = value
 
     @property
-    def indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor(self):
+    def indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor(
+            self):
         """Get indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor
 
         Returns:
             float: the value of `indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor` or None if not set
         """
-        return self._data["Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"]
+        return self._data[
+            "Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"]
 
     @indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor.setter
-    def indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor(self, value=300000.0):
+    def indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor(
+            self,
+            value=300000.0):
         """  Corresponds to IDD Field `Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor`
         Applicable only if Ventilation Control Mode = Enthalpy.
         This value must be greater than the corresponding lower value (previous field).
@@ -641,7 +914,8 @@ class AirflowNetworkMultiZoneZone(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"] = value
+        self[
+            "Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"] = value
 
     @property
     def venting_availability_schedule_name(self):
@@ -682,7 +956,9 @@ class AirflowNetworkMultiZoneZone(DataObject):
         return self._data["Single Sided Wind Pressure Coefficient Algorithm"]
 
     @single_sided_wind_pressure_coefficient_algorithm.setter
-    def single_sided_wind_pressure_coefficient_algorithm(self, value="Standard"):
+    def single_sided_wind_pressure_coefficient_algorithm(
+            self,
+            value="Standard"):
         """  Corresponds to IDD Field `Single Sided Wind Pressure Coefficient Algorithm`
         Selecting Advanced results in EnergyPlus calculating modified Wind Pressure Coefficients
         to account for wind direction and turbulence effects on single sided ventilation rates.
@@ -727,12 +1003,126 @@ class AirflowNetworkMultiZoneZone(DataObject):
 
 
 class AirflowNetworkMultiZoneSurface(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Surface`
         This object specifies the properties of a surface linkage through which air flows.
         Airflow Report: Node 1 as an inside face zone;
         Node 2 as an outside face zone or external node.
     """
-    schema = {'min-fields': 4, 'name': u'AirflowNetwork:MultiZone:Surface', 'pyname': u'AirflowNetworkMultiZoneSurface', 'format': None, 'fields': OrderedDict([(u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leakage component name', {'name': u'Leakage Component Name', 'pyname': u'leakage_component_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'external node name', {'name': u'External Node Name', 'pyname': u'external_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'window/door opening factor, or crack factor', {'name': u'Window/Door Opening Factor, or Crack Factor', 'pyname': u'window_or_door_opening_factor_or_crack_factor', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'ventilation control mode', {'name': u'Ventilation Control Mode', 'pyname': u'ventilation_control_mode', 'default': u'ZoneLevel', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ventilation control zone temperature setpoint schedule name', {'name': u'Ventilation Control Zone Temperature Setpoint Schedule Name', 'pyname': u'ventilation_control_zone_temperature_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum venting open factor', {'name': u'Minimum Venting Open Factor', 'pyname': u'minimum_venting_open_factor', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'indoor and outdoor temperature difference lower limit for maximum venting open factor', {'name': u'Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor', 'pyname': u'indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor', 'default': 0.0, 'maximum<': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'indoor and outdoor temperature difference upper limit for minimun venting open factor', {'name': u'Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor', 'pyname': u'indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor', 'default': 100.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'indoor and outdoor enthalpy difference lower limit for maximum venting open factor', {'name': u'Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor', 'pyname': u'indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor', 'default': 0.0, 'maximum<': 300000.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaJ/kg'}), (u'indoor and outdoor enthalpy difference upper limit for minimun venting open factor', {'name': u'Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor', 'pyname': u'indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor', 'default': 300000.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaJ/kg'}), (u'venting availability schedule name', {'name': u'Venting Availability Schedule Name', 'pyname': u'venting_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'AirflowNetwork:MultiZone:Surface',
+              'pyname': u'AirflowNetworkMultiZoneSurface',
+              'format': None,
+              'fields': OrderedDict([(u'surface name',
+                                      {'name': u'Surface Name',
+                                       'pyname': u'surface_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'leakage component name',
+                                      {'name': u'Leakage Component Name',
+                                       'pyname': u'leakage_component_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'external node name',
+                                      {'name': u'External Node Name',
+                                       'pyname': u'external_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'window/door opening factor, or crack factor',
+                                      {'name': u'Window/Door Opening Factor, or Crack Factor',
+                                       'pyname': u'window_or_door_opening_factor_or_crack_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'ventilation control mode',
+                                      {'name': u'Ventilation Control Mode',
+                                       'pyname': u'ventilation_control_mode',
+                                       'default': u'ZoneLevel',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'ventilation control zone temperature setpoint schedule name',
+                                      {'name': u'Ventilation Control Zone Temperature Setpoint Schedule Name',
+                                       'pyname': u'ventilation_control_zone_temperature_setpoint_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum venting open factor',
+                                      {'name': u'Minimum Venting Open Factor',
+                                       'pyname': u'minimum_venting_open_factor',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'indoor and outdoor temperature difference lower limit for maximum venting open factor',
+                                      {'name': u'Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor',
+                                       'pyname': u'indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor',
+                                       'default': 0.0,
+                                       'maximum<': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'indoor and outdoor temperature difference upper limit for minimun venting open factor',
+                                      {'name': u'Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor',
+                                       'pyname': u'indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor',
+                                       'default': 100.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'indoor and outdoor enthalpy difference lower limit for maximum venting open factor',
+                                      {'name': u'Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor',
+                                       'pyname': u'indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor',
+                                       'default': 0.0,
+                                       'maximum<': 300000.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaJ/kg'}),
+                                     (u'indoor and outdoor enthalpy difference upper limit for minimun venting open factor',
+                                      {'name': u'Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor',
+                                       'pyname': u'indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor',
+                                       'default': 300000.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaJ/kg'}),
+                                     (u'venting availability schedule name',
+                                      {'name': u'Venting Availability Schedule Name',
+                                       'pyname': u'venting_availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Surface`
@@ -895,10 +1285,13 @@ class AirflowNetworkMultiZoneSurface(DataObject):
         Returns:
             str: the value of `ventilation_control_zone_temperature_setpoint_schedule_name` or None if not set
         """
-        return self._data["Ventilation Control Zone Temperature Setpoint Schedule Name"]
+        return self._data[
+            "Ventilation Control Zone Temperature Setpoint Schedule Name"]
 
     @ventilation_control_zone_temperature_setpoint_schedule_name.setter
-    def ventilation_control_zone_temperature_setpoint_schedule_name(self, value=None):
+    def ventilation_control_zone_temperature_setpoint_schedule_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Ventilation Control Zone Temperature Setpoint Schedule Name`
         Used only if Ventilation Control Mode = Temperature or Enthalpy.
 
@@ -910,7 +1303,8 @@ class AirflowNetworkMultiZoneSurface(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Ventilation Control Zone Temperature Setpoint Schedule Name"] = value
+        self[
+            "Ventilation Control Zone Temperature Setpoint Schedule Name"] = value
 
     @property
     def minimum_venting_open_factor(self):
@@ -939,16 +1333,20 @@ class AirflowNetworkMultiZoneSurface(DataObject):
         self["Minimum Venting Open Factor"] = value
 
     @property
-    def indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor(self):
+    def indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor(
+            self):
         """Get indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor
 
         Returns:
             float: the value of `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor` or None if not set
         """
-        return self._data["Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"]
+        return self._data[
+            "Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"]
 
     @indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor.setter
-    def indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor(self, value=None):
+    def indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor`
         Applicable only if Ventilation Control Mode = Temperature
 
@@ -962,19 +1360,24 @@ class AirflowNetworkMultiZoneSurface(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"] = value
+        self[
+            "Indoor and Outdoor Temperature Difference Lower Limit For Maximum Venting Open Factor"] = value
 
     @property
-    def indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor(self):
+    def indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor(
+            self):
         """Get indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor
 
         Returns:
             float: the value of `indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor` or None if not set
         """
-        return self._data["Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"]
+        return self._data[
+            "Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"]
 
     @indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor.setter
-    def indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor(self, value=100.0):
+    def indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor(
+            self,
+            value=100.0):
         """  Corresponds to IDD Field `Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor`
         Applicable only if Ventilation Control Mode = Temperature.
         This value must be greater than the corresponding lower value (previous field).
@@ -989,19 +1392,24 @@ class AirflowNetworkMultiZoneSurface(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"] = value
+        self[
+            "Indoor and Outdoor Temperature Difference Upper Limit for Minimun Venting Open Factor"] = value
 
     @property
-    def indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor(self):
+    def indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor(
+            self):
         """Get indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor
 
         Returns:
             float: the value of `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor` or None if not set
         """
-        return self._data["Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"]
+        return self._data[
+            "Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"]
 
     @indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor.setter
-    def indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor(self, value=None):
+    def indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor`
         Applicable only if Ventilation Control Mode = Enthalpy.
         This value must be less than the corresponding upper value (next field).
@@ -1016,19 +1424,24 @@ class AirflowNetworkMultiZoneSurface(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"] = value
+        self[
+            "Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"] = value
 
     @property
-    def indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor(self):
+    def indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor(
+            self):
         """Get indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor
 
         Returns:
             float: the value of `indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor` or None if not set
         """
-        return self._data["Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"]
+        return self._data[
+            "Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"]
 
     @indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor.setter
-    def indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor(self, value=300000.0):
+    def indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor(
+            self,
+            value=300000.0):
         """  Corresponds to IDD Field `Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor`
         Applicable only if Ventilation Control Mode = Enthalpy.
         This value must be greater than the corresponding lower value (previous field).
@@ -1043,7 +1456,8 @@ class AirflowNetworkMultiZoneSurface(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"] = value
+        self[
+            "Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"] = value
 
     @property
     def venting_availability_schedule_name(self):
@@ -1076,10 +1490,53 @@ class AirflowNetworkMultiZoneSurface(DataObject):
 
 
 class AirflowNetworkMultiZoneReferenceCrackConditions(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:ReferenceCrackConditions`
         This object specifies the conditions under which the air mass flow coefficient was measured.
     """
-    schema = {'min-fields': 4, 'name': u'AirflowNetwork:MultiZone:ReferenceCrackConditions', 'pyname': u'AirflowNetworkMultiZoneReferenceCrackConditions', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'reference temperature', {'name': u'Reference Temperature', 'pyname': u'reference_temperature', 'default': 20.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference barometric pressure', {'name': u'Reference Barometric Pressure', 'pyname': u'reference_barometric_pressure', 'default': 101325.0, 'maximum': 120000.0, 'required-field': False, 'autosizable': False, 'minimum': 31000.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'reference humidity ratio', {'name': u'Reference Humidity Ratio', 'pyname': u'reference_humidity_ratio', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'AirflowNetwork:MultiZone:ReferenceCrackConditions',
+              'pyname': u'AirflowNetworkMultiZoneReferenceCrackConditions',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'reference temperature',
+                                      {'name': u'Reference Temperature',
+                                       'pyname': u'reference_temperature',
+                                       'default': 20.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'reference barometric pressure',
+                                      {'name': u'Reference Barometric Pressure',
+                                       'pyname': u'reference_barometric_pressure',
+                                       'default': 101325.0,
+                                       'maximum': 120000.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 31000.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'Pa'}),
+                                     (u'reference humidity ratio',
+                                      {'name': u'Reference Humidity Ratio',
+                                       'pyname': u'reference_humidity_ratio',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kgWater/kgDryAir'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:ReferenceCrackConditions`
@@ -1196,10 +1653,51 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(DataObject):
 
 
 class AirflowNetworkMultiZoneSurfaceCrack(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Surface:Crack`
         This object specifies the properties of airflow through a crack.
     """
-    schema = {'min-fields': 3, 'name': u'AirflowNetwork:MultiZone:Surface:Crack', 'pyname': u'AirflowNetworkMultiZoneSurfaceCrack', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'air mass flow coefficient at reference conditions', {'name': u'Air Mass Flow Coefficient at Reference Conditions', 'pyname': u'air_mass_flow_coefficient_at_reference_conditions', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/s'}), (u'air mass flow exponent', {'name': u'Air Mass Flow Exponent', 'pyname': u'air_mass_flow_exponent', 'default': 0.65, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'reference crack conditions', {'name': u'Reference Crack Conditions', 'pyname': u'reference_crack_conditions', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'AirflowNetwork:MultiZone:Surface:Crack',
+              'pyname': u'AirflowNetworkMultiZoneSurfaceCrack',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'air mass flow coefficient at reference conditions',
+                                      {'name': u'Air Mass Flow Coefficient at Reference Conditions',
+                                       'pyname': u'air_mass_flow_coefficient_at_reference_conditions',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kg/s'}),
+                                     (u'air mass flow exponent',
+                                      {'name': u'Air Mass Flow Exponent',
+                                       'pyname': u'air_mass_flow_exponent',
+                                       'default': 0.65,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.5,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'reference crack conditions',
+                                      {'name': u'Reference Crack Conditions',
+                                       'pyname': u'reference_crack_conditions',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Surface:Crack`
@@ -1316,10 +1814,64 @@ class AirflowNetworkMultiZoneSurfaceCrack(DataObject):
 
 
 class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea`
         This object is used to define surface air leakage.
     """
-    schema = {'min-fields': 5, 'name': u'AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea', 'pyname': u'AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'effective leakage area', {'name': u'Effective Leakage Area', 'pyname': u'effective_leakage_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'discharge coefficient', {'name': u'Discharge Coefficient', 'pyname': u'discharge_coefficient', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'reference pressure difference', {'name': u'Reference Pressure Difference', 'pyname': u'reference_pressure_difference', 'default': 4.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'air mass flow exponent', {'name': u'Air Mass Flow Exponent', 'pyname': u'air_mass_flow_exponent', 'default': 0.65, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5,
+              'name': u'AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea',
+              'pyname': u'AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'effective leakage area',
+                                      {'name': u'Effective Leakage Area',
+                                       'pyname': u'effective_leakage_area',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'discharge coefficient',
+                                      {'name': u'Discharge Coefficient',
+                                       'pyname': u'discharge_coefficient',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'reference pressure difference',
+                                      {'name': u'Reference Pressure Difference',
+                                       'pyname': u'reference_pressure_difference',
+                                       'default': 4.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'Pa'}),
+                                     (u'air mass flow exponent',
+                                      {'name': u'Air Mass Flow Exponent',
+                                       'pyname': u'air_mass_flow_exponent',
+                                       'default': 0.65,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.5,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea`
@@ -1461,11 +2013,289 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(DataObject):
 
 
 class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:DetailedOpening`
         This object specifies the properties of airflow through windows and doors (window, door and
         glass door heat transfer subsurfaces) when they are closed or open.
     """
-    schema = {'min-fields': 16, 'name': u'AirflowNetwork:MultiZone:Component:DetailedOpening', 'pyname': u'AirflowNetworkMultiZoneComponentDetailedOpening', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'air mass flow coefficient when opening is closed', {'name': u'Air Mass Flow Coefficient When Opening is Closed', 'pyname': u'air_mass_flow_coefficient_when_opening_is_closed', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/s-m'}), (u'air mass flow exponent when opening is closed', {'name': u'Air Mass Flow Exponent When Opening is Closed', 'pyname': u'air_mass_flow_exponent_when_opening_is_closed', 'default': 0.65, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'type of rectanguler large vertical opening (lvo)', {'name': u'Type of Rectanguler Large Vertical Opening (LVO)', 'pyname': u'type_of_rectanguler_large_vertical_opening_lvo', 'default': u'NonPivoted', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'extra crack length or height of pivoting axis', {'name': u'Extra Crack Length or Height of Pivoting Axis', 'pyname': u'extra_crack_length_or_height_of_pivoting_axis', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'number of sets of opening factor data', {'name': u'Number of Sets of Opening Factor Data', 'pyname': u'number_of_sets_of_opening_factor_data', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 2, 'autocalculatable': False, 'type': u'integer'}), (u'opening factor 1', {'name': u'Opening Factor 1', 'pyname': u'opening_factor_1', 'default': 0.0, 'maximum': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'discharge coefficient for opening factor 1', {'name': u'Discharge Coefficient for Opening Factor 1', 'pyname': u'discharge_coefficient_for_opening_factor_1', 'default': 0.001, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'width factor for opening factor 1', {'name': u'Width Factor for Opening Factor 1', 'pyname': u'width_factor_for_opening_factor_1', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'height factor for opening factor 1', {'name': u'Height Factor for Opening Factor 1', 'pyname': u'height_factor_for_opening_factor_1', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'start height factor for opening factor 1', {'name': u'Start Height Factor for Opening Factor 1', 'pyname': u'start_height_factor_for_opening_factor_1', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'opening factor 2', {'name': u'Opening Factor 2', 'pyname': u'opening_factor_2', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'discharge coefficient for opening factor 2', {'name': u'Discharge Coefficient for Opening Factor 2', 'pyname': u'discharge_coefficient_for_opening_factor_2', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'width factor for opening factor 2', {'name': u'Width Factor for Opening Factor 2', 'pyname': u'width_factor_for_opening_factor_2', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'height factor for opening factor 2', {'name': u'Height Factor for Opening Factor 2', 'pyname': u'height_factor_for_opening_factor_2', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'start height factor for opening factor 2', {'name': u'Start Height Factor for Opening Factor 2', 'pyname': u'start_height_factor_for_opening_factor_2', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'opening factor 3', {'name': u'Opening Factor 3', 'pyname': u'opening_factor_3', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'discharge coefficient for opening factor 3', {'name': u'Discharge Coefficient for Opening Factor 3', 'pyname': u'discharge_coefficient_for_opening_factor_3', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'width factor for opening factor 3', {'name': u'Width Factor for Opening Factor 3', 'pyname': u'width_factor_for_opening_factor_3', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'height factor for opening factor 3', {'name': u'Height Factor for Opening Factor 3', 'pyname': u'height_factor_for_opening_factor_3', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'start height factor for opening factor 3', {'name': u'Start Height Factor for Opening Factor 3', 'pyname': u'start_height_factor_for_opening_factor_3', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'opening factor 4', {'name': u'Opening Factor 4', 'pyname': u'opening_factor_4', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'discharge coefficient for opening factor 4', {'name': u'Discharge Coefficient for Opening Factor 4', 'pyname': u'discharge_coefficient_for_opening_factor_4', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'width factor for opening factor 4', {'name': u'Width Factor for Opening Factor 4', 'pyname': u'width_factor_for_opening_factor_4', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'height factor for opening factor 4', {'name': u'Height Factor for Opening Factor 4', 'pyname': u'height_factor_for_opening_factor_4', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'start height factor for opening factor 4', {'name': u'Start Height Factor for Opening Factor 4', 'pyname': u'start_height_factor_for_opening_factor_4', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 16,
+              'name': u'AirflowNetwork:MultiZone:Component:DetailedOpening',
+              'pyname': u'AirflowNetworkMultiZoneComponentDetailedOpening',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'air mass flow coefficient when opening is closed',
+                                      {'name': u'Air Mass Flow Coefficient When Opening is Closed',
+                                       'pyname': u'air_mass_flow_coefficient_when_opening_is_closed',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kg/s-m'}),
+                                     (u'air mass flow exponent when opening is closed',
+                                      {'name': u'Air Mass Flow Exponent When Opening is Closed',
+                                       'pyname': u'air_mass_flow_exponent_when_opening_is_closed',
+                                       'default': 0.65,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.5,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'type of rectanguler large vertical opening (lvo)',
+                                      {'name': u'Type of Rectanguler Large Vertical Opening (LVO)',
+                                       'pyname': u'type_of_rectanguler_large_vertical_opening_lvo',
+                                       'default': u'NonPivoted',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'extra crack length or height of pivoting axis',
+                                      {'name': u'Extra Crack Length or Height of Pivoting Axis',
+                                       'pyname': u'extra_crack_length_or_height_of_pivoting_axis',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'number of sets of opening factor data',
+                                      {'name': u'Number of Sets of Opening Factor Data',
+                                       'pyname': u'number_of_sets_of_opening_factor_data',
+                                       'maximum': 4,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 2,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'opening factor 1',
+                                      {'name': u'Opening Factor 1',
+                                       'pyname': u'opening_factor_1',
+                                       'default': 0.0,
+                                       'maximum': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'discharge coefficient for opening factor 1',
+                                      {'name': u'Discharge Coefficient for Opening Factor 1',
+                                       'pyname': u'discharge_coefficient_for_opening_factor_1',
+                                       'default': 0.001,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'width factor for opening factor 1',
+                                      {'name': u'Width Factor for Opening Factor 1',
+                                       'pyname': u'width_factor_for_opening_factor_1',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'height factor for opening factor 1',
+                                      {'name': u'Height Factor for Opening Factor 1',
+                                       'pyname': u'height_factor_for_opening_factor_1',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'start height factor for opening factor 1',
+                                      {'name': u'Start Height Factor for Opening Factor 1',
+                                       'pyname': u'start_height_factor_for_opening_factor_1',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'opening factor 2',
+                                      {'name': u'Opening Factor 2',
+                                       'pyname': u'opening_factor_2',
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'discharge coefficient for opening factor 2',
+                                      {'name': u'Discharge Coefficient for Opening Factor 2',
+                                       'pyname': u'discharge_coefficient_for_opening_factor_2',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'width factor for opening factor 2',
+                                      {'name': u'Width Factor for Opening Factor 2',
+                                       'pyname': u'width_factor_for_opening_factor_2',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'height factor for opening factor 2',
+                                      {'name': u'Height Factor for Opening Factor 2',
+                                       'pyname': u'height_factor_for_opening_factor_2',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'start height factor for opening factor 2',
+                                      {'name': u'Start Height Factor for Opening Factor 2',
+                                       'pyname': u'start_height_factor_for_opening_factor_2',
+                                       'default': 0.0,
+                                       'maximum<': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'opening factor 3',
+                                      {'name': u'Opening Factor 3',
+                                       'pyname': u'opening_factor_3',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'discharge coefficient for opening factor 3',
+                                      {'name': u'Discharge Coefficient for Opening Factor 3',
+                                       'pyname': u'discharge_coefficient_for_opening_factor_3',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'width factor for opening factor 3',
+                                      {'name': u'Width Factor for Opening Factor 3',
+                                       'pyname': u'width_factor_for_opening_factor_3',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'height factor for opening factor 3',
+                                      {'name': u'Height Factor for Opening Factor 3',
+                                       'pyname': u'height_factor_for_opening_factor_3',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'start height factor for opening factor 3',
+                                      {'name': u'Start Height Factor for Opening Factor 3',
+                                       'pyname': u'start_height_factor_for_opening_factor_3',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'opening factor 4',
+                                      {'name': u'Opening Factor 4',
+                                       'pyname': u'opening_factor_4',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'discharge coefficient for opening factor 4',
+                                      {'name': u'Discharge Coefficient for Opening Factor 4',
+                                       'pyname': u'discharge_coefficient_for_opening_factor_4',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'width factor for opening factor 4',
+                                      {'name': u'Width Factor for Opening Factor 4',
+                                       'pyname': u'width_factor_for_opening_factor_4',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'height factor for opening factor 4',
+                                      {'name': u'Height Factor for Opening Factor 4',
+                                       'pyname': u'height_factor_for_opening_factor_4',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'start height factor for opening factor 4',
+                                      {'name': u'Start Height Factor for Opening Factor 4',
+                                       'pyname': u'start_height_factor_for_opening_factor_4',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:DetailedOpening`
@@ -1568,7 +2398,9 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
         return self._data["Type of Rectanguler Large Vertical Opening (LVO)"]
 
     @type_of_rectanguler_large_vertical_opening_lvo.setter
-    def type_of_rectanguler_large_vertical_opening_lvo(self, value="NonPivoted"):
+    def type_of_rectanguler_large_vertical_opening_lvo(
+            self,
+            value="NonPivoted"):
         """  Corresponds to IDD Field `Type of Rectanguler Large Vertical Opening (LVO)`
         Select the type of vertical opening: Non-pivoted opening or Horizontally pivoted opening.
 
@@ -2193,11 +3025,63 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
 
 
 class AirflowNetworkMultiZoneComponentSimpleOpening(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:SimpleOpening`
         This object specifies the properties of air flow through windows and doors (window, door and
         glass door heat transfer subsurfaces) when they are closed or open.
     """
-    schema = {'min-fields': 5, 'name': u'AirflowNetwork:MultiZone:Component:SimpleOpening', 'pyname': u'AirflowNetworkMultiZoneComponentSimpleOpening', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'air mass flow coefficient when opening is closed', {'name': u'Air Mass Flow Coefficient When Opening is Closed', 'pyname': u'air_mass_flow_coefficient_when_opening_is_closed', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/s-m'}), (u'air mass flow exponent when opening is closed', {'name': u'Air Mass Flow Exponent When Opening is Closed', 'pyname': u'air_mass_flow_exponent_when_opening_is_closed', 'default': 0.65, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'minimum density difference for two-way flow', {'name': u'Minimum Density Difference for Two-Way Flow', 'pyname': u'minimum_density_difference_for_twoway_flow', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m3'}), (u'discharge coefficient', {'name': u'Discharge Coefficient', 'pyname': u'discharge_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5,
+              'name': u'AirflowNetwork:MultiZone:Component:SimpleOpening',
+              'pyname': u'AirflowNetworkMultiZoneComponentSimpleOpening',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'air mass flow coefficient when opening is closed',
+                                      {'name': u'Air Mass Flow Coefficient When Opening is Closed',
+                                       'pyname': u'air_mass_flow_coefficient_when_opening_is_closed',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kg/s-m'}),
+                                     (u'air mass flow exponent when opening is closed',
+                                      {'name': u'Air Mass Flow Exponent When Opening is Closed',
+                                       'pyname': u'air_mass_flow_exponent_when_opening_is_closed',
+                                       'default': 0.65,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.5,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'minimum density difference for two-way flow',
+                                      {'name': u'Minimum Density Difference for Two-Way Flow',
+                                       'pyname': u'minimum_density_difference_for_twoway_flow',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kg/m3'}),
+                                     (u'discharge coefficient',
+                                      {'name': u'Discharge Coefficient',
+                                       'pyname': u'discharge_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:SimpleOpening`
@@ -2342,10 +3226,64 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(DataObject):
 
 
 class AirflowNetworkMultiZoneComponentHorizontalOpening(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:HorizontalOpening`
         This object specifies the properties of air flow through a horizontal opening
     """
-    schema = {'min-fields': 5, 'name': u'AirflowNetwork:MultiZone:Component:HorizontalOpening', 'pyname': u'AirflowNetworkMultiZoneComponentHorizontalOpening', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'air mass flow coefficient when opening is closed', {'name': u'Air Mass Flow Coefficient When Opening is Closed', 'pyname': u'air_mass_flow_coefficient_when_opening_is_closed', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/s-m'}), (u'air mass flow exponent when opening is closed', {'name': u'Air Mass Flow Exponent When Opening is Closed', 'pyname': u'air_mass_flow_exponent_when_opening_is_closed', 'default': 0.65, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sloping plane angle', {'name': u'Sloping Plane Angle', 'pyname': u'sloping_plane_angle', 'default': 90.0, 'minimum>': 0.0, 'maximum': 90.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'discharge coefficient', {'name': u'Discharge Coefficient', 'pyname': u'discharge_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5,
+              'name': u'AirflowNetwork:MultiZone:Component:HorizontalOpening',
+              'pyname': u'AirflowNetworkMultiZoneComponentHorizontalOpening',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'air mass flow coefficient when opening is closed',
+                                      {'name': u'Air Mass Flow Coefficient When Opening is Closed',
+                                       'pyname': u'air_mass_flow_coefficient_when_opening_is_closed',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kg/s-m'}),
+                                     (u'air mass flow exponent when opening is closed',
+                                      {'name': u'Air Mass Flow Exponent When Opening is Closed',
+                                       'pyname': u'air_mass_flow_exponent_when_opening_is_closed',
+                                       'default': 0.65,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.5,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'sloping plane angle',
+                                      {'name': u'Sloping Plane Angle',
+                                       'pyname': u'sloping_plane_angle',
+                                       'default': 90.0,
+                                       'minimum>': 0.0,
+                                       'maximum': 90.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'discharge coefficient',
+                                      {'name': u'Discharge Coefficient',
+                                       'pyname': u'discharge_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:HorizontalOpening`
@@ -2492,11 +3430,52 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(DataObject):
 
 
 class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:ZoneExhaustFan`
         This object specifies the additional properties for a zone exhaust fan
         to perform multizone airflow calculations.
     """
-    schema = {'min-fields': 3, 'name': u'AirflowNetwork:MultiZone:Component:ZoneExhaustFan', 'pyname': u'AirflowNetworkMultiZoneComponentZoneExhaustFan', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air mass flow coefficient when the zone exhaust fan is off at reference conditions', {'name': u'Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions', 'pyname': u'air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/s'}), (u'air mass flow exponent when the zone exhaust fan is off', {'name': u'Air Mass Flow Exponent When the Zone Exhaust Fan is Off', 'pyname': u'air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off', 'default': 0.65, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'reference crack conditions', {'name': u'Reference Crack Conditions', 'pyname': u'reference_crack_conditions', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'AirflowNetwork:MultiZone:Component:ZoneExhaustFan',
+              'pyname': u'AirflowNetworkMultiZoneComponentZoneExhaustFan',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'air mass flow coefficient when the zone exhaust fan is off at reference conditions',
+                                      {'name': u'Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions',
+                                       'pyname': u'air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kg/s'}),
+                                     (u'air mass flow exponent when the zone exhaust fan is off',
+                                      {'name': u'Air Mass Flow Exponent When the Zone Exhaust Fan is Off',
+                                       'pyname': u'air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off',
+                                       'default': 0.65,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.5,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'reference crack conditions',
+                                      {'name': u'Reference Crack Conditions',
+                                       'pyname': u'reference_crack_conditions',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:ZoneExhaustFan`
@@ -2532,16 +3511,20 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
         self["Name"] = value
 
     @property
-    def air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions(self):
+    def air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions(
+            self):
         """Get air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions
 
         Returns:
             float: the value of `air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions` or None if not set
         """
-        return self._data["Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions"]
+        return self._data[
+            "Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions"]
 
     @air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions.setter
-    def air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions(self, value=None):
+    def air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions`
         Enter the air mass flow coefficient at the conditions defined
         in the Reference Crack Conditions object.
@@ -2559,7 +3542,8 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions"] = value
+        self[
+            "Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions"] = value
 
     @property
     def air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off(self):
@@ -2568,10 +3552,13 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
         Returns:
             float: the value of `air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off` or None if not set
         """
-        return self._data["Air Mass Flow Exponent When the Zone Exhaust Fan is Off"]
+        return self._data[
+            "Air Mass Flow Exponent When the Zone Exhaust Fan is Off"]
 
     @air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off.setter
-    def air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off(self, value=0.65):
+    def air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off(
+            self,
+            value=0.65):
         """  Corresponds to IDD Field `Air Mass Flow Exponent When the Zone Exhaust Fan is Off`
         Enter the exponent used in the following equation:
         Mass Flow Rate = Air Mass Flow Coefficient * (dP)^Air Mass Flow Exponent.
@@ -2618,10 +3605,40 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
 
 
 class AirflowNetworkMultiZoneExternalNode(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:ExternalNode`
         This object defines outdoor environmental conditions outside of the building.
     """
-    schema = {'min-fields': 3, 'name': u'AirflowNetwork:MultiZone:ExternalNode', 'pyname': u'AirflowNetworkMultiZoneExternalNode', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'external node height', {'name': u'External Node Height', 'pyname': u'external_node_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'wind pressure coefficient values object name', {'name': u'Wind Pressure Coefficient Values Object Name', 'pyname': u'wind_pressure_coefficient_values_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'AirflowNetwork:MultiZone:ExternalNode',
+              'pyname': u'AirflowNetworkMultiZoneExternalNode',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'external node height',
+                                      {'name': u'External Node Height',
+                                       'pyname': u'external_node_height',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'wind pressure coefficient values object name',
+                                      {'name': u'Wind Pressure Coefficient Values Object Name',
+                                       'pyname': u'wind_pressure_coefficient_values_object_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:ExternalNode`
@@ -2708,13 +3725,387 @@ class AirflowNetworkMultiZoneExternalNode(DataObject):
 
 
 class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:WindPressureCoefficientArray`
         Used only if Wind Pressure Coefficient (WPC) Type = Input in the AirflowNetwork:SimulationControl
         object. Number of WPC Values in the corresponding AirflowNetwork:MultiZone:WindPressureCoefficientValues
         object must be the same as the number of wind directions specified for
         this AirflowNetwork:MultiZone:WindPressureCoefficientArray object.
     """
-    schema = {'min-fields': 3, 'name': u'AirflowNetwork:MultiZone:WindPressureCoefficientArray', 'pyname': u'AirflowNetworkMultiZoneWindPressureCoefficientArray', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'wind direction 1', {'name': u'Wind Direction 1', 'pyname': u'wind_direction_1', 'maximum': 360.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 2', {'name': u'Wind Direction 2', 'pyname': u'wind_direction_2', 'maximum': 360.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 3', {'name': u'Wind Direction 3', 'pyname': u'wind_direction_3', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 4', {'name': u'Wind Direction 4', 'pyname': u'wind_direction_4', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 5', {'name': u'Wind Direction 5', 'pyname': u'wind_direction_5', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 6', {'name': u'Wind Direction 6', 'pyname': u'wind_direction_6', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 7', {'name': u'Wind Direction 7', 'pyname': u'wind_direction_7', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 8', {'name': u'Wind Direction 8', 'pyname': u'wind_direction_8', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 9', {'name': u'Wind Direction 9', 'pyname': u'wind_direction_9', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 10', {'name': u'Wind Direction 10', 'pyname': u'wind_direction_10', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 11', {'name': u'Wind Direction 11', 'pyname': u'wind_direction_11', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 12', {'name': u'Wind Direction 12', 'pyname': u'wind_direction_12', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 13', {'name': u'Wind Direction 13', 'pyname': u'wind_direction_13', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 14', {'name': u'Wind Direction 14', 'pyname': u'wind_direction_14', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 15', {'name': u'Wind Direction 15', 'pyname': u'wind_direction_15', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 16', {'name': u'Wind Direction 16', 'pyname': u'wind_direction_16', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 17', {'name': u'Wind Direction 17', 'pyname': u'wind_direction_17', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 18', {'name': u'Wind Direction 18', 'pyname': u'wind_direction_18', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 19', {'name': u'Wind Direction 19', 'pyname': u'wind_direction_19', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 20', {'name': u'Wind Direction 20', 'pyname': u'wind_direction_20', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 21', {'name': u'Wind Direction 21', 'pyname': u'wind_direction_21', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 22', {'name': u'Wind Direction 22', 'pyname': u'wind_direction_22', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 23', {'name': u'Wind Direction 23', 'pyname': u'wind_direction_23', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 24', {'name': u'Wind Direction 24', 'pyname': u'wind_direction_24', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 25', {'name': u'Wind Direction 25', 'pyname': u'wind_direction_25', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 26', {'name': u'Wind Direction 26', 'pyname': u'wind_direction_26', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 27', {'name': u'Wind Direction 27', 'pyname': u'wind_direction_27', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 28', {'name': u'Wind Direction 28', 'pyname': u'wind_direction_28', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 29', {'name': u'Wind Direction 29', 'pyname': u'wind_direction_29', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 30', {'name': u'Wind Direction 30', 'pyname': u'wind_direction_30', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 31', {'name': u'Wind Direction 31', 'pyname': u'wind_direction_31', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 32', {'name': u'Wind Direction 32', 'pyname': u'wind_direction_32', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 33', {'name': u'Wind Direction 33', 'pyname': u'wind_direction_33', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 34', {'name': u'Wind Direction 34', 'pyname': u'wind_direction_34', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 35', {'name': u'Wind Direction 35', 'pyname': u'wind_direction_35', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'wind direction 36', {'name': u'Wind Direction 36', 'pyname': u'wind_direction_36', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'AirflowNetwork:MultiZone:WindPressureCoefficientArray',
+              'pyname': u'AirflowNetworkMultiZoneWindPressureCoefficientArray',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'wind direction 1',
+                                      {'name': u'Wind Direction 1',
+                                       'pyname': u'wind_direction_1',
+                                       'maximum': 360.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 2',
+                                      {'name': u'Wind Direction 2',
+                                       'pyname': u'wind_direction_2',
+                                       'maximum': 360.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 3',
+                                      {'name': u'Wind Direction 3',
+                                       'pyname': u'wind_direction_3',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 4',
+                                      {'name': u'Wind Direction 4',
+                                       'pyname': u'wind_direction_4',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 5',
+                                      {'name': u'Wind Direction 5',
+                                       'pyname': u'wind_direction_5',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 6',
+                                      {'name': u'Wind Direction 6',
+                                       'pyname': u'wind_direction_6',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 7',
+                                      {'name': u'Wind Direction 7',
+                                       'pyname': u'wind_direction_7',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 8',
+                                      {'name': u'Wind Direction 8',
+                                       'pyname': u'wind_direction_8',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 9',
+                                      {'name': u'Wind Direction 9',
+                                       'pyname': u'wind_direction_9',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 10',
+                                      {'name': u'Wind Direction 10',
+                                       'pyname': u'wind_direction_10',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 11',
+                                      {'name': u'Wind Direction 11',
+                                       'pyname': u'wind_direction_11',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 12',
+                                      {'name': u'Wind Direction 12',
+                                       'pyname': u'wind_direction_12',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 13',
+                                      {'name': u'Wind Direction 13',
+                                       'pyname': u'wind_direction_13',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 14',
+                                      {'name': u'Wind Direction 14',
+                                       'pyname': u'wind_direction_14',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 15',
+                                      {'name': u'Wind Direction 15',
+                                       'pyname': u'wind_direction_15',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 16',
+                                      {'name': u'Wind Direction 16',
+                                       'pyname': u'wind_direction_16',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 17',
+                                      {'name': u'Wind Direction 17',
+                                       'pyname': u'wind_direction_17',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 18',
+                                      {'name': u'Wind Direction 18',
+                                       'pyname': u'wind_direction_18',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 19',
+                                      {'name': u'Wind Direction 19',
+                                       'pyname': u'wind_direction_19',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 20',
+                                      {'name': u'Wind Direction 20',
+                                       'pyname': u'wind_direction_20',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 21',
+                                      {'name': u'Wind Direction 21',
+                                       'pyname': u'wind_direction_21',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 22',
+                                      {'name': u'Wind Direction 22',
+                                       'pyname': u'wind_direction_22',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 23',
+                                      {'name': u'Wind Direction 23',
+                                       'pyname': u'wind_direction_23',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 24',
+                                      {'name': u'Wind Direction 24',
+                                       'pyname': u'wind_direction_24',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 25',
+                                      {'name': u'Wind Direction 25',
+                                       'pyname': u'wind_direction_25',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 26',
+                                      {'name': u'Wind Direction 26',
+                                       'pyname': u'wind_direction_26',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 27',
+                                      {'name': u'Wind Direction 27',
+                                       'pyname': u'wind_direction_27',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 28',
+                                      {'name': u'Wind Direction 28',
+                                       'pyname': u'wind_direction_28',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 29',
+                                      {'name': u'Wind Direction 29',
+                                       'pyname': u'wind_direction_29',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 30',
+                                      {'name': u'Wind Direction 30',
+                                       'pyname': u'wind_direction_30',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 31',
+                                      {'name': u'Wind Direction 31',
+                                       'pyname': u'wind_direction_31',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 32',
+                                      {'name': u'Wind Direction 32',
+                                       'pyname': u'wind_direction_32',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 33',
+                                      {'name': u'Wind Direction 33',
+                                       'pyname': u'wind_direction_33',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 34',
+                                      {'name': u'Wind Direction 34',
+                                       'pyname': u'wind_direction_34',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 35',
+                                      {'name': u'Wind Direction 35',
+                                       'pyname': u'wind_direction_35',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'wind direction 36',
+                                      {'name': u'Wind Direction 36',
+                                       'pyname': u'wind_direction_36',
+                                       'maximum': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:WindPressureCoefficientArray`
@@ -3687,12 +5078,321 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
 
 
 class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:WindPressureCoefficientValues`
         Used only if Wind Pressure Coefficient (WPC) Type = INPUT in the AirflowNetwork:SimulationControl
         object. The number of WPC numeric inputs must correspond to the number of wind direction
         inputs in the AirflowNetwork:Multizone:WindPressureCoefficientArray object.
     """
-    schema = {'min-fields': 4, 'name': u'AirflowNetwork:MultiZone:WindPressureCoefficientValues', 'pyname': u'AirflowNetworkMultiZoneWindPressureCoefficientValues', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'airflownetwork:multizone:windpressurecoefficientarray name', {'name': u'AirflowNetwork:MultiZone:WindPressureCoefficientArray Name', 'pyname': u'airflownetworkmultizonewindpressurecoefficientarray_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wind pressure coefficient value 1', {'name': u'Wind Pressure Coefficient Value 1', 'pyname': u'wind_pressure_coefficient_value_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 2', {'name': u'Wind Pressure Coefficient Value 2', 'pyname': u'wind_pressure_coefficient_value_2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 3', {'name': u'Wind Pressure Coefficient Value 3', 'pyname': u'wind_pressure_coefficient_value_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 4', {'name': u'Wind Pressure Coefficient Value 4', 'pyname': u'wind_pressure_coefficient_value_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 5', {'name': u'Wind Pressure Coefficient Value 5', 'pyname': u'wind_pressure_coefficient_value_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 6', {'name': u'Wind Pressure Coefficient Value 6', 'pyname': u'wind_pressure_coefficient_value_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 7', {'name': u'Wind Pressure Coefficient Value 7', 'pyname': u'wind_pressure_coefficient_value_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 8', {'name': u'Wind Pressure Coefficient Value 8', 'pyname': u'wind_pressure_coefficient_value_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 9', {'name': u'Wind Pressure Coefficient Value 9', 'pyname': u'wind_pressure_coefficient_value_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 10', {'name': u'Wind Pressure Coefficient Value 10', 'pyname': u'wind_pressure_coefficient_value_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 11', {'name': u'Wind Pressure Coefficient Value 11', 'pyname': u'wind_pressure_coefficient_value_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 12', {'name': u'Wind Pressure Coefficient Value 12', 'pyname': u'wind_pressure_coefficient_value_12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 13', {'name': u'Wind Pressure Coefficient Value 13', 'pyname': u'wind_pressure_coefficient_value_13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 14', {'name': u'Wind Pressure Coefficient Value 14', 'pyname': u'wind_pressure_coefficient_value_14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 15', {'name': u'Wind Pressure Coefficient Value 15', 'pyname': u'wind_pressure_coefficient_value_15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 16', {'name': u'Wind Pressure Coefficient Value 16', 'pyname': u'wind_pressure_coefficient_value_16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 17', {'name': u'Wind Pressure Coefficient Value 17', 'pyname': u'wind_pressure_coefficient_value_17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 18', {'name': u'Wind Pressure Coefficient Value 18', 'pyname': u'wind_pressure_coefficient_value_18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 19', {'name': u'Wind Pressure Coefficient Value 19', 'pyname': u'wind_pressure_coefficient_value_19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 20', {'name': u'Wind Pressure Coefficient Value 20', 'pyname': u'wind_pressure_coefficient_value_20', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 21', {'name': u'Wind Pressure Coefficient Value 21', 'pyname': u'wind_pressure_coefficient_value_21', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 22', {'name': u'Wind Pressure Coefficient Value 22', 'pyname': u'wind_pressure_coefficient_value_22', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 23', {'name': u'Wind Pressure Coefficient Value 23', 'pyname': u'wind_pressure_coefficient_value_23', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 24', {'name': u'Wind Pressure Coefficient Value 24', 'pyname': u'wind_pressure_coefficient_value_24', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 25', {'name': u'Wind Pressure Coefficient Value 25', 'pyname': u'wind_pressure_coefficient_value_25', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 26', {'name': u'Wind Pressure Coefficient Value 26', 'pyname': u'wind_pressure_coefficient_value_26', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 27', {'name': u'Wind Pressure Coefficient Value 27', 'pyname': u'wind_pressure_coefficient_value_27', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 28', {'name': u'Wind Pressure Coefficient Value 28', 'pyname': u'wind_pressure_coefficient_value_28', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 29', {'name': u'Wind Pressure Coefficient Value 29', 'pyname': u'wind_pressure_coefficient_value_29', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 30', {'name': u'Wind Pressure Coefficient Value 30', 'pyname': u'wind_pressure_coefficient_value_30', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 31', {'name': u'Wind Pressure Coefficient Value 31', 'pyname': u'wind_pressure_coefficient_value_31', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 32', {'name': u'Wind Pressure Coefficient Value 32', 'pyname': u'wind_pressure_coefficient_value_32', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 33', {'name': u'Wind Pressure Coefficient Value 33', 'pyname': u'wind_pressure_coefficient_value_33', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 34', {'name': u'Wind Pressure Coefficient Value 34', 'pyname': u'wind_pressure_coefficient_value_34', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 35', {'name': u'Wind Pressure Coefficient Value 35', 'pyname': u'wind_pressure_coefficient_value_35', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'wind pressure coefficient value 36', {'name': u'Wind Pressure Coefficient Value 36', 'pyname': u'wind_pressure_coefficient_value_36', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'AirflowNetwork:MultiZone:WindPressureCoefficientValues',
+              'pyname': u'AirflowNetworkMultiZoneWindPressureCoefficientValues',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'airflownetwork:multizone:windpressurecoefficientarray name',
+                                      {'name': u'AirflowNetwork:MultiZone:WindPressureCoefficientArray Name',
+                                       'pyname': u'airflownetworkmultizonewindpressurecoefficientarray_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'wind pressure coefficient value 1',
+                                      {'name': u'Wind Pressure Coefficient Value 1',
+                                       'pyname': u'wind_pressure_coefficient_value_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 2',
+                                      {'name': u'Wind Pressure Coefficient Value 2',
+                                       'pyname': u'wind_pressure_coefficient_value_2',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 3',
+                                      {'name': u'Wind Pressure Coefficient Value 3',
+                                       'pyname': u'wind_pressure_coefficient_value_3',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 4',
+                                      {'name': u'Wind Pressure Coefficient Value 4',
+                                       'pyname': u'wind_pressure_coefficient_value_4',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 5',
+                                      {'name': u'Wind Pressure Coefficient Value 5',
+                                       'pyname': u'wind_pressure_coefficient_value_5',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 6',
+                                      {'name': u'Wind Pressure Coefficient Value 6',
+                                       'pyname': u'wind_pressure_coefficient_value_6',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 7',
+                                      {'name': u'Wind Pressure Coefficient Value 7',
+                                       'pyname': u'wind_pressure_coefficient_value_7',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 8',
+                                      {'name': u'Wind Pressure Coefficient Value 8',
+                                       'pyname': u'wind_pressure_coefficient_value_8',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 9',
+                                      {'name': u'Wind Pressure Coefficient Value 9',
+                                       'pyname': u'wind_pressure_coefficient_value_9',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 10',
+                                      {'name': u'Wind Pressure Coefficient Value 10',
+                                       'pyname': u'wind_pressure_coefficient_value_10',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 11',
+                                      {'name': u'Wind Pressure Coefficient Value 11',
+                                       'pyname': u'wind_pressure_coefficient_value_11',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 12',
+                                      {'name': u'Wind Pressure Coefficient Value 12',
+                                       'pyname': u'wind_pressure_coefficient_value_12',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 13',
+                                      {'name': u'Wind Pressure Coefficient Value 13',
+                                       'pyname': u'wind_pressure_coefficient_value_13',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 14',
+                                      {'name': u'Wind Pressure Coefficient Value 14',
+                                       'pyname': u'wind_pressure_coefficient_value_14',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 15',
+                                      {'name': u'Wind Pressure Coefficient Value 15',
+                                       'pyname': u'wind_pressure_coefficient_value_15',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 16',
+                                      {'name': u'Wind Pressure Coefficient Value 16',
+                                       'pyname': u'wind_pressure_coefficient_value_16',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 17',
+                                      {'name': u'Wind Pressure Coefficient Value 17',
+                                       'pyname': u'wind_pressure_coefficient_value_17',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 18',
+                                      {'name': u'Wind Pressure Coefficient Value 18',
+                                       'pyname': u'wind_pressure_coefficient_value_18',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 19',
+                                      {'name': u'Wind Pressure Coefficient Value 19',
+                                       'pyname': u'wind_pressure_coefficient_value_19',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 20',
+                                      {'name': u'Wind Pressure Coefficient Value 20',
+                                       'pyname': u'wind_pressure_coefficient_value_20',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 21',
+                                      {'name': u'Wind Pressure Coefficient Value 21',
+                                       'pyname': u'wind_pressure_coefficient_value_21',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 22',
+                                      {'name': u'Wind Pressure Coefficient Value 22',
+                                       'pyname': u'wind_pressure_coefficient_value_22',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 23',
+                                      {'name': u'Wind Pressure Coefficient Value 23',
+                                       'pyname': u'wind_pressure_coefficient_value_23',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 24',
+                                      {'name': u'Wind Pressure Coefficient Value 24',
+                                       'pyname': u'wind_pressure_coefficient_value_24',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 25',
+                                      {'name': u'Wind Pressure Coefficient Value 25',
+                                       'pyname': u'wind_pressure_coefficient_value_25',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 26',
+                                      {'name': u'Wind Pressure Coefficient Value 26',
+                                       'pyname': u'wind_pressure_coefficient_value_26',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 27',
+                                      {'name': u'Wind Pressure Coefficient Value 27',
+                                       'pyname': u'wind_pressure_coefficient_value_27',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 28',
+                                      {'name': u'Wind Pressure Coefficient Value 28',
+                                       'pyname': u'wind_pressure_coefficient_value_28',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 29',
+                                      {'name': u'Wind Pressure Coefficient Value 29',
+                                       'pyname': u'wind_pressure_coefficient_value_29',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 30',
+                                      {'name': u'Wind Pressure Coefficient Value 30',
+                                       'pyname': u'wind_pressure_coefficient_value_30',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 31',
+                                      {'name': u'Wind Pressure Coefficient Value 31',
+                                       'pyname': u'wind_pressure_coefficient_value_31',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 32',
+                                      {'name': u'Wind Pressure Coefficient Value 32',
+                                       'pyname': u'wind_pressure_coefficient_value_32',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 33',
+                                      {'name': u'Wind Pressure Coefficient Value 33',
+                                       'pyname': u'wind_pressure_coefficient_value_33',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 34',
+                                      {'name': u'Wind Pressure Coefficient Value 34',
+                                       'pyname': u'wind_pressure_coefficient_value_34',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 35',
+                                      {'name': u'Wind Pressure Coefficient Value 35',
+                                       'pyname': u'wind_pressure_coefficient_value_35',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'wind pressure coefficient value 36',
+                                      {'name': u'Wind Pressure Coefficient Value 36',
+                                       'pyname': u'wind_pressure_coefficient_value_36',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:WindPressureCoefficientValues`
@@ -3734,10 +5434,13 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
         Returns:
             str: the value of `airflownetworkmultizonewindpressurecoefficientarray_name` or None if not set
         """
-        return self._data["AirflowNetwork:MultiZone:WindPressureCoefficientArray Name"]
+        return self._data[
+            "AirflowNetwork:MultiZone:WindPressureCoefficientArray Name"]
 
     @airflownetworkmultizonewindpressurecoefficientarray_name.setter
-    def airflownetworkmultizonewindpressurecoefficientarray_name(self, value=None):
+    def airflownetworkmultizonewindpressurecoefficientarray_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `AirflowNetwork:MultiZone:WindPressureCoefficientArray Name`
         Enter the name of the AirflowNetwork:Multizone:WindPressureCoefficientArray object.
 
@@ -3749,7 +5452,8 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["AirflowNetwork:MultiZone:WindPressureCoefficientArray Name"] = value
+        self[
+            "AirflowNetwork:MultiZone:WindPressureCoefficientArray Name"] = value
 
     @property
     def wind_pressure_coefficient_value_1(self):
@@ -4653,10 +6357,48 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
 
 
 class AirflowNetworkDistributionNode(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Node`
         This object represents an air distribution node in the AirflowNetwork model.
     """
-    schema = {'min-fields': 4, 'name': u'AirflowNetwork:Distribution:Node', 'pyname': u'AirflowNetworkDistributionNode', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'component name or node name', {'name': u'Component Name or Node Name', 'pyname': u'component_name_or_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'component object type or node type', {'name': u'Component Object Type or Node Type', 'pyname': u'component_object_type_or_node_type', 'default': u'Other', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'node height', {'name': u'Node Height', 'pyname': u'node_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'AirflowNetwork:Distribution:Node',
+              'pyname': u'AirflowNetworkDistributionNode',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'component name or node name',
+                                      {'name': u'Component Name or Node Name',
+                                       'pyname': u'component_name_or_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'component object type or node type',
+                                      {'name': u'Component Object Type or Node Type',
+                                       'pyname': u'component_object_type_or_node_type',
+                                       'default': u'Other',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'node height',
+                                      {'name': u'Node Height',
+                                       'pyname': u'node_height',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Node`
@@ -4780,10 +6522,44 @@ class AirflowNetworkDistributionNode(DataObject):
 
 
 class AirflowNetworkDistributionComponentLeak(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Leak`
         This object defines the characteristics of a supply or return air leak.
     """
-    schema = {'min-fields': 3, 'name': u'AirflowNetwork:Distribution:Component:Leak', 'pyname': u'AirflowNetworkDistributionComponentLeak', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'air mass flow coefficient', {'name': u'Air Mass Flow Coefficient', 'pyname': u'air_mass_flow_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/s'}), (u'air mass flow exponent', {'name': u'Air Mass Flow Exponent', 'pyname': u'air_mass_flow_exponent', 'default': 0.65, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'AirflowNetwork:Distribution:Component:Leak',
+              'pyname': u'AirflowNetworkDistributionComponentLeak',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'air mass flow coefficient',
+                                      {'name': u'Air Mass Flow Coefficient',
+                                       'pyname': u'air_mass_flow_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kg/s'}),
+                                     (u'air mass flow exponent',
+                                      {'name': u'Air Mass Flow Exponent',
+                                       'pyname': u'air_mass_flow_exponent',
+                                       'default': 0.65,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.5,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Leak`
@@ -4876,11 +6652,64 @@ class AirflowNetworkDistributionComponentLeak(DataObject):
 
 
 class AirflowNetworkDistributionComponentLeakageRatio(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:LeakageRatio`
         This object is used to define supply and return air leaks with respect to the fan's maximum
         air flow rate.
     """
-    schema = {'min-fields': 5, 'name': u'AirflowNetwork:Distribution:Component:LeakageRatio', 'pyname': u'AirflowNetworkDistributionComponentLeakageRatio', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'effective leakage ratio', {'name': u'Effective Leakage Ratio', 'pyname': u'effective_leakage_ratio', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'reference pressure difference', {'name': u'Reference Pressure Difference', 'pyname': u'reference_pressure_difference', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'air mass flow exponent', {'name': u'Air Mass Flow Exponent', 'pyname': u'air_mass_flow_exponent', 'default': 0.65, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5,
+              'name': u'AirflowNetwork:Distribution:Component:LeakageRatio',
+              'pyname': u'AirflowNetworkDistributionComponentLeakageRatio',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'effective leakage ratio',
+                                      {'name': u'Effective Leakage Ratio',
+                                       'pyname': u'effective_leakage_ratio',
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'maximum flow rate',
+                                      {'name': u'Maximum Flow Rate',
+                                       'pyname': u'maximum_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'reference pressure difference',
+                                      {'name': u'Reference Pressure Difference',
+                                       'pyname': u'reference_pressure_difference',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'Pa'}),
+                                     (u'air mass flow exponent',
+                                      {'name': u'Air Mass Flow Exponent',
+                                       'pyname': u'air_mass_flow_exponent',
+                                       'default': 0.65,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.5,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:LeakageRatio`
@@ -5021,10 +6850,91 @@ class AirflowNetworkDistributionComponentLeakageRatio(DataObject):
 
 
 class AirflowNetworkDistributionComponentDuct(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Duct`
         This object defines the relationship between pressure and air flow through the duct.
     """
-    schema = {'min-fields': 8, 'name': u'AirflowNetwork:Distribution:Component:Duct', 'pyname': u'AirflowNetworkDistributionComponentDuct', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'duct length', {'name': u'Duct Length', 'pyname': u'duct_length', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'hydraulic diameter', {'name': u'Hydraulic Diameter', 'pyname': u'hydraulic_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'cross section area', {'name': u'Cross Section Area', 'pyname': u'cross_section_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'surface roughness', {'name': u'Surface Roughness', 'pyname': u'surface_roughness', 'default': 0.0009, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'coefficient for local dynamic loss due to fitting', {'name': u'Coefficient for Local Dynamic Loss Due to Fitting', 'pyname': u'coefficient_for_local_dynamic_loss_due_to_fitting', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'overall heat transmittance coefficient (u-factor) from air to air', {'name': u'Overall Heat Transmittance Coefficient (U-Factor) from Air to Air', 'pyname': u'overall_heat_transmittance_coefficient_ufactor_from_air_to_air', 'default': 0.772, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'overall moisture transmittance coefficient from air to air', {'name': u'Overall Moisture Transmittance Coefficient from Air to Air', 'pyname': u'overall_moisture_transmittance_coefficient_from_air_to_air', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m2'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 8,
+              'name': u'AirflowNetwork:Distribution:Component:Duct',
+              'pyname': u'AirflowNetworkDistributionComponentDuct',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'duct length',
+                                      {'name': u'Duct Length',
+                                       'pyname': u'duct_length',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'hydraulic diameter',
+                                      {'name': u'Hydraulic Diameter',
+                                       'pyname': u'hydraulic_diameter',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'cross section area',
+                                      {'name': u'Cross Section Area',
+                                       'pyname': u'cross_section_area',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'surface roughness',
+                                      {'name': u'Surface Roughness',
+                                       'pyname': u'surface_roughness',
+                                       'default': 0.0009,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'coefficient for local dynamic loss due to fitting',
+                                      {'name': u'Coefficient for Local Dynamic Loss Due to Fitting',
+                                       'pyname': u'coefficient_for_local_dynamic_loss_due_to_fitting',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'overall heat transmittance coefficient (u-factor) from air to air',
+                                      {'name': u'Overall Heat Transmittance Coefficient (U-Factor) from Air to Air',
+                                       'pyname': u'overall_heat_transmittance_coefficient_ufactor_from_air_to_air',
+                                       'default': 0.772,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/m2-K'}),
+                                     (u'overall moisture transmittance coefficient from air to air',
+                                      {'name': u'Overall Moisture Transmittance Coefficient from Air to Air',
+                                       'pyname': u'overall_moisture_transmittance_coefficient_from_air_to_air',
+                                       'default': 0.001,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'kg/m2'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Duct`
@@ -5193,10 +7103,13 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
         Returns:
             float: the value of `overall_heat_transmittance_coefficient_ufactor_from_air_to_air` or None if not set
         """
-        return self._data["Overall Heat Transmittance Coefficient (U-Factor) from Air to Air"]
+        return self._data[
+            "Overall Heat Transmittance Coefficient (U-Factor) from Air to Air"]
 
     @overall_heat_transmittance_coefficient_ufactor_from_air_to_air.setter
-    def overall_heat_transmittance_coefficient_ufactor_from_air_to_air(self, value=0.772):
+    def overall_heat_transmittance_coefficient_ufactor_from_air_to_air(
+            self,
+            value=0.772):
         """  Corresponds to IDD Field `Overall Heat Transmittance Coefficient (U-Factor) from Air to Air`
         including film coefficients at both surfaces
         Enter the overall U-value for this duct.
@@ -5213,7 +7126,8 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Overall Heat Transmittance Coefficient (U-Factor) from Air to Air"] = value
+        self[
+            "Overall Heat Transmittance Coefficient (U-Factor) from Air to Air"] = value
 
     @property
     def overall_moisture_transmittance_coefficient_from_air_to_air(self):
@@ -5222,10 +7136,13 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
         Returns:
             float: the value of `overall_moisture_transmittance_coefficient_from_air_to_air` or None if not set
         """
-        return self._data["Overall Moisture Transmittance Coefficient from Air to Air"]
+        return self._data[
+            "Overall Moisture Transmittance Coefficient from Air to Air"]
 
     @overall_moisture_transmittance_coefficient_from_air_to_air.setter
-    def overall_moisture_transmittance_coefficient_from_air_to_air(self, value=0.001):
+    def overall_moisture_transmittance_coefficient_from_air_to_air(
+            self,
+            value=0.001):
         """  Corresponds to IDD Field `Overall Moisture Transmittance Coefficient from Air to Air`
         Enter the overall moisture transmittance coefficient
         including moisture film coefficients at both surfaces.
@@ -5240,14 +7157,37 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Overall Moisture Transmittance Coefficient from Air to Air"] = value
+        self[
+            "Overall Moisture Transmittance Coefficient from Air to Air"] = value
 
 
 class AirflowNetworkDistributionComponentFan(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Fan`
         This object defines the name of the constant volume supply Air Fan used in an Air loop.
     """
-    schema = {'min-fields': 2, 'name': u'AirflowNetwork:Distribution:Component:Fan', 'pyname': u'AirflowNetworkDistributionComponentFan', 'format': None, 'fields': OrderedDict([(u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan object type', {'name': u'Supply Fan Object Type', 'pyname': u'supply_fan_object_type', 'default': u'Fan:ConstantVolume', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'AirflowNetwork:Distribution:Component:Fan',
+              'pyname': u'AirflowNetworkDistributionComponentFan',
+              'format': None,
+              'fields': OrderedDict([(u'fan name',
+                                      {'name': u'Fan Name',
+                                       'pyname': u'fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply fan object type',
+                                      {'name': u'Supply Fan Object Type',
+                                       'pyname': u'supply_fan_object_type',
+                                       'default': u'Fan:ConstantVolume',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Fan`
@@ -5308,10 +7248,49 @@ class AirflowNetworkDistributionComponentFan(DataObject):
 
 
 class AirflowNetworkDistributionComponentCoil(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Coil`
         This object defines the name of a coil used in an air loop.
     """
-    schema = {'min-fields': 4, 'name': u'AirflowNetwork:Distribution:Component:Coil', 'pyname': u'AirflowNetworkDistributionComponentCoil', 'format': None, 'fields': OrderedDict([(u'coil name', {'name': u'Coil Name', 'pyname': u'coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'coil object type', {'name': u'Coil Object Type', 'pyname': u'coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air path length', {'name': u'Air Path Length', 'pyname': u'air_path_length', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'air path hydraulic diameter', {'name': u'Air Path Hydraulic Diameter', 'pyname': u'air_path_hydraulic_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'AirflowNetwork:Distribution:Component:Coil',
+              'pyname': u'AirflowNetworkDistributionComponentCoil',
+              'format': None,
+              'fields': OrderedDict([(u'coil name',
+                                      {'name': u'Coil Name',
+                                       'pyname': u'coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'coil object type',
+                                      {'name': u'Coil Object Type',
+                                       'pyname': u'coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'air path length',
+                                      {'name': u'Air Path Length',
+                                       'pyname': u'air_path_length',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'air path hydraulic diameter',
+                                      {'name': u'Air Path Hydraulic Diameter',
+                                       'pyname': u'air_path_hydraulic_diameter',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Coil`
@@ -5423,10 +7402,49 @@ class AirflowNetworkDistributionComponentCoil(DataObject):
 
 
 class AirflowNetworkDistributionComponentHeatExchanger(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:HeatExchanger`
         This object defines the name of an air-to-air heat exchanger used in an air loop.
     """
-    schema = {'min-fields': 4, 'name': u'AirflowNetwork:Distribution:Component:HeatExchanger', 'pyname': u'AirflowNetworkDistributionComponentHeatExchanger', 'format': None, 'fields': OrderedDict([(u'heatexchanger name', {'name': u'HeatExchanger Name', 'pyname': u'heatexchanger_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heatexchanger object type', {'name': u'HeatExchanger Object Type', 'pyname': u'heatexchanger_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air path length', {'name': u'Air Path Length', 'pyname': u'air_path_length', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'air path hydraulic diameter', {'name': u'Air Path Hydraulic Diameter', 'pyname': u'air_path_hydraulic_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'AirflowNetwork:Distribution:Component:HeatExchanger',
+              'pyname': u'AirflowNetworkDistributionComponentHeatExchanger',
+              'format': None,
+              'fields': OrderedDict([(u'heatexchanger name',
+                                      {'name': u'HeatExchanger Name',
+                                       'pyname': u'heatexchanger_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heatexchanger object type',
+                                      {'name': u'HeatExchanger Object Type',
+                                       'pyname': u'heatexchanger_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'air path length',
+                                      {'name': u'Air Path Length',
+                                       'pyname': u'air_path_length',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'air path hydraulic diameter',
+                                      {'name': u'Air Path Hydraulic Diameter',
+                                       'pyname': u'air_path_hydraulic_diameter',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:HeatExchanger`
@@ -5538,10 +7556,49 @@ class AirflowNetworkDistributionComponentHeatExchanger(DataObject):
 
 
 class AirflowNetworkDistributionComponentTerminalUnit(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:TerminalUnit`
         This object defines the name of a terminal unit in an air loop.
     """
-    schema = {'min-fields': 4, 'name': u'AirflowNetwork:Distribution:Component:TerminalUnit', 'pyname': u'AirflowNetworkDistributionComponentTerminalUnit', 'format': None, 'fields': OrderedDict([(u'terminal unit name', {'name': u'Terminal Unit Name', 'pyname': u'terminal_unit_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'terminal unit object type', {'name': u'Terminal Unit Object Type', 'pyname': u'terminal_unit_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air path length', {'name': u'Air Path Length', 'pyname': u'air_path_length', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'air path hydraulic diameter', {'name': u'Air Path Hydraulic Diameter', 'pyname': u'air_path_hydraulic_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'AirflowNetwork:Distribution:Component:TerminalUnit',
+              'pyname': u'AirflowNetworkDistributionComponentTerminalUnit',
+              'format': None,
+              'fields': OrderedDict([(u'terminal unit name',
+                                      {'name': u'Terminal Unit Name',
+                                       'pyname': u'terminal_unit_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'terminal unit object type',
+                                      {'name': u'Terminal Unit Object Type',
+                                       'pyname': u'terminal_unit_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'air path length',
+                                      {'name': u'Air Path Length',
+                                       'pyname': u'air_path_length',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'air path hydraulic diameter',
+                                      {'name': u'Air Path Hydraulic Diameter',
+                                       'pyname': u'air_path_hydraulic_diameter',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:TerminalUnit`
@@ -5653,12 +7710,35 @@ class AirflowNetworkDistributionComponentTerminalUnit(DataObject):
 
 
 class AirflowNetworkDistributionComponentConstantPressureDrop(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:ConstantPressureDrop`
         This object defines the characteristics of a constant pressure drop component (e.g. filter).
         Each node connected to this object can not be a node of mixer, splitter, a node of air primary
         loop, or zone equipment loop. It is recommended to connect to a duct component at both ends.
     """
-    schema = {'min-fields': 2, 'name': u'AirflowNetwork:Distribution:Component:ConstantPressureDrop', 'pyname': u'AirflowNetworkDistributionComponentConstantPressureDrop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'pressure difference across the component', {'name': u'Pressure Difference Across the Component', 'pyname': u'pressure_difference_across_the_component', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'AirflowNetwork:Distribution:Component:ConstantPressureDrop',
+              'pyname': u'AirflowNetworkDistributionComponentConstantPressureDrop',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'pressure difference across the component',
+                                      {'name': u'Pressure Difference Across the Component',
+                                       'pyname': u'pressure_difference_across_the_component',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'Pa'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:ConstantPressureDrop`
@@ -5720,10 +7800,52 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(DataObject):
 
 
 class AirflowNetworkDistributionLinkage(DataObject):
+
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Linkage`
         This object defines the connection between two nodes and a component.
     """
-    schema = {'min-fields': 4, 'name': u'AirflowNetwork:Distribution:Linkage', 'pyname': u'AirflowNetworkDistributionLinkage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'node 1 name', {'name': u'Node 1 Name', 'pyname': u'node_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'node 2 name', {'name': u'Node 2 Name', 'pyname': u'node_2_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'component name', {'name': u'Component Name', 'pyname': u'component_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal zone name', {'name': u'Thermal Zone Name', 'pyname': u'thermal_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'AirflowNetwork:Distribution:Linkage',
+              'pyname': u'AirflowNetworkDistributionLinkage',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'node 1 name',
+                                      {'name': u'Node 1 Name',
+                                       'pyname': u'node_1_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'node 2 name',
+                                      {'name': u'Node 2 Name',
+                                       'pyname': u'node_2_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'component name',
+                                      {'name': u'Component Name',
+                                       'pyname': u'component_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'thermal zone name',
+                                      {'name': u'Thermal Zone Name',
+                                       'pyname': u'thermal_zone_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Linkage`

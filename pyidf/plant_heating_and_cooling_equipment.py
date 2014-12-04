@@ -9,6 +9,7 @@ logger.addHandler(logging.NullHandler())
 
 
 class BoilerHotWater(DataObject):
+
     """ Corresponds to IDD object `Boiler:HotWater`
         This boiler model is an adaptation of the empirical model from the Building
         Loads and System Thermodynamics (BLAST) program.  Boiler performance
@@ -16,7 +17,152 @@ class BoilerHotWater(DataObject):
         A constant efficiency boiler may be modeled by leaving the normalized
         boiler efficiency curve name input blank.
     """
-    schema = {'min-fields': 13, 'name': u'Boiler:HotWater', 'pyname': u'BoilerHotWater', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'nominal thermal efficiency', {'name': u'Nominal Thermal Efficiency', 'pyname': u'nominal_thermal_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'efficiency curve temperature evaluation variable', {'name': u'Efficiency Curve Temperature Evaluation Variable', 'pyname': u'efficiency_curve_temperature_evaluation_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'normalized boiler efficiency curve name', {'name': u'Normalized Boiler Efficiency Curve Name', 'pyname': u'normalized_boiler_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design water outlet temperature', {'name': u'Design Water Outlet Temperature', 'pyname': u'design_water_outlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'design water flow rate', {'name': u'Design Water Flow Rate', 'pyname': u'design_water_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'boiler water inlet node name', {'name': u'Boiler Water Inlet Node Name', 'pyname': u'boiler_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'boiler water outlet node name', {'name': u'Boiler Water Outlet Node Name', 'pyname': u'boiler_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water outlet upper temperature limit', {'name': u'Water Outlet Upper Temperature Limit', 'pyname': u'water_outlet_upper_temperature_limit', 'default': 99.9, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'boiler flow mode', {'name': u'Boiler Flow Mode', 'pyname': u'boiler_flow_mode', 'default': u'NotModulated', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'parasitic electric load', {'name': u'Parasitic Electric Load', 'pyname': u'parasitic_electric_load', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 13,
+              'name': u'Boiler:HotWater',
+              'pyname': u'BoilerHotWater',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'fuel type',
+                                      {'name': u'Fuel Type',
+                                       'pyname': u'fuel_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'nominal thermal efficiency',
+                                      {'name': u'Nominal Thermal Efficiency',
+                                       'pyname': u'nominal_thermal_efficiency',
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'efficiency curve temperature evaluation variable',
+                                      {'name': u'Efficiency Curve Temperature Evaluation Variable',
+                                       'pyname': u'efficiency_curve_temperature_evaluation_variable',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'normalized boiler efficiency curve name',
+                                      {'name': u'Normalized Boiler Efficiency Curve Name',
+                                       'pyname': u'normalized_boiler_efficiency_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design water outlet temperature',
+                                      {'name': u'Design Water Outlet Temperature',
+                                       'pyname': u'design_water_outlet_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'design water flow rate',
+                                      {'name': u'Design Water Flow Rate',
+                                       'pyname': u'design_water_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'boiler water inlet node name',
+                                      {'name': u'Boiler Water Inlet Node Name',
+                                       'pyname': u'boiler_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'boiler water outlet node name',
+                                      {'name': u'Boiler Water Outlet Node Name',
+                                       'pyname': u'boiler_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'water outlet upper temperature limit',
+                                      {'name': u'Water Outlet Upper Temperature Limit',
+                                       'pyname': u'water_outlet_upper_temperature_limit',
+                                       'default': 99.9,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'boiler flow mode',
+                                      {'name': u'Boiler Flow Mode',
+                                       'pyname': u'boiler_flow_mode',
+                                       'default': u'NotModulated',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'parasitic electric load',
+                                      {'name': u'Parasitic Electric Load',
+                                       'pyname': u'parasitic_electric_load',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Boiler:HotWater`
@@ -451,6 +597,7 @@ class BoilerHotWater(DataObject):
 
 
 class BoilerSteam(DataObject):
+
     """ Corresponds to IDD object `Boiler:Steam`
         This boiler model is an adaptation of the empirical model from the Building
         Loads and System Thermodynamics (BLAST) program.  Boiler performance
@@ -458,7 +605,128 @@ class BoilerSteam(DataObject):
         polynomial equations.  A constant efficiency boiler is modeled by setting
         the fuel use coefficients as follows: N9=1, N10=0, N11=0
     """
-    schema = {'min-fields': 0, 'name': u'Boiler:Steam', 'pyname': u'BoilerSteam', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum operating pressure', {'name': u'Maximum Operating Pressure', 'pyname': u'maximum_operating_pressure', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Kpa'}), (u'theoretical efficiency', {'name': u'Theoretical Efficiency', 'pyname': u'theoretical_efficiency', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design outlet steam temperature', {'name': u'Design Outlet Steam Temperature', 'pyname': u'design_outlet_steam_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of fuel use function of part load ratio curve', {'name': u'Coefficient 1 of Fuel Use Function of Part Load Ratio Curve', 'pyname': u'coefficient_1_of_fuel_use_function_of_part_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of fuel use function of part load ratio curve', {'name': u'Coefficient 2 of Fuel Use Function of Part Load Ratio Curve', 'pyname': u'coefficient_2_of_fuel_use_function_of_part_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of fuel use function of part load ratio curve', {'name': u'Coefficient 3 of Fuel Use Function of Part Load Ratio Curve', 'pyname': u'coefficient_3_of_fuel_use_function_of_part_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'water inlet node name', {'name': u'Water Inlet Node Name', 'pyname': u'water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'steam outlet node name', {'name': u'Steam Outlet Node Name', 'pyname': u'steam_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Boiler:Steam',
+              'pyname': u'BoilerSteam',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel type',
+                                      {'name': u'Fuel Type',
+                                       'pyname': u'fuel_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'maximum operating pressure',
+                                      {'name': u'Maximum Operating Pressure',
+                                       'pyname': u'maximum_operating_pressure',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'Kpa'}),
+                                     (u'theoretical efficiency',
+                                      {'name': u'Theoretical Efficiency',
+                                       'pyname': u'theoretical_efficiency',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'design outlet steam temperature',
+                                      {'name': u'Design Outlet Steam Temperature',
+                                       'pyname': u'design_outlet_steam_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of fuel use function of part load ratio curve',
+                                      {'name': u'Coefficient 1 of Fuel Use Function of Part Load Ratio Curve',
+                                       'pyname': u'coefficient_1_of_fuel_use_function_of_part_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of fuel use function of part load ratio curve',
+                                      {'name': u'Coefficient 2 of Fuel Use Function of Part Load Ratio Curve',
+                                       'pyname': u'coefficient_2_of_fuel_use_function_of_part_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of fuel use function of part load ratio curve',
+                                      {'name': u'Coefficient 3 of Fuel Use Function of Part Load Ratio Curve',
+                                       'pyname': u'coefficient_3_of_fuel_use_function_of_part_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'water inlet node name',
+                                      {'name': u'Water Inlet Node Name',
+                                       'pyname': u'water_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'steam outlet node name',
+                                      {'name': u'Steam Outlet Node Name',
+                                       'pyname': u'steam_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Boiler:Steam`
@@ -687,10 +955,13 @@ class BoilerSteam(DataObject):
         Returns:
             float: the value of `coefficient_1_of_fuel_use_function_of_part_load_ratio_curve` or None if not set
         """
-        return self._data["Coefficient 1 of Fuel Use Function of Part Load Ratio Curve"]
+        return self._data[
+            "Coefficient 1 of Fuel Use Function of Part Load Ratio Curve"]
 
     @coefficient_1_of_fuel_use_function_of_part_load_ratio_curve.setter
-    def coefficient_1_of_fuel_use_function_of_part_load_ratio_curve(self, value=None):
+    def coefficient_1_of_fuel_use_function_of_part_load_ratio_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 1 of Fuel Use Function of Part Load Ratio Curve`
 
         Args:
@@ -701,7 +972,8 @@ class BoilerSteam(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 1 of Fuel Use Function of Part Load Ratio Curve"] = value
+        self[
+            "Coefficient 1 of Fuel Use Function of Part Load Ratio Curve"] = value
 
     @property
     def coefficient_2_of_fuel_use_function_of_part_load_ratio_curve(self):
@@ -710,10 +982,13 @@ class BoilerSteam(DataObject):
         Returns:
             float: the value of `coefficient_2_of_fuel_use_function_of_part_load_ratio_curve` or None if not set
         """
-        return self._data["Coefficient 2 of Fuel Use Function of Part Load Ratio Curve"]
+        return self._data[
+            "Coefficient 2 of Fuel Use Function of Part Load Ratio Curve"]
 
     @coefficient_2_of_fuel_use_function_of_part_load_ratio_curve.setter
-    def coefficient_2_of_fuel_use_function_of_part_load_ratio_curve(self, value=None):
+    def coefficient_2_of_fuel_use_function_of_part_load_ratio_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 2 of Fuel Use Function of Part Load Ratio Curve`
 
         Args:
@@ -724,7 +999,8 @@ class BoilerSteam(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 2 of Fuel Use Function of Part Load Ratio Curve"] = value
+        self[
+            "Coefficient 2 of Fuel Use Function of Part Load Ratio Curve"] = value
 
     @property
     def coefficient_3_of_fuel_use_function_of_part_load_ratio_curve(self):
@@ -733,10 +1009,13 @@ class BoilerSteam(DataObject):
         Returns:
             float: the value of `coefficient_3_of_fuel_use_function_of_part_load_ratio_curve` or None if not set
         """
-        return self._data["Coefficient 3 of Fuel Use Function of Part Load Ratio Curve"]
+        return self._data[
+            "Coefficient 3 of Fuel Use Function of Part Load Ratio Curve"]
 
     @coefficient_3_of_fuel_use_function_of_part_load_ratio_curve.setter
-    def coefficient_3_of_fuel_use_function_of_part_load_ratio_curve(self, value=None):
+    def coefficient_3_of_fuel_use_function_of_part_load_ratio_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 3 of Fuel Use Function of Part Load Ratio Curve`
 
         Args:
@@ -747,7 +1026,8 @@ class BoilerSteam(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 3 of Fuel Use Function of Part Load Ratio Curve"] = value
+        self[
+            "Coefficient 3 of Fuel Use Function of Part Load Ratio Curve"] = value
 
     @property
     def water_inlet_node_name(self):
@@ -822,12 +1102,293 @@ class BoilerSteam(DataObject):
 
 
 class ChillerElectricEir(DataObject):
+
     """ Corresponds to IDD object `Chiller:Electric:EIR`
         This chiller model is the empirical model from the DOE-2 building Energy
         simulation program. Chiller performance at off-reference conditions is modeled
         using three polynomial equations. Three curves objects are required.
     """
-    schema = {'min-fields': 23, 'name': u'Chiller:Electric:EIR', 'pyname': u'ChillerElectricEir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'reference capacity', {'name': u'Reference Capacity', 'pyname': u'reference_capacity', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'reference cop', {'name': u'Reference COP', 'pyname': u'reference_cop', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'reference leaving chilled water temperature', {'name': u'Reference Leaving Chilled Water Temperature', 'pyname': u'reference_leaving_chilled_water_temperature', 'default': 6.67, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference entering condenser fluid temperature', {'name': u'Reference Entering Condenser Fluid Temperature', 'pyname': u'reference_entering_condenser_fluid_temperature', 'default': 29.4, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference chilled water flow rate', {'name': u'Reference Chilled Water Flow Rate', 'pyname': u'reference_chilled_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'reference condenser fluid flow rate', {'name': u'Reference Condenser Fluid Flow Rate', 'pyname': u'reference_condenser_fluid_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'cooling capacity function of temperature curve name', {'name': u'Cooling Capacity Function of Temperature Curve Name', 'pyname': u'cooling_capacity_function_of_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'electric input to cooling output ratio function of temperature curve name', {'name': u'Electric Input to Cooling Output Ratio Function of Temperature Curve Name', 'pyname': u'electric_input_to_cooling_output_ratio_function_of_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'electric input to cooling output ratio function of part load ratio curve name', {'name': u'Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name', 'pyname': u'electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'default': 0.1, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum unloading ratio', {'name': u'Minimum Unloading Ratio', 'pyname': u'minimum_unloading_ratio', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser inlet node name', {'name': u'Condenser Inlet Node Name', 'pyname': u'condenser_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser outlet node name', {'name': u'Condenser Outlet Node Name', 'pyname': u'condenser_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser type', {'name': u'Condenser Type', 'pyname': u'condenser_type', 'default': u'WaterCooled', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'condenser fan power ratio', {'name': u'Condenser Fan Power Ratio', 'pyname': u'condenser_fan_power_ratio', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'fraction of compressor electric consumption rejected by condenser', {'name': u'Fraction of Compressor Electric Consumption Rejected by Condenser', 'pyname': u'fraction_of_compressor_electric_consumption_rejected_by_condenser', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'leaving chilled water lower temperature limit', {'name': u'Leaving Chilled Water Lower Temperature Limit', 'pyname': u'leaving_chilled_water_lower_temperature_limit', 'default': 2.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'chiller flow mode', {'name': u'Chiller Flow Mode', 'pyname': u'chiller_flow_mode', 'default': u'NotModulated', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design heat recovery water flow rate', {'name': u'Design Heat Recovery Water Flow Rate', 'pyname': u'design_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heat recovery inlet node name', {'name': u'Heat Recovery Inlet Node Name', 'pyname': u'heat_recovery_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery outlet node name', {'name': u'Heat Recovery Outlet Node Name', 'pyname': u'heat_recovery_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'basin heater capacity', {'name': u'Basin Heater Capacity', 'pyname': u'basin_heater_capacity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'basin heater setpoint temperature', {'name': u'Basin Heater Setpoint Temperature', 'pyname': u'basin_heater_setpoint_temperature', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'basin heater operating schedule name', {'name': u'Basin Heater Operating Schedule Name', 'pyname': u'basin_heater_operating_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser heat recovery relative capacity fraction', {'name': u'Condenser Heat Recovery Relative Capacity Fraction', 'pyname': u'condenser_heat_recovery_relative_capacity_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heat recovery inlet high temperature limit schedule name', {'name': u'Heat Recovery Inlet High Temperature Limit Schedule Name', 'pyname': u'heat_recovery_inlet_high_temperature_limit_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat recovery leaving temperature setpoint node name', {'name': u'Heat Recovery Leaving Temperature Setpoint Node Name', 'pyname': u'heat_recovery_leaving_temperature_setpoint_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 23,
+              'name': u'Chiller:Electric:EIR',
+              'pyname': u'ChillerElectricEir',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'reference capacity',
+                                      {'name': u'Reference Capacity',
+                                       'pyname': u'reference_capacity',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'reference cop',
+                                      {'name': u'Reference COP',
+                                       'pyname': u'reference_cop',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'reference leaving chilled water temperature',
+                                      {'name': u'Reference Leaving Chilled Water Temperature',
+                                       'pyname': u'reference_leaving_chilled_water_temperature',
+                                       'default': 6.67,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'reference entering condenser fluid temperature',
+                                      {'name': u'Reference Entering Condenser Fluid Temperature',
+                                       'pyname': u'reference_entering_condenser_fluid_temperature',
+                                       'default': 29.4,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'reference chilled water flow rate',
+                                      {'name': u'Reference Chilled Water Flow Rate',
+                                       'pyname': u'reference_chilled_water_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'reference condenser fluid flow rate',
+                                      {'name': u'Reference Condenser Fluid Flow Rate',
+                                       'pyname': u'reference_condenser_fluid_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'cooling capacity function of temperature curve name',
+                                      {'name': u'Cooling Capacity Function of Temperature Curve Name',
+                                       'pyname': u'cooling_capacity_function_of_temperature_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'electric input to cooling output ratio function of temperature curve name',
+                                      {'name': u'Electric Input to Cooling Output Ratio Function of Temperature Curve Name',
+                                       'pyname': u'electric_input_to_cooling_output_ratio_function_of_temperature_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'electric input to cooling output ratio function of part load ratio curve name',
+                                      {'name': u'Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name',
+                                       'pyname': u'electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'default': 0.1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'minimum unloading ratio',
+                                      {'name': u'Minimum Unloading Ratio',
+                                       'pyname': u'minimum_unloading_ratio',
+                                       'default': 0.2,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'chilled water inlet node name',
+                                      {'name': u'Chilled Water Inlet Node Name',
+                                       'pyname': u'chilled_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chilled water outlet node name',
+                                      {'name': u'Chilled Water Outlet Node Name',
+                                       'pyname': u'chilled_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser inlet node name',
+                                      {'name': u'Condenser Inlet Node Name',
+                                       'pyname': u'condenser_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser outlet node name',
+                                      {'name': u'Condenser Outlet Node Name',
+                                       'pyname': u'condenser_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser type',
+                                      {'name': u'Condenser Type',
+                                       'pyname': u'condenser_type',
+                                       'default': u'WaterCooled',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'condenser fan power ratio',
+                                      {'name': u'Condenser Fan Power Ratio',
+                                       'pyname': u'condenser_fan_power_ratio',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'fraction of compressor electric consumption rejected by condenser',
+                                      {'name': u'Fraction of Compressor Electric Consumption Rejected by Condenser',
+                                       'pyname': u'fraction_of_compressor_electric_consumption_rejected_by_condenser',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'leaving chilled water lower temperature limit',
+                                      {'name': u'Leaving Chilled Water Lower Temperature Limit',
+                                       'pyname': u'leaving_chilled_water_lower_temperature_limit',
+                                       'default': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'chiller flow mode',
+                                      {'name': u'Chiller Flow Mode',
+                                       'pyname': u'chiller_flow_mode',
+                                       'default': u'NotModulated',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design heat recovery water flow rate',
+                                      {'name': u'Design Heat Recovery Water Flow Rate',
+                                       'pyname': u'design_heat_recovery_water_flow_rate',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'heat recovery inlet node name',
+                                      {'name': u'Heat Recovery Inlet Node Name',
+                                       'pyname': u'heat_recovery_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'heat recovery outlet node name',
+                                      {'name': u'Heat Recovery Outlet Node Name',
+                                       'pyname': u'heat_recovery_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'basin heater capacity',
+                                      {'name': u'Basin Heater Capacity',
+                                       'pyname': u'basin_heater_capacity',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/K'}),
+                                     (u'basin heater setpoint temperature',
+                                      {'name': u'Basin Heater Setpoint Temperature',
+                                       'pyname': u'basin_heater_setpoint_temperature',
+                                       'default': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 2.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'basin heater operating schedule name',
+                                      {'name': u'Basin Heater Operating Schedule Name',
+                                       'pyname': u'basin_heater_operating_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'condenser heat recovery relative capacity fraction',
+                                      {'name': u'Condenser Heat Recovery Relative Capacity Fraction',
+                                       'pyname': u'condenser_heat_recovery_relative_capacity_fraction',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heat recovery inlet high temperature limit schedule name',
+                                      {'name': u'Heat Recovery Inlet High Temperature Limit Schedule Name',
+                                       'pyname': u'heat_recovery_inlet_high_temperature_limit_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heat recovery leaving temperature setpoint node name',
+                                      {'name': u'Heat Recovery Leaving Temperature Setpoint Node Name',
+                                       'pyname': u'heat_recovery_leaving_temperature_setpoint_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:Electric:EIR`
@@ -1020,7 +1581,8 @@ class ChillerElectricEir(DataObject):
         Returns:
             str: the value of `cooling_capacity_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Cooling Capacity Function of Temperature Curve Name"]
+        return self._data[
+            "Cooling Capacity Function of Temperature Curve Name"]
 
     @cooling_capacity_function_of_temperature_curve_name.setter
     def cooling_capacity_function_of_temperature_curve_name(self, value=None):
@@ -1042,16 +1604,20 @@ class ChillerElectricEir(DataObject):
         self["Cooling Capacity Function of Temperature Curve Name"] = value
 
     @property
-    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self):
+    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self):
         """Get electric_input_to_cooling_output_ratio_function_of_temperature_curve_name
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
+        return self._data[
+            "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
 
     @electric_input_to_cooling_output_ratio_function_of_temperature_curve_name.setter
-    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self, value=None):
+    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
         Electric Input Ratio (EIR) as a function of temperature
         EIR = 1/COP
@@ -1068,19 +1634,24 @@ class ChillerElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
+        self[
+            "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
 
     @property
-    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self):
+    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self):
         """Get electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
         """
-        return self._data["Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
+        return self._data[
+            "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
 
     @electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name.setter
-    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self, value=None):
+    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
         Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR)
         EIR = 1/COP
@@ -1096,7 +1667,8 @@ class ChillerElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
+        self[
+            "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
 
     @property
     def minimum_part_load_ratio(self):
@@ -1348,16 +1920,20 @@ class ChillerElectricEir(DataObject):
         self["Condenser Fan Power Ratio"] = value
 
     @property
-    def fraction_of_compressor_electric_consumption_rejected_by_condenser(self):
+    def fraction_of_compressor_electric_consumption_rejected_by_condenser(
+            self):
         """Get fraction_of_compressor_electric_consumption_rejected_by_condenser
 
         Returns:
             float: the value of `fraction_of_compressor_electric_consumption_rejected_by_condenser` or None if not set
         """
-        return self._data["Fraction of Compressor Electric Consumption Rejected by Condenser"]
+        return self._data[
+            "Fraction of Compressor Electric Consumption Rejected by Condenser"]
 
     @fraction_of_compressor_electric_consumption_rejected_by_condenser.setter
-    def fraction_of_compressor_electric_consumption_rejected_by_condenser(self, value=1.0):
+    def fraction_of_compressor_electric_consumption_rejected_by_condenser(
+            self,
+            value=1.0):
         """  Corresponds to IDD Field `Fraction of Compressor Electric Consumption Rejected by Condenser`
         Fraction of compressor electrical energy that must be rejected by the condenser.
         Enter a value of 1.0 when modeling hermetic chillers.
@@ -1374,7 +1950,8 @@ class ChillerElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Fraction of Compressor Electric Consumption Rejected by Condenser"] = value
+        self[
+            "Fraction of Compressor Electric Consumption Rejected by Condenser"] = value
 
     @property
     def leaving_chilled_water_lower_temperature_limit(self):
@@ -1644,10 +2221,13 @@ class ChillerElectricEir(DataObject):
         Returns:
             str: the value of `heat_recovery_inlet_high_temperature_limit_schedule_name` or None if not set
         """
-        return self._data["Heat Recovery Inlet High Temperature Limit Schedule Name"]
+        return self._data[
+            "Heat Recovery Inlet High Temperature Limit Schedule Name"]
 
     @heat_recovery_inlet_high_temperature_limit_schedule_name.setter
-    def heat_recovery_inlet_high_temperature_limit_schedule_name(self, value=None):
+    def heat_recovery_inlet_high_temperature_limit_schedule_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heat Recovery Inlet High Temperature Limit Schedule Name`
         This optional schedule of temperatures will turn off heat recovery if inlet exceeds the value
 
@@ -1659,7 +2239,8 @@ class ChillerElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heat Recovery Inlet High Temperature Limit Schedule Name"] = value
+        self[
+            "Heat Recovery Inlet High Temperature Limit Schedule Name"] = value
 
     @property
     def heat_recovery_leaving_temperature_setpoint_node_name(self):
@@ -1668,7 +2249,8 @@ class ChillerElectricEir(DataObject):
         Returns:
             str: the value of `heat_recovery_leaving_temperature_setpoint_node_name` or None if not set
         """
-        return self._data["Heat Recovery Leaving Temperature Setpoint Node Name"]
+        return self._data[
+            "Heat Recovery Leaving Temperature Setpoint Node Name"]
 
     @heat_recovery_leaving_temperature_setpoint_node_name.setter
     def heat_recovery_leaving_temperature_setpoint_node_name(self, value=None):
@@ -1689,13 +2271,249 @@ class ChillerElectricEir(DataObject):
 
 
 class ChillerElectricReformulatedEir(DataObject):
+
     """ Corresponds to IDD object `Chiller:Electric:ReformulatedEIR`
         This chiller model is an empirical model, a reformulated version of Chiller:Electric:EIR
         where the performance is a function of condenser leaving fluid Temperature instead of
         condenser entering fluid Temperature. Chiller performance at off-reference conditions is
         modeled using three polynomial equations. Three curve objects are required.
     """
-    schema = {'min-fields': 21, 'name': u'Chiller:Electric:ReformulatedEIR', 'pyname': u'ChillerElectricReformulatedEir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'reference capacity', {'name': u'Reference Capacity', 'pyname': u'reference_capacity', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'reference cop', {'name': u'Reference COP', 'pyname': u'reference_cop', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'reference leaving chilled water temperature', {'name': u'Reference Leaving Chilled Water Temperature', 'pyname': u'reference_leaving_chilled_water_temperature', 'default': 6.67, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference leaving condenser water temperature', {'name': u'Reference Leaving Condenser Water Temperature', 'pyname': u'reference_leaving_condenser_water_temperature', 'default': 35.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference chilled water flow rate', {'name': u'Reference Chilled Water Flow Rate', 'pyname': u'reference_chilled_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'reference condenser water flow rate', {'name': u'Reference Condenser Water Flow Rate', 'pyname': u'reference_condenser_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'cooling capacity function of temperature curve name', {'name': u'Cooling Capacity Function of Temperature Curve Name', 'pyname': u'cooling_capacity_function_of_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'electric input to cooling output ratio function of temperature curve name', {'name': u'Electric Input to Cooling Output Ratio Function of Temperature Curve Name', 'pyname': u'electric_input_to_cooling_output_ratio_function_of_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'electric input to cooling output ratio function of part load ratio curve name', {'name': u'Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name', 'pyname': u'electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'default': 0.1, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum unloading ratio', {'name': u'Minimum Unloading Ratio', 'pyname': u'minimum_unloading_ratio', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser inlet node name', {'name': u'Condenser Inlet Node Name', 'pyname': u'condenser_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser outlet node name', {'name': u'Condenser Outlet Node Name', 'pyname': u'condenser_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fraction of compressor electric consumption rejected by condenser', {'name': u'Fraction of Compressor Electric Consumption Rejected by Condenser', 'pyname': u'fraction_of_compressor_electric_consumption_rejected_by_condenser', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'leaving chilled water lower temperature limit', {'name': u'Leaving Chilled Water Lower Temperature Limit', 'pyname': u'leaving_chilled_water_lower_temperature_limit', 'default': 2.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'chiller flow mode type', {'name': u'Chiller Flow Mode Type', 'pyname': u'chiller_flow_mode_type', 'default': u'NotModulated', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design heat recovery water flow rate', {'name': u'Design Heat Recovery Water Flow Rate', 'pyname': u'design_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heat recovery inlet node name', {'name': u'Heat Recovery Inlet Node Name', 'pyname': u'heat_recovery_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery outlet node name', {'name': u'Heat Recovery Outlet Node Name', 'pyname': u'heat_recovery_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'condenser heat recovery relative capacity fraction', {'name': u'Condenser Heat Recovery Relative Capacity Fraction', 'pyname': u'condenser_heat_recovery_relative_capacity_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heat recovery inlet high temperature limit schedule name', {'name': u'Heat Recovery Inlet High Temperature Limit Schedule Name', 'pyname': u'heat_recovery_inlet_high_temperature_limit_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat recovery leaving temperature setpoint node name', {'name': u'Heat Recovery Leaving Temperature Setpoint Node Name', 'pyname': u'heat_recovery_leaving_temperature_setpoint_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 21,
+              'name': u'Chiller:Electric:ReformulatedEIR',
+              'pyname': u'ChillerElectricReformulatedEir',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'reference capacity',
+                                      {'name': u'Reference Capacity',
+                                       'pyname': u'reference_capacity',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'reference cop',
+                                      {'name': u'Reference COP',
+                                       'pyname': u'reference_cop',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'reference leaving chilled water temperature',
+                                      {'name': u'Reference Leaving Chilled Water Temperature',
+                                       'pyname': u'reference_leaving_chilled_water_temperature',
+                                       'default': 6.67,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'reference leaving condenser water temperature',
+                                      {'name': u'Reference Leaving Condenser Water Temperature',
+                                       'pyname': u'reference_leaving_condenser_water_temperature',
+                                       'default': 35.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'reference chilled water flow rate',
+                                      {'name': u'Reference Chilled Water Flow Rate',
+                                       'pyname': u'reference_chilled_water_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'reference condenser water flow rate',
+                                      {'name': u'Reference Condenser Water Flow Rate',
+                                       'pyname': u'reference_condenser_water_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'cooling capacity function of temperature curve name',
+                                      {'name': u'Cooling Capacity Function of Temperature Curve Name',
+                                       'pyname': u'cooling_capacity_function_of_temperature_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'electric input to cooling output ratio function of temperature curve name',
+                                      {'name': u'Electric Input to Cooling Output Ratio Function of Temperature Curve Name',
+                                       'pyname': u'electric_input_to_cooling_output_ratio_function_of_temperature_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'electric input to cooling output ratio function of part load ratio curve name',
+                                      {'name': u'Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name',
+                                       'pyname': u'electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'default': 0.1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'minimum unloading ratio',
+                                      {'name': u'Minimum Unloading Ratio',
+                                       'pyname': u'minimum_unloading_ratio',
+                                       'default': 0.2,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'chilled water inlet node name',
+                                      {'name': u'Chilled Water Inlet Node Name',
+                                       'pyname': u'chilled_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chilled water outlet node name',
+                                      {'name': u'Chilled Water Outlet Node Name',
+                                       'pyname': u'chilled_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser inlet node name',
+                                      {'name': u'Condenser Inlet Node Name',
+                                       'pyname': u'condenser_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser outlet node name',
+                                      {'name': u'Condenser Outlet Node Name',
+                                       'pyname': u'condenser_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'fraction of compressor electric consumption rejected by condenser',
+                                      {'name': u'Fraction of Compressor Electric Consumption Rejected by Condenser',
+                                       'pyname': u'fraction_of_compressor_electric_consumption_rejected_by_condenser',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'leaving chilled water lower temperature limit',
+                                      {'name': u'Leaving Chilled Water Lower Temperature Limit',
+                                       'pyname': u'leaving_chilled_water_lower_temperature_limit',
+                                       'default': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'chiller flow mode type',
+                                      {'name': u'Chiller Flow Mode Type',
+                                       'pyname': u'chiller_flow_mode_type',
+                                       'default': u'NotModulated',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design heat recovery water flow rate',
+                                      {'name': u'Design Heat Recovery Water Flow Rate',
+                                       'pyname': u'design_heat_recovery_water_flow_rate',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'heat recovery inlet node name',
+                                      {'name': u'Heat Recovery Inlet Node Name',
+                                       'pyname': u'heat_recovery_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'heat recovery outlet node name',
+                                      {'name': u'Heat Recovery Outlet Node Name',
+                                       'pyname': u'heat_recovery_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'condenser heat recovery relative capacity fraction',
+                                      {'name': u'Condenser Heat Recovery Relative Capacity Fraction',
+                                       'pyname': u'condenser_heat_recovery_relative_capacity_fraction',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heat recovery inlet high temperature limit schedule name',
+                                      {'name': u'Heat Recovery Inlet High Temperature Limit Schedule Name',
+                                       'pyname': u'heat_recovery_inlet_high_temperature_limit_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heat recovery leaving temperature setpoint node name',
+                                      {'name': u'Heat Recovery Leaving Temperature Setpoint Node Name',
+                                       'pyname': u'heat_recovery_leaving_temperature_setpoint_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:Electric:ReformulatedEIR`
@@ -1886,7 +2704,8 @@ class ChillerElectricReformulatedEir(DataObject):
         Returns:
             str: the value of `cooling_capacity_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Cooling Capacity Function of Temperature Curve Name"]
+        return self._data[
+            "Cooling Capacity Function of Temperature Curve Name"]
 
     @cooling_capacity_function_of_temperature_curve_name.setter
     def cooling_capacity_function_of_temperature_curve_name(self, value=None):
@@ -1909,16 +2728,20 @@ class ChillerElectricReformulatedEir(DataObject):
         self["Cooling Capacity Function of Temperature Curve Name"] = value
 
     @property
-    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self):
+    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self):
         """Get electric_input_to_cooling_output_ratio_function_of_temperature_curve_name
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
+        return self._data[
+            "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
 
     @electric_input_to_cooling_output_ratio_function_of_temperature_curve_name.setter
-    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self, value=None):
+    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
         Electric Input Ratio (EIR) as a function of supply (leaving) chilled water temperature
         and leaving condenser fluid temperature.   EIR = 1/COP.
@@ -1935,19 +2758,24 @@ class ChillerElectricReformulatedEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
+        self[
+            "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
 
     @property
-    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self):
+    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self):
         """Get electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
         """
-        return self._data["Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
+        return self._data[
+            "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
 
     @electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name.setter
-    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self, value=None):
+    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
         Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR)
         EIR = 1/COP
@@ -1965,7 +2793,8 @@ class ChillerElectricReformulatedEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
+        self[
+            "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
 
     @property
     def minimum_part_load_ratio(self):
@@ -2165,16 +2994,20 @@ class ChillerElectricReformulatedEir(DataObject):
         self["Condenser Outlet Node Name"] = value
 
     @property
-    def fraction_of_compressor_electric_consumption_rejected_by_condenser(self):
+    def fraction_of_compressor_electric_consumption_rejected_by_condenser(
+            self):
         """Get fraction_of_compressor_electric_consumption_rejected_by_condenser
 
         Returns:
             float: the value of `fraction_of_compressor_electric_consumption_rejected_by_condenser` or None if not set
         """
-        return self._data["Fraction of Compressor Electric Consumption Rejected by Condenser"]
+        return self._data[
+            "Fraction of Compressor Electric Consumption Rejected by Condenser"]
 
     @fraction_of_compressor_electric_consumption_rejected_by_condenser.setter
-    def fraction_of_compressor_electric_consumption_rejected_by_condenser(self, value=1.0):
+    def fraction_of_compressor_electric_consumption_rejected_by_condenser(
+            self,
+            value=1.0):
         """  Corresponds to IDD Field `Fraction of Compressor Electric Consumption Rejected by Condenser`
         Fraction of compressor electrical energy that must be rejected by the condenser.
         Enter a value of 1.0 when modeling hermetic chillers.
@@ -2191,7 +3024,8 @@ class ChillerElectricReformulatedEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Fraction of Compressor Electric Consumption Rejected by Condenser"] = value
+        self[
+            "Fraction of Compressor Electric Consumption Rejected by Condenser"] = value
 
     @property
     def leaving_chilled_water_lower_temperature_limit(self):
@@ -2376,10 +3210,13 @@ class ChillerElectricReformulatedEir(DataObject):
         Returns:
             str: the value of `heat_recovery_inlet_high_temperature_limit_schedule_name` or None if not set
         """
-        return self._data["Heat Recovery Inlet High Temperature Limit Schedule Name"]
+        return self._data[
+            "Heat Recovery Inlet High Temperature Limit Schedule Name"]
 
     @heat_recovery_inlet_high_temperature_limit_schedule_name.setter
-    def heat_recovery_inlet_high_temperature_limit_schedule_name(self, value=None):
+    def heat_recovery_inlet_high_temperature_limit_schedule_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heat Recovery Inlet High Temperature Limit Schedule Name`
         This optional schedule of temperatures will turn off heat recovery if inlet exceeds the value
 
@@ -2391,7 +3228,8 @@ class ChillerElectricReformulatedEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heat Recovery Inlet High Temperature Limit Schedule Name"] = value
+        self[
+            "Heat Recovery Inlet High Temperature Limit Schedule Name"] = value
 
     @property
     def heat_recovery_leaving_temperature_setpoint_node_name(self):
@@ -2400,7 +3238,8 @@ class ChillerElectricReformulatedEir(DataObject):
         Returns:
             str: the value of `heat_recovery_leaving_temperature_setpoint_node_name` or None if not set
         """
-        return self._data["Heat Recovery Leaving Temperature Setpoint Node Name"]
+        return self._data[
+            "Heat Recovery Leaving Temperature Setpoint Node Name"]
 
     @heat_recovery_leaving_temperature_setpoint_node_name.setter
     def heat_recovery_leaving_temperature_setpoint_node_name(self, value=None):
@@ -2421,13 +3260,309 @@ class ChillerElectricReformulatedEir(DataObject):
 
 
 class ChillerElectric(DataObject):
+
     """ Corresponds to IDD object `Chiller:Electric`
         This chiller model is the empirical model from the Building Loads
         and System Thermodynamics (BLAST) program.  Chiller performance
         curves are generated by fitting catalog data to third order
         polynomial equations.  Three sets of coefficients are required.
     """
-    schema = {'min-fields': 27, 'name': u'Chiller:Electric', 'pyname': u'ChillerElectric', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'condenser type', {'name': u'Condenser Type', 'pyname': u'condenser_type', 'default': u'AirCooled', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'nominal cop', {'name': u'Nominal COP', 'pyname': u'nominal_cop', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/W'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser inlet node name', {'name': u'Condenser Inlet Node Name', 'pyname': u'condenser_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser outlet node name', {'name': u'Condenser Outlet Node Name', 'pyname': u'condenser_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'design condenser inlet temperature', {'name': u'Design Condenser Inlet Temperature', 'pyname': u'design_condenser_inlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'temperature rise coefficient', {'name': u'Temperature Rise Coefficient', 'pyname': u'temperature_rise_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'design chilled water outlet temperature', {'name': u'Design Chilled Water Outlet Temperature', 'pyname': u'design_chilled_water_outlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'design chilled water flow rate', {'name': u'Design Chilled Water Flow Rate', 'pyname': u'design_chilled_water_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'design condenser fluid flow rate', {'name': u'Design Condenser Fluid Flow Rate', 'pyname': u'design_condenser_fluid_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'coefficient 1 of capacity ratio curve', {'name': u'Coefficient 1 of Capacity Ratio Curve', 'pyname': u'coefficient_1_of_capacity_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of capacity ratio curve', {'name': u'Coefficient 2 of Capacity Ratio Curve', 'pyname': u'coefficient_2_of_capacity_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of capacity ratio curve', {'name': u'Coefficient 3 of Capacity Ratio Curve', 'pyname': u'coefficient_3_of_capacity_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of power ratio curve', {'name': u'Coefficient 1 of Power Ratio Curve', 'pyname': u'coefficient_1_of_power_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of power ratio curve', {'name': u'Coefficient 2 of Power Ratio Curve', 'pyname': u'coefficient_2_of_power_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of power ratio curve', {'name': u'Coefficient 3 of Power Ratio Curve', 'pyname': u'coefficient_3_of_power_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of full load ratio curve', {'name': u'Coefficient 1 of Full Load Ratio Curve', 'pyname': u'coefficient_1_of_full_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of full load ratio curve', {'name': u'Coefficient 2 of Full Load Ratio Curve', 'pyname': u'coefficient_2_of_full_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of full load ratio curve', {'name': u'Coefficient 3 of Full Load Ratio Curve', 'pyname': u'coefficient_3_of_full_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'chilled water outlet temperature lower limit', {'name': u'Chilled Water Outlet Temperature Lower Limit', 'pyname': u'chilled_water_outlet_temperature_lower_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'chiller flow mode', {'name': u'Chiller Flow Mode', 'pyname': u'chiller_flow_mode', 'default': u'NotModulated', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design heat recovery water flow rate', {'name': u'Design Heat Recovery Water Flow Rate', 'pyname': u'design_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heat recovery inlet node name', {'name': u'Heat Recovery Inlet Node Name', 'pyname': u'heat_recovery_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery outlet node name', {'name': u'Heat Recovery Outlet Node Name', 'pyname': u'heat_recovery_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'basin heater capacity', {'name': u'Basin Heater Capacity', 'pyname': u'basin_heater_capacity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'basin heater setpoint temperature', {'name': u'Basin Heater Setpoint Temperature', 'pyname': u'basin_heater_setpoint_temperature', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'basin heater operating schedule name', {'name': u'Basin Heater Operating Schedule Name', 'pyname': u'basin_heater_operating_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser heat recovery relative capacity fraction', {'name': u'Condenser Heat Recovery Relative Capacity Fraction', 'pyname': u'condenser_heat_recovery_relative_capacity_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heat recovery inlet high temperature limit schedule name', {'name': u'Heat Recovery Inlet High Temperature Limit Schedule Name', 'pyname': u'heat_recovery_inlet_high_temperature_limit_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat recovery leaving temperature setpoint node name', {'name': u'Heat Recovery Leaving Temperature Setpoint Node Name', 'pyname': u'heat_recovery_leaving_temperature_setpoint_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 27,
+              'name': u'Chiller:Electric',
+              'pyname': u'ChillerElectric',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'condenser type',
+                                      {'name': u'Condenser Type',
+                                       'pyname': u'condenser_type',
+                                       'default': u'AirCooled',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'nominal cop',
+                                      {'name': u'Nominal COP',
+                                       'pyname': u'nominal_cop',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/W'}),
+                                     (u'chilled water inlet node name',
+                                      {'name': u'Chilled Water Inlet Node Name',
+                                       'pyname': u'chilled_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chilled water outlet node name',
+                                      {'name': u'Chilled Water Outlet Node Name',
+                                       'pyname': u'chilled_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser inlet node name',
+                                      {'name': u'Condenser Inlet Node Name',
+                                       'pyname': u'condenser_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser outlet node name',
+                                      {'name': u'Condenser Outlet Node Name',
+                                       'pyname': u'condenser_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'design condenser inlet temperature',
+                                      {'name': u'Design Condenser Inlet Temperature',
+                                       'pyname': u'design_condenser_inlet_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'temperature rise coefficient',
+                                      {'name': u'Temperature Rise Coefficient',
+                                       'pyname': u'temperature_rise_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'design chilled water outlet temperature',
+                                      {'name': u'Design Chilled Water Outlet Temperature',
+                                       'pyname': u'design_chilled_water_outlet_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'design chilled water flow rate',
+                                      {'name': u'Design Chilled Water Flow Rate',
+                                       'pyname': u'design_chilled_water_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design condenser fluid flow rate',
+                                      {'name': u'Design Condenser Fluid Flow Rate',
+                                       'pyname': u'design_condenser_fluid_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'coefficient 1 of capacity ratio curve',
+                                      {'name': u'Coefficient 1 of Capacity Ratio Curve',
+                                       'pyname': u'coefficient_1_of_capacity_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of capacity ratio curve',
+                                      {'name': u'Coefficient 2 of Capacity Ratio Curve',
+                                       'pyname': u'coefficient_2_of_capacity_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of capacity ratio curve',
+                                      {'name': u'Coefficient 3 of Capacity Ratio Curve',
+                                       'pyname': u'coefficient_3_of_capacity_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of power ratio curve',
+                                      {'name': u'Coefficient 1 of Power Ratio Curve',
+                                       'pyname': u'coefficient_1_of_power_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of power ratio curve',
+                                      {'name': u'Coefficient 2 of Power Ratio Curve',
+                                       'pyname': u'coefficient_2_of_power_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of power ratio curve',
+                                      {'name': u'Coefficient 3 of Power Ratio Curve',
+                                       'pyname': u'coefficient_3_of_power_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of full load ratio curve',
+                                      {'name': u'Coefficient 1 of Full Load Ratio Curve',
+                                       'pyname': u'coefficient_1_of_full_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of full load ratio curve',
+                                      {'name': u'Coefficient 2 of Full Load Ratio Curve',
+                                       'pyname': u'coefficient_2_of_full_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of full load ratio curve',
+                                      {'name': u'Coefficient 3 of Full Load Ratio Curve',
+                                       'pyname': u'coefficient_3_of_full_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'chilled water outlet temperature lower limit',
+                                      {'name': u'Chilled Water Outlet Temperature Lower Limit',
+                                       'pyname': u'chilled_water_outlet_temperature_lower_limit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'chiller flow mode',
+                                      {'name': u'Chiller Flow Mode',
+                                       'pyname': u'chiller_flow_mode',
+                                       'default': u'NotModulated',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design heat recovery water flow rate',
+                                      {'name': u'Design Heat Recovery Water Flow Rate',
+                                       'pyname': u'design_heat_recovery_water_flow_rate',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'heat recovery inlet node name',
+                                      {'name': u'Heat Recovery Inlet Node Name',
+                                       'pyname': u'heat_recovery_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'heat recovery outlet node name',
+                                      {'name': u'Heat Recovery Outlet Node Name',
+                                       'pyname': u'heat_recovery_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'basin heater capacity',
+                                      {'name': u'Basin Heater Capacity',
+                                       'pyname': u'basin_heater_capacity',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/K'}),
+                                     (u'basin heater setpoint temperature',
+                                      {'name': u'Basin Heater Setpoint Temperature',
+                                       'pyname': u'basin_heater_setpoint_temperature',
+                                       'default': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 2.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'basin heater operating schedule name',
+                                      {'name': u'Basin Heater Operating Schedule Name',
+                                       'pyname': u'basin_heater_operating_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'condenser heat recovery relative capacity fraction',
+                                      {'name': u'Condenser Heat Recovery Relative Capacity Fraction',
+                                       'pyname': u'condenser_heat_recovery_relative_capacity_fraction',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heat recovery inlet high temperature limit schedule name',
+                                      {'name': u'Heat Recovery Inlet High Temperature Limit Schedule Name',
+                                       'pyname': u'heat_recovery_inlet_high_temperature_limit_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heat recovery leaving temperature setpoint node name',
+                                      {'name': u'Heat Recovery Leaving Temperature Setpoint Node Name',
+                                       'pyname': u'heat_recovery_leaving_temperature_setpoint_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:Electric`
@@ -3292,10 +4427,13 @@ class ChillerElectric(DataObject):
         Returns:
             str: the value of `heat_recovery_inlet_high_temperature_limit_schedule_name` or None if not set
         """
-        return self._data["Heat Recovery Inlet High Temperature Limit Schedule Name"]
+        return self._data[
+            "Heat Recovery Inlet High Temperature Limit Schedule Name"]
 
     @heat_recovery_inlet_high_temperature_limit_schedule_name.setter
-    def heat_recovery_inlet_high_temperature_limit_schedule_name(self, value=None):
+    def heat_recovery_inlet_high_temperature_limit_schedule_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heat Recovery Inlet High Temperature Limit Schedule Name`
         This optional schedule of temperatures will turn off heat recovery if inlet exceeds the value
 
@@ -3307,7 +4445,8 @@ class ChillerElectric(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heat Recovery Inlet High Temperature Limit Schedule Name"] = value
+        self[
+            "Heat Recovery Inlet High Temperature Limit Schedule Name"] = value
 
     @property
     def heat_recovery_leaving_temperature_setpoint_node_name(self):
@@ -3316,7 +4455,8 @@ class ChillerElectric(DataObject):
         Returns:
             str: the value of `heat_recovery_leaving_temperature_setpoint_node_name` or None if not set
         """
-        return self._data["Heat Recovery Leaving Temperature Setpoint Node Name"]
+        return self._data[
+            "Heat Recovery Leaving Temperature Setpoint Node Name"]
 
     @heat_recovery_leaving_temperature_setpoint_node_name.setter
     def heat_recovery_leaving_temperature_setpoint_node_name(self, value=None):
@@ -3337,6 +4477,7 @@ class ChillerElectric(DataObject):
 
 
 class ChillerAbsorptionIndirect(DataObject):
+
     """ Corresponds to IDD object `Chiller:Absorption:Indirect`
         This indirect absorption chiller model is an enhanced model from the
         Building Loads and System Thermodynamics (BLAST) program.  Chiller
@@ -3345,7 +4486,261 @@ class ChillerAbsorptionIndirect(DataObject):
         chilled water, and generator temperatures. The heat input is a function
         of part-load ratio, condenser temperature, and chilled water temperature.
     """
-    schema = {'min-fields': 17, 'name': u'Chiller:Absorption:Indirect', 'pyname': u'ChillerAbsorptionIndirect', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'nominal pumping power', {'name': u'Nominal Pumping Power', 'pyname': u'nominal_pumping_power', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser inlet node name', {'name': u'Condenser Inlet Node Name', 'pyname': u'condenser_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser outlet node name', {'name': u'Condenser Outlet Node Name', 'pyname': u'condenser_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design condenser inlet temperature', {'name': u'Design Condenser Inlet Temperature', 'pyname': u'design_condenser_inlet_temperature', 'default': 30.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'condenser inlet temperature lower limit', {'name': u'Condenser Inlet Temperature Lower Limit', 'pyname': u'condenser_inlet_temperature_lower_limit', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'chilled water outlet temperature lower limit', {'name': u'Chilled Water Outlet Temperature Lower Limit', 'pyname': u'chilled_water_outlet_temperature_lower_limit', 'default': 5.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'design chilled water flow rate', {'name': u'Design Chilled Water Flow Rate', 'pyname': u'design_chilled_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'design condenser water flow rate', {'name': u'Design Condenser Water Flow Rate', 'pyname': u'design_condenser_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'chiller flow mode', {'name': u'Chiller Flow Mode', 'pyname': u'chiller_flow_mode', 'default': u'NotModulated', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'generator heat input function of part load ratio curve name', {'name': u'Generator Heat Input Function of Part Load Ratio Curve Name', 'pyname': u'generator_heat_input_function_of_part_load_ratio_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pump electric input function of part load ratio curve name', {'name': u'Pump Electric Input Function of Part Load Ratio Curve Name', 'pyname': u'pump_electric_input_function_of_part_load_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generator inlet node name', {'name': u'Generator Inlet Node Name', 'pyname': u'generator_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'generator outlet node name', {'name': u'Generator Outlet Node Name', 'pyname': u'generator_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'capacity correction function of condenser temperature curve name', {'name': u'Capacity Correction Function of Condenser Temperature Curve Name', 'pyname': u'capacity_correction_function_of_condenser_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity correction function of chilled water temperature curve name', {'name': u'Capacity Correction Function of Chilled Water Temperature Curve Name', 'pyname': u'capacity_correction_function_of_chilled_water_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity correction function of generator temperature curve name', {'name': u'Capacity Correction Function of Generator Temperature Curve Name', 'pyname': u'capacity_correction_function_of_generator_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generator heat input correction function of condenser temperature curve name', {'name': u'Generator Heat Input Correction Function of Condenser Temperature Curve Name', 'pyname': u'generator_heat_input_correction_function_of_condenser_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generator heat input correction function of chilled water temperature curve name', {'name': u'Generator Heat Input Correction Function of Chilled Water Temperature Curve Name', 'pyname': u'generator_heat_input_correction_function_of_chilled_water_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generator heat source type', {'name': u'Generator Heat Source Type', 'pyname': u'generator_heat_source_type', 'default': u'Steam', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design generator fluid flow rate', {'name': u'Design Generator Fluid Flow Rate', 'pyname': u'design_generator_fluid_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'temperature lower limit generator inlet', {'name': u'Temperature Lower Limit Generator Inlet', 'pyname': u'temperature_lower_limit_generator_inlet', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'degree of subcooling in steam generator', {'name': u'Degree of Subcooling in Steam Generator', 'pyname': u'degree_of_subcooling_in_steam_generator', 'default': 1.0, 'maximum': 20.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'degree of subcooling in steam condensate loop', {'name': u'Degree of Subcooling in Steam Condensate Loop', 'pyname': u'degree_of_subcooling_in_steam_condensate_loop', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 17,
+              'name': u'Chiller:Absorption:Indirect',
+              'pyname': u'ChillerAbsorptionIndirect',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'nominal pumping power',
+                                      {'name': u'Nominal Pumping Power',
+                                       'pyname': u'nominal_pumping_power',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'chilled water inlet node name',
+                                      {'name': u'Chilled Water Inlet Node Name',
+                                       'pyname': u'chilled_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chilled water outlet node name',
+                                      {'name': u'Chilled Water Outlet Node Name',
+                                       'pyname': u'chilled_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser inlet node name',
+                                      {'name': u'Condenser Inlet Node Name',
+                                       'pyname': u'condenser_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser outlet node name',
+                                      {'name': u'Condenser Outlet Node Name',
+                                       'pyname': u'condenser_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'design condenser inlet temperature',
+                                      {'name': u'Design Condenser Inlet Temperature',
+                                       'pyname': u'design_condenser_inlet_temperature',
+                                       'default': 30.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'condenser inlet temperature lower limit',
+                                      {'name': u'Condenser Inlet Temperature Lower Limit',
+                                       'pyname': u'condenser_inlet_temperature_lower_limit',
+                                       'default': 15.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'chilled water outlet temperature lower limit',
+                                      {'name': u'Chilled Water Outlet Temperature Lower Limit',
+                                       'pyname': u'chilled_water_outlet_temperature_lower_limit',
+                                       'default': 5.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'design chilled water flow rate',
+                                      {'name': u'Design Chilled Water Flow Rate',
+                                       'pyname': u'design_chilled_water_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design condenser water flow rate',
+                                      {'name': u'Design Condenser Water Flow Rate',
+                                       'pyname': u'design_condenser_water_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'chiller flow mode',
+                                      {'name': u'Chiller Flow Mode',
+                                       'pyname': u'chiller_flow_mode',
+                                       'default': u'NotModulated',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'generator heat input function of part load ratio curve name',
+                                      {'name': u'Generator Heat Input Function of Part Load Ratio Curve Name',
+                                       'pyname': u'generator_heat_input_function_of_part_load_ratio_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'pump electric input function of part load ratio curve name',
+                                      {'name': u'Pump Electric Input Function of Part Load Ratio Curve Name',
+                                       'pyname': u'pump_electric_input_function_of_part_load_ratio_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'generator inlet node name',
+                                      {'name': u'Generator Inlet Node Name',
+                                       'pyname': u'generator_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'generator outlet node name',
+                                      {'name': u'Generator Outlet Node Name',
+                                       'pyname': u'generator_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'capacity correction function of condenser temperature curve name',
+                                      {'name': u'Capacity Correction Function of Condenser Temperature Curve Name',
+                                       'pyname': u'capacity_correction_function_of_condenser_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'capacity correction function of chilled water temperature curve name',
+                                      {'name': u'Capacity Correction Function of Chilled Water Temperature Curve Name',
+                                       'pyname': u'capacity_correction_function_of_chilled_water_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'capacity correction function of generator temperature curve name',
+                                      {'name': u'Capacity Correction Function of Generator Temperature Curve Name',
+                                       'pyname': u'capacity_correction_function_of_generator_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'generator heat input correction function of condenser temperature curve name',
+                                      {'name': u'Generator Heat Input Correction Function of Condenser Temperature Curve Name',
+                                       'pyname': u'generator_heat_input_correction_function_of_condenser_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'generator heat input correction function of chilled water temperature curve name',
+                                      {'name': u'Generator Heat Input Correction Function of Chilled Water Temperature Curve Name',
+                                       'pyname': u'generator_heat_input_correction_function_of_chilled_water_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'generator heat source type',
+                                      {'name': u'Generator Heat Source Type',
+                                       'pyname': u'generator_heat_source_type',
+                                       'default': u'Steam',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design generator fluid flow rate',
+                                      {'name': u'Design Generator Fluid Flow Rate',
+                                       'pyname': u'design_generator_fluid_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'temperature lower limit generator inlet',
+                                      {'name': u'Temperature Lower Limit Generator Inlet',
+                                       'pyname': u'temperature_lower_limit_generator_inlet',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'degree of subcooling in steam generator',
+                                      {'name': u'Degree of Subcooling in Steam Generator',
+                                       'pyname': u'degree_of_subcooling_in_steam_generator',
+                                       'default': 1.0,
+                                       'maximum': 20.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'degree of subcooling in steam condensate loop',
+                                      {'name': u'Degree of Subcooling in Steam Condensate Loop',
+                                       'pyname': u'degree_of_subcooling_in_steam_condensate_loop',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:Absorption:Indirect`
@@ -3755,10 +5150,13 @@ class ChillerAbsorptionIndirect(DataObject):
         Returns:
             str: the value of `generator_heat_input_function_of_part_load_ratio_curve_name` or None if not set
         """
-        return self._data["Generator Heat Input Function of Part Load Ratio Curve Name"]
+        return self._data[
+            "Generator Heat Input Function of Part Load Ratio Curve Name"]
 
     @generator_heat_input_function_of_part_load_ratio_curve_name.setter
-    def generator_heat_input_function_of_part_load_ratio_curve_name(self, value=None):
+    def generator_heat_input_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Generator Heat Input Function of Part Load Ratio Curve Name`
         Table:OneIndependentVariable object can also be used
 
@@ -3770,7 +5168,8 @@ class ChillerAbsorptionIndirect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Generator Heat Input Function of Part Load Ratio Curve Name"] = value
+        self[
+            "Generator Heat Input Function of Part Load Ratio Curve Name"] = value
 
     @property
     def pump_electric_input_function_of_part_load_ratio_curve_name(self):
@@ -3779,10 +5178,13 @@ class ChillerAbsorptionIndirect(DataObject):
         Returns:
             str: the value of `pump_electric_input_function_of_part_load_ratio_curve_name` or None if not set
         """
-        return self._data["Pump Electric Input Function of Part Load Ratio Curve Name"]
+        return self._data[
+            "Pump Electric Input Function of Part Load Ratio Curve Name"]
 
     @pump_electric_input_function_of_part_load_ratio_curve_name.setter
-    def pump_electric_input_function_of_part_load_ratio_curve_name(self, value=None):
+    def pump_electric_input_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Pump Electric Input Function of Part Load Ratio Curve Name`
         Table:OneIndependentVariable object can also be used
 
@@ -3794,7 +5196,8 @@ class ChillerAbsorptionIndirect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Pump Electric Input Function of Part Load Ratio Curve Name"] = value
+        self[
+            "Pump Electric Input Function of Part Load Ratio Curve Name"] = value
 
     @property
     def generator_inlet_node_name(self):
@@ -3855,10 +5258,13 @@ class ChillerAbsorptionIndirect(DataObject):
         Returns:
             str: the value of `capacity_correction_function_of_condenser_temperature_curve_name` or None if not set
         """
-        return self._data["Capacity Correction Function of Condenser Temperature Curve Name"]
+        return self._data[
+            "Capacity Correction Function of Condenser Temperature Curve Name"]
 
     @capacity_correction_function_of_condenser_temperature_curve_name.setter
-    def capacity_correction_function_of_condenser_temperature_curve_name(self, value=None):
+    def capacity_correction_function_of_condenser_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Capacity Correction Function of Condenser Temperature Curve Name`
         Table:OneIndependentVariable object can also be used
         Curve which shows the change in normailized capacity to changes in condenser temperature.
@@ -3871,19 +5277,24 @@ class ChillerAbsorptionIndirect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Capacity Correction Function of Condenser Temperature Curve Name"] = value
+        self[
+            "Capacity Correction Function of Condenser Temperature Curve Name"] = value
 
     @property
-    def capacity_correction_function_of_chilled_water_temperature_curve_name(self):
+    def capacity_correction_function_of_chilled_water_temperature_curve_name(
+            self):
         """Get capacity_correction_function_of_chilled_water_temperature_curve_name
 
         Returns:
             str: the value of `capacity_correction_function_of_chilled_water_temperature_curve_name` or None if not set
         """
-        return self._data["Capacity Correction Function of Chilled Water Temperature Curve Name"]
+        return self._data[
+            "Capacity Correction Function of Chilled Water Temperature Curve Name"]
 
     @capacity_correction_function_of_chilled_water_temperature_curve_name.setter
-    def capacity_correction_function_of_chilled_water_temperature_curve_name(self, value=None):
+    def capacity_correction_function_of_chilled_water_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Capacity Correction Function of Chilled Water Temperature Curve Name`
         Table:OneIndependentVariable object can also be used
         Curve which shows the change in normailized capacity to changes in leaving chilled water temperature.
@@ -3896,7 +5307,8 @@ class ChillerAbsorptionIndirect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Capacity Correction Function of Chilled Water Temperature Curve Name"] = value
+        self[
+            "Capacity Correction Function of Chilled Water Temperature Curve Name"] = value
 
     @property
     def capacity_correction_function_of_generator_temperature_curve_name(self):
@@ -3905,10 +5317,13 @@ class ChillerAbsorptionIndirect(DataObject):
         Returns:
             str: the value of `capacity_correction_function_of_generator_temperature_curve_name` or None if not set
         """
-        return self._data["Capacity Correction Function of Generator Temperature Curve Name"]
+        return self._data[
+            "Capacity Correction Function of Generator Temperature Curve Name"]
 
     @capacity_correction_function_of_generator_temperature_curve_name.setter
-    def capacity_correction_function_of_generator_temperature_curve_name(self, value=None):
+    def capacity_correction_function_of_generator_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Capacity Correction Function of Generator Temperature Curve Name`
         Table:OneIndependentVariable object can also be used
         Used when generator fluid type is hot water
@@ -3922,19 +5337,24 @@ class ChillerAbsorptionIndirect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Capacity Correction Function of Generator Temperature Curve Name"] = value
+        self[
+            "Capacity Correction Function of Generator Temperature Curve Name"] = value
 
     @property
-    def generator_heat_input_correction_function_of_condenser_temperature_curve_name(self):
+    def generator_heat_input_correction_function_of_condenser_temperature_curve_name(
+            self):
         """Get generator_heat_input_correction_function_of_condenser_temperature_curve_name
 
         Returns:
             str: the value of `generator_heat_input_correction_function_of_condenser_temperature_curve_name` or None if not set
         """
-        return self._data["Generator Heat Input Correction Function of Condenser Temperature Curve Name"]
+        return self._data[
+            "Generator Heat Input Correction Function of Condenser Temperature Curve Name"]
 
     @generator_heat_input_correction_function_of_condenser_temperature_curve_name.setter
-    def generator_heat_input_correction_function_of_condenser_temperature_curve_name(self, value=None):
+    def generator_heat_input_correction_function_of_condenser_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Generator Heat Input Correction Function of Condenser Temperature Curve Name`
         Table:OneIndependentVariable object can also be used
         Curve which shows the change in normailized heat input to changes in condenser temperature.
@@ -3947,19 +5367,24 @@ class ChillerAbsorptionIndirect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Generator Heat Input Correction Function of Condenser Temperature Curve Name"] = value
+        self[
+            "Generator Heat Input Correction Function of Condenser Temperature Curve Name"] = value
 
     @property
-    def generator_heat_input_correction_function_of_chilled_water_temperature_curve_name(self):
+    def generator_heat_input_correction_function_of_chilled_water_temperature_curve_name(
+            self):
         """Get generator_heat_input_correction_function_of_chilled_water_temperature_curve_name
 
         Returns:
             str: the value of `generator_heat_input_correction_function_of_chilled_water_temperature_curve_name` or None if not set
         """
-        return self._data["Generator Heat Input Correction Function of Chilled Water Temperature Curve Name"]
+        return self._data[
+            "Generator Heat Input Correction Function of Chilled Water Temperature Curve Name"]
 
     @generator_heat_input_correction_function_of_chilled_water_temperature_curve_name.setter
-    def generator_heat_input_correction_function_of_chilled_water_temperature_curve_name(self, value=None):
+    def generator_heat_input_correction_function_of_chilled_water_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Generator Heat Input Correction Function of Chilled Water Temperature Curve Name`
         Table:OneIndependentVariable object can also be used
         Curve which shows the change in normailized heat input to changes in leaving chilled water temperature.
@@ -3972,7 +5397,8 @@ class ChillerAbsorptionIndirect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Generator Heat Input Correction Function of Chilled Water Temperature Curve Name"] = value
+        self[
+            "Generator Heat Input Correction Function of Chilled Water Temperature Curve Name"] = value
 
     @property
     def generator_heat_source_type(self):
@@ -4134,13 +5560,230 @@ class ChillerAbsorptionIndirect(DataObject):
 
 
 class ChillerAbsorption(DataObject):
+
     """ Corresponds to IDD object `Chiller:Absorption`
         This indirect absorption chiller model is the empirical model from the
         Building Loads and System Thermodynamics (BLAST) program.  Chiller
         performance curves are generated by fitting catalog data to third order
         polynomial equations.  Two sets of coefficients are required.
     """
-    schema = {'min-fields': 23, 'name': u'Chiller:Absorption', 'pyname': u'ChillerAbsorption', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'nominal pumping power', {'name': u'Nominal Pumping Power', 'pyname': u'nominal_pumping_power', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser inlet node name', {'name': u'Condenser Inlet Node Name', 'pyname': u'condenser_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser outlet node name', {'name': u'Condenser Outlet Node Name', 'pyname': u'condenser_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'design condenser inlet temperature', {'name': u'Design Condenser Inlet Temperature', 'pyname': u'design_condenser_inlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'design chilled water flow rate', {'name': u'Design Chilled Water Flow Rate', 'pyname': u'design_chilled_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'design condenser water flow rate', {'name': u'Design Condenser Water Flow Rate', 'pyname': u'design_condenser_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'coefficient 1 of the hot water or steam use part load ratio curve', {'name': u'Coefficient 1 of the Hot Water or Steam Use Part Load Ratio Curve', 'pyname': u'coefficient_1_of_the_hot_water_or_steam_use_part_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of the hot water or steam use part load ratio curve', {'name': u'Coefficient 2 of the Hot Water or Steam Use Part Load Ratio Curve', 'pyname': u'coefficient_2_of_the_hot_water_or_steam_use_part_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of the hot water or steam use part load ratio curve', {'name': u'Coefficient 3 of the Hot Water or Steam Use Part Load Ratio Curve', 'pyname': u'coefficient_3_of_the_hot_water_or_steam_use_part_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of the pump electric use part load ratio curve', {'name': u'Coefficient 1 of the Pump Electric Use Part Load Ratio Curve', 'pyname': u'coefficient_1_of_the_pump_electric_use_part_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of the pump electric use part load ratio curve', {'name': u'Coefficient 2 of the Pump Electric Use Part Load Ratio Curve', 'pyname': u'coefficient_2_of_the_pump_electric_use_part_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of the pump electric use part load ratio curve', {'name': u'Coefficient 3 of the Pump Electric Use Part Load Ratio Curve', 'pyname': u'coefficient_3_of_the_pump_electric_use_part_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'chilled water outlet temperature lower limit', {'name': u'Chilled Water Outlet Temperature Lower Limit', 'pyname': u'chilled_water_outlet_temperature_lower_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'generator inlet node name', {'name': u'Generator Inlet Node Name', 'pyname': u'generator_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'generator outlet node name', {'name': u'Generator Outlet Node Name', 'pyname': u'generator_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chiller flow mode', {'name': u'Chiller Flow Mode', 'pyname': u'chiller_flow_mode', 'default': u'NotModulated', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'generator heat source type', {'name': u'Generator Heat Source Type', 'pyname': u'generator_heat_source_type', 'default': u'Steam', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design generator fluid flow rate', {'name': u'Design Generator Fluid Flow Rate', 'pyname': u'design_generator_fluid_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'degree of subcooling in steam generator', {'name': u'Degree of Subcooling in Steam Generator', 'pyname': u'degree_of_subcooling_in_steam_generator', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 23,
+              'name': u'Chiller:Absorption',
+              'pyname': u'ChillerAbsorption',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'nominal pumping power',
+                                      {'name': u'Nominal Pumping Power',
+                                       'pyname': u'nominal_pumping_power',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'chilled water inlet node name',
+                                      {'name': u'Chilled Water Inlet Node Name',
+                                       'pyname': u'chilled_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chilled water outlet node name',
+                                      {'name': u'Chilled Water Outlet Node Name',
+                                       'pyname': u'chilled_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser inlet node name',
+                                      {'name': u'Condenser Inlet Node Name',
+                                       'pyname': u'condenser_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser outlet node name',
+                                      {'name': u'Condenser Outlet Node Name',
+                                       'pyname': u'condenser_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'design condenser inlet temperature',
+                                      {'name': u'Design Condenser Inlet Temperature',
+                                       'pyname': u'design_condenser_inlet_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'design chilled water flow rate',
+                                      {'name': u'Design Chilled Water Flow Rate',
+                                       'pyname': u'design_chilled_water_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design condenser water flow rate',
+                                      {'name': u'Design Condenser Water Flow Rate',
+                                       'pyname': u'design_condenser_water_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'coefficient 1 of the hot water or steam use part load ratio curve',
+                                      {'name': u'Coefficient 1 of the Hot Water or Steam Use Part Load Ratio Curve',
+                                       'pyname': u'coefficient_1_of_the_hot_water_or_steam_use_part_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of the hot water or steam use part load ratio curve',
+                                      {'name': u'Coefficient 2 of the Hot Water or Steam Use Part Load Ratio Curve',
+                                       'pyname': u'coefficient_2_of_the_hot_water_or_steam_use_part_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of the hot water or steam use part load ratio curve',
+                                      {'name': u'Coefficient 3 of the Hot Water or Steam Use Part Load Ratio Curve',
+                                       'pyname': u'coefficient_3_of_the_hot_water_or_steam_use_part_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of the pump electric use part load ratio curve',
+                                      {'name': u'Coefficient 1 of the Pump Electric Use Part Load Ratio Curve',
+                                       'pyname': u'coefficient_1_of_the_pump_electric_use_part_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of the pump electric use part load ratio curve',
+                                      {'name': u'Coefficient 2 of the Pump Electric Use Part Load Ratio Curve',
+                                       'pyname': u'coefficient_2_of_the_pump_electric_use_part_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of the pump electric use part load ratio curve',
+                                      {'name': u'Coefficient 3 of the Pump Electric Use Part Load Ratio Curve',
+                                       'pyname': u'coefficient_3_of_the_pump_electric_use_part_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'chilled water outlet temperature lower limit',
+                                      {'name': u'Chilled Water Outlet Temperature Lower Limit',
+                                       'pyname': u'chilled_water_outlet_temperature_lower_limit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'generator inlet node name',
+                                      {'name': u'Generator Inlet Node Name',
+                                       'pyname': u'generator_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'generator outlet node name',
+                                      {'name': u'Generator Outlet Node Name',
+                                       'pyname': u'generator_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chiller flow mode',
+                                      {'name': u'Chiller Flow Mode',
+                                       'pyname': u'chiller_flow_mode',
+                                       'default': u'NotModulated',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'generator heat source type',
+                                      {'name': u'Generator Heat Source Type',
+                                       'pyname': u'generator_heat_source_type',
+                                       'default': u'Steam',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design generator fluid flow rate',
+                                      {'name': u'Design Generator Fluid Flow Rate',
+                                       'pyname': u'design_generator_fluid_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'degree of subcooling in steam generator',
+                                      {'name': u'Degree of Subcooling in Steam Generator',
+                                       'pyname': u'degree_of_subcooling_in_steam_generator',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:Absorption`
@@ -4462,16 +6105,20 @@ class ChillerAbsorption(DataObject):
         self["Design Condenser Water Flow Rate"] = value
 
     @property
-    def coefficient_1_of_the_hot_water_or_steam_use_part_load_ratio_curve(self):
+    def coefficient_1_of_the_hot_water_or_steam_use_part_load_ratio_curve(
+            self):
         """Get coefficient_1_of_the_hot_water_or_steam_use_part_load_ratio_curve
 
         Returns:
             float: the value of `coefficient_1_of_the_hot_water_or_steam_use_part_load_ratio_curve` or None if not set
         """
-        return self._data["Coefficient 1 of the Hot Water or Steam Use Part Load Ratio Curve"]
+        return self._data[
+            "Coefficient 1 of the Hot Water or Steam Use Part Load Ratio Curve"]
 
     @coefficient_1_of_the_hot_water_or_steam_use_part_load_ratio_curve.setter
-    def coefficient_1_of_the_hot_water_or_steam_use_part_load_ratio_curve(self, value=None):
+    def coefficient_1_of_the_hot_water_or_steam_use_part_load_ratio_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 1 of the Hot Water or Steam Use Part Load Ratio Curve`
 
         Args:
@@ -4482,19 +6129,24 @@ class ChillerAbsorption(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 1 of the Hot Water or Steam Use Part Load Ratio Curve"] = value
+        self[
+            "Coefficient 1 of the Hot Water or Steam Use Part Load Ratio Curve"] = value
 
     @property
-    def coefficient_2_of_the_hot_water_or_steam_use_part_load_ratio_curve(self):
+    def coefficient_2_of_the_hot_water_or_steam_use_part_load_ratio_curve(
+            self):
         """Get coefficient_2_of_the_hot_water_or_steam_use_part_load_ratio_curve
 
         Returns:
             float: the value of `coefficient_2_of_the_hot_water_or_steam_use_part_load_ratio_curve` or None if not set
         """
-        return self._data["Coefficient 2 of the Hot Water or Steam Use Part Load Ratio Curve"]
+        return self._data[
+            "Coefficient 2 of the Hot Water or Steam Use Part Load Ratio Curve"]
 
     @coefficient_2_of_the_hot_water_or_steam_use_part_load_ratio_curve.setter
-    def coefficient_2_of_the_hot_water_or_steam_use_part_load_ratio_curve(self, value=None):
+    def coefficient_2_of_the_hot_water_or_steam_use_part_load_ratio_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 2 of the Hot Water or Steam Use Part Load Ratio Curve`
 
         Args:
@@ -4505,19 +6157,24 @@ class ChillerAbsorption(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 2 of the Hot Water or Steam Use Part Load Ratio Curve"] = value
+        self[
+            "Coefficient 2 of the Hot Water or Steam Use Part Load Ratio Curve"] = value
 
     @property
-    def coefficient_3_of_the_hot_water_or_steam_use_part_load_ratio_curve(self):
+    def coefficient_3_of_the_hot_water_or_steam_use_part_load_ratio_curve(
+            self):
         """Get coefficient_3_of_the_hot_water_or_steam_use_part_load_ratio_curve
 
         Returns:
             float: the value of `coefficient_3_of_the_hot_water_or_steam_use_part_load_ratio_curve` or None if not set
         """
-        return self._data["Coefficient 3 of the Hot Water or Steam Use Part Load Ratio Curve"]
+        return self._data[
+            "Coefficient 3 of the Hot Water or Steam Use Part Load Ratio Curve"]
 
     @coefficient_3_of_the_hot_water_or_steam_use_part_load_ratio_curve.setter
-    def coefficient_3_of_the_hot_water_or_steam_use_part_load_ratio_curve(self, value=None):
+    def coefficient_3_of_the_hot_water_or_steam_use_part_load_ratio_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 3 of the Hot Water or Steam Use Part Load Ratio Curve`
 
         Args:
@@ -4528,7 +6185,8 @@ class ChillerAbsorption(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 3 of the Hot Water or Steam Use Part Load Ratio Curve"] = value
+        self[
+            "Coefficient 3 of the Hot Water or Steam Use Part Load Ratio Curve"] = value
 
     @property
     def coefficient_1_of_the_pump_electric_use_part_load_ratio_curve(self):
@@ -4537,10 +6195,13 @@ class ChillerAbsorption(DataObject):
         Returns:
             float: the value of `coefficient_1_of_the_pump_electric_use_part_load_ratio_curve` or None if not set
         """
-        return self._data["Coefficient 1 of the Pump Electric Use Part Load Ratio Curve"]
+        return self._data[
+            "Coefficient 1 of the Pump Electric Use Part Load Ratio Curve"]
 
     @coefficient_1_of_the_pump_electric_use_part_load_ratio_curve.setter
-    def coefficient_1_of_the_pump_electric_use_part_load_ratio_curve(self, value=None):
+    def coefficient_1_of_the_pump_electric_use_part_load_ratio_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 1 of the Pump Electric Use Part Load Ratio Curve`
         The pump electric use coefficients specify the
         pumping power as a Fraction of Nominal pumping power
@@ -4553,7 +6214,8 @@ class ChillerAbsorption(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 1 of the Pump Electric Use Part Load Ratio Curve"] = value
+        self[
+            "Coefficient 1 of the Pump Electric Use Part Load Ratio Curve"] = value
 
     @property
     def coefficient_2_of_the_pump_electric_use_part_load_ratio_curve(self):
@@ -4562,10 +6224,13 @@ class ChillerAbsorption(DataObject):
         Returns:
             float: the value of `coefficient_2_of_the_pump_electric_use_part_load_ratio_curve` or None if not set
         """
-        return self._data["Coefficient 2 of the Pump Electric Use Part Load Ratio Curve"]
+        return self._data[
+            "Coefficient 2 of the Pump Electric Use Part Load Ratio Curve"]
 
     @coefficient_2_of_the_pump_electric_use_part_load_ratio_curve.setter
-    def coefficient_2_of_the_pump_electric_use_part_load_ratio_curve(self, value=None):
+    def coefficient_2_of_the_pump_electric_use_part_load_ratio_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 2 of the Pump Electric Use Part Load Ratio Curve`
 
         Args:
@@ -4576,7 +6241,8 @@ class ChillerAbsorption(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 2 of the Pump Electric Use Part Load Ratio Curve"] = value
+        self[
+            "Coefficient 2 of the Pump Electric Use Part Load Ratio Curve"] = value
 
     @property
     def coefficient_3_of_the_pump_electric_use_part_load_ratio_curve(self):
@@ -4585,10 +6251,13 @@ class ChillerAbsorption(DataObject):
         Returns:
             float: the value of `coefficient_3_of_the_pump_electric_use_part_load_ratio_curve` or None if not set
         """
-        return self._data["Coefficient 3 of the Pump Electric Use Part Load Ratio Curve"]
+        return self._data[
+            "Coefficient 3 of the Pump Electric Use Part Load Ratio Curve"]
 
     @coefficient_3_of_the_pump_electric_use_part_load_ratio_curve.setter
-    def coefficient_3_of_the_pump_electric_use_part_load_ratio_curve(self, value=None):
+    def coefficient_3_of_the_pump_electric_use_part_load_ratio_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 3 of the Pump Electric Use Part Load Ratio Curve`
 
         Args:
@@ -4599,7 +6268,8 @@ class ChillerAbsorption(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 3 of the Pump Electric Use Part Load Ratio Curve"] = value
+        self[
+            "Coefficient 3 of the Pump Electric Use Part Load Ratio Curve"] = value
 
     @property
     def chilled_water_outlet_temperature_lower_limit(self):
@@ -4806,11 +6476,141 @@ class ChillerAbsorption(DataObject):
 
 
 class ChillerConstantCop(DataObject):
+
     """ Corresponds to IDD object `Chiller:ConstantCOP`
         This constant COP chiller model provides a means of quickly specifying a
         Chiller where performance data is not available.
     """
-    schema = {'min-fields': 12, 'name': u'Chiller:ConstantCOP', 'pyname': u'ChillerConstantCop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'nominal cop', {'name': u'Nominal COP', 'pyname': u'nominal_cop', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'design chilled water flow rate', {'name': u'Design Chilled Water Flow Rate', 'pyname': u'design_chilled_water_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'design condenser water flow rate', {'name': u'Design Condenser Water Flow Rate', 'pyname': u'design_condenser_water_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser inlet node name', {'name': u'Condenser Inlet Node Name', 'pyname': u'condenser_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser outlet node name', {'name': u'Condenser Outlet Node Name', 'pyname': u'condenser_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser type', {'name': u'Condenser Type', 'pyname': u'condenser_type', 'default': u'AirCooled', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller flow mode', {'name': u'Chiller Flow Mode', 'pyname': u'chiller_flow_mode', 'default': u'NotModulated', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'basin heater capacity', {'name': u'Basin Heater Capacity', 'pyname': u'basin_heater_capacity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'basin heater setpoint temperature', {'name': u'Basin Heater Setpoint Temperature', 'pyname': u'basin_heater_setpoint_temperature', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'basin heater operating schedule name', {'name': u'Basin Heater Operating Schedule Name', 'pyname': u'basin_heater_operating_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 12,
+              'name': u'Chiller:ConstantCOP',
+              'pyname': u'ChillerConstantCop',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'nominal cop',
+                                      {'name': u'Nominal COP',
+                                       'pyname': u'nominal_cop',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'design chilled water flow rate',
+                                      {'name': u'Design Chilled Water Flow Rate',
+                                       'pyname': u'design_chilled_water_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design condenser water flow rate',
+                                      {'name': u'Design Condenser Water Flow Rate',
+                                       'pyname': u'design_condenser_water_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'chilled water inlet node name',
+                                      {'name': u'Chilled Water Inlet Node Name',
+                                       'pyname': u'chilled_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chilled water outlet node name',
+                                      {'name': u'Chilled Water Outlet Node Name',
+                                       'pyname': u'chilled_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser inlet node name',
+                                      {'name': u'Condenser Inlet Node Name',
+                                       'pyname': u'condenser_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser outlet node name',
+                                      {'name': u'Condenser Outlet Node Name',
+                                       'pyname': u'condenser_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser type',
+                                      {'name': u'Condenser Type',
+                                       'pyname': u'condenser_type',
+                                       'default': u'AirCooled',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller flow mode',
+                                      {'name': u'Chiller Flow Mode',
+                                       'pyname': u'chiller_flow_mode',
+                                       'default': u'NotModulated',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'basin heater capacity',
+                                      {'name': u'Basin Heater Capacity',
+                                       'pyname': u'basin_heater_capacity',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/K'}),
+                                     (u'basin heater setpoint temperature',
+                                      {'name': u'Basin Heater Setpoint Temperature',
+                                       'pyname': u'basin_heater_setpoint_temperature',
+                                       'default': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 2.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'basin heater operating schedule name',
+                                      {'name': u'Basin Heater Operating Schedule Name',
+                                       'pyname': u'basin_heater_operating_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:ConstantCOP`
@@ -5201,13 +7001,379 @@ class ChillerConstantCop(DataObject):
 
 
 class ChillerEngineDriven(DataObject):
+
     """ Corresponds to IDD object `Chiller:EngineDriven`
         This chiller model is the empirical model from the Building Loads
         and System Thermodynamics (BLAST) program.  Chiller performance
         curves are generated by fitting catalog data to third order
         polynomial equations.  Three sets of coefficients are required.
     """
-    schema = {'min-fields': 43, 'name': u'Chiller:EngineDriven', 'pyname': u'ChillerEngineDriven', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'condenser type', {'name': u'Condenser Type', 'pyname': u'condenser_type', 'default': u'AirCooled', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'nominal cop', {'name': u'Nominal COP', 'pyname': u'nominal_cop', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/W'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser inlet node name', {'name': u'Condenser Inlet Node Name', 'pyname': u'condenser_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser outlet node name', {'name': u'Condenser Outlet Node Name', 'pyname': u'condenser_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'design condenser inlet temperature', {'name': u'Design Condenser Inlet Temperature', 'pyname': u'design_condenser_inlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'temperature rise coefficient', {'name': u'Temperature Rise Coefficient', 'pyname': u'temperature_rise_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'design chilled water outlet temperature', {'name': u'Design Chilled Water Outlet Temperature', 'pyname': u'design_chilled_water_outlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'design chilled water flow rate', {'name': u'Design Chilled Water Flow Rate', 'pyname': u'design_chilled_water_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'design condenser water flow rate', {'name': u'Design Condenser Water Flow Rate', 'pyname': u'design_condenser_water_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'coefficient 1 of capacity ratio curve', {'name': u'Coefficient 1 of Capacity Ratio Curve', 'pyname': u'coefficient_1_of_capacity_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of capacity ratio curve', {'name': u'Coefficient 2 of Capacity Ratio Curve', 'pyname': u'coefficient_2_of_capacity_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of capacity ratio curve', {'name': u'Coefficient 3 of Capacity Ratio Curve', 'pyname': u'coefficient_3_of_capacity_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of power ratio curve', {'name': u'Coefficient 1 of Power Ratio Curve', 'pyname': u'coefficient_1_of_power_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of power ratio curve', {'name': u'Coefficient 2 of Power Ratio Curve', 'pyname': u'coefficient_2_of_power_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of power ratio curve', {'name': u'Coefficient 3 of Power Ratio Curve', 'pyname': u'coefficient_3_of_power_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of full load ratio curve', {'name': u'Coefficient 1 of Full Load Ratio Curve', 'pyname': u'coefficient_1_of_full_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of full load ratio curve', {'name': u'Coefficient 2 of Full Load Ratio Curve', 'pyname': u'coefficient_2_of_full_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of full load ratio curve', {'name': u'Coefficient 3 of Full Load Ratio Curve', 'pyname': u'coefficient_3_of_full_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'chilled water outlet temperature lower limit', {'name': u'Chilled Water Outlet Temperature Lower Limit', 'pyname': u'chilled_water_outlet_temperature_lower_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'fuel use curve name', {'name': u'Fuel Use Curve Name', 'pyname': u'fuel_use_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'jacket heat recovery curve name', {'name': u'Jacket Heat Recovery Curve Name', 'pyname': u'jacket_heat_recovery_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'lube heat recovery curve name', {'name': u'Lube Heat Recovery Curve Name', 'pyname': u'lube_heat_recovery_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'total exhaust energy curve name', {'name': u'Total Exhaust Energy Curve Name', 'pyname': u'total_exhaust_energy_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'exhaust temperature curve name', {'name': u'Exhaust Temperature Curve Name', 'pyname': u'exhaust_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'coefficient 1 of u-factor times area curve', {'name': u'Coefficient 1 of U-Factor Times Area Curve', 'pyname': u'coefficient_1_of_ufactor_times_area_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of u-factor times area curve', {'name': u'Coefficient 2 of U-Factor Times Area Curve', 'pyname': u'coefficient_2_of_ufactor_times_area_curve', 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'maximum exhaust flow per unit of power output', {'name': u'Maximum Exhaust Flow per Unit of Power Output', 'pyname': u'maximum_exhaust_flow_per_unit_of_power_output', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'(kg/s)/W'}), (u'design minimum exhaust temperature', {'name': u'Design Minimum Exhaust Temperature', 'pyname': u'design_minimum_exhaust_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel higher heating value', {'name': u'Fuel Higher Heating Value', 'pyname': u'fuel_higher_heating_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kJ/kg'}), (u'design heat recovery water flow rate', {'name': u'Design Heat Recovery Water Flow Rate', 'pyname': u'design_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heat recovery inlet node name', {'name': u'Heat Recovery Inlet Node Name', 'pyname': u'heat_recovery_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery outlet node name', {'name': u'Heat Recovery Outlet Node Name', 'pyname': u'heat_recovery_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chiller flow mode', {'name': u'Chiller Flow Mode', 'pyname': u'chiller_flow_mode', 'default': u'NotModulated', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum temperature for heat recovery at heat recovery outlet node', {'name': u'Maximum Temperature for Heat Recovery at Heat Recovery Outlet Node', 'pyname': u'maximum_temperature_for_heat_recovery_at_heat_recovery_outlet_node', 'default': 60.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'basin heater capacity', {'name': u'Basin Heater Capacity', 'pyname': u'basin_heater_capacity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'basin heater setpoint temperature', {'name': u'Basin Heater Setpoint Temperature', 'pyname': u'basin_heater_setpoint_temperature', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'basin heater operating schedule name', {'name': u'Basin Heater Operating Schedule Name', 'pyname': u'basin_heater_operating_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 43,
+              'name': u'Chiller:EngineDriven',
+              'pyname': u'ChillerEngineDriven',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'condenser type',
+                                      {'name': u'Condenser Type',
+                                       'pyname': u'condenser_type',
+                                       'default': u'AirCooled',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'nominal cop',
+                                      {'name': u'Nominal COP',
+                                       'pyname': u'nominal_cop',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/W'}),
+                                     (u'chilled water inlet node name',
+                                      {'name': u'Chilled Water Inlet Node Name',
+                                       'pyname': u'chilled_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chilled water outlet node name',
+                                      {'name': u'Chilled Water Outlet Node Name',
+                                       'pyname': u'chilled_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser inlet node name',
+                                      {'name': u'Condenser Inlet Node Name',
+                                       'pyname': u'condenser_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser outlet node name',
+                                      {'name': u'Condenser Outlet Node Name',
+                                       'pyname': u'condenser_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'design condenser inlet temperature',
+                                      {'name': u'Design Condenser Inlet Temperature',
+                                       'pyname': u'design_condenser_inlet_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'temperature rise coefficient',
+                                      {'name': u'Temperature Rise Coefficient',
+                                       'pyname': u'temperature_rise_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'design chilled water outlet temperature',
+                                      {'name': u'Design Chilled Water Outlet Temperature',
+                                       'pyname': u'design_chilled_water_outlet_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'design chilled water flow rate',
+                                      {'name': u'Design Chilled Water Flow Rate',
+                                       'pyname': u'design_chilled_water_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design condenser water flow rate',
+                                      {'name': u'Design Condenser Water Flow Rate',
+                                       'pyname': u'design_condenser_water_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'coefficient 1 of capacity ratio curve',
+                                      {'name': u'Coefficient 1 of Capacity Ratio Curve',
+                                       'pyname': u'coefficient_1_of_capacity_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of capacity ratio curve',
+                                      {'name': u'Coefficient 2 of Capacity Ratio Curve',
+                                       'pyname': u'coefficient_2_of_capacity_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of capacity ratio curve',
+                                      {'name': u'Coefficient 3 of Capacity Ratio Curve',
+                                       'pyname': u'coefficient_3_of_capacity_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of power ratio curve',
+                                      {'name': u'Coefficient 1 of Power Ratio Curve',
+                                       'pyname': u'coefficient_1_of_power_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of power ratio curve',
+                                      {'name': u'Coefficient 2 of Power Ratio Curve',
+                                       'pyname': u'coefficient_2_of_power_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of power ratio curve',
+                                      {'name': u'Coefficient 3 of Power Ratio Curve',
+                                       'pyname': u'coefficient_3_of_power_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of full load ratio curve',
+                                      {'name': u'Coefficient 1 of Full Load Ratio Curve',
+                                       'pyname': u'coefficient_1_of_full_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of full load ratio curve',
+                                      {'name': u'Coefficient 2 of Full Load Ratio Curve',
+                                       'pyname': u'coefficient_2_of_full_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of full load ratio curve',
+                                      {'name': u'Coefficient 3 of Full Load Ratio Curve',
+                                       'pyname': u'coefficient_3_of_full_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'chilled water outlet temperature lower limit',
+                                      {'name': u'Chilled Water Outlet Temperature Lower Limit',
+                                       'pyname': u'chilled_water_outlet_temperature_lower_limit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'fuel use curve name',
+                                      {'name': u'Fuel Use Curve Name',
+                                       'pyname': u'fuel_use_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'jacket heat recovery curve name',
+                                      {'name': u'Jacket Heat Recovery Curve Name',
+                                       'pyname': u'jacket_heat_recovery_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'lube heat recovery curve name',
+                                      {'name': u'Lube Heat Recovery Curve Name',
+                                       'pyname': u'lube_heat_recovery_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'total exhaust energy curve name',
+                                      {'name': u'Total Exhaust Energy Curve Name',
+                                       'pyname': u'total_exhaust_energy_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'exhaust temperature curve name',
+                                      {'name': u'Exhaust Temperature Curve Name',
+                                       'pyname': u'exhaust_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'coefficient 1 of u-factor times area curve',
+                                      {'name': u'Coefficient 1 of U-Factor Times Area Curve',
+                                       'pyname': u'coefficient_1_of_ufactor_times_area_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of u-factor times area curve',
+                                      {'name': u'Coefficient 2 of U-Factor Times Area Curve',
+                                       'pyname': u'coefficient_2_of_ufactor_times_area_curve',
+                                       'maximum': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'maximum exhaust flow per unit of power output',
+                                      {'name': u'Maximum Exhaust Flow per Unit of Power Output',
+                                       'pyname': u'maximum_exhaust_flow_per_unit_of_power_output',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'(kg/s)/W'}),
+                                     (u'design minimum exhaust temperature',
+                                      {'name': u'Design Minimum Exhaust Temperature',
+                                       'pyname': u'design_minimum_exhaust_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'fuel type',
+                                      {'name': u'Fuel Type',
+                                       'pyname': u'fuel_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel higher heating value',
+                                      {'name': u'Fuel Higher Heating Value',
+                                       'pyname': u'fuel_higher_heating_value',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'kJ/kg'}),
+                                     (u'design heat recovery water flow rate',
+                                      {'name': u'Design Heat Recovery Water Flow Rate',
+                                       'pyname': u'design_heat_recovery_water_flow_rate',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'heat recovery inlet node name',
+                                      {'name': u'Heat Recovery Inlet Node Name',
+                                       'pyname': u'heat_recovery_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'heat recovery outlet node name',
+                                      {'name': u'Heat Recovery Outlet Node Name',
+                                       'pyname': u'heat_recovery_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chiller flow mode',
+                                      {'name': u'Chiller Flow Mode',
+                                       'pyname': u'chiller_flow_mode',
+                                       'default': u'NotModulated',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'maximum temperature for heat recovery at heat recovery outlet node',
+                                      {'name': u'Maximum Temperature for Heat Recovery at Heat Recovery Outlet Node',
+                                       'pyname': u'maximum_temperature_for_heat_recovery_at_heat_recovery_outlet_node',
+                                       'default': 60.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'basin heater capacity',
+                                      {'name': u'Basin Heater Capacity',
+                                       'pyname': u'basin_heater_capacity',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/K'}),
+                                     (u'basin heater setpoint temperature',
+                                      {'name': u'Basin Heater Setpoint Temperature',
+                                       'pyname': u'basin_heater_setpoint_temperature',
+                                       'default': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 2.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'basin heater operating schedule name',
+                                      {'name': u'Basin Heater Operating Schedule Name',
+                                       'pyname': u'basin_heater_operating_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:EngineDriven`
@@ -6212,16 +8378,20 @@ class ChillerEngineDriven(DataObject):
         self["Chiller Flow Mode"] = value
 
     @property
-    def maximum_temperature_for_heat_recovery_at_heat_recovery_outlet_node(self):
+    def maximum_temperature_for_heat_recovery_at_heat_recovery_outlet_node(
+            self):
         """Get maximum_temperature_for_heat_recovery_at_heat_recovery_outlet_node
 
         Returns:
             float: the value of `maximum_temperature_for_heat_recovery_at_heat_recovery_outlet_node` or None if not set
         """
-        return self._data["Maximum Temperature for Heat Recovery at Heat Recovery Outlet Node"]
+        return self._data[
+            "Maximum Temperature for Heat Recovery at Heat Recovery Outlet Node"]
 
     @maximum_temperature_for_heat_recovery_at_heat_recovery_outlet_node.setter
-    def maximum_temperature_for_heat_recovery_at_heat_recovery_outlet_node(self, value=60.0):
+    def maximum_temperature_for_heat_recovery_at_heat_recovery_outlet_node(
+            self,
+            value=60.0):
         """  Corresponds to IDD Field `Maximum Temperature for Heat Recovery at Heat Recovery Outlet Node`
 
         Args:
@@ -6235,7 +8405,8 @@ class ChillerEngineDriven(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Temperature for Heat Recovery at Heat Recovery Outlet Node"] = value
+        self[
+            "Maximum Temperature for Heat Recovery at Heat Recovery Outlet Node"] = value
 
     @property
     def sizing_factor(self):
@@ -6349,13 +8520,479 @@ class ChillerEngineDriven(DataObject):
 
 
 class ChillerCombustionTurbine(DataObject):
+
     """ Corresponds to IDD object `Chiller:CombustionTurbine`
         This chiller model is the empirical model from the Building Loads
         and System Thermodynamics (BLAST) program.  Chiller performance
         curves are generated by fitting catalog data to third order
         polynomial equations.  Three sets of coefficients are required.
     """
-    schema = {'min-fields': 56, 'name': u'Chiller:CombustionTurbine', 'pyname': u'ChillerCombustionTurbine', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'condenser type', {'name': u'Condenser Type', 'pyname': u'condenser_type', 'default': u'AirCooled', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'nominal cop', {'name': u'Nominal COP', 'pyname': u'nominal_cop', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/W'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser inlet node name', {'name': u'Condenser Inlet Node Name', 'pyname': u'condenser_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser outlet node name', {'name': u'Condenser Outlet Node Name', 'pyname': u'condenser_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'design condenser inlet temperature', {'name': u'Design Condenser Inlet Temperature', 'pyname': u'design_condenser_inlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'temperature rise coefficient', {'name': u'Temperature Rise Coefficient', 'pyname': u'temperature_rise_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'design chilled water outlet temperature', {'name': u'Design Chilled Water Outlet Temperature', 'pyname': u'design_chilled_water_outlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'design chilled water flow rate', {'name': u'Design Chilled Water Flow Rate', 'pyname': u'design_chilled_water_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'design condenser water flow rate', {'name': u'Design Condenser Water Flow Rate', 'pyname': u'design_condenser_water_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'coefficient 1 of capacity ratio curve', {'name': u'Coefficient 1 of Capacity Ratio Curve', 'pyname': u'coefficient_1_of_capacity_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of capacity ratio curve', {'name': u'Coefficient 2 of Capacity Ratio Curve', 'pyname': u'coefficient_2_of_capacity_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of capacity ratio curve', {'name': u'Coefficient 3 of Capacity Ratio Curve', 'pyname': u'coefficient_3_of_capacity_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of power ratio curve', {'name': u'Coefficient 1 of Power Ratio Curve', 'pyname': u'coefficient_1_of_power_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of power ratio curve', {'name': u'Coefficient 2 of Power Ratio Curve', 'pyname': u'coefficient_2_of_power_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of power ratio curve', {'name': u'Coefficient 3 of Power Ratio Curve', 'pyname': u'coefficient_3_of_power_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of full load ratio curve', {'name': u'Coefficient 1 of Full Load Ratio Curve', 'pyname': u'coefficient_1_of_full_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of full load ratio curve', {'name': u'Coefficient 2 of Full Load Ratio Curve', 'pyname': u'coefficient_2_of_full_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of full load ratio curve', {'name': u'Coefficient 3 of Full Load Ratio Curve', 'pyname': u'coefficient_3_of_full_load_ratio_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'chilled water outlet temperature lower limit', {'name': u'Chilled Water Outlet Temperature Lower Limit', 'pyname': u'chilled_water_outlet_temperature_lower_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'coefficient 1 of fuel input curve', {'name': u'Coefficient 1 of Fuel Input Curve', 'pyname': u'coefficient_1_of_fuel_input_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of fuel input curve', {'name': u'Coefficient 2 of Fuel Input Curve', 'pyname': u'coefficient_2_of_fuel_input_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of fuel input curve', {'name': u'Coefficient 3 of Fuel Input Curve', 'pyname': u'coefficient_3_of_fuel_input_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of temperature based fuel input curve', {'name': u'Coefficient 1 of Temperature Based Fuel Input Curve', 'pyname': u'coefficient_1_of_temperature_based_fuel_input_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of temperature based fuel input curve', {'name': u'Coefficient 2 of Temperature Based Fuel Input Curve', 'pyname': u'coefficient_2_of_temperature_based_fuel_input_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of temperature based fuel input curve', {'name': u'Coefficient 3 of Temperature Based Fuel Input Curve', 'pyname': u'coefficient_3_of_temperature_based_fuel_input_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of exhaust flow curve', {'name': u'Coefficient 1 of Exhaust Flow Curve', 'pyname': u'coefficient_1_of_exhaust_flow_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of exhaust flow curve', {'name': u'Coefficient 2 of Exhaust Flow Curve', 'pyname': u'coefficient_2_of_exhaust_flow_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of exhaust flow curve', {'name': u'Coefficient 3 of Exhaust Flow Curve', 'pyname': u'coefficient_3_of_exhaust_flow_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of exhaust gas temperature curve', {'name': u'Coefficient 1 of Exhaust Gas Temperature Curve', 'pyname': u'coefficient_1_of_exhaust_gas_temperature_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of exhaust gas temperature curve', {'name': u'Coefficient 2 of Exhaust Gas Temperature Curve', 'pyname': u'coefficient_2_of_exhaust_gas_temperature_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of exhaust gas temperature curve', {'name': u'Coefficient 3 of Exhaust Gas Temperature Curve', 'pyname': u'coefficient_3_of_exhaust_gas_temperature_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of temperature based exhaust gas temperature curve', {'name': u'Coefficient 1 of Temperature Based Exhaust Gas Temperature Curve', 'pyname': u'coefficient_1_of_temperature_based_exhaust_gas_temperature_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of temperature based exhaust gas temperature curve', {'name': u'Coefficient 2 of Temperature Based Exhaust Gas Temperature Curve', 'pyname': u'coefficient_2_of_temperature_based_exhaust_gas_temperature_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of temperature based exhaust gas temperature curve', {'name': u'Coefficient 3 of Temperature Based Exhaust Gas Temperature Curve', 'pyname': u'coefficient_3_of_temperature_based_exhaust_gas_temperature_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of recovery lube heat curve', {'name': u'Coefficient 1 of Recovery Lube Heat Curve', 'pyname': u'coefficient_1_of_recovery_lube_heat_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of recovery lube heat curve', {'name': u'Coefficient 2 of Recovery Lube Heat Curve', 'pyname': u'coefficient_2_of_recovery_lube_heat_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of recovery lube heat curve', {'name': u'Coefficient 3 of Recovery Lube Heat Curve', 'pyname': u'coefficient_3_of_recovery_lube_heat_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of u-factor times area curve', {'name': u'Coefficient 1 of U-Factor Times Area Curve', 'pyname': u'coefficient_1_of_ufactor_times_area_curve', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of u-factor times area curve', {'name': u'Coefficient 2 of U-Factor Times Area Curve', 'pyname': u'coefficient_2_of_ufactor_times_area_curve', 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'gas turbine engine capacity', {'name': u'Gas Turbine Engine Capacity', 'pyname': u'gas_turbine_engine_capacity', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'maximum exhaust flow per unit of power output', {'name': u'Maximum Exhaust Flow per Unit of Power Output', 'pyname': u'maximum_exhaust_flow_per_unit_of_power_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'(kg/s)/W'}), (u'design steam saturation temperature', {'name': u'Design Steam Saturation Temperature', 'pyname': u'design_steam_saturation_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'fuel higher heating value', {'name': u'Fuel Higher Heating Value', 'pyname': u'fuel_higher_heating_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kJ/kg'}), (u'design heat recovery water flow rate', {'name': u'Design Heat Recovery Water Flow Rate', 'pyname': u'design_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heat recovery inlet node name', {'name': u'Heat Recovery Inlet Node Name', 'pyname': u'heat_recovery_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery outlet node name', {'name': u'Heat Recovery Outlet Node Name', 'pyname': u'heat_recovery_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chiller flow mode', {'name': u'Chiller Flow Mode', 'pyname': u'chiller_flow_mode', 'default': u'NotModulated', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'default': u'NaturalGas', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat recovery maximum temperature', {'name': u'Heat Recovery Maximum Temperature', 'pyname': u'heat_recovery_maximum_temperature', 'default': 80.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'basin heater capacity', {'name': u'Basin Heater Capacity', 'pyname': u'basin_heater_capacity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'basin heater setpoint temperature', {'name': u'Basin Heater Setpoint Temperature', 'pyname': u'basin_heater_setpoint_temperature', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'basin heater operating schedule name', {'name': u'Basin Heater Operating Schedule Name', 'pyname': u'basin_heater_operating_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 56,
+              'name': u'Chiller:CombustionTurbine',
+              'pyname': u'ChillerCombustionTurbine',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'condenser type',
+                                      {'name': u'Condenser Type',
+                                       'pyname': u'condenser_type',
+                                       'default': u'AirCooled',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'nominal cop',
+                                      {'name': u'Nominal COP',
+                                       'pyname': u'nominal_cop',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/W'}),
+                                     (u'chilled water inlet node name',
+                                      {'name': u'Chilled Water Inlet Node Name',
+                                       'pyname': u'chilled_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chilled water outlet node name',
+                                      {'name': u'Chilled Water Outlet Node Name',
+                                       'pyname': u'chilled_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser inlet node name',
+                                      {'name': u'Condenser Inlet Node Name',
+                                       'pyname': u'condenser_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser outlet node name',
+                                      {'name': u'Condenser Outlet Node Name',
+                                       'pyname': u'condenser_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'design condenser inlet temperature',
+                                      {'name': u'Design Condenser Inlet Temperature',
+                                       'pyname': u'design_condenser_inlet_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'temperature rise coefficient',
+                                      {'name': u'Temperature Rise Coefficient',
+                                       'pyname': u'temperature_rise_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'design chilled water outlet temperature',
+                                      {'name': u'Design Chilled Water Outlet Temperature',
+                                       'pyname': u'design_chilled_water_outlet_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'design chilled water flow rate',
+                                      {'name': u'Design Chilled Water Flow Rate',
+                                       'pyname': u'design_chilled_water_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design condenser water flow rate',
+                                      {'name': u'Design Condenser Water Flow Rate',
+                                       'pyname': u'design_condenser_water_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'coefficient 1 of capacity ratio curve',
+                                      {'name': u'Coefficient 1 of Capacity Ratio Curve',
+                                       'pyname': u'coefficient_1_of_capacity_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of capacity ratio curve',
+                                      {'name': u'Coefficient 2 of Capacity Ratio Curve',
+                                       'pyname': u'coefficient_2_of_capacity_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of capacity ratio curve',
+                                      {'name': u'Coefficient 3 of Capacity Ratio Curve',
+                                       'pyname': u'coefficient_3_of_capacity_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of power ratio curve',
+                                      {'name': u'Coefficient 1 of Power Ratio Curve',
+                                       'pyname': u'coefficient_1_of_power_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of power ratio curve',
+                                      {'name': u'Coefficient 2 of Power Ratio Curve',
+                                       'pyname': u'coefficient_2_of_power_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of power ratio curve',
+                                      {'name': u'Coefficient 3 of Power Ratio Curve',
+                                       'pyname': u'coefficient_3_of_power_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of full load ratio curve',
+                                      {'name': u'Coefficient 1 of Full Load Ratio Curve',
+                                       'pyname': u'coefficient_1_of_full_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of full load ratio curve',
+                                      {'name': u'Coefficient 2 of Full Load Ratio Curve',
+                                       'pyname': u'coefficient_2_of_full_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of full load ratio curve',
+                                      {'name': u'Coefficient 3 of Full Load Ratio Curve',
+                                       'pyname': u'coefficient_3_of_full_load_ratio_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'chilled water outlet temperature lower limit',
+                                      {'name': u'Chilled Water Outlet Temperature Lower Limit',
+                                       'pyname': u'chilled_water_outlet_temperature_lower_limit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'coefficient 1 of fuel input curve',
+                                      {'name': u'Coefficient 1 of Fuel Input Curve',
+                                       'pyname': u'coefficient_1_of_fuel_input_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of fuel input curve',
+                                      {'name': u'Coefficient 2 of Fuel Input Curve',
+                                       'pyname': u'coefficient_2_of_fuel_input_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of fuel input curve',
+                                      {'name': u'Coefficient 3 of Fuel Input Curve',
+                                       'pyname': u'coefficient_3_of_fuel_input_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of temperature based fuel input curve',
+                                      {'name': u'Coefficient 1 of Temperature Based Fuel Input Curve',
+                                       'pyname': u'coefficient_1_of_temperature_based_fuel_input_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of temperature based fuel input curve',
+                                      {'name': u'Coefficient 2 of Temperature Based Fuel Input Curve',
+                                       'pyname': u'coefficient_2_of_temperature_based_fuel_input_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of temperature based fuel input curve',
+                                      {'name': u'Coefficient 3 of Temperature Based Fuel Input Curve',
+                                       'pyname': u'coefficient_3_of_temperature_based_fuel_input_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of exhaust flow curve',
+                                      {'name': u'Coefficient 1 of Exhaust Flow Curve',
+                                       'pyname': u'coefficient_1_of_exhaust_flow_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of exhaust flow curve',
+                                      {'name': u'Coefficient 2 of Exhaust Flow Curve',
+                                       'pyname': u'coefficient_2_of_exhaust_flow_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of exhaust flow curve',
+                                      {'name': u'Coefficient 3 of Exhaust Flow Curve',
+                                       'pyname': u'coefficient_3_of_exhaust_flow_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of exhaust gas temperature curve',
+                                      {'name': u'Coefficient 1 of Exhaust Gas Temperature Curve',
+                                       'pyname': u'coefficient_1_of_exhaust_gas_temperature_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of exhaust gas temperature curve',
+                                      {'name': u'Coefficient 2 of Exhaust Gas Temperature Curve',
+                                       'pyname': u'coefficient_2_of_exhaust_gas_temperature_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of exhaust gas temperature curve',
+                                      {'name': u'Coefficient 3 of Exhaust Gas Temperature Curve',
+                                       'pyname': u'coefficient_3_of_exhaust_gas_temperature_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of temperature based exhaust gas temperature curve',
+                                      {'name': u'Coefficient 1 of Temperature Based Exhaust Gas Temperature Curve',
+                                       'pyname': u'coefficient_1_of_temperature_based_exhaust_gas_temperature_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of temperature based exhaust gas temperature curve',
+                                      {'name': u'Coefficient 2 of Temperature Based Exhaust Gas Temperature Curve',
+                                       'pyname': u'coefficient_2_of_temperature_based_exhaust_gas_temperature_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of temperature based exhaust gas temperature curve',
+                                      {'name': u'Coefficient 3 of Temperature Based Exhaust Gas Temperature Curve',
+                                       'pyname': u'coefficient_3_of_temperature_based_exhaust_gas_temperature_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of recovery lube heat curve',
+                                      {'name': u'Coefficient 1 of Recovery Lube Heat Curve',
+                                       'pyname': u'coefficient_1_of_recovery_lube_heat_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of recovery lube heat curve',
+                                      {'name': u'Coefficient 2 of Recovery Lube Heat Curve',
+                                       'pyname': u'coefficient_2_of_recovery_lube_heat_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 3 of recovery lube heat curve',
+                                      {'name': u'Coefficient 3 of Recovery Lube Heat Curve',
+                                       'pyname': u'coefficient_3_of_recovery_lube_heat_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 1 of u-factor times area curve',
+                                      {'name': u'Coefficient 1 of U-Factor Times Area Curve',
+                                       'pyname': u'coefficient_1_of_ufactor_times_area_curve',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'coefficient 2 of u-factor times area curve',
+                                      {'name': u'Coefficient 2 of U-Factor Times Area Curve',
+                                       'pyname': u'coefficient_2_of_ufactor_times_area_curve',
+                                       'maximum': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'gas turbine engine capacity',
+                                      {'name': u'Gas Turbine Engine Capacity',
+                                       'pyname': u'gas_turbine_engine_capacity',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'maximum exhaust flow per unit of power output',
+                                      {'name': u'Maximum Exhaust Flow per Unit of Power Output',
+                                       'pyname': u'maximum_exhaust_flow_per_unit_of_power_output',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'(kg/s)/W'}),
+                                     (u'design steam saturation temperature',
+                                      {'name': u'Design Steam Saturation Temperature',
+                                       'pyname': u'design_steam_saturation_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'fuel higher heating value',
+                                      {'name': u'Fuel Higher Heating Value',
+                                       'pyname': u'fuel_higher_heating_value',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'kJ/kg'}),
+                                     (u'design heat recovery water flow rate',
+                                      {'name': u'Design Heat Recovery Water Flow Rate',
+                                       'pyname': u'design_heat_recovery_water_flow_rate',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'heat recovery inlet node name',
+                                      {'name': u'Heat Recovery Inlet Node Name',
+                                       'pyname': u'heat_recovery_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'heat recovery outlet node name',
+                                      {'name': u'Heat Recovery Outlet Node Name',
+                                       'pyname': u'heat_recovery_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chiller flow mode',
+                                      {'name': u'Chiller Flow Mode',
+                                       'pyname': u'chiller_flow_mode',
+                                       'default': u'NotModulated',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel type',
+                                      {'name': u'Fuel Type',
+                                       'pyname': u'fuel_type',
+                                       'default': u'NaturalGas',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heat recovery maximum temperature',
+                                      {'name': u'Heat Recovery Maximum Temperature',
+                                       'pyname': u'heat_recovery_maximum_temperature',
+                                       'default': 80.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'basin heater capacity',
+                                      {'name': u'Basin Heater Capacity',
+                                       'pyname': u'basin_heater_capacity',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/K'}),
+                                     (u'basin heater setpoint temperature',
+                                      {'name': u'Basin Heater Setpoint Temperature',
+                                       'pyname': u'basin_heater_setpoint_temperature',
+                                       'default': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 2.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'basin heater operating schedule name',
+                                      {'name': u'Basin Heater Operating Schedule Name',
+                                       'pyname': u'basin_heater_operating_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:CombustionTurbine`
@@ -7053,7 +9690,8 @@ class ChillerCombustionTurbine(DataObject):
         Returns:
             float: the value of `coefficient_1_of_temperature_based_fuel_input_curve` or None if not set
         """
-        return self._data["Coefficient 1 of Temperature Based Fuel Input Curve"]
+        return self._data[
+            "Coefficient 1 of Temperature Based Fuel Input Curve"]
 
     @coefficient_1_of_temperature_based_fuel_input_curve.setter
     def coefficient_1_of_temperature_based_fuel_input_curve(self, value=None):
@@ -7076,7 +9714,8 @@ class ChillerCombustionTurbine(DataObject):
         Returns:
             float: the value of `coefficient_2_of_temperature_based_fuel_input_curve` or None if not set
         """
-        return self._data["Coefficient 2 of Temperature Based Fuel Input Curve"]
+        return self._data[
+            "Coefficient 2 of Temperature Based Fuel Input Curve"]
 
     @coefficient_2_of_temperature_based_fuel_input_curve.setter
     def coefficient_2_of_temperature_based_fuel_input_curve(self, value=None):
@@ -7099,7 +9738,8 @@ class ChillerCombustionTurbine(DataObject):
         Returns:
             float: the value of `coefficient_3_of_temperature_based_fuel_input_curve` or None if not set
         """
-        return self._data["Coefficient 3 of Temperature Based Fuel Input Curve"]
+        return self._data[
+            "Coefficient 3 of Temperature Based Fuel Input Curve"]
 
     @coefficient_3_of_temperature_based_fuel_input_curve.setter
     def coefficient_3_of_temperature_based_fuel_input_curve(self, value=None):
@@ -7260,10 +9900,13 @@ class ChillerCombustionTurbine(DataObject):
         Returns:
             float: the value of `coefficient_1_of_temperature_based_exhaust_gas_temperature_curve` or None if not set
         """
-        return self._data["Coefficient 1 of Temperature Based Exhaust Gas Temperature Curve"]
+        return self._data[
+            "Coefficient 1 of Temperature Based Exhaust Gas Temperature Curve"]
 
     @coefficient_1_of_temperature_based_exhaust_gas_temperature_curve.setter
-    def coefficient_1_of_temperature_based_exhaust_gas_temperature_curve(self, value=None):
+    def coefficient_1_of_temperature_based_exhaust_gas_temperature_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 1 of Temperature Based Exhaust Gas Temperature Curve`
 
         Args:
@@ -7274,7 +9917,8 @@ class ChillerCombustionTurbine(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 1 of Temperature Based Exhaust Gas Temperature Curve"] = value
+        self[
+            "Coefficient 1 of Temperature Based Exhaust Gas Temperature Curve"] = value
 
     @property
     def coefficient_2_of_temperature_based_exhaust_gas_temperature_curve(self):
@@ -7283,10 +9927,13 @@ class ChillerCombustionTurbine(DataObject):
         Returns:
             float: the value of `coefficient_2_of_temperature_based_exhaust_gas_temperature_curve` or None if not set
         """
-        return self._data["Coefficient 2 of Temperature Based Exhaust Gas Temperature Curve"]
+        return self._data[
+            "Coefficient 2 of Temperature Based Exhaust Gas Temperature Curve"]
 
     @coefficient_2_of_temperature_based_exhaust_gas_temperature_curve.setter
-    def coefficient_2_of_temperature_based_exhaust_gas_temperature_curve(self, value=None):
+    def coefficient_2_of_temperature_based_exhaust_gas_temperature_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 2 of Temperature Based Exhaust Gas Temperature Curve`
 
         Args:
@@ -7297,7 +9944,8 @@ class ChillerCombustionTurbine(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 2 of Temperature Based Exhaust Gas Temperature Curve"] = value
+        self[
+            "Coefficient 2 of Temperature Based Exhaust Gas Temperature Curve"] = value
 
     @property
     def coefficient_3_of_temperature_based_exhaust_gas_temperature_curve(self):
@@ -7306,10 +9954,13 @@ class ChillerCombustionTurbine(DataObject):
         Returns:
             float: the value of `coefficient_3_of_temperature_based_exhaust_gas_temperature_curve` or None if not set
         """
-        return self._data["Coefficient 3 of Temperature Based Exhaust Gas Temperature Curve"]
+        return self._data[
+            "Coefficient 3 of Temperature Based Exhaust Gas Temperature Curve"]
 
     @coefficient_3_of_temperature_based_exhaust_gas_temperature_curve.setter
-    def coefficient_3_of_temperature_based_exhaust_gas_temperature_curve(self, value=None):
+    def coefficient_3_of_temperature_based_exhaust_gas_temperature_curve(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Coefficient 3 of Temperature Based Exhaust Gas Temperature Curve`
 
         Args:
@@ -7320,7 +9971,8 @@ class ChillerCombustionTurbine(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Coefficient 3 of Temperature Based Exhaust Gas Temperature Curve"] = value
+        self[
+            "Coefficient 3 of Temperature Based Exhaust Gas Temperature Curve"] = value
 
     @property
     def coefficient_1_of_recovery_lube_heat_curve(self):
@@ -7798,10 +10450,299 @@ class ChillerCombustionTurbine(DataObject):
 
 
 class ChillerHeaterAbsorptionDirectFired(DataObject):
+
     """ Corresponds to IDD object `ChillerHeater:Absorption:DirectFired`
         Direct fired gas absorption chiller-heater using performance curves similar to DOE-2
     """
-    schema = {'min-fields': 35, 'name': u'ChillerHeater:Absorption:DirectFired', 'pyname': u'ChillerHeaterAbsorptionDirectFired', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'nominal cooling capacity', {'name': u'Nominal Cooling Capacity', 'pyname': u'nominal_cooling_capacity', 'default': 'autosize', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'heating to cooling capacity ratio', {'name': u'Heating to Cooling Capacity Ratio', 'pyname': u'heating_to_cooling_capacity_ratio', 'default': 0.8, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fuel input to cooling output ratio', {'name': u'Fuel Input to Cooling Output Ratio', 'pyname': u'fuel_input_to_cooling_output_ratio', 'default': 0.97, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fuel input to heating output ratio', {'name': u'Fuel Input to Heating Output Ratio', 'pyname': u'fuel_input_to_heating_output_ratio', 'default': 1.25, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'electric input to cooling output ratio', {'name': u'Electric Input to Cooling Output Ratio', 'pyname': u'electric_input_to_cooling_output_ratio', 'default': 0.01, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'electric input to heating output ratio', {'name': u'Electric Input to Heating Output Ratio', 'pyname': u'electric_input_to_heating_output_ratio', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser inlet node name', {'name': u'Condenser Inlet Node Name', 'pyname': u'condenser_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser outlet node name', {'name': u'Condenser Outlet Node Name', 'pyname': u'condenser_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'hot water inlet node name', {'name': u'Hot Water Inlet Node Name', 'pyname': u'hot_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'hot water outlet node name', {'name': u'Hot Water Outlet Node Name', 'pyname': u'hot_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'default': 0.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': 'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'design entering condenser water temperature', {'name': u'Design Entering Condenser Water Temperature', 'pyname': u'design_entering_condenser_water_temperature', 'default': 29.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'design leaving chilled water temperature', {'name': u'Design Leaving Chilled Water Temperature', 'pyname': u'design_leaving_chilled_water_temperature', 'default': 7.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'design chilled water flow rate', {'name': u'Design Chilled Water Flow Rate', 'pyname': u'design_chilled_water_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'design condenser water flow rate', {'name': u'Design Condenser Water Flow Rate', 'pyname': u'design_condenser_water_flow_rate', 'default': 'autosize', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'design hot water flow rate', {'name': u'Design Hot Water Flow Rate', 'pyname': u'design_hot_water_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'cooling capacity function of temperature curve name', {'name': u'Cooling Capacity Function of Temperature Curve Name', 'pyname': u'cooling_capacity_function_of_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel input to cooling output ratio function of temperature curve name', {'name': u'Fuel Input to Cooling Output Ratio Function of Temperature Curve Name', 'pyname': u'fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel input to cooling output ratio function of part load ratio curve name', {'name': u'Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name', 'pyname': u'fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'electric input to cooling output ratio function of temperature curve name', {'name': u'Electric Input to Cooling Output Ratio Function of Temperature Curve Name', 'pyname': u'electric_input_to_cooling_output_ratio_function_of_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'electric input to cooling output ratio function of part load ratio curve name', {'name': u'Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name', 'pyname': u'electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating capacity function of cooling capacity curve name', {'name': u'Heating Capacity Function of Cooling Capacity Curve Name', 'pyname': u'heating_capacity_function_of_cooling_capacity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel input to heat output ratio during heating only operation curve name', {'name': u'Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name', 'pyname': u'fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'temperature curve input variable', {'name': u'Temperature Curve Input Variable', 'pyname': u'temperature_curve_input_variable', 'default': u'EnteringCondenser', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'condenser type', {'name': u'Condenser Type', 'pyname': u'condenser_type', 'default': u'WaterCooled', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chilled water temperature lower limit', {'name': u'Chilled Water Temperature Lower Limit', 'pyname': u'chilled_water_temperature_lower_limit', 'default': 2.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'fuel higher heating value', {'name': u'Fuel Higher Heating Value', 'pyname': u'fuel_higher_heating_value', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kJ/kg'}), (u'chiller flow mode', {'name': u'Chiller Flow Mode', 'pyname': u'chiller_flow_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'default': u'NaturalGas', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 35,
+              'name': u'ChillerHeater:Absorption:DirectFired',
+              'pyname': u'ChillerHeaterAbsorptionDirectFired',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'nominal cooling capacity',
+                                      {'name': u'Nominal Cooling Capacity',
+                                       'pyname': u'nominal_cooling_capacity',
+                                       'default': 'autosize',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'heating to cooling capacity ratio',
+                                      {'name': u'Heating to Cooling Capacity Ratio',
+                                       'pyname': u'heating_to_cooling_capacity_ratio',
+                                       'default': 0.8,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'fuel input to cooling output ratio',
+                                      {'name': u'Fuel Input to Cooling Output Ratio',
+                                       'pyname': u'fuel_input_to_cooling_output_ratio',
+                                       'default': 0.97,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'fuel input to heating output ratio',
+                                      {'name': u'Fuel Input to Heating Output Ratio',
+                                       'pyname': u'fuel_input_to_heating_output_ratio',
+                                       'default': 1.25,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'electric input to cooling output ratio',
+                                      {'name': u'Electric Input to Cooling Output Ratio',
+                                       'pyname': u'electric_input_to_cooling_output_ratio',
+                                       'default': 0.01,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'electric input to heating output ratio',
+                                      {'name': u'Electric Input to Heating Output Ratio',
+                                       'pyname': u'electric_input_to_heating_output_ratio',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'chilled water inlet node name',
+                                      {'name': u'Chilled Water Inlet Node Name',
+                                       'pyname': u'chilled_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chilled water outlet node name',
+                                      {'name': u'Chilled Water Outlet Node Name',
+                                       'pyname': u'chilled_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser inlet node name',
+                                      {'name': u'Condenser Inlet Node Name',
+                                       'pyname': u'condenser_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser outlet node name',
+                                      {'name': u'Condenser Outlet Node Name',
+                                       'pyname': u'condenser_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'hot water inlet node name',
+                                      {'name': u'Hot Water Inlet Node Name',
+                                       'pyname': u'hot_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'hot water outlet node name',
+                                      {'name': u'Hot Water Outlet Node Name',
+                                       'pyname': u'hot_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'default': 0.1,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.5,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'design entering condenser water temperature',
+                                      {'name': u'Design Entering Condenser Water Temperature',
+                                       'pyname': u'design_entering_condenser_water_temperature',
+                                       'default': 29.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'design leaving chilled water temperature',
+                                      {'name': u'Design Leaving Chilled Water Temperature',
+                                       'pyname': u'design_leaving_chilled_water_temperature',
+                                       'default': 7.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'design chilled water flow rate',
+                                      {'name': u'Design Chilled Water Flow Rate',
+                                       'pyname': u'design_chilled_water_flow_rate',
+                                       'default': 'autosize',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design condenser water flow rate',
+                                      {'name': u'Design Condenser Water Flow Rate',
+                                       'pyname': u'design_condenser_water_flow_rate',
+                                       'default': 'autosize',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design hot water flow rate',
+                                      {'name': u'Design Hot Water Flow Rate',
+                                       'pyname': u'design_hot_water_flow_rate',
+                                       'default': 'autosize',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'cooling capacity function of temperature curve name',
+                                      {'name': u'Cooling Capacity Function of Temperature Curve Name',
+                                       'pyname': u'cooling_capacity_function_of_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel input to cooling output ratio function of temperature curve name',
+                                      {'name': u'Fuel Input to Cooling Output Ratio Function of Temperature Curve Name',
+                                       'pyname': u'fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel input to cooling output ratio function of part load ratio curve name',
+                                      {'name': u'Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name',
+                                       'pyname': u'fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'electric input to cooling output ratio function of temperature curve name',
+                                      {'name': u'Electric Input to Cooling Output Ratio Function of Temperature Curve Name',
+                                       'pyname': u'electric_input_to_cooling_output_ratio_function_of_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'electric input to cooling output ratio function of part load ratio curve name',
+                                      {'name': u'Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name',
+                                       'pyname': u'electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating capacity function of cooling capacity curve name',
+                                      {'name': u'Heating Capacity Function of Cooling Capacity Curve Name',
+                                       'pyname': u'heating_capacity_function_of_cooling_capacity_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel input to heat output ratio during heating only operation curve name',
+                                      {'name': u'Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name',
+                                       'pyname': u'fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'temperature curve input variable',
+                                      {'name': u'Temperature Curve Input Variable',
+                                       'pyname': u'temperature_curve_input_variable',
+                                       'default': u'EnteringCondenser',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'condenser type',
+                                      {'name': u'Condenser Type',
+                                       'pyname': u'condenser_type',
+                                       'default': u'WaterCooled',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chilled water temperature lower limit',
+                                      {'name': u'Chilled Water Temperature Lower Limit',
+                                       'pyname': u'chilled_water_temperature_lower_limit',
+                                       'default': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'fuel higher heating value',
+                                      {'name': u'Fuel Higher Heating Value',
+                                       'pyname': u'fuel_higher_heating_value',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'kJ/kg'}),
+                                     (u'chiller flow mode',
+                                      {'name': u'Chiller Flow Mode',
+                                       'pyname': u'chiller_flow_mode',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel type',
+                                      {'name': u'Fuel Type',
+                                       'pyname': u'fuel_type',
+                                       'default': u'NaturalGas',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ChillerHeater:Absorption:DirectFired`
@@ -8358,7 +11299,8 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
         Returns:
             str: the value of `cooling_capacity_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Cooling Capacity Function of Temperature Curve Name"]
+        return self._data[
+            "Cooling Capacity Function of Temperature Curve Name"]
 
     @cooling_capacity_function_of_temperature_curve_name.setter
     def cooling_capacity_function_of_temperature_curve_name(self, value=None):
@@ -8381,16 +11323,20 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
         self["Cooling Capacity Function of Temperature Curve Name"] = value
 
     @property
-    def fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name(self):
+    def fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self):
         """Get fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name
 
         Returns:
             str: the value of `fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"]
+        return self._data[
+            "Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"]
 
     @fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name.setter
-    def fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name(self, value=None):
+    def fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Fuel Input to Cooling Output Ratio Function of Temperature Curve Name`
         The curve represents the fraction of the fuel input to the chiller at full load as
         it varies by temperature.  The curve is normalized so that at design conditions the
@@ -8407,19 +11353,24 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
+        self[
+            "Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
 
     @property
-    def fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self):
+    def fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self):
         """Get fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name
 
         Returns:
             str: the value of `fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
         """
-        return self._data["Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
+        return self._data[
+            "Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
 
     @fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name.setter
-    def fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self, value=None):
+    def fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
         The curve represents the fraction of the fuel input to the chiller as the load on
         the chiller varies but the operating temperatures remain at the design values.
@@ -8435,19 +11386,24 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
+        self[
+            "Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
 
     @property
-    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self):
+    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self):
         """Get electric_input_to_cooling_output_ratio_function_of_temperature_curve_name
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
+        return self._data[
+            "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
 
     @electric_input_to_cooling_output_ratio_function_of_temperature_curve_name.setter
-    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self, value=None):
+    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
         The curve represents the fraction of the electricity to the chiller at full load as
         it varies by temperature.  The curve is normalized so that at design conditions the
@@ -8464,19 +11420,24 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
+        self[
+            "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
 
     @property
-    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self):
+    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self):
         """Get electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
         """
-        return self._data["Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
+        return self._data[
+            "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
 
     @electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name.setter
-    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self, value=None):
+    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
         The curve represents the fraction of the electricity to the chiller as the load on
         the chiller varies but the operating temperatures remain at the design values.
@@ -8492,7 +11453,8 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
+        self[
+            "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
 
     @property
     def heating_capacity_function_of_cooling_capacity_curve_name(self):
@@ -8501,10 +11463,13 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
         Returns:
             str: the value of `heating_capacity_function_of_cooling_capacity_curve_name` or None if not set
         """
-        return self._data["Heating Capacity Function of Cooling Capacity Curve Name"]
+        return self._data[
+            "Heating Capacity Function of Cooling Capacity Curve Name"]
 
     @heating_capacity_function_of_cooling_capacity_curve_name.setter
-    def heating_capacity_function_of_cooling_capacity_curve_name(self, value=None):
+    def heating_capacity_function_of_cooling_capacity_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Capacity Function of Cooling Capacity Curve Name`
         The curve represents how the heating capacity of the chiller varies with cooling
         capacity when the chiller is simultaeous heating and cooling.  The curve is normalized
@@ -8521,19 +11486,24 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Capacity Function of Cooling Capacity Curve Name"] = value
+        self[
+            "Heating Capacity Function of Cooling Capacity Curve Name"] = value
 
     @property
-    def fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name(self):
+    def fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name(
+            self):
         """Get fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name
 
         Returns:
             str: the value of `fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name` or None if not set
         """
-        return self._data["Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"]
+        return self._data[
+            "Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"]
 
     @fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name.setter
-    def fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name(self, value=None):
+    def fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name`
         When the chiller is operating as only a heater, this curve is used to represent the
         fraction of fuel used as the heating load varies.  It is normalized so that a value
@@ -8549,7 +11519,8 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"] = value
+        self[
+            "Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"] = value
 
     @property
     def temperature_curve_input_variable(self):
@@ -8733,10 +11704,289 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
 
 
 class ChillerHeaterAbsorptionDoubleEffect(DataObject):
+
     """ Corresponds to IDD object `ChillerHeater:Absorption:DoubleEffect`
         Exhaust fired absorption chiller-heater using performance curves similar to DOE-2
     """
-    schema = {'min-fields': 34, 'name': u'ChillerHeater:Absorption:DoubleEffect', 'pyname': u'ChillerHeaterAbsorptionDoubleEffect', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'nominal cooling capacity', {'name': u'Nominal Cooling Capacity', 'pyname': u'nominal_cooling_capacity', 'default': 'autosize', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'heating to cooling capacity ratio', {'name': u'Heating to Cooling Capacity Ratio', 'pyname': u'heating_to_cooling_capacity_ratio', 'default': 0.8, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'thermal energy input to cooling output ratio', {'name': u'Thermal Energy Input to Cooling Output Ratio', 'pyname': u'thermal_energy_input_to_cooling_output_ratio', 'default': 0.97, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'thermal energy input to heating output ratio', {'name': u'Thermal Energy Input to Heating Output Ratio', 'pyname': u'thermal_energy_input_to_heating_output_ratio', 'default': 1.25, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'electric input to cooling output ratio', {'name': u'Electric Input to Cooling Output Ratio', 'pyname': u'electric_input_to_cooling_output_ratio', 'default': 0.01, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'electric input to heating output ratio', {'name': u'Electric Input to Heating Output Ratio', 'pyname': u'electric_input_to_heating_output_ratio', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser inlet node name', {'name': u'Condenser Inlet Node Name', 'pyname': u'condenser_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser outlet node name', {'name': u'Condenser Outlet Node Name', 'pyname': u'condenser_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'hot water inlet node name', {'name': u'Hot Water Inlet Node Name', 'pyname': u'hot_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'hot water outlet node name', {'name': u'Hot Water Outlet Node Name', 'pyname': u'hot_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'default': 0.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': 'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'design entering condenser water temperature', {'name': u'Design Entering Condenser Water Temperature', 'pyname': u'design_entering_condenser_water_temperature', 'default': 29.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'design leaving chilled water temperature', {'name': u'Design Leaving Chilled Water Temperature', 'pyname': u'design_leaving_chilled_water_temperature', 'default': 7.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'design chilled water flow rate', {'name': u'Design Chilled Water Flow Rate', 'pyname': u'design_chilled_water_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'design condenser water flow rate', {'name': u'Design Condenser Water Flow Rate', 'pyname': u'design_condenser_water_flow_rate', 'default': 'autosize', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'design hot water flow rate', {'name': u'Design Hot Water Flow Rate', 'pyname': u'design_hot_water_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'cooling capacity function of temperature curve name', {'name': u'Cooling Capacity Function of Temperature Curve Name', 'pyname': u'cooling_capacity_function_of_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel input to cooling output ratio function of temperature curve name', {'name': u'Fuel Input to Cooling Output Ratio Function of Temperature Curve Name', 'pyname': u'fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel input to cooling output ratio function of part load ratio curve name', {'name': u'Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name', 'pyname': u'fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'electric input to cooling output ratio function of temperature curve name', {'name': u'Electric Input to Cooling Output Ratio Function of Temperature Curve Name', 'pyname': u'electric_input_to_cooling_output_ratio_function_of_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'electric input to cooling output ratio function of part load ratio curve name', {'name': u'Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name', 'pyname': u'electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating capacity function of cooling capacity curve name', {'name': u'Heating Capacity Function of Cooling Capacity Curve Name', 'pyname': u'heating_capacity_function_of_cooling_capacity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel input to heat output ratio during heating only operation curve name', {'name': u'Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name', 'pyname': u'fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'temperature curve input variable', {'name': u'Temperature Curve Input Variable', 'pyname': u'temperature_curve_input_variable', 'default': u'EnteringCondenser', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'condenser type', {'name': u'Condenser Type', 'pyname': u'condenser_type', 'default': u'WaterCooled', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chilled water temperature lower limit', {'name': u'Chilled Water Temperature Lower Limit', 'pyname': u'chilled_water_temperature_lower_limit', 'default': 2.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'exhaust source object type', {'name': u'Exhaust Source Object Type', 'pyname': u'exhaust_source_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'exhaust source object name', {'name': u'Exhaust Source Object Name', 'pyname': u'exhaust_source_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 34,
+              'name': u'ChillerHeater:Absorption:DoubleEffect',
+              'pyname': u'ChillerHeaterAbsorptionDoubleEffect',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'nominal cooling capacity',
+                                      {'name': u'Nominal Cooling Capacity',
+                                       'pyname': u'nominal_cooling_capacity',
+                                       'default': 'autosize',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'heating to cooling capacity ratio',
+                                      {'name': u'Heating to Cooling Capacity Ratio',
+                                       'pyname': u'heating_to_cooling_capacity_ratio',
+                                       'default': 0.8,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'thermal energy input to cooling output ratio',
+                                      {'name': u'Thermal Energy Input to Cooling Output Ratio',
+                                       'pyname': u'thermal_energy_input_to_cooling_output_ratio',
+                                       'default': 0.97,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'thermal energy input to heating output ratio',
+                                      {'name': u'Thermal Energy Input to Heating Output Ratio',
+                                       'pyname': u'thermal_energy_input_to_heating_output_ratio',
+                                       'default': 1.25,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'electric input to cooling output ratio',
+                                      {'name': u'Electric Input to Cooling Output Ratio',
+                                       'pyname': u'electric_input_to_cooling_output_ratio',
+                                       'default': 0.01,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'electric input to heating output ratio',
+                                      {'name': u'Electric Input to Heating Output Ratio',
+                                       'pyname': u'electric_input_to_heating_output_ratio',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'chilled water inlet node name',
+                                      {'name': u'Chilled Water Inlet Node Name',
+                                       'pyname': u'chilled_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chilled water outlet node name',
+                                      {'name': u'Chilled Water Outlet Node Name',
+                                       'pyname': u'chilled_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser inlet node name',
+                                      {'name': u'Condenser Inlet Node Name',
+                                       'pyname': u'condenser_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'condenser outlet node name',
+                                      {'name': u'Condenser Outlet Node Name',
+                                       'pyname': u'condenser_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'hot water inlet node name',
+                                      {'name': u'Hot Water Inlet Node Name',
+                                       'pyname': u'hot_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'hot water outlet node name',
+                                      {'name': u'Hot Water Outlet Node Name',
+                                       'pyname': u'hot_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'default': 0.1,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.5,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'design entering condenser water temperature',
+                                      {'name': u'Design Entering Condenser Water Temperature',
+                                       'pyname': u'design_entering_condenser_water_temperature',
+                                       'default': 29.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'design leaving chilled water temperature',
+                                      {'name': u'Design Leaving Chilled Water Temperature',
+                                       'pyname': u'design_leaving_chilled_water_temperature',
+                                       'default': 7.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'design chilled water flow rate',
+                                      {'name': u'Design Chilled Water Flow Rate',
+                                       'pyname': u'design_chilled_water_flow_rate',
+                                       'default': 'autosize',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design condenser water flow rate',
+                                      {'name': u'Design Condenser Water Flow Rate',
+                                       'pyname': u'design_condenser_water_flow_rate',
+                                       'default': 'autosize',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design hot water flow rate',
+                                      {'name': u'Design Hot Water Flow Rate',
+                                       'pyname': u'design_hot_water_flow_rate',
+                                       'default': 'autosize',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'cooling capacity function of temperature curve name',
+                                      {'name': u'Cooling Capacity Function of Temperature Curve Name',
+                                       'pyname': u'cooling_capacity_function_of_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel input to cooling output ratio function of temperature curve name',
+                                      {'name': u'Fuel Input to Cooling Output Ratio Function of Temperature Curve Name',
+                                       'pyname': u'fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel input to cooling output ratio function of part load ratio curve name',
+                                      {'name': u'Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name',
+                                       'pyname': u'fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'electric input to cooling output ratio function of temperature curve name',
+                                      {'name': u'Electric Input to Cooling Output Ratio Function of Temperature Curve Name',
+                                       'pyname': u'electric_input_to_cooling_output_ratio_function_of_temperature_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'electric input to cooling output ratio function of part load ratio curve name',
+                                      {'name': u'Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name',
+                                       'pyname': u'electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating capacity function of cooling capacity curve name',
+                                      {'name': u'Heating Capacity Function of Cooling Capacity Curve Name',
+                                       'pyname': u'heating_capacity_function_of_cooling_capacity_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fuel input to heat output ratio during heating only operation curve name',
+                                      {'name': u'Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name',
+                                       'pyname': u'fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'temperature curve input variable',
+                                      {'name': u'Temperature Curve Input Variable',
+                                       'pyname': u'temperature_curve_input_variable',
+                                       'default': u'EnteringCondenser',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'condenser type',
+                                      {'name': u'Condenser Type',
+                                       'pyname': u'condenser_type',
+                                       'default': u'WaterCooled',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chilled water temperature lower limit',
+                                      {'name': u'Chilled Water Temperature Lower Limit',
+                                       'pyname': u'chilled_water_temperature_lower_limit',
+                                       'default': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'exhaust source object type',
+                                      {'name': u'Exhaust Source Object Type',
+                                       'pyname': u'exhaust_source_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'exhaust source object name',
+                                      {'name': u'Exhaust Source Object Name',
+                                       'pyname': u'exhaust_source_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ChillerHeater:Absorption:DoubleEffect`
@@ -9293,7 +12543,8 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
         Returns:
             str: the value of `cooling_capacity_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Cooling Capacity Function of Temperature Curve Name"]
+        return self._data[
+            "Cooling Capacity Function of Temperature Curve Name"]
 
     @cooling_capacity_function_of_temperature_curve_name.setter
     def cooling_capacity_function_of_temperature_curve_name(self, value=None):
@@ -9316,16 +12567,20 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
         self["Cooling Capacity Function of Temperature Curve Name"] = value
 
     @property
-    def fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name(self):
+    def fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self):
         """Get fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name
 
         Returns:
             str: the value of `fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"]
+        return self._data[
+            "Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"]
 
     @fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name.setter
-    def fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name(self, value=None):
+    def fuel_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Fuel Input to Cooling Output Ratio Function of Temperature Curve Name`
         The curve represents the fraction of the fuel input to the chiller at full load as
         it varies by temperature.  The curve is normalized so that at design conditions the
@@ -9342,19 +12597,24 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
+        self[
+            "Fuel Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
 
     @property
-    def fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self):
+    def fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self):
         """Get fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name
 
         Returns:
             str: the value of `fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
         """
-        return self._data["Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
+        return self._data[
+            "Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
 
     @fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name.setter
-    def fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self, value=None):
+    def fuel_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
         The curve represents the fraction of the fuel input to the chiller as the load on
         the chiller varies but the operating temperatures remain at the design values.
@@ -9370,19 +12630,24 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
+        self[
+            "Fuel Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
 
     @property
-    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self):
+    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self):
         """Get electric_input_to_cooling_output_ratio_function_of_temperature_curve_name
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
+        return self._data[
+            "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
 
     @electric_input_to_cooling_output_ratio_function_of_temperature_curve_name.setter
-    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self, value=None):
+    def electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
         The curve represents the fraction of the electricity to the chiller at full load as
         it varies by temperature.  The curve is normalized so that at design conditions the
@@ -9399,19 +12664,24 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
+        self[
+            "Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
 
     @property
-    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self):
+    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self):
         """Get electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name
 
         Returns:
             str: the value of `electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
         """
-        return self._data["Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
+        return self._data[
+            "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
 
     @electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name.setter
-    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self, value=None):
+    def electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
         The curve represents the fraction of the electricity to the chiller as the load on
         the chiller varies but the operating temperatures remain at the design values.
@@ -9427,7 +12697,8 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
+        self[
+            "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
 
     @property
     def heating_capacity_function_of_cooling_capacity_curve_name(self):
@@ -9436,10 +12707,13 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
         Returns:
             str: the value of `heating_capacity_function_of_cooling_capacity_curve_name` or None if not set
         """
-        return self._data["Heating Capacity Function of Cooling Capacity Curve Name"]
+        return self._data[
+            "Heating Capacity Function of Cooling Capacity Curve Name"]
 
     @heating_capacity_function_of_cooling_capacity_curve_name.setter
-    def heating_capacity_function_of_cooling_capacity_curve_name(self, value=None):
+    def heating_capacity_function_of_cooling_capacity_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Capacity Function of Cooling Capacity Curve Name`
         The curve represents how the heating capacity of the chiller varies with cooling
         capacity when the chiller is simultaeous heating and cooling.  The curve is normalized
@@ -9456,19 +12730,24 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Capacity Function of Cooling Capacity Curve Name"] = value
+        self[
+            "Heating Capacity Function of Cooling Capacity Curve Name"] = value
 
     @property
-    def fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name(self):
+    def fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name(
+            self):
         """Get fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name
 
         Returns:
             str: the value of `fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name` or None if not set
         """
-        return self._data["Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"]
+        return self._data[
+            "Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"]
 
     @fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name.setter
-    def fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name(self, value=None):
+    def fuel_input_to_heat_output_ratio_during_heating_only_operation_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name`
         When the chiller is operating as only a heater, this curve is used to represent the
         fraction of fuel used as the heating load varies.  It is normalized so that a value
@@ -9484,7 +12763,8 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"] = value
+        self[
+            "Fuel Input to Heat Output Ratio During Heating Only Operation Curve Name"] = value
 
     @property
     def temperature_curve_input_variable(self):
@@ -9639,10 +12919,158 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
 
 
 class HeatPumpWaterToWaterEquationFitHeating(DataObject):
+
     """ Corresponds to IDD object `HeatPump:WaterToWater:EquationFit:Heating`
         simple water-water hp curve-fit model
     """
-    schema = {'min-fields': 19, 'name': u'HeatPump:WaterToWater:EquationFit:Heating', 'pyname': u'HeatPumpWaterToWaterEquationFitHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'load side inlet node name', {'name': u'Load Side Inlet Node Name', 'pyname': u'load_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'load side outlet node name', {'name': u'Load Side Outlet Node Name', 'pyname': u'load_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated load side flow rate', {'name': u'Rated Load Side Flow Rate', 'pyname': u'rated_load_side_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'rated source side flow rate', {'name': u'Rated Source Side Flow Rate', 'pyname': u'rated_source_side_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'rated heating capacity', {'name': u'Rated Heating Capacity', 'pyname': u'rated_heating_capacity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated heating power consumption', {'name': u'Rated Heating Power Consumption', 'pyname': u'rated_heating_power_consumption', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating capacity coefficient 1', {'name': u'Heating Capacity Coefficient 1', 'pyname': u'heating_capacity_coefficient_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating capacity coefficient 2', {'name': u'Heating Capacity Coefficient 2', 'pyname': u'heating_capacity_coefficient_2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating capacity coefficient 3', {'name': u'Heating Capacity Coefficient 3', 'pyname': u'heating_capacity_coefficient_3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating capacity coefficient 4', {'name': u'Heating Capacity Coefficient 4', 'pyname': u'heating_capacity_coefficient_4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating capacity coefficient 5', {'name': u'Heating Capacity Coefficient 5', 'pyname': u'heating_capacity_coefficient_5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating compressor power coefficient 1', {'name': u'Heating Compressor Power Coefficient 1', 'pyname': u'heating_compressor_power_coefficient_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating compressor power coefficient 2', {'name': u'Heating Compressor Power Coefficient 2', 'pyname': u'heating_compressor_power_coefficient_2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating compressor power coefficient 3', {'name': u'Heating Compressor Power Coefficient 3', 'pyname': u'heating_compressor_power_coefficient_3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating compressor power coefficient 4', {'name': u'Heating Compressor Power Coefficient 4', 'pyname': u'heating_compressor_power_coefficient_4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating compressor power coefficient 5', {'name': u'Heating Compressor Power Coefficient 5', 'pyname': u'heating_compressor_power_coefficient_5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 19,
+              'name': u'HeatPump:WaterToWater:EquationFit:Heating',
+              'pyname': u'HeatPumpWaterToWaterEquationFitHeating',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'source side inlet node name',
+                                      {'name': u'Source Side Inlet Node Name',
+                                       'pyname': u'source_side_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'source side outlet node name',
+                                      {'name': u'Source Side Outlet Node Name',
+                                       'pyname': u'source_side_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'load side inlet node name',
+                                      {'name': u'Load Side Inlet Node Name',
+                                       'pyname': u'load_side_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'load side outlet node name',
+                                      {'name': u'Load Side Outlet Node Name',
+                                       'pyname': u'load_side_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'rated load side flow rate',
+                                      {'name': u'Rated Load Side Flow Rate',
+                                       'pyname': u'rated_load_side_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'rated source side flow rate',
+                                      {'name': u'Rated Source Side Flow Rate',
+                                       'pyname': u'rated_source_side_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'rated heating capacity',
+                                      {'name': u'Rated Heating Capacity',
+                                       'pyname': u'rated_heating_capacity',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'rated heating power consumption',
+                                      {'name': u'Rated Heating Power Consumption',
+                                       'pyname': u'rated_heating_power_consumption',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'heating capacity coefficient 1',
+                                      {'name': u'Heating Capacity Coefficient 1',
+                                       'pyname': u'heating_capacity_coefficient_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heating capacity coefficient 2',
+                                      {'name': u'Heating Capacity Coefficient 2',
+                                       'pyname': u'heating_capacity_coefficient_2',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heating capacity coefficient 3',
+                                      {'name': u'Heating Capacity Coefficient 3',
+                                       'pyname': u'heating_capacity_coefficient_3',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heating capacity coefficient 4',
+                                      {'name': u'Heating Capacity Coefficient 4',
+                                       'pyname': u'heating_capacity_coefficient_4',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heating capacity coefficient 5',
+                                      {'name': u'Heating Capacity Coefficient 5',
+                                       'pyname': u'heating_capacity_coefficient_5',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heating compressor power coefficient 1',
+                                      {'name': u'Heating Compressor Power Coefficient 1',
+                                       'pyname': u'heating_compressor_power_coefficient_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heating compressor power coefficient 2',
+                                      {'name': u'Heating Compressor Power Coefficient 2',
+                                       'pyname': u'heating_compressor_power_coefficient_2',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heating compressor power coefficient 3',
+                                      {'name': u'Heating Compressor Power Coefficient 3',
+                                       'pyname': u'heating_compressor_power_coefficient_3',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heating compressor power coefficient 4',
+                                      {'name': u'Heating Compressor Power Coefficient 4',
+                                       'pyname': u'heating_compressor_power_coefficient_4',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heating compressor power coefficient 5',
+                                      {'name': u'Heating Compressor Power Coefficient 5',
+                                       'pyname': u'heating_compressor_power_coefficient_5',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatPump:WaterToWater:EquationFit:Heating`
@@ -10096,10 +13524,158 @@ class HeatPumpWaterToWaterEquationFitHeating(DataObject):
 
 
 class HeatPumpWaterToWaterEquationFitCooling(DataObject):
+
     """ Corresponds to IDD object `HeatPump:WaterToWater:EquationFit:Cooling`
         simple water-water heatpump curve-fit model
     """
-    schema = {'min-fields': 19, 'name': u'HeatPump:WaterToWater:EquationFit:Cooling', 'pyname': u'HeatPumpWaterToWaterEquationFitCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'load side inlet node name', {'name': u'Load Side Inlet Node Name', 'pyname': u'load_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'load side outlet node name', {'name': u'Load Side Outlet Node Name', 'pyname': u'load_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated load side flow rate', {'name': u'Rated Load Side Flow Rate', 'pyname': u'rated_load_side_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'rated source side flow rate', {'name': u'Rated Source Side Flow Rate', 'pyname': u'rated_source_side_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'rated cooling capacity', {'name': u'Rated Cooling Capacity', 'pyname': u'rated_cooling_capacity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated cooling power consumption', {'name': u'Rated Cooling Power Consumption', 'pyname': u'rated_cooling_power_consumption', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'cooling capacity coefficient 1', {'name': u'Cooling Capacity Coefficient 1', 'pyname': u'cooling_capacity_coefficient_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling capacity coefficient 2', {'name': u'Cooling Capacity Coefficient 2', 'pyname': u'cooling_capacity_coefficient_2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling capacity coefficient 3', {'name': u'Cooling Capacity Coefficient 3', 'pyname': u'cooling_capacity_coefficient_3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling capacity coefficient 4', {'name': u'Cooling Capacity Coefficient 4', 'pyname': u'cooling_capacity_coefficient_4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling capacity coefficient 5', {'name': u'Cooling Capacity Coefficient 5', 'pyname': u'cooling_capacity_coefficient_5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling compressor power coefficient 1', {'name': u'Cooling Compressor Power Coefficient 1', 'pyname': u'cooling_compressor_power_coefficient_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling compressor power coefficient 2', {'name': u'Cooling Compressor Power Coefficient 2', 'pyname': u'cooling_compressor_power_coefficient_2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling compressor power coefficient 3', {'name': u'Cooling Compressor Power Coefficient 3', 'pyname': u'cooling_compressor_power_coefficient_3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling compressor power coefficient 4', {'name': u'Cooling Compressor Power Coefficient 4', 'pyname': u'cooling_compressor_power_coefficient_4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling compressor power coefficient 5', {'name': u'Cooling Compressor Power Coefficient 5', 'pyname': u'cooling_compressor_power_coefficient_5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 19,
+              'name': u'HeatPump:WaterToWater:EquationFit:Cooling',
+              'pyname': u'HeatPumpWaterToWaterEquationFitCooling',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'source side inlet node name',
+                                      {'name': u'Source Side Inlet Node Name',
+                                       'pyname': u'source_side_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'source side outlet node name',
+                                      {'name': u'Source Side Outlet Node Name',
+                                       'pyname': u'source_side_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'load side inlet node name',
+                                      {'name': u'Load Side Inlet Node Name',
+                                       'pyname': u'load_side_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'load side outlet node name',
+                                      {'name': u'Load Side Outlet Node Name',
+                                       'pyname': u'load_side_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'rated load side flow rate',
+                                      {'name': u'Rated Load Side Flow Rate',
+                                       'pyname': u'rated_load_side_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'rated source side flow rate',
+                                      {'name': u'Rated Source Side Flow Rate',
+                                       'pyname': u'rated_source_side_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'rated cooling capacity',
+                                      {'name': u'Rated Cooling Capacity',
+                                       'pyname': u'rated_cooling_capacity',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'rated cooling power consumption',
+                                      {'name': u'Rated Cooling Power Consumption',
+                                       'pyname': u'rated_cooling_power_consumption',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'cooling capacity coefficient 1',
+                                      {'name': u'Cooling Capacity Coefficient 1',
+                                       'pyname': u'cooling_capacity_coefficient_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cooling capacity coefficient 2',
+                                      {'name': u'Cooling Capacity Coefficient 2',
+                                       'pyname': u'cooling_capacity_coefficient_2',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cooling capacity coefficient 3',
+                                      {'name': u'Cooling Capacity Coefficient 3',
+                                       'pyname': u'cooling_capacity_coefficient_3',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cooling capacity coefficient 4',
+                                      {'name': u'Cooling Capacity Coefficient 4',
+                                       'pyname': u'cooling_capacity_coefficient_4',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cooling capacity coefficient 5',
+                                      {'name': u'Cooling Capacity Coefficient 5',
+                                       'pyname': u'cooling_capacity_coefficient_5',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cooling compressor power coefficient 1',
+                                      {'name': u'Cooling Compressor Power Coefficient 1',
+                                       'pyname': u'cooling_compressor_power_coefficient_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cooling compressor power coefficient 2',
+                                      {'name': u'Cooling Compressor Power Coefficient 2',
+                                       'pyname': u'cooling_compressor_power_coefficient_2',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cooling compressor power coefficient 3',
+                                      {'name': u'Cooling Compressor Power Coefficient 3',
+                                       'pyname': u'cooling_compressor_power_coefficient_3',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cooling compressor power coefficient 4',
+                                      {'name': u'Cooling Compressor Power Coefficient 4',
+                                       'pyname': u'cooling_compressor_power_coefficient_4',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cooling compressor power coefficient 5',
+                                      {'name': u'Cooling Compressor Power Coefficient 5',
+                                       'pyname': u'cooling_compressor_power_coefficient_5',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatPump:WaterToWater:EquationFit:Cooling`
@@ -10553,10 +14129,202 @@ class HeatPumpWaterToWaterEquationFitCooling(DataObject):
 
 
 class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
+
     """ Corresponds to IDD object `HeatPump:WaterToWater:ParameterEstimation:Cooling`
         OSU parameter estimation model
     """
-    schema = {'min-fields': 20, 'name': u'HeatPump:WaterToWater:ParameterEstimation:Cooling', 'pyname': u'HeatPumpWaterToWaterParameterEstimationCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'load side inlet node name', {'name': u'Load Side Inlet Node Name', 'pyname': u'load_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'load side outlet node name', {'name': u'Load Side Outlet Node Name', 'pyname': u'load_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'nominal cop', {'name': u'Nominal COP', 'pyname': u'nominal_cop', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/W'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'load side flow rate', {'name': u'Load Side Flow Rate', 'pyname': u'load_side_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'source side flow rate', {'name': u'Source Side Flow Rate', 'pyname': u'source_side_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'load side heat transfer coefficient', {'name': u'Load Side Heat Transfer Coefficient', 'pyname': u'load_side_heat_transfer_coefficient', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'source side heat transfer coefficient', {'name': u'Source Side Heat Transfer Coefficient', 'pyname': u'source_side_heat_transfer_coefficient', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'piston displacement', {'name': u'Piston Displacement', 'pyname': u'piston_displacement', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'compressor clearance factor', {'name': u'Compressor Clearance Factor', 'pyname': u'compressor_clearance_factor', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'compressor suction and discharge pressure drop', {'name': u'Compressor Suction and Discharge Pressure Drop', 'pyname': u'compressor_suction_and_discharge_pressure_drop', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'superheating', {'name': u'Superheating', 'pyname': u'superheating', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'constant part of electromechanical power losses', {'name': u'Constant Part of Electromechanical Power Losses', 'pyname': u'constant_part_of_electromechanical_power_losses', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'loss factor', {'name': u'Loss Factor', 'pyname': u'loss_factor', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'high pressure cut off', {'name': u'High Pressure Cut Off', 'pyname': u'high_pressure_cut_off', 'default': 500000000.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'low pressure cut off', {'name': u'Low Pressure Cut Off', 'pyname': u'low_pressure_cut_off', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 20,
+              'name': u'HeatPump:WaterToWater:ParameterEstimation:Cooling',
+              'pyname': u'HeatPumpWaterToWaterParameterEstimationCooling',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'source side inlet node name',
+                                      {'name': u'Source Side Inlet Node Name',
+                                       'pyname': u'source_side_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'source side outlet node name',
+                                      {'name': u'Source Side Outlet Node Name',
+                                       'pyname': u'source_side_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'load side inlet node name',
+                                      {'name': u'Load Side Inlet Node Name',
+                                       'pyname': u'load_side_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'load side outlet node name',
+                                      {'name': u'Load Side Outlet Node Name',
+                                       'pyname': u'load_side_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'nominal cop',
+                                      {'name': u'Nominal COP',
+                                       'pyname': u'nominal_cop',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/W'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'load side flow rate',
+                                      {'name': u'Load Side Flow Rate',
+                                       'pyname': u'load_side_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'source side flow rate',
+                                      {'name': u'Source Side Flow Rate',
+                                       'pyname': u'source_side_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'load side heat transfer coefficient',
+                                      {'name': u'Load Side Heat Transfer Coefficient',
+                                       'pyname': u'load_side_heat_transfer_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/K'}),
+                                     (u'source side heat transfer coefficient',
+                                      {'name': u'Source Side Heat Transfer Coefficient',
+                                       'pyname': u'source_side_heat_transfer_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/K'}),
+                                     (u'piston displacement',
+                                      {'name': u'Piston Displacement',
+                                       'pyname': u'piston_displacement',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'compressor clearance factor',
+                                      {'name': u'Compressor Clearance Factor',
+                                       'pyname': u'compressor_clearance_factor',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'compressor suction and discharge pressure drop',
+                                      {'name': u'Compressor Suction and Discharge Pressure Drop',
+                                       'pyname': u'compressor_suction_and_discharge_pressure_drop',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'Pa'}),
+                                     (u'superheating',
+                                      {'name': u'Superheating',
+                                       'pyname': u'superheating',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'constant part of electromechanical power losses',
+                                      {'name': u'Constant Part of Electromechanical Power Losses',
+                                       'pyname': u'constant_part_of_electromechanical_power_losses',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'loss factor',
+                                      {'name': u'Loss Factor',
+                                       'pyname': u'loss_factor',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'high pressure cut off',
+                                      {'name': u'High Pressure Cut Off',
+                                       'pyname': u'high_pressure_cut_off',
+                                       'default': 500000000.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'Pa'}),
+                                     (u'low pressure cut off',
+                                      {'name': u'Low Pressure Cut Off',
+                                       'pyname': u'low_pressure_cut_off',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'Pa'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatPump:WaterToWater:ParameterEstimation:Cooling`
@@ -11092,10 +14860,202 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
 
 
 class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
+
     """ Corresponds to IDD object `HeatPump:WaterToWater:ParameterEstimation:Heating`
         OSU parameter estimation model
     """
-    schema = {'min-fields': 20, 'name': u'HeatPump:WaterToWater:ParameterEstimation:Heating', 'pyname': u'HeatPumpWaterToWaterParameterEstimationHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'load side inlet node name', {'name': u'Load Side Inlet Node Name', 'pyname': u'load_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'load side outlet node name', {'name': u'Load Side Outlet Node Name', 'pyname': u'load_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'nominal cop', {'name': u'Nominal COP', 'pyname': u'nominal_cop', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/W'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'minimum part load ratio', {'name': u'Minimum Part Load Ratio', 'pyname': u'minimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'maximum part load ratio', {'name': u'Maximum Part Load Ratio', 'pyname': u'maximum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'optimum part load ratio', {'name': u'Optimum Part Load Ratio', 'pyname': u'optimum_part_load_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'load side flow rate', {'name': u'Load Side Flow Rate', 'pyname': u'load_side_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'source side flow rate', {'name': u'Source Side Flow Rate', 'pyname': u'source_side_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'load side heat transfer coefficient', {'name': u'Load Side Heat Transfer Coefficient', 'pyname': u'load_side_heat_transfer_coefficient', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'source side heat transfer coefficient', {'name': u'Source Side Heat Transfer Coefficient', 'pyname': u'source_side_heat_transfer_coefficient', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'piston displacement', {'name': u'Piston Displacement', 'pyname': u'piston_displacement', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'compressor clearance factor', {'name': u'Compressor Clearance Factor', 'pyname': u'compressor_clearance_factor', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'compressor suction and discharge pressure drop', {'name': u'Compressor Suction and Discharge Pressure Drop', 'pyname': u'compressor_suction_and_discharge_pressure_drop', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'superheating', {'name': u'Superheating', 'pyname': u'superheating', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'constant part of electromechanical power losses', {'name': u'Constant Part of Electromechanical Power Losses', 'pyname': u'constant_part_of_electromechanical_power_losses', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'loss factor', {'name': u'Loss Factor', 'pyname': u'loss_factor', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'high pressure cut off', {'name': u'High Pressure Cut Off', 'pyname': u'high_pressure_cut_off', 'default': 500000000.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'low pressure cut off', {'name': u'Low Pressure Cut Off', 'pyname': u'low_pressure_cut_off', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 20,
+              'name': u'HeatPump:WaterToWater:ParameterEstimation:Heating',
+              'pyname': u'HeatPumpWaterToWaterParameterEstimationHeating',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'source side inlet node name',
+                                      {'name': u'Source Side Inlet Node Name',
+                                       'pyname': u'source_side_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'source side outlet node name',
+                                      {'name': u'Source Side Outlet Node Name',
+                                       'pyname': u'source_side_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'load side inlet node name',
+                                      {'name': u'Load Side Inlet Node Name',
+                                       'pyname': u'load_side_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'load side outlet node name',
+                                      {'name': u'Load Side Outlet Node Name',
+                                       'pyname': u'load_side_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'nominal cop',
+                                      {'name': u'Nominal COP',
+                                       'pyname': u'nominal_cop',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/W'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'minimum part load ratio',
+                                      {'name': u'Minimum Part Load Ratio',
+                                       'pyname': u'minimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'maximum part load ratio',
+                                      {'name': u'Maximum Part Load Ratio',
+                                       'pyname': u'maximum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'optimum part load ratio',
+                                      {'name': u'Optimum Part Load Ratio',
+                                       'pyname': u'optimum_part_load_ratio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'load side flow rate',
+                                      {'name': u'Load Side Flow Rate',
+                                       'pyname': u'load_side_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'source side flow rate',
+                                      {'name': u'Source Side Flow Rate',
+                                       'pyname': u'source_side_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'load side heat transfer coefficient',
+                                      {'name': u'Load Side Heat Transfer Coefficient',
+                                       'pyname': u'load_side_heat_transfer_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/K'}),
+                                     (u'source side heat transfer coefficient',
+                                      {'name': u'Source Side Heat Transfer Coefficient',
+                                       'pyname': u'source_side_heat_transfer_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/K'}),
+                                     (u'piston displacement',
+                                      {'name': u'Piston Displacement',
+                                       'pyname': u'piston_displacement',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'compressor clearance factor',
+                                      {'name': u'Compressor Clearance Factor',
+                                       'pyname': u'compressor_clearance_factor',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'compressor suction and discharge pressure drop',
+                                      {'name': u'Compressor Suction and Discharge Pressure Drop',
+                                       'pyname': u'compressor_suction_and_discharge_pressure_drop',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'Pa'}),
+                                     (u'superheating',
+                                      {'name': u'Superheating',
+                                       'pyname': u'superheating',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'constant part of electromechanical power losses',
+                                      {'name': u'Constant Part of Electromechanical Power Losses',
+                                       'pyname': u'constant_part_of_electromechanical_power_losses',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'loss factor',
+                                      {'name': u'Loss Factor',
+                                       'pyname': u'loss_factor',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'high pressure cut off',
+                                      {'name': u'High Pressure Cut Off',
+                                       'pyname': u'high_pressure_cut_off',
+                                       'default': 500000000.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'Pa'}),
+                                     (u'low pressure cut off',
+                                      {'name': u'Low Pressure Cut Off',
+                                       'pyname': u'low_pressure_cut_off',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'Pa'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatPump:WaterToWater:ParameterEstimation:Heating`
@@ -11631,10 +15591,54 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
 
 
 class DistrictCooling(DataObject):
+
     """ Corresponds to IDD object `DistrictCooling`
         Centralized source of chilled water, such as a district cooling system.
     """
-    schema = {'min-fields': 0, 'name': u'DistrictCooling', 'pyname': u'DistrictCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'capacity fraction schedule name', {'name': u'Capacity Fraction Schedule Name', 'pyname': u'capacity_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'DistrictCooling',
+              'pyname': u'DistrictCooling',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chilled water inlet node name',
+                                      {'name': u'Chilled Water Inlet Node Name',
+                                       'pyname': u'chilled_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'chilled water outlet node name',
+                                      {'name': u'Chilled Water Outlet Node Name',
+                                       'pyname': u'chilled_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'capacity fraction schedule name',
+                                      {'name': u'Capacity Fraction Schedule Name',
+                                       'pyname': u'capacity_fraction_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DistrictCooling`
@@ -11764,10 +15768,54 @@ class DistrictCooling(DataObject):
 
 
 class DistrictHeating(DataObject):
+
     """ Corresponds to IDD object `DistrictHeating`
         Centralized source of hot water, such as a district heating system.
     """
-    schema = {'min-fields': 0, 'name': u'DistrictHeating', 'pyname': u'DistrictHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hot water inlet node name', {'name': u'Hot Water Inlet Node Name', 'pyname': u'hot_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'hot water outlet node name', {'name': u'Hot Water Outlet Node Name', 'pyname': u'hot_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'nominal capacity', {'name': u'Nominal Capacity', 'pyname': u'nominal_capacity', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'capacity fraction schedule name', {'name': u'Capacity Fraction Schedule Name', 'pyname': u'capacity_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'DistrictHeating',
+              'pyname': u'DistrictHeating',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'hot water inlet node name',
+                                      {'name': u'Hot Water Inlet Node Name',
+                                       'pyname': u'hot_water_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'hot water outlet node name',
+                                      {'name': u'Hot Water Outlet Node Name',
+                                       'pyname': u'hot_water_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'nominal capacity',
+                                      {'name': u'Nominal Capacity',
+                                       'pyname': u'nominal_capacity',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'capacity fraction schedule name',
+                                      {'name': u'Capacity Fraction Schedule Name',
+                                       'pyname': u'capacity_fraction_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DistrictHeating`
@@ -11897,13 +15945,73 @@ class DistrictHeating(DataObject):
 
 
 class PlantComponentTemperatureSource(DataObject):
+
     """ Corresponds to IDD object `PlantComponent:TemperatureSource`
         Simulates an object of pre-determined (constant or scheduled) source temperature
         The object introduces fluid into the plant loop at the specified temperature and
         at the same flow rate as the fluid enters the component
         Fluid entering the component vanishes equivalent to the relief air in an air system
     """
-    schema = {'min-fields': 0, 'name': u'PlantComponent:TemperatureSource', 'pyname': u'PlantComponentTemperatureSource', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node', {'name': u'Inlet Node', 'pyname': u'inlet_node', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node', {'name': u'Outlet Node', 'pyname': u'outlet_node', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'design volume flow rate', {'name': u'Design Volume Flow Rate', 'pyname': u'design_volume_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'temperature specification type', {'name': u'Temperature Specification Type', 'pyname': u'temperature_specification_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source temperature', {'name': u'Source Temperature', 'pyname': u'source_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'source temperature schedule name', {'name': u'Source Temperature Schedule Name', 'pyname': u'source_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'PlantComponent:TemperatureSource',
+              'pyname': u'PlantComponentTemperatureSource',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'inlet node',
+                                      {'name': u'Inlet Node',
+                                       'pyname': u'inlet_node',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outlet node',
+                                      {'name': u'Outlet Node',
+                                       'pyname': u'outlet_node',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'design volume flow rate',
+                                      {'name': u'Design Volume Flow Rate',
+                                       'pyname': u'design_volume_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'temperature specification type',
+                                      {'name': u'Temperature Specification Type',
+                                       'pyname': u'temperature_specification_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'source temperature',
+                                      {'name': u'Source Temperature',
+                                       'pyname': u'source_temperature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'source temperature schedule name',
+                                      {'name': u'Source Temperature Schedule Name',
+                                       'pyname': u'source_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list',
+                                       'unit': u'C'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantComponent:TemperatureSource`
@@ -12087,13 +16195,694 @@ class PlantComponentTemperatureSource(DataObject):
 
 
 class CentralHeatPumpSystem(DataObject):
+
     """ Corresponds to IDD object `CentralHeatPumpSystem`
         This chiller bank can contain multiple chiller heaters and heat pump performance objects.
         Its function is to encapsulate the extra controls needed to turn individual modules on/off
         and whether they are to operate in cooling-only, heating-only or simultaneous cooling/heating
         mode and whether to connect the source water to the evaporator or condenser side.
     """
-    schema = {'min-fields': 14, 'name': u'CentralHeatPumpSystem', 'pyname': u'CentralHeatPumpSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control method', {'name': u'Control Method', 'pyname': u'control_method', 'default': u'SmartMixing', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling loop inlet node name', {'name': u'Cooling Loop Inlet Node Name', 'pyname': u'cooling_loop_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'cooling loop outlet node name', {'name': u'Cooling Loop Outlet Node Name', 'pyname': u'cooling_loop_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'source loop inlet node name', {'name': u'Source Loop Inlet Node Name', 'pyname': u'source_loop_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'source loop outlet node name', {'name': u'Source Loop Outlet Node Name', 'pyname': u'source_loop_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'heating loop inlet node name', {'name': u'Heating Loop Inlet Node Name', 'pyname': u'heating_loop_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'heating loop outlet node name', {'name': u'Heating Loop Outlet Node Name', 'pyname': u'heating_loop_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ancillary power', {'name': u'Ancillary Power', 'pyname': u'ancillary_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ancillary operation schedule name', {'name': u'Ancillary Operation Schedule Name', 'pyname': u'ancillary_operation_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules performance component object type 1', {'name': u'Chiller Heater Modules Performance Component Object Type 1', 'pyname': u'chiller_heater_modules_performance_component_object_type_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 1', {'name': u'Chiller Heater Modules Performance Component Name 1', 'pyname': u'chiller_heater_modules_performance_component_name_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 1', {'name': u'Chiller Heater Modules Control Schedule Name 1', 'pyname': u'chiller_heater_modules_control_schedule_name_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 1', {'name': u'Number of Chiller Heater Modules 1', 'pyname': u'number_of_chiller_heater_modules_1', 'default': 1, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 2', {'name': u'Chiller Heater Modules Performance Component Object Type 2', 'pyname': u'chiller_heater_modules_performance_component_object_type_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 2', {'name': u'Chiller Heater Modules Performance Component Name 2', 'pyname': u'chiller_heater_modules_performance_component_name_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 2', {'name': u'Chiller Heater Modules Control Schedule Name 2', 'pyname': u'chiller_heater_modules_control_schedule_name_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 2', {'name': u'Number of Chiller Heater Modules 2', 'pyname': u'number_of_chiller_heater_modules_2', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater performance component object type 3', {'name': u'Chiller Heater Performance Component Object Type 3', 'pyname': u'chiller_heater_performance_component_object_type_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater performance component name 3', {'name': u'Chiller Heater Performance Component Name 3', 'pyname': u'chiller_heater_performance_component_name_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 3', {'name': u'Chiller Heater Modules Control Schedule Name 3', 'pyname': u'chiller_heater_modules_control_schedule_name_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 3', {'name': u'Number of Chiller Heater Modules 3', 'pyname': u'number_of_chiller_heater_modules_3', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 4', {'name': u'Chiller Heater Modules Performance Component Object Type 4', 'pyname': u'chiller_heater_modules_performance_component_object_type_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 4', {'name': u'Chiller Heater Modules Performance Component Name 4', 'pyname': u'chiller_heater_modules_performance_component_name_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 4', {'name': u'Chiller Heater Modules Control Schedule Name 4', 'pyname': u'chiller_heater_modules_control_schedule_name_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 4', {'name': u'Number of Chiller Heater Modules 4', 'pyname': u'number_of_chiller_heater_modules_4', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 5', {'name': u'Chiller Heater Modules Performance Component Object Type 5', 'pyname': u'chiller_heater_modules_performance_component_object_type_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater models performance component name 5', {'name': u'Chiller Heater Models Performance Component Name 5', 'pyname': u'chiller_heater_models_performance_component_name_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 5', {'name': u'Chiller Heater Modules Control Schedule Name 5', 'pyname': u'chiller_heater_modules_control_schedule_name_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 5', {'name': u'Number of Chiller Heater Modules 5', 'pyname': u'number_of_chiller_heater_modules_5', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 6', {'name': u'Chiller Heater Modules Performance Component Object Type 6', 'pyname': u'chiller_heater_modules_performance_component_object_type_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 6', {'name': u'Chiller Heater Modules Performance Component Name 6', 'pyname': u'chiller_heater_modules_performance_component_name_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 6', {'name': u'Chiller Heater Modules Control Schedule Name 6', 'pyname': u'chiller_heater_modules_control_schedule_name_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 6', {'name': u'Number of Chiller Heater Modules 6', 'pyname': u'number_of_chiller_heater_modules_6', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 7', {'name': u'Chiller Heater Modules Performance Component Object Type 7', 'pyname': u'chiller_heater_modules_performance_component_object_type_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 7', {'name': u'Chiller Heater Modules Performance Component Name 7', 'pyname': u'chiller_heater_modules_performance_component_name_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 7', {'name': u'Chiller Heater Modules Control Schedule Name 7', 'pyname': u'chiller_heater_modules_control_schedule_name_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 7', {'name': u'Number of Chiller Heater Modules 7', 'pyname': u'number_of_chiller_heater_modules_7', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 8', {'name': u'Chiller Heater Modules Performance Component Object Type 8', 'pyname': u'chiller_heater_modules_performance_component_object_type_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 8', {'name': u'Chiller Heater Modules Performance Component Name 8', 'pyname': u'chiller_heater_modules_performance_component_name_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 8', {'name': u'Chiller Heater Modules Control Schedule Name 8', 'pyname': u'chiller_heater_modules_control_schedule_name_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 8', {'name': u'Number of Chiller Heater Modules 8', 'pyname': u'number_of_chiller_heater_modules_8', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 9', {'name': u'Chiller Heater Modules Performance Component Object Type 9', 'pyname': u'chiller_heater_modules_performance_component_object_type_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 9', {'name': u'Chiller Heater Modules Performance Component Name 9', 'pyname': u'chiller_heater_modules_performance_component_name_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 9', {'name': u'Chiller Heater Modules Control Schedule Name 9', 'pyname': u'chiller_heater_modules_control_schedule_name_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 9', {'name': u'Number of Chiller Heater Modules 9', 'pyname': u'number_of_chiller_heater_modules_9', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 10', {'name': u'Chiller Heater Modules Performance Component Object Type 10', 'pyname': u'chiller_heater_modules_performance_component_object_type_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 10', {'name': u'Chiller Heater Modules Performance Component Name 10', 'pyname': u'chiller_heater_modules_performance_component_name_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 10', {'name': u'Chiller Heater Modules Control Schedule Name 10', 'pyname': u'chiller_heater_modules_control_schedule_name_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 10', {'name': u'Number of Chiller Heater Modules 10', 'pyname': u'number_of_chiller_heater_modules_10', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 11', {'name': u'Chiller Heater Modules Performance Component Object Type 11', 'pyname': u'chiller_heater_modules_performance_component_object_type_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 11', {'name': u'Chiller Heater Modules Performance Component Name 11', 'pyname': u'chiller_heater_modules_performance_component_name_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater module control schedule name 11', {'name': u'Chiller Heater Module Control Schedule Name 11', 'pyname': u'chiller_heater_module_control_schedule_name_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 11', {'name': u'Number of Chiller Heater Modules 11', 'pyname': u'number_of_chiller_heater_modules_11', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 12', {'name': u'Chiller Heater Modules Performance Component Object Type 12', 'pyname': u'chiller_heater_modules_performance_component_object_type_12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 12', {'name': u'Chiller Heater Modules Performance Component Name 12', 'pyname': u'chiller_heater_modules_performance_component_name_12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 12', {'name': u'Chiller Heater Modules Control Schedule Name 12', 'pyname': u'chiller_heater_modules_control_schedule_name_12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 12', {'name': u'Number of Chiller Heater Modules 12', 'pyname': u'number_of_chiller_heater_modules_12', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 13', {'name': u'Chiller Heater Modules Performance Component Object Type 13', 'pyname': u'chiller_heater_modules_performance_component_object_type_13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 13', {'name': u'Chiller Heater Modules Performance Component Name 13', 'pyname': u'chiller_heater_modules_performance_component_name_13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 13', {'name': u'Chiller Heater Modules Control Schedule Name 13', 'pyname': u'chiller_heater_modules_control_schedule_name_13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 13', {'name': u'Number of Chiller Heater Modules 13', 'pyname': u'number_of_chiller_heater_modules_13', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 14', {'name': u'Chiller Heater Modules Performance Component Object Type 14', 'pyname': u'chiller_heater_modules_performance_component_object_type_14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 14', {'name': u'Chiller Heater Modules Performance Component Name 14', 'pyname': u'chiller_heater_modules_performance_component_name_14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 14', {'name': u'Chiller Heater Modules Control Schedule Name 14', 'pyname': u'chiller_heater_modules_control_schedule_name_14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 14', {'name': u'Number of Chiller Heater Modules 14', 'pyname': u'number_of_chiller_heater_modules_14', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 15', {'name': u'Chiller Heater Modules Performance Component Object Type 15', 'pyname': u'chiller_heater_modules_performance_component_object_type_15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 15', {'name': u'Chiller Heater Modules Performance Component Name 15', 'pyname': u'chiller_heater_modules_performance_component_name_15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 15', {'name': u'Chiller Heater Modules Control Schedule Name 15', 'pyname': u'chiller_heater_modules_control_schedule_name_15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 15', {'name': u'Number of Chiller Heater Modules 15', 'pyname': u'number_of_chiller_heater_modules_15', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 16', {'name': u'Chiller Heater Modules Performance Component Object Type 16', 'pyname': u'chiller_heater_modules_performance_component_object_type_16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 16', {'name': u'Chiller Heater Modules Performance Component Name 16', 'pyname': u'chiller_heater_modules_performance_component_name_16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 16', {'name': u'Chiller Heater Modules Control Schedule Name 16', 'pyname': u'chiller_heater_modules_control_schedule_name_16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 16', {'name': u'Number of Chiller Heater Modules 16', 'pyname': u'number_of_chiller_heater_modules_16', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 17', {'name': u'Chiller Heater Modules Performance Component Object Type 17', 'pyname': u'chiller_heater_modules_performance_component_object_type_17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 17', {'name': u'Chiller Heater Modules Performance Component Name 17', 'pyname': u'chiller_heater_modules_performance_component_name_17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 17', {'name': u'Chiller Heater Modules Control Schedule Name 17', 'pyname': u'chiller_heater_modules_control_schedule_name_17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 17', {'name': u'Number of Chiller Heater Modules 17', 'pyname': u'number_of_chiller_heater_modules_17', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 18', {'name': u'Chiller Heater Modules Performance Component Object Type 18', 'pyname': u'chiller_heater_modules_performance_component_object_type_18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 18', {'name': u'Chiller Heater Modules Performance Component Name 18', 'pyname': u'chiller_heater_modules_performance_component_name_18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control control schedule name 18', {'name': u'Chiller Heater Modules Control Control Schedule Name 18', 'pyname': u'chiller_heater_modules_control_control_schedule_name_18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 18', {'name': u'Number of Chiller Heater Modules 18', 'pyname': u'number_of_chiller_heater_modules_18', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 19', {'name': u'Chiller Heater Modules Performance Component Object Type 19', 'pyname': u'chiller_heater_modules_performance_component_object_type_19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 19', {'name': u'Chiller Heater Modules Performance Component Name 19', 'pyname': u'chiller_heater_modules_performance_component_name_19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 19', {'name': u'Chiller Heater Modules Control Schedule Name 19', 'pyname': u'chiller_heater_modules_control_schedule_name_19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 19', {'name': u'Number of Chiller Heater Modules 19', 'pyname': u'number_of_chiller_heater_modules_19', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'chiller heater modules performance component object type 20', {'name': u'Chiller Heater Modules Performance Component Object Type 20', 'pyname': u'chiller_heater_modules_performance_component_object_type_20', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'chiller heater modules performance component name 20', {'name': u'Chiller Heater Modules Performance Component Name 20', 'pyname': u'chiller_heater_modules_performance_component_name_20', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'chiller heater modules control schedule name 20', {'name': u'Chiller Heater Modules Control Schedule Name 20', 'pyname': u'chiller_heater_modules_control_schedule_name_20', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of chiller heater modules 20', {'name': u'Number of Chiller Heater Modules 20', 'pyname': u'number_of_chiller_heater_modules_20', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 14,
+              'name': u'CentralHeatPumpSystem',
+              'pyname': u'CentralHeatPumpSystem',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'control method',
+                                      {'name': u'Control Method',
+                                       'pyname': u'control_method',
+                                       'default': u'SmartMixing',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooling loop inlet node name',
+                                      {'name': u'Cooling Loop Inlet Node Name',
+                                       'pyname': u'cooling_loop_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'cooling loop outlet node name',
+                                      {'name': u'Cooling Loop Outlet Node Name',
+                                       'pyname': u'cooling_loop_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'source loop inlet node name',
+                                      {'name': u'Source Loop Inlet Node Name',
+                                       'pyname': u'source_loop_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'source loop outlet node name',
+                                      {'name': u'Source Loop Outlet Node Name',
+                                       'pyname': u'source_loop_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'heating loop inlet node name',
+                                      {'name': u'Heating Loop Inlet Node Name',
+                                       'pyname': u'heating_loop_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'heating loop outlet node name',
+                                      {'name': u'Heating Loop Outlet Node Name',
+                                       'pyname': u'heating_loop_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'ancillary power',
+                                      {'name': u'Ancillary Power',
+                                       'pyname': u'ancillary_power',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'ancillary operation schedule name',
+                                      {'name': u'Ancillary Operation Schedule Name',
+                                       'pyname': u'ancillary_operation_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules performance component object type 1',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 1',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 1',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 1',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 1',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 1',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 1',
+                                      {'name': u'Number of Chiller Heater Modules 1',
+                                       'pyname': u'number_of_chiller_heater_modules_1',
+                                       'default': 1,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 2',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 2',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_2',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 2',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 2',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_2',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 2',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 2',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_2',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 2',
+                                      {'name': u'Number of Chiller Heater Modules 2',
+                                       'pyname': u'number_of_chiller_heater_modules_2',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater performance component object type 3',
+                                      {'name': u'Chiller Heater Performance Component Object Type 3',
+                                       'pyname': u'chiller_heater_performance_component_object_type_3',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater performance component name 3',
+                                      {'name': u'Chiller Heater Performance Component Name 3',
+                                       'pyname': u'chiller_heater_performance_component_name_3',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 3',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 3',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_3',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 3',
+                                      {'name': u'Number of Chiller Heater Modules 3',
+                                       'pyname': u'number_of_chiller_heater_modules_3',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 4',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 4',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_4',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 4',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 4',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_4',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 4',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 4',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_4',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 4',
+                                      {'name': u'Number of Chiller Heater Modules 4',
+                                       'pyname': u'number_of_chiller_heater_modules_4',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 5',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 5',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_5',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater models performance component name 5',
+                                      {'name': u'Chiller Heater Models Performance Component Name 5',
+                                       'pyname': u'chiller_heater_models_performance_component_name_5',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 5',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 5',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_5',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 5',
+                                      {'name': u'Number of Chiller Heater Modules 5',
+                                       'pyname': u'number_of_chiller_heater_modules_5',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 6',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 6',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_6',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 6',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 6',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_6',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 6',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 6',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_6',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 6',
+                                      {'name': u'Number of Chiller Heater Modules 6',
+                                       'pyname': u'number_of_chiller_heater_modules_6',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 7',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 7',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_7',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 7',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 7',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_7',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 7',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 7',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_7',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 7',
+                                      {'name': u'Number of Chiller Heater Modules 7',
+                                       'pyname': u'number_of_chiller_heater_modules_7',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 8',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 8',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_8',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 8',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 8',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_8',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 8',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 8',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_8',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 8',
+                                      {'name': u'Number of Chiller Heater Modules 8',
+                                       'pyname': u'number_of_chiller_heater_modules_8',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 9',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 9',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_9',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 9',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 9',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_9',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 9',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 9',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_9',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 9',
+                                      {'name': u'Number of Chiller Heater Modules 9',
+                                       'pyname': u'number_of_chiller_heater_modules_9',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 10',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 10',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_10',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 10',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 10',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_10',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 10',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 10',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_10',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 10',
+                                      {'name': u'Number of Chiller Heater Modules 10',
+                                       'pyname': u'number_of_chiller_heater_modules_10',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 11',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 11',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_11',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 11',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 11',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_11',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater module control schedule name 11',
+                                      {'name': u'Chiller Heater Module Control Schedule Name 11',
+                                       'pyname': u'chiller_heater_module_control_schedule_name_11',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 11',
+                                      {'name': u'Number of Chiller Heater Modules 11',
+                                       'pyname': u'number_of_chiller_heater_modules_11',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 12',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 12',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_12',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 12',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 12',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_12',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 12',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 12',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_12',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 12',
+                                      {'name': u'Number of Chiller Heater Modules 12',
+                                       'pyname': u'number_of_chiller_heater_modules_12',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 13',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 13',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_13',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 13',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 13',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_13',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 13',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 13',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_13',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 13',
+                                      {'name': u'Number of Chiller Heater Modules 13',
+                                       'pyname': u'number_of_chiller_heater_modules_13',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 14',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 14',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_14',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 14',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 14',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_14',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 14',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 14',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_14',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 14',
+                                      {'name': u'Number of Chiller Heater Modules 14',
+                                       'pyname': u'number_of_chiller_heater_modules_14',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 15',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 15',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_15',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 15',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 15',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_15',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 15',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 15',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_15',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 15',
+                                      {'name': u'Number of Chiller Heater Modules 15',
+                                       'pyname': u'number_of_chiller_heater_modules_15',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 16',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 16',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_16',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 16',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 16',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_16',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 16',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 16',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_16',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 16',
+                                      {'name': u'Number of Chiller Heater Modules 16',
+                                       'pyname': u'number_of_chiller_heater_modules_16',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 17',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 17',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_17',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 17',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 17',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_17',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 17',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 17',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_17',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 17',
+                                      {'name': u'Number of Chiller Heater Modules 17',
+                                       'pyname': u'number_of_chiller_heater_modules_17',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 18',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 18',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_18',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 18',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 18',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_18',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control control schedule name 18',
+                                      {'name': u'Chiller Heater Modules Control Control Schedule Name 18',
+                                       'pyname': u'chiller_heater_modules_control_control_schedule_name_18',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 18',
+                                      {'name': u'Number of Chiller Heater Modules 18',
+                                       'pyname': u'number_of_chiller_heater_modules_18',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 19',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 19',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_19',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 19',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 19',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_19',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 19',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 19',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_19',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 19',
+                                      {'name': u'Number of Chiller Heater Modules 19',
+                                       'pyname': u'number_of_chiller_heater_modules_19',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'chiller heater modules performance component object type 20',
+                                      {'name': u'Chiller Heater Modules Performance Component Object Type 20',
+                                       'pyname': u'chiller_heater_modules_performance_component_object_type_20',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'chiller heater modules performance component name 20',
+                                      {'name': u'Chiller Heater Modules Performance Component Name 20',
+                                       'pyname': u'chiller_heater_modules_performance_component_name_20',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'chiller heater modules control schedule name 20',
+                                      {'name': u'Chiller Heater Modules Control Schedule Name 20',
+                                       'pyname': u'chiller_heater_modules_control_schedule_name_20',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of chiller heater modules 20',
+                                      {'name': u'Number of Chiller Heater Modules 20',
+                                       'pyname': u'number_of_chiller_heater_modules_20',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CentralHeatPumpSystem`
@@ -12345,10 +17134,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_1` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 1"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 1"]
 
     @chiller_heater_modules_performance_component_object_type_1.setter
-    def chiller_heater_modules_performance_component_object_type_1(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_1(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 1`
 
         Args:
@@ -12359,7 +17151,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 1"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 1"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_1(self):
@@ -12368,7 +17161,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_1` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 1"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 1"]
 
     @chiller_heater_modules_performance_component_name_1.setter
     def chiller_heater_modules_performance_component_name_1(self, value=None):
@@ -12439,10 +17233,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_2` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 2"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 2"]
 
     @chiller_heater_modules_performance_component_object_type_2.setter
-    def chiller_heater_modules_performance_component_object_type_2(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_2(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 2`
 
         Args:
@@ -12453,7 +17250,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 2"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 2"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_2(self):
@@ -12462,7 +17260,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_2` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 2"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 2"]
 
     @chiller_heater_modules_performance_component_name_2.setter
     def chiller_heater_modules_performance_component_name_2(self, value=None):
@@ -12627,10 +17426,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_4` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 4"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 4"]
 
     @chiller_heater_modules_performance_component_object_type_4.setter
-    def chiller_heater_modules_performance_component_object_type_4(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_4(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 4`
 
         Args:
@@ -12641,7 +17443,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 4"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 4"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_4(self):
@@ -12650,7 +17453,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_4` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 4"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 4"]
 
     @chiller_heater_modules_performance_component_name_4.setter
     def chiller_heater_modules_performance_component_name_4(self, value=None):
@@ -12721,10 +17525,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_5` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 5"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 5"]
 
     @chiller_heater_modules_performance_component_object_type_5.setter
-    def chiller_heater_modules_performance_component_object_type_5(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_5(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 5`
 
         Args:
@@ -12735,7 +17542,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 5"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 5"] = value
 
     @property
     def chiller_heater_models_performance_component_name_5(self):
@@ -12815,10 +17623,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_6` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 6"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 6"]
 
     @chiller_heater_modules_performance_component_object_type_6.setter
-    def chiller_heater_modules_performance_component_object_type_6(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_6(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 6`
 
         Args:
@@ -12829,7 +17640,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 6"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 6"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_6(self):
@@ -12838,7 +17650,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_6` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 6"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 6"]
 
     @chiller_heater_modules_performance_component_name_6.setter
     def chiller_heater_modules_performance_component_name_6(self, value=None):
@@ -12909,10 +17722,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_7` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 7"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 7"]
 
     @chiller_heater_modules_performance_component_object_type_7.setter
-    def chiller_heater_modules_performance_component_object_type_7(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_7(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 7`
 
         Args:
@@ -12923,7 +17739,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 7"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 7"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_7(self):
@@ -12932,7 +17749,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_7` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 7"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 7"]
 
     @chiller_heater_modules_performance_component_name_7.setter
     def chiller_heater_modules_performance_component_name_7(self, value=None):
@@ -13003,10 +17821,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_8` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 8"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 8"]
 
     @chiller_heater_modules_performance_component_object_type_8.setter
-    def chiller_heater_modules_performance_component_object_type_8(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_8(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 8`
 
         Args:
@@ -13017,7 +17838,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 8"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 8"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_8(self):
@@ -13026,7 +17848,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_8` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 8"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 8"]
 
     @chiller_heater_modules_performance_component_name_8.setter
     def chiller_heater_modules_performance_component_name_8(self, value=None):
@@ -13097,10 +17920,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_9` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 9"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 9"]
 
     @chiller_heater_modules_performance_component_object_type_9.setter
-    def chiller_heater_modules_performance_component_object_type_9(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_9(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 9`
 
         Args:
@@ -13111,7 +17937,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 9"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 9"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_9(self):
@@ -13120,7 +17947,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_9` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 9"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 9"]
 
     @chiller_heater_modules_performance_component_name_9.setter
     def chiller_heater_modules_performance_component_name_9(self, value=None):
@@ -13191,10 +18019,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_10` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 10"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 10"]
 
     @chiller_heater_modules_performance_component_object_type_10.setter
-    def chiller_heater_modules_performance_component_object_type_10(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_10(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 10`
 
         Args:
@@ -13205,7 +18036,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 10"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 10"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_10(self):
@@ -13214,7 +18046,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_10` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 10"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 10"]
 
     @chiller_heater_modules_performance_component_name_10.setter
     def chiller_heater_modules_performance_component_name_10(self, value=None):
@@ -13285,10 +18118,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_11` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 11"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 11"]
 
     @chiller_heater_modules_performance_component_object_type_11.setter
-    def chiller_heater_modules_performance_component_object_type_11(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_11(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 11`
 
         Args:
@@ -13299,7 +18135,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 11"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 11"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_11(self):
@@ -13308,7 +18145,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_11` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 11"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 11"]
 
     @chiller_heater_modules_performance_component_name_11.setter
     def chiller_heater_modules_performance_component_name_11(self, value=None):
@@ -13379,10 +18217,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_12` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 12"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 12"]
 
     @chiller_heater_modules_performance_component_object_type_12.setter
-    def chiller_heater_modules_performance_component_object_type_12(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_12(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 12`
 
         Args:
@@ -13393,7 +18234,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 12"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 12"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_12(self):
@@ -13402,7 +18244,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_12` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 12"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 12"]
 
     @chiller_heater_modules_performance_component_name_12.setter
     def chiller_heater_modules_performance_component_name_12(self, value=None):
@@ -13473,10 +18316,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_13` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 13"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 13"]
 
     @chiller_heater_modules_performance_component_object_type_13.setter
-    def chiller_heater_modules_performance_component_object_type_13(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_13(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 13`
 
         Args:
@@ -13487,7 +18333,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 13"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 13"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_13(self):
@@ -13496,7 +18343,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_13` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 13"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 13"]
 
     @chiller_heater_modules_performance_component_name_13.setter
     def chiller_heater_modules_performance_component_name_13(self, value=None):
@@ -13567,10 +18415,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_14` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 14"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 14"]
 
     @chiller_heater_modules_performance_component_object_type_14.setter
-    def chiller_heater_modules_performance_component_object_type_14(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_14(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 14`
 
         Args:
@@ -13581,7 +18432,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 14"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 14"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_14(self):
@@ -13590,7 +18442,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_14` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 14"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 14"]
 
     @chiller_heater_modules_performance_component_name_14.setter
     def chiller_heater_modules_performance_component_name_14(self, value=None):
@@ -13661,10 +18514,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_15` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 15"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 15"]
 
     @chiller_heater_modules_performance_component_object_type_15.setter
-    def chiller_heater_modules_performance_component_object_type_15(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_15(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 15`
 
         Args:
@@ -13675,7 +18531,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 15"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 15"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_15(self):
@@ -13684,7 +18541,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_15` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 15"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 15"]
 
     @chiller_heater_modules_performance_component_name_15.setter
     def chiller_heater_modules_performance_component_name_15(self, value=None):
@@ -13755,10 +18613,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_16` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 16"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 16"]
 
     @chiller_heater_modules_performance_component_object_type_16.setter
-    def chiller_heater_modules_performance_component_object_type_16(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_16(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 16`
 
         Args:
@@ -13769,7 +18630,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 16"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 16"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_16(self):
@@ -13778,7 +18640,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_16` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 16"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 16"]
 
     @chiller_heater_modules_performance_component_name_16.setter
     def chiller_heater_modules_performance_component_name_16(self, value=None):
@@ -13849,10 +18712,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_17` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 17"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 17"]
 
     @chiller_heater_modules_performance_component_object_type_17.setter
-    def chiller_heater_modules_performance_component_object_type_17(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_17(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 17`
 
         Args:
@@ -13863,7 +18729,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 17"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 17"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_17(self):
@@ -13872,7 +18739,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_17` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 17"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 17"]
 
     @chiller_heater_modules_performance_component_name_17.setter
     def chiller_heater_modules_performance_component_name_17(self, value=None):
@@ -13943,10 +18811,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_18` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 18"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 18"]
 
     @chiller_heater_modules_performance_component_object_type_18.setter
-    def chiller_heater_modules_performance_component_object_type_18(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_18(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 18`
 
         Args:
@@ -13957,7 +18828,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 18"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 18"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_18(self):
@@ -13966,7 +18838,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_18` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 18"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 18"]
 
     @chiller_heater_modules_performance_component_name_18.setter
     def chiller_heater_modules_performance_component_name_18(self, value=None):
@@ -13989,10 +18862,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_control_control_schedule_name_18` or None if not set
         """
-        return self._data["Chiller Heater Modules Control Control Schedule Name 18"]
+        return self._data[
+            "Chiller Heater Modules Control Control Schedule Name 18"]
 
     @chiller_heater_modules_control_control_schedule_name_18.setter
-    def chiller_heater_modules_control_control_schedule_name_18(self, value=None):
+    def chiller_heater_modules_control_control_schedule_name_18(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Control Control Schedule Name 18`
 
         Args:
@@ -14037,10 +18913,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_19` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 19"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 19"]
 
     @chiller_heater_modules_performance_component_object_type_19.setter
-    def chiller_heater_modules_performance_component_object_type_19(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_19(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 19`
 
         Args:
@@ -14051,7 +18930,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 19"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 19"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_19(self):
@@ -14060,7 +18940,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_19` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 19"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 19"]
 
     @chiller_heater_modules_performance_component_name_19.setter
     def chiller_heater_modules_performance_component_name_19(self, value=None):
@@ -14131,10 +19012,13 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_object_type_20` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Object Type 20"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Object Type 20"]
 
     @chiller_heater_modules_performance_component_object_type_20.setter
-    def chiller_heater_modules_performance_component_object_type_20(self, value=None):
+    def chiller_heater_modules_performance_component_object_type_20(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Chiller Heater Modules Performance Component Object Type 20`
 
         Args:
@@ -14145,7 +19029,8 @@ class CentralHeatPumpSystem(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Chiller Heater Modules Performance Component Object Type 20"] = value
+        self[
+            "Chiller Heater Modules Performance Component Object Type 20"] = value
 
     @property
     def chiller_heater_modules_performance_component_name_20(self):
@@ -14154,7 +19039,8 @@ class CentralHeatPumpSystem(DataObject):
         Returns:
             str: the value of `chiller_heater_modules_performance_component_name_20` or None if not set
         """
-        return self._data["Chiller Heater Modules Performance Component Name 20"]
+        return self._data[
+            "Chiller Heater Modules Performance Component Name 20"]
 
     @chiller_heater_modules_performance_component_name_20.setter
     def chiller_heater_modules_performance_component_name_20(self, value=None):
@@ -14220,13 +19106,264 @@ class CentralHeatPumpSystem(DataObject):
 
 
 class ChillerHeaterPerformanceElectricEir(DataObject):
+
     """ Corresponds to IDD object `ChillerHeaterPerformance:Electric:EIR`
         This chiller model is a generic chiller-heater where the cooling mode performance is a
         function of condenser entering or leaving fluid temperature and the heating mode performance
         is typically a function of condenser leaving fluid temperature. Performance at off-reference
         conditions is modeled using three polynomial equations per mode. Six curve objects are required.
     """
-    schema = {'min-fields': 29, 'name': u'ChillerHeaterPerformance:Electric:EIR', 'pyname': u'ChillerHeaterPerformanceElectricEir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'reference cooling mode evaporator capacity', {'name': u'Reference Cooling Mode Evaporator Capacity', 'pyname': u'reference_cooling_mode_evaporator_capacity', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'reference cooling mode cop', {'name': u'Reference Cooling Mode COP', 'pyname': u'reference_cooling_mode_cop', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'reference cooling mode leaving chilled water temperature', {'name': u'Reference Cooling Mode Leaving Chilled Water Temperature', 'pyname': u'reference_cooling_mode_leaving_chilled_water_temperature', 'default': 6.67, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference cooling mode entering condenser fluid temperature', {'name': u'Reference Cooling Mode Entering Condenser Fluid Temperature', 'pyname': u'reference_cooling_mode_entering_condenser_fluid_temperature', 'default': 29.44, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference cooling mode leaving condenser water temperature', {'name': u'Reference Cooling Mode Leaving Condenser Water Temperature', 'pyname': u'reference_cooling_mode_leaving_condenser_water_temperature', 'default': 35.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference heating mode cooling capacity ratio', {'name': u'Reference Heating Mode Cooling Capacity Ratio', 'pyname': u'reference_heating_mode_cooling_capacity_ratio', 'default': 0.75, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'reference heating mode cooling power input ratio', {'name': u'Reference Heating Mode Cooling Power Input Ratio', 'pyname': u'reference_heating_mode_cooling_power_input_ratio', 'default': 1.38, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'reference heating mode leaving chilled water temperature', {'name': u'Reference Heating Mode Leaving Chilled Water Temperature', 'pyname': u'reference_heating_mode_leaving_chilled_water_temperature', 'default': 6.67, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference heating mode leaving condenser water temperature', {'name': u'Reference Heating Mode Leaving Condenser Water Temperature', 'pyname': u'reference_heating_mode_leaving_condenser_water_temperature', 'default': 49.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reference heating mode entering condenser fluid temperature', {'name': u'Reference Heating Mode Entering Condenser Fluid Temperature', 'pyname': u'reference_heating_mode_entering_condenser_fluid_temperature', 'default': 29.44, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heating mode entering chilled water temperature low limit', {'name': u'Heating Mode Entering Chilled Water Temperature Low Limit', 'pyname': u'heating_mode_entering_chilled_water_temperature_low_limit', 'default': 12.22, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'chilled water flow mode type', {'name': u'Chilled Water Flow Mode Type', 'pyname': u'chilled_water_flow_mode_type', 'default': u'ConstantFlow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design chilled water flow rate', {'name': u'Design Chilled Water Flow Rate', 'pyname': u'design_chilled_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'design condenser water flow rate', {'name': u'Design Condenser Water Flow Rate', 'pyname': u'design_condenser_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'design hot water flow rate', {'name': u'Design Hot Water Flow Rate', 'pyname': u'design_hot_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'compressor motor efficiency', {'name': u'Compressor Motor Efficiency', 'pyname': u'compressor_motor_efficiency', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'condenser type', {'name': u'Condenser Type', 'pyname': u'condenser_type', 'default': u'WaterCooled', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling mode temperature curve condenser water independent variable', {'name': u'Cooling Mode Temperature Curve Condenser Water Independent Variable', 'pyname': u'cooling_mode_temperature_curve_condenser_water_independent_variable', 'default': u'EnteringCondenser', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling mode cooling capacity function of temperature curve name', {'name': u'Cooling Mode Cooling Capacity Function of Temperature Curve Name', 'pyname': u'cooling_mode_cooling_capacity_function_of_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling mode electric input to cooling output ratio function of temperature curve name', {'name': u'Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name', 'pyname': u'cooling_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling mode electric input to cooling output ratio function of part load ratio curve name', {'name': u'Cooling Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name', 'pyname': u'cooling_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling mode cooling capacity optimum part load ratio', {'name': u'Cooling Mode Cooling Capacity Optimum Part Load Ratio', 'pyname': u'cooling_mode_cooling_capacity_optimum_part_load_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating mode temperature curve condenser water independent variable', {'name': u'Heating Mode Temperature Curve Condenser Water Independent Variable', 'pyname': u'heating_mode_temperature_curve_condenser_water_independent_variable', 'default': u'LeavingCondenser', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating mode cooling capacity function of temperature curve name', {'name': u'Heating Mode Cooling Capacity Function of Temperature Curve Name', 'pyname': u'heating_mode_cooling_capacity_function_of_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating mode electric input to cooling output ratio function of temperature curve name', {'name': u'Heating Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name', 'pyname': u'heating_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating mode electric input to cooling output ratio function of part load ratio curve name', {'name': u'Heating Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name', 'pyname': u'heating_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating mode cooling capacity optimum part load ratio', {'name': u'Heating Mode Cooling Capacity Optimum Part Load Ratio', 'pyname': u'heating_mode_cooling_capacity_optimum_part_load_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'sizing factor', {'name': u'Sizing Factor', 'pyname': u'sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 29,
+              'name': u'ChillerHeaterPerformance:Electric:EIR',
+              'pyname': u'ChillerHeaterPerformanceElectricEir',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'reference cooling mode evaporator capacity',
+                                      {'name': u'Reference Cooling Mode Evaporator Capacity',
+                                       'pyname': u'reference_cooling_mode_evaporator_capacity',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'reference cooling mode cop',
+                                      {'name': u'Reference Cooling Mode COP',
+                                       'pyname': u'reference_cooling_mode_cop',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'reference cooling mode leaving chilled water temperature',
+                                      {'name': u'Reference Cooling Mode Leaving Chilled Water Temperature',
+                                       'pyname': u'reference_cooling_mode_leaving_chilled_water_temperature',
+                                       'default': 6.67,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'reference cooling mode entering condenser fluid temperature',
+                                      {'name': u'Reference Cooling Mode Entering Condenser Fluid Temperature',
+                                       'pyname': u'reference_cooling_mode_entering_condenser_fluid_temperature',
+                                       'default': 29.44,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'reference cooling mode leaving condenser water temperature',
+                                      {'name': u'Reference Cooling Mode Leaving Condenser Water Temperature',
+                                       'pyname': u'reference_cooling_mode_leaving_condenser_water_temperature',
+                                       'default': 35.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'reference heating mode cooling capacity ratio',
+                                      {'name': u'Reference Heating Mode Cooling Capacity Ratio',
+                                       'pyname': u'reference_heating_mode_cooling_capacity_ratio',
+                                       'default': 0.75,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'reference heating mode cooling power input ratio',
+                                      {'name': u'Reference Heating Mode Cooling Power Input Ratio',
+                                       'pyname': u'reference_heating_mode_cooling_power_input_ratio',
+                                       'default': 1.38,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'reference heating mode leaving chilled water temperature',
+                                      {'name': u'Reference Heating Mode Leaving Chilled Water Temperature',
+                                       'pyname': u'reference_heating_mode_leaving_chilled_water_temperature',
+                                       'default': 6.67,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'reference heating mode leaving condenser water temperature',
+                                      {'name': u'Reference Heating Mode Leaving Condenser Water Temperature',
+                                       'pyname': u'reference_heating_mode_leaving_condenser_water_temperature',
+                                       'default': 49.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'reference heating mode entering condenser fluid temperature',
+                                      {'name': u'Reference Heating Mode Entering Condenser Fluid Temperature',
+                                       'pyname': u'reference_heating_mode_entering_condenser_fluid_temperature',
+                                       'default': 29.44,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'heating mode entering chilled water temperature low limit',
+                                      {'name': u'Heating Mode Entering Chilled Water Temperature Low Limit',
+                                       'pyname': u'heating_mode_entering_chilled_water_temperature_low_limit',
+                                       'default': 12.22,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'chilled water flow mode type',
+                                      {'name': u'Chilled Water Flow Mode Type',
+                                       'pyname': u'chilled_water_flow_mode_type',
+                                       'default': u'ConstantFlow',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design chilled water flow rate',
+                                      {'name': u'Design Chilled Water Flow Rate',
+                                       'pyname': u'design_chilled_water_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design condenser water flow rate',
+                                      {'name': u'Design Condenser Water Flow Rate',
+                                       'pyname': u'design_condenser_water_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'design hot water flow rate',
+                                      {'name': u'Design Hot Water Flow Rate',
+                                       'pyname': u'design_hot_water_flow_rate',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'compressor motor efficiency',
+                                      {'name': u'Compressor Motor Efficiency',
+                                       'pyname': u'compressor_motor_efficiency',
+                                       'default': 1.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'condenser type',
+                                      {'name': u'Condenser Type',
+                                       'pyname': u'condenser_type',
+                                       'default': u'WaterCooled',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooling mode temperature curve condenser water independent variable',
+                                      {'name': u'Cooling Mode Temperature Curve Condenser Water Independent Variable',
+                                       'pyname': u'cooling_mode_temperature_curve_condenser_water_independent_variable',
+                                       'default': u'EnteringCondenser',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooling mode cooling capacity function of temperature curve name',
+                                      {'name': u'Cooling Mode Cooling Capacity Function of Temperature Curve Name',
+                                       'pyname': u'cooling_mode_cooling_capacity_function_of_temperature_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling mode electric input to cooling output ratio function of temperature curve name',
+                                      {'name': u'Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name',
+                                       'pyname': u'cooling_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling mode electric input to cooling output ratio function of part load ratio curve name',
+                                      {'name': u'Cooling Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name',
+                                       'pyname': u'cooling_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling mode cooling capacity optimum part load ratio',
+                                      {'name': u'Cooling Mode Cooling Capacity Optimum Part Load Ratio',
+                                       'pyname': u'cooling_mode_cooling_capacity_optimum_part_load_ratio',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heating mode temperature curve condenser water independent variable',
+                                      {'name': u'Heating Mode Temperature Curve Condenser Water Independent Variable',
+                                       'pyname': u'heating_mode_temperature_curve_condenser_water_independent_variable',
+                                       'default': u'LeavingCondenser',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating mode cooling capacity function of temperature curve name',
+                                      {'name': u'Heating Mode Cooling Capacity Function of Temperature Curve Name',
+                                       'pyname': u'heating_mode_cooling_capacity_function_of_temperature_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating mode electric input to cooling output ratio function of temperature curve name',
+                                      {'name': u'Heating Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name',
+                                       'pyname': u'heating_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating mode electric input to cooling output ratio function of part load ratio curve name',
+                                      {'name': u'Heating Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name',
+                                       'pyname': u'heating_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating mode cooling capacity optimum part load ratio',
+                                      {'name': u'Heating Mode Cooling Capacity Optimum Part Load Ratio',
+                                       'pyname': u'heating_mode_cooling_capacity_optimum_part_load_ratio',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'sizing factor',
+                                      {'name': u'Sizing Factor',
+                                       'pyname': u'sizing_factor',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ChillerHeaterPerformance:Electric:EIR`
@@ -14316,10 +19453,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Returns:
             float: the value of `reference_cooling_mode_leaving_chilled_water_temperature` or None if not set
         """
-        return self._data["Reference Cooling Mode Leaving Chilled Water Temperature"]
+        return self._data[
+            "Reference Cooling Mode Leaving Chilled Water Temperature"]
 
     @reference_cooling_mode_leaving_chilled_water_temperature.setter
-    def reference_cooling_mode_leaving_chilled_water_temperature(self, value=6.67):
+    def reference_cooling_mode_leaving_chilled_water_temperature(
+            self,
+            value=6.67):
         """  Corresponds to IDD Field `Reference Cooling Mode Leaving Chilled Water Temperature`
 
         Args:
@@ -14332,7 +19472,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Reference Cooling Mode Leaving Chilled Water Temperature"] = value
+        self[
+            "Reference Cooling Mode Leaving Chilled Water Temperature"] = value
 
     @property
     def reference_cooling_mode_entering_condenser_fluid_temperature(self):
@@ -14341,10 +19482,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Returns:
             float: the value of `reference_cooling_mode_entering_condenser_fluid_temperature` or None if not set
         """
-        return self._data["Reference Cooling Mode Entering Condenser Fluid Temperature"]
+        return self._data[
+            "Reference Cooling Mode Entering Condenser Fluid Temperature"]
 
     @reference_cooling_mode_entering_condenser_fluid_temperature.setter
-    def reference_cooling_mode_entering_condenser_fluid_temperature(self, value=29.44):
+    def reference_cooling_mode_entering_condenser_fluid_temperature(
+            self,
+            value=29.44):
         """  Corresponds to IDD Field `Reference Cooling Mode Entering Condenser Fluid Temperature`
 
         Args:
@@ -14357,7 +19501,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Reference Cooling Mode Entering Condenser Fluid Temperature"] = value
+        self[
+            "Reference Cooling Mode Entering Condenser Fluid Temperature"] = value
 
     @property
     def reference_cooling_mode_leaving_condenser_water_temperature(self):
@@ -14366,10 +19511,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Returns:
             float: the value of `reference_cooling_mode_leaving_condenser_water_temperature` or None if not set
         """
-        return self._data["Reference Cooling Mode Leaving Condenser Water Temperature"]
+        return self._data[
+            "Reference Cooling Mode Leaving Condenser Water Temperature"]
 
     @reference_cooling_mode_leaving_condenser_water_temperature.setter
-    def reference_cooling_mode_leaving_condenser_water_temperature(self, value=35.0):
+    def reference_cooling_mode_leaving_condenser_water_temperature(
+            self,
+            value=35.0):
         """  Corresponds to IDD Field `Reference Cooling Mode Leaving Condenser Water Temperature`
 
         Args:
@@ -14382,7 +19530,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Reference Cooling Mode Leaving Condenser Water Temperature"] = value
+        self[
+            "Reference Cooling Mode Leaving Condenser Water Temperature"] = value
 
     @property
     def reference_heating_mode_cooling_capacity_ratio(self):
@@ -14443,10 +19592,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Returns:
             float: the value of `reference_heating_mode_leaving_chilled_water_temperature` or None if not set
         """
-        return self._data["Reference Heating Mode Leaving Chilled Water Temperature"]
+        return self._data[
+            "Reference Heating Mode Leaving Chilled Water Temperature"]
 
     @reference_heating_mode_leaving_chilled_water_temperature.setter
-    def reference_heating_mode_leaving_chilled_water_temperature(self, value=6.67):
+    def reference_heating_mode_leaving_chilled_water_temperature(
+            self,
+            value=6.67):
         """  Corresponds to IDD Field `Reference Heating Mode Leaving Chilled Water Temperature`
         During simultaneous cooling-heating mode
 
@@ -14460,7 +19612,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Reference Heating Mode Leaving Chilled Water Temperature"] = value
+        self[
+            "Reference Heating Mode Leaving Chilled Water Temperature"] = value
 
     @property
     def reference_heating_mode_leaving_condenser_water_temperature(self):
@@ -14469,10 +19622,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Returns:
             float: the value of `reference_heating_mode_leaving_condenser_water_temperature` or None if not set
         """
-        return self._data["Reference Heating Mode Leaving Condenser Water Temperature"]
+        return self._data[
+            "Reference Heating Mode Leaving Condenser Water Temperature"]
 
     @reference_heating_mode_leaving_condenser_water_temperature.setter
-    def reference_heating_mode_leaving_condenser_water_temperature(self, value=49.0):
+    def reference_heating_mode_leaving_condenser_water_temperature(
+            self,
+            value=49.0):
         """  Corresponds to IDD Field `Reference Heating Mode Leaving Condenser Water Temperature`
         During simultaneous cooling-heating mode
 
@@ -14486,7 +19642,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Reference Heating Mode Leaving Condenser Water Temperature"] = value
+        self[
+            "Reference Heating Mode Leaving Condenser Water Temperature"] = value
 
     @property
     def reference_heating_mode_entering_condenser_fluid_temperature(self):
@@ -14495,10 +19652,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Returns:
             float: the value of `reference_heating_mode_entering_condenser_fluid_temperature` or None if not set
         """
-        return self._data["Reference Heating Mode Entering Condenser Fluid Temperature"]
+        return self._data[
+            "Reference Heating Mode Entering Condenser Fluid Temperature"]
 
     @reference_heating_mode_entering_condenser_fluid_temperature.setter
-    def reference_heating_mode_entering_condenser_fluid_temperature(self, value=29.44):
+    def reference_heating_mode_entering_condenser_fluid_temperature(
+            self,
+            value=29.44):
         """  Corresponds to IDD Field `Reference Heating Mode Entering Condenser Fluid Temperature`
 
         Args:
@@ -14511,7 +19671,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Reference Heating Mode Entering Condenser Fluid Temperature"] = value
+        self[
+            "Reference Heating Mode Entering Condenser Fluid Temperature"] = value
 
     @property
     def heating_mode_entering_chilled_water_temperature_low_limit(self):
@@ -14520,10 +19681,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Returns:
             float: the value of `heating_mode_entering_chilled_water_temperature_low_limit` or None if not set
         """
-        return self._data["Heating Mode Entering Chilled Water Temperature Low Limit"]
+        return self._data[
+            "Heating Mode Entering Chilled Water Temperature Low Limit"]
 
     @heating_mode_entering_chilled_water_temperature_low_limit.setter
-    def heating_mode_entering_chilled_water_temperature_low_limit(self, value=12.22):
+    def heating_mode_entering_chilled_water_temperature_low_limit(
+            self,
+            value=12.22):
         """  Corresponds to IDD Field `Heating Mode Entering Chilled Water Temperature Low Limit`
         During simultaneous cooling-heating mode
 
@@ -14537,7 +19701,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Mode Entering Chilled Water Temperature Low Limit"] = value
+        self[
+            "Heating Mode Entering Chilled Water Temperature Low Limit"] = value
 
     @property
     def chilled_water_flow_mode_type(self):
@@ -14691,16 +19856,20 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         self["Condenser Type"] = value
 
     @property
-    def cooling_mode_temperature_curve_condenser_water_independent_variable(self):
+    def cooling_mode_temperature_curve_condenser_water_independent_variable(
+            self):
         """Get cooling_mode_temperature_curve_condenser_water_independent_variable
 
         Returns:
             str: the value of `cooling_mode_temperature_curve_condenser_water_independent_variable` or None if not set
         """
-        return self._data["Cooling Mode Temperature Curve Condenser Water Independent Variable"]
+        return self._data[
+            "Cooling Mode Temperature Curve Condenser Water Independent Variable"]
 
     @cooling_mode_temperature_curve_condenser_water_independent_variable.setter
-    def cooling_mode_temperature_curve_condenser_water_independent_variable(self, value="EnteringCondenser"):
+    def cooling_mode_temperature_curve_condenser_water_independent_variable(
+            self,
+            value="EnteringCondenser"):
         """  Corresponds to IDD Field `Cooling Mode Temperature Curve Condenser Water Independent Variable`
         Sets the second independent variable in the three temperature dependent performance
         curves to either the leaving or entering condenser water temperature. Manufacturers
@@ -14717,7 +19886,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Cooling Mode Temperature Curve Condenser Water Independent Variable"] = value
+        self[
+            "Cooling Mode Temperature Curve Condenser Water Independent Variable"] = value
 
     @property
     def cooling_mode_cooling_capacity_function_of_temperature_curve_name(self):
@@ -14726,10 +19896,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Returns:
             str: the value of `cooling_mode_cooling_capacity_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Cooling Mode Cooling Capacity Function of Temperature Curve Name"]
+        return self._data[
+            "Cooling Mode Cooling Capacity Function of Temperature Curve Name"]
 
     @cooling_mode_cooling_capacity_function_of_temperature_curve_name.setter
-    def cooling_mode_cooling_capacity_function_of_temperature_curve_name(self, value=None):
+    def cooling_mode_cooling_capacity_function_of_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Cooling Mode Cooling Capacity Function of Temperature Curve Name`
         Cooling capacity as a function of leaving chilled water temperature
         and either entering or leaving condenser fluid temperature
@@ -14749,19 +19922,24 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Cooling Mode Cooling Capacity Function of Temperature Curve Name"] = value
+        self[
+            "Cooling Mode Cooling Capacity Function of Temperature Curve Name"] = value
 
     @property
-    def cooling_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self):
+    def cooling_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self):
         """Get cooling_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name
 
         Returns:
             str: the value of `cooling_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
+        return self._data[
+            "Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
 
     @cooling_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name.setter
-    def cooling_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self, value=None):
+    def cooling_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
         Electric Input Ratio (EIR) as a function of supply (leaving) chilled water temperature
         and leaving condenser fluid temperature.   EIR = 1/COP.
@@ -14781,19 +19959,24 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
+        self[
+            "Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
 
     @property
-    def cooling_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self):
+    def cooling_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self):
         """Get cooling_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name
 
         Returns:
             str: the value of `cooling_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
         """
-        return self._data["Cooling Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
+        return self._data[
+            "Cooling Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
 
     @cooling_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name.setter
-    def cooling_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self, value=None):
+    def cooling_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Cooling Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
         Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR)
         EIR = 1/COP
@@ -14818,7 +20001,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Cooling Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
+        self[
+            "Cooling Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
 
     @property
     def cooling_mode_cooling_capacity_optimum_part_load_ratio(self):
@@ -14827,7 +20011,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Returns:
             float: the value of `cooling_mode_cooling_capacity_optimum_part_load_ratio` or None if not set
         """
-        return self._data["Cooling Mode Cooling Capacity Optimum Part Load Ratio"]
+        return self._data[
+            "Cooling Mode Cooling Capacity Optimum Part Load Ratio"]
 
     @cooling_mode_cooling_capacity_optimum_part_load_ratio.setter
     def cooling_mode_cooling_capacity_optimum_part_load_ratio(self, value=1.0):
@@ -14849,16 +20034,20 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         self["Cooling Mode Cooling Capacity Optimum Part Load Ratio"] = value
 
     @property
-    def heating_mode_temperature_curve_condenser_water_independent_variable(self):
+    def heating_mode_temperature_curve_condenser_water_independent_variable(
+            self):
         """Get heating_mode_temperature_curve_condenser_water_independent_variable
 
         Returns:
             str: the value of `heating_mode_temperature_curve_condenser_water_independent_variable` or None if not set
         """
-        return self._data["Heating Mode Temperature Curve Condenser Water Independent Variable"]
+        return self._data[
+            "Heating Mode Temperature Curve Condenser Water Independent Variable"]
 
     @heating_mode_temperature_curve_condenser_water_independent_variable.setter
-    def heating_mode_temperature_curve_condenser_water_independent_variable(self, value="LeavingCondenser"):
+    def heating_mode_temperature_curve_condenser_water_independent_variable(
+            self,
+            value="LeavingCondenser"):
         """  Corresponds to IDD Field `Heating Mode Temperature Curve Condenser Water Independent Variable`
         Sets the second independent variable in the three temperature dependent performance
         curves to either the leaving or entering condenser water temperature. Manufacturers
@@ -14876,7 +20065,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Mode Temperature Curve Condenser Water Independent Variable"] = value
+        self[
+            "Heating Mode Temperature Curve Condenser Water Independent Variable"] = value
 
     @property
     def heating_mode_cooling_capacity_function_of_temperature_curve_name(self):
@@ -14885,10 +20075,13 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Returns:
             str: the value of `heating_mode_cooling_capacity_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Heating Mode Cooling Capacity Function of Temperature Curve Name"]
+        return self._data[
+            "Heating Mode Cooling Capacity Function of Temperature Curve Name"]
 
     @heating_mode_cooling_capacity_function_of_temperature_curve_name.setter
-    def heating_mode_cooling_capacity_function_of_temperature_curve_name(self, value=None):
+    def heating_mode_cooling_capacity_function_of_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Mode Cooling Capacity Function of Temperature Curve Name`
         Evaporator (cooling) capacity as a function of leaving chilled water temperature
         and leaving condenser fluid temperature when in heating or simultaneous cool/heat mode
@@ -14908,19 +20101,24 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Mode Cooling Capacity Function of Temperature Curve Name"] = value
+        self[
+            "Heating Mode Cooling Capacity Function of Temperature Curve Name"] = value
 
     @property
-    def heating_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self):
+    def heating_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self):
         """Get heating_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name
 
         Returns:
             str: the value of `heating_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Heating Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
+        return self._data[
+            "Heating Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name"]
 
     @heating_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name.setter
-    def heating_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(self, value=None):
+    def heating_mode_electric_input_to_cooling_output_ratio_function_of_temperature_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name`
         Electric Input Ratio (EIR) as a function of leaving chilled water temperature when in heating or simultaneous cool/heat mode
         and leaving condenser fluid temperature.   EIR = 1/COP.
@@ -14940,19 +20138,24 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
+        self[
+            "Heating Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name"] = value
 
     @property
-    def heating_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self):
+    def heating_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self):
         """Get heating_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name
 
         Returns:
             str: the value of `heating_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name` or None if not set
         """
-        return self._data["Heating Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
+        return self._data[
+            "Heating Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
 
     @heating_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name.setter
-    def heating_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(self, value=None):
+    def heating_mode_electric_input_to_cooling_output_ratio_function_of_part_load_ratio_curve_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Heating Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name`
         Electric Input Ratio (EIR) as a function of Part Load Ratio (PLR) when in heating or simultaneous cool/heat mode
         EIR = 1/COP
@@ -14975,7 +20178,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Heating Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
+        self[
+            "Heating Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"] = value
 
     @property
     def heating_mode_cooling_capacity_optimum_part_load_ratio(self):
@@ -14984,7 +20188,8 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
         Returns:
             float: the value of `heating_mode_cooling_capacity_optimum_part_load_ratio` or None if not set
         """
-        return self._data["Heating Mode Cooling Capacity Optimum Part Load Ratio"]
+        return self._data[
+            "Heating Mode Cooling Capacity Optimum Part Load Ratio"]
 
     @heating_mode_cooling_capacity_optimum_part_load_ratio.setter
     def heating_mode_cooling_capacity_optimum_part_load_ratio(self, value=1.0):

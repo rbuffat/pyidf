@@ -9,13 +9,117 @@ logger.addHandler(logging.NullHandler())
 
 
 class ZoneInfiltrationDesignFlowRate(DataObject):
+
     """ Corresponds to IDD object `ZoneInfiltration:DesignFlowRate`
         Infiltration is specified as a design level which is modified by a Schedule fraction, temperature difference and wind speed:
         Infiltration=Idesign * FSchedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    schema = {'min-fields': 12, 'name': u'ZoneInfiltration:DesignFlowRate', 'pyname': u'ZoneInfiltrationDesignFlowRate', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow per zone floor area', {'name': u'Flow per Zone Floor Area', 'pyname': u'flow_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow per exterior surface area', {'name': u'Flow per Exterior Surface Area', 'pyname': u'flow_per_exterior_surface_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'constant term coefficient', {'name': u'Constant Term Coefficient', 'pyname': u'constant_term_coefficient', 'default': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature term coefficient', {'name': u'Temperature Term Coefficient', 'pyname': u'temperature_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity term coefficient', {'name': u'Velocity Term Coefficient', 'pyname': u'velocity_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity squared term coefficient', {'name': u'Velocity Squared Term Coefficient', 'pyname': u'velocity_squared_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 12,
+              'name': u'ZoneInfiltration:DesignFlowRate',
+              'pyname': u'ZoneInfiltrationDesignFlowRate',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone or zonelist name',
+                                      {'name': u'Zone or ZoneList Name',
+                                       'pyname': u'zone_or_zonelist_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design flow rate calculation method',
+                                      {'name': u'Design Flow Rate Calculation Method',
+                                       'pyname': u'design_flow_rate_calculation_method',
+                                       'default': u'Flow/Zone',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design flow rate',
+                                      {'name': u'Design Flow Rate',
+                                       'pyname': u'design_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'flow per zone floor area',
+                                      {'name': u'Flow per Zone Floor Area',
+                                       'pyname': u'flow_per_zone_floor_area',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-m2'}),
+                                     (u'flow per exterior surface area',
+                                      {'name': u'Flow per Exterior Surface Area',
+                                       'pyname': u'flow_per_exterior_surface_area',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-m2'}),
+                                     (u'air changes per hour',
+                                      {'name': u'Air Changes per Hour',
+                                       'pyname': u'air_changes_per_hour',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'1/hr'}),
+                                     (u'constant term coefficient',
+                                      {'name': u'Constant Term Coefficient',
+                                       'pyname': u'constant_term_coefficient',
+                                       'default': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature term coefficient',
+                                      {'name': u'Temperature Term Coefficient',
+                                       'pyname': u'temperature_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity term coefficient',
+                                      {'name': u'Velocity Term Coefficient',
+                                       'pyname': u'velocity_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity squared term coefficient',
+                                      {'name': u'Velocity Squared Term Coefficient',
+                                       'pyname': u'velocity_squared_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:DesignFlowRate`
@@ -325,12 +429,65 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
 
 class ZoneInfiltrationEffectiveLeakageArea(DataObject):
+
     """ Corresponds to IDD object `ZoneInfiltration:EffectiveLeakageArea`
         Infiltration is specified as effective leakage area at 4 Pa, schedule fraction, stack and wind coefficients, and
         is a function of temperature difference and wind speed:
         Infiltration=FSchedule * (AL /1000) SQRT(Cs*|(Tzone-Todb)| +  Cw*WindSpd**2 )
     """
-    schema = {'min-fields': 6, 'name': u'ZoneInfiltration:EffectiveLeakageArea', 'pyname': u'ZoneInfiltrationEffectiveLeakageArea', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'effective air leakage area', {'name': u'Effective Air Leakage Area', 'pyname': u'effective_air_leakage_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'cm2'}), (u'stack coefficient', {'name': u'Stack Coefficient', 'pyname': u'stack_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wind coefficient', {'name': u'Wind Coefficient', 'pyname': u'wind_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 6,
+              'name': u'ZoneInfiltration:EffectiveLeakageArea',
+              'pyname': u'ZoneInfiltrationEffectiveLeakageArea',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'effective air leakage area',
+                                      {'name': u'Effective Air Leakage Area',
+                                       'pyname': u'effective_air_leakage_area',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'cm2'}),
+                                     (u'stack coefficient',
+                                      {'name': u'Stack Coefficient',
+                                       'pyname': u'stack_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'wind coefficient',
+                                      {'name': u'Wind Coefficient',
+                                       'pyname': u'wind_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:EffectiveLeakageArea`
@@ -486,12 +643,81 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
 
 
 class ZoneInfiltrationFlowCoefficient(DataObject):
+
     """ Corresponds to IDD object `ZoneInfiltration:FlowCoefficient`
         Infiltration is specified as flow coefficient, schedule fraction, stack and wind coefficients, and
         is a function of temperature difference and wind speed:
         Infiltration=FSchedule * SQRT( (c * Cs*|(Tzone-Todb)|**n)**2 + (c* Cw*(s * WindSpd)**2n)**2 )
     """
-    schema = {'min-fields': 8, 'name': u'ZoneInfiltration:FlowCoefficient', 'pyname': u'ZoneInfiltrationFlowCoefficient', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'flow coefficient', {'name': u'Flow Coefficient', 'pyname': u'flow_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'stack coefficient', {'name': u'Stack Coefficient', 'pyname': u'stack_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure exponent', {'name': u'Pressure Exponent', 'pyname': u'pressure_exponent', 'default': 0.67, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wind coefficient', {'name': u'Wind Coefficient', 'pyname': u'wind_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'shelter factor', {'name': u'Shelter Factor', 'pyname': u'shelter_factor', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 8,
+              'name': u'ZoneInfiltration:FlowCoefficient',
+              'pyname': u'ZoneInfiltrationFlowCoefficient',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'flow coefficient',
+                                      {'name': u'Flow Coefficient',
+                                       'pyname': u'flow_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'stack coefficient',
+                                      {'name': u'Stack Coefficient',
+                                       'pyname': u'stack_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'pressure exponent',
+                                      {'name': u'Pressure Exponent',
+                                       'pyname': u'pressure_exponent',
+                                       'default': 0.67,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'wind coefficient',
+                                      {'name': u'Wind Coefficient',
+                                       'pyname': u'wind_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'shelter factor',
+                                      {'name': u'Shelter Factor',
+                                       'pyname': u'shelter_factor',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:FlowCoefficient`
@@ -694,13 +920,244 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
 
 class ZoneVentilationDesignFlowRate(DataObject):
+
     """ Corresponds to IDD object `ZoneVentilation:DesignFlowRate`
         Ventilation is specified as a design level which is modified by a schedule fraction, temperature difference and wind speed:
         Ventilation=Vdesign * Fschedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    schema = {'min-fields': 15, 'name': u'ZoneVentilation:DesignFlowRate', 'pyname': u'ZoneVentilationDesignFlowRate', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate per zone floor area', {'name': u'Flow Rate per Zone Floor Area', 'pyname': u'flow_rate_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow rate per person', {'name': u'Flow Rate per Person', 'pyname': u'flow_rate_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'ventilation type', {'name': u'Ventilation Type', 'pyname': u'ventilation_type', 'default': u'Natural', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fan pressure rise', {'name': u'Fan Pressure Rise', 'pyname': u'fan_pressure_rise', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 1.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'constant term coefficient', {'name': u'Constant Term Coefficient', 'pyname': u'constant_term_coefficient', 'default': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature term coefficient', {'name': u'Temperature Term Coefficient', 'pyname': u'temperature_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity term coefficient', {'name': u'Velocity Term Coefficient', 'pyname': u'velocity_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity squared term coefficient', {'name': u'Velocity Squared Term Coefficient', 'pyname': u'velocity_squared_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum indoor temperature', {'name': u'Minimum Indoor Temperature', 'pyname': u'minimum_indoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum indoor temperature schedule name', {'name': u'Minimum Indoor Temperature Schedule Name', 'pyname': u'minimum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum indoor temperature', {'name': u'Maximum Indoor Temperature', 'pyname': u'maximum_indoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum indoor temperature schedule name', {'name': u'Maximum Indoor Temperature Schedule Name', 'pyname': u'maximum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': -100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature', {'name': u'Minimum Outdoor Temperature', 'pyname': u'minimum_outdoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature', {'name': u'Maximum Outdoor Temperature', 'pyname': u'maximum_outdoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum wind speed', {'name': u'Maximum Wind Speed', 'pyname': u'maximum_wind_speed', 'default': 40.0, 'maximum': 40.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 15,
+              'name': u'ZoneVentilation:DesignFlowRate',
+              'pyname': u'ZoneVentilationDesignFlowRate',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone or zonelist name',
+                                      {'name': u'Zone or ZoneList Name',
+                                       'pyname': u'zone_or_zonelist_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design flow rate calculation method',
+                                      {'name': u'Design Flow Rate Calculation Method',
+                                       'pyname': u'design_flow_rate_calculation_method',
+                                       'default': u'Flow/Zone',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design flow rate',
+                                      {'name': u'Design Flow Rate',
+                                       'pyname': u'design_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'flow rate per zone floor area',
+                                      {'name': u'Flow Rate per Zone Floor Area',
+                                       'pyname': u'flow_rate_per_zone_floor_area',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-m2'}),
+                                     (u'flow rate per person',
+                                      {'name': u'Flow Rate per Person',
+                                       'pyname': u'flow_rate_per_person',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-person'}),
+                                     (u'air changes per hour',
+                                      {'name': u'Air Changes per Hour',
+                                       'pyname': u'air_changes_per_hour',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'1/hr'}),
+                                     (u'ventilation type',
+                                      {'name': u'Ventilation Type',
+                                       'pyname': u'ventilation_type',
+                                       'default': u'Natural',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fan pressure rise',
+                                      {'name': u'Fan Pressure Rise',
+                                       'pyname': u'fan_pressure_rise',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'Pa'}),
+                                     (u'fan total efficiency',
+                                      {'name': u'Fan Total Efficiency',
+                                       'pyname': u'fan_total_efficiency',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'constant term coefficient',
+                                      {'name': u'Constant Term Coefficient',
+                                       'pyname': u'constant_term_coefficient',
+                                       'default': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature term coefficient',
+                                      {'name': u'Temperature Term Coefficient',
+                                       'pyname': u'temperature_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity term coefficient',
+                                      {'name': u'Velocity Term Coefficient',
+                                       'pyname': u'velocity_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity squared term coefficient',
+                                      {'name': u'Velocity Squared Term Coefficient',
+                                       'pyname': u'velocity_squared_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'minimum indoor temperature',
+                                      {'name': u'Minimum Indoor Temperature',
+                                       'pyname': u'minimum_indoor_temperature',
+                                       'default': -100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum indoor temperature schedule name',
+                                      {'name': u'Minimum Indoor Temperature Schedule Name',
+                                       'pyname': u'minimum_indoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum indoor temperature',
+                                      {'name': u'Maximum Indoor Temperature',
+                                       'pyname': u'maximum_indoor_temperature',
+                                       'default': 100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum indoor temperature schedule name',
+                                      {'name': u'Maximum Indoor Temperature Schedule Name',
+                                       'pyname': u'maximum_indoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'delta temperature',
+                                      {'name': u'Delta Temperature',
+                                       'pyname': u'delta_temperature',
+                                       'default': -100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'delta temperature schedule name',
+                                      {'name': u'Delta Temperature Schedule Name',
+                                       'pyname': u'delta_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum outdoor temperature',
+                                      {'name': u'Minimum Outdoor Temperature',
+                                       'pyname': u'minimum_outdoor_temperature',
+                                       'default': -100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum outdoor temperature schedule name',
+                                      {'name': u'Minimum Outdoor Temperature Schedule Name',
+                                       'pyname': u'minimum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum outdoor temperature',
+                                      {'name': u'Maximum Outdoor Temperature',
+                                       'pyname': u'maximum_outdoor_temperature',
+                                       'default': 100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum outdoor temperature schedule name',
+                                      {'name': u'Maximum Outdoor Temperature Schedule Name',
+                                       'pyname': u'maximum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum wind speed',
+                                      {'name': u'Maximum Wind Speed',
+                                       'pyname': u'maximum_wind_speed',
+                                       'default': 40.0,
+                                       'maximum': 40.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm/s'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneVentilation:DesignFlowRate`
@@ -1374,13 +1831,193 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
 
 class ZoneVentilationWindandStackOpenArea(DataObject):
+
     """ Corresponds to IDD object `ZoneVentilation:WindandStackOpenArea`
         This object is specified as natural ventilation driven by wind and stack effect only:
         Ventilation Wind = Cw * Opening Area * Schedule * WindSpd
         Ventilation Stack = Cd * Opening Area * Schedule * SQRT(2*g*DH*(|(Tzone-Todb)|/Tzone))
         Total Ventilation = SQRT((Ventilation Wind)^2 + (Ventilation Stack)^2)
     """
-    schema = {'min-fields': 8, 'name': u'ZoneVentilation:WindandStackOpenArea', 'pyname': u'ZoneVentilationWindandStackOpenArea', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'opening area', {'name': u'Opening Area', 'pyname': u'opening_area', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'opening area fraction schedule name', {'name': u'Opening Area Fraction Schedule Name', 'pyname': u'opening_area_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'opening effectiveness', {'name': u'Opening Effectiveness', 'pyname': u'opening_effectiveness', 'default': 'Autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'effective angle', {'name': u'Effective Angle', 'pyname': u'effective_angle', 'default': 0.0, 'maximum<': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'height difference', {'name': u'Height Difference', 'pyname': u'height_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'discharge coefficient for opening', {'name': u'Discharge Coefficient for Opening', 'pyname': u'discharge_coefficient_for_opening', 'default': 'Autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': 'real'}), (u'minimum indoor temperature', {'name': u'Minimum Indoor Temperature', 'pyname': u'minimum_indoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum indoor temperature schedule name', {'name': u'Minimum Indoor Temperature Schedule Name', 'pyname': u'minimum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum indoor temperature', {'name': u'Maximum Indoor Temperature', 'pyname': u'maximum_indoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum indoor temperature schedule name', {'name': u'Maximum Indoor Temperature Schedule Name', 'pyname': u'maximum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': -100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature', {'name': u'Minimum Outdoor Temperature', 'pyname': u'minimum_outdoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature', {'name': u'Maximum Outdoor Temperature', 'pyname': u'maximum_outdoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum wind speed', {'name': u'Maximum Wind Speed', 'pyname': u'maximum_wind_speed', 'default': 40.0, 'maximum': 40.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 8,
+              'name': u'ZoneVentilation:WindandStackOpenArea',
+              'pyname': u'ZoneVentilationWindandStackOpenArea',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'opening area',
+                                      {'name': u'Opening Area',
+                                       'pyname': u'opening_area',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'opening area fraction schedule name',
+                                      {'name': u'Opening Area Fraction Schedule Name',
+                                       'pyname': u'opening_area_fraction_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'opening effectiveness',
+                                      {'name': u'Opening Effectiveness',
+                                       'pyname': u'opening_effectiveness',
+                                       'default': 'Autocalculate',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': True,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'effective angle',
+                                      {'name': u'Effective Angle',
+                                       'pyname': u'effective_angle',
+                                       'default': 0.0,
+                                       'maximum<': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'height difference',
+                                      {'name': u'Height Difference',
+                                       'pyname': u'height_difference',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'discharge coefficient for opening',
+                                      {'name': u'Discharge Coefficient for Opening',
+                                       'pyname': u'discharge_coefficient_for_opening',
+                                       'default': 'Autocalculate',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': True,
+                                       'type': 'real'}),
+                                     (u'minimum indoor temperature',
+                                      {'name': u'Minimum Indoor Temperature',
+                                       'pyname': u'minimum_indoor_temperature',
+                                       'default': -100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum indoor temperature schedule name',
+                                      {'name': u'Minimum Indoor Temperature Schedule Name',
+                                       'pyname': u'minimum_indoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum indoor temperature',
+                                      {'name': u'Maximum Indoor Temperature',
+                                       'pyname': u'maximum_indoor_temperature',
+                                       'default': 100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum indoor temperature schedule name',
+                                      {'name': u'Maximum Indoor Temperature Schedule Name',
+                                       'pyname': u'maximum_indoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'delta temperature',
+                                      {'name': u'Delta Temperature',
+                                       'pyname': u'delta_temperature',
+                                       'default': -100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'delta temperature schedule name',
+                                      {'name': u'Delta Temperature Schedule Name',
+                                       'pyname': u'delta_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum outdoor temperature',
+                                      {'name': u'Minimum Outdoor Temperature',
+                                       'pyname': u'minimum_outdoor_temperature',
+                                       'default': -100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum outdoor temperature schedule name',
+                                      {'name': u'Minimum Outdoor Temperature Schedule Name',
+                                       'pyname': u'minimum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum outdoor temperature',
+                                      {'name': u'Maximum Outdoor Temperature',
+                                       'pyname': u'maximum_outdoor_temperature',
+                                       'default': 100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum outdoor temperature schedule name',
+                                      {'name': u'Maximum Outdoor Temperature Schedule Name',
+                                       'pyname': u'maximum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum wind speed',
+                                      {'name': u'Maximum Wind Speed',
+                                       'pyname': u'maximum_wind_speed',
+                                       'default': 40.0,
+                                       'maximum': 40.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm/s'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneVentilation:WindandStackOpenArea`
@@ -1897,6 +2534,7 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
 
 class ZoneAirBalanceOutdoorAir(DataObject):
+
     """ Corresponds to IDD object `ZoneAirBalance:OutdoorAir`
         Provide a combined zone outdoor air flow by including interactions between
         mechanical ventilation, infiltration and duct leakage.
@@ -1904,7 +2542,52 @@ class ZoneAirBalanceOutdoorAir(DataObject):
         ZoneVentilation objects in the same zone. Balanced flows will be summed, while
         unbalanced flows will be added in quadrature.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneAirBalance:OutdoorAir', 'pyname': u'ZoneAirBalanceOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air balance method', {'name': u'Air Balance Method', 'pyname': u'air_balance_method', 'default': u'Quadrature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'induced outdoor air due to unbalanced duct leakage', {'name': u'Induced Outdoor Air Due to Unbalanced Duct Leakage', 'pyname': u'induced_outdoor_air_due_to_unbalanced_duct_leakage', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'induced outdoor air schedule name', {'name': u'Induced Outdoor Air Schedule Name', 'pyname': u'induced_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ZoneAirBalance:OutdoorAir',
+              'pyname': u'ZoneAirBalanceOutdoorAir',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'air balance method',
+                                      {'name': u'Air Balance Method',
+                                       'pyname': u'air_balance_method',
+                                       'default': u'Quadrature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'induced outdoor air due to unbalanced duct leakage',
+                                      {'name': u'Induced Outdoor Air Due to Unbalanced Duct Leakage',
+                                       'pyname': u'induced_outdoor_air_due_to_unbalanced_duct_leakage',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'induced outdoor air schedule name',
+                                      {'name': u'Induced Outdoor Air Schedule Name',
+                                       'pyname': u'induced_outdoor_air_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirBalance:OutdoorAir`
@@ -2038,6 +2721,7 @@ class ZoneAirBalanceOutdoorAir(DataObject):
 
 
 class ZoneMixing(DataObject):
+
     """ Corresponds to IDD object `ZoneMixing`
         ZoneMixing is a simple air exchange from one zone to another. Note that this statement
         only affects the energy balance of the "receiving" zone and will not produce
@@ -2045,7 +2729,143 @@ class ZoneMixing(DataObject):
         multiple zones, but the balancing of flows between zones is left to the user's
         discretion.
     """
-    schema = {'min-fields': 9, 'name': u'ZoneMixing', 'pyname': u'ZoneMixing', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate per zone floor area', {'name': u'Flow Rate per Zone Floor Area', 'pyname': u'flow_rate_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow rate per person', {'name': u'Flow Rate per Person', 'pyname': u'flow_rate_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'source zone name', {'name': u'Source Zone Name', 'pyname': u'source_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum zone temperature schedule name', {'name': u'Minimum Zone Temperature Schedule Name', 'pyname': u'minimum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum zone temperature schedule name', {'name': u'Maximum Zone Temperature Schedule Name', 'pyname': u'maximum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum source zone temperature schedule name', {'name': u'Minimum Source Zone Temperature Schedule Name', 'pyname': u'minimum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum source zone temperature schedule name', {'name': u'Maximum Source Zone Temperature Schedule Name', 'pyname': u'maximum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 9,
+              'name': u'ZoneMixing',
+              'pyname': u'ZoneMixing',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design flow rate calculation method',
+                                      {'name': u'Design Flow Rate Calculation Method',
+                                       'pyname': u'design_flow_rate_calculation_method',
+                                       'default': u'Flow/Zone',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design flow rate',
+                                      {'name': u'Design Flow Rate',
+                                       'pyname': u'design_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'flow rate per zone floor area',
+                                      {'name': u'Flow Rate per Zone Floor Area',
+                                       'pyname': u'flow_rate_per_zone_floor_area',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-m2'}),
+                                     (u'flow rate per person',
+                                      {'name': u'Flow Rate per Person',
+                                       'pyname': u'flow_rate_per_person',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-person'}),
+                                     (u'air changes per hour',
+                                      {'name': u'Air Changes per Hour',
+                                       'pyname': u'air_changes_per_hour',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'1/hr'}),
+                                     (u'source zone name',
+                                      {'name': u'Source Zone Name',
+                                       'pyname': u'source_zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'delta temperature',
+                                      {'name': u'Delta Temperature',
+                                       'pyname': u'delta_temperature',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'delta temperature schedule name',
+                                      {'name': u'Delta Temperature Schedule Name',
+                                       'pyname': u'delta_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum zone temperature schedule name',
+                                      {'name': u'Minimum Zone Temperature Schedule Name',
+                                       'pyname': u'minimum_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum zone temperature schedule name',
+                                      {'name': u'Maximum Zone Temperature Schedule Name',
+                                       'pyname': u'maximum_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum source zone temperature schedule name',
+                                      {'name': u'Minimum Source Zone Temperature Schedule Name',
+                                       'pyname': u'minimum_source_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum source zone temperature schedule name',
+                                      {'name': u'Maximum Source Zone Temperature Schedule Name',
+                                       'pyname': u'maximum_source_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum outdoor temperature schedule name',
+                                      {'name': u'Minimum Outdoor Temperature Schedule Name',
+                                       'pyname': u'minimum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum outdoor temperature schedule name',
+                                      {'name': u'Maximum Outdoor Temperature Schedule Name',
+                                       'pyname': u'maximum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneMixing`
@@ -2478,11 +3298,149 @@ class ZoneMixing(DataObject):
 
 
 class ZoneCrossMixing(DataObject):
+
     """ Corresponds to IDD object `ZoneCrossMixing`
         ZoneCrossMixing exchanges an equal amount of air between two zones. Note that this
         statement affects the energy balance of both zones.
     """
-    schema = {'min-fields': 9, 'name': u'ZoneCrossMixing', 'pyname': u'ZoneCrossMixing', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate per zone floor area', {'name': u'Flow Rate per Zone Floor Area', 'pyname': u'flow_rate_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow rate per person', {'name': u'Flow Rate per Person', 'pyname': u'flow_rate_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'source zone name', {'name': u'Source Zone Name', 'pyname': u'source_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum zone temperature schedule name', {'name': u'Minimum Zone Temperature Schedule Name', 'pyname': u'minimum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum zone temperature schedule name', {'name': u'Maximum Zone Temperature Schedule Name', 'pyname': u'maximum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum source zone temperature schedule name', {'name': u'Minimum Source Zone Temperature Schedule Name', 'pyname': u'minimum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum source zone temperature schedule name', {'name': u'Maximum Source Zone Temperature Schedule Name', 'pyname': u'maximum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 9,
+              'name': u'ZoneCrossMixing',
+              'pyname': u'ZoneCrossMixing',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design flow rate calculation method',
+                                      {'name': u'Design Flow Rate Calculation Method',
+                                       'pyname': u'design_flow_rate_calculation_method',
+                                       'default': u'Flow/Zone',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design flow rate',
+                                      {'name': u'Design Flow Rate',
+                                       'pyname': u'design_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'flow rate per zone floor area',
+                                      {'name': u'Flow Rate per Zone Floor Area',
+                                       'pyname': u'flow_rate_per_zone_floor_area',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-m2'}),
+                                     (u'flow rate per person',
+                                      {'name': u'Flow Rate per Person',
+                                       'pyname': u'flow_rate_per_person',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-person'}),
+                                     (u'air changes per hour',
+                                      {'name': u'Air Changes per Hour',
+                                       'pyname': u'air_changes_per_hour',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'1/hr'}),
+                                     (u'source zone name',
+                                      {'name': u'Source Zone Name',
+                                       'pyname': u'source_zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'delta temperature',
+                                      {'name': u'Delta Temperature',
+                                       'pyname': u'delta_temperature',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'delta temperature schedule name',
+                                      {'name': u'Delta Temperature Schedule Name',
+                                       'pyname': u'delta_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum zone temperature schedule name',
+                                      {'name': u'Minimum Zone Temperature Schedule Name',
+                                       'pyname': u'minimum_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum zone temperature schedule name',
+                                      {'name': u'Maximum Zone Temperature Schedule Name',
+                                       'pyname': u'maximum_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum source zone temperature schedule name',
+                                      {'name': u'Minimum Source Zone Temperature Schedule Name',
+                                       'pyname': u'minimum_source_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum source zone temperature schedule name',
+                                      {'name': u'Maximum Source Zone Temperature Schedule Name',
+                                       'pyname': u'maximum_source_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum outdoor temperature schedule name',
+                                      {'name': u'Minimum Outdoor Temperature Schedule Name',
+                                       'pyname': u'minimum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum outdoor temperature schedule name',
+                                      {'name': u'Maximum Outdoor Temperature Schedule Name',
+                                       'pyname': u'maximum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneCrossMixing`
@@ -2916,6 +3874,7 @@ class ZoneCrossMixing(DataObject):
 
 
 class ZoneRefrigerationDoorMixing(DataObject):
+
     """ Corresponds to IDD object `ZoneRefrigerationDoorMixing`
         Refrigeration Door Mixing is used for an opening between two zones that are at the
         same elevation but have different air temperatures.  In this case, the mixing air flow
@@ -2924,7 +3883,71 @@ class ZoneRefrigerationDoorMixing(DataObject):
         controlled at different temperatures.  It could also be used to model a door to a walk-in
         refrigerated space if that space were modeled as a zone instead of using the object Refrigeration:WalkIn.
     """
-    schema = {'min-fields': 4, 'name': u'ZoneRefrigerationDoorMixing', 'pyname': u'ZoneRefrigerationDoorMixing', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone 2 name', {'name': u'Zone 2 Name', 'pyname': u'zone_2_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'door height', {'name': u'Door Height', 'pyname': u'door_height', 'default': 3.0, 'maximum': 50.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'door area', {'name': u'Door Area', 'pyname': u'door_area', 'default': 9.0, 'maximum': 400.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'door protection type', {'name': u'Door Protection Type', 'pyname': u'door_protection_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'ZoneRefrigerationDoorMixing',
+              'pyname': u'ZoneRefrigerationDoorMixing',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone 1 name',
+                                      {'name': u'Zone 1 Name',
+                                       'pyname': u'zone_1_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'zone 2 name',
+                                      {'name': u'Zone 2 Name',
+                                       'pyname': u'zone_2_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'door height',
+                                      {'name': u'Door Height',
+                                       'pyname': u'door_height',
+                                       'default': 3.0,
+                                       'maximum': 50.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'door area',
+                                      {'name': u'Door Area',
+                                       'pyname': u'door_area',
+                                       'default': 9.0,
+                                       'maximum': 400.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'door protection type',
+                                      {'name': u'Door Protection Type',
+                                       'pyname': u'door_protection_type',
+                                       'default': u'None',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneRefrigerationDoorMixing`
@@ -3115,11 +4138,216 @@ class ZoneRefrigerationDoorMixing(DataObject):
 
 
 class ZoneEarthtube(DataObject):
+
     """ Corresponds to IDD object `ZoneEarthtube`
         Earth Tube is specified as a design level which is modified by a Schedule fraction, temperature difference and wind speed:
         Earthtube=Edesign * Fschedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
     """
-    schema = {'min-fields': 22, 'name': u'ZoneEarthtube', 'pyname': u'ZoneEarthtube', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum zone temperature when cooling', {'name': u'Minimum Zone Temperature when Cooling', 'pyname': u'minimum_zone_temperature_when_cooling', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum zone temperature when heating', {'name': u'Maximum Zone Temperature when Heating', 'pyname': u'maximum_zone_temperature_when_heating', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'earthtube type', {'name': u'Earthtube Type', 'pyname': u'earthtube_type', 'default': u'Natural', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fan pressure rise', {'name': u'Fan Pressure Rise', 'pyname': u'fan_pressure_rise', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 1.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pipe radius', {'name': u'Pipe Radius', 'pyname': u'pipe_radius', 'default': 1.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe thickness', {'name': u'Pipe Thickness', 'pyname': u'pipe_thickness', 'default': 0.2, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe length', {'name': u'Pipe Length', 'pyname': u'pipe_length', 'default': 15.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe thermal conductivity', {'name': u'Pipe Thermal Conductivity', 'pyname': u'pipe_thermal_conductivity', 'default': 200.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'pipe depth under ground surface', {'name': u'Pipe Depth Under Ground Surface', 'pyname': u'pipe_depth_under_ground_surface', 'default': 3.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'soil condition', {'name': u'Soil Condition', 'pyname': u'soil_condition', 'default': u'HeavyAndDamp', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'average soil surface temperature', {'name': u'Average Soil Surface Temperature', 'pyname': u'average_soil_surface_temperature', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'amplitude of soil surface temperature', {'name': u'Amplitude of Soil Surface Temperature', 'pyname': u'amplitude_of_soil_surface_temperature', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'phase constant of soil surface temperature', {'name': u'Phase Constant of Soil Surface Temperature', 'pyname': u'phase_constant_of_soil_surface_temperature', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'days'}), (u'constant term flow coefficient', {'name': u'Constant Term Flow Coefficient', 'pyname': u'constant_term_flow_coefficient', 'default': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature term flow coefficient', {'name': u'Temperature Term Flow Coefficient', 'pyname': u'temperature_term_flow_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity term flow coefficient', {'name': u'Velocity Term Flow Coefficient', 'pyname': u'velocity_term_flow_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity squared term flow coefficient', {'name': u'Velocity Squared Term Flow Coefficient', 'pyname': u'velocity_squared_term_flow_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 22,
+              'name': u'ZoneEarthtube',
+              'pyname': u'ZoneEarthtube',
+              'format': None,
+              'fields': OrderedDict([(u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design flow rate',
+                                      {'name': u'Design Flow Rate',
+                                       'pyname': u'design_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'minimum zone temperature when cooling',
+                                      {'name': u'Minimum Zone Temperature when Cooling',
+                                       'pyname': u'minimum_zone_temperature_when_cooling',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum zone temperature when heating',
+                                      {'name': u'Maximum Zone Temperature when Heating',
+                                       'pyname': u'maximum_zone_temperature_when_heating',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'delta temperature',
+                                      {'name': u'Delta Temperature',
+                                       'pyname': u'delta_temperature',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'earthtube type',
+                                      {'name': u'Earthtube Type',
+                                       'pyname': u'earthtube_type',
+                                       'default': u'Natural',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fan pressure rise',
+                                      {'name': u'Fan Pressure Rise',
+                                       'pyname': u'fan_pressure_rise',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'Pa'}),
+                                     (u'fan total efficiency',
+                                      {'name': u'Fan Total Efficiency',
+                                       'pyname': u'fan_total_efficiency',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'pipe radius',
+                                      {'name': u'Pipe Radius',
+                                       'pyname': u'pipe_radius',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'pipe thickness',
+                                      {'name': u'Pipe Thickness',
+                                       'pyname': u'pipe_thickness',
+                                       'default': 0.2,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'pipe length',
+                                      {'name': u'Pipe Length',
+                                       'pyname': u'pipe_length',
+                                       'default': 15.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'pipe thermal conductivity',
+                                      {'name': u'Pipe Thermal Conductivity',
+                                       'pyname': u'pipe_thermal_conductivity',
+                                       'default': 200.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/m-K'}),
+                                     (u'pipe depth under ground surface',
+                                      {'name': u'Pipe Depth Under Ground Surface',
+                                       'pyname': u'pipe_depth_under_ground_surface',
+                                       'default': 3.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'soil condition',
+                                      {'name': u'Soil Condition',
+                                       'pyname': u'soil_condition',
+                                       'default': u'HeavyAndDamp',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'average soil surface temperature',
+                                      {'name': u'Average Soil Surface Temperature',
+                                       'pyname': u'average_soil_surface_temperature',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'amplitude of soil surface temperature',
+                                      {'name': u'Amplitude of Soil Surface Temperature',
+                                       'pyname': u'amplitude_of_soil_surface_temperature',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'phase constant of soil surface temperature',
+                                      {'name': u'Phase Constant of Soil Surface Temperature',
+                                       'pyname': u'phase_constant_of_soil_surface_temperature',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'days'}),
+                                     (u'constant term flow coefficient',
+                                      {'name': u'Constant Term Flow Coefficient',
+                                       'pyname': u'constant_term_flow_coefficient',
+                                       'default': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature term flow coefficient',
+                                      {'name': u'Temperature Term Flow Coefficient',
+                                       'pyname': u'temperature_term_flow_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity term flow coefficient',
+                                      {'name': u'Velocity Term Flow Coefficient',
+                                       'pyname': u'velocity_term_flow_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity squared term flow coefficient',
+                                      {'name': u'Velocity Squared Term Flow Coefficient',
+                                       'pyname': u'velocity_squared_term_flow_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneEarthtube`
@@ -3673,13 +4901,132 @@ class ZoneEarthtube(DataObject):
 
 
 class ZoneCoolTowerShower(DataObject):
+
     """ Corresponds to IDD object `ZoneCoolTower:Shower`
         A cooltower (sometimes referred to as a wind tower or a shower cooling tower)
         models passive downdraught evaporative cooling (PDEC) that is designed to capture the
         wind at the top of a tower and cool the outdoor air using water evaporation before
         delivering it to a space.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneCoolTower:Shower', 'pyname': u'ZoneCoolTowerShower', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'flow control type', {'name': u'Flow Control Type', 'pyname': u'flow_control_type', 'default': u'WindDrivenFlow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum water flow rate', {'name': u'Maximum Water Flow Rate', 'pyname': u'maximum_water_flow_rate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'effective tower height', {'name': u'Effective Tower Height', 'pyname': u'effective_tower_height', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'airflow outlet area', {'name': u'Airflow Outlet Area', 'pyname': u'airflow_outlet_area', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum indoor temperature', {'name': u'Minimum Indoor Temperature', 'pyname': u'minimum_indoor_temperature', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fraction of water loss', {'name': u'Fraction of Water Loss', 'pyname': u'fraction_of_water_loss', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fraction of flow schedule', {'name': u'Fraction of Flow Schedule', 'pyname': u'fraction_of_flow_schedule', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ZoneCoolTower:Shower',
+              'pyname': u'ZoneCoolTowerShower',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'water supply storage tank name',
+                                      {'name': u'Water Supply Storage Tank Name',
+                                       'pyname': u'water_supply_storage_tank_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'flow control type',
+                                      {'name': u'Flow Control Type',
+                                       'pyname': u'flow_control_type',
+                                       'default': u'WindDrivenFlow',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'pump flow rate schedule name',
+                                      {'name': u'Pump Flow Rate Schedule Name',
+                                       'pyname': u'pump_flow_rate_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum water flow rate',
+                                      {'name': u'Maximum Water Flow Rate',
+                                       'pyname': u'maximum_water_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'effective tower height',
+                                      {'name': u'Effective Tower Height',
+                                       'pyname': u'effective_tower_height',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'airflow outlet area',
+                                      {'name': u'Airflow Outlet Area',
+                                       'pyname': u'airflow_outlet_area',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'maximum air flow rate',
+                                      {'name': u'Maximum Air Flow Rate',
+                                       'pyname': u'maximum_air_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'minimum indoor temperature',
+                                      {'name': u'Minimum Indoor Temperature',
+                                       'pyname': u'minimum_indoor_temperature',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'fraction of water loss',
+                                      {'name': u'Fraction of Water Loss',
+                                       'pyname': u'fraction_of_water_loss',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'fraction of flow schedule',
+                                      {'name': u'Fraction of Flow Schedule',
+                                       'pyname': u'fraction_of_flow_schedule',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'rated power consumption',
+                                      {'name': u'Rated Power Consumption',
+                                       'pyname': u'rated_power_consumption',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneCoolTower:Shower`
@@ -4034,12 +5381,749 @@ class ZoneCoolTowerShower(DataObject):
 
 
 class ZoneThermalChimney(DataObject):
+
     """ Corresponds to IDD object `ZoneThermalChimney`
         A thermal chimney is a vertical shaft utilizing solar radiation to enhance natural
         ventilation. It consists of an absorber wall, air gap and glass cover with high solar
         transmissivity.
     """
-    schema = {'min-fields': 10, 'name': u'ZoneThermalChimney', 'pyname': u'ZoneThermalChimney', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'width of the absorber wall', {'name': u'Width of the Absorber Wall', 'pyname': u'width_of_the_absorber_wall', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'cross sectional area of air channel outlet', {'name': u'Cross Sectional Area of Air Channel Outlet', 'pyname': u'cross_sectional_area_of_air_channel_outlet', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'discharge coefficient', {'name': u'Discharge Coefficient', 'pyname': u'discharge_coefficient', 'default': 0.8, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 1', {'name': u'Distance from Top of Thermal Chimney to Inlet 1', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 1', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 1', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_1', 'default': 1.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 1', {'name': u'Cross Sectional Areas of Air Channel Inlet 1', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 2 name', {'name': u'Zone 2 Name', 'pyname': u'zone_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 2', {'name': u'Distance from Top of Thermal Chimney to Inlet 2', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 2', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 2', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_2', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 2', {'name': u'Cross Sectional Areas of Air Channel Inlet 2', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 3 name', {'name': u'Zone 3 Name', 'pyname': u'zone_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 3', {'name': u'Distance from Top of Thermal Chimney to Inlet 3', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 3', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 3', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_3', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 3', {'name': u'Cross Sectional Areas of Air Channel Inlet 3', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 4 name', {'name': u'Zone 4 Name', 'pyname': u'zone_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 4', {'name': u'Distance from Top of Thermal Chimney to Inlet 4', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 4', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 4', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_4', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 4', {'name': u'Cross Sectional Areas of Air Channel Inlet 4', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 5 name', {'name': u'Zone 5 Name', 'pyname': u'zone_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 5', {'name': u'Distance from Top of Thermal Chimney to Inlet 5', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 5', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 5', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_5', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 5', {'name': u'Cross Sectional Areas of Air Channel Inlet 5', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 6 name', {'name': u'Zone 6 Name', 'pyname': u'zone_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 6', {'name': u'Distance from Top of Thermal Chimney to Inlet 6', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 6', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 6', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_6', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 6', {'name': u'Cross Sectional Areas of Air Channel Inlet 6', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 7 name', {'name': u'Zone 7 Name', 'pyname': u'zone_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 7', {'name': u'Distance from Top of Thermal Chimney to Inlet 7', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 7', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 7', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_7', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 7', {'name': u'Cross Sectional Areas of Air Channel Inlet 7', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 8 name', {'name': u'Zone 8 Name', 'pyname': u'zone_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 8', {'name': u'Distance from Top of Thermal Chimney to Inlet 8', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 8', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 8', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_8', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 8', {'name': u'Cross Sectional Areas of Air Channel Inlet 8', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 9 name', {'name': u'Zone 9 Name', 'pyname': u'zone_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 9', {'name': u'Distance from Top of Thermal Chimney to Inlet 9', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 9', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 9', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_9', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 9', {'name': u'Cross Sectional Areas of Air Channel Inlet 9', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 10 name', {'name': u'Zone 10 Name', 'pyname': u'zone_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 10', {'name': u'Distance from Top of Thermal Chimney to Inlet 10', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 10', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 10', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_10', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 10', {'name': u'Cross Sectional Areas of Air Channel Inlet 10', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 11 name', {'name': u'Zone 11 Name', 'pyname': u'zone_11_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 11', {'name': u'Distance from Top of Thermal Chimney to Inlet 11', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 11', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 11', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_11', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 11', {'name': u'Cross Sectional Areas of Air Channel Inlet 11', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 12 name', {'name': u'Zone 12 Name', 'pyname': u'zone_12_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 12', {'name': u'Distance from Top of Thermal Chimney to Inlet 12', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 12', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 12', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_12', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 12', {'name': u'Cross Sectional Areas of Air Channel Inlet 12', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 13 name', {'name': u'Zone 13 Name', 'pyname': u'zone_13_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 13', {'name': u'Distance from Top of Thermal Chimney to Inlet 13', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 13', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 13', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_13', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 13', {'name': u'Cross Sectional Areas of Air Channel Inlet 13', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 14 name', {'name': u'Zone 14 Name', 'pyname': u'zone_14_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 14', {'name': u'Distance from Top of Thermal Chimney to Inlet 14', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 14', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 14', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_14', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 14', {'name': u'Cross Sectional Areas of Air Channel Inlet 14', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 15 name', {'name': u'Zone 15 Name', 'pyname': u'zone_15_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 15', {'name': u'Distance from Top of Thermal Chimney to Inlet 15', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 15', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 15', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_15', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 15', {'name': u'Cross Sectional Areas of Air Channel Inlet 15', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 16 name', {'name': u'Zone 16 Name', 'pyname': u'zone_16_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 16', {'name': u'Distance from Top of Thermal Chimney to Inlet 16', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 16', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 16', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_16', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 16', {'name': u'Cross Sectional Areas of Air Channel Inlet 16', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 17 name', {'name': u'Zone 17 Name', 'pyname': u'zone_17_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 17', {'name': u'Distance from Top of Thermal Chimney to Inlet 17', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 17', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 17', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_17', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 17', {'name': u'Cross Sectional Areas of Air Channel Inlet 17', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 18 name', {'name': u'Zone 18 Name', 'pyname': u'zone_18_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 18', {'name': u'Distance from Top of Thermal Chimney to Inlet 18', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 18', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 18', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_18', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 18', {'name': u'Cross Sectional Areas of Air Channel Inlet 18', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 19 name', {'name': u'Zone 19 Name', 'pyname': u'zone_19_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 19', {'name': u'Distance from Top of Thermal Chimney to Inlet 19', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 19', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 19', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_19', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 19', {'name': u'Cross Sectional Areas of Air Channel Inlet 19', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 20 name', {'name': u'Zone 20 Name', 'pyname': u'zone_20_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 20', {'name': u'Distance from Top of Thermal Chimney to Inlet 20', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 20', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 20', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_20', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 20', {'name': u'Cross Sectional Areas of Air Channel Inlet 20', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 10,
+              'name': u'ZoneThermalChimney',
+              'pyname': u'ZoneThermalChimney',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'width of the absorber wall',
+                                      {'name': u'Width of the Absorber Wall',
+                                       'pyname': u'width_of_the_absorber_wall',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'cross sectional area of air channel outlet',
+                                      {'name': u'Cross Sectional Area of Air Channel Outlet',
+                                       'pyname': u'cross_sectional_area_of_air_channel_outlet',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'discharge coefficient',
+                                      {'name': u'Discharge Coefficient',
+                                       'pyname': u'discharge_coefficient',
+                                       'default': 0.8,
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'zone 1 name',
+                                      {'name': u'Zone 1 Name',
+                                       'pyname': u'zone_1_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 1',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 1',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 1',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 1',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_1',
+                                       'default': 1.0,
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 1',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 1',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 2 name',
+                                      {'name': u'Zone 2 Name',
+                                       'pyname': u'zone_2_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 2',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 2',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_2',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 2',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 2',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_2',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 2',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 2',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_2',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 3 name',
+                                      {'name': u'Zone 3 Name',
+                                       'pyname': u'zone_3_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 3',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 3',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_3',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 3',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 3',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_3',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 3',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 3',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_3',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 4 name',
+                                      {'name': u'Zone 4 Name',
+                                       'pyname': u'zone_4_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 4',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 4',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_4',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 4',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 4',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_4',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 4',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 4',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_4',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 5 name',
+                                      {'name': u'Zone 5 Name',
+                                       'pyname': u'zone_5_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 5',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 5',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_5',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 5',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 5',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_5',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 5',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 5',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_5',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 6 name',
+                                      {'name': u'Zone 6 Name',
+                                       'pyname': u'zone_6_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 6',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 6',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_6',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 6',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 6',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_6',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 6',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 6',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_6',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 7 name',
+                                      {'name': u'Zone 7 Name',
+                                       'pyname': u'zone_7_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 7',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 7',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_7',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 7',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 7',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_7',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 7',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 7',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_7',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 8 name',
+                                      {'name': u'Zone 8 Name',
+                                       'pyname': u'zone_8_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 8',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 8',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_8',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 8',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 8',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_8',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 8',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 8',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_8',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 9 name',
+                                      {'name': u'Zone 9 Name',
+                                       'pyname': u'zone_9_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 9',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 9',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_9',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 9',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 9',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_9',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 9',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 9',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_9',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 10 name',
+                                      {'name': u'Zone 10 Name',
+                                       'pyname': u'zone_10_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 10',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 10',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_10',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 10',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 10',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_10',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 10',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 10',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_10',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 11 name',
+                                      {'name': u'Zone 11 Name',
+                                       'pyname': u'zone_11_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 11',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 11',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_11',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 11',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 11',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_11',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 11',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 11',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_11',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 12 name',
+                                      {'name': u'Zone 12 Name',
+                                       'pyname': u'zone_12_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 12',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 12',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_12',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 12',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 12',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_12',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 12',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 12',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_12',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 13 name',
+                                      {'name': u'Zone 13 Name',
+                                       'pyname': u'zone_13_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 13',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 13',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_13',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 13',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 13',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_13',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 13',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 13',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_13',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 14 name',
+                                      {'name': u'Zone 14 Name',
+                                       'pyname': u'zone_14_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 14',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 14',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_14',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 14',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 14',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_14',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 14',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 14',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_14',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 15 name',
+                                      {'name': u'Zone 15 Name',
+                                       'pyname': u'zone_15_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 15',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 15',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_15',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 15',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 15',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_15',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 15',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 15',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_15',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 16 name',
+                                      {'name': u'Zone 16 Name',
+                                       'pyname': u'zone_16_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 16',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 16',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_16',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 16',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 16',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_16',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 16',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 16',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_16',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 17 name',
+                                      {'name': u'Zone 17 Name',
+                                       'pyname': u'zone_17_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 17',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 17',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_17',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 17',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 17',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_17',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 17',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 17',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_17',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 18 name',
+                                      {'name': u'Zone 18 Name',
+                                       'pyname': u'zone_18_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 18',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 18',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_18',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 18',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 18',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_18',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 18',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 18',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_18',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 19 name',
+                                      {'name': u'Zone 19 Name',
+                                       'pyname': u'zone_19_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 19',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 19',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_19',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 19',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 19',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_19',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 19',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 19',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_19',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 20 name',
+                                      {'name': u'Zone 20 Name',
+                                       'pyname': u'zone_20_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 20',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 20',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_20',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 20',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 20',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_20',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 20',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 20',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_20',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneThermalChimney`
@@ -4249,10 +6333,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_1` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 1"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 1"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_1.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_1(self, value=1.0):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_1(
+            self,
+            value=1.0):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 1`
 
         Args:
@@ -4265,7 +6352,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 1"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 1"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_1(self):
@@ -4345,10 +6433,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_2` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 2"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 2"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_2.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_2(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_2(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 2`
 
         Args:
@@ -4360,7 +6451,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 2"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 2"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_2(self):
@@ -4440,10 +6532,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_3` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 3"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 3"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_3.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_3(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_3(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 3`
 
         Args:
@@ -4455,7 +6550,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 3"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 3"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_3(self):
@@ -4535,10 +6631,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_4` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 4"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 4"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_4.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_4(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_4(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 4`
 
         Args:
@@ -4550,7 +6649,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 4"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 4"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_4(self):
@@ -4630,10 +6730,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_5` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 5"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 5"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_5.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_5(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_5(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 5`
 
         Args:
@@ -4645,7 +6748,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 5"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 5"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_5(self):
@@ -4725,10 +6829,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_6` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 6"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 6"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_6.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_6(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_6(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 6`
 
         Args:
@@ -4740,7 +6847,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 6"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 6"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_6(self):
@@ -4820,10 +6928,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_7` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 7"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 7"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_7.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_7(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_7(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 7`
 
         Args:
@@ -4835,7 +6946,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 7"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 7"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_7(self):
@@ -4915,10 +7027,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_8` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 8"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 8"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_8.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_8(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_8(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 8`
 
         Args:
@@ -4930,7 +7045,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 8"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 8"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_8(self):
@@ -5010,10 +7126,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_9` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 9"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 9"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_9.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_9(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_9(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 9`
 
         Args:
@@ -5025,7 +7144,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 9"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 9"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_9(self):
@@ -5105,10 +7225,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_10` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 10"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 10"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_10.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_10(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_10(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 10`
 
         Args:
@@ -5120,7 +7243,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 10"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 10"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_10(self):
@@ -5200,10 +7324,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_11` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 11"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 11"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_11.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_11(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_11(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 11`
 
         Args:
@@ -5215,7 +7342,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 11"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 11"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_11(self):
@@ -5295,10 +7423,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_12` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 12"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 12"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_12.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_12(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_12(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 12`
 
         Args:
@@ -5310,7 +7441,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 12"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 12"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_12(self):
@@ -5390,10 +7522,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_13` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 13"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 13"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_13.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_13(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_13(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 13`
 
         Args:
@@ -5405,7 +7540,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 13"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 13"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_13(self):
@@ -5485,10 +7621,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_14` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 14"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 14"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_14.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_14(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_14(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 14`
 
         Args:
@@ -5500,7 +7639,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 14"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 14"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_14(self):
@@ -5580,10 +7720,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_15` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 15"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 15"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_15.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_15(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_15(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 15`
 
         Args:
@@ -5595,7 +7738,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 15"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 15"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_15(self):
@@ -5675,10 +7819,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_16` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 16"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 16"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_16.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_16(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_16(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 16`
 
         Args:
@@ -5690,7 +7837,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 16"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 16"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_16(self):
@@ -5770,10 +7918,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_17` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 17"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 17"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_17.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_17(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_17(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 17`
 
         Args:
@@ -5785,7 +7936,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 17"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 17"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_17(self):
@@ -5865,10 +8017,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_18` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 18"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 18"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_18.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_18(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_18(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 18`
 
         Args:
@@ -5880,7 +8035,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 18"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 18"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_18(self):
@@ -5960,10 +8116,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_19` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 19"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 19"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_19.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_19(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_19(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 19`
 
         Args:
@@ -5975,7 +8134,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 19"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 19"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_19(self):
@@ -6055,10 +8215,13 @@ class ZoneThermalChimney(DataObject):
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_20` or None if not set
         """
-        return self._data["Relative Ratios of Air Flow Rates Passing through Zone 20"]
+        return self._data[
+            "Relative Ratios of Air Flow Rates Passing through Zone 20"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_20.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_20(self, value=None):
+    def relative_ratios_of_air_flow_rates_passing_through_zone_20(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 20`
 
         Args:
@@ -6070,7 +8233,8 @@ class ZoneThermalChimney(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 20"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 20"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_20(self):

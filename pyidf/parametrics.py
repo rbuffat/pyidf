@@ -9,6 +9,7 @@ logger.addHandler(logging.NullHandler())
 
 
 class ParametricSetValueForRun(DataObject):
+
     """ Corresponds to IDD object `Parametric:SetValueForRun`
         Parametric objects allow a set of multiple simulations to be defined in a single idf
         file. The parametric preprocessor scans the idf for Parametric:* objects then creates
@@ -17,7 +18,26 @@ class ParametricSetValueForRun(DataObject):
         of a parameters and sets the parameter to different values depending on which
         run is being simulated.
     """
-    schema = {'min-fields': 2, 'name': u'Parametric:SetValueForRun', 'pyname': u'ParametricSetValueForRun', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'value for run 1', {'name': u'Value for Run 1', 'pyname': u'value_for_run_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'Parametric:SetValueForRun',
+              'pyname': u'ParametricSetValueForRun',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict([(u'value for run 1',
+                                                 {'name': u'Value for Run 1',
+                                                  'pyname': u'value_for_run_1',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'alpha'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Parametric:SetValueForRun`
@@ -78,13 +98,33 @@ class ParametricSetValueForRun(DataObject):
 
 
 class ParametricLogic(DataObject):
+
     """ Corresponds to IDD object `Parametric:Logic`
         This object allows some types of objects to be included for some parametric cases and
         not for others. For example, you might want an overhang on a window in some
         parametric runs and not others. A single Parametric:Logic object is allowed per file.
         Consult the Input Output Reference for available commands and syntax.
     """
-    schema = {'min-fields': 2, 'name': u'Parametric:Logic', 'pyname': u'ParametricLogic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'parametric logic line 1', {'name': u'Parametric Logic Line 1', 'pyname': u'parametric_logic_line_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'Parametric:Logic',
+              'pyname': u'ParametricLogic',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict([(u'parametric logic line 1',
+                                                 {'name': u'Parametric Logic Line 1',
+                                                  'pyname': u'parametric_logic_line_1',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'alpha'})]),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Parametric:Logic`
@@ -130,7 +170,9 @@ class ParametricLogic(DataObject):
                 specification and is assumed to be a missing value
         """
         vals = []
-        parametric_logic_line_1 = self.check_value("Parametric Logic Line 1", parametric_logic_line_1)
+        parametric_logic_line_1 = self.check_value(
+            "Parametric Logic Line 1",
+            parametric_logic_line_1)
         vals.append(parametric_logic_line_1)
         self._data["extensibles"].append(vals)
 
@@ -142,11 +184,32 @@ class ParametricLogic(DataObject):
 
 
 class ParametricRunControl(DataObject):
+
     """ Corresponds to IDD object `Parametric:RunControl`
         Controls which parametric runs are simulated. This object is optional. If it is not
         included, then all parametric runs are performed.
     """
-    schema = {'min-fields': 2, 'name': u'Parametric:RunControl', 'pyname': u'ParametricRunControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'perform run 1', {'name': u'Perform Run 1', 'pyname': u'perform_run_1', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'Parametric:RunControl',
+              'pyname': u'ParametricRunControl',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict([(u'perform run 1',
+                                                 {'name': u'Perform Run 1',
+                                                  'pyname': u'perform_run_1',
+                                                  'default': u'Yes',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': 'alpha'})]),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Parametric:RunControl`
@@ -205,11 +268,31 @@ class ParametricRunControl(DataObject):
 
 
 class ParametricFileNameSuffix(DataObject):
+
     """ Corresponds to IDD object `Parametric:FileNameSuffix`
         Defines the suffixes to be appended to the idf and output file names for each
         parametric run. If this object is omitted, the suffix will default to the run number.
     """
-    schema = {'min-fields': 2, 'name': u'Parametric:FileNameSuffix', 'pyname': u'ParametricFileNameSuffix', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'suffix for file name in run 1', {'name': u'Suffix for File Name in Run 1', 'pyname': u'suffix_for_file_name_in_run_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'Parametric:FileNameSuffix',
+              'pyname': u'ParametricFileNameSuffix',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict([(u'suffix for file name in run 1',
+                                                 {'name': u'Suffix for File Name in Run 1',
+                                                  'pyname': u'suffix_for_file_name_in_run_1',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'alpha'})]),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Parametric:FileNameSuffix`
@@ -255,7 +338,9 @@ class ParametricFileNameSuffix(DataObject):
                 specification and is assumed to be a missing value
         """
         vals = []
-        suffix_for_file_name_in_run_1 = self.check_value("Suffix for File Name in Run 1", suffix_for_file_name_in_run_1)
+        suffix_for_file_name_in_run_1 = self.check_value(
+            "Suffix for File Name in Run 1",
+            suffix_for_file_name_in_run_1)
         vals.append(suffix_for_file_name_in_run_1)
         self._data["extensibles"].append(vals)
 

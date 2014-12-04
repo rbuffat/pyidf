@@ -9,6 +9,7 @@ logger.addHandler(logging.NullHandler())
 
 
 class DaylightingControls(DataObject):
+
     """ Corresponds to IDD object `Daylighting:Controls`
         Dimming of overhead electric lighting is determined from
         interior daylight illuminance calculated at one or two reference points.
@@ -16,7 +17,194 @@ class DaylightingControls(DataObject):
         Daylighting Reference Point CoordinateSystem field
         Glare from daylighting is also calculated.
     """
-    schema = {'min-fields': 19, 'name': u'Daylighting:Controls', 'pyname': u'DaylightingControls', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'total daylighting reference points', {'name': u'Total Daylighting Reference Points', 'pyname': u'total_daylighting_reference_points', 'default': 1, 'maximum': 2, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'x-coordinate of first reference point', {'name': u'X-Coordinate of First Reference Point', 'pyname': u'xcoordinate_of_first_reference_point', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y-coordinate of first reference point', {'name': u'Y-Coordinate of First Reference Point', 'pyname': u'ycoordinate_of_first_reference_point', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'z-coordinate of first reference point', {'name': u'Z-Coordinate of First Reference Point', 'pyname': u'zcoordinate_of_first_reference_point', 'default': 0.8, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'x-coordinate of second reference point', {'name': u'X-Coordinate of Second Reference Point', 'pyname': u'xcoordinate_of_second_reference_point', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y-coordinate of second reference point', {'name': u'Y-Coordinate of Second Reference Point', 'pyname': u'ycoordinate_of_second_reference_point', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'z-coordinate of second reference point', {'name': u'Z-Coordinate of Second Reference Point', 'pyname': u'zcoordinate_of_second_reference_point', 'default': 0.8, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fraction of zone controlled by first reference point', {'name': u'Fraction of Zone Controlled by First Reference Point', 'pyname': u'fraction_of_zone_controlled_by_first_reference_point', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of zone controlled by second reference point', {'name': u'Fraction of Zone Controlled by Second Reference Point', 'pyname': u'fraction_of_zone_controlled_by_second_reference_point', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'illuminance setpoint at first reference point', {'name': u'Illuminance Setpoint at First Reference Point', 'pyname': u'illuminance_setpoint_at_first_reference_point', 'default': 500.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'lux'}), (u'illuminance setpoint at second reference point', {'name': u'Illuminance Setpoint at Second Reference Point', 'pyname': u'illuminance_setpoint_at_second_reference_point', 'default': 500.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'lux'}), (u'lighting control type', {'name': u'Lighting Control Type', 'pyname': u'lighting_control_type', 'default': 1, 'maximum': 3, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'glare calculation azimuth angle of view direction clockwise from zone y-axis', {'name': u'Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis', 'pyname': u'glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis', 'maximum': 360.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'maximum allowable discomfort glare index', {'name': u'Maximum Allowable Discomfort Glare Index', 'pyname': u'maximum_allowable_discomfort_glare_index', 'default': 22.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'minimum input power fraction for continuous dimming control', {'name': u'Minimum Input Power Fraction for Continuous Dimming Control', 'pyname': u'minimum_input_power_fraction_for_continuous_dimming_control', 'default': 0.3, 'maximum': 0.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'minimum light output fraction for continuous dimming control', {'name': u'Minimum Light Output Fraction for Continuous Dimming Control', 'pyname': u'minimum_light_output_fraction_for_continuous_dimming_control', 'default': 0.2, 'maximum': 0.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'number of stepped control steps', {'name': u'Number of Stepped Control Steps', 'pyname': u'number_of_stepped_control_steps', 'default': 1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'probability lighting will be reset when needed in manual stepped control', {'name': u'Probability Lighting will be Reset When Needed in Manual Stepped Control', 'pyname': u'probability_lighting_will_be_reset_when_needed_in_manual_stepped_control', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 19,
+              'name': u'Daylighting:Controls',
+              'pyname': u'DaylightingControls',
+              'format': None,
+              'fields': OrderedDict([(u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'total daylighting reference points',
+                                      {'name': u'Total Daylighting Reference Points',
+                                       'pyname': u'total_daylighting_reference_points',
+                                       'default': 1,
+                                       'maximum': 2,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'x-coordinate of first reference point',
+                                      {'name': u'X-Coordinate of First Reference Point',
+                                       'pyname': u'xcoordinate_of_first_reference_point',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'y-coordinate of first reference point',
+                                      {'name': u'Y-Coordinate of First Reference Point',
+                                       'pyname': u'ycoordinate_of_first_reference_point',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'z-coordinate of first reference point',
+                                      {'name': u'Z-Coordinate of First Reference Point',
+                                       'pyname': u'zcoordinate_of_first_reference_point',
+                                       'default': 0.8,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'x-coordinate of second reference point',
+                                      {'name': u'X-Coordinate of Second Reference Point',
+                                       'pyname': u'xcoordinate_of_second_reference_point',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'y-coordinate of second reference point',
+                                      {'name': u'Y-Coordinate of Second Reference Point',
+                                       'pyname': u'ycoordinate_of_second_reference_point',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'z-coordinate of second reference point',
+                                      {'name': u'Z-Coordinate of Second Reference Point',
+                                       'pyname': u'zcoordinate_of_second_reference_point',
+                                       'default': 0.8,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'fraction of zone controlled by first reference point',
+                                      {'name': u'Fraction of Zone Controlled by First Reference Point',
+                                       'pyname': u'fraction_of_zone_controlled_by_first_reference_point',
+                                       'default': 1.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'fraction of zone controlled by second reference point',
+                                      {'name': u'Fraction of Zone Controlled by Second Reference Point',
+                                       'pyname': u'fraction_of_zone_controlled_by_second_reference_point',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'illuminance setpoint at first reference point',
+                                      {'name': u'Illuminance Setpoint at First Reference Point',
+                                       'pyname': u'illuminance_setpoint_at_first_reference_point',
+                                       'default': 500.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'lux'}),
+                                     (u'illuminance setpoint at second reference point',
+                                      {'name': u'Illuminance Setpoint at Second Reference Point',
+                                       'pyname': u'illuminance_setpoint_at_second_reference_point',
+                                       'default': 500.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'lux'}),
+                                     (u'lighting control type',
+                                      {'name': u'Lighting Control Type',
+                                       'pyname': u'lighting_control_type',
+                                       'default': 1,
+                                       'maximum': 3,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'glare calculation azimuth angle of view direction clockwise from zone y-axis',
+                                      {'name': u'Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis',
+                                       'pyname': u'glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis',
+                                       'maximum': 360.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'deg'}),
+                                     (u'maximum allowable discomfort glare index',
+                                      {'name': u'Maximum Allowable Discomfort Glare Index',
+                                       'pyname': u'maximum_allowable_discomfort_glare_index',
+                                       'default': 22.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'minimum input power fraction for continuous dimming control',
+                                      {'name': u'Minimum Input Power Fraction for Continuous Dimming Control',
+                                       'pyname': u'minimum_input_power_fraction_for_continuous_dimming_control',
+                                       'default': 0.3,
+                                       'maximum': 0.6,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'minimum light output fraction for continuous dimming control',
+                                      {'name': u'Minimum Light Output Fraction for Continuous Dimming Control',
+                                       'pyname': u'minimum_light_output_fraction_for_continuous_dimming_control',
+                                       'default': 0.2,
+                                       'maximum': 0.6,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'number of stepped control steps',
+                                      {'name': u'Number of Stepped Control Steps',
+                                       'pyname': u'number_of_stepped_control_steps',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'probability lighting will be reset when needed in manual stepped control',
+                                      {'name': u'Probability Lighting will be Reset When Needed in Manual Stepped Control',
+                                       'pyname': u'probability_lighting_will_be_reset_when_needed_in_manual_stepped_control',
+                                       'default': 1.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:Controls`
@@ -231,7 +419,8 @@ class DaylightingControls(DataObject):
         Returns:
             float: the value of `fraction_of_zone_controlled_by_first_reference_point` or None if not set
         """
-        return self._data["Fraction of Zone Controlled by First Reference Point"]
+        return self._data[
+            "Fraction of Zone Controlled by First Reference Point"]
 
     @fraction_of_zone_controlled_by_first_reference_point.setter
     def fraction_of_zone_controlled_by_first_reference_point(self, value=1.0):
@@ -256,10 +445,13 @@ class DaylightingControls(DataObject):
         Returns:
             float: the value of `fraction_of_zone_controlled_by_second_reference_point` or None if not set
         """
-        return self._data["Fraction of Zone Controlled by Second Reference Point"]
+        return self._data[
+            "Fraction of Zone Controlled by Second Reference Point"]
 
     @fraction_of_zone_controlled_by_second_reference_point.setter
-    def fraction_of_zone_controlled_by_second_reference_point(self, value=None):
+    def fraction_of_zone_controlled_by_second_reference_point(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Fraction of Zone Controlled by Second Reference Point`
 
         Args:
@@ -351,16 +543,20 @@ class DaylightingControls(DataObject):
         self["Lighting Control Type"] = value
 
     @property
-    def glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis(self):
+    def glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis(
+            self):
         """Get glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis
 
         Returns:
             float: the value of `glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis` or None if not set
         """
-        return self._data["Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis"]
+        return self._data[
+            "Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis"]
 
     @glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis.setter
-    def glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis(self, value=None):
+    def glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis`
 
         Args:
@@ -373,7 +569,8 @@ class DaylightingControls(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis"] = value
+        self[
+            "Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis"] = value
 
     @property
     def maximum_allowable_discomfort_glare_index(self):
@@ -408,10 +605,13 @@ class DaylightingControls(DataObject):
         Returns:
             float: the value of `minimum_input_power_fraction_for_continuous_dimming_control` or None if not set
         """
-        return self._data["Minimum Input Power Fraction for Continuous Dimming Control"]
+        return self._data[
+            "Minimum Input Power Fraction for Continuous Dimming Control"]
 
     @minimum_input_power_fraction_for_continuous_dimming_control.setter
-    def minimum_input_power_fraction_for_continuous_dimming_control(self, value=0.3):
+    def minimum_input_power_fraction_for_continuous_dimming_control(
+            self,
+            value=0.3):
         """  Corresponds to IDD Field `Minimum Input Power Fraction for Continuous Dimming Control`
 
         Args:
@@ -424,7 +624,8 @@ class DaylightingControls(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Input Power Fraction for Continuous Dimming Control"] = value
+        self[
+            "Minimum Input Power Fraction for Continuous Dimming Control"] = value
 
     @property
     def minimum_light_output_fraction_for_continuous_dimming_control(self):
@@ -433,10 +634,13 @@ class DaylightingControls(DataObject):
         Returns:
             float: the value of `minimum_light_output_fraction_for_continuous_dimming_control` or None if not set
         """
-        return self._data["Minimum Light Output Fraction for Continuous Dimming Control"]
+        return self._data[
+            "Minimum Light Output Fraction for Continuous Dimming Control"]
 
     @minimum_light_output_fraction_for_continuous_dimming_control.setter
-    def minimum_light_output_fraction_for_continuous_dimming_control(self, value=0.2):
+    def minimum_light_output_fraction_for_continuous_dimming_control(
+            self,
+            value=0.2):
         """  Corresponds to IDD Field `Minimum Light Output Fraction for Continuous Dimming Control`
 
         Args:
@@ -449,7 +653,8 @@ class DaylightingControls(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Light Output Fraction for Continuous Dimming Control"] = value
+        self[
+            "Minimum Light Output Fraction for Continuous Dimming Control"] = value
 
     @property
     def number_of_stepped_control_steps(self):
@@ -477,16 +682,20 @@ class DaylightingControls(DataObject):
         self["Number of Stepped Control Steps"] = value
 
     @property
-    def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(self):
+    def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(
+            self):
         """Get probability_lighting_will_be_reset_when_needed_in_manual_stepped_control
 
         Returns:
             float: the value of `probability_lighting_will_be_reset_when_needed_in_manual_stepped_control` or None if not set
         """
-        return self._data["Probability Lighting will be Reset When Needed in Manual Stepped Control"]
+        return self._data[
+            "Probability Lighting will be Reset When Needed in Manual Stepped Control"]
 
     @probability_lighting_will_be_reset_when_needed_in_manual_stepped_control.setter
-    def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(self, value=1.0):
+    def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(
+            self,
+            value=1.0):
         """  Corresponds to IDD Field `Probability Lighting will be Reset When Needed in Manual Stepped Control`
 
         Args:
@@ -499,7 +708,8 @@ class DaylightingControls(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = value
+        self[
+            "Probability Lighting will be Reset When Needed in Manual Stepped Control"] = value
 
     @property
     def availability_schedule_name(self):
@@ -526,11 +736,89 @@ class DaylightingControls(DataObject):
 
 
 class DaylightingDelightControls(DataObject):
+
     """ Corresponds to IDD object `Daylighting:DELight:Controls`
         Dimming of overhead electric lighting is determined from
         DElight calculated interior daylight illuminance at one or more reference points.
     """
-    schema = {'min-fields': 8, 'name': u'Daylighting:DELight:Controls', 'pyname': u'DaylightingDelightControls', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'lighting control type', {'name': u'Lighting Control Type', 'pyname': u'lighting_control_type', 'default': 1, 'maximum': 3, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'minimum input power fraction for continuous dimming control', {'name': u'Minimum Input Power Fraction for Continuous Dimming Control', 'pyname': u'minimum_input_power_fraction_for_continuous_dimming_control', 'default': 0.3, 'maximum': 0.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'minimum light output fraction for continuous dimming control', {'name': u'Minimum Light Output Fraction for Continuous Dimming Control', 'pyname': u'minimum_light_output_fraction_for_continuous_dimming_control', 'default': 0.2, 'maximum': 0.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'number of stepped control steps', {'name': u'Number of Stepped Control Steps', 'pyname': u'number_of_stepped_control_steps', 'default': 1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'probability lighting will be reset when needed in manual stepped control', {'name': u'Probability Lighting will be Reset When Needed in Manual Stepped Control', 'pyname': u'probability_lighting_will_be_reset_when_needed_in_manual_stepped_control', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'gridding resolution', {'name': u'Gridding Resolution', 'pyname': u'gridding_resolution', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 8,
+              'name': u'Daylighting:DELight:Controls',
+              'pyname': u'DaylightingDelightControls',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'lighting control type',
+                                      {'name': u'Lighting Control Type',
+                                       'pyname': u'lighting_control_type',
+                                       'default': 1,
+                                       'maximum': 3,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'minimum input power fraction for continuous dimming control',
+                                      {'name': u'Minimum Input Power Fraction for Continuous Dimming Control',
+                                       'pyname': u'minimum_input_power_fraction_for_continuous_dimming_control',
+                                       'default': 0.3,
+                                       'maximum': 0.6,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'minimum light output fraction for continuous dimming control',
+                                      {'name': u'Minimum Light Output Fraction for Continuous Dimming Control',
+                                       'pyname': u'minimum_light_output_fraction_for_continuous_dimming_control',
+                                       'default': 0.2,
+                                       'maximum': 0.6,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'number of stepped control steps',
+                                      {'name': u'Number of Stepped Control Steps',
+                                       'pyname': u'number_of_stepped_control_steps',
+                                       'default': 1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'probability lighting will be reset when needed in manual stepped control',
+                                      {'name': u'Probability Lighting will be Reset When Needed in Manual Stepped Control',
+                                       'pyname': u'probability_lighting_will_be_reset_when_needed_in_manual_stepped_control',
+                                       'default': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'gridding resolution',
+                                      {'name': u'Gridding Resolution',
+                                       'pyname': u'gridding_resolution',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:DELight:Controls`
@@ -622,10 +910,13 @@ class DaylightingDelightControls(DataObject):
         Returns:
             float: the value of `minimum_input_power_fraction_for_continuous_dimming_control` or None if not set
         """
-        return self._data["Minimum Input Power Fraction for Continuous Dimming Control"]
+        return self._data[
+            "Minimum Input Power Fraction for Continuous Dimming Control"]
 
     @minimum_input_power_fraction_for_continuous_dimming_control.setter
-    def minimum_input_power_fraction_for_continuous_dimming_control(self, value=0.3):
+    def minimum_input_power_fraction_for_continuous_dimming_control(
+            self,
+            value=0.3):
         """  Corresponds to IDD Field `Minimum Input Power Fraction for Continuous Dimming Control`
 
         Args:
@@ -638,7 +929,8 @@ class DaylightingDelightControls(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Input Power Fraction for Continuous Dimming Control"] = value
+        self[
+            "Minimum Input Power Fraction for Continuous Dimming Control"] = value
 
     @property
     def minimum_light_output_fraction_for_continuous_dimming_control(self):
@@ -647,10 +939,13 @@ class DaylightingDelightControls(DataObject):
         Returns:
             float: the value of `minimum_light_output_fraction_for_continuous_dimming_control` or None if not set
         """
-        return self._data["Minimum Light Output Fraction for Continuous Dimming Control"]
+        return self._data[
+            "Minimum Light Output Fraction for Continuous Dimming Control"]
 
     @minimum_light_output_fraction_for_continuous_dimming_control.setter
-    def minimum_light_output_fraction_for_continuous_dimming_control(self, value=0.2):
+    def minimum_light_output_fraction_for_continuous_dimming_control(
+            self,
+            value=0.2):
         """  Corresponds to IDD Field `Minimum Light Output Fraction for Continuous Dimming Control`
 
         Args:
@@ -663,7 +958,8 @@ class DaylightingDelightControls(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Light Output Fraction for Continuous Dimming Control"] = value
+        self[
+            "Minimum Light Output Fraction for Continuous Dimming Control"] = value
 
     @property
     def number_of_stepped_control_steps(self):
@@ -691,16 +987,20 @@ class DaylightingDelightControls(DataObject):
         self["Number of Stepped Control Steps"] = value
 
     @property
-    def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(self):
+    def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(
+            self):
         """Get probability_lighting_will_be_reset_when_needed_in_manual_stepped_control
 
         Returns:
             float: the value of `probability_lighting_will_be_reset_when_needed_in_manual_stepped_control` or None if not set
         """
-        return self._data["Probability Lighting will be Reset When Needed in Manual Stepped Control"]
+        return self._data[
+            "Probability Lighting will be Reset When Needed in Manual Stepped Control"]
 
     @probability_lighting_will_be_reset_when_needed_in_manual_stepped_control.setter
-    def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(self, value=None):
+    def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Probability Lighting will be Reset When Needed in Manual Stepped Control`
 
         Args:
@@ -712,7 +1012,8 @@ class DaylightingDelightControls(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = value
+        self[
+            "Probability Lighting will be Reset When Needed in Manual Stepped Control"] = value
 
     @property
     def gridding_resolution(self):
@@ -745,13 +1046,78 @@ class DaylightingDelightControls(DataObject):
 
 
 class DaylightingDelightReferencePoint(DataObject):
+
     """ Corresponds to IDD object `Daylighting:DELight:ReferencePoint`
         DElight reference point for illuminance calculation and electric lighting dimming.
         reference points are given in coordinates specified in the GlobalGeometryRules object
         Daylighting Reference Point CoordinateSystem field
         There is a maximum number of 100 reference points per DElight daylighting zone.
     """
-    schema = {'min-fields': 7, 'name': u'Daylighting:DELight:ReferencePoint', 'pyname': u'DaylightingDelightReferencePoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'delight name', {'name': u'DElight Name', 'pyname': u'delight_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'x-coordinate of reference point', {'name': u'X-coordinate of Reference Point', 'pyname': u'xcoordinate_of_reference_point', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y-coordinate of reference point', {'name': u'Y-coordinate of Reference Point', 'pyname': u'ycoordinate_of_reference_point', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'z-coordinate of reference point', {'name': u'Z-coordinate of Reference Point', 'pyname': u'zcoordinate_of_reference_point', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fraction of zone controlled by reference point', {'name': u'Fraction of Zone Controlled by Reference Point', 'pyname': u'fraction_of_zone_controlled_by_reference_point', 'default': 1.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'illuminance setpoint at reference point', {'name': u'Illuminance Setpoint at Reference Point', 'pyname': u'illuminance_setpoint_at_reference_point', 'default': 500.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'lux'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 7,
+              'name': u'Daylighting:DELight:ReferencePoint',
+              'pyname': u'DaylightingDelightReferencePoint',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'delight name',
+                                      {'name': u'DElight Name',
+                                       'pyname': u'delight_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'x-coordinate of reference point',
+                                      {'name': u'X-coordinate of Reference Point',
+                                       'pyname': u'xcoordinate_of_reference_point',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'y-coordinate of reference point',
+                                      {'name': u'Y-coordinate of Reference Point',
+                                       'pyname': u'ycoordinate_of_reference_point',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'z-coordinate of reference point',
+                                      {'name': u'Z-coordinate of Reference Point',
+                                       'pyname': u'zcoordinate_of_reference_point',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'fraction of zone controlled by reference point',
+                                      {'name': u'Fraction of Zone Controlled by Reference Point',
+                                       'pyname': u'fraction_of_zone_controlled_by_reference_point',
+                                       'default': 1.0,
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'illuminance setpoint at reference point',
+                                      {'name': u'Illuminance Setpoint at Reference Point',
+                                       'pyname': u'illuminance_setpoint_at_reference_point',
+                                       'default': 500.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'lux'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:DELight:ReferencePoint`
@@ -932,10 +1298,54 @@ class DaylightingDelightReferencePoint(DataObject):
 
 
 class DaylightingDelightComplexFenestration(DataObject):
+
     """ Corresponds to IDD object `Daylighting:DELight:ComplexFenestration`
         Used for DElight Complex Fenestration of all types
     """
-    schema = {'min-fields': 5, 'name': u'Daylighting:DELight:ComplexFenestration', 'pyname': u'DaylightingDelightComplexFenestration', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'complex fenestration type', {'name': u'Complex Fenestration Type', 'pyname': u'complex_fenestration_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'building surface name', {'name': u'Building Surface Name', 'pyname': u'building_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'window name', {'name': u'Window Name', 'pyname': u'window_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fenestration rotation', {'name': u'Fenestration Rotation', 'pyname': u'fenestration_rotation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5,
+              'name': u'Daylighting:DELight:ComplexFenestration',
+              'pyname': u'DaylightingDelightComplexFenestration',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'complex fenestration type',
+                                      {'name': u'Complex Fenestration Type',
+                                       'pyname': u'complex_fenestration_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'building surface name',
+                                      {'name': u'Building Surface Name',
+                                       'pyname': u'building_surface_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'window name',
+                                      {'name': u'Window Name',
+                                       'pyname': u'window_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'fenestration rotation',
+                                      {'name': u'Fenestration Rotation',
+                                       'pyname': u'fenestration_rotation',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:DELight:ComplexFenestration`
@@ -1076,12 +1486,90 @@ class DaylightingDelightComplexFenestration(DataObject):
 
 
 class DaylightingDeviceTubular(DataObject):
+
     """ Corresponds to IDD object `DaylightingDevice:Tubular`
         Defines a tubular daylighting device (TDD) consisting of three components:
         a dome, a pipe, and a diffuser. The dome and diffuser are defined separately using the
         FenestrationSurface:Detailed object.
     """
-    schema = {'min-fields': 0, 'name': u'DaylightingDevice:Tubular', 'pyname': u'DaylightingDeviceTubular', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'dome name', {'name': u'Dome Name', 'pyname': u'dome_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'diffuser name', {'name': u'Diffuser Name', 'pyname': u'diffuser_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'diameter', {'name': u'Diameter', 'pyname': u'diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'total length', {'name': u'Total Length', 'pyname': u'total_length', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'effective thermal resistance', {'name': u'Effective Thermal Resistance', 'pyname': u'effective_thermal_resistance', 'default': 0.28, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2-K/W'})]), 'extensible-fields': OrderedDict([(u'transition zone 1 name', {'name': u'Transition Zone 1 Name', 'pyname': u'transition_zone_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'transition zone 1 length', {'name': u'Transition Zone 1 Length', 'pyname': u'transition_zone_1_length', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'DaylightingDevice:Tubular',
+              'pyname': u'DaylightingDeviceTubular',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'dome name',
+                                      {'name': u'Dome Name',
+                                       'pyname': u'dome_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'diffuser name',
+                                      {'name': u'Diffuser Name',
+                                       'pyname': u'diffuser_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'construction name',
+                                      {'name': u'Construction Name',
+                                       'pyname': u'construction_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'diameter',
+                                      {'name': u'Diameter',
+                                       'pyname': u'diameter',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'total length',
+                                      {'name': u'Total Length',
+                                       'pyname': u'total_length',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'effective thermal resistance',
+                                      {'name': u'Effective Thermal Resistance',
+                                       'pyname': u'effective_thermal_resistance',
+                                       'default': 0.28,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2-K/W'})]),
+              'extensible-fields': OrderedDict([(u'transition zone 1 name',
+                                                 {'name': u'Transition Zone 1 Name',
+                                                  'pyname': u'transition_zone_1_name',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'object-list'}),
+                                                (u'transition zone 1 length',
+                                                 {'name': u'Transition Zone 1 Length',
+                                                  'pyname': u'transition_zone_1_length',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'minimum': 0.0,
+                                                  'autocalculatable': False,
+                                                  'type': u'real',
+                                                  'unit': u'm'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DaylightingDevice:Tubular`
@@ -1280,9 +1768,13 @@ class DaylightingDeviceTubular(DataObject):
                 specification and is assumed to be a missing value
         """
         vals = []
-        transition_zone_1_name = self.check_value("Transition Zone 1 Name", transition_zone_1_name)
+        transition_zone_1_name = self.check_value(
+            "Transition Zone 1 Name",
+            transition_zone_1_name)
         vals.append(transition_zone_1_name)
-        transition_zone_1_length = self.check_value("Transition Zone 1 Length", transition_zone_1_length)
+        transition_zone_1_length = self.check_value(
+            "Transition Zone 1 Length",
+            transition_zone_1_length)
         vals.append(transition_zone_1_length)
         self._data["extensibles"].append(vals)
 
@@ -1294,12 +1786,63 @@ class DaylightingDeviceTubular(DataObject):
 
 
 class DaylightingDeviceShelf(DataObject):
+
     """ Corresponds to IDD object `DaylightingDevice:Shelf`
         Defines a daylighting which can have an inside shelf, an outside shelf, or both.
         The inside shelf is defined as a building surface and the outside shelf is defined
         as a shading surface.
     """
-    schema = {'min-fields': 0, 'name': u'DaylightingDevice:Shelf', 'pyname': u'DaylightingDeviceShelf', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'window name', {'name': u'Window Name', 'pyname': u'window_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inside shelf name', {'name': u'Inside Shelf Name', 'pyname': u'inside_shelf_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside shelf name', {'name': u'Outside Shelf Name', 'pyname': u'outside_shelf_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside shelf construction name', {'name': u'Outside Shelf Construction Name', 'pyname': u'outside_shelf_construction_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'view factor to outside shelf', {'name': u'View Factor to Outside Shelf', 'pyname': u'view_factor_to_outside_shelf', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'DaylightingDevice:Shelf',
+              'pyname': u'DaylightingDeviceShelf',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'window name',
+                                      {'name': u'Window Name',
+                                       'pyname': u'window_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'inside shelf name',
+                                      {'name': u'Inside Shelf Name',
+                                       'pyname': u'inside_shelf_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'outside shelf name',
+                                      {'name': u'Outside Shelf Name',
+                                       'pyname': u'outside_shelf_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'outside shelf construction name',
+                                      {'name': u'Outside Shelf Construction Name',
+                                       'pyname': u'outside_shelf_construction_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'view factor to outside shelf',
+                                      {'name': u'View Factor to Outside Shelf',
+                                       'pyname': u'view_factor_to_outside_shelf',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DaylightingDevice:Shelf`
@@ -1455,12 +1998,63 @@ class DaylightingDeviceShelf(DataObject):
 
 
 class DaylightingDeviceLightWell(DataObject):
+
     """ Corresponds to IDD object `DaylightingDevice:LightWell`
         Applies only to exterior windows in daylighting-controlled zones or
         in zones that share an interior window with a daylighting-controlled  zone.
         Generally used with skylights.
     """
-    schema = {'min-fields': 5, 'name': u'DaylightingDevice:LightWell', 'pyname': u'DaylightingDeviceLightWell', 'format': None, 'fields': OrderedDict([(u'exterior window name', {'name': u'Exterior Window Name', 'pyname': u'exterior_window_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'height of well', {'name': u'Height of Well', 'pyname': u'height_of_well', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'perimeter of bottom of well', {'name': u'Perimeter of Bottom of Well', 'pyname': u'perimeter_of_bottom_of_well', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'area of bottom of well', {'name': u'Area of Bottom of Well', 'pyname': u'area_of_bottom_of_well', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'visible reflectance of well walls', {'name': u'Visible Reflectance of Well Walls', 'pyname': u'visible_reflectance_of_well_walls', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5,
+              'name': u'DaylightingDevice:LightWell',
+              'pyname': u'DaylightingDeviceLightWell',
+              'format': None,
+              'fields': OrderedDict([(u'exterior window name',
+                                      {'name': u'Exterior Window Name',
+                                       'pyname': u'exterior_window_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'height of well',
+                                      {'name': u'Height of Well',
+                                       'pyname': u'height_of_well',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'perimeter of bottom of well',
+                                      {'name': u'Perimeter of Bottom of Well',
+                                       'pyname': u'perimeter_of_bottom_of_well',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'area of bottom of well',
+                                      {'name': u'Area of Bottom of Well',
+                                       'pyname': u'area_of_bottom_of_well',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'visible reflectance of well walls',
+                                      {'name': u'Visible Reflectance of Well Walls',
+                                       'pyname': u'visible_reflectance_of_well_walls',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DaylightingDevice:LightWell`
@@ -1594,11 +2188,25 @@ class DaylightingDeviceLightWell(DataObject):
 
 
 class OutputDaylightFactors(DataObject):
+
     """ Corresponds to IDD object `Output:DaylightFactors`
         Reports hourly daylight factors for each exterior window for four sky types
         (clear, turbid clear, intermediate, and overcast).
     """
-    schema = {'min-fields': 0, 'name': u'Output:DaylightFactors', 'pyname': u'OutputDaylightFactors', 'format': None, 'fields': OrderedDict([(u'reporting days', {'name': u'Reporting Days', 'pyname': u'reporting_days', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Output:DaylightFactors',
+              'pyname': u'OutputDaylightFactors',
+              'format': None,
+              'fields': OrderedDict([(u'reporting days',
+                                      {'name': u'Reporting Days',
+                                       'pyname': u'reporting_days',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:DaylightFactors`
@@ -1634,11 +2242,95 @@ class OutputDaylightFactors(DataObject):
 
 
 class OutputIlluminanceMap(DataObject):
+
     """ Corresponds to IDD object `Output:IlluminanceMap`
         reference points are given in coordinates specified in the GlobalGeometryRules object
         Daylighting Reference Point CoordinateSystem field
     """
-    schema = {'min-fields': 9, 'name': u'Output:IlluminanceMap', 'pyname': u'OutputIlluminanceMap', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'z height', {'name': u'Z height', 'pyname': u'z_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'x minimum coordinate', {'name': u'X Minimum Coordinate', 'pyname': u'x_minimum_coordinate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'x maximum coordinate', {'name': u'X Maximum Coordinate', 'pyname': u'x_maximum_coordinate', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'number of x grid points', {'name': u'Number of X Grid Points', 'pyname': u'number_of_x_grid_points', 'default': 2, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'y minimum coordinate', {'name': u'Y Minimum Coordinate', 'pyname': u'y_minimum_coordinate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y maximum coordinate', {'name': u'Y Maximum Coordinate', 'pyname': u'y_maximum_coordinate', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'number of y grid points', {'name': u'Number of Y Grid Points', 'pyname': u'number_of_y_grid_points', 'default': 2, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 9,
+              'name': u'Output:IlluminanceMap',
+              'pyname': u'OutputIlluminanceMap',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'z height',
+                                      {'name': u'Z height',
+                                       'pyname': u'z_height',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'x minimum coordinate',
+                                      {'name': u'X Minimum Coordinate',
+                                       'pyname': u'x_minimum_coordinate',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'x maximum coordinate',
+                                      {'name': u'X Maximum Coordinate',
+                                       'pyname': u'x_maximum_coordinate',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'number of x grid points',
+                                      {'name': u'Number of X Grid Points',
+                                       'pyname': u'number_of_x_grid_points',
+                                       'default': 2,
+                                       'minimum>': 0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'y minimum coordinate',
+                                      {'name': u'Y Minimum Coordinate',
+                                       'pyname': u'y_minimum_coordinate',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'y maximum coordinate',
+                                      {'name': u'Y Maximum Coordinate',
+                                       'pyname': u'y_maximum_coordinate',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'number of y grid points',
+                                      {'name': u'Number of Y Grid Points',
+                                       'pyname': u'number_of_y_grid_points',
+                                       'default': 2,
+                                       'minimum>': 0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'integer'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:IlluminanceMap`
@@ -1869,13 +2561,28 @@ class OutputIlluminanceMap(DataObject):
 
 
 class OutputControlIlluminanceMapStyle(DataObject):
+
     """ Corresponds to IDD object `OutputControl:IlluminanceMap:Style`
         default style for the Daylighting Illuminance Map is comma -- this works well for
         importing into spreadsheet programs such as Excel(tm) but not so well for word
         processing progams -- there tab may be a better choice.  fixed puts spaces between
         the "columns"
     """
-    schema = {'min-fields': 0, 'name': u'OutputControl:IlluminanceMap:Style', 'pyname': u'OutputControlIlluminanceMapStyle', 'format': None, 'fields': OrderedDict([(u'column separator', {'name': u'Column Separator', 'pyname': u'column_separator', 'default': u'Comma', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'OutputControl:IlluminanceMap:Style',
+              'pyname': u'OutputControlIlluminanceMapStyle',
+              'format': None,
+              'fields': OrderedDict([(u'column separator',
+                                      {'name': u'Column Separator',
+                                       'pyname': u'column_separator',
+                                       'default': u'Comma',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:IlluminanceMap:Style`

@@ -9,10 +9,45 @@ logger.addHandler(logging.NullHandler())
 
 
 class ZoneControlHumidistat(DataObject):
+
     """ Corresponds to IDD object `ZoneControl:Humidistat`
         Specifies zone relative humidity setpoint schedules for humidifying and dehumidifying.
     """
-    schema = {'min-fields': 3, 'name': u'ZoneControl:Humidistat', 'pyname': u'ZoneControlHumidistat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'humidifying relative humidity setpoint schedule name', {'name': u'Humidifying Relative Humidity Setpoint Schedule Name', 'pyname': u'humidifying_relative_humidity_setpoint_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidifying relative humidity setpoint schedule name', {'name': u'Dehumidifying Relative Humidity Setpoint Schedule Name', 'pyname': u'dehumidifying_relative_humidity_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'ZoneControl:Humidistat',
+              'pyname': u'ZoneControlHumidistat',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'humidifying relative humidity setpoint schedule name',
+                                      {'name': u'Humidifying Relative Humidity Setpoint Schedule Name',
+                                       'pyname': u'humidifying_relative_humidity_setpoint_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'dehumidifying relative humidity setpoint schedule name',
+                                      {'name': u'Dehumidifying Relative Humidity Setpoint Schedule Name',
+                                       'pyname': u'dehumidifying_relative_humidity_setpoint_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Humidistat`
@@ -76,7 +111,8 @@ class ZoneControlHumidistat(DataObject):
         Returns:
             str: the value of `humidifying_relative_humidity_setpoint_schedule_name` or None if not set
         """
-        return self._data["Humidifying Relative Humidity Setpoint Schedule Name"]
+        return self._data[
+            "Humidifying Relative Humidity Setpoint Schedule Name"]
 
     @humidifying_relative_humidity_setpoint_schedule_name.setter
     def humidifying_relative_humidity_setpoint_schedule_name(self, value=None):
@@ -100,10 +136,13 @@ class ZoneControlHumidistat(DataObject):
         Returns:
             str: the value of `dehumidifying_relative_humidity_setpoint_schedule_name` or None if not set
         """
-        return self._data["Dehumidifying Relative Humidity Setpoint Schedule Name"]
+        return self._data[
+            "Dehumidifying Relative Humidity Setpoint Schedule Name"]
 
     @dehumidifying_relative_humidity_setpoint_schedule_name.setter
-    def dehumidifying_relative_humidity_setpoint_schedule_name(self, value=None):
+    def dehumidifying_relative_humidity_setpoint_schedule_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Dehumidifying Relative Humidity Setpoint Schedule Name`
         hourly schedule values should be in Relative Humidity (percent)
 
@@ -119,12 +158,96 @@ class ZoneControlHumidistat(DataObject):
 
 
 class ZoneControlThermostat(DataObject):
+
     """ Corresponds to IDD object `ZoneControl:Thermostat`
         Define the Thermostat settings for a zone or list of zones.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneControl:Thermostat', 'pyname': u'ZoneControlThermostat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control type schedule name', {'name': u'Control Type Schedule Name', 'pyname': u'control_type_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 1 object type', {'name': u'Control 1 Object Type', 'pyname': u'control_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control 1 name', {'name': u'Control 1 Name', 'pyname': u'control_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 2 object type', {'name': u'Control 2 Object Type', 'pyname': u'control_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control 2 name', {'name': u'Control 2 Name', 'pyname': u'control_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 3 object type', {'name': u'Control 3 Object Type', 'pyname': u'control_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control 3 name', {'name': u'Control 3 Name', 'pyname': u'control_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 4 object type', {'name': u'Control 4 Object Type', 'pyname': u'control_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control 4 name', {'name': u'Control 4 Name', 'pyname': u'control_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ZoneControl:Thermostat',
+              'pyname': u'ZoneControlThermostat',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'zone or zonelist name',
+                                      {'name': u'Zone or ZoneList Name',
+                                       'pyname': u'zone_or_zonelist_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'control type schedule name',
+                                      {'name': u'Control Type Schedule Name',
+                                       'pyname': u'control_type_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'control 1 object type',
+                                      {'name': u'Control 1 Object Type',
+                                       'pyname': u'control_1_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'control 1 name',
+                                      {'name': u'Control 1 Name',
+                                       'pyname': u'control_1_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'control 2 object type',
+                                      {'name': u'Control 2 Object Type',
+                                       'pyname': u'control_2_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'control 2 name',
+                                      {'name': u'Control 2 Name',
+                                       'pyname': u'control_2_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'control 3 object type',
+                                      {'name': u'Control 3 Object Type',
+                                       'pyname': u'control_3_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'control 3 name',
+                                      {'name': u'Control 3 Name',
+                                       'pyname': u'control_3_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'control 4 object type',
+                                      {'name': u'Control 4 Object Type',
+                                       'pyname': u'control_4_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'control 4 name',
+                                      {'name': u'Control 4 Name',
+                                       'pyname': u'control_4_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat`
@@ -401,12 +524,49 @@ class ZoneControlThermostat(DataObject):
 
 
 class ZoneControlThermostatOperativeTemperature(DataObject):
+
     """ Corresponds to IDD object `ZoneControl:Thermostat:OperativeTemperature`
         This object can be used with the ZoneList option on a thermostat or with one
         of the zones on that list (but you won't be able to use the object list to
         pick only one of those zones.  Thermostat names are <Zone Name> <global Thermostat name> internally.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneControl:Thermostat:OperativeTemperature', 'pyname': u'ZoneControlThermostatOperativeTemperature', 'format': None, 'fields': OrderedDict([(u'thermostat name', {'name': u'Thermostat Name', 'pyname': u'thermostat_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'radiative fraction input mode', {'name': u'Radiative Fraction Input Mode', 'pyname': u'radiative_fraction_input_mode', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fixed radiative fraction', {'name': u'Fixed Radiative Fraction', 'pyname': u'fixed_radiative_fraction', 'maximum<': 0.9, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'radiative fraction schedule name', {'name': u'Radiative Fraction Schedule Name', 'pyname': u'radiative_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ZoneControl:Thermostat:OperativeTemperature',
+              'pyname': u'ZoneControlThermostatOperativeTemperature',
+              'format': None,
+              'fields': OrderedDict([(u'thermostat name',
+                                      {'name': u'Thermostat Name',
+                                       'pyname': u'thermostat_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'radiative fraction input mode',
+                                      {'name': u'Radiative Fraction Input Mode',
+                                       'pyname': u'radiative_fraction_input_mode',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fixed radiative fraction',
+                                      {'name': u'Fixed Radiative Fraction',
+                                       'pyname': u'fixed_radiative_fraction',
+                                       'maximum<': 0.9,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'radiative fraction schedule name',
+                                      {'name': u'Radiative Fraction Schedule Name',
+                                       'pyname': u'radiative_fraction_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:OperativeTemperature`
@@ -516,11 +676,132 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
 
 
 class ZoneControlThermostatThermalComfort(DataObject):
+
     """ Corresponds to IDD object `ZoneControl:Thermostat:ThermalComfort`
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    schema = {'min-fields': 9, 'name': u'ZoneControl:Thermostat:ThermalComfort', 'pyname': u'ZoneControlThermostatThermalComfort', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'averaging method', {'name': u'Averaging Method', 'pyname': u'averaging_method', 'default': u'PeopleAverage', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'specific people name', {'name': u'Specific People Name', 'pyname': u'specific_people_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum dry-bulb temperature setpoint', {'name': u'Minimum Dry-Bulb Temperature Setpoint', 'pyname': u'minimum_drybulb_temperature_setpoint', 'default': 0.0, 'maximum': 50.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum dry-bulb temperature setpoint', {'name': u'Maximum Dry-Bulb Temperature Setpoint', 'pyname': u'maximum_drybulb_temperature_setpoint', 'default': 50.0, 'maximum': 50.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal comfort control type schedule name', {'name': u'Thermal Comfort Control Type Schedule Name', 'pyname': u'thermal_comfort_control_type_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 1 object type', {'name': u'Thermal Comfort Control 1 Object Type', 'pyname': u'thermal_comfort_control_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 1 name', {'name': u'Thermal Comfort Control 1 Name', 'pyname': u'thermal_comfort_control_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 2 object type', {'name': u'Thermal Comfort Control 2 Object Type', 'pyname': u'thermal_comfort_control_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 2 name', {'name': u'Thermal Comfort Control 2 Name', 'pyname': u'thermal_comfort_control_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 3 object type', {'name': u'Thermal Comfort Control 3 Object Type', 'pyname': u'thermal_comfort_control_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 3 name', {'name': u'Thermal Comfort Control 3 Name', 'pyname': u'thermal_comfort_control_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 4 object type', {'name': u'Thermal Comfort Control 4 Object Type', 'pyname': u'thermal_comfort_control_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 4 name', {'name': u'Thermal Comfort Control 4 Name', 'pyname': u'thermal_comfort_control_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 9,
+              'name': u'ZoneControl:Thermostat:ThermalComfort',
+              'pyname': u'ZoneControlThermostatThermalComfort',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'zone or zonelist name',
+                                      {'name': u'Zone or ZoneList Name',
+                                       'pyname': u'zone_or_zonelist_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'averaging method',
+                                      {'name': u'Averaging Method',
+                                       'pyname': u'averaging_method',
+                                       'default': u'PeopleAverage',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'specific people name',
+                                      {'name': u'Specific People Name',
+                                       'pyname': u'specific_people_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum dry-bulb temperature setpoint',
+                                      {'name': u'Minimum Dry-Bulb Temperature Setpoint',
+                                       'pyname': u'minimum_drybulb_temperature_setpoint',
+                                       'default': 0.0,
+                                       'maximum': 50.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum dry-bulb temperature setpoint',
+                                      {'name': u'Maximum Dry-Bulb Temperature Setpoint',
+                                       'pyname': u'maximum_drybulb_temperature_setpoint',
+                                       'default': 50.0,
+                                       'maximum': 50.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'thermal comfort control type schedule name',
+                                      {'name': u'Thermal Comfort Control Type Schedule Name',
+                                       'pyname': u'thermal_comfort_control_type_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'thermal comfort control 1 object type',
+                                      {'name': u'Thermal Comfort Control 1 Object Type',
+                                       'pyname': u'thermal_comfort_control_1_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'thermal comfort control 1 name',
+                                      {'name': u'Thermal Comfort Control 1 Name',
+                                       'pyname': u'thermal_comfort_control_1_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'thermal comfort control 2 object type',
+                                      {'name': u'Thermal Comfort Control 2 Object Type',
+                                       'pyname': u'thermal_comfort_control_2_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'thermal comfort control 2 name',
+                                      {'name': u'Thermal Comfort Control 2 Name',
+                                       'pyname': u'thermal_comfort_control_2_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'thermal comfort control 3 object type',
+                                      {'name': u'Thermal Comfort Control 3 Object Type',
+                                       'pyname': u'thermal_comfort_control_3_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'thermal comfort control 3 name',
+                                      {'name': u'Thermal Comfort Control 3 Name',
+                                       'pyname': u'thermal_comfort_control_3_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'thermal comfort control 4 object type',
+                                      {'name': u'Thermal Comfort Control 4 Object Type',
+                                       'pyname': u'thermal_comfort_control_4_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'thermal comfort control 4 name',
+                                      {'name': u'Thermal Comfort Control 4 Name',
+                                       'pyname': u'thermal_comfort_control_4_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:ThermalComfort`
@@ -901,11 +1182,76 @@ class ZoneControlThermostatThermalComfort(DataObject):
 
 
 class ZoneControlThermostatTemperatureAndHumidity(DataObject):
+
     """ Corresponds to IDD object `ZoneControl:Thermostat:TemperatureAndHumidity`
         This object modifies a ZoneControl:Thermostat object to effect temperature control based on
         zone air humidity conditions.
     """
-    schema = {'min-fields': 2, 'name': u'ZoneControl:Thermostat:TemperatureAndHumidity', 'pyname': u'ZoneControlThermostatTemperatureAndHumidity', 'format': None, 'fields': OrderedDict([(u'thermostat name', {'name': u'Thermostat Name', 'pyname': u'thermostat_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidifying relative humidity setpoint schedule name', {'name': u'Dehumidifying Relative Humidity Setpoint Schedule Name', 'pyname': u'dehumidifying_relative_humidity_setpoint_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'Overcool', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'overcool range input method', {'name': u'Overcool Range Input Method', 'pyname': u'overcool_range_input_method', 'default': u'Constant', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'overcool constant range', {'name': u'Overcool Constant Range', 'pyname': u'overcool_constant_range', 'default': 1.7, 'maximum': 3.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'overcool range schedule name', {'name': u'Overcool Range Schedule Name', 'pyname': u'overcool_range_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'overcool control ratio', {'name': u'Overcool Control Ratio', 'pyname': u'overcool_control_ratio', 'default': 3.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent/K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'ZoneControl:Thermostat:TemperatureAndHumidity',
+              'pyname': u'ZoneControlThermostatTemperatureAndHumidity',
+              'format': None,
+              'fields': OrderedDict([(u'thermostat name',
+                                      {'name': u'Thermostat Name',
+                                       'pyname': u'thermostat_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'dehumidifying relative humidity setpoint schedule name',
+                                      {'name': u'Dehumidifying Relative Humidity Setpoint Schedule Name',
+                                       'pyname': u'dehumidifying_relative_humidity_setpoint_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'dehumidification control type',
+                                      {'name': u'Dehumidification Control Type',
+                                       'pyname': u'dehumidification_control_type',
+                                       'default': u'Overcool',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'overcool range input method',
+                                      {'name': u'Overcool Range Input Method',
+                                       'pyname': u'overcool_range_input_method',
+                                       'default': u'Constant',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'overcool constant range',
+                                      {'name': u'Overcool Constant Range',
+                                       'pyname': u'overcool_constant_range',
+                                       'default': 1.7,
+                                       'maximum': 3.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'overcool range schedule name',
+                                      {'name': u'Overcool Range Schedule Name',
+                                       'pyname': u'overcool_range_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'overcool control ratio',
+                                      {'name': u'Overcool Control Ratio',
+                                       'pyname': u'overcool_control_ratio',
+                                       'default': 3.6,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'percent/K'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:TemperatureAndHumidity`
@@ -954,10 +1300,13 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
         Returns:
             str: the value of `dehumidifying_relative_humidity_setpoint_schedule_name` or None if not set
         """
-        return self._data["Dehumidifying Relative Humidity Setpoint Schedule Name"]
+        return self._data[
+            "Dehumidifying Relative Humidity Setpoint Schedule Name"]
 
     @dehumidifying_relative_humidity_setpoint_schedule_name.setter
-    def dehumidifying_relative_humidity_setpoint_schedule_name(self, value=None):
+    def dehumidifying_relative_humidity_setpoint_schedule_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Dehumidifying Relative Humidity Setpoint Schedule Name`
         Schedule values should be in Relative Humidity (percent)
 
@@ -1106,11 +1455,32 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
 
 
 class ThermostatSetpointSingleHeating(DataObject):
+
     """ Corresponds to IDD object `ThermostatSetpoint:SingleHeating`
         Used for a heating only thermostat. The setpoint can be scheduled and varied throughout
         the simulation but only heating is allowed with this control type.
     """
-    schema = {'min-fields': 0, 'name': u'ThermostatSetpoint:SingleHeating', 'pyname': u'ThermostatSetpointSingleHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ThermostatSetpoint:SingleHeating',
+              'pyname': u'ThermostatSetpointSingleHeating',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'setpoint temperature schedule name',
+                                      {'name': u'Setpoint Temperature Schedule Name',
+                                       'pyname': u'setpoint_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleHeating`
@@ -1169,11 +1539,32 @@ class ThermostatSetpointSingleHeating(DataObject):
 
 
 class ThermostatSetpointSingleCooling(DataObject):
+
     """ Corresponds to IDD object `ThermostatSetpoint:SingleCooling`
         Used for a cooling only thermostat. The setpoint can be scheduled and varied throughout
         the simulation but only cooling is allowed.
     """
-    schema = {'min-fields': 0, 'name': u'ThermostatSetpoint:SingleCooling', 'pyname': u'ThermostatSetpointSingleCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ThermostatSetpoint:SingleCooling',
+              'pyname': u'ThermostatSetpointSingleCooling',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'setpoint temperature schedule name',
+                                      {'name': u'Setpoint Temperature Schedule Name',
+                                       'pyname': u'setpoint_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleCooling`
@@ -1232,11 +1623,32 @@ class ThermostatSetpointSingleCooling(DataObject):
 
 
 class ThermostatSetpointSingleHeatingOrCooling(DataObject):
+
     """ Corresponds to IDD object `ThermostatSetpoint:SingleHeatingOrCooling`
         Used for a heating and cooling thermostat with a single setpoint. The setpoint can be
         scheduled and varied throughout the simulation for both heating and cooling.
     """
-    schema = {'min-fields': 0, 'name': u'ThermostatSetpoint:SingleHeatingOrCooling', 'pyname': u'ThermostatSetpointSingleHeatingOrCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ThermostatSetpoint:SingleHeatingOrCooling',
+              'pyname': u'ThermostatSetpointSingleHeatingOrCooling',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'setpoint temperature schedule name',
+                                      {'name': u'Setpoint Temperature Schedule Name',
+                                       'pyname': u'setpoint_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleHeatingOrCooling`
@@ -1295,11 +1707,39 @@ class ThermostatSetpointSingleHeatingOrCooling(DataObject):
 
 
 class ThermostatSetpointDualSetpoint(DataObject):
+
     """ Corresponds to IDD object `ThermostatSetpoint:DualSetpoint`
         Used for a heating and cooling thermostat with dual setpoints. The setpoints can be
         scheduled and varied throughout the simulation for both heating and cooling.
     """
-    schema = {'min-fields': 0, 'name': u'ThermostatSetpoint:DualSetpoint', 'pyname': u'ThermostatSetpointDualSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'heating setpoint temperature schedule name', {'name': u'Heating Setpoint Temperature Schedule Name', 'pyname': u'heating_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling setpoint temperature schedule name', {'name': u'Cooling Setpoint Temperature Schedule Name', 'pyname': u'cooling_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ThermostatSetpoint:DualSetpoint',
+              'pyname': u'ThermostatSetpointDualSetpoint',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'heating setpoint temperature schedule name',
+                                      {'name': u'Heating Setpoint Temperature Schedule Name',
+                                       'pyname': u'heating_setpoint_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling setpoint temperature schedule name',
+                                      {'name': u'Cooling Setpoint Temperature Schedule Name',
+                                       'pyname': u'cooling_setpoint_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:DualSetpoint`
@@ -1381,11 +1821,32 @@ class ThermostatSetpointDualSetpoint(DataObject):
 
 
 class ThermostatSetpointThermalComfortFangerSingleHeating(DataObject):
+
     """ Corresponds to IDD object `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating`
         Used for heating only thermal comfort control. The PMV setpoint can be scheduled and
         varied throughout the simulation but only heating is allowed with this control type.
     """
-    schema = {'min-fields': 2, 'name': u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating', 'pyname': u'ThermostatSetpointThermalComfortFangerSingleHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fanger thermal comfort schedule name', {'name': u'Fanger Thermal Comfort Schedule Name', 'pyname': u'fanger_thermal_comfort_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating',
+              'pyname': u'ThermostatSetpointThermalComfortFangerSingleHeating',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'fanger thermal comfort schedule name',
+                                      {'name': u'Fanger Thermal Comfort Schedule Name',
+                                       'pyname': u'fanger_thermal_comfort_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating`
@@ -1445,11 +1906,32 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(DataObject):
 
 
 class ThermostatSetpointThermalComfortFangerSingleCooling(DataObject):
+
     """ Corresponds to IDD object `ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling`
         Used for cooling only thermal comfort control. The PMV setpoint can be scheduled and
         varied throughout the simulation but only cooling is allowed with this control type.
     """
-    schema = {'min-fields': 2, 'name': u'ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling', 'pyname': u'ThermostatSetpointThermalComfortFangerSingleCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fanger thermal comfort schedule name', {'name': u'Fanger Thermal Comfort Schedule Name', 'pyname': u'fanger_thermal_comfort_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling',
+              'pyname': u'ThermostatSetpointThermalComfortFangerSingleCooling',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'fanger thermal comfort schedule name',
+                                      {'name': u'Fanger Thermal Comfort Schedule Name',
+                                       'pyname': u'fanger_thermal_comfort_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling`
@@ -1509,12 +1991,33 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(DataObject):
 
 
 class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(DataObject):
+
     """ Corresponds to IDD object `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling`
         Used for heating and cooling thermal comfort control with a single setpoint. The PMV
         setpoint can be scheduled and varied throughout the simulation for both heating and
         cooling.
     """
-    schema = {'min-fields': 2, 'name': u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling', 'pyname': u'ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fanger thermal comfort schedule name', {'name': u'Fanger Thermal Comfort Schedule Name', 'pyname': u'fanger_thermal_comfort_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2,
+              'name': u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling',
+              'pyname': u'ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'fanger thermal comfort schedule name',
+                                      {'name': u'Fanger Thermal Comfort Schedule Name',
+                                       'pyname': u'fanger_thermal_comfort_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling`
@@ -1574,12 +2077,40 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(DataObject):
 
 
 class ThermostatSetpointThermalComfortFangerDualSetpoint(DataObject):
+
     """ Corresponds to IDD object `ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint`
         Used for heating and cooling thermal comfort control with dual setpoints. The PMV
         setpoints can be scheduled and varied throughout the simulation for both heating and
         cooling.
     """
-    schema = {'min-fields': 3, 'name': u'ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint', 'pyname': u'ThermostatSetpointThermalComfortFangerDualSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fanger thermal comfort heating schedule name', {'name': u'Fanger Thermal Comfort Heating Schedule Name', 'pyname': u'fanger_thermal_comfort_heating_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fanger thermal comfort cooling schedule name', {'name': u'Fanger Thermal Comfort Cooling Schedule Name', 'pyname': u'fanger_thermal_comfort_cooling_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3,
+              'name': u'ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint',
+              'pyname': u'ThermostatSetpointThermalComfortFangerDualSetpoint',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'fanger thermal comfort heating schedule name',
+                                      {'name': u'Fanger Thermal Comfort Heating Schedule Name',
+                                       'pyname': u'fanger_thermal_comfort_heating_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'fanger thermal comfort cooling schedule name',
+                                      {'name': u'Fanger Thermal Comfort Cooling Schedule Name',
+                                       'pyname': u'fanger_thermal_comfort_cooling_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint`
@@ -1663,12 +2194,157 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(DataObject):
 
 
 class ZoneControlThermostatStagedDualSetpoint(DataObject):
+
     """ Corresponds to IDD object `ZoneControl:Thermostat:StagedDualSetpoint`
         Define the Thermostat StagedDualSetpoint settings for a zone or list of zones.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneControl:Thermostat:StagedDualSetpoint', 'pyname': u'ZoneControlThermostatStagedDualSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of heating stages', {'name': u'Number of Heating Stages', 'pyname': u'number_of_heating_stages', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'heating temperature setpoint schedule name', {'name': u'Heating Temperature Setpoint Schedule Name', 'pyname': u'heating_temperature_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating throttling temperature range', {'name': u'Heating Throttling Temperature Range', 'pyname': u'heating_throttling_temperature_range', 'default': 1.1, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'stage 1 heating temperature offset', {'name': u'Stage 1 Heating Temperature Offset', 'pyname': u'stage_1_heating_temperature_offset', 'maximum': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 2 heating temperature offset', {'name': u'Stage 2 Heating Temperature Offset', 'pyname': u'stage_2_heating_temperature_offset', 'maximum': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 3 heating temperature offset', {'name': u'Stage 3 Heating Temperature Offset', 'pyname': u'stage_3_heating_temperature_offset', 'maximum': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 4 heating temperature offset', {'name': u'Stage 4 Heating Temperature Offset', 'pyname': u'stage_4_heating_temperature_offset', 'maximum': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'number of cooling stages', {'name': u'Number of Cooling Stages', 'pyname': u'number_of_cooling_stages', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'cooling temperature setpoint base schedule name', {'name': u'Cooling Temperature Setpoint Base Schedule Name', 'pyname': u'cooling_temperature_setpoint_base_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling throttling temperature range', {'name': u'Cooling Throttling Temperature Range', 'pyname': u'cooling_throttling_temperature_range', 'default': 1.1, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'stage 1 cooling temperature offset', {'name': u'Stage 1 Cooling Temperature Offset', 'pyname': u'stage_1_cooling_temperature_offset', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 2 cooling temperature offset', {'name': u'Stage 2 Cooling Temperature Offset', 'pyname': u'stage_2_cooling_temperature_offset', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 3 cooling temperature offset', {'name': u'Stage 3 Cooling Temperature Offset', 'pyname': u'stage_3_cooling_temperature_offset', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 4 cooling temperature offset', {'name': u'Stage 4 Cooling Temperature Offset', 'pyname': u'stage_4_cooling_temperature_offset', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ZoneControl:Thermostat:StagedDualSetpoint',
+              'pyname': u'ZoneControlThermostatStagedDualSetpoint',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'zone or zonelist name',
+                                      {'name': u'Zone or ZoneList Name',
+                                       'pyname': u'zone_or_zonelist_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'number of heating stages',
+                                      {'name': u'Number of Heating Stages',
+                                       'pyname': u'number_of_heating_stages',
+                                       'maximum': 4,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'heating temperature setpoint schedule name',
+                                      {'name': u'Heating Temperature Setpoint Schedule Name',
+                                       'pyname': u'heating_temperature_setpoint_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating throttling temperature range',
+                                      {'name': u'Heating Throttling Temperature Range',
+                                       'pyname': u'heating_throttling_temperature_range',
+                                       'default': 1.1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'deltaC'}),
+                                     (u'stage 1 heating temperature offset',
+                                      {'name': u'Stage 1 Heating Temperature Offset',
+                                       'pyname': u'stage_1_heating_temperature_offset',
+                                       'maximum': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'stage 2 heating temperature offset',
+                                      {'name': u'Stage 2 Heating Temperature Offset',
+                                       'pyname': u'stage_2_heating_temperature_offset',
+                                       'maximum': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'stage 3 heating temperature offset',
+                                      {'name': u'Stage 3 Heating Temperature Offset',
+                                       'pyname': u'stage_3_heating_temperature_offset',
+                                       'maximum': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'stage 4 heating temperature offset',
+                                      {'name': u'Stage 4 Heating Temperature Offset',
+                                       'pyname': u'stage_4_heating_temperature_offset',
+                                       'maximum': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'number of cooling stages',
+                                      {'name': u'Number of Cooling Stages',
+                                       'pyname': u'number_of_cooling_stages',
+                                       'maximum': 4,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'cooling temperature setpoint base schedule name',
+                                      {'name': u'Cooling Temperature Setpoint Base Schedule Name',
+                                       'pyname': u'cooling_temperature_setpoint_base_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling throttling temperature range',
+                                      {'name': u'Cooling Throttling Temperature Range',
+                                       'pyname': u'cooling_throttling_temperature_range',
+                                       'default': 1.1,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'deltaC'}),
+                                     (u'stage 1 cooling temperature offset',
+                                      {'name': u'Stage 1 Cooling Temperature Offset',
+                                       'pyname': u'stage_1_cooling_temperature_offset',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'stage 2 cooling temperature offset',
+                                      {'name': u'Stage 2 Cooling Temperature Offset',
+                                       'pyname': u'stage_2_cooling_temperature_offset',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'stage 3 cooling temperature offset',
+                                      {'name': u'Stage 3 Cooling Temperature Offset',
+                                       'pyname': u'stage_3_cooling_temperature_offset',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'stage 4 cooling temperature offset',
+                                      {'name': u'Stage 4 Cooling Temperature Offset',
+                                       'pyname': u'stage_4_cooling_temperature_offset',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:StagedDualSetpoint`
@@ -2111,11 +2787,67 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
 
 
 class ZoneControlContaminantController(DataObject):
+
     """ Corresponds to IDD object `ZoneControl:ContaminantController`
         Used to control a zone to a specified indoor level of CO2 or generic contaminants, or
         to specify minimum CO2 concentration schedule name for a zone.
     """
-    schema = {'min-fields': 4, 'name': u'ZoneControl:ContaminantController', 'pyname': u'ZoneControlContaminantController', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'controlled zone name', {'name': u'Controlled Zone Name', 'pyname': u'controlled_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'carbon dioxide control availability schedule name', {'name': u'Carbon Dioxide Control Availability Schedule Name', 'pyname': u'carbon_dioxide_control_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'carbon dioxide setpoint schedule name', {'name': u'Carbon Dioxide Setpoint Schedule Name', 'pyname': u'carbon_dioxide_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum carbon dioxide concentration schedule name', {'name': u'Minimum Carbon Dioxide Concentration Schedule Name', 'pyname': u'minimum_carbon_dioxide_concentration_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generic contaminant control availability schedule name', {'name': u'Generic Contaminant Control Availability Schedule Name', 'pyname': u'generic_contaminant_control_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generic contaminant setpoint schedule name', {'name': u'Generic Contaminant Setpoint Schedule Name', 'pyname': u'generic_contaminant_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'ZoneControl:ContaminantController',
+              'pyname': u'ZoneControlContaminantController',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'controlled zone name',
+                                      {'name': u'Controlled Zone Name',
+                                       'pyname': u'controlled_zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'carbon dioxide control availability schedule name',
+                                      {'name': u'Carbon Dioxide Control Availability Schedule Name',
+                                       'pyname': u'carbon_dioxide_control_availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'carbon dioxide setpoint schedule name',
+                                      {'name': u'Carbon Dioxide Setpoint Schedule Name',
+                                       'pyname': u'carbon_dioxide_setpoint_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum carbon dioxide concentration schedule name',
+                                      {'name': u'Minimum Carbon Dioxide Concentration Schedule Name',
+                                       'pyname': u'minimum_carbon_dioxide_concentration_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'generic contaminant control availability schedule name',
+                                      {'name': u'Generic Contaminant Control Availability Schedule Name',
+                                       'pyname': u'generic_contaminant_control_availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'generic contaminant setpoint schedule name',
+                                      {'name': u'Generic Contaminant Setpoint Schedule Name',
+                                       'pyname': u'generic_contaminant_setpoint_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:ContaminantController`
@@ -2255,10 +2987,13 @@ class ZoneControlContaminantController(DataObject):
         Returns:
             str: the value of `generic_contaminant_control_availability_schedule_name` or None if not set
         """
-        return self._data["Generic Contaminant Control Availability Schedule Name"]
+        return self._data[
+            "Generic Contaminant Control Availability Schedule Name"]
 
     @generic_contaminant_control_availability_schedule_name.setter
-    def generic_contaminant_control_availability_schedule_name(self, value=None):
+    def generic_contaminant_control_availability_schedule_name(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Generic Contaminant Control Availability Schedule Name`
         Availability schedule name for generic contaminant controller. Schedule value > 0 means
         the generic contaminant controller is enabled. If this field is blank, then generic

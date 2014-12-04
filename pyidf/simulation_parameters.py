@@ -9,10 +9,25 @@ logger.addHandler(logging.NullHandler())
 
 
 class Version(DataObject):
+
     """ Corresponds to IDD object `Version`
         Specifies the EnergyPlus version of the IDF file.
     """
-    schema = {'min-fields': 0, 'name': u'Version', 'pyname': u'Version', 'format': None, 'fields': OrderedDict([(u'version identifier', {'name': u'Version Identifier', 'pyname': u'version_identifier', 'default': u'7.0', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Version',
+              'pyname': u'Version',
+              'format': None,
+              'fields': OrderedDict([(u'version identifier',
+                                      {'name': u'Version Identifier',
+                                       'pyname': u'version_identifier',
+                                       'default': u'7.0',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Version`
@@ -49,6 +64,7 @@ class Version(DataObject):
 
 
 class SimulationControl(DataObject):
+
     """ Corresponds to IDD object `SimulationControl`
         Note that the following 3 fields are related to the Sizing:Zone, Sizing:System,
         and Sizing:Plant objects.  Having these fields set to Yes but no corresponding
@@ -57,7 +73,53 @@ class SimulationControl(DataObject):
         Note also, if you want to do system sizing, you must also do zone sizing in the same
         run or an error will result.
     """
-    schema = {'min-fields': 0, 'name': u'SimulationControl', 'pyname': u'SimulationControl', 'format': None, 'fields': OrderedDict([(u'do zone sizing calculation', {'name': u'Do Zone Sizing Calculation', 'pyname': u'do_zone_sizing_calculation', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'do system sizing calculation', {'name': u'Do System Sizing Calculation', 'pyname': u'do_system_sizing_calculation', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'do plant sizing calculation', {'name': u'Do Plant Sizing Calculation', 'pyname': u'do_plant_sizing_calculation', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'run simulation for sizing periods', {'name': u'Run Simulation for Sizing Periods', 'pyname': u'run_simulation_for_sizing_periods', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'run simulation for weather file run periods', {'name': u'Run Simulation for Weather File Run Periods', 'pyname': u'run_simulation_for_weather_file_run_periods', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SimulationControl',
+              'pyname': u'SimulationControl',
+              'format': None,
+              'fields': OrderedDict([(u'do zone sizing calculation',
+                                      {'name': u'Do Zone Sizing Calculation',
+                                       'pyname': u'do_zone_sizing_calculation',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'do system sizing calculation',
+                                      {'name': u'Do System Sizing Calculation',
+                                       'pyname': u'do_system_sizing_calculation',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'do plant sizing calculation',
+                                      {'name': u'Do Plant Sizing Calculation',
+                                       'pyname': u'do_plant_sizing_calculation',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'run simulation for sizing periods',
+                                      {'name': u'Run Simulation for Sizing Periods',
+                                       'pyname': u'run_simulation_for_sizing_periods',
+                                       'default': u'Yes',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'run simulation for weather file run periods',
+                                      {'name': u'Run Simulation for Weather File Run Periods',
+                                       'pyname': u'run_simulation_for_weather_file_run_periods',
+                                       'default': u'Yes',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SimulationControl`
@@ -199,13 +261,92 @@ class SimulationControl(DataObject):
 
 
 class Building(DataObject):
+
     """ Corresponds to IDD object `Building`
         Describes parameters that are used during the simulation
         of the building. There are necessary correlations between the entries for
         this object and some entries in the Site:WeatherStation and
         Site:HeightVariation objects, specifically the Terrain field.
     """
-    schema = {'min-fields': 8, 'name': u'Building', 'pyname': u'Building', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'default': u'NONE', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'north axis', {'name': u'North Axis', 'pyname': u'north_axis', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'terrain', {'name': u'Terrain', 'pyname': u'terrain', 'default': u'Suburbs', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'loads convergence tolerance value', {'name': u'Loads Convergence Tolerance Value', 'pyname': u'loads_convergence_tolerance_value', 'default': 0.04, 'minimum>': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature convergence tolerance value', {'name': u'Temperature Convergence Tolerance Value', 'pyname': u'temperature_convergence_tolerance_value', 'default': 0.4, 'minimum>': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'solar distribution', {'name': u'Solar Distribution', 'pyname': u'solar_distribution', 'default': u'FullExterior', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum number of warmup days', {'name': u'Maximum Number of Warmup Days', 'pyname': u'maximum_number_of_warmup_days', 'default': 25, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'minimum number of warmup days', {'name': u'Minimum Number of Warmup Days', 'pyname': u'minimum_number_of_warmup_days', 'default': 6, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': True}
+    schema = {'min-fields': 8,
+              'name': u'Building',
+              'pyname': u'Building',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'default': u'NONE',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'north axis',
+                                      {'name': u'North Axis',
+                                       'pyname': u'north_axis',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'terrain',
+                                      {'name': u'Terrain',
+                                       'pyname': u'terrain',
+                                       'default': u'Suburbs',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'loads convergence tolerance value',
+                                      {'name': u'Loads Convergence Tolerance Value',
+                                       'pyname': u'loads_convergence_tolerance_value',
+                                       'default': 0.04,
+                                       'minimum>': 0.0,
+                                       'maximum': 0.5,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature convergence tolerance value',
+                                      {'name': u'Temperature Convergence Tolerance Value',
+                                       'pyname': u'temperature_convergence_tolerance_value',
+                                       'default': 0.4,
+                                       'minimum>': 0.0,
+                                       'maximum': 0.5,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'solar distribution',
+                                      {'name': u'Solar Distribution',
+                                       'pyname': u'solar_distribution',
+                                       'default': u'FullExterior',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'maximum number of warmup days',
+                                      {'name': u'Maximum Number of Warmup Days',
+                                       'pyname': u'maximum_number_of_warmup_days',
+                                       'default': 25,
+                                       'minimum>': 0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'minimum number of warmup days',
+                                      {'name': u'Minimum Number of Warmup Days',
+                                       'pyname': u'minimum_number_of_warmup_days',
+                                       'default': 6,
+                                       'minimum>': 0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'integer'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': True}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Building`
@@ -424,10 +565,57 @@ class Building(DataObject):
 
 
 class ShadowCalculation(DataObject):
+
     """ Corresponds to IDD object `ShadowCalculation`
         This object is used to control details of the solar, shading, and daylighting models
     """
-    schema = {'min-fields': 0, 'name': u'ShadowCalculation', 'pyname': u'ShadowCalculation', 'format': None, 'fields': OrderedDict([(u'calculation method', {'name': u'Calculation Method', 'pyname': u'calculation_method', 'default': u'AverageOverDaysInFrequency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'calculation frequency', {'name': u'Calculation Frequency', 'pyname': u'calculation_frequency', 'default': 20, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'maximum figures in shadow overlap calculations', {'name': u'Maximum Figures in Shadow Overlap Calculations', 'pyname': u'maximum_figures_in_shadow_overlap_calculations', 'default': 15000, 'required-field': False, 'autosizable': False, 'minimum': 200, 'autocalculatable': False, 'type': u'integer'}), (u'polygon clipping algorithm', {'name': u'Polygon Clipping Algorithm', 'pyname': u'polygon_clipping_algorithm', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'sky diffuse modeling algorithm', {'name': u'Sky Diffuse Modeling Algorithm', 'pyname': u'sky_diffuse_modeling_algorithm', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ShadowCalculation',
+              'pyname': u'ShadowCalculation',
+              'format': None,
+              'fields': OrderedDict([(u'calculation method',
+                                      {'name': u'Calculation Method',
+                                       'pyname': u'calculation_method',
+                                       'default': u'AverageOverDaysInFrequency',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'calculation frequency',
+                                      {'name': u'Calculation Frequency',
+                                       'pyname': u'calculation_frequency',
+                                       'default': 20,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'maximum figures in shadow overlap calculations',
+                                      {'name': u'Maximum Figures in Shadow Overlap Calculations',
+                                       'pyname': u'maximum_figures_in_shadow_overlap_calculations',
+                                       'default': 15000,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 200,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'polygon clipping algorithm',
+                                      {'name': u'Polygon Clipping Algorithm',
+                                       'pyname': u'polygon_clipping_algorithm',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'sky diffuse modeling algorithm',
+                                      {'name': u'Sky Diffuse Modeling Algorithm',
+                                       'pyname': u'sky_diffuse_modeling_algorithm',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ShadowCalculation`
@@ -574,10 +762,25 @@ class ShadowCalculation(DataObject):
 
 
 class SurfaceConvectionAlgorithmInside(DataObject):
+
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Inside`
         Default indoor surface heat transfer convection algorithm to be used for all zones
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceConvectionAlgorithm:Inside', 'pyname': u'SurfaceConvectionAlgorithmInside', 'format': None, 'fields': OrderedDict([(u'algorithm', {'name': u'Algorithm', 'pyname': u'algorithm', 'default': u'TARP', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceConvectionAlgorithm:Inside',
+              'pyname': u'SurfaceConvectionAlgorithmInside',
+              'format': None,
+              'fields': OrderedDict([(u'algorithm',
+                                      {'name': u'Algorithm',
+                                       'pyname': u'algorithm',
+                                       'default': u'TARP',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Inside`
@@ -619,10 +822,25 @@ class SurfaceConvectionAlgorithmInside(DataObject):
 
 
 class SurfaceConvectionAlgorithmOutside(DataObject):
+
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Outside`
         Default outside surface heat transfer convection algorithm to be used for all zones
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceConvectionAlgorithm:Outside', 'pyname': u'SurfaceConvectionAlgorithmOutside', 'format': None, 'fields': OrderedDict([(u'algorithm', {'name': u'Algorithm', 'pyname': u'algorithm', 'default': u'DOE-2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SurfaceConvectionAlgorithm:Outside',
+              'pyname': u'SurfaceConvectionAlgorithmOutside',
+              'format': None,
+              'fields': OrderedDict([(u'algorithm',
+                                      {'name': u'Algorithm',
+                                       'pyname': u'algorithm',
+                                       'default': u'DOE-2',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Outside`
@@ -664,6 +882,7 @@ class SurfaceConvectionAlgorithmOutside(DataObject):
 
 
 class HeatBalanceAlgorithm(DataObject):
+
     """ Corresponds to IDD object `HeatBalanceAlgorithm`
         Determines which Heat Balance Algorithm will be used ie.
         CTF (Conduction Transfer Functions),
@@ -672,7 +891,51 @@ class HeatBalanceAlgorithm(DataObject):
         Advanced/Research Usage: ConductionFiniteDifferenceSimplified
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
     """
-    schema = {'min-fields': 0, 'name': u'HeatBalanceAlgorithm', 'pyname': u'HeatBalanceAlgorithm', 'format': None, 'fields': OrderedDict([(u'algorithm', {'name': u'Algorithm', 'pyname': u'algorithm', 'default': u'ConductionTransferFunction', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'surface temperature upper limit', {'name': u'Surface Temperature Upper Limit', 'pyname': u'surface_temperature_upper_limit', 'default': 200.0, 'required-field': False, 'autosizable': False, 'minimum': 200.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum surface convection heat transfer coefficient value', {'name': u'Minimum Surface Convection Heat Transfer Coefficient Value', 'pyname': u'minimum_surface_convection_heat_transfer_coefficient_value', 'default': 0.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'maximum surface convection heat transfer coefficient value', {'name': u'Maximum Surface Convection Heat Transfer Coefficient Value', 'pyname': u'maximum_surface_convection_heat_transfer_coefficient_value', 'default': 1000.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'HeatBalanceAlgorithm',
+              'pyname': u'HeatBalanceAlgorithm',
+              'format': None,
+              'fields': OrderedDict([(u'algorithm',
+                                      {'name': u'Algorithm',
+                                       'pyname': u'algorithm',
+                                       'default': u'ConductionTransferFunction',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'surface temperature upper limit',
+                                      {'name': u'Surface Temperature Upper Limit',
+                                       'pyname': u'surface_temperature_upper_limit',
+                                       'default': 200.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 200.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum surface convection heat transfer coefficient value',
+                                      {'name': u'Minimum Surface Convection Heat Transfer Coefficient Value',
+                                       'pyname': u'minimum_surface_convection_heat_transfer_coefficient_value',
+                                       'default': 0.1,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/m2-K'}),
+                                     (u'maximum surface convection heat transfer coefficient value',
+                                      {'name': u'Maximum Surface Convection Heat Transfer Coefficient Value',
+                                       'pyname': u'maximum_surface_convection_heat_transfer_coefficient_value',
+                                       'default': 1000.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W/m2-K'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatBalanceAlgorithm`
@@ -740,10 +1003,13 @@ class HeatBalanceAlgorithm(DataObject):
         Returns:
             float: the value of `minimum_surface_convection_heat_transfer_coefficient_value` or None if not set
         """
-        return self._data["Minimum Surface Convection Heat Transfer Coefficient Value"]
+        return self._data[
+            "Minimum Surface Convection Heat Transfer Coefficient Value"]
 
     @minimum_surface_convection_heat_transfer_coefficient_value.setter
-    def minimum_surface_convection_heat_transfer_coefficient_value(self, value=0.1):
+    def minimum_surface_convection_heat_transfer_coefficient_value(
+            self,
+            value=0.1):
         """  Corresponds to IDD Field `Minimum Surface Convection Heat Transfer Coefficient Value`
 
         Args:
@@ -756,7 +1022,8 @@ class HeatBalanceAlgorithm(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Surface Convection Heat Transfer Coefficient Value"] = value
+        self[
+            "Minimum Surface Convection Heat Transfer Coefficient Value"] = value
 
     @property
     def maximum_surface_convection_heat_transfer_coefficient_value(self):
@@ -765,10 +1032,13 @@ class HeatBalanceAlgorithm(DataObject):
         Returns:
             float: the value of `maximum_surface_convection_heat_transfer_coefficient_value` or None if not set
         """
-        return self._data["Maximum Surface Convection Heat Transfer Coefficient Value"]
+        return self._data[
+            "Maximum Surface Convection Heat Transfer Coefficient Value"]
 
     @maximum_surface_convection_heat_transfer_coefficient_value.setter
-    def maximum_surface_convection_heat_transfer_coefficient_value(self, value=1000.0):
+    def maximum_surface_convection_heat_transfer_coefficient_value(
+            self,
+            value=1000.0):
         """  Corresponds to IDD Field `Maximum Surface Convection Heat Transfer Coefficient Value`
 
         Args:
@@ -782,15 +1052,59 @@ class HeatBalanceAlgorithm(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Surface Convection Heat Transfer Coefficient Value"] = value
+        self[
+            "Maximum Surface Convection Heat Transfer Coefficient Value"] = value
 
 
 class HeatBalanceSettingsConductionFiniteDifference(DataObject):
+
     """ Corresponds to IDD object `HeatBalanceSettings:ConductionFiniteDifference`
         Determines settings for the Conduction Finite Difference
         algorithm for surface heat transfer modeling.
     """
-    schema = {'min-fields': 0, 'name': u'HeatBalanceSettings:ConductionFiniteDifference', 'pyname': u'HeatBalanceSettingsConductionFiniteDifference', 'format': None, 'fields': OrderedDict([(u'difference scheme', {'name': u'Difference Scheme', 'pyname': u'difference_scheme', 'default': u'FullyImplicitFirstOrder', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'space discretization constant', {'name': u'Space Discretization Constant', 'pyname': u'space_discretization_constant', 'default': 3.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'relaxation factor', {'name': u'Relaxation Factor', 'pyname': u'relaxation_factor', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.01, 'autocalculatable': False, 'type': u'real'}), (u'inside face surface temperature convergence criteria', {'name': u'Inside Face Surface Temperature Convergence Criteria', 'pyname': u'inside_face_surface_temperature_convergence_criteria', 'default': 0.002, 'maximum': 0.01, 'required-field': False, 'autosizable': False, 'minimum': 1e-07, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'HeatBalanceSettings:ConductionFiniteDifference',
+              'pyname': u'HeatBalanceSettingsConductionFiniteDifference',
+              'format': None,
+              'fields': OrderedDict([(u'difference scheme',
+                                      {'name': u'Difference Scheme',
+                                       'pyname': u'difference_scheme',
+                                       'default': u'FullyImplicitFirstOrder',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'space discretization constant',
+                                      {'name': u'Space Discretization Constant',
+                                       'pyname': u'space_discretization_constant',
+                                       'default': 3.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'relaxation factor',
+                                      {'name': u'Relaxation Factor',
+                                       'pyname': u'relaxation_factor',
+                                       'default': 1.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.01,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'inside face surface temperature convergence criteria',
+                                      {'name': u'Inside Face Surface Temperature Convergence Criteria',
+                                       'pyname': u'inside_face_surface_temperature_convergence_criteria',
+                                       'default': 0.002,
+                                       'maximum': 0.01,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1e-07,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatBalanceSettings:ConductionFiniteDifference`
@@ -883,10 +1197,13 @@ class HeatBalanceSettingsConductionFiniteDifference(DataObject):
         Returns:
             float: the value of `inside_face_surface_temperature_convergence_criteria` or None if not set
         """
-        return self._data["Inside Face Surface Temperature Convergence Criteria"]
+        return self._data[
+            "Inside Face Surface Temperature Convergence Criteria"]
 
     @inside_face_surface_temperature_convergence_criteria.setter
-    def inside_face_surface_temperature_convergence_criteria(self, value=0.002):
+    def inside_face_surface_temperature_convergence_criteria(
+            self,
+            value=0.002):
         """  Corresponds to IDD Field `Inside Face Surface Temperature Convergence Criteria`
 
         Args:
@@ -904,10 +1221,25 @@ class HeatBalanceSettingsConductionFiniteDifference(DataObject):
 
 
 class ZoneAirHeatBalanceAlgorithm(DataObject):
+
     """ Corresponds to IDD object `ZoneAirHeatBalanceAlgorithm`
         Determines which algorithm will be used to solve the zone air heat balance.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneAirHeatBalanceAlgorithm', 'pyname': u'ZoneAirHeatBalanceAlgorithm', 'format': None, 'fields': OrderedDict([(u'algorithm', {'name': u'Algorithm', 'pyname': u'algorithm', 'default': u'ThirdOrderBackwardDifference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ZoneAirHeatBalanceAlgorithm',
+              'pyname': u'ZoneAirHeatBalanceAlgorithm',
+              'format': None,
+              'fields': OrderedDict([(u'algorithm',
+                                      {'name': u'Algorithm',
+                                       'pyname': u'algorithm',
+                                       'default': u'ThirdOrderBackwardDifference',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirHeatBalanceAlgorithm`
@@ -944,10 +1276,47 @@ class ZoneAirHeatBalanceAlgorithm(DataObject):
 
 
 class ZoneAirContaminantBalance(DataObject):
+
     """ Corresponds to IDD object `ZoneAirContaminantBalance`
         Determines which contaminant concentration will be simulates.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneAirContaminantBalance', 'pyname': u'ZoneAirContaminantBalance', 'format': None, 'fields': OrderedDict([(u'carbon dioxide concentration', {'name': u'Carbon Dioxide Concentration', 'pyname': u'carbon_dioxide_concentration', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor carbon dioxide schedule name', {'name': u'Outdoor Carbon Dioxide Schedule Name', 'pyname': u'outdoor_carbon_dioxide_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generic contaminant concentration', {'name': u'Generic Contaminant Concentration', 'pyname': u'generic_contaminant_concentration', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor generic contaminant schedule name', {'name': u'Outdoor Generic Contaminant Schedule Name', 'pyname': u'outdoor_generic_contaminant_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ZoneAirContaminantBalance',
+              'pyname': u'ZoneAirContaminantBalance',
+              'format': None,
+              'fields': OrderedDict([(u'carbon dioxide concentration',
+                                      {'name': u'Carbon Dioxide Concentration',
+                                       'pyname': u'carbon_dioxide_concentration',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'outdoor carbon dioxide schedule name',
+                                      {'name': u'Outdoor Carbon Dioxide Schedule Name',
+                                       'pyname': u'outdoor_carbon_dioxide_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'generic contaminant concentration',
+                                      {'name': u'Generic Contaminant Concentration',
+                                       'pyname': u'generic_contaminant_concentration',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'outdoor generic contaminant schedule name',
+                                      {'name': u'Outdoor Generic Contaminant Schedule Name',
+                                       'pyname': u'outdoor_generic_contaminant_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirContaminantBalance`
@@ -1059,12 +1428,35 @@ class ZoneAirContaminantBalance(DataObject):
 
 
 class ZoneAirMassFlowConservation(DataObject):
+
     """ Corresponds to IDD object `ZoneAirMassFlowConservation`
         Enforces the zone air mass flow balance by adjusting zone mixing object flow rates.
         The infiltration object mass flow rate may also be adjusted or may add infiltration
         air flow to the base infiltration air flow for source zones only.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneAirMassFlowConservation', 'pyname': u'ZoneAirMassFlowConservation', 'format': None, 'fields': OrderedDict([(u'adjust zone mixing for zone air mass flow balance', {'name': u'Adjust Zone Mixing For Zone Air Mass Flow Balance', 'pyname': u'adjust_zone_mixing_for_zone_air_mass_flow_balance', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source zone infiltration treatment', {'name': u'Source Zone Infiltration Treatment', 'pyname': u'source_zone_infiltration_treatment', 'default': u'AddInfiltrationFlow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ZoneAirMassFlowConservation',
+              'pyname': u'ZoneAirMassFlowConservation',
+              'format': None,
+              'fields': OrderedDict([(u'adjust zone mixing for zone air mass flow balance',
+                                      {'name': u'Adjust Zone Mixing For Zone Air Mass Flow Balance',
+                                       'pyname': u'adjust_zone_mixing_for_zone_air_mass_flow_balance',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'source zone infiltration treatment',
+                                      {'name': u'Source Zone Infiltration Treatment',
+                                       'pyname': u'source_zone_infiltration_treatment',
+                                       'default': u'AddInfiltrationFlow',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirMassFlowConservation`
@@ -1152,10 +1544,53 @@ class ZoneAirMassFlowConservation(DataObject):
 
 
 class ZoneCapacitanceMultiplierResearchSpecial(DataObject):
+
     """ Corresponds to IDD object `ZoneCapacitanceMultiplier:ResearchSpecial`
         Multiplier altering the relative capacitance of the air compared to an empty zone
     """
-    schema = {'min-fields': 4, 'name': u'ZoneCapacitanceMultiplier:ResearchSpecial', 'pyname': u'ZoneCapacitanceMultiplierResearchSpecial', 'format': None, 'fields': OrderedDict([(u'temperature capacity multiplier', {'name': u'Temperature Capacity Multiplier', 'pyname': u'temperature_capacity_multiplier', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'humidity capacity multiplier', {'name': u'Humidity Capacity Multiplier', 'pyname': u'humidity_capacity_multiplier', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'carbon dioxide capacity multiplier', {'name': u'Carbon Dioxide Capacity Multiplier', 'pyname': u'carbon_dioxide_capacity_multiplier', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'generic contaminant capacity multiplier', {'name': u'Generic Contaminant Capacity Multiplier', 'pyname': u'generic_contaminant_capacity_multiplier', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 4,
+              'name': u'ZoneCapacitanceMultiplier:ResearchSpecial',
+              'pyname': u'ZoneCapacitanceMultiplierResearchSpecial',
+              'format': None,
+              'fields': OrderedDict([(u'temperature capacity multiplier',
+                                      {'name': u'Temperature Capacity Multiplier',
+                                       'pyname': u'temperature_capacity_multiplier',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'humidity capacity multiplier',
+                                      {'name': u'Humidity Capacity Multiplier',
+                                       'pyname': u'humidity_capacity_multiplier',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'carbon dioxide capacity multiplier',
+                                      {'name': u'Carbon Dioxide Capacity Multiplier',
+                                       'pyname': u'carbon_dioxide_capacity_multiplier',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'generic contaminant capacity multiplier',
+                                      {'name': u'Generic Contaminant Capacity Multiplier',
+                                       'pyname': u'generic_contaminant_capacity_multiplier',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneCapacitanceMultiplier:ResearchSpecial`
@@ -1268,13 +1703,30 @@ class ZoneCapacitanceMultiplierResearchSpecial(DataObject):
 
 
 class Timestep(DataObject):
+
     """ Corresponds to IDD object `Timestep`
         Specifies the "basic" timestep for the simulation. The
         value entered here is also known as the Zone Timestep.  This is used in
         the Zone Heat Balance Model calculation as the driving timestep for heat
         transfer and load calculations.
     """
-    schema = {'min-fields': 0, 'name': u'Timestep', 'pyname': u'Timestep', 'format': None, 'fields': OrderedDict([(u'number of timesteps per hour', {'name': u'Number of Timesteps per Hour', 'pyname': u'number_of_timesteps_per_hour', 'default': 6, 'maximum': 60, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Timestep',
+              'pyname': u'Timestep',
+              'format': None,
+              'fields': OrderedDict([(u'number of timesteps per hour',
+                                      {'name': u'Number of Timesteps per Hour',
+                                       'pyname': u'number_of_timesteps_per_hour',
+                                       'default': 6,
+                                       'maximum': 60,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Timestep`
@@ -1320,11 +1772,55 @@ class Timestep(DataObject):
 
 
 class ConvergenceLimits(DataObject):
+
     """ Corresponds to IDD object `ConvergenceLimits`
         Specifies limits on HVAC system simulation timesteps and iterations.
         This item is an advanced feature that should be used only with caution.
     """
-    schema = {'min-fields': 0, 'name': u'ConvergenceLimits', 'pyname': u'ConvergenceLimits', 'format': None, 'fields': OrderedDict([(u'minimum system timestep', {'name': u'Minimum System Timestep', 'pyname': u'minimum_system_timestep', 'maximum': 60, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum hvac iterations', {'name': u'Maximum HVAC Iterations', 'pyname': u'maximum_hvac_iterations', 'default': 20, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'minimum plant iterations', {'name': u'Minimum Plant Iterations', 'pyname': u'minimum_plant_iterations', 'default': 2, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'maximum plant iterations', {'name': u'Maximum Plant Iterations', 'pyname': u'maximum_plant_iterations', 'default': 8, 'required-field': False, 'autosizable': False, 'minimum': 2, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ConvergenceLimits',
+              'pyname': u'ConvergenceLimits',
+              'format': None,
+              'fields': OrderedDict([(u'minimum system timestep',
+                                      {'name': u'Minimum System Timestep',
+                                       'pyname': u'minimum_system_timestep',
+                                       'maximum': 60,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer',
+                                       'unit': u'minutes'}),
+                                     (u'maximum hvac iterations',
+                                      {'name': u'Maximum HVAC Iterations',
+                                       'pyname': u'maximum_hvac_iterations',
+                                       'default': 20,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'minimum plant iterations',
+                                      {'name': u'Minimum Plant Iterations',
+                                       'pyname': u'minimum_plant_iterations',
+                                       'default': 2,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'maximum plant iterations',
+                                      {'name': u'Maximum Plant Iterations',
+                                       'pyname': u'maximum_plant_iterations',
+                                       'default': 8,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 2,
+                                       'autocalculatable': False,
+                                       'type': u'integer'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ConvergenceLimits`
@@ -1445,10 +1941,25 @@ class ConvergenceLimits(DataObject):
 
 
 class ProgramControl(DataObject):
+
     """ Corresponds to IDD object `ProgramControl`
         used to support various efforts in time reduction for simulation including threading
     """
-    schema = {'min-fields': 0, 'name': u'ProgramControl', 'pyname': u'ProgramControl', 'format': None, 'fields': OrderedDict([(u'number of threads allowed', {'name': u'Number of Threads Allowed', 'pyname': u'number_of_threads_allowed', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'ProgramControl',
+              'pyname': u'ProgramControl',
+              'format': None,
+              'fields': OrderedDict([(u'number of threads allowed',
+                                      {'name': u'Number of Threads Allowed',
+                                       'pyname': u'number_of_threads_allowed',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0,
+                                       'autocalculatable': False,
+                                       'type': u'integer'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ProgramControl`

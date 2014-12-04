@@ -9,13 +9,63 @@ logger.addHandler(logging.NullHandler())
 
 
 class LoadProfilePlant(DataObject):
+
     """ Corresponds to IDD object `LoadProfile:Plant`
         Used to simulate a scheduled plant loop demand profile.  Load and flow rate are
         specified using schedules. Positive values are heating loads, and negative values are
         cooling loads. The actual load met is dependent on the performance of the supply
         loop components.
     """
-    schema = {'min-fields': 0, 'name': u'LoadProfile:Plant', 'pyname': u'LoadProfilePlant', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'load schedule name', {'name': u'Load Schedule Name', 'pyname': u'load_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'peak flow rate', {'name': u'Peak Flow Rate', 'pyname': u'peak_flow_rate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate fraction schedule name', {'name': u'Flow Rate Fraction Schedule Name', 'pyname': u'flow_rate_fraction_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'LoadProfile:Plant',
+              'pyname': u'LoadProfilePlant',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'inlet node name',
+                                      {'name': u'Inlet Node Name',
+                                       'pyname': u'inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outlet node name',
+                                      {'name': u'Outlet Node Name',
+                                       'pyname': u'outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'load schedule name',
+                                      {'name': u'Load Schedule Name',
+                                       'pyname': u'load_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'peak flow rate',
+                                      {'name': u'Peak Flow Rate',
+                                       'pyname': u'peak_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'flow rate fraction schedule name',
+                                      {'name': u'Flow Rate Fraction Schedule Name',
+                                       'pyname': u'flow_rate_fraction_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LoadProfile:Plant`

@@ -9,6 +9,7 @@ logger.addHandler(logging.NullHandler())
 
 
 class SolarCollectorPerformanceFlatPlate(DataObject):
+
     """ Corresponds to IDD object `SolarCollectorPerformance:FlatPlate`
         Thermal and optical performance parameters for a single flat plate solar collector
         module. These parameters are based on the testing methodologies described in ASHRAE
@@ -16,7 +17,91 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Directory of SRCC Certified Solar Collector Ratings. See EnergyPlus DataSets file
         SolarCollectors.idf.
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:FlatPlate', 'pyname': u'SolarCollectorPerformanceFlatPlate', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'gross area', {'name': u'Gross Area', 'pyname': u'gross_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'test fluid', {'name': u'Test Fluid', 'pyname': u'test_fluid', 'default': u'Water', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'test flow rate', {'name': u'Test Flow Rate', 'pyname': u'test_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'test correlation type', {'name': u'Test Correlation Type', 'pyname': u'test_correlation_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'coefficient 1 of efficiency equation', {'name': u'Coefficient 1 of Efficiency Equation', 'pyname': u'coefficient_1_of_efficiency_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'coefficient 2 of efficiency equation', {'name': u'Coefficient 2 of Efficiency Equation', 'pyname': u'coefficient_2_of_efficiency_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'coefficient 3 of efficiency equation', {'name': u'Coefficient 3 of Efficiency Equation', 'pyname': u'coefficient_3_of_efficiency_equation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K2'}), (u'coefficient 2 of incident angle modifier', {'name': u'Coefficient 2 of Incident Angle Modifier', 'pyname': u'coefficient_2_of_incident_angle_modifier', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient 3 of incident angle modifier', {'name': u'Coefficient 3 of Incident Angle Modifier', 'pyname': u'coefficient_3_of_incident_angle_modifier', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SolarCollectorPerformance:FlatPlate',
+              'pyname': u'SolarCollectorPerformanceFlatPlate',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'gross area',
+                                      {'name': u'Gross Area',
+                                       'pyname': u'gross_area',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'test fluid',
+                                      {'name': u'Test Fluid',
+                                       'pyname': u'test_fluid',
+                                       'default': u'Water',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'test flow rate',
+                                      {'name': u'Test Flow Rate',
+                                       'pyname': u'test_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'test correlation type',
+                                      {'name': u'Test Correlation Type',
+                                       'pyname': u'test_correlation_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'coefficient 1 of efficiency equation',
+                                      {'name': u'Coefficient 1 of Efficiency Equation',
+                                       'pyname': u'coefficient_1_of_efficiency_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'coefficient 2 of efficiency equation',
+                                      {'name': u'Coefficient 2 of Efficiency Equation',
+                                       'pyname': u'coefficient_2_of_efficiency_equation',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/m2-K'}),
+                                     (u'coefficient 3 of efficiency equation',
+                                      {'name': u'Coefficient 3 of Efficiency Equation',
+                                       'pyname': u'coefficient_3_of_efficiency_equation',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/m2-K2'}),
+                                     (u'coefficient 2 of incident angle modifier',
+                                      {'name': u'Coefficient 2 of Incident Angle Modifier',
+                                       'pyname': u'coefficient_2_of_incident_angle_modifier',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'coefficient 3 of incident angle modifier',
+                                      {'name': u'Coefficient 3 of Incident Angle Modifier',
+                                       'pyname': u'coefficient_3_of_incident_angle_modifier',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollectorPerformance:FlatPlate`
@@ -270,6 +355,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
 
 
 class SolarCollectorFlatPlateWater(DataObject):
+
     """ Corresponds to IDD object `SolarCollector:FlatPlate:Water`
         Flat plate water solar collector (single glazed, unglazed, or evacuated tube).
         Thermal and optical properties are taken from the referenced
@@ -277,7 +363,57 @@ class SolarCollectorFlatPlateWater(DataObject):
         are taken from the referenced building surface or shading surface. The collector
         surface participates normally in all shading calculations.
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollector:FlatPlate:Water', 'pyname': u'SolarCollectorFlatPlateWater', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'solarcollectorperformance name', {'name': u'SolarCollectorPerformance Name', 'pyname': u'solarcollectorperformance_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SolarCollector:FlatPlate:Water',
+              'pyname': u'SolarCollectorFlatPlateWater',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'solarcollectorperformance name',
+                                      {'name': u'SolarCollectorPerformance Name',
+                                       'pyname': u'solarcollectorperformance_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'surface name',
+                                      {'name': u'Surface Name',
+                                       'pyname': u'surface_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'inlet node name',
+                                      {'name': u'Inlet Node Name',
+                                       'pyname': u'inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outlet node name',
+                                      {'name': u'Outlet Node Name',
+                                       'pyname': u'outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'maximum flow rate',
+                                      {'name': u'Maximum Flow Rate',
+                                       'pyname': u'maximum_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:FlatPlate:Water`
@@ -429,11 +565,89 @@ class SolarCollectorFlatPlateWater(DataObject):
 
 
 class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
+
     """ Corresponds to IDD object `SolarCollector:FlatPlate:PhotovoltaicThermal`
         Models hybrid photovoltaic-thermal (PVT) solar collectors that convert incident solar
         energy into both electricity and useful thermal energy by heating air or water.
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollector:FlatPlate:PhotovoltaicThermal', 'pyname': u'SolarCollectorFlatPlatePhotovoltaicThermal', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'photovoltaic-thermal model performance name', {'name': u'Photovoltaic-Thermal Model Performance Name', 'pyname': u'photovoltaicthermal_model_performance_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'photovoltaic name', {'name': u'Photovoltaic Name', 'pyname': u'photovoltaic_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal working fluid type', {'name': u'Thermal Working Fluid Type', 'pyname': u'thermal_working_fluid_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water inlet node name', {'name': u'Water Inlet Node Name', 'pyname': u'water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water outlet node name', {'name': u'Water Outlet Node Name', 'pyname': u'water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SolarCollector:FlatPlate:PhotovoltaicThermal',
+              'pyname': u'SolarCollectorFlatPlatePhotovoltaicThermal',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'surface name',
+                                      {'name': u'Surface Name',
+                                       'pyname': u'surface_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'photovoltaic-thermal model performance name',
+                                      {'name': u'Photovoltaic-Thermal Model Performance Name',
+                                       'pyname': u'photovoltaicthermal_model_performance_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'photovoltaic name',
+                                      {'name': u'Photovoltaic Name',
+                                       'pyname': u'photovoltaic_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'thermal working fluid type',
+                                      {'name': u'Thermal Working Fluid Type',
+                                       'pyname': u'thermal_working_fluid_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'water inlet node name',
+                                      {'name': u'Water Inlet Node Name',
+                                       'pyname': u'water_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'water outlet node name',
+                                      {'name': u'Water Outlet Node Name',
+                                       'pyname': u'water_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'air inlet node name',
+                                      {'name': u'Air Inlet Node Name',
+                                       'pyname': u'air_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'air outlet node name',
+                                      {'name': u'Air Outlet Node Name',
+                                       'pyname': u'air_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'design flow rate',
+                                      {'name': u'Design Flow Rate',
+                                       'pyname': u'design_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:FlatPlate:PhotovoltaicThermal`
@@ -678,10 +892,67 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
 
 
 class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
+
     """ Corresponds to IDD object `SolarCollectorPerformance:PhotovoltaicThermal:Simple`
         Thermal performance parameters for a hybrid photovoltaic-thermal (PVT) solar collector.
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:PhotovoltaicThermal:Simple', 'pyname': u'SolarCollectorPerformancePhotovoltaicThermalSimple', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fraction of surface area with active thermal collector', {'name': u'Fraction of Surface Area with Active Thermal Collector', 'pyname': u'fraction_of_surface_area_with_active_thermal_collector', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'thermal conversion efficiency input mode type', {'name': u'Thermal Conversion Efficiency Input Mode Type', 'pyname': u'thermal_conversion_efficiency_input_mode_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'value for thermal conversion efficiency if fixed', {'name': u'Value for Thermal Conversion Efficiency if Fixed', 'pyname': u'value_for_thermal_conversion_efficiency_if_fixed', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'thermal conversion efficiency schedule name', {'name': u'Thermal Conversion Efficiency Schedule Name', 'pyname': u'thermal_conversion_efficiency_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'front surface emittance', {'name': u'Front Surface Emittance', 'pyname': u'front_surface_emittance', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SolarCollectorPerformance:PhotovoltaicThermal:Simple',
+              'pyname': u'SolarCollectorPerformancePhotovoltaicThermalSimple',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fraction of surface area with active thermal collector',
+                                      {'name': u'Fraction of Surface Area with Active Thermal Collector',
+                                       'pyname': u'fraction_of_surface_area_with_active_thermal_collector',
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'thermal conversion efficiency input mode type',
+                                      {'name': u'Thermal Conversion Efficiency Input Mode Type',
+                                       'pyname': u'thermal_conversion_efficiency_input_mode_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'value for thermal conversion efficiency if fixed',
+                                      {'name': u'Value for Thermal Conversion Efficiency if Fixed',
+                                       'pyname': u'value_for_thermal_conversion_efficiency_if_fixed',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'thermal conversion efficiency schedule name',
+                                      {'name': u'Thermal Conversion Efficiency Schedule Name',
+                                       'pyname': u'thermal_conversion_efficiency_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'front surface emittance',
+                                      {'name': u'Front Surface Emittance',
+                                       'pyname': u'front_surface_emittance',
+                                       'default': 0.84,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'maximum<': 1.0})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollectorPerformance:PhotovoltaicThermal:Simple`
@@ -722,10 +993,13 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
         Returns:
             float: the value of `fraction_of_surface_area_with_active_thermal_collector` or None if not set
         """
-        return self._data["Fraction of Surface Area with Active Thermal Collector"]
+        return self._data[
+            "Fraction of Surface Area with Active Thermal Collector"]
 
     @fraction_of_surface_area_with_active_thermal_collector.setter
-    def fraction_of_surface_area_with_active_thermal_collector(self, value=None):
+    def fraction_of_surface_area_with_active_thermal_collector(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Fraction of Surface Area with Active Thermal Collector`
 
         Args:
@@ -838,6 +1112,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
 
 
 class SolarCollectorIntegralCollectorStorage(DataObject):
+
     """ Corresponds to IDD object `SolarCollector:IntegralCollectorStorage`
         Glazed solar collector with integral storage unit. Thermal and optical properties are
         taken from the referenced SolarCollectorPerformance:IntegralCollectorStorage object.
@@ -845,7 +1120,72 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
         or shading surface. The collector surface participates normally in all shading
         calculations.
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollector:IntegralCollectorStorage', 'pyname': u'SolarCollectorIntegralCollectorStorage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'integralcollectorstorageparameters name', {'name': u'IntegralCollectorStorageParameters Name', 'pyname': u'integralcollectorstorageparameters_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'bottom surface boundary conditions type', {'name': u'Bottom Surface Boundary Conditions Type', 'pyname': u'bottom_surface_boundary_conditions_type', 'default': u'AmbientAir', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'boundary condition model name', {'name': u'Boundary Condition Model Name', 'pyname': u'boundary_condition_model_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SolarCollector:IntegralCollectorStorage',
+              'pyname': u'SolarCollectorIntegralCollectorStorage',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'integralcollectorstorageparameters name',
+                                      {'name': u'IntegralCollectorStorageParameters Name',
+                                       'pyname': u'integralcollectorstorageparameters_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'surface name',
+                                      {'name': u'Surface Name',
+                                       'pyname': u'surface_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'bottom surface boundary conditions type',
+                                      {'name': u'Bottom Surface Boundary Conditions Type',
+                                       'pyname': u'bottom_surface_boundary_conditions_type',
+                                       'default': u'AmbientAir',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'boundary condition model name',
+                                      {'name': u'Boundary Condition Model Name',
+                                       'pyname': u'boundary_condition_model_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'inlet node name',
+                                      {'name': u'Inlet Node Name',
+                                       'pyname': u'inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outlet node name',
+                                      {'name': u'Outlet Node Name',
+                                       'pyname': u'outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'maximum flow rate',
+                                      {'name': u'Maximum Flow Rate',
+                                       'pyname': u'maximum_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:IntegralCollectorStorage`
@@ -1047,11 +1387,209 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
 
 
 class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
+
     """ Corresponds to IDD object `SolarCollectorPerformance:IntegralCollectorStorage`
         Thermal and optical performance parameters for a single glazed solar collector with
         integral storage unit.
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:IntegralCollectorStorage', 'pyname': u'SolarCollectorPerformanceIntegralCollectorStorage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ics collector type', {'name': u'ICS Collector Type', 'pyname': u'ics_collector_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'gross area', {'name': u'Gross Area', 'pyname': u'gross_area', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'collector water volume', {'name': u'Collector Water Volume', 'pyname': u'collector_water_volume', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'bottom heat loss conductance', {'name': u'Bottom Heat Loss Conductance', 'pyname': u'bottom_heat_loss_conductance', 'default': 0.4, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'side heat loss conductance', {'name': u'Side Heat Loss Conductance', 'pyname': u'side_heat_loss_conductance', 'default': 0.6, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'aspect ratio', {'name': u'Aspect Ratio', 'pyname': u'aspect_ratio', 'default': 0.8, 'minimum>': 0.5, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'm'}), (u'collector side height', {'name': u'Collector Side Height', 'pyname': u'collector_side_height', 'default': 0.2, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 0.3, 'unit': u'm'}), (u'thermal mass of absorber plate', {'name': u'Thermal Mass of Absorber Plate', 'pyname': u'thermal_mass_of_absorber_plate', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'J/m2-K'}), (u'number of covers', {'name': u'Number of Covers', 'pyname': u'number_of_covers', 'default': 2, 'maximum': 2, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'cover spacing', {'name': u'Cover Spacing', 'pyname': u'cover_spacing', 'default': 0.05, 'minimum>': 0.0, 'maximum': 0.2, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'refractive index of outer cover', {'name': u'Refractive Index of Outer Cover', 'pyname': u'refractive_index_of_outer_cover', 'default': 1.526, 'maximum': 2.0, 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'extinction coefficient times thickness of outer cover', {'name': u'Extinction Coefficient Times Thickness of Outer Cover', 'pyname': u'extinction_coefficient_times_thickness_of_outer_cover', 'default': 0.045, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'emissivity of outer cover', {'name': u'Emissivity of Outer Cover', 'pyname': u'emissivity_of_outer_cover', 'default': 0.88, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'refractive index of inner cover', {'name': u'Refractive Index of Inner Cover', 'pyname': u'refractive_index_of_inner_cover', 'default': 1.37, 'maximum': 2.0, 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'extinction coefficient times thickness of the inner cover', {'name': u'Extinction Coefficient Times Thickness of the inner Cover', 'pyname': u'extinction_coefficient_times_thickness_of_the_inner_cover', 'default': 0.008, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'emmissivity of inner cover', {'name': u'Emmissivity of Inner Cover', 'pyname': u'emmissivity_of_inner_cover', 'default': 0.88, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'absorptance of absorber plate', {'name': u'Absorptance of Absorber Plate', 'pyname': u'absorptance_of_absorber_plate', 'default': 0.96, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'emissivity of absorber plate', {'name': u'Emissivity of Absorber Plate', 'pyname': u'emissivity_of_absorber_plate', 'default': 0.3, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SolarCollectorPerformance:IntegralCollectorStorage',
+              'pyname': u'SolarCollectorPerformanceIntegralCollectorStorage',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'ics collector type',
+                                      {'name': u'ICS Collector Type',
+                                       'pyname': u'ics_collector_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'gross area',
+                                      {'name': u'Gross Area',
+                                       'pyname': u'gross_area',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'collector water volume',
+                                      {'name': u'Collector Water Volume',
+                                       'pyname': u'collector_water_volume',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3'}),
+                                     (u'bottom heat loss conductance',
+                                      {'name': u'Bottom Heat Loss Conductance',
+                                       'pyname': u'bottom_heat_loss_conductance',
+                                       'default': 0.4,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/m2-K'}),
+                                     (u'side heat loss conductance',
+                                      {'name': u'Side Heat Loss Conductance',
+                                       'pyname': u'side_heat_loss_conductance',
+                                       'default': 0.6,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/m2-K'}),
+                                     (u'aspect ratio',
+                                      {'name': u'Aspect Ratio',
+                                       'pyname': u'aspect_ratio',
+                                       'default': 0.8,
+                                       'minimum>': 0.5,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'maximum<': 1.0,
+                                       'unit': u'm'}),
+                                     (u'collector side height',
+                                      {'name': u'Collector Side Height',
+                                       'pyname': u'collector_side_height',
+                                       'default': 0.2,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'maximum<': 0.3,
+                                       'unit': u'm'}),
+                                     (u'thermal mass of absorber plate',
+                                      {'name': u'Thermal Mass of Absorber Plate',
+                                       'pyname': u'thermal_mass_of_absorber_plate',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'J/m2-K'}),
+                                     (u'number of covers',
+                                      {'name': u'Number of Covers',
+                                       'pyname': u'number_of_covers',
+                                       'default': 2,
+                                       'maximum': 2,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 1,
+                                       'autocalculatable': False,
+                                       'type': u'integer'}),
+                                     (u'cover spacing',
+                                      {'name': u'Cover Spacing',
+                                       'pyname': u'cover_spacing',
+                                       'default': 0.05,
+                                       'minimum>': 0.0,
+                                       'maximum': 0.2,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'refractive index of outer cover',
+                                      {'name': u'Refractive Index of Outer Cover',
+                                       'pyname': u'refractive_index_of_outer_cover',
+                                       'default': 1.526,
+                                       'maximum': 2.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 1.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'extinction coefficient times thickness of outer cover',
+                                      {'name': u'Extinction Coefficient Times Thickness of Outer Cover',
+                                       'pyname': u'extinction_coefficient_times_thickness_of_outer_cover',
+                                       'default': 0.045,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'emissivity of outer cover',
+                                      {'name': u'Emissivity of Outer Cover',
+                                       'pyname': u'emissivity_of_outer_cover',
+                                       'default': 0.88,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'maximum<': 1.0,
+                                       'unit': u'dimensionless'}),
+                                     (u'refractive index of inner cover',
+                                      {'name': u'Refractive Index of Inner Cover',
+                                       'pyname': u'refractive_index_of_inner_cover',
+                                       'default': 1.37,
+                                       'maximum': 2.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 1.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'extinction coefficient times thickness of the inner cover',
+                                      {'name': u'Extinction Coefficient Times Thickness of the inner Cover',
+                                       'pyname': u'extinction_coefficient_times_thickness_of_the_inner_cover',
+                                       'default': 0.008,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'emmissivity of inner cover',
+                                      {'name': u'Emmissivity of Inner Cover',
+                                       'pyname': u'emmissivity_of_inner_cover',
+                                       'default': 0.88,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'maximum<': 1.0,
+                                       'unit': u'dimensionless'}),
+                                     (u'absorptance of absorber plate',
+                                      {'name': u'Absorptance of Absorber Plate',
+                                       'pyname': u'absorptance_of_absorber_plate',
+                                       'default': 0.96,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'maximum<': 1.0,
+                                       'unit': u'dimensionless'}),
+                                     (u'emissivity of absorber plate',
+                                      {'name': u'Emissivity of Absorber Plate',
+                                       'pyname': u'emissivity_of_absorber_plate',
+                                       'default': 0.3,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'maximum<': 1.0,
+                                       'unit': u'dimensionless'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollectorPerformance:IntegralCollectorStorage`
@@ -1387,10 +1925,13 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `extinction_coefficient_times_thickness_of_outer_cover` or None if not set
         """
-        return self._data["Extinction Coefficient Times Thickness of Outer Cover"]
+        return self._data[
+            "Extinction Coefficient Times Thickness of Outer Cover"]
 
     @extinction_coefficient_times_thickness_of_outer_cover.setter
-    def extinction_coefficient_times_thickness_of_outer_cover(self, value=0.045):
+    def extinction_coefficient_times_thickness_of_outer_cover(
+            self,
+            value=0.045):
         """  Corresponds to IDD Field `Extinction Coefficient Times Thickness of Outer Cover`
         Clear glass has extinction coefficient of about 15 [1/m]
         and with thickness of 3.0mm, the product of the extinction
@@ -1472,10 +2013,13 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `extinction_coefficient_times_thickness_of_the_inner_cover` or None if not set
         """
-        return self._data["Extinction Coefficient Times Thickness of the inner Cover"]
+        return self._data[
+            "Extinction Coefficient Times Thickness of the inner Cover"]
 
     @extinction_coefficient_times_thickness_of_the_inner_cover.setter
-    def extinction_coefficient_times_thickness_of_the_inner_cover(self, value=0.008):
+    def extinction_coefficient_times_thickness_of_the_inner_cover(
+            self,
+            value=0.008):
         """  Corresponds to IDD Field `Extinction Coefficient Times Thickness of the inner Cover`
         Default inner cover is very thin sheet of Teflon with
         extinction coefficient of approximately 40.0 and a thickness
@@ -1491,7 +2035,8 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Extinction Coefficient Times Thickness of the inner Cover"] = value
+        self[
+            "Extinction Coefficient Times Thickness of the inner Cover"] = value
 
     @property
     def emmissivity_of_inner_cover(self):
@@ -1577,6 +2122,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
 
 
 class SolarCollectorUnglazedTranspired(DataObject):
+
     """ Corresponds to IDD object `SolarCollector:UnglazedTranspired`
         Unglazed transpired solar collector (UTSC) used to condition outdoor air. This type of
         collector is generally used to heat air drawn through perforated absorbers and also
@@ -1584,7 +2130,205 @@ class SolarCollectorUnglazedTranspired(DataObject):
         single collector attached to one or more building or shading surfaces and to one or
         more outdoor air systems.
     """
-    schema = {'min-fields': 23, 'name': u'SolarCollector:UnglazedTranspired', 'pyname': u'SolarCollectorUnglazedTranspired', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'boundary conditions model name', {'name': u'Boundary Conditions Model Name', 'pyname': u'boundary_conditions_model_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node name', {'name': u'Setpoint Node Name', 'pyname': u'setpoint_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'free heating setpoint schedule name', {'name': u'Free Heating Setpoint Schedule Name', 'pyname': u'free_heating_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'diameter of perforations in collector', {'name': u'Diameter of Perforations in Collector', 'pyname': u'diameter_of_perforations_in_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'distance between perforations in collector', {'name': u'Distance Between Perforations in Collector', 'pyname': u'distance_between_perforations_in_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'thermal emissivity of collector surface', {'name': u'Thermal Emissivity of Collector Surface', 'pyname': u'thermal_emissivity_of_collector_surface', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'solar absorbtivity of collector surface', {'name': u'Solar Absorbtivity of Collector Surface', 'pyname': u'solar_absorbtivity_of_collector_surface', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'effective overall height of collector', {'name': u'Effective Overall Height of Collector', 'pyname': u'effective_overall_height_of_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'effective gap thickness of plenum behind collector', {'name': u'Effective Gap Thickness of Plenum Behind Collector', 'pyname': u'effective_gap_thickness_of_plenum_behind_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'effective cross section area of plenum behind collector', {'name': u'Effective Cross Section Area of Plenum Behind Collector', 'pyname': u'effective_cross_section_area_of_plenum_behind_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'hole layout pattern for pitch', {'name': u'Hole Layout Pattern for Pitch', 'pyname': u'hole_layout_pattern_for_pitch', 'default': u'Square', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat exchange effectiveness correlation', {'name': u'Heat Exchange Effectiveness Correlation', 'pyname': u'heat_exchange_effectiveness_correlation', 'default': u'Kutscher1994', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ratio of actual collector surface area to projected surface area', {'name': u'Ratio of Actual Collector Surface Area to Projected Surface Area', 'pyname': u'ratio_of_actual_collector_surface_area_to_projected_surface_area', 'default': 1.0, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'roughness of collector', {'name': u'Roughness of Collector', 'pyname': u'roughness_of_collector', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'collector thickness', {'name': u'Collector Thickness', 'pyname': u'collector_thickness', 'maximum': 0.007, 'required-field': False, 'autosizable': False, 'minimum': 0.0005, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'effectiveness for perforations with respect to wind', {'name': u'Effectiveness for Perforations with Respect to Wind', 'pyname': u'effectiveness_for_perforations_with_respect_to_wind', 'default': 0.25, 'minimum>': 0.0, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'discharge coefficient for openings with respect to buoyancy driven flow', {'name': u'Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow', 'pyname': u'discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow', 'default': 0.65, 'minimum>': 0.0, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 23,
+              'name': u'SolarCollector:UnglazedTranspired',
+              'pyname': u'SolarCollectorUnglazedTranspired',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'boundary conditions model name',
+                                      {'name': u'Boundary Conditions Model Name',
+                                       'pyname': u'boundary_conditions_model_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'inlet node name',
+                                      {'name': u'Inlet Node Name',
+                                       'pyname': u'inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outlet node name',
+                                      {'name': u'Outlet Node Name',
+                                       'pyname': u'outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'setpoint node name',
+                                      {'name': u'Setpoint Node Name',
+                                       'pyname': u'setpoint_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'zone node name',
+                                      {'name': u'Zone Node Name',
+                                       'pyname': u'zone_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'free heating setpoint schedule name',
+                                      {'name': u'Free Heating Setpoint Schedule Name',
+                                       'pyname': u'free_heating_setpoint_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'diameter of perforations in collector',
+                                      {'name': u'Diameter of Perforations in Collector',
+                                       'pyname': u'diameter_of_perforations_in_collector',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'distance between perforations in collector',
+                                      {'name': u'Distance Between Perforations in Collector',
+                                       'pyname': u'distance_between_perforations_in_collector',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'thermal emissivity of collector surface',
+                                      {'name': u'Thermal Emissivity of Collector Surface',
+                                       'pyname': u'thermal_emissivity_of_collector_surface',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'solar absorbtivity of collector surface',
+                                      {'name': u'Solar Absorbtivity of Collector Surface',
+                                       'pyname': u'solar_absorbtivity_of_collector_surface',
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'effective overall height of collector',
+                                      {'name': u'Effective Overall Height of Collector',
+                                       'pyname': u'effective_overall_height_of_collector',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'effective gap thickness of plenum behind collector',
+                                      {'name': u'Effective Gap Thickness of Plenum Behind Collector',
+                                       'pyname': u'effective_gap_thickness_of_plenum_behind_collector',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'effective cross section area of plenum behind collector',
+                                      {'name': u'Effective Cross Section Area of Plenum Behind Collector',
+                                       'pyname': u'effective_cross_section_area_of_plenum_behind_collector',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'hole layout pattern for pitch',
+                                      {'name': u'Hole Layout Pattern for Pitch',
+                                       'pyname': u'hole_layout_pattern_for_pitch',
+                                       'default': u'Square',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heat exchange effectiveness correlation',
+                                      {'name': u'Heat Exchange Effectiveness Correlation',
+                                       'pyname': u'heat_exchange_effectiveness_correlation',
+                                       'default': u'Kutscher1994',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'ratio of actual collector surface area to projected surface area',
+                                      {'name': u'Ratio of Actual Collector Surface Area to Projected Surface Area',
+                                       'pyname': u'ratio_of_actual_collector_surface_area_to_projected_surface_area',
+                                       'default': 1.0,
+                                       'maximum': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'roughness of collector',
+                                      {'name': u'Roughness of Collector',
+                                       'pyname': u'roughness_of_collector',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'collector thickness',
+                                      {'name': u'Collector Thickness',
+                                       'pyname': u'collector_thickness',
+                                       'maximum': 0.007,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0005,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'effectiveness for perforations with respect to wind',
+                                      {'name': u'Effectiveness for Perforations with Respect to Wind',
+                                       'pyname': u'effectiveness_for_perforations_with_respect_to_wind',
+                                       'default': 0.25,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.5,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'discharge coefficient for openings with respect to buoyancy driven flow',
+                                      {'name': u'Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow',
+                                       'pyname': u'discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow',
+                                       'default': 0.65,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.5,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'})]),
+              'extensible-fields': OrderedDict([(u'surface 1 name',
+                                                 {'name': u'Surface 1 Name',
+                                                  'pyname': u'surface_1_name',
+                                                  'required-field': True,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'object-list'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:UnglazedTranspired`
@@ -1941,10 +2685,13 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `effective_cross_section_area_of_plenum_behind_collector` or None if not set
         """
-        return self._data["Effective Cross Section Area of Plenum Behind Collector"]
+        return self._data[
+            "Effective Cross Section Area of Plenum Behind Collector"]
 
     @effective_cross_section_area_of_plenum_behind_collector.setter
-    def effective_cross_section_area_of_plenum_behind_collector(self, value=None):
+    def effective_cross_section_area_of_plenum_behind_collector(
+            self,
+            value=None):
         """  Corresponds to IDD Field `Effective Cross Section Area of Plenum Behind Collector`
         if corrugated, use average depth
 
@@ -2014,10 +2761,13 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `ratio_of_actual_collector_surface_area_to_projected_surface_area` or None if not set
         """
-        return self._data["Ratio of Actual Collector Surface Area to Projected Surface Area"]
+        return self._data[
+            "Ratio of Actual Collector Surface Area to Projected Surface Area"]
 
     @ratio_of_actual_collector_surface_area_to_projected_surface_area.setter
-    def ratio_of_actual_collector_surface_area_to_projected_surface_area(self, value=1.0):
+    def ratio_of_actual_collector_surface_area_to_projected_surface_area(
+            self,
+            value=1.0):
         """  Corresponds to IDD Field `Ratio of Actual Collector Surface Area to Projected Surface Area`
         This parameter is used to help account for corrugations in the collector
 
@@ -2033,7 +2783,8 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Ratio of Actual Collector Surface Area to Projected Surface Area"] = value
+        self[
+            "Ratio of Actual Collector Surface Area to Projected Surface Area"] = value
 
     @property
     def roughness_of_collector(self):
@@ -2093,7 +2844,8 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `effectiveness_for_perforations_with_respect_to_wind` or None if not set
         """
-        return self._data["Effectiveness for Perforations with Respect to Wind"]
+        return self._data[
+            "Effectiveness for Perforations with Respect to Wind"]
 
     @effectiveness_for_perforations_with_respect_to_wind.setter
     def effectiveness_for_perforations_with_respect_to_wind(self, value=0.25):
@@ -2114,16 +2866,20 @@ class SolarCollectorUnglazedTranspired(DataObject):
         self["Effectiveness for Perforations with Respect to Wind"] = value
 
     @property
-    def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(self):
+    def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(
+            self):
         """Get discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow
 
         Returns:
             float: the value of `discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow` or None if not set
         """
-        return self._data["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"]
+        return self._data[
+            "Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"]
 
     @discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow.setter
-    def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(self, value=0.65):
+    def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(
+            self,
+            value=0.65):
         """  Corresponds to IDD Field `Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow`
         Cd
 
@@ -2138,7 +2894,8 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"] = value
+        self[
+            "Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"] = value
 
     def add_extensible(self,
                        surface_1_name=None,
@@ -2164,11 +2921,52 @@ class SolarCollectorUnglazedTranspired(DataObject):
 
 
 class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
+
     """ Corresponds to IDD object `SolarCollector:UnglazedTranspired:Multisystem`
         quad-tuples of inlet, outlet, control, and zone nodes
         for multiple different outdoor air systems attached to same collector
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollector:UnglazedTranspired:Multisystem', 'pyname': u'SolarCollectorUnglazedTranspiredMultisystem', 'format': None, 'fields': OrderedDict([(u'solar collector name', {'name': u'Solar Collector Name', 'pyname': u'solar_collector_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'outdoor air system 1 collector inlet node', {'name': u'Outdoor Air System 1 Collector Inlet Node', 'pyname': u'outdoor_air_system_1_collector_inlet_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air system 1 collector outlet node', {'name': u'Outdoor Air System 1 Collector Outlet Node', 'pyname': u'outdoor_air_system_1_collector_outlet_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air system 1 mixed air node', {'name': u'Outdoor Air System 1 Mixed Air Node', 'pyname': u'outdoor_air_system_1_mixed_air_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air system 1 zone node', {'name': u'Outdoor Air System 1 Zone Node', 'pyname': u'outdoor_air_system_1_zone_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'SolarCollector:UnglazedTranspired:Multisystem',
+              'pyname': u'SolarCollectorUnglazedTranspiredMultisystem',
+              'format': None,
+              'fields': OrderedDict([(u'solar collector name',
+                                      {'name': u'Solar Collector Name',
+                                       'pyname': u'solar_collector_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict([(u'outdoor air system 1 collector inlet node',
+                                                 {'name': u'Outdoor Air System 1 Collector Inlet Node',
+                                                  'pyname': u'outdoor_air_system_1_collector_inlet_node',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'node'}),
+                                                (u'outdoor air system 1 collector outlet node',
+                                                 {'name': u'Outdoor Air System 1 Collector Outlet Node',
+                                                  'pyname': u'outdoor_air_system_1_collector_outlet_node',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'node'}),
+                                                (u'outdoor air system 1 mixed air node',
+                                                 {'name': u'Outdoor Air System 1 Mixed Air Node',
+                                                  'pyname': u'outdoor_air_system_1_mixed_air_node',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'node'}),
+                                                (u'outdoor air system 1 zone node',
+                                                 {'name': u'Outdoor Air System 1 Zone Node',
+                                                  'pyname': u'outdoor_air_system_1_zone_node',
+                                                  'required-field': False,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'node'})]),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:UnglazedTranspired:Multisystem`
@@ -2230,13 +3028,21 @@ class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
                 specification and is assumed to be a missing value
         """
         vals = []
-        outdoor_air_system_1_collector_inlet_node = self.check_value("Outdoor Air System 1 Collector Inlet Node", outdoor_air_system_1_collector_inlet_node)
+        outdoor_air_system_1_collector_inlet_node = self.check_value(
+            "Outdoor Air System 1 Collector Inlet Node",
+            outdoor_air_system_1_collector_inlet_node)
         vals.append(outdoor_air_system_1_collector_inlet_node)
-        outdoor_air_system_1_collector_outlet_node = self.check_value("Outdoor Air System 1 Collector Outlet Node", outdoor_air_system_1_collector_outlet_node)
+        outdoor_air_system_1_collector_outlet_node = self.check_value(
+            "Outdoor Air System 1 Collector Outlet Node",
+            outdoor_air_system_1_collector_outlet_node)
         vals.append(outdoor_air_system_1_collector_outlet_node)
-        outdoor_air_system_1_mixed_air_node = self.check_value("Outdoor Air System 1 Mixed Air Node", outdoor_air_system_1_mixed_air_node)
+        outdoor_air_system_1_mixed_air_node = self.check_value(
+            "Outdoor Air System 1 Mixed Air Node",
+            outdoor_air_system_1_mixed_air_node)
         vals.append(outdoor_air_system_1_mixed_air_node)
-        outdoor_air_system_1_zone_node = self.check_value("Outdoor Air System 1 Zone Node", outdoor_air_system_1_zone_node)
+        outdoor_air_system_1_zone_node = self.check_value(
+            "Outdoor Air System 1 Zone Node",
+            outdoor_air_system_1_zone_node)
         vals.append(outdoor_air_system_1_zone_node)
         self._data["extensibles"].append(vals)
 

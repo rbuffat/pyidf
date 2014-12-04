@@ -9,10 +9,55 @@ logger.addHandler(logging.NullHandler())
 
 
 class ExteriorLights(DataObject):
+
     """ Corresponds to IDD object `Exterior:Lights`
         only used for Meter type reporting, does not affect building loads
     """
-    schema = {'min-fields': 0, 'name': u'Exterior:Lights', 'pyname': u'ExteriorLights', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'control option', {'name': u'Control Option', 'pyname': u'control_option', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Exterior:Lights',
+              'pyname': u'ExteriorLights',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design level',
+                                      {'name': u'Design Level',
+                                       'pyname': u'design_level',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'control option',
+                                      {'name': u'Control Option',
+                                       'pyname': u'control_option',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'end-use subcategory',
+                                      {'name': u'End-Use Subcategory',
+                                       'pyname': u'enduse_subcategory',
+                                       'default': u'General',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Exterior:Lights`
@@ -145,10 +190,55 @@ class ExteriorLights(DataObject):
 
 
 class ExteriorFuelEquipment(DataObject):
+
     """ Corresponds to IDD object `Exterior:FuelEquipment`
         only used for Meter type reporting, does not affect building loads
     """
-    schema = {'min-fields': 0, 'name': u'Exterior:FuelEquipment', 'pyname': u'ExteriorFuelEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fuel use type', {'name': u'Fuel Use Type', 'pyname': u'fuel_use_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Exterior:FuelEquipment',
+              'pyname': u'ExteriorFuelEquipment',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'fuel use type',
+                                      {'name': u'Fuel Use Type',
+                                       'pyname': u'fuel_use_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design level',
+                                      {'name': u'Design Level',
+                                       'pyname': u'design_level',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'end-use subcategory',
+                                      {'name': u'End-Use Subcategory',
+                                       'pyname': u'enduse_subcategory',
+                                       'default': u'General',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Exterior:FuelEquipment`
@@ -280,10 +370,56 @@ class ExteriorFuelEquipment(DataObject):
 
 
 class ExteriorWaterEquipment(DataObject):
+
     """ Corresponds to IDD object `Exterior:WaterEquipment`
         only used for Meter type reporting, does not affect building loads
     """
-    schema = {'min-fields': 0, 'name': u'Exterior:WaterEquipment', 'pyname': u'ExteriorWaterEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fuel use type', {'name': u'Fuel Use Type', 'pyname': u'fuel_use_type', 'default': u'Water', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0,
+              'name': u'Exterior:WaterEquipment',
+              'pyname': u'ExteriorWaterEquipment',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'fuel use type',
+                                      {'name': u'Fuel Use Type',
+                                       'pyname': u'fuel_use_type',
+                                       'default': u'Water',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design level',
+                                      {'name': u'Design Level',
+                                       'pyname': u'design_level',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'end-use subcategory',
+                                      {'name': u'End-Use Subcategory',
+                                       'pyname': u'enduse_subcategory',
+                                       'default': u'General',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False}
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Exterior:WaterEquipment`
