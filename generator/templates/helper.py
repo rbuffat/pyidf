@@ -1,31 +1,103 @@
+from collections import OrderedDict
 import logging
 import re
+import six
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
 
 
 class DataObject(object):
 
+    def __init__(self):
+        """ Init data dictionary object
+        """
+        self._data = OrderedDict()
+        for key in self.schema['fields']:
+            self._data[key] = None
+
+        self._extdata = []
+        self.strict = True
+
     def __setitem__(self, key, value):
-        key_lower = key.lower()
-        if key_lower in self.schema['fields']:
-            value = self.check_value(key_lower, value)
-            self._data[key_lower] = value
-        # TODO extensibles
+        if isinstance(key, six.string_types):
+            key_lower = key.lower()
+            if key_lower in self.schema['fields']:
+                value = self.check_value(key_lower, value)
+                self._data[key_lower] = value
+
+        elif isinstance(key, tuple):
+            if (not len(key) == 2
+                    and isinstance(key[0], six.string_types) and isinstance(key[1], int)):
+                raise TypeError("{} is not a tuple(str, int) "
+                                "with length 2}".format(str(key),
+                                                        self.schema['pyname']))
+                key_name = key[0].lower()
+                if key_name not in self.schema['extensible-fields']:
+                    raise KeyError("{} is not an extensible field "
+                                   " name for object {}".format(key[0],
+                                                                self.schema['pyname']))
+                while len(self._extdata) <= key[1]:
+                    self._extdata.append([None] * len(self.schema['extensible-fields']))
+
+                ind = self.schema['extensible-fields'].index(key_name)
+                value = self.check_value(key_name, value)
+                self._extdata[key[1]][ind] = value
+
         else:
-            raise ValueError("{} not found in {}".format(key,
-                                                         self.schema['pyname']))
+            raise TypeError("{} not found in {}".format(key,
+                                                        self.schema['pyname']))
 
     def __getitem__(self, key):
-        if isinstance(key, str):
+        if isinstance(key, six.string_types):
             key_lower = key.lower()
             if key_lower in self.schema['fields']:
                 return self._data[key_lower]
-        # TODO extensible fields
-        raise ValueError("{} not found in {}".format(key,
-                                                     self.schema['pyname']))
+            else:
+                raise KeyError("{} is not a field name".format(key,
+                                                               self.schema['pyname']))
+
+        elif isinstance(key, tuple):
+            if (not len(key) == 2
+                    and isinstance(key[0], six.string_types) and isinstance(key[1], int)):
+                raise TypeError("{} is not a tuple(str, int) "
+                                "with length 2}".format(str(key),
+                                                        self.schema['pyname']))
+                key_name = key[0].lower()
+                if key_name not in self.schema['extensible-fields']:
+                    raise KeyError("{} is not an extensible field "
+                                   " name for object {}".format(key[0],
+                                                                self.schema['pyname']))
+
+                if len(self._extdata) < key[1]:
+                    raise IndexError("Only {} extensible values available, key asks for value {}"
+                                     " for object {}".format(len(self._extdata),
+                                                             key[1],
+                                                             self.schema['pyname']))
+                key_pos = self.schema['extensible-fields'].index(key_name)
+                return self._extdata[key[1]][key_pos]
+
+        elif isinstance(key, int):
+            i = key
+            if i < len(self._data):
+                return self._data.values()[i]
+            else:
+                i -= len(self._data)
+
+                if i > len(self._extdata) * len(self.schema['extensible-fields']):
+                    fields_count = len(self._data) + len(self._extdata) * len(self.schema['extensible-fields'])
+                    raise IndexError("Only {} fields available, key asks for index {}"
+                                     " for object {}".format(fields_count,
+                                                             key,
+                                                             self.schema['pyname']))
+                else:
+                    group = int(i / len(self.schema['extensible-fields']))
+                    item = i % len(self.schema['extensible-fields'])
+                    return self._extdata[group][item]
+
+        raise TypeError("{} not found in {}".format(key,
+                                                    self.schema['pyname']))
 
     def read(self, vals, strict=False):
         """ Read values
@@ -35,6 +107,9 @@ class DataObject(object):
         """
         old_strict = self.strict
         self.strict = strict
+
+        self.clean()
+
         for i, key in enumerate(self.schema['fields']):
             if i < len(vals) and len(vals[i]) == 0:
                 self[key] = None
@@ -54,6 +129,18 @@ class DataObject(object):
         self.strict = old_strict
 
     def check_value(self, name, value):
+        """ Validates `value` against schema for field with name `name`
+
+        Args:
+            name (str): name of field
+            value: the value
+
+        Returns:
+            value valid for schema
+
+        Raises:
+            ValueError: if value not valid for schema
+        """
         schema = self.schema
         lower_name = name.lower()
         if lower_name in schema['fields']:
@@ -64,6 +151,8 @@ class DataObject(object):
             raise ValueError('No field exists with name in data object`{}`'.format(schema['name']))
 
         if value is not None:
+
+            # Handle autosize and autocalucalte
             if field['autocalculatable'] and not field['type'] == "alpha":
                 try:
                     value_lower = str(value).lower()
@@ -95,6 +184,7 @@ class DataObject(object):
                 except ValueError:
                     pass
 
+            # cast input data to appropriate python datatype
             try:
                 if field['type'] == "alpha":
                     value = str(value)
@@ -122,6 +212,7 @@ class DataObject(object):
                                                                     schema['pyname'],
                                                                     field['pyname']))
                             value = conv_value
+
                         except ValueError:
                             raise ValueError('value {} need to be of type {}{} '
                                              'for field `{}.{}`'.format(value,
@@ -137,11 +228,13 @@ class DataObject(object):
                                                                          schema['pyname'],
                                                                          field['pyname']))
 
+            # Check min / max for non alpha types
             if field['type'] == "alpha":
                 if ',' in value:
                     raise ValueError('value should not contain a comma '
                                      'for field `{}.{}`'.format(schema['pyname'],
                                                                 field['pyname']))
+
                 if '!' in value:
                     raise ValueError('value should not contain a ! '
                                      'for field `{}.{}`'.format(schema['pyname'],
@@ -168,15 +261,21 @@ class DataObject(object):
                                                                 field['maximum'],
                                                                 schema['pyname'],
                                                                 field['pyname']))
+
                 if 'maximum<' in field and value >= field['maximum<']:
                     raise ValueError('value {} need to be smaller  {} '
                                      'for field `{}.{}`'.format(value,
                                                                 field['maximum<'],
                                                                 schema['pyname'],
                                                                 field['pyname']))
-
+            # Check accepted values for alpha types
             if 'accepted-values' in field:
-                vals = set(field['accepted-values'])
+                vals = {}
+                for val in field['accepted-values']:
+                    if field['type'] == "alpha":
+                        vals[val.lower()] = val
+                    else:
+                        vals[val] = val
 
                 if field['type'] == "alpha":
                     value_lower = value.lower()
@@ -214,14 +313,16 @@ class DataObject(object):
 
         # value is None
         else:
+
+            # Replace None values for required fields with default values
             if field['required-field'] and 'default' in field:
                 key = field['name'].lower()
                 if (key in self.schema['fields'] and
                         self.schema['fields'].keys().index(key) < self.schema['min-fields']):
                     logger.warn('Replacing None value for required field `{}.{}` '
-                                'with {}'.format(schema['pyname'],
-                                                 field['pyname'],
-                                                 field['default']))
+                                'with default value {}'.format(schema['pyname'],
+                                                               field['pyname'],
+                                                               field['default']))
                     value = field['default']
 
         return value
@@ -249,7 +350,7 @@ class DataObject(object):
                     logger.warn("Required field {}.{} is None".format(self.schema['pyname'],
                                                                       field['pyname']))
 
-        out_fields = len(self.export())
+        out_fields = len(self.export(validate=False))
         has_minfields = out_fields >= self.schema['min-fields']
         if not has_minfields and strict:
             raise ValueError("Not enough fields set for {}: {} / {}".format(self.schema['pyname'],
@@ -275,13 +376,13 @@ class DataObject(object):
         else:
             return str(value)
 
-    def export(self):
+    def export(self, validate=True):
         """ Export values of data object as list of strings"""
         out = []
 
         # Calculate max elements to export
         has_extensibles = False
-        for vals in self._data["extensibles"]:
+        for vals in self._extdata:
             for i, value in enumerate(vals):
                 if value is not None:
                     has_extensibles = True
@@ -293,23 +394,39 @@ class DataObject(object):
             maxel = len(self._data) - 1
         else:
             maxel = 0
-            for i, key in reversed(list(enumerate(self._data.keys()[:-1]))):
+            for i, key in reversed(list(enumerate(self._data.keys()))):
                 if self._data[key] is not None:
                     maxel = i + 1
                     break
 
         maxel = max(maxel, self.schema['min-fields'])
 
-        for key in self._data.keys()[0:maxel]:
-            if not key == "extensibles":
-                out.append((key, self._to_str(self._data[key])))
-        for vals in self._data["extensibles"]:
-            for i, value in enumerate(vals):
-                out.append((self.schema['extensible-fields'].keys()[i], self._to_str(value)))
+        for key in self.schema['fields'].keys()[0:maxel]:
+            field = self.schema['fields'][key]
+            if validate:
+                value = self.check_value(field['name'], self._data[key])
+                self._data[key] = value
+            unit = ""
+            if 'unit' in field:
+                unit = self._to_str(field['unit'])
+            field_txt = "{} {}".format(field['name'], unit)
+            out.append((field_txt, self._to_str(self._data[key])))
+
+        for vals in self._extdata:
+            for i, key in enumerate(self.schema['extensible-fields']):
+                field = self.schema['extensible-fields'][key]
+                if validate:
+                    value = self.check_value(field['name'], vals[i])
+                    vals[i] = value
+                unit = ""
+                if 'unit' in field:
+                    unit = self._to_str(field['unit'])
+                field_txt = "{} {}".format(field['name'], unit)
+                out.append((field_txt, self._to_str(vals[i])))
         return out
 
     def __str__(self):
-        out = self.export()
+        out = self.export(validate=False)
         string = ",".join([self.schema['name']] + [o[1] for o in out])
         if len(string) > 77:
             string = string[:77] + "..."
@@ -318,6 +435,30 @@ class DataObject(object):
     def __iter__(self):
         for val in self._data.values():
             yield val
+        for vals in self._extdata:
+            for val in vals:
+                yield val
+
+    def clean(self):
+        """ Deletes all data from dataobject
+        """
+        for key in self._data:
+            self._data[key] = None
+        self._extdata = []
+
+    def items(self):
+        items = []
+        for key, field in self.schema['fields'].iteritems():
+            items.append((field['name'], self._data[key]))
+        for j, vals in enumerate(self._extdata):
+            for i, key in enumerate(self.schema['extensible-fields']):
+                field = self.schema['extensible-fields'][key]
+                items.append(((field['name'], j), vals[i]))
+        return items
+
+    def __len__(self):
+        return len(self._data) + len(self._extdata) * len(self.schema['extensible-fields'])
+
 
 class DONames:
     {%- for obj in objs %}

@@ -9,14 +9,6 @@ class {{ obj.class_name }}(DataObject):
     """
     schema = {{ obj.schema }}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `{{ obj.internal_name }}`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
 
     {%- for field in obj.fields %}
 
@@ -27,7 +19,7 @@ class {{ obj.class_name }}(DataObject):
         Returns:
             {{ field.attributes.pytype }}: the value of `{{field.field_name}}` or None if not set
         """
-        return self._data["{{ field.internal_name }}"]
+        return self["{{ field.internal_name }}"]
 
     @{{field.field_name}}.setter
     def {{field.field_name}}(self, value={%- if field.attributes.default and not field.attributes.pytype == "str" %}{{ field.attributes.default}}{% elif field.attributes.default and (field.attributes.pytype == "str") %}"{{field.attributes.default}}"{% else %}None{% endif %}):
@@ -144,13 +136,13 @@ class {{ obj.class_name }}(DataObject):
         {{field.field_name}} = self.check_value("{{field.internal_name}}", {{field.field_name}})
         vals.append({{field.field_name}})
         {%- endfor %}
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
     {%- endif %}
 
